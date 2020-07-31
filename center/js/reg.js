@@ -7,9 +7,9 @@ $(function() {
 });
 
 function onAgree() {
-      showLoader();
-      $("#show_1").hide();
+      showLoader();      
       $("#show_2").show();
+      $("#show_1").hide();
       hideLoader();
 }
 
