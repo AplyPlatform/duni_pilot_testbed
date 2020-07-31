@@ -16,11 +16,17 @@ function checkFacebookLogin() {
     FB.getLoginStatus(function(response) {
       var skind = getCookie("dev_kind");
       if (skind != "facebook") return;
-      //statusChangeCallback(response);
       if (response.status == "connected") {
         var token = response.authResponse.accessToken;
         if (token != null && token != "")
           formSubmit(token);
+        else {
+        	alert("일시적인 오류가 발생했습니다.");
+        	goHome();
+        }
+      }
+      else {
+      	hideLoader();
       }
     });
 }
@@ -33,6 +39,7 @@ function googleinit() {
 
   gapi.load('auth2', function() { // Ready.
     gapi.auth2.init();
+    showLoader();
   });
 }
 
@@ -150,7 +157,7 @@ function formSubmit(token) {
         return;
       }
 
-      location.href="center.html";
+      location.href="center.html";     
     }else {
       hideLoader();
       alert("등록된 아이디가 없습니다. / " + r.reason);
