@@ -30,10 +30,10 @@ $(function() {
 function centerInit() {
 	bMonStarted = false;
 	flightRecArray = [];
-	flightRecDataArray = [];	
+	flightRecDataArray = [];
   mapInit();
-  
-  if (askToken() == false) {  	
+
+  if (askToken() == false) {
     location.href="index.html";
     return;
   }
@@ -44,6 +44,9 @@ function centerInit() {
   if (page_action == "center") {
 		hideLoader();
   }
+  if (page_action == "qa") {
+		hideLoader();
+  }
   else if (page_action == "design") {
   	showLoader();
     designInit();
@@ -51,7 +54,7 @@ function centerInit() {
   else if (page_action == "list") {
 		hideLoader();
   }
-  else if (page_action == "monitor") {  	
+  else if (page_action == "monitor") {
   	hideLoader();
     monitorInit();
   }
@@ -73,28 +76,28 @@ function centerInit() {
   }
 }
 
-function flightViewInit() {    
+function flightViewInit() {
     $('#historyPanel').hide();
     $('#historyList').show();
     $('#historyMap').hide();
-            
+
     var record_name = location.search.split('record_name=')[1];
     if (record_name != null && record_name != "") {
       showDataForHistoryWithName(decodeURI(record_name));
     }
-    else hideLoader();    
+    else hideLoader();
 }
 
-function FlightHistoryMapInit() {	
+function FlightHistoryMapInit() {
 	var dpoint = ol.proj.fromLonLat([0, 0]);
-  
+
   flightHistoryView = new ol.View({
       center: dpoint,
       zoom: 8
     });
 
-  flightHistorySource = new ol.source.Vector();  
-	
+  flightHistorySource = new ol.source.Vector();
+
   var vVectorLayer = new ol.layer.Vector({
       source: flightHistorySource,
       zIndex: 10000,
@@ -114,12 +117,12 @@ function FlightHistoryMapInit() {
             })
           })
     });
-    
+
   var bingLayer = new ol.layer.Tile({
     visible: true,
     preload: Infinity,
     source: new ol.source.BingMaps({
-        // We need a key to get the layer from the provider. 
+        // We need a key to get the layer from the provider.
         // Sign in with Bing Maps and you will get your key (for free)
         key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
         imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
@@ -128,9 +131,9 @@ function FlightHistoryMapInit() {
         maxZoom: 19
     })
 	});
-	
+
   var vMap = new ol.Map({
-      target: 'historyMap',      
+      target: 'historyMap',
       layers: [
           bingLayer, vVectorLayer
       ],
@@ -138,7 +141,7 @@ function FlightHistoryMapInit() {
       // animations stutter on mobile or slow devices.
       loadTilesWhileAnimating: true,
       view: flightHistoryView
-    });	
+    });
 }
 
 function monitorInit() {
@@ -148,7 +151,7 @@ function monitorInit() {
 		page_id = page_id.split('&')[0];
 
   getMissionToMonitor(page_id);
-  
+
   hideLoader();
 }
 
@@ -165,9 +168,9 @@ function designInit() {
       if (feature) {
           var ii = feature.get('mindex');
           if (!isSet(ii)) return;
-                    
-          setDataToDesignTableWithFlightRecord(ii);                    
-          
+
+          setDataToDesignTableWithFlightRecord(ii);
+
           var item = flightRecDataArray[ii];
           setMoveActionFromMap(ii,item);
           return;
@@ -175,7 +178,7 @@ function designInit() {
 
 			var lonLat = ol.proj.toLonLat(evt.coordinate);
 			appendNewRecord(lonLat);
-  });  
+  });
 
 	var record_name = location.search.split('record_name=')[1];
   var mission_name = location.search.split('mission_name=')[1];
@@ -189,16 +192,16 @@ function designInit() {
     setDesignTableByMission(mission_name);
   }
   else {
-  	
+
   	var posLayer = new ol.layer.Vector({
       source: posSource
   	});
-  	
+
   	map.addLayer(posLayer);
-  	
+
   	hideLoader();
   }
-  
+
 
 	$('#saveItemBtn').off('click');
 	$('#saveItemBtn').click(function(){
@@ -218,13 +221,13 @@ function drawLineGraph() {
               data: lineGraphData
          }
       	]};
-      	
+
   document.getElementById("lineGraph").onclick = function(evt){
     var activePoints = window.myLine.getElementsAtEvent(evt);
-        
+
     if (activePoints.length > 0) {
        var clickedDatasetIndex = activePoints[0]._index;
-              
+
        var locdata = chartLocData[clickedDatasetIndex];
 	     if("lng" in locdata && "lat" in locdata) {
 	        setMoveActionFromLineChart(clickedDatasetIndex, locdata);
@@ -248,7 +251,7 @@ function drawLineGraph() {
           tooltips: {
                 callbacks: {
                     label: function(tooltipItem, data) {
-                        var locdata = chartLocData[tooltipItem.index];                        
+                        var locdata = chartLocData[tooltipItem.index];
                         return JSON.stringify(locdata);
                     }
                   },
@@ -276,7 +279,7 @@ function drawLineGraph() {
 
 function setSliderPos(i) {
 		if (!isSet($("#slider"))) return;
-		
+
 		if (i < 0) {
 			$('#sliderText').html( "-" );
 			return;
@@ -291,43 +294,43 @@ function setYawStatus(degrees) {
 		if (!isSet($('#yawStatus'))) return;
 		var yawStatus = document.getElementById('yawStatus');
 		if (!isSet(yawStatus)) return;
-		
+
 		degrees *= 1;
 		degrees = degrees < 0 ? (360 + degrees) : degrees;
-						
+
 		$("#yawStatus").attr("src", $("#yawStatus").attr("src"));
-		
+
     $('#yawStatus').css({
       'transform': 'rotate(' + degrees + 'deg)',
       '-ms-transform': 'rotate(' + degrees + 'deg)',
       '-moz-transform': 'rotate(' + degrees + 'deg)',
       '-webkit-transform': 'rotate(' + degrees + 'deg)',
       '-o-transform': 'rotate(' + degrees + 'deg)'
-    }); 
-    
+    });
+
     $('#yawText').text(degrees);
 }
 
 
 function setPitchStatus(pitch) {
-		if (!isSet(pitch)) return;		
+		if (!isSet(pitch)) return;
 		if (!isSet($('#pitchStatus'))) return;
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
-		
+
 		var degrees = (pitch * -1);
 		degrees = degrees < 0 ? (360 + degrees) : degrees;
-						
+
 		$("#pitchStatus").attr("src", $("#pitchStatus").attr("src"));
-		
+
     $('#pitchStatus').css({
       'transform': 'rotate(' + degrees + 'deg)',
       '-ms-transform': 'rotate(' + degrees + 'deg)',
       '-moz-transform': 'rotate(' + degrees + 'deg)',
       '-webkit-transform': 'rotate(' + degrees + 'deg)',
       '-o-transform': 'rotate(' + degrees + 'deg)'
-    }); 
-    
+    });
+
     $('#pitchText').text(pitch);
 }
 
@@ -336,18 +339,18 @@ function setRollStatus(roll) {
 		if (!isSet($('#rollCanvas'))) return;
 		var canvas = document.getElementById('rollCanvas');
 		if (!isSet(canvas)) return;
-		
+
 		var degrees = roll * 1;
-		
+
 		degrees = 180 + degrees;
-		var degrees2 = degrees + 180;						
-		
+		var degrees2 = degrees + 180;
+
 		if (degrees2 > 360) degrees2 = degrees2 - 360;
-		
+
 		var radians1 = (Math.PI/180)*degrees;
 		var radians2 = (Math.PI/180)*degrees2;
-									
-    var context = canvas.getContext('2d');      
+
+    var context = canvas.getContext('2d');
 		context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
     context.arc(30, 30, 20, radians1, radians2, true);
@@ -357,7 +360,7 @@ function setRollStatus(roll) {
     context.fill();
     context.strokeStyle = '#0000aa';
     context.stroke();
-      
+
     $('#rollText').text(roll);
 }
 
@@ -367,7 +370,7 @@ function initSliderForDesign(i) {
 					max : i - 1,
 					value : 0,
 					step : 1,
-					slide : function( event, ui ){						
+					slide : function( event, ui ){
 						if (flightRecDataArray.length <= 0) {
 							return;
 						}
@@ -375,8 +378,8 @@ function initSliderForDesign(i) {
 						var d = flightRecDataArray[ui.value];
 
 						setDataToDesignTableWithFlightRecord(ui.value);
-						
-						setMoveActionFromSlider(ui.value, d);												
+
+						setMoveActionFromSlider(ui.value, d);
 					}
 	});
 
@@ -395,9 +398,9 @@ function initSliderForDesign(i) {
 			}
 
 			var d = flightRecDataArray[index];
-			$("#slider").slider('value', index);			
+			$("#slider").slider('value', index);
 			setDataToDesignTableWithFlightRecord(index);
-			
+
 			setMoveActionFromSlider(index, d);
 	});
 }
@@ -414,10 +417,10 @@ function setDesignTableByFlightRecord(name) {
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
       hideLoader();
-    
+
       if (!isSet(r.data.data) || r.data.data.length == 0) return;
 		  flightRecDataArray = r.data.data;
-  
+
       setDesignTableWithFlightRecord();
     }
     else {
@@ -460,10 +463,10 @@ function removeIconOnMap(index) {
 	}
 }
 
-function setDesignTableWithFlightRecord() {  
+function setDesignTableWithFlightRecord() {
   var i = 0;
 	var coordinates = [];
-		
+
   flightRecDataArray.forEach(function (item) {
       addIconToMap(i, item);
   		coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
@@ -508,7 +511,7 @@ function setDesignTableWithFlightRecord() {
 
 
 function appendNewRecord(lonLat) {
-	
+
 	var index = flightRecDataArray.length;
 
 	if (index <= 0) {
@@ -672,11 +675,11 @@ function appendMissionsToMonitor(mission) {
 
 function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {
   var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
-  
-  setRollStatus(roll);      
+
+  setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
-  
+
   if (bDirect == true)
   	flyDirectTo(npos, yaw);
   else
@@ -783,7 +786,7 @@ function removeFlightData(index) {
 function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
-    data.forEach(function (item, index, array) {        
+    data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='row_" + index + "'><td class='center'>"
         + "<a href='./monitor.html?mission_name=" + item['name'] + "'>"
         + item['name']
@@ -801,8 +804,8 @@ function ajaxRequestAddress(address, callback, errorcallback) {
     $.ajax({url : "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyANkdJYJ3zKXAjOdPFrhEEeq4M8WETn0-4",
            crossDomain: true,
            cache : false,
-           type : "GET",           
-           success : function(r) {             
+           type : "GET",
+           success : function(r) {
              callback(r);
            },
            error:function(request,status,error){
@@ -839,7 +842,7 @@ function btnClear() {
 
 		if(isSet(lineSource))
     	lineSource.clear();
-    	
+
     pointSource.clear();
     posSource.clear();
     flightRecDataArray = Array();
@@ -862,10 +865,10 @@ function getFlightListForHistory() {
       }
 
 			$('#getFlightListBtn').hide(1500);
-			
+
 			$('#historyMap').show();
 			FlightHistoryMapInit();
-      setFlightlistHistory(r.data);      
+      setFlightlistHistory(r.data);
     }
     else {
     	alert("Error ! - 2");
@@ -881,7 +884,7 @@ function getFlightListForHistory() {
 function setFlightlistHistory(data) {
   if (data == null || data.length == 0)
     return;
-	
+
   data.forEach(function(item) {
     appendFlightListTableForHistory(item);
     flightRecArray.push(item);
@@ -890,13 +893,13 @@ function setFlightlistHistory(data) {
 
 function getRecordTitle() {
 	if (!isSet($("#record_name_field"))) return "";
-	
+
 	return $("#record_name_field").text();
 }
 
 function setRecordTitle(msg) {
 	if (!isSet($("#record_name_field"))) return;
-		
+
 	$("#record_name_field").text(msg);
 }
 
@@ -904,7 +907,7 @@ function showDataForHistoryWithName(name) {
 
   setRecordTitle("- " + name);
   cur_flightrecord_name = name;
-    
+
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "download_spe", "name" : name, "clientid" : userid};
 
@@ -915,11 +918,11 @@ function showDataForHistoryWithName(name) {
       alert("Failed to load data!");
     }
     else {
-    	
+
     	var fdata = r.data;
-    	
+
     	moviePlayerVisible = false;
-    			    			    	
+
     	if ("youtube_data_id" in fdata) {
 		  	if (fdata.youtube_data_id.indexOf("youtube") >=0) {
 					setYoutubePlayer(fdata.youtube_data_id);
@@ -929,32 +932,32 @@ function showDataForHistoryWithName(name) {
 					setYoutubePlayer("");
 					setGooglePhotoPlayer(fdata.youtube_data_id);
 				}
-				
+
 				$("#movieDataSet").hide();
 		  }
 		  else {
 		    $("#youTubePlayer").hide();
-		    $("#googlePhotoPlayer").hide();				    
+		    $("#googlePhotoPlayer").hide();
 		  }
-		  
+
 		   if (moviePlayerVisible == true) {
 					hideMovieDataSet();
 				}
 				else {
 					showMovieDataSet();
-				}				
-		
+				}
+
   		$('#historyList').hide(1500);
-  		$('#historyPanel').show();							    	
-    	
+  		$('#historyPanel').show();
+
       setChartData(r.data.data);
-      
-      if (isSet(fdata.flat)) {		      	
-				var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);			
-    		drawCadastral(dpoint[0], dpoint[1], pointSource);    		
-    	}		    			   
-    	
-    	hideLoader();		      		      
+
+      if (isSet(fdata.flat)) {
+				var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+    		drawCadastral(dpoint[0], dpoint[1], pointSource);
+    	}
+
+    	hideLoader();
     }
   }, function(request,status,error) {
     hideLoader();
@@ -968,7 +971,7 @@ function showDataForHistory(index) {
   var item = flightRecArray[index];
 
 	moviePlayerVisible = false;
-	
+
   if ("youtube_data_id" in item) {
   	if (item.youtube_data_id.indexOf("youtube") >=0) {
 			setYoutubePlayer(item.youtube_data_id);
@@ -977,42 +980,42 @@ function showDataForHistory(index) {
 		else {
 			setYoutubePlayer("");
 			setGooglePhotoPlayer(item.youtube_data_id);
-		}				
+		}
   }
   else {
     $("#youTubePlayer").hide();
-    $("#googlePhotoPlayer").hide();  
+    $("#googlePhotoPlayer").hide();
   }
-  
+
   if (moviePlayerVisible == true) {
 		hideMovieDataSet();
 	}
 	else {
 		showMovieDataSet();
 	}
-	
+
 	if (!("data" in item) || !isSet(item.data) || item.data === "-") {
     var userid = getCookie("dev_user_id");
     var jdata = {"action" : "position", "daction" : "download_spe", "name" : item.name, "clientid" : userid};
     setRecordTitle("- " + item.name);
     cur_flightrecord_name = item.name;
-	  showLoader();	  
+	  showLoader();
 		ajaxRequest(jdata, function (r) {
 	    if(r.result != "success") {
 	      alert("Failed to load data!");
 	    }
 	    else {
-	    	
+
 	    	$('#historyList').hide(1500);
   			$('#historyPanel').show();
-  		
+
 	      setChartData(r.data.data);
-	      
-	      if (isSet(r.data.flat)) {		      	
-					var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);				
+
+	      if (isSet(r.data.flat)) {
+					var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);
 	    		drawCadastral(dpoint[0], dpoint[1], pointSource);
-	    	}		    			   
-	    	
+	    	}
+
 	    	hideLoader();
 		    }
 	  }, function(request,status,error) {
@@ -1023,8 +1026,8 @@ function showDataForHistory(index) {
 	else {
 		$('#historyList').hide(1500);
     $('#historyPanel').show();
-    
-		showLoader();				    
+
+		showLoader();
   	setChartData(item.data);
   	hideLoader();
   }
@@ -1034,14 +1037,14 @@ function showDataForHistory(index) {
 
 function makeForFlightListMap(index, flat, flng) {
 	var dpoint = ol.proj.fromLonLat([flng, flat]);
-  
+
   var c_view = new ol.View({
       center: dpoint,
       zoom: 12
     });
 
-  var vSource = new ol.source.Vector();  
-	
+  var vSource = new ol.source.Vector();
+
   var vVectorLayer = new ol.layer.Vector({
       source: vSource,
       zIndex: 10000,
@@ -1061,9 +1064,9 @@ function makeForFlightListMap(index, flat, flng) {
             })
           })
     });
-    
+
   var vMap = new ol.Map({
-      target: 'map_' + index,      
+      target: 'map_' + index,
       layers: [
           new ol.layer.Tile({
               preload: 4,
@@ -1075,19 +1078,19 @@ function makeForFlightListMap(index, flat, flng) {
       loadTilesWhileAnimating: true,
       view: c_view
     });
-  
-  var icon = createNewIcon(0, {lat:flat, lng:flng, alt:0});  
-    
-  if (isSet(flightHistorySource)) {  	  	
-  	flightHistorySource.addFeature(icon);  
+
+  var icon = createNewIcon(0, {lat:flat, lng:flng, alt:0});
+
+  if (isSet(flightHistorySource)) {
+  	flightHistorySource.addFeature(icon);
   	drawCadastral(dpoint[0], dpoint[1], flightHistorySource);
-  	
+
   	flightHistoryView.animate({
       center: dpoint,
       duration: 0
     }, function(){});
   }
-    
+
   vSource.addFeature(icon);
   drawCadastral(dpoint[0], dpoint[1], vSource);
 }
@@ -1095,14 +1098,14 @@ function makeForFlightListMap(index, flat, flng) {
 function drawCadastral(x, y, vSource){
 	 var userid = getCookie("dev_user_id");
    var jdata = {"action": "position", "daction": "cada", "clientid" : userid, "x" : x, "y": y};
-  
+
 	 ajaxRequest(jdata, function (r) {
-	    		hideLoader();	    	    	    	    		
+	    		hideLoader();
 	    		if (r.response.status !== "OK") return;
-	    		
+
 	    		var _features = new Array();
 	    		var _addressText = "";
-	    		
+
           for(var idx=0; idx< r.response.result.featureCollection.features.length; idx++) {
             try{
               var geojson_Feature = r.response.result.featureCollection.features[idx];
@@ -1116,16 +1119,16 @@ function drawCadastral(x, y, vSource){
                   for (var key in geojson_Feature.properties) {
                     try{
                       var value = geojson_Feature.properties[key];
-                      
+
                       if (_addressText == "" && key == "addr") {
                       	_addressText = value;
                       }
-                      
+
                       feature.values_[key] = value;
                       feature.properties[key] = value;
                     }catch (e){
                     }
-                  }                  
+                  }
                   _features.push(feature)
                 }catch (e){
                 }
@@ -1133,17 +1136,17 @@ function drawCadastral(x, y, vSource){
             }catch (e){
             }
           }
-          
+
           var curText = getRecordTitle();
           setRecordTitle(curText + " / " + _addressText);
-          
+
           vSource.addFeatures(_features);
-          	    	    	    
+
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
- 
+
 }
 
 
@@ -1188,62 +1191,62 @@ function appendFlightListTable(item) {
 	var data = item.data;
 	var flat = item.flat;
 	var flng = item.flng;
-	
+
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view.html?record_name=" + name + "'>" + name + "</a>";
-  
+
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div></td>";
   }
   else {
   		appendRow = appendRow + "</td>";
   }
-  
+
 	appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
       // + "<a href='flight_view.html?record_name=" + name + "'>보기</a> "
       + "<button class='btn btn-primary' type='button' onClick='deleteFlightData(" + tableCount + ");'>삭제</button></td>"
       + "</tr>";
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
-  
-  
+
+
   if (isSet(flat)) {
   	makeForFlightListMap(tableCount, flat, flng);
-  }      
-  
+  }
+
   tableCount++;
 }
 
 
-function appendFlightListTableForHistory(item) {	
+function appendFlightListTableForHistory(item) {
 	var name = item.name;
 	var dtimestamp = item.dtime;
 	var data = item.data;
 	var flat = item.flat;
 	var flng = item.flng;
-	
+
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForHistory(" + tableCount + ");'>" + name + "</a>";
-  
+
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div></td>";
   }
   else {
   		appendRow = appendRow + "</td>";
   }
-  	
+
   appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
       // + "<a href='design.html?record_name=" + name + "'>수정</a> "
       + "<button class='btn btn-primary' type='button' onClick='deleteFlightData(" + tableCount + ");'>삭제</button></td>"
       + "</tr>";
-      
+
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
-      
+
   if (isSet(flat)) {
   	makeForFlightListMap(tableCount, flat, flng);
-  }      
-  
+  }
+
   tableCount++;
 }
 
@@ -1374,11 +1377,11 @@ function ajaxRequest(data, callback, errorcallback) {
            cache : false,
            data : JSON.stringify(data),
            type : "POST",
-           contentType: "application/json; charset=utf-8",           
+           contentType: "application/json; charset=utf-8",
            beforeSend: function(request) {
               request.setRequestHeader("droneplay-token", getCookie('user_token'));
             },
-           success : function(r) {             
+           success : function(r) {
              callback(r);
            },
            error:function(request,status,error){
@@ -1395,11 +1398,11 @@ function logOut() {
 }
 
 function mapInit() {
-	 
+
 	var styles = [
         'Road',
         'Aerial',
-        'AerialWithLabels'        
+        'AerialWithLabels'
       ];
   var maplayers = [];
   var i, ii;
@@ -1416,20 +1419,20 @@ function mapInit() {
       })
     }));
   }
-      
+
   var dokdo = ol.proj.fromLonLat([131.8661992, 37.2435813]);
   var scaleLineControl = new ol.control.ScaleLine();
-  
-  
+
+
   pos_icon_style = new ol.style.Style({
       image: new ol.style.Icon( ({
-      	opacity: 0.75,        
+      	opacity: 0.75,
         crossOrigin: 'anonymous',
         scale: 2,
         src: pos_icon_image
       }))
   });
-  
+
   posSource = new ol.source.Vector();
 
   current_view = new ol.View({
@@ -1486,7 +1489,7 @@ function mapInit() {
       source: vectorSource,
       zIndex: 10000
     });
- 
+
 
   pointSource = new ol.source.Vector({});
   var pointLayer = new ol.layer.Vector({
@@ -1509,10 +1512,10 @@ function mapInit() {
     });
 
   scaleLineControl.setUnits("metric");
-              	
+
  	maplayers.push(vectorLayer);
  	maplayers.push(pointLayer);
-  
+
   map = new ol.Map({
       target: 'map',
       controls: ol.control.defaults().extend([
@@ -1539,7 +1542,7 @@ function mapInit() {
   // handle geolocation error.
   geolocation.on('error', function(error) {
     var info = $('#monitor');
-    info.text(error.message);    
+    info.text(error.message);
   });
 
 
@@ -1548,13 +1551,13 @@ function mapInit() {
     positionFeature.setGeometry(coordinates ?
       new ol.geom.Point(coordinates) : null);
   });
-  
+
   if (isSet($('#track'))) {
   	$('#track').change(function() {
     	geolocation.setTracking($("#track").is(":checked"));
   	});
-  }  
-  
+  }
+
   var select = document.getElementById('layer-select');
   if (isSet(select)) {
 	  select.addEventListener('change', function() {
@@ -1565,7 +1568,7 @@ function mapInit() {
 		  }
 	  });
 	}
-  
+
   maplayers[1].setVisible(true);
   maplayers[3].setVisible(true);
   maplayers[4].setVisible(true);
@@ -1614,9 +1617,9 @@ function flyDirectTo(location, yaw) {
 
 		yaw *= 1;
 		yaw = yaw < 0 ? (360 + yaw) : yaw;
-		
+
 		yaw = Math.PI/180 * yaw;
-				
+
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
     current_view.setCenter(location);
@@ -1628,7 +1631,7 @@ function flyTo(location, yaw, done) {
     var zoom = current_view.getZoom();
     var parts = 2;
     var called = false;
-    
+
     yaw *= 1;
 		yaw = yaw < 0 ? (360 + yaw) : yaw;
 		yaw = Math.PI/180 * yaw;
@@ -1770,7 +1773,7 @@ function getCookie(cName) {
 
 function showCurrentInfo(dlatlng, alt) {
 	if (!isSet($("#position_info"))) return;
-	
+
 	var latlng = ol.proj.fromLonLat(dlatlng);
 	var hdms = ol.coordinate.toStringHDMS(latlng);
 	var itext = hdms + " [ Lat: " + dlatlng[1] + " / Lng: " + dlatlng[0] + " / Alt: " + alt + " ]";
@@ -1799,7 +1802,7 @@ function openLineTip(oChart,datasetIndex,pointIndex){
    oChart.tooltip._active = activeElements;
    oChart.tooltip.update(true);
    oChart.draw();
-   
+
    return true;
 }
 
@@ -1825,7 +1828,7 @@ function openScatterTip(oChart,datasetIndex,pointIndex){
    oChart.tooltip._active = activeElements;
    oChart.tooltip.update(true);
    oChart.draw();
-   
+
    return true;
 }
 
@@ -1847,63 +1850,63 @@ function closeTip(oChart,datasetIndex,pointIndex){
 }
 
 
-function setMoveActionFromMovie(index, item) {		
+function setMoveActionFromMovie(index, item) {
   openScatterTip(window.myScatter, 0, index);
   openLineTip(window.myLine, 0, index);
-    
-  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);  
+
+  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
   setSliderPos(index);
-  
-  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);	
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);	
+
+  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
 }
 
-function setMoveActionFromScatterChart(index, item) {		
+function setMoveActionFromScatterChart(index, item) {
 	openLineTip(window.myLine, 0, index);
-	
+
 	if ("dsec" in item) {
     movieSeekTo(item.dsec);
   }
 
   setSliderPos(index);
-  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);  
+  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
 }
 
-function setMoveActionFromLineChart(index, item) {     
+function setMoveActionFromLineChart(index, item) {
 	openScatterTip(window.myScatter, 0, index);
-	 	
+
   if ("dsec" in item) {
     movieSeekTo(item.dsec);
   }
 
   setSliderPos(index);
-  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);  
+  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
 }
 
 
-function setMoveActionFromSlider(index, item) {							
+function setMoveActionFromSlider(index, item) {
 	openScatterTip(window.myScatter, 0, index);
   openLineTip(window.myLine, 0, index);
 	$('#sliderText').html( index );
-	
+
   if ("dsec" in item) {
     movieSeekTo(item.dsec);
   }
-  
-	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);	
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);  	
+
+	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
 }
 
-function setMoveActionFromMap(index, item) {	  	
+function setMoveActionFromMap(index, item) {
 	openScatterTip(window.myScatter, 0, index);
 	openLineTip(window.myLine, 0, index);
-	
+
   setRollStatus(item.roll);
   setYawStatus(item.yaw);
-  setPitchStatus(item.pitch);  
-  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);  
+  setPitchStatus(item.pitch);
+  showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
 
   if ("dsec" in item) {
     movieSeekTo(item.dsec);

@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L3GM3G16DL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-L3GM3G16DL');
-</script>		
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-L3GM3G16DL"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-L3GM3G16DL');
+	</script>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="DUNI PILOT CENTER">
   <meta name="author" content="APLY Inc.">
-	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/duni_logo.png" />
-  <link rel="icon" type="image/png" href="https://pilot.duni.io/duni_logo.png" />
-  <link rel="apple-touch-icon" href="https://pilot.duni.io/duni_logo.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
+  <link rel="icon" type="image/png" href="https://pilot.duni.io/logo.png" />
+  <link rel="apple-touch-icon" href="https://pilot.duni.io/logo.png" />
 
   <title>DUNI PILOT 센터</title>
 
@@ -32,7 +32,7 @@
 </head>
 
 <body id="page-top">
-	
+
 <div id="loading">
 	<div class="loader"></div>
 </div>
@@ -48,7 +48,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <img src=imgs/logo_white.png width=32 height=32>
         </div>
-        <div class="sidebar-brand-text mx-3">DUNI PILOT<sup>beta</sup></div>
+        <div class="sidebar-brand-text mx-3">DronePlay Center<sup>beta</sup></div>
       </a>
 
       <!-- Divider -->
@@ -63,7 +63,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -71,8 +71,8 @@
           <span>비행계획</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">         
-          	<a class="collapse-item" href="design.html">계획 설계</a>   
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a class="collapse-item" href="design.html">계획 설계</a>
             <a class="collapse-item" href="list.html">계획 목록</a>
             <a class="collapse-item" href="monitor.html">계획 모니터링</a>
           </div>
@@ -86,11 +86,21 @@
           <span>비행기록</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">            
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="flight_list.html">기록 업로드</a>
             <a class="collapse-item" href="flight_view.html">기록 보기</a>
           </div>
         </div>
+      </li>
+
+			<!-- Divider -->
+      <hr class="sidebar-divider">
+
+			<!-- Nav Item - Utilities Collapse Menu -->
+			<li class="nav-item">
+        <a class="nav-link" href="qa.html">
+          <i class="fas fa-fw fa-globe"></i>
+          <span>문의하기</span></a>
       </li>
 
       <!-- Divider -->
@@ -103,26 +113,26 @@
           <span>관련사이트</span>
         </a>
         <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">            
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="https://www.facebook.com/groups/dunipilot">커뮤니티</a>
-            <a class="collapse-item" href="https://blog.droneplay.io">블로그</a>            
-            <a class="collapse-item" href="https://developer.duni.io">개발자 페이지</a>
+            <a class="collapse-item" href="https://blog.duni.io">블로그</a>
             <a class="collapse-item" href="https://developer.duni.io/apis/index.html">Open APIs</a>
+            <a class="collapse-item" href="https://developer.duni.io">개발자 페이지</a>
           </div>
         </div>
-      </li>                              
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>                                                     
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-      
+
       <!-- Nav Item - Tables -->
       <li class="sidebar-heading">
-        © 2020 DUNI PILOT
+        © 2020 DUNI
       </li>
 
     </ul>
@@ -141,12 +151,12 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-                    
+
 					<!-- Page Heading -->
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h1 class="h5 mb-0 text-gray-800">DUNI 파일럿 센터</h1>            
+            <h1 class="h5 mb-0 text-gray-800">DUNI PILOT Center</h1>
           </div>
-          
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -154,7 +164,7 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               </a>
               <!-- Dropdown - User Information -->
@@ -166,7 +176,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Token <input name="droneplaytoken_view" id="droneplaytoken_view" type="text" class="form-control bg-light border-0 small" value="">
-                </a>                
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:logOut();">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -181,7 +191,7 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">          
+        <div class="container-fluid">
           <!-- Content Row -->
 
           <div class="row">
@@ -191,17 +201,17 @@
               <div class="card shadow mb-4">
 	                <!-- Card Header - Dropdown -->
 	                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                  <h6 class="m-0 font-weight-bold text-primary">이곳에 관하여...</h6>                  
+	                  <h6 class="m-0 font-weight-bold text-primary">이곳에 관하여...</h6>
 	                </div>
 	                <!-- Card Body -->
 	                <div class="card-body">
 	                    <p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>
                       <p>디자인 한 비행계획은 DUNI앱과 DJI제품의 드론에서 사용 할 수 있습니다. DUNI앱은 현재 개발중이며 곧 안드로이드/iOS버전이 배포될 예정입니다. (계획 설계 메뉴)</p>
-                      <p>DUNI앱의 안드로이드 버전은 소스코드를 정리해서 공개되어 있습니다. <a href=http://code.droneplay.io/ target=_new>이곳</a>에서 확인할 수 있습니다.</p>
+                      <p>DUNI앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.droneplay.io/ target=_new>이곳</a>에서 확인할 수 있습니다.</p>
                       <p>DJI 비행기록 파일과 드론 영상이 있는 유튜브 URL을 업로드하면 자세한 비행기록을 확인할 수 있습니다. (기록 업로드 메뉴)</p>
-                      <p>상단의 <i class="fa fa-user fa-fw"></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>                                          	                    
+                      <p>상단의 <i class="fa fa-user fa-fw"></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>
 	                </div>
-	                	                
+
               </div>
             </div>
 						<div class="col-lg-6 mb-4">
@@ -214,10 +224,10 @@
 	                <div class="card-body">
 	                    <p><iframe width="100%" height="350" src="https://www.youtube.com/embed/rQzV7WLQdxA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>
 	                </div>
-	                	                
+
               </div>
             </div>
-          </div>                                                  
+          </div>
 
         </div>
         <!-- /.container-fluid -->
@@ -229,7 +239,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>&copy; DUNI PILOT 2020</span>
+            <span>&copy; DUNI 2020</span>
           </div>
         </div>
       </footer>
@@ -246,25 +256,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -274,8 +265,8 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-  
-  <script src="./js/ol.js"></script>  
+
+  <script src="./js/ol.js"></script>
   <script id="page_data" page_action="center" src="./js/center.js"></script>
 </body>
 

@@ -7,7 +7,7 @@
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
-	
+
 	gtag('config', 'UA-130136264-4');
 	</script>
 
@@ -25,10 +25,10 @@
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	
+
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  
+
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/ol.css" rel="stylesheet">
@@ -64,7 +64,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -72,8 +72,8 @@
           <span>비행계획</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">         
-          	<a class="collapse-item" href="design.html">계획 설계</a>   
+          <div class="bg-white py-2 collapse-inner rounded">
+          	<a class="collapse-item" href="design.html">계획 설계</a>
             <a class="collapse-item" href="list.html">계획 목록</a>
             <a class="collapse-item" href="monitor.html">계획 모니터링</a>
           </div>
@@ -87,13 +87,13 @@
           <span>비행기록</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">            
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="flight_list.html">기록 업로드</a>
             <a class="collapse-item" href="flight_view.html">기록 보기</a>
           </div>
         </div>
       </li>
-      
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDromi" aria-expanded="true" aria-controls="collapseDromi">
@@ -101,7 +101,7 @@
           <span>드로미</span>
         </a>
         <div id="collapseDromi" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">            
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="dromi.html">데이터 업로드</a>
             <a class="collapse-item" href="dromi_list.html">데이터 목록</a>
           </div>
@@ -111,6 +111,16 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+			<!-- Nav Item - Utilities Collapse Menu -->
+			<li class="nav-item">
+        <a class="nav-link" href="qa.html">
+          <i class="fas fa-fw fa-globe"></i>
+          <span>문의하기</span></a>
+      </li>
+
+			<!-- Divider -->
+      <hr class="sidebar-divider">
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
@@ -118,23 +128,23 @@
           <span>관련사이트</span>
         </a>
         <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">            
+          <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="https://www.facebook.com/groups/droneplay">커뮤니티</a>
             <a class="collapse-item" href="https://blog.droneplay.io">블로그</a>
             <a class="collapse-item" href="https://dev.droneplay.io/dev/apis/index.html">Open APIs</a>
             <a class="collapse-item" href="https://dev.droneplay.io">개발자 페이지</a>
           </div>
         </div>
-      </li>                              
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>                                                     
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-      
+
       <!-- Nav Item - Tables -->
       <li class="sidebar-heading">
         © 2020 DronePlay
@@ -156,13 +166,13 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-          
+
           <!-- Page Heading -->
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h1 class="h5 mb-0 text-gray-800">드로미 데이터 목록</h1>            
+            <h1 class="h5 mb-0 text-gray-800">드로미 데이터 목록</h1>
           </div>
 
-          
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -170,7 +180,7 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               </a>
               <!-- Dropdown - User Information -->
@@ -182,7 +192,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Token <input name="droneplaytoken_view" id="droneplaytoken_view" type="text" class="form-control bg-light border-0 small" value="">
-                </a>                
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:logOut();">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -201,20 +211,20 @@
 
 					<!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="record_name_field">-</a>            
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="record_name_field">-</a>
           </div>
 
           <!-- Content Row -->
 
           <div class="row">
-						 
+
              <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card shadow py-2">
 	                <div class="card-body">
 	                	<div id="youTubePlayer" style="height:400px;"></div>
 	                	<video id="googlePhotoPlayer" controls class="panel-body" crossOrigin="use-credentials" width=100% style="height:400px;"></video>
 	                </div>
-	                	       
+
 	               	<div class="card-body">
 	               		<div id="movieDataSet">
                     <label for="movieData">영상 설정</label>
@@ -227,32 +237,32 @@
                     </div>
                     <a onClick='showMovieDataSet()' id="modifyBtnForMovieData">영상정보 수정</a>
 	               	</div>
-									
-									<div class="card-body">      
+
+									<div class="card-body">
 										<canvas id="lineGraph"></canvas>
 									</div>
-	                  	                
+
 	              </div>
              </div>
-             
+
              <div class="col-lg-6 mb-4">
 	              <div class="card shadow mb-4">
 	              				<div class="card-body h-400">
-								                <div id="map" class="map"></div>								                
+								                <div id="map" class="map"></div>
 												</div>
 												<div class="card-body">
 													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
 													<p></p>
-			                  	<div class="form-group">			                  			
+			                  	<div class="form-group">
 			                  			<label for="layer-select">지도 종류</label>
 			                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
 																			       <option value="Aerial">Aerial</option>
 																			       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																			       <option value="Road">Road</option>																								       
+																			       <option value="Road">Road</option>
 														</select>
 													</div>
 												</div>
-							
+
 				              	<div class="card-body">
 				                	<div class="input-group">
 				                		<span class="input-group-append">바로가기</span>
@@ -262,14 +272,14 @@
 													  </span>
 													</div>
 												</div>
-												
+
 												<div class="card-body">
 													<table width="100%" class="table table-condensed">
 		                                <thead>
 		                                    <tr>
 		                                        <th><h5>Roll</h5> <span id="rollText"></span></th>
 		                                        <th><h5>Yaw</h5> <span id="yawText"></span></th>
-		                                        <th><h5>Pitch</h5> <span id="pitchText"></span></th>	                                        
+		                                        <th><h5>Pitch</h5> <span id="pitchText"></span></th>
 		                                    </tr>
 		                                </thead>
 		                                <tbody>
@@ -281,15 +291,15 @@
 		                                </tbody>
 													</table>
 												</div>
-												
-												<div class="card-body">    
-															<span id="position_info"> ... </span>                    
-				                      <span id="monitor"></span>                        
+
+												<div class="card-body">
+															<span id="position_info"> ... </span>
+				                      <span id="monitor"></span>
 												</div>
 				        </div>
 			      </div>
-					</div>		
-					<div class="row">				
+					</div>
+					<div class="row">
             <!-- List -->
             <div class="col-lg-6 mb-4" id="chartView">
               <div class="card shadow mb-4">
@@ -297,8 +307,8 @@
 			              		<canvas id="chartArea"></canvas>
 			              	</div>
 			        </div>
-			      </div>	
-			      
+			      </div>
+
 			      <!-- List -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
@@ -320,11 +330,11 @@
 			                  	<button id="getListBtn" class="btn btn-primary" type="button" onClick="getDromiList()">
                                           데이터 목록 불러오기
 													</button>
-											</div>									              	
+											</div>
               </div>
-            </div>		      
+            </div>
 			    </div>
-										          
+
         </div>
         <!-- /.container-fluid -->
 
@@ -382,7 +392,7 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
   <script src="./vendor/chart.js/Chart.min.js"></script>
-  <script src="js/ol.js"></script>  
+  <script src="js/ol.js"></script>
   <script src="./js/dromi.js"></script>
   <script id="page_data" page_action="dromi_list" src="./js/center.js"></script>
 </body>
