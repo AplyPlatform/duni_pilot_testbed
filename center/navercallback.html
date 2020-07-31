@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>DronePlay</title>
+</head>
+
+<body>
+
+  <form role="form" method="post" action="login.php" id="loginForm">
+      <fieldset>
+          <div class="form-group">
+              <input class="form-control" id="kind" name="kind" type="hidden" value="">
+							<input class="form-control" id="accessToken" name="accessToken" type="hidden" value="">
+          </div>
+      </fieldset>
+  </form>
+
+	<!-- (1) LoginWithNaverId Javscript SDK -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script src="./vendor/jquery/jquery.min.js"></script>
+	<script src="./js/login_bts.js"></script>
+
+	<!-- (2) LoginWithNaverId Javscript 설정 정보 및 초기화 -->
+	<script>
+
+		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", "https://dev.droneplay.io/center/navercallback.html");
+		if (naver_id_login.oauthParams.access_token == "") {
+			alert("죄송합니다, 오류가 발생하였습니다.");
+			location.href="index.html";
+		}
+		else {
+			naverSignInCallback(naver_id_login.oauthParams.access_token);
+		}
+
+
+	</script>
+</body>
+
+</html>

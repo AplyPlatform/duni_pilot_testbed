@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130136264-4"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	
+	gtag('config', 'UA-130136264-4');
+	</script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="DronePlay Mission Center">
+  <meta name="author" content="DronePlay">
+	<link rel="shortcut icon" type="image/x-icon" href="https://dev.droneplay.io/center/imgs/logo.png" />
+  <link rel="icon" type="image/png" href="https://dev.droneplay.io/center/imgs/logo.png" />
+  <link rel="apple-touch-icon" href="https://dev.droneplay.io/center/imgs/logo.png" />
+
+  <title>DronePlay 센터</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/ol.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="loading">
+	<div class="loader"></div>
+</div>
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <img src=imgs/logo_white.png width=32 height=32>
+        </div>
+        <div class="sidebar-brand-text mx-3">DronePlay Center<sup>beta</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="center.html">
+          <i class="fas fa-fw fa-globe"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-map-marked-alt"></i>
+          <span>비행계획</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">         
+          	<a class="collapse-item" href="design.html">계획 설계</a>   
+            <a class="collapse-item" href="list.html">계획 목록</a>
+            <a class="collapse-item" href="monitor.html">계획 모니터링</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-history"></i>
+          <span>비행기록</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">            
+            <a class="collapse-item" href="flight_list.html">기록 업로드</a>
+            <a class="collapse-item" href="flight_view.html">기록 보기</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
+          <i class="fas fa-fw fa-satellite"></i>
+          <span>관련사이트</span>
+        </a>
+        <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">            
+            <a class="collapse-item" href="https://www.facebook.com/groups/droneplay">커뮤니티</a>
+            <a class="collapse-item" href="https://blog.droneplay.io">블로그</a>
+            <a class="collapse-item" href="https://dev.droneplay.io/dev/apis/index.html">Open APIs</a>
+            <a class="collapse-item" href="https://dev.droneplay.io">개발자 페이지</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>                                                     
+      </div>
+      
+      <!-- Nav Item - Tables -->
+      <li class="sidebar-heading">
+        © 2020 DronePlay
+      </li>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          
+          <!-- Page Heading -->
+          <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <h1 class="h5 mb-0 text-gray-800">비행기록 업로드</h1>            
+          </div>
+
+          
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <span id=email_field></span>
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Token <input name="droneplaytoken_view" id="droneplaytoken_view" type="text" class="form-control bg-light border-0 small" value="">
+                </a>                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:logOut();">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Content Row -->
+
+          <div class="row">
+						 <div class="col-xl-6 col-md-6 mb-4">
+	              <div class="card border-left-primary shadow py-2">
+	                <div class="card-body">
+	                                      
+	                    <div class="col-auto">	                                                                                                  
+                      	<form enctype="multipart/form-data" method="post" id="djifileform">
+                      		<div class="input-group">
+												    <input type="file" class="form-control-file form-control bg-light border-0 small" id="file">
+												    <input type="hidden" name="name" id="djifname">		
+												    <span class="input-group-append">										    
+													    <button id="uploadFlightRecBtn" class="btn btn-primary" type="button" onClick="uploadFlightList()">
+	                                          DJI 비행기록 파일 업로드
+	                        		</button>
+	                        	</span>
+												  </div>												  												  
+												</form>																								
+	                    </div>
+	                  
+	                </div>
+	                <div class="card-body">
+	                		<a data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">
+																												    비행기록 파일 얻는 방법 (클릭)
+											</a>
+											
+											<div class="collapse" id="collapseRecordFileParams">
+		                		<p><b>안드로이드</b></p>
+												<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
+												<br>
+												<p><b>iOS :  하기 링크의 내용을 참고하여 파일을 추출해 주세요.</b></p>
+												<p>- <a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
+												<p>- <a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
+												<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
+											</div>
+	                </div>
+	              </div>
+             </div>
+					</div>			
+					
+					<div class="row">				
+            <!-- List -->
+            <div class="col-lg-12 mb-4">
+              <div class="card shadow mb-4">
+			              	<div class="card-body">
+							                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable-Flight_list">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>이름</th>
+                                            <th>등록일</th>
+                                            <th>관리</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+											</div>
+											<div class="card-body">
+			                  	<button id="getFlightListBtn" class="btn btn-primary" type="button" onClick="getFlightList()">
+                                          비행기록 불러오기
+													</button>
+											</div>									              	
+              </div>
+            </div>
+          </div>   
+                              
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>&copy; DronePlay 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/jquery/jquery-ui.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+  <script src="./vendor/chart.js/Chart.min.js"></script>
+  <script src="js/ol.js"></script>  
+  <script id="page_data" page_action="flightlist" src="./js/center.js"></script>
+</body>
+
+</html>
