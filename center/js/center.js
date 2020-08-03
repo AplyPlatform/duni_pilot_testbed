@@ -380,7 +380,7 @@ function initSliderForDesign(i) {
 		
 						setDataToDesignTableWithFlightRecord(ui.value);
 						
-						setMoveActionFromSliderOnMove(index, d);
+						setMoveActionFromSliderOnMove(ui.value, d);
 					}			
 	});
 
