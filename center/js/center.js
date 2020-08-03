@@ -365,22 +365,21 @@ function setRollStatus(roll) {
 }
 
 function initSliderForDesign(i) {
+	$("#slider").on("slidestop", function(event, ui) {
+        if (flightRecDataArray.length <= 0) {
+					return;
+				}
+
+				var d = flightRecDataArray[ui.value];
+
+				setDataToDesignTableWithFlightRecord(ui.value);
+  });
+    
 	$('#slider').slider({
 					min : 0,
 					max : i - 1,
 					value : 0,
-					step : 1,
-					slide : function( event, ui ){
-						if (flightRecDataArray.length <= 0) {
-							return;
-						}
-
-						var d = flightRecDataArray[ui.value];
-
-						setDataToDesignTableWithFlightRecord(ui.value);
-
-						setMoveActionFromSlider(ui.value, d);
-					}
+					step : 1					
 	});
 
 	$('#goItemBtn').click(function() {
@@ -401,7 +400,7 @@ function initSliderForDesign(i) {
 			$("#slider").slider('value', index);
 			setDataToDesignTableWithFlightRecord(index);
 
-			setMoveActionFromSlider(index, d);
+			setMoveActionFromSliderOnStop(index, d);
 	});
 }
 
@@ -1885,8 +1884,14 @@ function setMoveActionFromLineChart(index, item) {
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
 }
 
+function setMoveActionFromSliderOnMove(index, item) {	
+	$('#sliderText').html( index );
+  
+	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+}
 
-function setMoveActionFromSlider(index, item) {
+function setMoveActionFromSliderOnStop(index, item) {
 	openScatterTip(window.myScatter, 0, index);
   openLineTip(window.myLine, 0, index);
 	$('#sliderText').html( index );

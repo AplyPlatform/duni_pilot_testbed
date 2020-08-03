@@ -558,6 +558,11 @@ function addChartItem(i, item) {
 var isMoved = true;
 
 function setSlider(i) {
+	$("#slider").on("slidestop", function(event, ui) {
+        var locdata = chartLocData[ui.value];                        
+				setMoveActionFromSliderOnStop(ui.value, locdata);
+  });
+  
 	$('#slider').slider({
 					min : 0,
 					max : i - 1,
@@ -565,7 +570,7 @@ function setSlider(i) {
 					step : 1,
 					slide : function( event, ui ){						
             var locdata = chartLocData[ui.value];                        
-						setMoveActionFromSlider(ui.value, locdata);
+						setMoveActionFromSliderOnMove(ui.value, locdata);
 					}
 	});
 }
