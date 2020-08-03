@@ -365,21 +365,23 @@ function setRollStatus(roll) {
 }
 
 function initSliderForDesign(i) {
-	$("#slider").on("slidestop", function(event, ui) {
-        if (flightRecDataArray.length <= 0) {
-					return;
-				}
-
-				var d = flightRecDataArray[ui.value];
-
-				setDataToDesignTableWithFlightRecord(ui.value);
-  });
-    
+	
 	$('#slider').slider({
 					min : 0,
 					max : i - 1,
 					value : 0,
-					step : 1					
+					step : 1,
+					slide : function( event, ui ){						
+            if (flightRecDataArray.length <= 0) {
+							return;
+						}
+		
+						var d = flightRecDataArray[ui.value];
+		
+						setDataToDesignTableWithFlightRecord(ui.value);
+						
+						setMoveActionFromSliderOnMove(index, d);
+					}			
 	});
 
 	$('#goItemBtn').click(function() {
