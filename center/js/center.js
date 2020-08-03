@@ -285,8 +285,8 @@ function setSliderPos(i) {
 			return;
 		}
 
-		$("#slider").slider('value',i + 1);
-		$('#sliderText').html( i + 1 );
+		$("#slider").slider('value',i);
+		$('#sliderText').html( i );
 }
 
 function setYawStatus(degrees) {
@@ -704,7 +704,7 @@ function setDataToDesignTableWithFlightRecord(index) {
 	var act = flightRecDataArray[index].act;
 	var actparam = flightRecDataArray[index].actparam;
 
-	$('#tr_index').text(index + 1);
+	$('#tr_index').text(index);
 	$('#latdata_index').val(lat);
 	$('#lngdata_index').val(lng);
 	$('#altdata_index').val(alt);
@@ -1343,7 +1343,7 @@ function btnRegister() {
         || item.roll == undefined || item.roll === ""
         || item.yaw == undefined || item.yaw === ""
         || item.actparam == undefined || item.actparam === "") {
-          monitor("오류 : 인덱스 - " + (index + 1) + " / 비어있는 파라메터가 존재합니다.");
+          monitor("오류 : 인덱스 - " + (index) + " / 비어있는 파라메터가 존재합니다.");
           bError++;
           return;
         }
