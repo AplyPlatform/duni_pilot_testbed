@@ -56,7 +56,7 @@ function naverinit() {
   var naverLogin = new naver.LoginWithNaverId(
       {
         clientId: "wSvRwDA6qt1OWrvVY542",
-        callbackUrl: "https://dev.droneplay.io/center/navercallback.html",
+        callbackUrl: "https://pilot.duni.io/center/navercallback.html",
         isPopup: false,
         loginButton: {color: "green", type: 3, height: 35}
       }
