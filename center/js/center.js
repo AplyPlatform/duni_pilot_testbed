@@ -644,11 +644,23 @@ function isSet(value) {
 function getList() {
     var userid = getCookie("dev_user_id");
     var jdata = {"action" : "mission", "daction" : "get", "clientid" : userid};
-
+		
+		if (hasMore) {
+			jdata["morekey"] = hasMore;
+		}
+		
     ajaxRequest(jdata, function (r) {
       if(r.result == "success") {
         appendMissionList(r.data);
-        $('#getListBtn').hide(1500);
+        
+        if (r.morekey) {
+        	$('#getListBtn').text("더 불러오기");
+        	hasMore = r.morekey;
+        }
+        else {
+        	$('#getListBtn').hide(1500);
+        	hasMore = null;
+        }
       }
       else {
 				if (r.reason == "no data") {
