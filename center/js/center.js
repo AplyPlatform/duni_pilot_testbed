@@ -191,7 +191,7 @@ function designInit() {
 	var record_name = "";//location.search.split('record_name=')[1];
   var mission_name = location.search.split('mission_name=')[1];
     
-  mission_name = decodeuricomponent(mission_name);
+  mission_name = decodeURIComponent(mission_name);
 
 	if (isSet(record_name) && record_name != "") {
 		record_name = record_name.split('&')[0];
