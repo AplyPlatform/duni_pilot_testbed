@@ -1004,11 +1004,16 @@ function showDataForHistoryWithName(name) {
   		$('#historyList').hide(1500);
   		$('#historyPanel').show();
 
-      setChartData(r.data.data);
+      setChartData(fdata.data);
 
-      if (isSet(fdata.flat)) {
-				var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-    		drawCadastral(dpoint[0], dpoint[1], pointSource);
+      if (!isSet(fdata.cada) && fdata.cada == null) {
+      	if (isSet(fdata.flat)) {
+					var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+    			drawCadastral(name, dpoint[0], dpoint[1], pointSource);
+    		}
+    	}
+    	else {
+    		setAddressAndCada(fdata.address, fdata.cada, pointSource);
     	}
 
     	hideLoader();
@@ -1065,11 +1070,16 @@ function showDataForHistory(index) {
 
 	      setChartData(r.data.data);
 
-	      if (isSet(r.data.flat)) {
-					var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);
-	    		drawCadastral(dpoint[0], dpoint[1], pointSource);
-	    	}
-
+				if (!isSet(r.data.cada) || r.data.cada == "") {
+					if (isSet(r.data.flat)) {
+						var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);
+		    		drawCadastral(item.name, dpoint[0], dpoint[1], pointSource);
+		    	}	
+				}
+	      else {
+	      	setAddressAndCada(r.data.address, r.data.cada, pointSource);
+	      }
+	    		    		    	
 	    	hideLoader();
 		    }
 	  }, function(request,status,error) {
@@ -1133,23 +1143,25 @@ function makeForFlightListMap(index, flat, flng) {
       view: c_view
     });
 
-  var icon = createNewIcon(0, {lat:flat, lng:flng, alt:0});
-
-  if (isSet(flightHistorySource)) {
-  	flightHistorySource.addFeature(icon);
-  	drawCadastral(dpoint[0], dpoint[1], flightHistorySource);
-
-  	flightHistoryView.animate({
-      center: dpoint,
-      duration: 0
-    }, function(){});
-  }
-
+  var icon = createNewIcon(0, {lat:flat, lng:flng, alt:0});  
   vSource.addFeature(icon);
-  drawCadastral(dpoint[0], dpoint[1], vSource);
+  return vSource;
 }
 
-function drawCadastral(x, y, vSource){
+function updateCadaData(record_name, address, cada_data) {
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action": "position", "daction": "set_cada", "clientid" : userid, "cada" : cada_data, "address": address};
+
+	ajaxRequest(jdata, function (r) {
+	 	if (r.response.status !== "OK") return;
+	 		 		 	
+	}, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
+}
+
+function drawCadastral(name, x, y, vSource){
 	 var userid = getCookie("dev_user_id");
    var jdata = {"action": "position", "daction": "cada", "clientid" : userid, "x" : x, "y": y};
 
@@ -1191,10 +1203,8 @@ function drawCadastral(x, y, vSource){
             }
           }
 
-          var curText = getRecordTitle();
-          setRecordTitle(curText + " / " + _addressText);
-
-          vSource.addFeatures(_features);
+          setAddressAndCada(_addressText, _features, vSource);
+          updateCadaData(name, _addressText, _features);
 
   }, function(request,status,error) {
     hideLoader();
@@ -1245,6 +1255,8 @@ function appendFlightListTable(item) {
 	var data = item.data;
 	var flat = item.flat;
 	var flng = item.flng;
+	var cada = item.cada;
+	var address = item.address;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view.html?record_name=" + name + "'>" + name + "</a>";
@@ -1263,14 +1275,33 @@ function appendFlightListTable(item) {
       + "</tr>";
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
 
+	var retSource;
+	if (isSet(flat)) {
+  	retSource = makeForFlightListMap(tableCount, flat, flng);
+  }  		  		
 
-  if (isSet(flat)) {
-  	makeForFlightListMap(tableCount, flat, flng);
+  if (isSet(cada)) {  	
+  	setAddressAndCada(address, cada, retSource);
+  	setAddressAndCada(address, cada, flightHistorySource);  	
+  }    
+  else {
+  	if (isSet(flat)) {
+			var dpoint = ol.proj.fromLonLat([flng, flat]);
+    	drawCadastral(name, dpoint[0], dpoint[1], retSource);
+    	drawCadastral(name, dpoint[0], dpoint[1], flightHistorySource);
+    }
   }
-
+  
   tableCount++;
 }
 
+
+function setAddressAndCada(address, cada, wsource) {
+	 //var curText = getRecordTitle();
+   setRecordTitle(address);
+
+   wsource.addFeatures(cada);
+}
 
 function appendFlightListTableForHistory(item) {
 	var name = item.name;
@@ -1278,6 +1309,8 @@ function appendFlightListTableForHistory(item) {
 	var data = item.data;
 	var flat = item.flat;
 	var flng = item.flng;
+	var address = item.address;
+	var cada = item.cada;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForHistory(" + tableCount + ");'>" + name + "</a>";
@@ -1297,10 +1330,21 @@ function appendFlightListTableForHistory(item) {
 
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
 
-  if (isSet(flat)) {
-  	makeForFlightListMap(tableCount, flat, flng);
-  }
+	var retSource;
+	if (isSet(flat)) {
+  	retSource = makeForFlightListMap(tableCount, flat, flng);
+  }  		  		
 
+  if (isSet(cada)) {  	
+  	setAddressAndCada(address, cada, retSource);  	
+  }
+  else {
+  	if (isSet(flat)) {
+			var dpoint = ol.proj.fromLonLat([flng, flat]);
+    	drawCadastral(name, dpoint[0], dpoint[1], retSource);
+    }
+  }
+    
   tableCount++;
 }
 
