@@ -1204,7 +1204,7 @@ function drawCadastral(name, x, y, vSource){
           }
 
           setAddressAndCada(_addressText, _features, vSource);
-          updateCadaData(name, _addressText, _features);
+          updateCadaData(name, _addressText, r.response.result.featureCollection.features);
 
   }, function(request,status,error) {
     hideLoader();
@@ -1299,8 +1299,43 @@ function appendFlightListTable(item) {
 function setAddressAndCada(address, cada, wsource) {
 	 //var curText = getRecordTitle();
    setRecordTitle(address);
+   
+   
+	var _features = new Array();
+	var _addressText = "";
 
-   wsource.addFeatures(cada);
+  for(var idx=0; idx< cada.length; idx++) {
+    try{
+      var geojson_Feature = cada[idx];
+      var geojsonObject = geojson_Feature.geometry;
+      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
+      for(var i=0; i< features.length; i++) {
+        try{
+          var feature = features[i];
+          feature["id_"] = geojson_Feature.id;
+          feature["properties"] = {};
+          for (var key in geojson_Feature.properties) {
+            try{
+              var value = geojson_Feature.properties[key];
+
+              if (_addressText == "" && key == "addr") {
+              	_addressText = value;
+              }
+
+              feature.values_[key] = value;
+              feature.properties[key] = value;
+            }catch (e){
+            }
+          }
+          _features.push(feature)
+        }catch (e){
+        }
+      }
+    }catch (e){
+    }
+  }
+
+   wsource.addFeatures(_features);
 }
 
 function appendFlightListTableForHistory(item) {
