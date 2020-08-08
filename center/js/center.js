@@ -1203,6 +1203,10 @@ function drawCadastral(name, x, y, vSource){
           }
 
           setAddressAndCada(_addressText, _features, vSource);
+          if (flightHistorySource)  {
+          	setAddressAndCada(_addressText, _features, flightHistorySource);
+          }          
+          
           updateCadaData(name, _addressText, r.response.result.featureCollection.features);
 
   }, function(request,status,error) {
@@ -1287,7 +1291,6 @@ function appendFlightListTable(item) {
   	if (isSet(flat)) {
 			var dpoint = ol.proj.fromLonLat([flng, flat]);
     	drawCadastral(name, dpoint[0], dpoint[1], retSource);
-    	drawCadastral(name, dpoint[0], dpoint[1], flightHistorySource);
     }
   }
   
@@ -1370,12 +1373,13 @@ function appendFlightListTableForHistory(item) {
   }  		  		
 
   if (isSet(cada)) {  	
-  	setAddressAndCada(address, cada, retSource);  	
+  	setAddressAndCada(address, cada, retSource);
+  	setAddressAndCada(address, cada, flightHistorySource);
   }
   else {
   	if (isSet(flat)) {
 			var dpoint = ol.proj.fromLonLat([flng, flat]);
-    	drawCadastral(name, dpoint[0], dpoint[1], retSource);
+    	drawCadastral(name, dpoint[0], dpoint[1], retSource);    	
     }
   }
     
