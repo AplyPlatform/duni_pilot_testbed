@@ -112,7 +112,7 @@ function showMovieDataSet() {
 function btnSetMovie() {
 	var data_id = $('#movieData').val();
 	if (data_id == "") {
-		alert("Invalid URL");
+		showAlert("Invalid URL");
 		return;
 	}
 
@@ -299,7 +299,7 @@ function showData(index) {
 
 				ajaxRequest(jdata, function (r) {
 			    if(r.result != "success") {
-			      alert("Failed to load data!");
+			      showAlert("Failed to load data!");
 			    }
 			    else {			    				    				    	
 			      setChartData(r.data);
@@ -358,7 +358,7 @@ function deleteFlightData(index) {
   ajaxRequest(jdata, function (r) {
     hideDromiLoader();
     if(r.result != "success") {
-      alert("삭제 실패!");
+      showAlert("삭제 실패!");
     }
     else {
       removeTableRow("flight-list-" + index);
@@ -384,7 +384,7 @@ function getFlightListForDromi() {
     hideDromiLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        alert("no data");
+        showAlert("존재하는 데이터가 없습니다.");
         return;
       }
 
@@ -406,7 +406,7 @@ function getDromiList() {
     hideDromiLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        alert("no data");
+        showAlert("존재하는 데이터가 없습니다.");
         return;
       }
 
@@ -426,7 +426,7 @@ function convert2time(stime) {
 
 function uploadData(name, mname) {
     // if (arrayData == null || arrayData.length == 0) {
-    //   alert("Please select any file !!");
+    //   showAlert("Please select any file !!");
     //   return;
     // }
 
@@ -472,7 +472,7 @@ function uploadData(name, mname) {
       hideDromiLoader();
       if(r.result == "success") {
         if (r.data == null || r.data.length == 0) {
-          alert("no data");
+          showAlert("존재하는 데이터가 없습니다.");
           return;
         }
 
@@ -868,7 +868,7 @@ function setUploadData() {
             var mname = prompt("데이터셋의 이름을 입력해 주세요.", "");
 
             if (mname == null) {
-                alert("데이터셋의 이름을 잘못 입력하셨습니다.");
+                showAlert("데이터셋의 이름을 잘못 입력하셨습니다.");
                 return;
             }
 

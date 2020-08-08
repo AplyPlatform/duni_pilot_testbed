@@ -27,6 +27,7 @@ $(function() {
 
 });
 
+
 function centerInit() {
 	bMonStarted = false;
 	flightRecArray = [];
@@ -75,6 +76,13 @@ function centerInit() {
     dromiListInit();
   }
 }
+
+
+function showAlert(msg) {	  
+	$('#errorModalLabel').text(msg);
+	$('#errorModal').modal('show');  	
+}
+
 
 function flightViewInit() {
     $('#historyPanel').hide();
@@ -387,14 +395,14 @@ function initSliderForDesign(i) {
 	$('#goItemBtn').click(function() {
 			var index = $('#goItemIndex').val();
 			if (!isSet(index) || $.isNumeric( index ) == false) {
-				alert("Please input valid value !");
+				showAlert("Please input valid value !");
 				return;
 			}
 
 			index = parseInt(index);
 
 			if (index < 0 || index >= flightRecDataArray.length) {
-				alert("Please input valid value !");
+				showAlert("Please input valid value !");
 				return;
 			}
 
@@ -425,7 +433,7 @@ function setDesignTableByFlightRecord(name) {
       setDesignTableWithFlightRecord();
     }
     else {
-      alert("There is no flight record or something wrong.");
+      showAlert("There is no flight record or something wrong.");
       hideLoader();
     }
   }, function(request,status,error) {
@@ -570,10 +578,10 @@ function nextMon() {
       nexttour(r.data[0]);
     }
     else {
-      alert("Sorry, Failed to get object position.");
+      showAlert("Sorry, Failed to get object position.");
     }
   }, function(request,status,error) {
-    alert("Something wrong.");
+    showAlert("Something wrong.");
   });
 }
 
@@ -608,7 +616,12 @@ function getList() {
         $('#getListBtn').hide(1500);
       }
       else {
-      	alert("Error ! - 0");
+	if (r.reason == "no data") {
+		showAlert("존재하는 데이터가 없습니다.");
+	}
+	else {
+	      	showAlert("Error !");
+	}
       }
     }, function(request,status,error) {
       monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -635,7 +648,14 @@ function getMissionToMonitor(id) {
        	hideLoader();
       }
       else {
-      	alert("Error ! - 1");
+
+	if (r.reason == "no data") {
+		showAlert("존재하는 데이터가 없습니다.");
+	}
+	else {
+	      	showAlert("Error !");
+	}
+
       	hideLoader();
       }
     }, function(request,status,error) {
@@ -829,7 +849,7 @@ function searchAddressToCoordinate(address) {
         flyTo(latLng, 0, function() {});
       //}
     }, function(request,status,error) {
-      alert("잘못된 주소이거나 요청을 처리하는데 일시적인 오류가 발생했습니다.");
+      showAlert("잘못된 주소이거나 요청을 처리하는데 일시적인 오류가 발생했습니다.");
     });
 }
 
@@ -861,7 +881,7 @@ function getFlightListForHistory() {
     hideLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        alert("no data");
+        showAlert("no data");
         return;
       }
 
@@ -872,7 +892,7 @@ function getFlightListForHistory() {
       setFlightlistHistory(r.data);
     }
     else {
-    	alert("Error ! - 2");
+    	showAlert("Error ! - 2");
     }
   }, function(request,status,error) {
     hideLoader();
@@ -916,7 +936,7 @@ function showDataForHistoryWithName(name) {
 
 	ajaxRequest(jdata, function (r) {
     if(r.result != "success") {
-      alert("Failed to load data!");
+      showAlert("Failed to load data!");
     }
     else {
 
@@ -1003,7 +1023,7 @@ function showDataForHistory(index) {
 	  showLoader();
 		ajaxRequest(jdata, function (r) {
 	    if(r.result != "success") {
-	      alert("Failed to load data!");
+	      showAlert("Failed to load data!");
 	    }
 	    else {
 
@@ -1160,7 +1180,7 @@ function getFlightList() {
     hideLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        alert("no data");
+        showAlert("no data");
         return;
       }
 
@@ -1168,7 +1188,7 @@ function getFlightList() {
       $('#getFlightListBtn').hide(1500);
     }
     else {
-    	alert("Error ! - 2");
+    	showAlert("Error ! - 2");
     }
   }, function(request,status,error) {
     hideLoader();
@@ -1268,7 +1288,7 @@ function deleteFlightData(index) {
   ajaxRequest(jdata, function (r) {
     hideLoader();
     if(r.result != "success") {
-      alert("삭제 실패!");
+      showAlert("삭제 실패!");
     }
     else {
       removeTableRow("flight-list-" + index);
@@ -1312,20 +1332,20 @@ function btnRegister() {
     var mname = prompt("미션의 이름을 입력해 주세요.", "");
 
     if (mname == null) {
-        alert("미션의 이름을 잘못 입력하셨습니다.");
+        showAlert("미션의 이름을 잘못 입력하셨습니다.");
         return;
     }
 
     var mspeed = prompt("미션 수행시 비행속도를 입력해 주세요.", "");
 
     if (mspeed == null || parseFloat(mspeed) <= 0.0) {
-        alert("비행속도를 잘못 입력하셨습니다.");
+        showAlert("비행속도를 잘못 입력하셨습니다.");
         return;
     }
 
 
     if (flightRecDataArray.length <= 0) {
-      alert("입력된 Waypoint가 1도 없습니다! 집중~ 집중~!");
+      showAlert("입력된 Waypoint가 1도 없습니다! 집중~ 집중~!");
       return;
     }
 
@@ -1353,7 +1373,7 @@ function btnRegister() {
     }
 
     if (bError > 0) {
-      alert("오류를 확인해 주세요!");
+      showAlert("오류를 확인해 주세요!");
       return;
     }
 
@@ -1362,10 +1382,10 @@ function btnRegister() {
 
     ajaxRequest(jdata, function (r) {
       if(r.result == "success") {
-        alert("미션이 등록되었습니다.");
+        showAlert("미션이 등록되었습니다.");
       }
       else {
-      	alert("Error ! - 7");
+      	showAlert("Error ! - 7");
       }
     }, function(request,status,error) {});
 }
@@ -1701,7 +1721,7 @@ function uploadFlightList() {
   	var mname = prompt("비행기록의 이름을 입력해 주세요.", "");
 
 	  if (!isSet(mname)) {
-	      alert("잘못 입력하셨습니다.");
+	      showAlert("잘못 입력하셨습니다.");
 	      return;
 	  }
 
@@ -1709,7 +1729,7 @@ function uploadFlightList() {
     getBase64(files[0], mname, uploadFlightListCallback);
   }
   else {
-  	alert("Please, select any file, first !");
+  	showAlert("Please, select any file, first !");
   	return;
   }
 }
@@ -1737,10 +1757,10 @@ function uploadFlightListCallback(mname, base64file) {
       if(r.result == "success") {
         $('#uploadFlightRecBtn').hide(1500);
         $('#djifileform').hide(1500);
-        alert("Successfully, uploaded !, Please refresh this page and click 'load' button again.");
+        showAlert("Successfully, uploaded !, Please refresh this page and click 'load' button again.");
       }
       else {
-      	alert("Error ! : (" + r.reason + ")");
+      	showAlert("Error ! : (" + r.reason + ")");
       }
     }, function(request,status,error) {
     	hideLoader();
