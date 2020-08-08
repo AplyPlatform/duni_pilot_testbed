@@ -488,11 +488,20 @@ function addIconToMap(i, item) {
 function removeIconOnMap(index) {
 	var features = posSource.getFeatures();
 	for(var i = 0; i < features.length; i++) {
-      if (features[i].get("mindex") == index) {
+      //if (features[i].get("mindex") == index) {
       	features.removeFeature(features[i]);
-      	return;
-      }
+      //	return;
+      //}
 	}
+	
+	coordinates.clear();
+	
+	var i = 0;
+	flightRecDataArray.forEach(function (item) {
+      addIconToMap(i, item);
+  		coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
+      i++;
+  });
 }
 
 function setDesignTableWithFlightRecord() {
