@@ -18,6 +18,9 @@ var flightRecDataArray;
 var flightHistorySource;
 var flightHistoryView;
 
+var lineLayerForDesign;
+var posLayerForDesign;
+
 var pos_icon_image = './imgs/position3.png';
 
 $(function() {
@@ -495,10 +498,8 @@ function removeIconOnMap(index) {
       //}
 	}
 	
-	var layers = map.getLayers();		
-	layers.forEach(function (l) {
-      map.removeLayer(l);
-  });		
+  map.removeLayer(lineLayerForDesign);
+  map.removeLayer(posLayerForDesign);
 	
 	setDesignTableWithFlightRecord();
 }
@@ -527,7 +528,7 @@ function setDesignTableWithFlightRecord() {
           })]
   });
 
-	var lineLayer = new ol.layer.Vector({
+	lineLayerForDesign = new ol.layer.Vector({
       source: lineSource,
       style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -538,12 +539,12 @@ function setDesignTableWithFlightRecord() {
   });
 
 
-  var posLayer = new ol.layer.Vector({
+  posLayerForDesign = new ol.layer.Vector({
       source: posSource
   });
 
-  map.addLayer(lineLayer);
-  map.addLayer(posLayer);
+  map.addLayer(lineLayerForDesign);
+  map.addLayer(posLayerForDesign);
 
 
   moveToPositionOnMap(flightRecDataArray[0].lat, flightRecDataArray[0].lng, flightRecDataArray[0].yaw, flightRecDataArray[0].roll, flightRecDataArray[0].pitch);
