@@ -1153,8 +1153,7 @@ function updateCadaData(record_name, address, cada_data) {
   var jdata = {"action": "position", "daction": "set_cada", "clientid" : userid, "cada" : cada_data, "address": address, "name" : record_name};
 
 	ajaxRequest(jdata, function (r) {
-	 	if (r.response.status !== "OK") return;
-	 		 		 	
+	 		 		 		 	
 	}, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
