@@ -1150,7 +1150,7 @@ function makeForFlightListMap(index, flat, flng) {
 
 function updateCadaData(record_name, address, cada_data) {
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action": "position", "daction": "set_cada", "clientid" : userid, "cada" : cada_data, "address": address};
+  var jdata = {"action": "position", "daction": "set_cada", "clientid" : userid, "cada" : cada_data, "address": address, "name" : record_name};
 
 	ajaxRequest(jdata, function (r) {
 	 	if (r.response.status !== "OK") return;
