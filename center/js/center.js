@@ -1283,7 +1283,7 @@ function appendFlightListTable(item) {
   	retSource = makeForFlightListMap(tableCount, flat, flng);
   }  		  		
 
-  if (isSet(cada)) {  	
+  if (isSet(address) && address != "") {
   	setAddressAndCada(address, cada, retSource);
   	setAddressAndCada(address, cada, flightHistorySource);  	
   }    
@@ -1372,7 +1372,7 @@ function appendFlightListTableForHistory(item) {
   	retSource = makeForFlightListMap(tableCount, flat, flng);
   }  		  		
 
-  if (isSet(cada)) {  	
+  if (isSet(address) && address != "") {  	
   	setAddressAndCada(address, cada, retSource);
   	setAddressAndCada(address, cada, flightHistorySource);
   }
