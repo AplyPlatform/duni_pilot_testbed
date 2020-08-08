@@ -1294,6 +1294,9 @@ function appendFlightListTable(item) {
     }
   }
   
+  var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
+	flyDirectTo(npos, item.yaw);
+  
   tableCount++;
 }
 
@@ -1382,6 +1385,9 @@ function appendFlightListTableForHistory(item) {
     	drawCadastral("#map_address_" + tableCount, name, dpoint[0], dpoint[1], retSource);    	
     }
   }
+  
+  var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
+	flyDirectTo(npos, item.yaw);
     
   tableCount++;
 }
