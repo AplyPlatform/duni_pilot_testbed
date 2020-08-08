@@ -1306,7 +1306,12 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view.html?record_name=" + name + "'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><h5><span id='map_address_" + tableCount + "'></span></h5></td>";
+  		if (isSet(flightHistoryView)) {
+  			appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a></td>";
+  		}
+  		else {
+  			appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><p class='font-weight-lighter' id='map_address_" + tableCount + "'></p></td>";
+  		}  		  		
   }
   else {
   		appendRow = appendRow + "</td>";
@@ -1337,8 +1342,7 @@ function appendFlightListTable(item) {
   }
   
   if (isSet(flat) && isSet(flightHistoryView)) {
-  	var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);		
-		flightHistoryView.setCenter(npos);	
+  	moveFlightHistoryMap(flat, flng);	
 	}
   
   tableCount++;
@@ -1400,7 +1404,7 @@ function appendFlightListTableForHistory(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForHistory(" + tableCount + ");'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><h5><span id='map_address_" + tableCount + "'></span></h5></td>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a></td>";
   }
   else {
   		appendRow = appendRow + "</td>";
@@ -1431,11 +1435,15 @@ function appendFlightListTableForHistory(item) {
   }
   
   if (isSet(flat)) {
-  	var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
-		flightHistoryView.setCenter(npos);
+  	moveFlightHistoryMap(flat, flng);
 	}
     
   tableCount++;
+}
+
+function moveFlightHistoryMap(lat, lng) {
+	var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
+	flightHistoryView.setCenter(npos);
 }
 
 
