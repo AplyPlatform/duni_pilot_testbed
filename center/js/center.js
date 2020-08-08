@@ -188,14 +188,14 @@ function designInit() {
 			appendNewRecord(lonLat);
   });
 
-	var record_name = location.search.split('record_name=')[1];
+	var record_name = "";//location.search.split('record_name=')[1];
   var mission_name = location.search.split('mission_name=')[1];
 
-	if (isSet(record_name)) {
+	if (isSet(record_name) && record_name != "") {
 		record_name = record_name.split('&')[0];
     setDesignTableByFlightRecord(record_name);
   }
-	else if (isSet(mission_name)) {
+	else if (isSet(mission_name) && mission_name != "") {
 		mission_name = mission_name.split('&')[0];
     setDesignTableByMission(mission_name);
   }
@@ -415,7 +415,28 @@ function initSliderForDesign(i) {
 }
 
 function setDesignTableByMission(name) {
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "mission", "daction" : "get", "mname" : name, "clientid" : userid};
 
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();
+
+      if (!isSet(r.data.data) || r.data.data.length == 0) return;
+		  flightRecDataArray = r.data.data;
+
+      setDesignTableWithFlightRecord();
+    }
+    else {
+      showAlert("There is no mission record or something wrong.");
+      hideLoader();
+    }
+  }, function(request,status,error) {
+
+    monitor("Sorry, something wrong.");
+    hideLoader();
+  });
 }
 
 function setDesignTableByFlightRecord(name) {
