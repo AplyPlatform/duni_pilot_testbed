@@ -1348,8 +1348,7 @@ function btnRemove(name, trname) {
 }
 
 function monitor(msg) {
-  var info = $('#monitor');
-  info.innerHTML = "<font color=red><b>" + msg + "</b></font>";
+  var info = $('#monitor').html("<font color=red><b>" + msg + "</b></font>");
 }
 
 function btnRegister() {
