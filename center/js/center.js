@@ -418,7 +418,7 @@ function initSliderForDesign(i) {
 
 function setDesignTableByMission(name) {
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "mission", "daction" : "get", "mname" : name, "clientid" : userid};
+  var jdata = {"action" : "mission", "daction" : "get_spec", "mname" : name, "clientid" : userid};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
