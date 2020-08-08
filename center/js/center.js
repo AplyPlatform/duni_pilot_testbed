@@ -495,14 +495,12 @@ function removeIconOnMap(index) {
       //}
 	}
 	
-	coordinates.clear();
+	var layers = map.getLayers();		
+	layers.forEach(function (l) {
+      map.removeLayer(l);
+  });		
 	
-	i = 0;
-	flightRecDataArray.forEach(function (item) {
-      addIconToMap(i, item);
-  		coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
-      i++;
-  });
+	setDesignTableWithFlightRecord();
 }
 
 function setDesignTableWithFlightRecord() {
