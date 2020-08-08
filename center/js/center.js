@@ -1009,11 +1009,11 @@ function showDataForHistoryWithName(name) {
       if (!isSet(fdata.cada) && fdata.cada == null) {
       	if (isSet(fdata.flat)) {
 					var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-    			drawCadastral(name, dpoint[0], dpoint[1], pointSource);
+    			drawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);
     		}
     	}
     	else {
-    		setAddressAndCada(fdata.address, fdata.cada, pointSource);
+    		setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
     	}
 
     	hideLoader();
@@ -1073,11 +1073,11 @@ function showDataForHistory(index) {
 				if (!isSet(r.data.cada) || r.data.cada == "") {
 					if (isSet(r.data.flat)) {
 						var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);
-		    		drawCadastral(item.name, dpoint[0], dpoint[1], pointSource);
+		    		drawCadastral("#map_address", item.name, dpoint[0], dpoint[1], pointSource);
 		    	}	
 				}
 	      else {
-	      	setAddressAndCada(r.data.address, r.data.cada, pointSource);
+	      	setAddressAndCada("#map_address", r.data.address, r.data.cada, pointSource);
 	      }
 	    		    		    	
 	    	hideLoader();
@@ -1160,7 +1160,7 @@ function updateCadaData(record_name, address, cada_data) {
   });
 }
 
-function drawCadastral(name, x, y, vSource){
+function drawCadastral(disp_id, name, x, y, vSource){
 	 var userid = getCookie("dev_user_id");
    var jdata = {"action": "position", "daction": "cada", "clientid" : userid, "x" : x, "y": y};
 
@@ -1202,9 +1202,9 @@ function drawCadastral(name, x, y, vSource){
             }
           }
 
-          setAddressAndCada(_addressText, _features, vSource);
+          setAddressAndCada(disp_id, _addressText, _features, vSource);
           if (flightHistorySource)  {
-          	setAddressAndCada(_addressText, _features, flightHistorySource);
+          	setAddressAndCada(disp_id, _addressText, _features, flightHistorySource);
           }          
           
           updateCadaData(name, _addressText, r.response.result.featureCollection.features);
@@ -1265,7 +1265,7 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view.html?record_name=" + name + "'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div></td>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><span id='map_address_" + tableCount + "'></span></td>";
   }
   else {
   		appendRow = appendRow + "</td>";
@@ -1284,13 +1284,13 @@ function appendFlightListTable(item) {
   }  		  		
 
   if (isSet(address) && address != "") {
-  	setAddressAndCada(address, cada, retSource);
-  	setAddressAndCada(address, cada, flightHistorySource);  	
+  	setAddressAndCada("#map_address_" + tableCount, address, cada, retSource);
+  	setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);  	
   }    
   else {
   	if (isSet(flat)) {
 			var dpoint = ol.proj.fromLonLat([flng, flat]);
-    	drawCadastral(name, dpoint[0], dpoint[1], retSource);
+    	drawCadastral("#map_address_" + tableCount, name, dpoint[0], dpoint[1], retSource);
     }
   }
   
@@ -1298,11 +1298,8 @@ function appendFlightListTable(item) {
 }
 
 
-function setAddressAndCada(address, cada, wsource) {
-	 //var curText = getRecordTitle();
-   setRecordTitle(address);
-   
-   
+function setAddressAndCada(address_id, address, cada, wsource) {
+	 //var curText = getRecordTitle();         	
 	var _features = new Array();
 	var _addressText = "";
 
@@ -1337,7 +1334,10 @@ function setAddressAndCada(address, cada, wsource) {
     }
   }
 
-   wsource.addFeatures(_features);
+  wsource.addFeatures(_features);
+  
+  if (isSet($(address_id)))
+  	$(address_id).text(address);
 }
 
 function appendFlightListTableForHistory(item) {
@@ -1353,7 +1353,7 @@ function appendFlightListTableForHistory(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForHistory(" + tableCount + ");'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div></td>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><span id='map_address_" + tableCount + "'></span></td>";
   }
   else {
   		appendRow = appendRow + "</td>";
@@ -1373,13 +1373,13 @@ function appendFlightListTableForHistory(item) {
   }  		  		
 
   if (isSet(address) && address != "") {  	
-  	setAddressAndCada(address, cada, retSource);
-  	setAddressAndCada(address, cada, flightHistorySource);
+  	setAddressAndCada("#map_address_" + tableCount, address, cada, retSource);
+  	setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);
   }
   else {
   	if (isSet(flat)) {
 			var dpoint = ol.proj.fromLonLat([flng, flat]);
-    	drawCadastral(name, dpoint[0], dpoint[1], retSource);    	
+    	drawCadastral("#map_address_" + tableCount, name, dpoint[0], dpoint[1], retSource);    	
     }
   }
     
