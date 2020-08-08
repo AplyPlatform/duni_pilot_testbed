@@ -21,6 +21,8 @@ var flightHistoryView;
 var lineLayerForDesign;
 var posLayerForDesign;
 
+var hasMore;
+
 var pos_icon_image = './imgs/position3.png';
 
 $(function() {
@@ -648,12 +650,12 @@ function getList() {
         $('#getListBtn').hide(1500);
       }
       else {
-	if (r.reason == "no data") {
-		showAlert("존재하는 데이터가 없습니다.");
-	}
-	else {
-	      	showAlert("Error !");
-	}
+				if (r.reason == "no data") {
+					showAlert("존재하는 데이터가 없습니다.");
+				}
+				else {
+				  showAlert("Error !");
+				}
       }
     }, function(request,status,error) {
       monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -681,12 +683,12 @@ function getMissionToMonitor(id) {
       }
       else {
 
-	if (r.reason == "no data") {
-		showAlert("존재하는 데이터가 없습니다.");
-	}
-	else {
-	      	showAlert("Error !");
-	}
+				if (r.reason == "no data") {
+					showAlert("존재하는 데이터가 없습니다.");
+				}
+				else {
+				 	showAlert("Error !");
+				}
 
       	hideLoader();
       }
@@ -908,6 +910,10 @@ function btnClear() {
 function getFlightListForHistory() {
   var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "download", "clientid" : userid};
+  
+  if (isSet(hasMore)) {
+  	jdata["morekey"] = hasMore;
+  }
 
   showLoader();
   ajaxRequest(jdata, function (r) {
@@ -917,15 +923,27 @@ function getFlightListForHistory() {
         showAlert("no data");
         return;
       }
-
-			$('#getFlightListBtn').hide(1500);
-
+      
+      if (r.morekey) {
+      	hasMore = r.morekey;
+      	$('#getFlightListBtn').text("더 불러오기");
+      }
+      else {
+      	hasMore = null;
+      	$('#getFlightListBtn').hide(1500);
+      }
+			
 			$('#historyMap').show();
 			FlightHistoryMapInit();
       setFlightlistHistory(r.data);
     }
     else {
-    	showAlert("Error ! - 2");
+    	if (r.reason == "no data") {
+    		showAlert("존재하는 데이터가 없습니다.");
+    	}
+    	else {    		
+	    	showAlert("Error ! - 2");
+	    }
     }
   }, function(request,status,error) {
     hideLoader();
@@ -1233,8 +1251,13 @@ function getFlightList() {
       setFlightlist(r.data);
       $('#getFlightListBtn').hide(1500);
     }
-    else {
-    	showAlert("Error ! - 2");
+    else {    	
+    	if (r.reason == "no data") {
+    		showAlert("존재하는 데이터가 없습니다.");
+    	}
+    	else {    		
+	    	showAlert("Error !");
+	    }
     }
   }, function(request,status,error) {
     hideLoader();
