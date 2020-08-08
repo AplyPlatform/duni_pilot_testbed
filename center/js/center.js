@@ -1279,13 +1279,14 @@ function appendFlightListTable(item) {
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
 
 	var retSource;
-	if (isSet(flat)) {
+	if (isSet(flat)) {		
   	retSource = makeForFlightListMap(tableCount, flat, flng);
   }  		  		
 
   if (isSet(address) && address != "") {
   	setAddressAndCada("#map_address_" + tableCount, address, cada, retSource);
-  	setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);  	
+  	if (isSet(flightHistorySource))
+  		setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);  	
   }    
   else {
   	if (isSet(flat)) {
@@ -1294,7 +1295,7 @@ function appendFlightListTable(item) {
     }
   }
   
-  if (isSet(flat)) {
+  if (isSet(flat) && isSet(flightHistoryView)) {
   	var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);		
 		flightHistoryView.setCenter(npos);	
 	}
