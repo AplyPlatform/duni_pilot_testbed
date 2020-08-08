@@ -425,8 +425,8 @@ function setDesignTableByMission(name) {
     if(r.result == "success") {
       hideLoader();
 
-      if (!isSet(r.data.data) || r.data.data.length == 0) return;
-		  flightRecDataArray = r.data.data;
+      if (!isSet(r.data.mission) || r.data.mission.length == 0) return;
+		  flightRecDataArray = r.data.mission;
 
       setDesignTableWithFlightRecord();
     }
@@ -440,6 +440,7 @@ function setDesignTableByMission(name) {
     hideLoader();
   });
 }
+
 
 function setDesignTableByFlightRecord(name) {
   var userid = getCookie("dev_user_id");
