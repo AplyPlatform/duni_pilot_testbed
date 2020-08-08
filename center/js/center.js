@@ -69,8 +69,8 @@ function centerInit() {
   }
   else if (page_action == "flight_view") {
   	showLoader();
-    flightViewInit();
-    FlightHistoryMapInit();
+  	FlightHistoryMapInit();
+    flightViewInit();    
   }
   else if (page_action == "dromi") {
   	showLoader();
