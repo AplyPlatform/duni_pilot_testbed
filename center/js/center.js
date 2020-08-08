@@ -70,6 +70,7 @@ function centerInit() {
   else if (page_action == "flight_view") {
   	showLoader();
     flightViewInit();
+    FlightHistoryMapInit();
   }
   else if (page_action == "dromi") {
   	showLoader();
@@ -934,7 +935,7 @@ function getFlightListForHistory() {
       }
 			
 			$('#historyMap').show();
-			FlightHistoryMapInit();
+			
       setFlightlistHistory(r.data);
     }
     else {
