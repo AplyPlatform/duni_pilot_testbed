@@ -1176,6 +1176,11 @@ function makeForFlightListMap(index, flat, flng) {
 
   var icon = createNewIcon(0, {lat:flat, lng:flng, alt:0});  
   vSource.addFeature(icon);
+  
+  if (isSet(flightHistorySource)) {
+  	flightHistorySource.addFeature(icon);
+  }
+  
   return vSource;
 }
 
