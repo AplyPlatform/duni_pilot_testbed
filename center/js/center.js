@@ -11,7 +11,6 @@ var posSource;
 var pointSource;
 
 var lineSource;
-var pos_icon_style;
 
 var flightRecArray;
 var flightRecDataArray;
@@ -476,7 +475,7 @@ function createNewIcon(i, item) {
           mindex : i
       });
 
-  pos_icon.setStyle(pos_icon_style);
+  pos_icon.setStyle(styleFunction(i + ""));
 
   return pos_icon;
 }
@@ -1442,6 +1441,33 @@ function logOut() {
   location.href="index.html";
 }
 
+
+function styleFunction(textMsg) {
+  return [
+    new ol.style.Style(
+    	{        
+	      image: new ol.style.Icon(({
+	      	opacity: 0.75,
+	        crossOrigin: 'anonymous',
+	        scale: 2,
+	        src: pos_icon_image
+	      	}))
+	      ,
+	      text: new ol.style.Text({
+	        font: '12px Calibri,sans-serif',
+	        fill: new ol.style.Fill({ color: '#000' }),
+	        stroke: new ol.style.Stroke({
+	          color: '#fff', width: 2
+	        }),
+	        // get the text from the feature - `this` is ol.Feature
+	        // and show only under certain resolution
+	        text: map.getView().getZoom() > 12 ? textMsg : ''
+	      	})
+    	})
+  ];
+}
+
+
 function mapInit() {
 
 	var styles = [
@@ -1466,17 +1492,7 @@ function mapInit() {
   }
 
   var dokdo = ol.proj.fromLonLat([131.8661992, 37.2435813]);
-  var scaleLineControl = new ol.control.ScaleLine();
-
-
-  pos_icon_style = new ol.style.Style({
-      image: new ol.style.Icon( ({
-      	opacity: 0.75,
-        crossOrigin: 'anonymous',
-        scale: 2,
-        src: pos_icon_image
-      }))
-  });
+  var scaleLineControl = new ol.control.ScaleLine();  
 
   posSource = new ol.source.Vector();
 
