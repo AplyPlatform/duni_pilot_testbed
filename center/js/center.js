@@ -838,7 +838,7 @@ function appendMissionList(data) {
         + "</a></td><td class='center'> - </td><td class='center'>"
         + item['regtime']
         + "</td><td class='center'>"
-        + "<a class='btn btn-warning' href=design.html?mission_name=" + item['name'] + " role='button'>수정</a>&nbsp;"        
+        + "<a class='btn btn-warning' href='design.html?mission_name=" + item['name'] + "' role='button'>수정</a>&nbsp;"        
         + "<button class='btn btn-primary' type='button' onClick='btnRemove(\"" + item['name']+ "\", \"row_" + index + "\")'>"
         + "삭제</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
