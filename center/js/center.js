@@ -1294,8 +1294,10 @@ function appendFlightListTable(item) {
     }
   }
   
-  var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
-	flyDirectTo(npos, item.yaw);
+  if (isSet(flat)) {
+  	var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);		
+		flightHistoryView.setCenter(npos);	
+	}
   
   tableCount++;
 }
@@ -1386,8 +1388,10 @@ function appendFlightListTableForHistory(item) {
     }
   }
   
-  var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
-	flyDirectTo(npos, item.yaw);
+  if (isSet(flat)) {
+  	var npos = ol.proj.fromLonLat([flng * 1, flat * 1]);
+		flightHistoryView.setCenter(npos);
+	}
     
   tableCount++;
 }
