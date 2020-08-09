@@ -232,7 +232,7 @@ function processSeek(curTime) {
     var index = 0;
     chartLocData.some(function(item) {
       if ("dsec" in item) {
-        var ds = item.dsec;
+        var ds = (item.dsec * 1);
         if((ds + 5) >= curTime && (ds - 5) <= curTime) {
             setMoveActionFromMovie(index, item);
             return true;
@@ -518,10 +518,7 @@ function addChartItem(i, item) {
   }
 
   if ("lat" in item && "lng" in item && "alt" in item) {
-    var dsec = item.dsec * 1;
-    if (dsec > 3600)
-    	dsec = dsec / 1000;
-
+    var dsec = (item.dsec * 1);    
     chartLocData.push({lat : item.lat, lng : item.lng, alt: item.alt, yaw : item.yaw, roll: item.roll, pitch: item.pitch, dsec : dsec});
 
     var pos_icon = new ol.Feature({
