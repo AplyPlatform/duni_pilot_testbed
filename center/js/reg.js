@@ -72,6 +72,12 @@ function requestRegister() {
                           window.location.href = "./index.html?fromapp=" + getCookie("isFromApp");
                       }
                       else {
+                      		if(r.reason.indexOf("socialid is already exists") >= 0) {
+                      			alert("중복된 이메일 입니다.");
+                      			$("#show_2").show();
+                      			return;
+                      		}
+                      		
                           alert("Something wrong. Please, input valid information.");
                           $("#show_2").show();
                       }
