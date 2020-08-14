@@ -143,7 +143,7 @@ function formSubmit(token) {
     action: "member",
     daction: "login",
     sns_token : token,
-    kind : skind
+    sns_kind : skind
   };
 
   ajaxRequest(jdata, function (r) {
