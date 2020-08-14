@@ -118,8 +118,7 @@ function ajaxRequest(data, callback, errorcallback) {
            cache : false,
            data : JSON.stringify(data),
            type : "POST",
-           contentType: "application/json; charset=utf-8",
-           async: false,
+           contentType: "application/json; charset=utf-8",           
            success : function(r) {
              console.log(JSON.stringify(r));
              callback(r);
