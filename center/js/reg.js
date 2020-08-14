@@ -46,6 +46,7 @@ function requestRegister() {
               var droneplay_name = $('#droneplay_name').val();
               var droneplay_email = $('#droneplay_email').val();
               var sns_token = getCookie("temp_sns_token");
+              var sns_kind = getCookie("temp_sns_kind");
               var droneplay_phonenumber = $('#droneplay_phonenumber').val();                            
 
               if (droneplay_name == null || droneplay_name == ""
@@ -61,6 +62,7 @@ function requestRegister() {
                   "name": droneplay_name,
                   "socialid" : droneplay_email,
                   "phone_number" : droneplay_phonenumber,
+                  "sns_kind" : sns_kind,
                   "sns_token": sns_token                  
               };
 

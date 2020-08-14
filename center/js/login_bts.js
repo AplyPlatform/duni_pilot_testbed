@@ -161,7 +161,8 @@ function formSubmit(token) {
     }else {
       hideLoader();
       alert("등록된 아이디가 없습니다. / " + r.reason);
-      setCookie("temp_sns_token", r.sns_token)
+      setCookie("temp_sns_token", r.sns_token);
+      setCookie("temp_sns_kind", skind);
       location.href="register.html";
     }
   }, function(request, status, error) {
