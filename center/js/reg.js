@@ -48,12 +48,21 @@ function requestRegister() {
               var sns_kind = getCookie("dev_kind");
               var droneplay_phonenumber = $('#droneplay_phonenumber').val();                            
 
-              if (droneplay_name == null || droneplay_name == ""
-                  || droneplay_email == null || droneplay_email == ""                  
-                  || droneplay_phonenumber == null || droneplay_phonenumber == "") {
-                alert("Please, input valid information.");
+              if (droneplay_name == null || droneplay_name == "") {
+                showAlert("이름을 입력해 주세요");
+                return;
+              }              
+              
+              if (droneplay_email == null || droneplay_email == "") {
+                showAlert("이메일 주소를 입력해 주세요");
                 return;
               }
+              
+              if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
+                showAlert("전화번호를 입력해 주세요");
+                return;
+              }
+              
 
               var data = {
                   "action": "member",
@@ -68,23 +77,23 @@ function requestRegister() {
               ajaxRequest(data, function(r) {
                       hideLoader();
                       if(r.result == "success") {
-                          alert("Congratulation !! Successfully, registered.");
+                          alert("가입이 완료 되었습니다. 가입시 선택한 SNS로 로그인해 주세요.");
                           window.location.href = "./index.html?fromapp=" + getCookie("isFromApp");
                       }
                       else {
                       		if(r.reason.indexOf("socialid is already exists") >= 0) {
-                      			alert("중복된 이메일 입니다.");
+                      			showAlert("이미 등록된 이메일 입니다.");
                       			$("#show_2").show();
                       			return;
                       		}
-                      		
-                          alert("Something wrong. Please, input valid information.");
+                      		                          
+                          showAlert("잘못된 정보가 입력되었습니다. 입력한 정보를 다시 확인해 주세요");
                           $("#show_2").show();
                       }
                   },
                   function(request,status,error){
 
-                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                     showAlert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                      //
                      hideLoader();
                   });
@@ -105,6 +114,11 @@ function setCookie(cName, cValue, cDay){
 function getCookie(cName) {
     var value = document.cookie.match('(^|;) ?' + cName + '=([^;]*)(;|$)');
     return value? value[2] : null;
+}
+
+function showAlert(msg) {	  
+	$('#errorModalLabel').text(msg);
+	$('#errorModal').modal('show');  	
 }
 
 
