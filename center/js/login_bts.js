@@ -199,6 +199,7 @@ function checkLoginStatus() {
     googleinit();
   }
   else if (dev_kind == "naver") {
+  	hideLoader();
     $("#naverIdLogin").show();
     naverinit();
   }
