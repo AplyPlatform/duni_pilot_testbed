@@ -77,6 +77,7 @@ function checkLoginStatus() {
   setCookie("user_token", "", -1);
   setCookie("device_table_uuid", "", -1);
   setCookie("dev_kind", "", -1);
+  setCookie("sns_token", "", -1);
 }
 
 checkLoginStatus();

@@ -142,7 +142,7 @@ function formSubmit(token) {
   var jdata = {
     action: "member",
     daction: "login",
-    token : token,
+    sns_token : token,
     kind : skind
   };
 
@@ -161,7 +161,7 @@ function formSubmit(token) {
     }else {
       hideLoader();
       alert("등록된 아이디가 없습니다. / " + r.reason);
-      setCookie("temp_user_id", r.fid)
+      setCookie("temp_sns_token", r.sns_token)
       location.href="register.html";
     }
   }, function(request, status, error) {
