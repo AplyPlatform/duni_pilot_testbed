@@ -173,8 +173,7 @@ function formSubmit(token) {
 function checkLoginStatus() {
   $("#fbLoginButton").hide();
   $("#naverIdLogin").hide();
-  $("#googleLoginButton").hide();
- 	hideLoader();
+  $("#googleLoginButton").hide(); 	
 
   var dev_user_id = getCookie("dev_user_id");
   var usertoken = getCookie("user_token");
