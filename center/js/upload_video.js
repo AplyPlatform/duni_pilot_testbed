@@ -98,7 +98,7 @@ UploadVideo.prototype.uploadFile = function(file) {
       categoryId: this.categoryId
     },
     status: {
-      privacyStatus: $('#privacy-status option:selected').text()
+      privacyStatus: $('#privacy-status option:selected').val()
     }
   };
   var uploader = new MediaUploader({
