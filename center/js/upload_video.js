@@ -118,7 +118,7 @@ UploadVideo.prototype.uploadFile = function(file) {
         var errorResponse = JSON.parse(data);
         message = errorResponse.error.message;
       } finally {
-        alert(message);
+        showAlert("오류가 발생했습니다. 잠시후 다시 시도해 주세요. (" + message + ")");
       }
     }.bind(this),
     onProgress: function(data) {
