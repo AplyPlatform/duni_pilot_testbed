@@ -1376,7 +1376,7 @@ function moveFlightHistoryMap(lat, lng) {
 }
 
 
-function updateFlightMemoWithValue(memo, name) {		
+function updateFlightMemoWithValue(name, memo) {		
 	var userid = getCookie("dev_user_id");			
 	
 	if (!isSet(memo)) {
