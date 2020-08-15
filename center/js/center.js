@@ -2563,11 +2563,13 @@ function saveYoutubeUrl(data_id) {
 }
 
 function hideMovieDataSet() {
+	$('#uploadVideo').hide();
 	$('#movieDataSet').hide();
 	$('#modifyBtnForMovieData').show();
 }
 
 function showMovieDataSet() {	
+	$('#uploadVideo').show();
 	$('#movieDataSet').show();
 	$('#modifyBtnForMovieData').hide();
 }
