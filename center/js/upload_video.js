@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 Copyright 2015 Google Inc. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -156,7 +156,7 @@ UploadVideo.prototype.uploadFile = function(file) {
 UploadVideo.prototype.handleUploadClicked = function() {
 	
 	if(!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
-		showAlert("¿µ»ó ÆÄÀÏÀ» ¼±ÅÃÇØ ÁÖ¼¼¿ä");
+		showAlert("ì˜ìƒ íŒŒì¼ì„ ì„ íƒí•´ ì£¼ì„¸ìš”");
 		return;
 	}
 	

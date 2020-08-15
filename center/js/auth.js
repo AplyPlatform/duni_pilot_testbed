@@ -1,4 +1,4 @@
-// The client ID is obtained from the Google API Console
+ï»¿// The client ID is obtained from the Google API Console
 // at https://console.developers.google.com/.
 // If you run this code from a server other than http://localhost,
 // you need to register your own client ID.
@@ -21,7 +21,7 @@ googleApiClientReady = function() {
 function setUploadBtn() {
 	$("#movieButton").click(function() {
 			if (apiIsReady == false) {
-				showAlert("ÁË¼ÛÇÕ´Ï´Ù. ÀÏ½ÃÀûÀÎ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù. Àá½ÃÈÄ ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä.");
+				showAlert("ì£„ì†¡í•©ë‹ˆë‹¤. ì¼ì‹œì ì¸ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤. ì ì‹œí›„ ë‹¤ì‹œ ì‹œë„í•´ ì£¼ì„¸ìš”.");
 			}
 			else {
 				tryAuth();
