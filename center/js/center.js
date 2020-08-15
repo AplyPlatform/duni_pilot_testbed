@@ -117,6 +117,7 @@ function flightViewInit() {
     $('#historyPanel').hide();
     $('#historyList').show();
     $('#historyMap').hide();
+    $('#uploadVideo').hide();
 
     var record_name = location.search.split('record_name=')[1];
     if (record_name != null && record_name != "") {
