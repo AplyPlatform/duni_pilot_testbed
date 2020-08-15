@@ -1007,6 +1007,14 @@ function showDataWithName(name) {
     	var fdata = r.data;
 
     	moviePlayerVisible = false;
+    	
+    	if ("memo" in fdata) {
+    		 $("#memoTextarea").val(fdata.memo);
+    	}
+    	
+    	$("#flightMemoBtn").click(function() {
+    			updateFlightMemoWithValue(name, $("#memoTextarea").val());
+    	});    		
 
     	if ("youtube_data_id" in fdata) {
 		  	if (fdata.youtube_data_id.indexOf("youtube") >=0) {
@@ -1358,6 +1366,30 @@ function moveFlightHistoryMap(lat, lng) {
 	flightHistoryView.setCenter(npos);
 }
 
+
+function updateFlightMemoWithValue(memo, name) {		
+	var userid = getCookie("dev_user_id");			
+	
+	if (!isSet(memo)) {
+		showAlert("메모 내용을 입력해 주세요.");
+		return;
+	}
+  var jdata = {"action": "position", "daction": "set_memo", "clientid" : userid, "name" : name, "memo" : memo};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    hideLoader();
+    if(r.result != "success") {
+      showAlert("메모의 업데이트가 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+    }
+    else {
+      showAlert("메모를 업데이트 하였습니다.");
+    }
+  }, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
+}
 
 function updateFlightMemo(index) {
 	var item = flightRecArray[index];
