@@ -1038,6 +1038,9 @@ function showDataWithName(name) {
 
   setRecordTitle(name);
   cur_flightrecord_name = name;
+  
+  $("#movieTitle").val(name);
+  $("#movieDescription").val(name);
 
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "download_spe", "name" : name, "clientid" : userid};
@@ -1138,8 +1141,12 @@ function showData(index) {
     var userid = getCookie("dev_user_id");
     var jdata = {"action" : "position", "daction" : "download_spe", "name" : item.name, "clientid" : userid};
     setRecordTitle(item.name);
-    cur_flightrecord_name = item.name;
+    cur_flightrecord_name = item.name;        
 	  showLoader();
+	  
+	  $("#movieTitle").val(item.name);
+  	$("#movieDescription").val(item.name);
+	  
 		ajaxRequest(jdata, function (r) {
 	    if(r.result != "success") {
 	      showAlert("Failed to load data!");
@@ -2762,6 +2769,9 @@ function showDataForDromi(index) {
     setRecordTitle("- " + item.dname);
         
     cur_flightrecord_name = item.dname;
+    
+    $("#movieTitle").val(cur_flightrecord_name);
+  	$("#movieDescription").val(cur_flightrecord_name);
 
 	  showLoader();
 
