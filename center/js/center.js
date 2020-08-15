@@ -1064,12 +1064,10 @@ function showDataWithName(name) {
 
     	if ("youtube_data_id" in fdata) {
 		  	if (fdata.youtube_data_id.indexOf("youtube") >=0) {
-					setYoutubePlayer(fdata.youtube_data_id);
-					setGooglePhotoPlayer("");
+					setYoutubePlayer(fdata.youtube_data_id);					
 				}
 				else {
-					setYoutubePlayer("");
-					setGooglePhotoPlayer(fdata.youtube_data_id);
+					setYoutubePlayer("");					
 				}
 
 				$("#movieDataSet").hide();
@@ -1118,12 +1116,10 @@ function showData(index) {
 
   if ("youtube_data_id" in item) {
   	if (item.youtube_data_id.indexOf("youtube") >=0) {
-			setYoutubePlayer(item.youtube_data_id);
-			setGooglePhotoPlayer("");
+			setYoutubePlayer(item.youtube_data_id);			
 		}
 		else {
-			setYoutubePlayer("");
-			setGooglePhotoPlayer(item.youtube_data_id);
+			setYoutubePlayer("");			
 		}
   }
   else {
@@ -2584,14 +2580,12 @@ function btnSetMovie() {
 
 	moviePlayerVisible = false;
 
-	if (data_id.indexOf("youtube") >=0) {
-		setGooglePhotoPlayer("");
+	if (data_id.indexOf("youtube") >=0) {		
 		setYoutubePlayer(data_id);
 		
 		saveYoutubeUrl(data_id);
 	}
-	else {
-		setGooglePhotoPlayer(data_id);
+	else {		
 		setYoutubePlayer("");
 	}
 
@@ -2603,27 +2597,42 @@ function btnSetMovie() {
 	}
 }
 
-function setGooglePhotoPlayer(data_url) {
-	googlePhotoPlayer = $("#googlePhotoPlayer")[0];
-	googlePhotoPlayerAr = $("#googlePhotoPlayer");
-
-	if (!isSet(data_url) || data_url == "-") {
-		googlePhotoPlayerAr.hide();
+function setYoutubePlayerPureID(data_id) {
+	if (!isSet(d_id) || d_id == "-") {
+		$("#youTubePlayer").hide();
+		$("#uploadVideo").show();
+		moviePlayerVisible = false;
 		return;
 	}
+	else {
+		$("#uploadVideo").hide();
+		$("#youTubePlayer").show();
+		moviePlayerVisible = true;
+	}
 
-	googlePhotoPlayer.setAttribute('src', data_url);
-	googlePhotoPlayer.load();
-	googlePhotoPlayerAr.show();
-	moviePlayerVisible = true;
+
+  if (youTubePlayer != null) {
+    youTubePlayer.loadVideoById(data_id, 0, "large");
+    return;
+  }
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/player_api";
+  youtube_data_id = data_id;
+
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
 function setYoutubePlayer(d_id) {
 	if (!isSet(d_id) || d_id == "-") {
 		$("#youTubePlayer").hide();
+		$("#uploadVideo").show();
+		moviePlayerVisible = false;
 		return;
 	}
 	else {
+		$("#uploadVideo").hide();
 		$("#youTubePlayer").show();
 		moviePlayerVisible = true;
 	}
@@ -2731,12 +2740,10 @@ function showDataForDromi(index) {
 
   if ("youtube_data_id" in item) {
   	if (item.youtube_data_id.indexOf("youtube") >=0) {
-			setYoutubePlayer(item.youtube_data_id);
-			setGooglePhotoPlayer("");
+			setYoutubePlayer(item.youtube_data_id);			
 		}
 		else {
-			setYoutubePlayer("");
-			setGooglePhotoPlayer(item.youtube_data_id);
+			setYoutubePlayer("");			
 		}
   }
   else {

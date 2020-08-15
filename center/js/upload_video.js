@@ -146,9 +146,8 @@ UploadVideo.prototype.uploadFile = function(file) {
     }.bind(this),
     onComplete: function(data) {
       var uploadResponse = JSON.parse(data);
-      this.videoId = uploadResponse.id;
-      $('#video-id').text(this.videoId);
-      $('.post-upload').show();
+      this.videoId = uploadResponse.id;            
+      setYoutubePlayerPureID(uploadResponse.id);
       this.pollForVideoStatus();
     }.bind(this)
   });
