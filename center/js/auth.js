@@ -8,6 +8,7 @@ var OAUTH2_SCOPES = [
 ];
 
 var apiIsReady = false;
+var authSucceed = false;
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {	
 	
@@ -24,7 +25,13 @@ function setUploadBtn() {
 				showAlert("죄송합니다. 일시적인 오류가 발생했습니다. 잠시후 다시 시도해 주세요.");
 			}
 			else {
-				tryAuth();
+				if (authSucceed == true) {
+					var uploadVideo = new UploadVideo();
+    			uploadVideo.ready(gapi.auth.getToken().access_token);
+				}
+				else {
+					tryAuth();
+				}
 			}
 	});
 }
