@@ -147,6 +147,7 @@ UploadVideo.prototype.uploadFile = function(file) {
       saveYoutubeUrl("https://youtube.com/watch?v=" + this.videoId);   
       setYoutubePlayerPureID(this.videoId);
       hideMovieDataSet();      
+      $('#movieButton').attr('disabled', false);
       this.pollForVideoStatus();
     }.bind(this)
   });
