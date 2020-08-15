@@ -116,8 +116,7 @@ function showAlert(msg) {
 function flightViewInit() {
     $('#historyPanel').hide();
     $('#historyList').show();
-    $('#historyMap').hide();
-    $('#uploadVideo').hide();
+    $('#historyMap').hide();    
 
     var record_name = location.search.split('record_name=')[1];
     if (record_name != null && record_name != "") {
@@ -2562,14 +2561,12 @@ function saveYoutubeUrl(data_id) {
   });
 }
 
-function hideMovieDataSet() {
-	$('#uploadVideo').hide();
+function hideMovieDataSet() {	
 	$('#movieDataSet').hide();
 	$('#modifyBtnForMovieData').show();
 }
 
-function showMovieDataSet() {	
-	$('#uploadVideo').show();
+function showMovieDataSet() {		
 	$('#movieDataSet').show();
 	$('#modifyBtnForMovieData').hide();
 }
@@ -2602,13 +2599,11 @@ function btnSetMovie() {
 
 function setYoutubePlayerPureID(data_id) {
 	if (!isSet(d_id) || d_id == "-") {
-		$("#youTubePlayer").hide();
-		$("#uploadVideo").show();
+		$("#youTubePlayer").hide();		
 		moviePlayerVisible = false;
 		return;
 	}
-	else {
-		$("#uploadVideo").hide();
+	else {		
 		$("#youTubePlayer").show();
 		moviePlayerVisible = true;
 	}
@@ -2630,12 +2625,11 @@ function setYoutubePlayerPureID(data_id) {
 function setYoutubePlayer(d_id) {
 	if (!isSet(d_id) || d_id == "-") {
 		$("#youTubePlayer").hide();
-		$("#uploadVideo").show();
+	
 		moviePlayerVisible = false;
 		return;
 	}
-	else {
-		$("#uploadVideo").hide();
+	else {		
 		$("#youTubePlayer").show();
 		moviePlayerVisible = true;
 	}
