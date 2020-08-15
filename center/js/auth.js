@@ -11,9 +11,10 @@ var apiIsReady = false;
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {	
 	apiIsReady = true;  
+	setUploadBtn();
 }
 
-function tryUpload() {
+function setUploadBtn() {
 	$("#movieButton").click(function() {
 			if (apiIsReady == false) {
 				showAlert("죄송합니다. 일시적인 오류가 발생했습니다. 잠시후 다시 시도해 주세요.");
