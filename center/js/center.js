@@ -96,7 +96,7 @@ function flightViewInit() {
 
     var record_name = location.search.split('record_name=')[1];
     if (record_name != null && record_name != "") {
-      showDataForHistoryWithName(decodeURI(record_name));
+      showDataWithName(decodeURI(record_name));
     }
     else hideLoader();
 }
@@ -920,7 +920,7 @@ function btnClear() {
 
 
 
-function getFlightListForHistory() {
+function getFlightList() {
   var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "download", "clientid" : userid};
   
@@ -971,7 +971,7 @@ function setFlightlistHistory(data) {
     return;
 
   data.forEach(function(item) {
-    appendFlightListTableForHistory(item);
+    appendFlightListTable(item);
     flightRecArray.push(item);
   });
 }
@@ -988,7 +988,7 @@ function setRecordTitle(msg) {
 	$("#record_name_field").text(msg);
 }
 
-function showDataForHistoryWithName(name) {
+function showDataWithName(name) {
 
   setRecordTitle(name);
   cur_flightrecord_name = name;
@@ -1055,7 +1055,7 @@ function showDataForHistoryWithName(name) {
   });
 }
 
-function showDataForHistory(index) {
+function showData(index) {
   if (flightRecArray.length == 0) return;
 
   var item = flightRecArray[index];
@@ -1252,103 +1252,6 @@ function drawCadastral(disp_id, name, x, y, vSource){
 
 }
 
-
-function getFlightList() {
-  var userid = getCookie("dev_user_id");
-  var jdata = {"action": "position", "daction": "download", "clientid" : userid};
-
-  showLoader();
-  ajaxRequest(jdata, function (r) {
-    hideLoader();
-    if(r.result == "success") {
-      if (r.data == null || r.data.length == 0) {
-        showAlert("no data");
-        return;
-      }
-
-      setFlightlist(r.data);
-      $('#getFlightListBtn').hide(1500);
-    }
-    else {    	
-    	if (r.reason == "no data") {
-    		showAlert("존재하는 데이터가 없습니다.");
-    	}
-    	else {    		
-	    	showAlert("Error !");
-	    }
-    }
-  }, function(request,status,error) {
-    hideLoader();
-    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-  });
-}
-
-function setFlightlist(data) {
-  if (data == null || data.length == 0)
-    return;
-
-  data.forEach(function(item) {
-    appendFlightListTable(item);
-    flightRecArray.push(item);
-  });
-}
-
-function appendFlightListTable(item) {
-	var name = item.name;
-	var dtimestamp = item.dtime;
-	var data = item.data;
-	var flat = item.flat;
-	var flng = item.flng;
-	var cada = item.cada;
-	var address = item.address;
-
-  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view.html?record_name=" + name + "'>" + name + "</a>";
-
-  if (isSet(flat)) {
-  		if (isSet(flightHistoryView)) {
-  			appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a></td>";
-  		}
-  		else {
-  			appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><p class='font-weight-lighter' id='map_address_" + tableCount + "'></p></td>";
-  		}  		  		
-  }
-  else {
-  		appendRow = appendRow + "</td>";
-  }
-
-	appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
-      + "<td width='20%' bgcolor='#fff'>"
-      // + "<a href='flight_view.html?record_name=" + name + "'>보기</a> "
-      + "<button class='btn btn-primary' type='button' onClick='deleteFlightData(" + tableCount + ");'>삭제</button></td>"
-      + "</tr>";
-  $('#dataTable-Flight_list > tbody:last').append(appendRow);
-
-	var retSource;
-	if (isSet(flat)) {		
-  	retSource = makeForFlightListMap(tableCount, flat, flng);
-  }  		  		
-
-  if (isSet(address) && address != "") {
-  	setAddressAndCada("#map_address_" + tableCount, address, cada, retSource);
-  	if (isSet(flightHistorySource))
-  		setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);  	
-  }    
-  else {
-  	if (isSet(flat)) {
-			var dpoint = ol.proj.fromLonLat([flng, flat]);
-    	drawCadastral("#map_address_" + tableCount, name, dpoint[0], dpoint[1], retSource);
-    }
-  }
-  
-  if (isSet(flat) && isSet(flightHistoryView)) {
-  	moveFlightHistoryMap(flat, flng);	
-	}
-  
-  tableCount++;
-}
-
-
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();         	
 	var _features = new Array();
@@ -1391,7 +1294,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
   	$(address_id).text(address);
 }
 
-function appendFlightListTableForHistory(item) {
+function appendFlightListTable(item) {
 	var name = item.name;
 	var dtimestamp = item.dtime;
 	var data = item.data;
@@ -1401,14 +1304,20 @@ function appendFlightListTableForHistory(item) {
 	var cada = item.cada;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForHistory(" + tableCount + ");'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a></td>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a>";
+  }
+    
+  if (isSet(memo)) {
+  	appendRow = appendRow + "<br><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3' value='" + memo + "'></textarea>";
   }
   else {
-  		appendRow = appendRow + "</td>";
+  	appendRow = appendRow + "<br><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'></textarea>";
   }
+  
+  appendRow = appendRow + "<button class='btn btn-primary' type='button' onClick='updateFlightMemo(" + tableCount + ");'>메모수정</button></td>";
 
   appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
@@ -1444,6 +1353,30 @@ function appendFlightListTableForHistory(item) {
 function moveFlightHistoryMap(lat, lng) {
 	var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
 	flightHistoryView.setCenter(npos);
+}
+
+
+function updateFlightMemo(index) {
+	var item = flightRecArray[index];
+	
+	var userid = getCookie("dev_user_id");
+		
+	var memo = $("#memoTextarea_" + index).val();
+  var jdata = {"action": "position", "daction": "set_memo", "clientid" : userid, "name" : item.name, "memo" : memo};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    hideLoader();
+    if(r.result != "success") {
+      showAlert("메모 업데이트를 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+    }
+    else {
+      showAlert("메모 업데이트 하였습니다.");
+    }
+  }, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
 }
 
 
@@ -1914,7 +1847,7 @@ function uploadFlightList() {
 	  if (!isSet(mname)) {
 	      showAlert("잘못 입력하셨습니다.");
 	      return;
-	  }
+	  }	  	  
 
 	  showLoader();
     getBase64(files[0], mname, uploadFlightListCallback);
@@ -1948,7 +1881,8 @@ function uploadFlightListCallback(mname, base64file) {
       if(r.result == "success") {
         $('#uploadFlightRecBtn').hide(1500);
         $('#djifileform').hide(1500);
-        showAlert("Successfully, uploaded !, Please refresh this page and click 'load' button again.");
+        showAlert("성공적으로 업로드 하였습니다.'비행기록 불러오기 버튼을 클릭해 주세요'");
+        location.href = "https://pilot.duni.io/center/flight_view.html";
       }
       else {
       	showAlert("Error ! : (" + r.reason + ")");
