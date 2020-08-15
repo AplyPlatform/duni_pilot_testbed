@@ -1622,7 +1622,7 @@ function mapInit() {
         maxZoom: 19
       })
     }));
-  },
+  }
 
   var dokdo = ol.proj.fromLonLat([126.5610038, 33.3834381]);
   var scaleLineControl = new ol.control.ScaleLine();  
