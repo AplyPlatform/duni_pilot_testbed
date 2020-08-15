@@ -2570,8 +2570,7 @@ function saveYoutubeUrl(data_id) {
 
 function hideMovieDataSet() {	
 	$('#movieDataSet').hide();
-	$('#modifyBtnForMovieData').text("영상정보 수정");
-	$('#modifyBtnForMovieData').show();
+	$('#modifyBtnForMovieData').text("영상정보 수정");	
 	
 	$('#modifyBtnForMovieData').click(function(){
 		showMovieDataSet();
@@ -2581,8 +2580,7 @@ function hideMovieDataSet() {
 
 function showMovieDataSet() {		
 	$('#movieDataSet').show();
-	$('#modifyBtnForMovieData').text("영상정보 설정 닫기");
-	$('#modifyBtnForMovieData').hide();
+	$('#modifyBtnForMovieData').text("영상정보 설정 닫기");	
 	
 	$('#modifyBtnForMovieData').click(function(){
 		hideMovieDataSet();
