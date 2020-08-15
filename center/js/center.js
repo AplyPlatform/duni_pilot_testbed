@@ -1622,9 +1622,9 @@ function mapInit() {
         maxZoom: 19
       })
     }));
-  }
+  },
 
-  var dokdo = ol.proj.fromLonLat([131.8661992, 37.2435813]);
+  var dokdo = ol.proj.fromLonLat([126.5610038, 33.3834381]);
   var scaleLineControl = new ol.control.ScaleLine();  
 
   posSource = new ol.source.Vector();
@@ -1662,7 +1662,7 @@ function mapInit() {
   }));
 
   current_pos = new ol.Feature({
-      geometry: new ol.geom.Point(ol.proj.fromLonLat([131.8661992, 37.2435813]))
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
   });
 
   current_pos_image = new ol.style.Icon(({
