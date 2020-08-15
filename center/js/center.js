@@ -2598,7 +2598,7 @@ function btnSetMovie() {
 }
 
 function setYoutubePlayerPureID(data_id) {
-	if (!isSet(d_id) || d_id == "-") {
+	if (!isSet(data_id) || data_id == "-") {
 		$("#youTubePlayer").hide();		
 		moviePlayerVisible = false;
 		return;
