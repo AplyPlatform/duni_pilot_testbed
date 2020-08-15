@@ -154,6 +154,12 @@ UploadVideo.prototype.uploadFile = function(file) {
 };
 
 UploadVideo.prototype.handleUploadClicked = function() {
+	
+	if(!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
+		showAlert("영상 파일을 선택해 주세요");
+		return;
+	}
+	
   $('#movieButton').attr('disabled', true);
   this.uploadFile($('#movieFile').get(0).files[0]);
 };

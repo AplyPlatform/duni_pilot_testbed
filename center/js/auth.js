@@ -10,7 +10,11 @@ var OAUTH2_SCOPES = [
 var apiIsReady = false;
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 googleApiClientReady = function() {	
-	apiIsReady = true;  
+	
+	gapi.auth.init(function() {
+		 apiIsReady = true;  
+	});
+	
 	setUploadBtn();
 }
 
@@ -26,9 +30,7 @@ function setUploadBtn() {
 }
 
 function tryAuth() {
-	gapi.auth.init(function() {
-		    window.setTimeout(checkAuth, 1);
-	});
+	window.setTimeout(checkAuth, 1);
 }
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
