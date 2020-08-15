@@ -206,38 +206,39 @@
 						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card shadow py-2">
 	                <div class="card-body h-400">
-	                	<div id="youTubePlayer"></div>
-	                	<video id="googlePhotoPlayer" controls class="panel-body" crossOrigin="use-credentials" width=100% style="height:400px;"></video>
+	                	<div id="youTubePlayer"></div>	                	
 	                </div>
 	                
 	                <div class="card-body h-400" id="uploadVideo">
 				                	<div>
-										        <img id="channel-thumbnail">
-										        <span id="channel-name"></span>
+										        <img id="channel-thumbnail" width="50">
+										        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
 										      </div>
 										
 										      <div>
-										        <label for="title">영상 제목</label>
-										        <input id="movieTitle" type="text" value="비행기록 1">
+										        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 제목</label>
+										        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
 										      </div>
 										      <div>
-										        <label for="description">영상 설명</label>
-										        <textarea id="movieDescription">비행기록 1</textarea>
+										        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설명</label>
+										        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
 										      </div>
 										      <div>
-										        <label for="privacy-status">영상 공개수준</label>
-										        <select id="privacy-status">
+										        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 공개수준</label>
+										        <select id="privacy-status" class="form-control">
 										          <option>공개</option>
 										          <option>일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
 										          <option>비공개</option>
 										        </select>
 										      </div>
 										
-										      <div>
-										        <input input type="file" id="file" class="button" accept="video/*">
-										        <button id="button">Upload Video</button>
+										      <div class="input-group">
+										        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+										        <button id="movieButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
+										      </div>
+										      
 										      <div class="during-upload">
-										        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+										        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% done (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> bytes)</p>
 										        <progress id="upload-progress" max="1" value="0"></progress>
 										      </div>
 										
@@ -245,12 +246,12 @@
 										        <ul id="post-upload-status"></ul>
 										        <div id="player"></div>
 										      </div>
-										      <p id="disclaimer">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+										      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
 	                </div>
 
 	               	<div class="card-body">
 	               		<div id="movieDataSet">
-                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설정</label>
+                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">업로드 된 영상 설정</label>
                     <div class="input-group">
                           <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
                           <span class="input-group-append">
@@ -428,7 +429,6 @@
   <script src="js/sb-admin-2.min.js"></script>
   <script src="./vendor/chart.js/Chart.min.js"></script>
   <script src="js/ol.js"></script>  
-  <script id="page_data" page_action="flight_view" src="./js/center.js"></script>
   <script src="//apis.google.com/js/client:plusone.js"></script>    
   <script src="./js/cors_upload.js"></script>
   <script src="./js/upload_video.js"></script>

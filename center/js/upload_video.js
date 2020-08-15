@@ -77,13 +77,10 @@ UploadVideo.prototype.ready = function(accessToken) {
       } else {
         $('#channel-name').text(response.items[0].snippet.title);
         $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
-
-        $('.pre-sign-in').hide();
-        $('.post-sign-in').show();
       }
     }.bind(this)
   });
-  $('#button').on("click", this.handleUploadClicked.bind(this));
+  $('#movieButton').on("click", this.handleUploadClicked.bind(this));
 };
 
 /**
@@ -95,8 +92,8 @@ UploadVideo.prototype.ready = function(accessToken) {
 UploadVideo.prototype.uploadFile = function(file) {
   var metadata = {
     snippet: {
-      title: $('#title').val(),
-      description: $('#description').text(),
+      title: $('#movieTitle').val(),
+      description: $('#movieDescription').text(),
       tags: this.tags,
       categoryId: this.categoryId
     },
@@ -157,8 +154,8 @@ UploadVideo.prototype.uploadFile = function(file) {
 };
 
 UploadVideo.prototype.handleUploadClicked = function() {
-  $('#button').attr('disabled', true);
-  this.uploadFile($('#file').get(0).files[0]);
+  $('#movieButton').attr('disabled', true);
+  this.uploadFile($('#movieFile').get(0).files[0]);
 };
 
 UploadVideo.prototype.pollForVideoStatus = function() {
