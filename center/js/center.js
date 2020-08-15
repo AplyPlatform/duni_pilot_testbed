@@ -1106,6 +1106,15 @@ function showData(index) {
 
 	    	$('#historyList').hide(1500);
   			$('#historyPanel').show();
+  			
+  			
+  			if ("memo" in r.data) {
+    		 $("#memoTextarea").val(r.data.memo);
+	    	}
+	    	
+	    	$("#flightMemoBtn").click(function() {
+	    			updateFlightMemoWithValue(r.data.name, $("#memoTextarea").val());
+	    	});
 
 	      setChartData(r.data.data);
 
