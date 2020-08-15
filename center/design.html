@@ -206,34 +206,39 @@
 							                <div id="map" class="map"></div>
 											</div>
 											<div class="card-body">
-													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
-													<p></p>
-			                  	<div class="form-group">
-			                  			<label for="layer-select">지도 종류</label>
-			                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																			       <option value="Aerial">Aerial</option>
-																			       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																			       <option value="Road">Road</option>
-														</select>
-													</div>
+													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>																                  	
 											</div>
 
 			              	<div class="card-body">
-			                	<div class="form-group">
-			                		<label for="goItemIndex">바로가기</label>
-			                		<div class="input-group">
-													  <input type="text" value="0" id="goItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
-													  <span class="input-group-append">
-													  		<button class="btn btn-primary" type="button" id="goItemBtn">Go!</button>
-													  </span>
-													</div>
+			              		<div class="row no-gutters align-items-center">													
+														<div class="col mr-2">
+						              		<div class="form-group">
+						                  			<label for="layer-select" class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</label>
+						                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																						       <option value="Aerial">Aerial</option>
+																						       <option value="AerialWithLabels" selected>Aerial with labels</option>
+																						       <option value="Road">Road</option>
+																	</select>
+															</div>
+														</div>
+														<div class="col mr-2">												
+						                	<div class="form-group">
+						                		<label for="goItemIndex" class="text-xs font-weight-bold text-default text-uppercase mb-1">바로가기</label>
+						                		<div class="input-group">
+																  <input type="text" value="0" id="goItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
+																  <span class="input-group-append">
+																  		<button class="btn btn-primary" type="button" id="goItemBtn">Go!</button>
+																  </span>
+																</div>
+															</div>
+														</div>
 												</div>
 											</div>
 
 
 											<div class="card-body">
-			                                <button type="button" class="btn btn-primary" onClick="btnRegister();">등록</button>
-			                                <button type="button" class="btn btn-danger" onClick="btnClear();">초기화</button>
+                          <button type="button" class="btn btn-primary" onClick="btnRegister();">계획 등록</button>
+                          <button type="button" class="btn btn-danger" onClick="btnClear();">초기화</button>
 			                </div>
 											<div class="card-body">
 			                      <span id="monitor"></span>
@@ -251,21 +256,21 @@
 																							<tr class='odd gradeX'>
 																								<td><span class="badge badge-light" id="tr_index">0</span></td>
 																								<td>
-																										      <label for='latdata_index'>위도(Lat)</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
-																										      <label for='lngdata_index'>경도(Lng)</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
-																										      <label for='altdata_index'>고도(Alt)</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
+																										      <label for='latdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">위도(Lat)</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
+																										      <label for='lngdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">경도(Lng)</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
+																										      <label for='altdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">고도(Alt)</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
 																										      
 																										      <div style="display:none">
-																										      <label for='latdata_index'>Roll</label><input name='rolldata_index' id='rolldata_index' type='text' placeholder='Roll' value='0' class='form-control rolldata'>
-																										      <label for='lngdata_index'>Pitch</label><input name='pitchdata_index' id='pitchdata_index' type='text' placeholder='Pitch' value='0' class='form-control pitchdata'>
-																										      <label for='altdata_index'>Yaw</label><input name='yawdata_index' id='yawdata_index' type='text' placeholder='Yaw' class='form-control yawdata' value='0'><br>
-																										      <label for='speeddata_index'>속도(Speed)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
+																										      <label for='latdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">Roll</label><input name='rolldata_index' id='rolldata_index' type='text' placeholder='Roll' value='0' class='form-control rolldata'>
+																										      <label for='lngdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">Pitch</label><input name='pitchdata_index' id='pitchdata_index' type='text' placeholder='Pitch' value='0' class='form-control pitchdata'>
+																										      <label for='altdata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">Yaw</label><input name='yawdata_index' id='yawdata_index' type='text' placeholder='Yaw' class='form-control yawdata' value='0'><br>
+																										      <label for='speeddata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">속도(Speed)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
 																										    	</div>
 																										      
-																										      <label for='actiondata_index'>액션(Act)</label>
+																										      <label for='actiondata_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">액션(Act)</label>
 
 																										      <a data-toggle="collapse" data-target="#collapseActionParams" aria-expanded="false" aria-controls="collapseActionParams">
-																												    <font color=#7777aa>Help</font>
+																												    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Help</div>
 																												  </a>
 
 																										      <select class='form-control actiondata' id='actiondata_index'>
@@ -294,7 +299,7 @@
 																													</div>
 
 
-																										      <label for='actionparam_index'>액션인자(Param)</label><input name='actionparam_index' id='actionparam_index' placeholder='action Param' type='text' class='form-control actionparam' value='0'>
+																										      <label for='actionparam_index' class="text-xs font-weight-bold text-success text-uppercase mb-1">액션인자(Param)</label><input name='actionparam_index' id='actionparam_index' placeholder='action Param' type='text' class='form-control actionparam' value='0'>
 																										      <br><br><button type="button" class="btn btn-primary" id="removeItemBtn">삭제</button> <button type="button" class="btn btn-warning" id="saveItemBtn">적용</button>
 																					       </td>
 																					      </tr>
@@ -319,7 +324,7 @@
 		                  <div class="row no-gutters align-items-center">
 
 		                    <div class="col-auto">
-				                      <label for="track">
+				                      <label for="track" class="text-xs font-weight-bold text-default text-uppercase mb-1">
 				                        현재 위치를 지도에 표시하기
 				                        <input id="track" type="checkbox"/>
 				                      </label>
@@ -336,7 +341,7 @@
 		                </div>
 
 		                <div class="card-body">
-				                	<label for="queryData">주소</label>
+				                	<label for="queryData" class="text-xs font-weight-bold text-default text-uppercase mb-1">주소</label>
                           <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search..." id="queryData">
                                 <span class="input-group-btn">
