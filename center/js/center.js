@@ -1311,14 +1311,16 @@ function appendFlightListTable(item) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a>";
   }
     
+  appendRow = appendRow + "<br><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+  
   if (isSet(memo)) {
-  	appendRow = appendRow + "<br><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3' value='" + memo + "'></textarea>";
-  }
-  else {
-  	appendRow = appendRow + "<br><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'></textarea>";
+  	 appendRow = appendRow + memo;
   }
   
-  appendRow = appendRow + "<button class='btn btn-primary' type='button' onClick='updateFlightMemo(" + tableCount + ");'>메모수정</button></td>";
+  appendRow = appendRow + "</textarea>";
+  
+  
+  appendRow = appendRow + "<button class='btn btn-primary' type='button' onClick='updateFlightMemo(" + tableCount + ");'>메모수정</button></div></form></td>";
 
   appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
