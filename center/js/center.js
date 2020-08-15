@@ -1365,16 +1365,21 @@ function updateFlightMemo(index) {
 	var userid = getCookie("dev_user_id");
 		
 	var memo = $("#memoTextarea_" + index).val();
+	
+	if (!isSet(memo)) {
+		showAlert("메모 내용을 입력해 주세요.");
+		return;
+	}
   var jdata = {"action": "position", "daction": "set_memo", "clientid" : userid, "name" : item.name, "memo" : memo};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
     hideLoader();
     if(r.result != "success") {
-      showAlert("메모 업데이트를 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+      showAlert("메모의 업데이트가 실패하였습니다. 잠시 후 다시 시도해 주세요.");
     }
     else {
-      showAlert("메모 업데이트 하였습니다.");
+      showAlert("메모를 업데이트 하였습니다.");
     }
   }, function(request,status,error) {
     hideLoader();
@@ -1884,7 +1889,7 @@ function uploadFlightListCallback(mname, base64file) {
       if(r.result == "success") {
         $('#uploadFlightRecBtn').hide(1500);
         $('#djifileform').hide(1500);
-        alert("성공적으로 업로드 하였습니다.'비행기록 불러오기' 버튼을 클릭해 주세요");
+        alert("성공적으로 업로드 하였습니다. '비행기록 불러오기' 버튼을 클릭해 주세요");
         location.href = "https://pilot.duni.io/center/flight_view.html";
       }
       else {
