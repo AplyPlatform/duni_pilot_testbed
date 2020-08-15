@@ -1073,7 +1073,7 @@ function showDataWithName(name) {
 					setYoutubePlayer("");					
 				}
 
-				$("#movieDataSet").hide();
+				hideMovieDataSet();
 		  }
 		  else {
 		    $("#youTubePlayer").hide();
@@ -2501,8 +2501,8 @@ function dromiListInit() {
   $("#chartView").hide();
   $("#googlePhotoPlayer").hide();
   $("#youTubePlayer").hide();
-  $("#movieDataSet").hide();
   
+  hideMovieDataSet();  
   hideLoader();
 }
 
@@ -2570,12 +2570,23 @@ function saveYoutubeUrl(data_id) {
 
 function hideMovieDataSet() {	
 	$('#movieDataSet').hide();
+	$('#modifyBtnForMovieData').text("영상정보 수정");
 	$('#modifyBtnForMovieData').show();
+	
+	$('#modifyBtnForMovieData').click(function(){
+		showMovieDataSet();
+	});
+	
 }
 
 function showMovieDataSet() {		
 	$('#movieDataSet').show();
+	$('#modifyBtnForMovieData').text("영상정보 설정 닫기");
 	$('#modifyBtnForMovieData').hide();
+	
+	$('#modifyBtnForMovieData').click(function(){
+		hideMovieDataSet();
+	});
 }
 
 function btnSetMovie() {
