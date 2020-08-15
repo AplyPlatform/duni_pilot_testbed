@@ -1462,7 +1462,7 @@ function removeTableRow(rowname) {
 }
 
 function btnRemove(name, trname) {
-    var r = confirm("정말로 '" + name + "' 미션을 삭제하시겠습니까?");
+    var r = confirm("정말로 '" + name + "' 비행계획을 삭제하시겠습니까?");
     if (r == false) {
         return;
     }
@@ -1485,14 +1485,14 @@ function monitor(msg) {
 }
 
 function btnRegister() {
-    var mname = prompt("미션의 이름을 입력해 주세요.", "");
+    var mname = prompt("비행계획의 이름을 입력해 주세요.", "");
 
     if (mname == null) {
-        showAlert("미션의 이름을 잘못 입력하셨습니다.");
+        showAlert("비행계획의 이름을 잘못 입력하셨습니다.");
         return;
     }
 
-    var mspeed = prompt("미션 수행시 비행속도를 입력해 주세요.", "");
+    var mspeed = prompt("비행계획 수행시 비행속도를 입력해 주세요.", "");
 
     if (mspeed == null || parseFloat(mspeed) <= 0.0) {
         showAlert("비행속도를 잘못 입력하셨습니다.");
@@ -1538,7 +1538,7 @@ function btnRegister() {
 
     ajaxRequest(jdata, function (r) {
       if(r.result == "success") {
-        showAlert("미션이 등록되었습니다.");
+        showAlert("비행계획이 등록되었습니다.");
       }
       else {
       	showAlert("Error ! - 7");
