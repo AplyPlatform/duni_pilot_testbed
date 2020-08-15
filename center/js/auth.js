@@ -14,9 +14,20 @@ googleApiClientReady = function() {
 }
 
 function tryUpload() {
+	$("#movieButton").click(function() {
+			if (apiIsReady == false) {
+				showAlert("죄송합니다. 일시적인 오류가 발생했습니다. 잠시후 다시 시도해 주세요.");
+			}
+			else {
+				tryAuth();
+			}
+	});
+}
+
+function tryAuth() {
 	gapi.auth.init(function() {
-    window.setTimeout(checkAuth, 1);
-  });
+		    window.setTimeout(checkAuth, 1);
+	});
 }
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
