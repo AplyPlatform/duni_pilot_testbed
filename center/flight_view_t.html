@@ -206,66 +206,70 @@
 						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card shadow py-2">
 	                <div class="card-body h-400">
-	                	<div id="youTubePlayer"></div>	                	
+	                			<div id="youTubePlayer"></div>
+	                	
+	                			<a onClick='showMovieDataSet()' id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
+	                	
+			                	<div id="movieDataSet">
+			               		
+				                	<div>
+										        <img id="channel-thumbnail" width="50">
+										        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
+										      </div>
+										
+										      <div>
+										        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 제목</label>
+										        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
+										      </div>
+										      <div>
+										        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설명</label>
+										        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
+										      </div>
+										      <div>
+										        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 공개수준</label>
+										        <select id="privacy-status" class="form-control">
+										          <option value="public">공개</option>
+										          <option value="unlisted" selected>일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+										          <option value="private">비공개</option>
+										        </select>
+										      </div>
+										
+										      <div class="input-group">
+										        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+										        <span class="input-group-append">
+										        	<button id="movieButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
+										        </span>
+										      </div>
+										      
+										      <div class="during-upload">
+										        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% done (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> bytes)</p>
+										        <progress id="upload-progress" max="1" value="0"></progress>
+										      </div>
+										
+										      <div class="post-upload">										        
+										        <ul id="post-upload-status"></ul>
+										        <div id="player"></div>
+										      </div>
+										      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+										
+			               			
+			                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">업로드 한 유튜브 영상 주소 설정</label>
+			                    <div class="input-group">
+			                          <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
+			                          <span class="input-group-append">
+			                            <button class='btn btn-primary' type='button' onClick='btnSetMovie()'>설정</button>
+			                          </span>
+			                    </div>
+		                    
+			               	</div>
 	                </div>
 	                
-	                <div class="card-body">
-	               		<a onClick='showMovieDataSet()' id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>	               		
-	               		
+	                <div class="card-body">	               			               		
 	               		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1">비행 고도 기록</label>
 										<canvas id="lineGraph" name="lineGraph"></canvas>
 									</div>	
 	                	                
-	               	<div class="card-body" id="movieDataSet">
-	               		
-		                	<div>
-								        <img id="channel-thumbnail" width="50">
-								        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
-								      </div>
-								
-								      <div>
-								        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 제목</label>
-								        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
-								      </div>
-								      <div>
-								        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설명</label>
-								        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
-								      </div>
-								      <div>
-								        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 공개수준</label>
-								        <select id="privacy-status" class="form-control">
-								          <option value="public">공개</option>
-								          <option value="unlisted" selected>일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-								          <option value="private">비공개</option>
-								        </select>
-								      </div>
-								
-								      <div class="input-group">
-								        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
-								        <button id="movieButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
-								      </div>
-								      
-								      <div class="during-upload">
-								        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% done (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> bytes)</p>
-								        <progress id="upload-progress" max="1" value="0"></progress>
-								      </div>
-								
-								      <div class="post-upload">										        
-								        <ul id="post-upload-status"></ul>
-								        <div id="player"></div>
-								      </div>
-								      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
-								
-	               			
-	                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">업로드 한 유튜브 영상 주소 설정</label>
-	                    <div class="input-group">
-	                          <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
-	                          <span class="input-group-append">
-	                            <button class='btn btn-primary' type='button' onClick='btnSetMovie()'>설정</button>
-	                          </span>
-	                    </div>
-                    
-	               	</div>
+	               	
 	               	
 	               									
 	              </div>
