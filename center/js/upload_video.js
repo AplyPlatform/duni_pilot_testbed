@@ -143,8 +143,9 @@ UploadVideo.prototype.uploadFile = function(file) {
     }.bind(this),
     onComplete: function(data) {
       var uploadResponse = JSON.parse(data);
-      this.videoId = uploadResponse.id;            
-      setYoutubePlayerPureID(uploadResponse.id);
+      this.videoId = uploadResponse.id;         
+      saveYoutubeUrl("https://youtube.com/watch?v=" + this.videoId);   
+      setYoutubePlayerPureID(this.videoId);
       hideMovieDataSet();      
       this.pollForVideoStatus();
     }.bind(this)
