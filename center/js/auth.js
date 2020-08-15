@@ -25,7 +25,7 @@ function setUploadBtn() {
 				showAlert("죄송합니다. 일시적인 오류가 발생했습니다. 잠시후 다시 시도해 주세요.");
 			}
 			else {
-				if (authSucceed == true) {
+				if (authSucceed == true) {					
 					var uploadVideo = new UploadVideo();
     			uploadVideo.ready(gapi.auth.getToken().access_token);
 				}
@@ -58,7 +58,7 @@ function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
     // Authorization was successful. Hide authorization prompts and show
     // content that should be visible after authorization succeeds.
-    
+    authSucceed = true;
     var uploadVideo = new UploadVideo();
     uploadVideo.ready(gapi.auth.getToken().access_token);
     
