@@ -1302,6 +1302,7 @@ function appendFlightListTable(item) {
 	var flng = item.flng;
 	var address = item.address;
 	var cada = item.cada;
+	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
@@ -1881,7 +1882,7 @@ function uploadFlightListCallback(mname, base64file) {
       if(r.result == "success") {
         $('#uploadFlightRecBtn').hide(1500);
         $('#djifileform').hide(1500);
-        showAlert("성공적으로 업로드 하였습니다.'비행기록 불러오기 버튼을 클릭해 주세요'");
+        alert("성공적으로 업로드 하였습니다.'비행기록 불러오기' 버튼을 클릭해 주세요");
         location.href = "https://pilot.duni.io/center/flight_view.html";
       }
       else {
