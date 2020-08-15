@@ -81,7 +81,7 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-history"></i>
           <span>비행기록</span>
@@ -90,20 +90,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="flight_list.html">기록 업로드</a>
             <a class="collapse-item" href="flight_view.html">기록 보기</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDromi" aria-expanded="true" aria-controls="collapseDromi">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>드로미</span>
-        </a>
-        <div id="collapseDromi" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="dromi.html">데이터 업로드</a>
-            <a class="collapse-item" href="dromi_list.html">데이터 목록</a>
           </div>
         </div>
       </li>
@@ -147,7 +133,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="sidebar-heading">
-        © 2020 DUNI
+        © 2020 APLY Inc.
       </li>
 
     </ul>
@@ -169,7 +155,7 @@
 
           <!-- Page Heading -->
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h1 class="h5 mb-0 text-gray-800">드로미 데이터 목록</h1>
+            <h1 class="h5 mb-0 text-gray-800">비행기록 보기</h1>
           </div>
 
 
@@ -216,26 +202,64 @@
 
           <!-- Content Row -->
 
-          <div class="row">
-
-             <div class="col-xl-6 col-md-6 mb-4">
+          <div class="row" id="historyPanel">
+						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card shadow py-2">
-	                <div class="card-body">
-	                	<div id="youTubePlayer" style="height:400px;"></div>
+	                <div class="card-body h-400">
+	                	<div id="youTubePlayer"></div>
 	                	<video id="googlePhotoPlayer" controls class="panel-body" crossOrigin="use-credentials" width=100% style="height:400px;"></video>
+	                </div>
+	                
+	                <div class="card-body h-400" id="uploadVideo">
+				                	<div>
+										        <img id="channel-thumbnail">
+										        <span id="channel-name"></span>
+										      </div>
+										
+										      <div>
+										        <label for="title">영상 제목</label>
+										        <input id="movieTitle" type="text" value="비행기록 1">
+										      </div>
+										      <div>
+										        <label for="description">영상 설명</label>
+										        <textarea id="movieDescription">비행기록 1</textarea>
+										      </div>
+										      <div>
+										        <label for="privacy-status">영상 공개수준</label>
+										        <select id="privacy-status">
+										          <option>공개</option>
+										          <option>일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+										          <option>비공개</option>
+										        </select>
+										      </div>
+										
+										      <div>
+										        <input input type="file" id="file" class="button" accept="video/*">
+										        <button id="button">Upload Video</button>
+										      <div class="during-upload">
+										        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+										        <progress id="upload-progress" max="1" value="0"></progress>
+										      </div>
+										
+										      <div class="post-upload">
+										        <p>Uploaded video with id <span id="video-id"></span>. Polling for status...</p>
+										        <ul id="post-upload-status"></ul>
+										        <div id="player"></div>
+										      </div>
+										      <p id="disclaimer">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
 	                </div>
 
 	               	<div class="card-body">
 	               		<div id="movieDataSet">
-                    <label for="movieData">영상 설정</label>
+                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설정</label>
                     <div class="input-group">
                           <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
-                          <span class="input-group-btn">
-                            <button class='btn btn-primary' type='button' onClick='btnSetMovie()'>반영</button>
+                          <span class="input-group-append">
+                            <button class='btn btn-primary' type='button' onClick='btnSetMovie()'>설정</button>
                           </span>
                     </div>
                     </div>
-                    <a onClick='showMovieDataSet()' id="modifyBtnForMovieData">영상정보 수정</a>
+                    <a onClick='showMovieDataSet()' id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
 	               	</div>
 
 									<div class="card-body">
@@ -245,75 +269,74 @@
 	              </div>
              </div>
 
-             <div class="col-lg-6 mb-4">
-	              <div class="card shadow mb-4">
-	              				<div class="card-body h-400">
-								                <div id="map" class="map"></div>
-												</div>
-												<div class="card-body">
-													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
-													<p></p>
-			                  	<div class="form-group">
-			                  			<label for="layer-select">지도 종류</label>
-			                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																			       <option value="Aerial">Aerial</option>
-																			       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																			       <option value="Road">Road</option>
-														</select>
-													</div>
-												</div>
-
-				              	<div class="card-body">
-				                	<div class="input-group">
-				                		<span class="input-group-append">바로가기</span>
-													  <input type="text" value="0" id="goItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
-													  <span class="input-group-append">
-													  		<button class="btn btn-primary" type="button" id="goItemBtn">Go!</button>
-													  </span>
-													</div>
-												</div>
-
-												<div class="card-body">
-													<table width="100%" class="table table-condensed">
-		                                <thead>
-		                                    <tr>
-		                                        <th><h5>Roll</h5> <span id="rollText"></span></th>
-		                                        <th><h5>Yaw</h5> <span id="yawText"></span></th>
-		                                        <th><h5>Pitch</h5> <span id="pitchText"></span></th>
-		                                    </tr>
-		                                </thead>
-		                                <tbody>
-		                                		<tr>
-		                                			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
-		                                			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
-		                                			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
-		                                		</tr>
-		                                </tbody>
-													</table>
-												</div>
-
-												<div class="card-body">
-															<span id="position_info"> ... </span>
-				                      <span id="monitor"></span>
-												</div>
-				        </div>
-			      </div>
-					</div>
-					<div class="row">
-            <!-- List -->
-            <div class="col-lg-6 mb-4" id="chartView">
+             <!-- List -->
+            <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
-			              	<div class="card-body">
-			              		<canvas id="chartArea"></canvas>
-			              	</div>
+              				<div class="card-body h-400">
+							            <div id="map" class="map"></div>							                
+											</div>											
+											<div class="card-body">
+													<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>													
+													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>																                  	
+											</div>
+											<div class="card-body">												
+													<div class="row no-gutters align-items-center">													
+															<div class="col mr-2">													
+					                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
+					                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+					                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																						       <option value="Aerial">Aerial</option>
+																						       <option value="AerialWithLabels" selected>Aerial with labels</option>
+																						       <option value="Road">Road</option>
+																		</select>
+																</div>
+					                    </div>
+					                    <div class="col mr-2">
+					                      <table width="100%" class="table table-condensed">
+				                                <thead>
+				                                    <tr>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Yaw <span id="yawText"></span></th>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
+				                                    </tr>
+				                                </thead>
+				                                <tbody>
+				                                		<tr>
+				                                			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
+				                                			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
+				                                			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
+				                                		</tr>	                                		
+				                                </tbody>
+																	</table>
+					                    </div>
+					                </div>					              		                    																											
+											</div>
+											
+											<div class="card-body">
+												<form>
+              							<div class='form-group'>
+              								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모 입력</label>
+              								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
+              								<br>
+              								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
+              							</div>
+												</form>	
+											</div>
+
+											<div class="card-body">
+														<span id="position_info"> ... </span>
+			                      <span id="monitor"></span>
+											</div>
 			        </div>
 			      </div>
+					</div>
 
-			      <!-- List -->
+					<div class="row" id="historyList">
+            <!-- List -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
 			              	<div class="card-body">
-							                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable-lists">
+							                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable-Flight_list">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -327,12 +350,29 @@
                                 </table>
 											</div>
 											<div class="card-body">
-			                  	<button id="getListBtn" class="btn btn-primary" type="button" onClick="getDromiList()">
-                                          데이터 목록 불러오기
+			                  	<button id="getFlightListBtn" class="btn btn-primary" type="button" onClick="getFlightList()">
+                                          비행기록 불러오기
 													</button>
 											</div>
               </div>
             </div>
+
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+			              	<div class="card-body"  id="historyMap" style="height:400px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- List -->
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+			              	<div class="card-body">
+			              		<canvas id="chartArea"></canvas>
+			              	</div>
+			        </div>
+			      </div>
 			    </div>
 
         </div>
@@ -361,7 +401,7 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
+  
 	<!-- Logout Modal-->
   <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -376,7 +416,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/jquery/jquery-ui.min.js"></script>
@@ -389,7 +429,12 @@
   <script src="js/sb-admin-2.min.js"></script>
   <script src="./vendor/chart.js/Chart.min.js"></script>
   <script src="js/ol.js"></script>
-  <script id="page_data" page_action="dromi_list" src="./js/center.js"></script>
+  <script id="page_data" page_action="flight_view" src="./js/center.js"></script>
+  <script src="//apis.google.com/js/client:plusone.js"></script>    
+  <script src="./js/cors_upload.js"></script>
+  <script src="./js/upload_video.js"></script>
+  <script src="./js/auth.js"></script>  
+  <script type="text/javascript" src="//apis.google.com/js/client.js?onload=googleApiClientReady&key=AIzaSyC-uQDFbSHy6c0pDsBIwNUUgR7UrrPz1K0"></script>
 </body>
 
 </html>
