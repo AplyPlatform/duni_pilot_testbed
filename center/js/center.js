@@ -1308,7 +1308,7 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-decoration-none' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='badge badge-primary text-wrap' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a>";
   }
     
   appendRow = appendRow + "<br><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
