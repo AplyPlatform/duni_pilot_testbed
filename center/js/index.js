@@ -1,3 +1,16 @@
+function GATAGM(label, category, language) {
+  gtag(
+      'event', label + "_" + language, {
+        'event_category' : category,
+        'event_label' : label
+      }
+    );
+
+  mixpanel.track(
+    label + "_" + language,
+    {"event_category": category, "event_label": label}
+  );
+}
 
 function showLoader() {
   $("#loading").show();

@@ -32,6 +32,11 @@
 	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/ol.css" rel="stylesheet">
+	<script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
+0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".split(" ");e.get_group=function(){function a(c){b[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));e.push([d,call2])}}for(var b={},d=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<f.length;c++)a(f[c]);return b};a._i.push([b,d,g])};a.__SV=1.2;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
+mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
 </head>
 
 <body id="page-top">
@@ -57,7 +62,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="center.html">
+        <a onclick="GATAGM('Dashboard', 'MEMU', 'KR');" class="nav-link" href="center.html">
           <i class="fas fa-fw fa-globe"></i>
           <span>Dashboard</span></a>
       </li>
@@ -67,58 +72,58 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a onclick="GATAGM('FlightPlanDesign', 'MEMU', 'KR');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-map-marked-alt"></i>
           <span>비행계획</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          	<a class="collapse-item" href="design.html">계획 설계</a>
-            <a class="collapse-item" href="list.html">계획 목록</a>
-            <a class="collapse-item" href="monitor.html">계획 모니터링</a>
+          	<a onclick="GATAGM('design', 'MEMU', 'KR');" class="collapse-item" href="design.html">계획 설계</a>
+            <a onclick="GATAGM('design_list', 'MEMU', 'KR');" class="collapse-item" href="list.html">계획 목록</a>
+            <a onclick="GATAGM('design_monitor', 'MEMU', 'KR');" class="collapse-item" href="monitor.html">계획 모니터링</a>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a onclick="GATAGM('FlightRecord', 'MEMU', 'KR');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-history"></i>
           <span>비행기록</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="flight_list.html">기록 업로드</a>
-            <a class="collapse-item" href="flight_view.html">기록 보기</a>
+            <a onclick="GATAGM('record_upload', 'MEMU', 'KR');" class="collapse-item" href="flight_list.html">기록 업로드</a>
+            <a onclick="GATAGM('record_view', 'MEMU', 'KR');" class="collapse-item" href="flight_view.html">기록 보기</a>
           </div>
         </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item">
-        <a class="nav-link" href="qa.html">
-          <i class="fas fa-fw fa-globe"></i>
-          <span>문의하기</span></a>
       </li>
 
 			<!-- Divider -->
       <hr class="sidebar-divider">
 
+			<!-- Nav Item - Utilities Collapse Menu -->
+			<li class="nav-item">
+        <a onclick="GATAGM('qa', 'MEMU', 'KR');" class="nav-link" href="qa.html">
+          <i class="fas fa-fw fa-globe"></i>
+          <span>문의하기</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
+        <a onclick="GATAGM('links', 'MEMU', 'KR');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
           <i class="fas fa-fw fa-satellite"></i>
           <span>관련사이트</span>
         </a>
         <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="https://www.facebook.com/groups/dunipilot">커뮤니티</a>
-            <a class="collapse-item" href="https://blog.duni.io">블로그</a>
-            <a class="collapse-item" href="https://developer.duni.io/apis/index.html">Open APIs</a>
-            <a class="collapse-item" href="https://developer.duni.io">개발자 페이지</a>
+            <a onclick="GATAGM('community', 'MEMU', 'KR');" class="collapse-item" href="https://www.facebook.com/groups/dunipilot">커뮤니티</a>
+            <a onclick="GATAGM('blog', 'MEMU', 'KR');" class="collapse-item" href="https://blog.duni.io">블로그</a>
+            <a onclick="GATAGM('openapi', 'MEMU', 'KR');" class="collapse-item" href="https://developer.duni.io/apis/index.html">Open APIs</a>
+            <a onclick="GATAGM('developer', 'MEMU', 'KR');" class="collapse-item" href="https://developer.duni.io">개발자 페이지</a>
           </div>
         </div>
       </li>
@@ -128,7 +133,7 @@
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <button class="rounded-circle border-0" id="sidebarToggle" onclick="GATAGM('sideBarToggle', 'MEMU', 'KR');"></button>
       </div>
 
       <!-- Nav Item - Tables -->
@@ -149,15 +154,14 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3" onclick="GATAGM('topBarToggle', 'MEMU', 'KR');">
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Page Heading -->
+					<!-- Page Heading -->
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <h1 class="h5 mb-0 text-gray-800">비행기록 보기</h1>
           </div>
-
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -166,21 +170,21 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a onclick="GATAGM('userinfo', 'MEMU', 'KR');" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a onclick="GATAGM('email', 'MEMU', 'KR');" class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   <span id=email_field></span>
                 </a>
-                <a class="dropdown-item" href="#">
+                <a onclick="GATAGM('token', 'MEMU', 'KR');" class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Token <input name="droneplaytoken_view" id="droneplaytoken_view" type="text" class="form-control bg-light border-0 small" value="">
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:logOut();">
+                <a onclick="GATAGM('logout', 'MEMU', 'KR');" class="dropdown-item" href="javascript:logOut();">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -257,7 +261,7 @@
 			                    <div class="input-group">
 			                          <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
 			                          <span class="input-group-append">
-			                            <button class='btn btn-primary' type='button' onClick='btnSetMovie()'>반영</button>
+			                            <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
 			                          </span>
 			                    </div>
 		                    
@@ -354,7 +358,7 @@
                                 </table>
 											</div>
 											<div class="card-body">
-			                  	<button id="getFlightListBtn" class="btn btn-primary" type="button" onClick="getFlightList()">
+			                  	<button class="btn btn-primary" type="button" id="btnForLoadFlightList">
                                           비행기록 불러오기
 													</button>
 											</div>

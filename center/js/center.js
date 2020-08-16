@@ -81,7 +81,8 @@ function centerInit() {
     designInit();
   }
   else if (page_action == "list") {
-		hideLoader();
+		showLoader();
+		missionListInit();
   }
   else if (page_action == "monitor") {
   	hideLoader();
@@ -112,12 +113,31 @@ function showAlert(msg) {
 	$('#errorModal').modal('show');  	
 }
 
+function missionListInit() {
+		
+	$('#btnForGetMissionList').click(function() {    	
+		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
+		getMissionList();
+	});
+	
+	hideLoader();	
+}
 
 function flightViewInit() {
     $('#historyPanel').hide();
     $('#historyList').show();
-    $('#historyMap').hide();    
-
+    $('#historyMap').hide();
+    
+    $('#btnForSetYoutubeID').click(function() {    	
+    	GATAGM('btnForSetYoutubeID', 'CONTENT', 'KR');    	
+    	setYoutubeID();
+    });
+    
+    $('#btnForLoadFlightList').click(function() {    	
+    	GATAGM('btnForLoadFlightList', 'CONTENT', 'KR');    	
+    	getFlightList();
+    });
+    
     var record_name = location.search.split('record_name=')[1];
     if (record_name != null && record_name != "") {
       showDataWithName(decodeURI(record_name));
@@ -185,9 +205,14 @@ function monitorInit() {
   var url_string = window.location.href;
 	var page_id = location.search.split('mission_name=')[1];
 	if (isSet(page_id))
-		page_id = page_id.split('&')[0];
+		page_id = page_id.split('&')[0];			
 
   getMissionToMonitor(page_id);
+	
+	$("#startMonBtn").click(function() {
+		GATAGM('startMonBtn', 'CONTENT', 'KR');
+		startMon();
+	});	
 
   hideLoader();
 }
@@ -197,6 +222,8 @@ function designInit() {
 	initSliderForDesign(1);
 
  	map.on('click', function (evt) {
+ 			GATAGM('DESIGN_MAP', 'CONTENT', 'KR');
+ 			
       var feature = map.forEachFeatureAtPixel(evt.pixel,
           function (feature) {
               return feature;
@@ -244,8 +271,27 @@ function designInit() {
 
 	$('#saveItemBtn').off('click');
 	$('#saveItemBtn').click(function(){
+		GATAGM('saveItemBtn', 'CONTENT', 'KR');
 		saveFlightData(0);
 	});
+	
+	$('#btnForRegistMission').off('click');
+	$('#btnForRegistMission').click(function(){
+		GATAGM('btnForRegistMission', 'CONTENT', 'KR');
+		registMission();
+	});		
+	
+	$('#btnForClearMission').off('click');
+	$('#btnForClearMission').click(function(){
+		GATAGM('btnForClearMission', 'CONTENT', 'KR');
+		clearCurrentDesign();
+	});				
+	
+	$('#btnForSearchAddress').off('click');
+	$('#btnForSearchAddress').click(function(){
+		GATAGM('btnForSearchAddress', 'CONTENT', 'KR');
+		searchCurrentBrowserAddress();
+	});				
 }
 
 
@@ -262,6 +308,9 @@ function drawLineGraph() {
       	]};
 
   document.getElementById("lineGraph").onclick = function(evt){
+  	
+  	GATAGM('LINEGRAPH', 'CONTENT', 'KR');
+  	
     var activePoints = window.myLine.getElementsAtEvent(evt);
 
     if (activePoints.length > 0) {
@@ -432,7 +481,10 @@ function initSliderForDesign(i) {
 					max : i - 1,
 					value : 0,
 					step : 1,
-					slide : function( event, ui ){						
+					slide : function( event, ui ){
+						
+						GATAGM('slider', 'CONTENT', 'KR');
+						
             if (flightRecDataArray.length <= 0) {
 							return;
 						}
@@ -446,6 +498,9 @@ function initSliderForDesign(i) {
 	});
 
 	$('#goItemBtn').click(function() {
+		
+			GATAGM('goItemBtn', 'CONTENT', 'KR');
+			
 			var index = $('#goItemIndex').val();
 			if (!isSet(index) || $.isNumeric( index ) == false) {
 				showAlert("Please input valid value !");
@@ -631,6 +686,13 @@ function appendNewRecord(lonLat) {
 
 
 function flightListInit() {
+	
+	
+	$('#btnForUploadFlightList').click(function() {    	
+    	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
+    	uploadFlightList();
+  });
+	
 	hideLoader();
 }
 
@@ -687,7 +749,7 @@ function isSet(value) {
 }
 
 
-function getList() {
+function getMissionList() {
     var userid = getCookie("dev_user_id");
     var jdata = {"action" : "mission", "daction" : "get", "clientid" : userid};
 		
@@ -700,11 +762,11 @@ function getList() {
         appendMissionList(r.data);
         
         if (r.morekey) {
-        	$('#getListBtn').text("더 불러오기");
+        	$('#btnForGetMissionList').text("더 불러오기");
         	hasMore = r.morekey;
         }
         else {
-        	$('#getListBtn').hide(1500);
+        	$('#btnForGetMissionList').hide(1500);
         	hasMore = null;
         }
       }
@@ -831,12 +893,14 @@ function setDataToDesignTableWithFlightRecord(index) {
 
 	$('#removeItemBtn').off('click');
 	$('#removeItemBtn').click(function(){		
+		GATAGM('removeItemBtn', 'CONTENT', 'KR');
 		removeFlightData(index);		
 		removeIconOnMap(index);
 	});
 
 	$('#saveItemBtn').off('click');
 	$('#saveItemBtn').click(function(){
+		GATAGM('saveItemBtn', 'CONTENT', 'KR');
 		saveFlightData(index);
 	});
 }
@@ -901,16 +965,21 @@ function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
-        var appendRow = "<tr class='odd gradeX' id='row_" + index + "'><td class='center'>"
+        var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
         + "<a href='./monitor.html?mission_name=" + item['name'] + "'>"
         + item['name']
         + "</a></td><td class='center'> - </td><td class='center'>"
         + item['regtime']
         + "</td><td class='center'>"
         + "<a class='btn btn-warning' href='design.html?mission_name=" + item['name'] + "' role='button'>수정</a>&nbsp;"        
-        + "<button class='btn btn-primary' type='button' onClick='btnRemove(\"" + item['name']+ "\", \"row_" + index + "\")'>"
+        + "<button class='btn btn-primary' type='button' id='missionListBtnForRemove_" + index + "'>"
         + "삭제</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
+        
+        $('#missionListBtnForRemove_' + index).click(function() {
+        	GATAGM('missionListBtnForRemove_' + index, 'CONTENT', 'KR');
+        	removeMissionItem(item['name'], "mission_row_" + index);
+        });
     });
 }
 
@@ -930,7 +999,7 @@ function ajaxRequestAddress(address, callback, errorcallback) {
     });
 }
 
-function btnSearch() {
+function searchCurrentBrowserAddress() {
     var query = $('#queryData').val();
     searchAddressToCoordinate(query);
 }
@@ -949,7 +1018,7 @@ function searchAddressToCoordinate(address) {
 
 var tableCount = 0;
 
-function btnClear() {
+function clearCurrentDesign() {
     var r = confirm("Are you sure ?");
     if (r == false) {
         return;
@@ -985,11 +1054,11 @@ function getFlightList() {
       
       if (r.morekey) {
       	hasMore = r.morekey;
-      	$('#getFlightListBtn').text("더 불러오기");
+      	$('#btnForLoadFlightList').text("더 불러오기");
       }
       else {
       	hasMore = null;
-      	$('#getFlightListBtn').hide(1500);
+      	$('#btnForLoadFlightList').hide(1500);
       }
 			
 			$('#historyMap').show();
@@ -1062,6 +1131,7 @@ function showDataWithName(name) {
     	}
     	
     	$("#flightMemoBtn").click(function() {
+    			GATAGM('flightMemoBtn', 'CONTENT', 'KR');
     			updateFlightMemoWithValue(name, $("#memoTextarea").val());
     	});    		
 
@@ -1162,6 +1232,7 @@ function showData(index) {
 	    	}
 	    	
 	    	$("#flightMemoBtn").click(function() {
+	    			GATAGM('flightMemoBtn', 'CONTENT', 'KR');
 	    			updateFlightMemoWithValue(r.data.name, $("#memoTextarea").val());
 	    	});
 
@@ -1374,7 +1445,7 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='badge badge-primary text-wrap' id='map_address_" + tableCount + "' onClick='moveFlightHistoryMap(" + flat + ", " + flng + " );'></a>";
+  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='badge badge-primary text-wrap' id='map_address_" + tableCount + "'></a>";
   }
     
   appendRow = appendRow + "<br><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
@@ -1383,18 +1454,30 @@ function appendFlightListTable(item) {
   	 appendRow = appendRow + memo;
   }
   
-  appendRow = appendRow + "</textarea>";
-  
-  
-  appendRow = appendRow + "<button class='btn btn-primary' type='button' onClick='updateFlightMemo(" + tableCount + ");'>메모수정</button></div></form></td>";
-
+  appendRow = appendRow + "</textarea>";  
+  appendRow = appendRow + "<button class='btn btn-primary' type='button' id='btnForUpdateMemo_" + tableCount + "'>메모수정</button></div></form></td>";
   appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
       // + "<a href='design.html?record_name=" + name + "'>수정</a> "
-      + "<button class='btn btn-primary' type='button' onClick='deleteFlightData(" + tableCount + ");'>삭제</button></td>"
+      + "<button class='btn btn-primary' type='button' id='btnForRemoveFlightData_" + tableCount + "'>삭제</button></td>"
       + "</tr>";
 
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
+  
+  $('#map_address_' + tableCount).click(function () {
+  	GATAGM('map_address_' + tableCount, 'CONTENT', 'KR');
+  	moveFlightHistoryMap(flat,flng);
+  });
+  
+  $('#btnForRemoveFlightData_' + tableCount).click(function () {
+  	GATAGM('btnForRemoveFlightData_' + tableCount, 'CONTENT', 'KR');
+  	deleteFlightData(tableCount);
+  });
+  
+  $('#btnForUpdateMemo_' + tableCount).click(function () {
+  	GATAGM('btnForUpdateMemo_' + tableCount, 'CONTENT', 'KR');
+  	updateFlightMemo(tableCount);
+  });
 
 	var retSource;
 	if (isSet(flat)) {
@@ -1510,7 +1593,7 @@ function removeTableRow(rowname) {
   $("#" + rowname).remove();
 }
 
-function btnRemove(name, trname) {
+function removeMissionItem(name, trname) {
     var r = confirm("정말로 '" + name + "' 비행계획을 삭제하시겠습니까?");
     if (r == false) {
         return;
@@ -1533,7 +1616,7 @@ function monitor(msg) {
   var info = $('#monitor').html("<font color=red><b>" + msg + "</b></font>");
 }
 
-function btnRegister() {
+function registMission() {
     var mname = prompt("비행계획의 이름을 입력해 주세요.", "");
 
     if (mname == null) {
@@ -1598,6 +1681,8 @@ function btnRegister() {
 
 function setUploadData() {
       $("#uploadBtn").click(function() {
+      		GATAGM('uploadBtn', 'CONTENT', 'KR');
+      		
           if (cur_flightrecord_name == "") {
             var mname = prompt("데이터셋의 이름을 입력해 주세요.", "");
 
@@ -1661,10 +1746,12 @@ function drawLineToMap() {
 	map.addLayer(lineLayer);
 }
 
-function drawPosIcon() {
+function drawPosIcons() {
 	if (posIcons.length <= 0) return;
 
   map.on('click', function (evt) {
+  		GATAGM('map', 'CONTENT', 'KR');
+  		
       var feature = map.forEachFeatureAtPixel(evt.pixel,
           function (feature) {
               return feature;
@@ -1722,6 +1809,8 @@ function drawScatterGraph() {
   ]};
   
   document.getElementById("chartArea").onclick = function(evt){
+  	GATAGM('chartArea', 'CONTENT', 'KR');
+  	
     var activePoints = window.myScatter.getElementsAtEvent(evt);
         
     if (activePoints.length > 0) {
@@ -1797,7 +1886,7 @@ function setChartData(cdata) {
 
 			drawLineToMap();
 
-      drawPosIcon();
+      drawPosIcons();
 
 			drawLineGraph();
 
@@ -2521,9 +2610,15 @@ function appendFlightRecordListTableForDromi(name, dtimestamp, data) {
       + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForDromi(" + tableCount + ");'>"
       + name + "</a></td><td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
-      + "<button class='btn btn-primary' type='button' onClick='deleteDromiData(" + tableCount + ");'>삭제</button></td>"
+      + "<button class='btn btn-primary' type='button' id='btnForDeleteDromiData_" + tableCount + "'>삭제</button></td>"
       + "</tr>";
   $('#dataTable-lists > tbody:last').append(appendRow);
+  
+  $('#btnForDeleteDromiData_' + tableCount).click(function() {
+  	GATAGM('btnForDeleteDromiData_' + tableCount, 'CONTENT', 'KR');
+  	deleteDromiData(tableCount);
+  });
+  
   tableCount++;
 }
 
@@ -2572,7 +2667,9 @@ function hideMovieDataSet() {
 	$('#movieDataSet').hide();
 	$('#modifyBtnForMovieData').text("영상정보 수정");	
 	
+	$('#modifyBtnForMovieData').off('click');
 	$('#modifyBtnForMovieData').click(function(){
+		GATAGM('modifyBtnForMovieData_show', 'CONTENT', 'KR');
 		showMovieDataSet();
 	});
 	
@@ -2582,12 +2679,14 @@ function showMovieDataSet() {
 	$('#movieDataSet').show();
 	$('#modifyBtnForMovieData').text("영상정보 설정 닫기");	
 	
+	$('#modifyBtnForMovieData').off('click');
 	$('#modifyBtnForMovieData').click(function(){
+		GATAGM('modifyBtnForMovieData_hide', 'CONTENT', 'KR');
 		hideMovieDataSet();
 	});
 }
 
-function btnSetMovie() {
+function setYoutubeID() {
 	var data_id = $('#movieData').val();
 	if (data_id == "") {
 		showAlert("Invalid URL");
@@ -2824,9 +2923,15 @@ function appendFlightListTableForDromi(name, dtimestamp, data) {
       + "<td class='center' bgcolor='#eee'><a href='javascript:uploadFromSetForDromi(" + tableCount + ");'>"
       + name + "</a></td><td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
-      + "<button class='btn btn-primary' type='button' onClick='deleteFlightDataForDromis(" + tableCount + ");'>삭제</button></td>"
+      + "<button class='btn btn-primary' type='button' id='btnForDeleteFlightDataForDromi_" + tableCount + "'>삭제</button></td>"
       + "</tr>";
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
+  
+  $('#btnForDeleteFlightDataForDromi_' + tableCount).click(function () {
+  	GATAGM('btnForDeleteFlightDataForDromi_' + tableCount, 'CONTENT', 'KR');
+  	deleteFlightDataForDromis(tableCount);
+  });
+        
   tableCount++;
 }
 
@@ -3030,4 +3135,18 @@ function addChartItem(i, item) {
 
     lineGraphData.push({x: i, y: item.alt});
 	}
+}
+
+function GATAGM(label, category, language) {
+  gtag(
+      'event', label + "_" + language, {
+        'event_category' : category,
+        'event_label' : label
+      }
+    );
+
+  mixpanel.track(
+    label + "_" + language,
+    {"event_category": category, "event_label": label}
+  );
 }
