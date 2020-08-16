@@ -52,6 +52,7 @@ var moviePlayerVisible = false;
 $(function() {
 
   centerInit();
+  mixpanel.identify(getCookie("dev_user_id"));
 
 });
 

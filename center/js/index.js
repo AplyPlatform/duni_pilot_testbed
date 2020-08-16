@@ -52,7 +52,7 @@ function onNaver() {
   formSubmit("naver");
 }
 
-function checkLoginStatus() {
+function checkLoginStatus() {	
   var url_string = window.location.href;
   var isFromApp = location.search.split('fromapp=')[1];
   if (isFromApp != null) {
