@@ -58,16 +58,16 @@ $(function() {
 
 
 function centerInit() {
+	if (askToken() == false) {
+    location.href="index.html";
+    return;
+  }
+  
 	bMonStarted = false;
 	flightRecArray = [];
 	flightRecDataArray = [];
   mapInit();
-
-  if (askToken() == false) {
-    location.href="index.html";
-    return;
-  }
-
+  
   var page_data = document.getElementById("page_data");
 	var page_action = page_data.getAttribute("page_action");
 
@@ -696,6 +696,12 @@ function flightListInit() {
     	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
     	uploadFlightList();
   });
+  
+  $('#btnForUploadDUNIFlightList').click(function() {    	
+    	GATAGM('btnForUploadDUNIFlightList', 'CONTENT', 'KR');    	
+    	uploadDUNIFlightList();
+  });
+    
 	
 	hideLoader();
 }
@@ -740,7 +746,7 @@ function askToken() {
     return false;
 
   $("#email_field").text(useremail);
-  $('#droneplaytoken_view').val(usertoken);
+  $("#droneplaytoken_view").val(usertoken);
 
   return true;
 }
@@ -2362,6 +2368,25 @@ function nexttour(r) {
   }, 2500);
 }
 
+function uploadDUNIFlightList() {
+	var files = document.getElementById('dunufile').files;
+  if (files.length > 0) {
+  	var mname = prompt("DUNI 비행기록의 이름을 입력해 주세요.", "");
+
+	  if (!isSet(mname)) {
+	      showAlert("잘못 입력하셨습니다.");
+	      return;
+	  }	  	  
+
+	  showLoader();
+    getBase64(files[0], mname, uploadDUNIFlightListCallback);
+  }
+  else {
+  	showAlert("Please, select any file, first !");
+  	return;
+  }
+}
+
 
 function uploadFlightList() {
 	var files = document.getElementById('file').files;
@@ -2394,6 +2419,27 @@ function getBase64(file, mname, callback) {
    };
 }
 
+function uploadDUNIFlightListCallback(mname, base64file) {
+		var userid = getCookie("dev_user_id");
+    var jdata = {"action" : "position", "daction" : "duni_file_upload", "clientid" : userid, "name" : mname, "recordfile" : base64file};
+
+    ajaxRequest(jdata, function (r) {
+    	hideLoader();
+
+      if(r.result == "success") {
+        $('#btnForUploadDUNIFlightList').hide(1500);
+        $('#dunifileform').hide(1500);
+        alert("성공적으로 업로드 하였습니다. '비행기록 불러오기' 버튼을 클릭해 주세요");
+        location.href = "https://pilot.duni.io/center/flight_view.html";
+      }
+      else {
+      	showAlert("Error ! : (" + r.reason + ")");
+      }
+    }, function(request,status,error) {
+    	hideLoader();
+      monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    });
+}
 
 function uploadFlightListCallback(mname, base64file) {
 		var userid = getCookie("dev_user_id");
@@ -2403,7 +2449,7 @@ function uploadFlightListCallback(mname, base64file) {
     	hideLoader();
 
       if(r.result == "success") {
-        $('#uploadFlightRecBtn').hide(1500);
+        $('#btnForUploadFlightList').hide(1500);
         $('#djifileform').hide(1500);
         alert("성공적으로 업로드 하였습니다. '비행기록 불러오기' 버튼을 클릭해 주세요");
         location.href = "https://pilot.duni.io/center/flight_view.html";

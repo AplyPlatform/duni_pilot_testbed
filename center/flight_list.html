@@ -204,6 +204,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           <div class="row">
 						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card border-left-primary shadow py-2">
+	              	<div class="card-header py-3">
+                  	<h6 class="m-0 font-weight-bold text-primary">DJI 비행기록 파일 업로드</h6>
+                	</div>
 	                <div class="card-body">
 
 	                    <div class="col-auto">
@@ -212,8 +215,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 												    <input type="file" class="form-control-file form-control bg-light border-0 small" id="file">
 												    <input type="hidden" name="name" id="djifname">
 												    <span class="input-group-append">
-													    <button id="uploadFlightRecBtn" class="btn btn-primary" type="button" id="btnForUploadFlightList">
-	                                          DJI 비행기록 파일 업로드
+													    <button class="btn btn-primary" type="button" id="btnForUploadFlightList">
+	                                          업로드
 	                        		</button>
 	                        	</span>
 												  </div>
@@ -240,6 +243,91 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	                </div>
 	              </div>
              </div>
+
+						
+						 <div class="col-xl-6 col-md-6 mb-4">
+	              <div class="card border-left-primary shadow py-2">
+	              	<div class="card-header py-3">
+                  	<h6 class="m-0 font-weight-bold text-primary">DUNI 비행기록 파일 업로드</h6>
+                	</div>
+	                <div class="card-body">
+
+	                    <div class="col-auto">
+                      	<form enctype="multipart/form-data" method="post" id="dunifileform">
+                      		<div class="input-group">
+												    <input type="file" class="form-control-file form-control bg-light border-0 small" id="dunufile">
+												    <input type="hidden" name="name" id="dunifname">
+												    <span class="input-group-append">
+													    <button class="btn btn-primary" type="button" id="btnForUploadDUNIFlightList">
+	                                          업로드
+	                        		</button>
+	                        	</span>
+												  </div>
+												</form>
+	                    </div>
+
+	                </div>
+	                <div class="card-body">
+	                		<a class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">
+																												    비행기록 파일 포맷 (클릭)
+											</a>
+
+											<div class="collapse" id="collapseDUNIRecordFileParams">
+												<br>
+												<hr size=1>
+<pre>
+[
+	{
+		"lat" : 123.123, // Latitude
+		"lng" : 37.11, // Longitude
+		"alt" : 5.52, // Altitude
+		"dsec" : 0, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+		"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"speed" : 2.1, // Speed (Optional)
+		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
+		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
+		"dtimestamp" : 1569903583000, // timestamp (Optional)
+		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+	},
+	
+	{
+		"lat" : 123.123, // Latitude
+		"lng" : 37.11, // Longitude
+		"alt" : 5.52, // Altitude
+		"dsec" : 10, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+		"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"speed" : 2.1, // Speed (Optional)
+		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
+		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
+		"dtimestamp" : 1569903593000, // timestamp (Optional)
+		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+	},
+	
+	{
+		"lat" : 123.123, // Latitude
+		"lng" : 37.11, // Longitude
+		"alt" : 5.52, // Altitude
+		"dsec" : 20, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+		"pitch" : -0, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"speed" : 2.1, // Speed (Optional)
+		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
+		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
+		"dtimestamp" : 1569903703000, // timestamp (Optional)
+		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+	}
+]
+</pre>												
+											</div>
+	                </div>
+	              </div>
+             </div>             
+             
 					</div>					
 
         </div>
@@ -296,7 +384,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   <script src="js/sb-admin-2.min.js"></script>
   <script src="./vendor/chart.js/Chart.min.js"></script>
   <script src="js/ol.js"></script>
-  <script id="page_data" page_action="flightlist" src="./js/center.js"></script>
+  <script id="page_data" page_action="flightlist" src="./js/center.js"></script>  
 </body>
 
 </html>
