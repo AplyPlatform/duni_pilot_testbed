@@ -7,6 +7,7 @@ $(function() {
 });
 
 function onAgree() {
+			GATAGM('AgreeBtnClickOnRegister', 'CONTENT', 'KR'); 
       showLoader();      
       $("#show_2").show();
       $("#show_1").hide();
@@ -14,6 +15,7 @@ function onAgree() {
 }
 
 function goHome() {
+			GATAGM('BackBtnClickOnRegister', 'CONTENT', 'KR'); 
       location.href="index.html?fromapp=" + getCookie("isFromApp");
 }
 
@@ -36,8 +38,10 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
-function requestRegister() {
+function requestRegister() {		
     showLoader();
+    
+    GATAGM('RegisterBtnClickOnRegister', 'CONTENT', 'KR');
 
     grecaptcha.ready(function() {
       grecaptcha.execute('6LehUpwUAAAAAKTVpbrZ2ciN3_opkJaKOKK11qY6', {action: 'action_name'})
@@ -49,16 +53,19 @@ function requestRegister() {
               var droneplay_phonenumber = $('#droneplay_phonenumber').val();                            
 
               if (droneplay_name == null || droneplay_name == "") {
+              	GATAGM('NameIsEmptyOnRegister', 'CONTENT', 'KR');
                 showAlert("이름을 입력해 주세요");
                 return;
               }              
               
               if (droneplay_email == null || droneplay_email == "") {
+              	GATAGM('EmailIsEmptyOnRegister', 'CONTENT', 'KR');
                 showAlert("이메일 주소를 입력해 주세요");
                 return;
               }
               
               if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
+              	GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', 'KR');
                 showAlert("전화번호를 입력해 주세요");
                 return;
               }
@@ -84,6 +91,7 @@ function requestRegister() {
                       		if(r.reason.indexOf("socialid is already exists") >= 0) {
                       			showAlert("이미 등록된 이메일 입니다.");
                       			$("#show_2").show();
+                      			GATAGM('EmailIsExistOnRegister', 'CONTENT', 'KR');
                       			return;
                       		}
                       		                          
@@ -92,7 +100,8 @@ function requestRegister() {
                       }
                   },
                   function(request,status,error){
-
+		
+										 GATAGM('ErroOnRegister_' + error, 'CONTENT', 'KR');
                      showAlert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                      //
                      hideLoader();
@@ -128,4 +137,18 @@ function showLoader() {
 
 function hideLoader() {
   $("#loading").fadeOut(800);
+}
+
+function GATAGM(label, category, language) {
+  gtag(
+      'event', label + "_" + language, {
+        'event_category' : category,
+        'event_label' : label
+      }
+    );
+
+  mixpanel.track(
+    label + "_" + language,
+    {"event_category": category, "event_label": label}
+  );
 }
