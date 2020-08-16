@@ -126,7 +126,7 @@ function centerInit() {
 function getRecordCount() {
 	
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "mission", "daction" : "get_spec", "mname" : name, "clientid" : userid};
+  var jdata = {"action" : "position", "daction" : "data_count", "clientid" : userid};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
