@@ -924,15 +924,15 @@ function saveFlightData(index) {
 		flyDirectTo(npos, $('#yawdata_index').val());
 	}
 
-	flightRecDataArray[index].lat = $('#latdata_index').val();
-	flightRecDataArray[index].lng = $('#lngdata_index').val();
-	flightRecDataArray[index].alt = $('#altdata_index').val();
-	flightRecDataArray[index].yaw = $('#yawdata_index').val();
-	flightRecDataArray[index].roll = $('#rolldata_index').val();
-	flightRecDataArray[index].pitch = $('#pitchdata_index').val();
-	flightRecDataArray[index].speed = $('#speeddata_index').val();
-	flightRecDataArray[index].act = $('#actiondata_index').val();
-	flightRecDataArray[index].actparam = $('#actionparam_index').val();
+	flightRecDataArray[index].lat = parseFloat($('#latdata_index').val());
+	flightRecDataArray[index].lng = parseFloat($('#lngdata_index').val());
+	flightRecDataArray[index].alt = parseFloat($('#altdata_index').val());
+	flightRecDataArray[index].yaw = parseFloat($('#yawdata_index').val());
+	flightRecDataArray[index].roll = parseFloat($('#rolldata_index').val());
+	flightRecDataArray[index].pitch = parseFloat($('#pitchdata_index').val());
+	flightRecDataArray[index].speed = parseFloat($('#speeddata_index').val());
+	flightRecDataArray[index].act = parseInt($('#actiondata_index').val());
+	flightRecDataArray[index].actparam = parseFloat($('#actionparam_index').val());
 }
 
 function removeSelectedFeature(selectedFeatureID) {
@@ -1781,7 +1781,7 @@ function drawPosIcons() {
 			if (locdata)
 				showCurrentInfo([lonlat[0], lonlat[1]], locdata.alt);
 			else
-				showCurrentInfo([lonlat[0], lonlat[1]], '-');
+				showCurrentInfo([lonlat[0], lonlat[1]], '0');
 
   });
 
