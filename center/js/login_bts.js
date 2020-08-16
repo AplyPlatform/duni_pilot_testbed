@@ -164,6 +164,7 @@ function formSubmit(token) {
 }
 
 function checkLoginStatus() {
+	
   $("#fbLoginButton").hide();
   $("#naverIdLogin").hide();
   $("#googleLoginButton").hide(); 	
@@ -184,14 +185,17 @@ function checkLoginStatus() {
   }
 
   if (dev_kind == "facebook") {
+  	hideLoader();
     $("#fbLoginButton").show();
     fbLoginCheck();
   }
   else if (dev_kind == "google") {
+  	hideLoader();
     $("#googleLoginButton").show();
     googleinit();
   }
   else if (dev_kind == "naver") {  	
+  	hideLoader();
     $("#naverIdLogin").show();
     naverinit();
   }
