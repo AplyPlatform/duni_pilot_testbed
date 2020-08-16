@@ -1474,34 +1474,36 @@ function appendFlightListTable(item) {
 
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
   
-  $('#map_address_' + tableCount).click(function () {
-  	GATAGM('map_address_' + tableCount, 'CONTENT', 'KR');
+  var curIndex = tableCount;
+  
+  $('#map_address_' + curIndex).click(function () {
+  	GATAGM('map_address_' + curIndex, 'CONTENT', 'KR');
   	moveFlightHistoryMap(flat,flng);
   });
   
-  $('#btnForRemoveFlightData_' + tableCount).click(function () {
-  	GATAGM('btnForRemoveFlightData_' + tableCount, 'CONTENT', 'KR');
-  	deleteFlightData(tableCount);
+  $('#btnForRemoveFlightData_' + curIndex).click(function () {
+  	GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', 'KR');
+  	deleteFlightData(curIndex);
   });
   
-  $('#btnForUpdateMemo_' + tableCount).click(function () {
-  	GATAGM('btnForUpdateMemo_' + tableCount, 'CONTENT', 'KR');
-  	updateFlightMemo(tableCount);
+  $('#btnForUpdateMemo_' + curIndex).click(function () {
+  	GATAGM('btnForUpdateMemo_' + curIndex, 'CONTENT', 'KR');
+  	updateFlightMemo(curIndex);
   });
 
 	var retSource;
 	if (isSet(flat)) {
-  	retSource = makeForFlightListMap(tableCount, flat, flng);
+  	retSource = makeForFlightListMap(curIndex, flat, flng);
   }  		  		
 
   if (isSet(address) && address != "") {  	
-  	setAddressAndCada("#map_address_" + tableCount, address, cada, retSource);
-  	setAddressAndCada("#map_address_" + tableCount, address, cada, flightHistorySource);
+  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
+  	setAddressAndCada("#map_address_" + curIndex, address, cada, flightHistorySource);
   }
   else {
   	if (isSet(flat)) {
 			var dpoint = ol.proj.fromLonLat([flng, flat]);
-    	drawCadastral("#map_address_" + tableCount, name, dpoint[0], dpoint[1], retSource);    	
+    	drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);    	
     }
   }
   
@@ -2664,9 +2666,11 @@ function appendFlightRecordListTableForDromi(name, dtimestamp, data) {
       + "</tr>";
   $('#dataTable-lists > tbody:last').append(appendRow);
   
-  $('#btnForDeleteDromiData_' + tableCount).click(function() {
-  	GATAGM('btnForDeleteDromiData_' + tableCount, 'CONTENT', 'KR');
-  	deleteDromiData(tableCount);
+  var curIndex = tableCount;
+  
+  $('#btnForDeleteDromiData_' + curIndex).click(function() {
+  	GATAGM('btnForDeleteDromiData_' + curIndex, 'CONTENT', 'KR');
+  	deleteDromiData(curIndex);
   });
   
   tableCount++;
@@ -2977,9 +2981,11 @@ function appendFlightListTableForDromi(name, dtimestamp, data) {
       + "</tr>";
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
   
-  $('#btnForDeleteFlightDataForDromi_' + tableCount).click(function () {
-  	GATAGM('btnForDeleteFlightDataForDromi_' + tableCount, 'CONTENT', 'KR');
-  	deleteFlightDataForDromis(tableCount);
+  var curIndex = tableCount;
+  
+  $('#btnForDeleteFlightDataForDromi_' + curIndex).click(function () {  	
+  	GATAGM('btnForDeleteFlightDataForDromi_' + curIndex, 'CONTENT', 'KR');
+  	deleteFlightDataForDromis(curIndex);
   });
         
   tableCount++;
