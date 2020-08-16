@@ -26,7 +26,6 @@ function checkFacebookLogin() {
         }
       }
       else {
-      	hideLoader();
       }
     });
 }
@@ -38,14 +37,11 @@ function googleinit() {
   }
 
   gapi.load('auth2', function() { // Ready.
-    gapi.auth2.init();
-    showLoader();
+    gapi.auth2.init();    
   });
 }
 
-function googleSignInCallback(googleUser) {
-	hideLoader();
-	
+function googleSignInCallback(googleUser) {		
   var skind = getCookie("dev_kind");
   if (skind != "google") return;
 
@@ -131,6 +127,8 @@ function isSet(value) {
 }
 
 function formSubmit(token) {
+	showLoader();
+	
   var skind = getCookie("dev_kind");
   var jdata = {
     action: "member",
@@ -152,6 +150,7 @@ function formSubmit(token) {
 
       location.href="center.html";     
     }else {
+    	
       hideLoader();
       alert("등록된 아이디가 없습니다. / " + r.reason);
       setCookie("temp_sns_token", r.sns_token, 1);      
@@ -192,8 +191,7 @@ function checkLoginStatus() {
     $("#googleLoginButton").show();
     googleinit();
   }
-  else if (dev_kind == "naver") {
-  	hideLoader();
+  else if (dev_kind == "naver") {  	
     $("#naverIdLogin").show();
     naverinit();
   }
