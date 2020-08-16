@@ -51,13 +51,13 @@ var moviePlayerVisible = false;
 
 $(function() {
 
-  centerInit();
+  pilotCenterInit();
   mixpanel.identify(getCookie("dev_user_id"));
 
 });
 
 
-function centerInit() {
+function pilotCenterInit() {
 	if (askToken() == false) {
     location.href="index.html";
     return;
@@ -72,7 +72,8 @@ function centerInit() {
 	var page_action = page_data.getAttribute("page_action");
 
   if (page_action == "center") {
-		hideLoader();
+  	centerInit();
+		hideLoader();		
   }
   if (page_action == "qa") {
 		hideLoader();
@@ -115,6 +116,72 @@ function showAlert(msg) {
 	
 	$('#errorModalLabel').text(msg);
 	$('#errorModal').modal('show');  	
+}
+
+function centerInit() {	
+	$('#data_title').text("'" + getCookie("user_email") + "'님의 데이터 현황");
+	getRecordCount();
+}
+
+function getRecordCount() {
+	
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "mission", "daction" : "get_spec", "mname" : name, "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();
+      
+		  setDashBoard(r.record_count, r.mission_count);
+    }
+    else {      
+    	setDashBoard(0, 0);
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    setDashBoard(0, 0);
+    hideLoader();
+  });	
+}
+
+
+function setDashBoard(rcount, fcount) {
+		// Set new default font family and font color to mimic Bootstrap's default styling
+		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = '#858796';
+		
+		// Pie Chart Example
+		var ctx = document.getElementById("myPieChart");
+		var myPieChart = new Chart(ctx, {
+		  type: 'doughnut',
+		  data: {
+		    labels: ["비행기록", "비행계획"],
+		    datasets: [{
+		      data: [rcount, fcount],
+		      backgroundColor: ['#4e73df', '#1cc88a'],
+		      hoverBackgroundColor: ['#2e59d9', '#17a673'],
+		      hoverBorderColor: "rgba(234, 236, 244, 1)",
+		    }],
+		  },
+		  options: {
+		    maintainAspectRatio: false,
+		    tooltips: {
+		      backgroundColor: "rgb(255,255,255)",
+		      bodyFontColor: "#858796",
+		      borderColor: '#dddfeb',
+		      borderWidth: 1,
+		      xPadding: 15,
+		      yPadding: 15,
+		      displayColors: false,
+		      caretPadding: 10,
+		    },
+		    legend: {
+		      display: false
+		    },
+		    cutoutPercentage: 80,
+		  },
+		});
 }
 
 function missionListInit() {
