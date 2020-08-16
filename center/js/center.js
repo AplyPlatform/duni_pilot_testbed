@@ -147,6 +147,15 @@ function getRecordCount() {
 
 
 function setDashBoard(rcount, fcount) {
+		
+		var label_1 = "비행기록 수";
+		var label_2 = "비행계획 수";
+		if (rcount == 0 && fcount == 0) {
+			$("#r_count_label").text(label_1 + " : 0");
+			$("#f_count_label").text(label_2 + " : 0");
+			rcount = 1;
+			fcount = 1;
+		}
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = '#858796';
