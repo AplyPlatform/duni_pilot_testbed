@@ -44,6 +44,8 @@ function googleinit() {
 }
 
 function googleSignInCallback(googleUser) {
+	hideLoader();
+	
   var skind = getCookie("dev_kind");
   if (skind != "google") return;
 
