@@ -109,6 +109,9 @@ function centerInit() {
 
 
 function showAlert(msg) {	  
+	$('#modal-title').text("알림");
+	$('#modal-confirm-btn').text("확인");
+	
 	$('#errorModalLabel').text(msg);
 	$('#errorModal').modal('show');  	
 }
