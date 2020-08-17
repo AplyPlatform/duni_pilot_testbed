@@ -22,6 +22,7 @@
 	<!-- (1) LoginWithNaverId Javscript SDK -->
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script src="./vendor/jquery/jquery.min.js"></script>
+  <script src="./js/lang.js"></script>
 	<script src="./js/login_bts.js"></script>
 
 	<!-- (2) LoginWithNaverId Javscript 설정 정보 및 초기화 -->
@@ -29,7 +30,7 @@
 
 		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", "https://pilot.duni.io/center/navercallback.html");
 		if (naver_id_login.oauthParams.access_token == "") {
-			alert("죄송합니다, 오류가 발생하였습니다.");
+			alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			location.href="index.html";
 		}
 		else {
