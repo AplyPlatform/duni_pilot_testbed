@@ -85,11 +85,38 @@ function checkLoginStatus() {
   setCookie("sns_token", "", -1);
 }
 
-checkLoginStatus();
-
 
 function isSet(value) {
   if (value == "" || value == null || value == "undefined") return false;
 
   return true;
 }
+
+
+function checkLang() {
+	var lang = getCookie("language");	
+	var url_string = window.location.href;
+	
+	if (isSet(lang)) {
+		if (lang == "KR") {
+			if(url_string.indexOf("index.html) < 0) {
+				location.href = "/index.html";
+			}  		
+		}
+		else {
+			if(url_string.indexOf("index_en.html) < 0) {
+				location.href = "/index_en.html";
+			}
+		}
+	}
+	else {
+		setLang("KR");
+	}
+}
+
+function setLang(lang) {
+	setCookie("language", lang, 1);
+}
+
+checkLang();
+checkLoginStatus();
