@@ -1133,7 +1133,7 @@ function appendMissionList(data) {
         + "</td><td class='center'>"
         + "<a class='btn btn-warning' href='design.html?mission_name=" + item['name'] + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
         + "<button class='btn btn-primary' type='button' id='missionListBtnForRemove_" + index + "'>"
-        + LANG_JSON_DATA[langset]['msg_remove'] + </button></td></tr>";
+        + LANG_JSON_DATA[langset]['msg_remove'] + "</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
         
         $('#missionListBtnForRemove_' + index).click(function() {
