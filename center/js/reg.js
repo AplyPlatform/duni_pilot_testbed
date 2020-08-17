@@ -1,6 +1,24 @@
 $(function() {
       showLoader();
       $("#show_1").show();
+      
+      
+      $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
+      $("#droneplay_email").attr("placeholder", LANG_JSON_DATA[langset]['email_label']);
+      $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);
+            
+      $("#privacy_link_label").attr("href", LANG_JSON_DATA[langset]['privacy_link']);
+                        
+      $("#register_label").text(LANG_JSON_DATA[langset]['register_label']);
+      $("#privacy_link_label").text(LANG_JSON_DATA[langset]['privacy_link_label']);
+      $("#fill_info_label").text(LANG_JSON_DATA[langset]['fill_info_label']);
+      $("#register_explain_label").text(LANG_JSON_DATA[langset]['register_explain_label']);
+      $("#btnAgree").text(LANG_JSON_DATA[langset]['msg_agree']);
+      $("#btnRegisterToMember").text(LANG_JSON_DATA[langset]['msg_register']);
+      $("#btnBack1").text(LANG_JSON_DATA[langset]['msg_back']);
+      $("#btnBack2").text(LANG_JSON_DATA[langset]['msg_back']);
+      
+      
       $("#show_2").hide();
       hideLoader();
 
@@ -54,19 +72,19 @@ function requestRegister() {
 
               if (droneplay_name == null || droneplay_name == "") {
               	GATAGM('NameIsEmptyOnRegister', 'CONTENT', 'KR');
-                showAlert("이름을 입력해 주세요");
+                showAlert(LANG_JSON_DATA[langset]['msg_input_name']);
                 return;
               }              
               
               if (droneplay_email == null || droneplay_email == "") {
               	GATAGM('EmailIsEmptyOnRegister', 'CONTENT', 'KR');
-                showAlert("이메일 주소를 입력해 주세요");
+                showAlert(LANG_JSON_DATA[langset]['msg_input_email']);
                 return;
               }
               
               if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
               	GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', 'KR');
-                showAlert("전화번호를 입력해 주세요");
+                showAlert(LANG_JSON_DATA[langset]['msg_input_phone']);
                 return;
               }
               
@@ -84,18 +102,18 @@ function requestRegister() {
               ajaxRequest(data, function(r) {
                       hideLoader();
                       if(r.result == "success") {
-                          alert("가입이 완료 되었습니다. 가입시 선택한 SNS로 로그인해 주세요.");
+                          alert(LANG_JSON_DATA[langset]['msg_register_success']);
                           window.location.href = "./index.html?fromapp=" + getCookie("isFromApp");
                       }
                       else {
                       		if(r.reason.indexOf("socialid is already exists") >= 0) {
-                      			showAlert("이미 등록된 이메일 입니다.");
+                      			showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
                       			$("#show_2").show();
                       			GATAGM('EmailIsExistOnRegister', 'CONTENT', 'KR');
                       			return;
                       		}
                       		                          
-                          showAlert("잘못된 정보가 입력되었습니다. 입력한 정보를 다시 확인해 주세요");
+                          showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
                           $("#show_2").show();
                       }
                   },
@@ -125,7 +143,10 @@ function getCookie(cName) {
     return value? value[2] : null;
 }
 
-function showAlert(msg) {	  
+function showAlert(msg) {	
+	$('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
+	$('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+	
 	$('#errorModalLabel').text(msg);
 	$('#errorModal').modal('show');  	
 }

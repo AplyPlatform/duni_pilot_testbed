@@ -1,3 +1,5 @@
+var langset = "KR";
+
 function fbLoginCheck() {
   checkFacebookLogin();
 };
@@ -24,7 +26,7 @@ function checkFacebookLogin() {
         if (token != null && token != "")
           formSubmit(token);
         else {
-        	alert("일시적인 오류가 발생했습니다.");
+        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         	goHome();
         }
       }
@@ -155,9 +157,10 @@ function formSubmit(token) {
     }else {
     	
       hideLoader();
-      alert("등록된 아이디가 없습니다. / " + r.reason);
+      alert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
       setCookie("temp_sns_token", r.sns_token, 1);      
-      location.href="register.html";
+            
+      location.href="register.html";      
     }
   }, function(request, status, error) {
     hideLoader();
@@ -204,4 +207,16 @@ function checkLoginStatus() {
   }
 }
 
+checkLang();
 checkLoginStatus();
+
+function checkLang() {
+	lang = getCookie("language");	
+	
+	if (isSet(lang)) {
+		
+	}
+	else {
+		setLang("KR");
+	}
+}

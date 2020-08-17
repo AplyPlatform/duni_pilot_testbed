@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-L3GM3G16DL"></script>
@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" href="https://pilot.duni.io/logo.png" />
   <link rel="apple-touch-icon" href="https://pilot.duni.io/logo.png" />
 
-  <title>DUNI PILOT 센터</title>
+  <title>DUNI PILOT Center</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -79,27 +79,27 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             <div class="col-lg-12 mb-4">
               <div class="card shadow mb-4">	     
 	              	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-		                  <h6 class="m-0 font-weight-bold text-primary">가입하기</h6>
+		                  <h6 class="m-0 font-weight-bold text-primary" id="register_label">가입하기</h6>
 		              </div>           
 		              
 	                <div id="show_1">
-		                <div class="card-body" >
-		                    하기의 "개인정보취급방침"의 내용에 동의하시면 아래 "동의합니다" 버튼을 클릭해 주세요.
+		                <div class="card-body">
+		                    <span id="register_explain_label">하기의 "개인정보취급방침"의 내용에 동의하시면 아래 "동의합니다" 버튼을 클릭해 주세요.</span>
 		                </div>
 		                
 		                <div class="card-body">
-		                	<a class="btn btn-primary btn-lg active" role="button" onClick="onAgree()">동의합니다</a>
-	                    <a class="btn btn-primary btn-lg active" role="button" onClick="goHome()">돌아가기</a>
+		                	<a class="btn btn-primary btn-lg active" role="button" onClick="onAgree()" id="btnAgree">동의합니다</a>
+	                    <a class="btn btn-primary btn-lg active" role="button" onClick="goHome()" id="btnBack1">돌아가기</a>
 		                </div>
 		                
 		                <div class="card-body">
-		                	<a href=https://developer.duni.io/privacy.html target=_new>개인정보취급방침 보기</a>
+		                	<a href=https://developer.duni.io/privacy.html target=_new id="privacy_link_label">개인정보취급방침 보기</a>
 		                </div>
 		              </div>
 	                
 	                <div id="show_2">
 		                <div class="card-body">
-	                        내용을 채우신 후 "가입하기" 버튼을 클릭해 주세요.
+	                        <span id="fill_info_label">내용을 채우신 후 "가입하기" 버튼을 클릭해 주세요.</span>
 	                	</div>	                  
 	                  <div class="card-body"><div class="input-group">
 	                        <input name="droneplay_name" id="droneplay_name" type="text" class="form-control" value="" placeholder="이름" required=""><br>
@@ -107,8 +107,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	                        <input name="droneplay_phonenumber" id="droneplay_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">
 	                  </div>	                  		                  
 	                  <div class="card-body">
-	                    <a class="btn btn-primary btn-lg active" role="button" onClick="requestRegister()">가입하기</a>
-	                    <a class="btn btn-primary btn-lg active" role="button" onClick="goHome()">돌아가기</a>
+	                    <a class="btn btn-primary btn-lg active" role="button" onClick="requestRegister()" id="btnRegisterToMember">가입하기</a>
+	                    <a class="btn btn-primary btn-lg active" role="button" onClick="goHome()" id="btnBack2">돌아가기</a>
 	                  </div>
                   </div>
               </div>
@@ -151,7 +151,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         </div>
         <div class="modal-body" id="errorModalLabel"></div>
         <div class="modal-footer">
-          <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="GATAGM('ConfirmBtnClickOnRegister', 'CONTENT', 'KR');">확인</button>
+          <button class="btn btn-primary" type="button" data-dismiss="modal" onclick="GATAGM('ConfirmBtnClickOnRegister', 'CONTENT', 'KR');"></button>
         </div>
       </div>
     </div>
@@ -166,9 +166,10 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>  
+  <script src="./js/sb-admin-2.min.js"></script>  
   
-  <script src="js/reg.js"></script>
+  <script src="./js/lang.js"></script>
+  <script src="./js/reg.js"></script>
 </body>
 
 </html>
