@@ -328,6 +328,7 @@ function missionListInit() {
 	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
 	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
+	$("#btnForGetMissionList").text(LANG_JSON_DATA[langset]['btnForGetMissionList']);
 	
 	$('#btnForGetMissionList').click(function() {    	
 		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
