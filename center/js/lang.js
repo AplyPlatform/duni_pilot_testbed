@@ -214,7 +214,7 @@ var LANG_JSON_DATA = {
 				"page_mission_design_title" : "Flight Mission Design",
 				"page_dromi_title" : "Dromi",
 				"page_dromi_list_title" : "Dromi Data View",
-				"fill_info_label" : "Please fill the form in and click the "Register" button.",
+				"fill_info_label" : "Please fill the form in and click the 'Register' button.",
 				"register_explain_label" : "If you agree with the 'Privacy Policy' below, please click the 'I agree' button below.",
 				"center_about_content" : "<p>This is where you can easily design the drone's flight mission and check flight records and the situation.</p>" +
 																"<p>The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon. ('Flight mission' > 'mission design' menu)</p>" +
