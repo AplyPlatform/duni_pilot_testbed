@@ -33,7 +33,16 @@ var LANG_JSON_DATA = {
 				"msg_modify_youtube_data" : "영상정보 수정",
 				"msg_close_youtube_data" : "영상정보 닫기",
 				"r_count_label" : "비행기록 수",
-				"f_count_label" : "비행계획 수"
+				"f_count_label" : "비행계획 수",
+				"page_center_title" : "DUNI PILOT Center",
+				"page_qa_title" : "묻고 답하기",
+				"page_list_title" : "비행계획 목록",
+				"page_flight_rec_view_title" : "비행기록 보기",
+				"page_flight_rec_upload_title" : "비행기록 업로드",
+				"page_monitor_title" : "비행계획 모니터",
+				"page_mission_design_title" : "비행계획 설계",
+				"page_dromi_title" : "Dromi",
+				"page_dromi_list_title" : "Dromi Data View"
 		},
 				
 		
@@ -67,7 +76,16 @@ var LANG_JSON_DATA = {
 				"msg_modify_youtube_data" : "Modify youtube info",
 				"msg_close_youtube_data" : "Close youtube info",
 				"r_count_label" : "record #",
-				"f_count_label" : "mission #"
+				"f_count_label" : "mission #",
+				"page_center_title" : "DUNI PILOT Center",
+				"page_qa_title" : "QnA",
+				"page_list_title" : "Flight Mission List",
+				"page_flight_rec_view_title" : "Flight Record View",
+				"page_flight_rec_upload_title" : "Flight Record Upload",
+				"page_monitor_title" : "Flight Mission Monitor",
+				"page_mission_design_title" : "Flight Mission Design",
+				"page_dromi_title" : "Dromi",
+				"page_dromi_list_title" : "Dromi Data View"
 		}
 			
 };
