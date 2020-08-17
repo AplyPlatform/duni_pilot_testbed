@@ -53,6 +53,13 @@ var langset = "en";
 
 $(function() {
 
+	
+	if (askToken() == false) {
+    location.href="index.html";
+    return;
+  }
+  
+  
 	setCommonText();
   initPilotCenter();
   mixpanel.identify(getCookie("dev_user_id"));
@@ -82,12 +89,7 @@ function setCommonText() {
 }
 
 
-function initPilotCenter() {
-	if (askToken() == false) {
-    location.href="index.html";
-    return;
-  }
-  
+function initPilotCenter() {	  
 	bMonStarted = false;
 	flightRecArray = [];
 	flightRecDataArray = [];
