@@ -285,13 +285,17 @@ function flightViewInit() {
 	$("#option_unlisted_label").text(LANG_JSON_DATA[langset]['option_unlisted_label']);
 	$("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
 	$("#movieButton").text(LANG_JSON_DATA[langset]['movieButton']);
+	$("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
+	
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
 	
 	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);	
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
-	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
+	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);		
+	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);			
+	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);		
 		
   $('#historyPanel').hide();
   $('#historyList').show();

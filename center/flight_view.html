@@ -294,7 +294,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 											<div class="card-body">												
 													<div class="row no-gutters align-items-center">													
 															<div class="col mr-2">													
-					                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
+					                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
 					                      <div class="h5 mb-0 font-weight-bold text-gray-800">
 					                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
 																						       <option value="Aerial">Aerial</option>
@@ -327,7 +327,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 											<div class="card-body">
 												<form>
               							<div class='form-group'>
-              								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모 입력</label>
+              								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
               								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
               								<br>
               								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
