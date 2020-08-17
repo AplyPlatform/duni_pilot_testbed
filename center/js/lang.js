@@ -151,7 +151,7 @@ var LANG_JSON_DATA = {
 				"name_label" : "Name",
 				"status_label" : "Status",
 				"date_label" : "Date",
-				"reigister_label" : "Registration",
+				"register_label" : "Registration",
 				"manage_label" : "Manage",
 				"input_memo_label" : "Memo",
 				"qa_label" : "QA page",
