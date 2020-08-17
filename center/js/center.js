@@ -287,6 +287,11 @@ function flightViewInit() {
 	$("#movieButton").text(LANG_JSON_DATA[langset]['movieButton']);
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
+	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
+	
+	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);	
+	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
+	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
 		
   $('#historyPanel').hide();
   $('#historyList').show();
