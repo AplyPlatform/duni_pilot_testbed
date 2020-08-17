@@ -39,7 +39,7 @@ var LANG_JSON_DATA = {
 		
 		"EN" : {
 				"menu_dashboard" : "Dashboard",
-				"memu_flight_record" : "Flight record"
+				"memu_flight_record" : "Flight record",
 				"data_count_msg" : "'s data status",
 				"center_about_title" : "이곳에 관하여...",
 				"center_about_content" : "<p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>" +
@@ -49,7 +49,7 @@ var LANG_JSON_DATA = {
 																"<p>상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>",
 				"msg_no_mission" : "There is no mission or something wrong.",
 				"msg_error_sorry" : "Error. Sorry, please try again later.",
-				"msg_no_flight_record" : "There is no flight record or something wrong."
+				"msg_no_flight_record" : "There is no flight record or something wrong.",
 				"msg_failed_to_get_position" : "Failed to get object position",
 				"msg_load_more" : "More ...",
 				"msg_are_you_sure", "Are you sure ?",
