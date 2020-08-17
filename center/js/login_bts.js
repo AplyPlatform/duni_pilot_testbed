@@ -3,8 +3,11 @@ function fbLoginCheck() {
 };
 
 
-function goHome() {
-      location.href="index.html?fromapp=" + getCookie("isFromApp");
+function goHome() {            
+  if (langset == "KR" || langset == "")
+    location.href="index.html?fromapp=" + getCookie("isFromApp");
+  else
+  	location.href="index_en.html?fromapp=" + getCookie("isFromApp");
 }
 
 function checkFacebookLogin() {
@@ -32,7 +35,7 @@ function checkFacebookLogin() {
 
 function googleinit() {
   if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {
-    location.href="index.html?fromapp=" + getCookie("isFromApp");
+    goHome();
     return;
   }
 

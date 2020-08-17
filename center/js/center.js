@@ -49,23 +49,29 @@ var cur_flightrecord_name = "";
 
 var moviePlayerVisible = false;
 
-var langset = "en";
+var langset = "KR";
 
 $(function() {
-
-	
 	if (askToken() == false) {
-    location.href="index.html";
+		goIndex();
     return;
   }
-  
-  
+      
 	setCommonText();
   initPilotCenter();
   mixpanel.identify(getCookie("dev_user_id"));
 
 });
 
+function goIndex() {
+	if (langset == "KR" || langset == "")
+    location.href="index.html";
+  else
+  	location.href="index_en.html";
+}
+
+function goCenter() {
+}
 
 function setCommonText() {
 		langset = getCookie("language");
@@ -2205,7 +2211,7 @@ function ajaxRequest(data, callback, errorcallback) {
 function logOut() {
   setCookie("dev_user_id", "", -1);
   setCookie("user_token", "", -1);
-  location.href="index.html";
+  goIndex();
 }
 
 
@@ -2583,7 +2589,7 @@ function uploadDUNIFlightListCallback(mname, base64file) {
         $('#btnForUploadDUNIFlightList').hide(1500);
         $('#dunifileform').hide(1500);
         alert(LANG_JSON_DATA[langset]['msg_success']);
-        location.href = "https://pilot.duni.io/center/flight_view.html";
+        location.href = "flight_view.html";
       }
       else {
       	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
@@ -2605,7 +2611,7 @@ function uploadFlightListCallback(mname, base64file) {
         $('#btnForUploadFlightList').hide(1500);
         $('#djifileform').hide(1500);
         alert(LANG_JSON_DATA[langset]['msg_success']);
-        location.href = "https://pilot.duni.io/center/flight_view.html";
+        location.href = "flight_view.html";
       }
       else {
       	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
