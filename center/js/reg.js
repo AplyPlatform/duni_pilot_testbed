@@ -1,6 +1,10 @@
+var langset = "KR";
+
 $(function() {
       showLoader();
       $("#show_1").show();
+      
+      langset = getCookie("language");
       
       
       $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);

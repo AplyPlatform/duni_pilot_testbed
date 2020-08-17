@@ -1,6 +1,6 @@
 var langset = "KR";
 
-function fbLoginCheck() {
+function fbLoginCheck() {	
   checkFacebookLogin();
 };
 
@@ -211,12 +211,17 @@ checkLang();
 checkLoginStatus();
 
 function checkLang() {
-	lang = getCookie("language");	
+	langset = getCookie("language");
 	
-	if (isSet(lang)) {
+	if (isSet(langset)) {
 		
 	}
 	else {
 		setLang("KR");
 	}
+}
+
+function setLang(lang) {
+	setCookie("language", lang, 1);
+	langset = lang;
 }
