@@ -105,41 +105,34 @@ function initPilotCenter() {
   var page_data = document.getElementById("page_data");
 	var page_action = page_data.getAttribute("page_action");
 
-  if (page_action == "center") {
-  	centerInit();
-		hideLoader();		
+	showLoader();
+	
+  if (page_action == "center") {  	
+  	centerInit();		
   }
-  if (page_action == "qa") {
-  	qaInit();
-		hideLoader();
+  if (page_action == "qa") {  	
+  	qaInit();		
   }
-  else if (page_action == "design") {
-  	showLoader();
+  else if (page_action == "design") {  	
     designInit();
   }
-  else if (page_action == "list") {
-		showLoader();
+  else if (page_action == "list") {		
 		missionListInit();
   }
-  else if (page_action == "monitor") {
-  	hideLoader();
+  else if (page_action == "monitor") {  	  	
     monitorInit();
   }
-  else if (page_action == "flightlist") {
-  	showLoader();
+  else if (page_action == "flightlist") {  	
     flightListInit();
   }
-  else if (page_action == "flight_view") {
-  	showLoader();
+  else if (page_action == "flight_view") {  	
   	FlightHistoryMapInit();
     flightViewInit();    
   }
-  else if (page_action == "dromi") {
-  	showLoader();
+  else if (page_action == "dromi") {  	
     dromiInit();
   }
-  else if (page_action == "dromi_list") {
-  	showLoader();
+  else if (page_action == "dromi_list") {  	
     dromiListInit();
   }
 }
@@ -150,96 +143,11 @@ function centerInit() {
 	$("#head_title").text(document.title);
 	
 	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
-	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);	
+	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);		
+	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);		
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
 	
-	getRecordCount();
-}
-
-function qaInit() {
-	
-	document.title = LANG_JSON_DATA[langset]['page_qa_title'];
-	$("#head_title").text(document.title);
-	
-}
-
-function missionListInit() {
-	
-	document.title = LANG_JSON_DATA[langset]['page_list_title'];
-	$("#head_title").text(LANG_JSON_DATA[langset]['page_center_title']);
-	
-	$('#btnForGetMissionList').click(function() {    	
-		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
-		getMissionList();
-	});
-	
-	hideLoader();	
-}
-
-function flightViewInit() {
-		
-	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
-	$("#head_title").text(document.title);
-
-  $('#historyPanel').hide();
-  $('#historyList').show();
-  $('#historyMap').hide();
-  
-  $('#btnForSetYoutubeID').click(function() {    	
-  	GATAGM('btnForSetYoutubeID', 'CONTENT', 'KR');    	
-  	setYoutubeID();
-  });
-  
-  $('#btnForLoadFlightList').click(function() {    	
-  	GATAGM('btnForLoadFlightList', 'CONTENT', 'KR');    	
-  	getFlightList();
-  });
-  
-  var record_name = location.search.split('record_name=')[1];
-  if (record_name != null && record_name != "") {
-    showDataWithName(decodeURI(record_name));
-  }
-  else hideLoader();
-}
-
-
-
-function flightListInit() {
-	
-	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
-	$("#head_title").text(document.title);
-		
-	$('#btnForUploadFlightList').click(function() {    	
-    	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
-    	uploadFlightList();
-  });
-  
-  $('#btnForUploadDUNIFlightList').click(function() {    	
-    	GATAGM('btnForUploadDUNIFlightList', 'CONTENT', 'KR');    	
-    	uploadDUNIFlightList();
-  });
-    
-	
-	hideLoader();
-}
-
-function monitorInit() {
-	
-	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
-	$("#head_title").text(document.title);
-	
-	var page_id = location.search.split('mission_name=')[1];
-	if (isSet(page_id))
-		page_id = page_id.split('&')[0];			
-
-  getMissionToMonitor(page_id);
-	
-	$("#startMonBtn").click(function() {
-		GATAGM('startMonBtn', 'CONTENT', 'KR');
-		startMon();
-	});	
-
-  hideLoader();
+	getRecordCount();	
 }
 
 
@@ -247,6 +155,13 @@ function designInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_mission_design_title'];
 	$("#head_title").text(document.title);
+			
+	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
+	$('#go_index_direct_label').text(LANG_JSON_DATA[langset]['go_index_direct_label']);
+	$('#btnForRegistMission').text(LANG_JSON_DATA[langset]['btnForRegistMission']);
+	$('#btnForClearMission').text(LANG_JSON_DATA[langset]['btnForClearMission']);
+	$('#removeItemBtn').text(LANG_JSON_DATA[langset]['msg_remove']);
+	$('#saveItemBtn').text(LANG_JSON_DATA[langset]['msg_apply']);	
 	
 	
 	initSliderForDesign(1);
@@ -322,6 +237,123 @@ function designInit() {
 		GATAGM('btnForSearchAddress', 'CONTENT', 'KR');
 		searchCurrentBrowserAddress();
 	});				
+}
+
+
+
+function flightListInit() {
+	
+	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
+	$("#head_title").text(document.title);
+	
+	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
+	$('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
+	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
+	$('#msg_duni_file_upload').text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);
+	$('#btnForUploadDUNIFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
+	$('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
+	$('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
+	$('#collapseRecordFileParams').text(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
+					
+	$('#btnForUploadFlightList').click(function() {    	
+    	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
+    	uploadFlightList();
+  });
+  
+  $('#btnForUploadDUNIFlightList').click(function() {    	
+    	GATAGM('btnForUploadDUNIFlightList', 'CONTENT', 'KR');    	
+    	uploadDUNIFlightList();
+  });
+    
+	
+	hideLoader();
+}
+
+
+
+function flightViewInit() {
+		
+	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+	$("#head_title").text(document.title);
+			
+	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
+	$("#title_for_moviedata_label").text(LANG_JSON_DATA[langset]['title_for_moviedata_label']);
+	$("#desc_for_moviedata_label").text(LANG_JSON_DATA[langset]['desc_for_moviedata_label']);
+	$("#privacy_for_moviedata_label").text(LANG_JSON_DATA[langset]['privacy_for_moviedata_label']);
+	$("#option_public_label").text(LANG_JSON_DATA[langset]['option_public_label']);
+	$("#option_unlisted_label").text(LANG_JSON_DATA[langset]['option_unlisted_label']);
+	$("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
+	$("#movieButton").text(LANG_JSON_DATA[langset]['movieButton']);
+	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
+	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
+		
+  $('#historyPanel').hide();
+  $('#historyList').show();
+  $('#historyMap').hide();
+  
+  $('#btnForSetYoutubeID').click(function() {    	
+  	GATAGM('btnForSetYoutubeID', 'CONTENT', 'KR');    	
+  	setYoutubeID();
+  });
+  
+  $('#btnForLoadFlightList').click(function() {    	
+  	GATAGM('btnForLoadFlightList', 'CONTENT', 'KR');    	
+  	getFlightList();
+  });
+  
+  var record_name = location.search.split('record_name=')[1];
+  if (record_name != null && record_name != "") {
+    showDataWithName(decodeURI(record_name));
+  }
+  else hideLoader();
+}
+
+
+function qaInit() {
+	
+	document.title = LANG_JSON_DATA[langset]['page_qa_title'];
+	$("#head_title").text(document.title);
+	
+	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);	
+	
+	hideLoader
+}
+
+function missionListInit() {
+	
+	document.title = LANG_JSON_DATA[langset]['page_list_title'];
+	$("#head_title").text(LANG_JSON_DATA[langset]['page_center_title']);	
+	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
+	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
+	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
+	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
+	
+	$('#btnForGetMissionList').click(function() {    	
+		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
+		getMissionList();
+	});					
+	
+	hideLoader();
+}
+
+
+function monitorInit() {
+	
+	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
+	$("#head_title").text(document.title);
+	
+	var page_id = location.search.split('mission_name=')[1];
+	if (isSet(page_id))
+		page_id = page_id.split('&')[0];			
+
+  getMissionToMonitor(page_id);
+	
+	$("#btnStartMon").click(function() {
+		GATAGM('btnStartMon', 'CONTENT', 'KR');
+		startMon();
+	});	
+
+  hideLoader();
 }
 
 function dromiInit() {
@@ -877,8 +909,8 @@ function appendNewRecord(lonLat) {
 function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
-    $('#startMonBtn').text("Start monitoring");
-    $("#startMonBtn").removeClass("btn-warning").addClass("btn-primary");
+    $('#btnStartMon').text("Start monitoring");
+    $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
   }
   else {
@@ -894,8 +926,8 @@ function nextMon() {
     if(r.result == "success") {
       bMonStarted = true;
       $("#loader").show();
-      $('#startMonBtn').text("Stop monitoring");
-      $("#startMonBtn").removeClass("btn-primary").addClass("btn-warning");
+      $('#btnStartMon').text("Stop monitoring");
+      $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
       nexttour(r.data[0]);
     }
     else {

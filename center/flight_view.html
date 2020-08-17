@@ -224,19 +224,19 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 										      </div>
 										
 										      <div>
-										        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 제목</label>
+										        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="title_for_moviedata_label">영상 제목</label>
 										        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
 										      </div>
 										      <div>
-										        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 설명</label>
+										        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">영상 설명</label>
 										        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
 										      </div>
 										      <div>
-										        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">영상 공개수준</label>
+										        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="privacy_for_moviedata_label">영상 공개수준</label>
 										        <select id="privacy-status" class="form-control">
-										          <option value="public">공개</option>
-										          <option value="unlisted" selected>일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-										          <option value="private">비공개</option>
+										          <option value="public" id="option_public_label">공개</option>
+										          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+										          <option value="private" id="option_private_label">비공개</option>
 										        </select>
 										      </div>
 										
@@ -259,9 +259,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 										      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
 										
 			               			
-			                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1">유튜브 영상 주소</label>
+			                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
 			                    <div class="input-group">
-			                          <input type="text" class="form-control" placeholder="YOUTUBE 전체 URL" id="movieData">
+			                          <input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="movieData">
 			                          <span class="input-group-append">
 			                            <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
 			                          </span>

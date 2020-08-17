@@ -219,7 +219,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 			              		<div class="row no-gutters align-items-center">													
 														<div class="col mr-2">
 						              		<div class="form-group">
-						                  			<label for="layer-select" class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</label>
+						                  			<label for="layer-select" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</label>
 						                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
 																						       <option value="Aerial">Aerial</option>
 																						       <option value="AerialWithLabels" selected>Aerial with labels</option>
@@ -229,7 +229,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 														</div>
 														<div class="col mr-2">												
 						                	<div class="form-group">
-						                		<label for="goItemIndex" class="text-xs font-weight-bold text-default text-uppercase mb-1">바로가기</label>
+						                		<label for="goItemIndex" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="go_index_direct_label">바로가기</label>
 						                		<div class="input-group">
 																  <input type="text" value="0" id="goItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
 																  <span class="input-group-append">
@@ -262,18 +262,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 																							<tr class='odd gradeX'>
 																								<td><span class="badge badge-light" id="tr_index">0</span></td>
 																								<td>
-																										      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">위도(Lat)</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
-																										      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">경도(Lng)</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
-																										      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">고도(Alt)</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
+																										      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Latitude</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
+																										      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Longitude</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
+																										      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Altitude</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
 																										      
 																										      <div style="display:none">
 																										      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Roll</label><input name='rolldata_index' id='rolldata_index' type='text' placeholder='Roll' value='0' class='form-control rolldata'>
 																										      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Pitch</label><input name='pitchdata_index' id='pitchdata_index' type='text' placeholder='Pitch' value='0' class='form-control pitchdata'>
 																										      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Yaw</label><input name='yawdata_index' id='yawdata_index' type='text' placeholder='Yaw' class='form-control yawdata' value='0'><br>
-																										      <label for='speeddata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">속도(Speed)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
+																										      <label for='speeddata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Speed(m/s)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
 																										    	</div>
 																										      
-																										      <label for='actiondata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">액션(Act)</label>
+																										      <label for='actiondata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Action</label>
 
 																										      <a data-toggle="collapse" data-target="#collapseActionParams" aria-expanded="false" aria-controls="collapseActionParams">
 																												    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Help</div>
@@ -305,7 +305,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 																													</div>
 
 
-																										      <label for='actionparam_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">액션인자(Param)</label><input name='actionparam_index' id='actionparam_index' placeholder='action Param' type='text' class='form-control actionparam' value='0'>
+																										      <label for='actionparam_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Parameter</label><input name='actionparam_index' id='actionparam_index' placeholder='action Param' type='text' class='form-control actionparam' value='0'>
 																										      <br><br><button type="button" class="btn btn-primary" id="removeItemBtn">삭제</button> <button type="button" class="btn btn-warning" id="saveItemBtn">적용</button>
 																					       </td>
 																					      </tr>
@@ -330,17 +330,15 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		                  <div class="row no-gutters align-items-center">
 
 		                    <div class="col-auto">
-				                      <label for="track" class="text-xs font-weight-bold text-default text-uppercase mb-1">
-				                        현재 위치를 지도에 표시하기
-				                        <input id="track" type="checkbox"/>
-				                      </label>
+				                      <label for="track" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="msg_tracker">현재 위치를 지도에 표시하기</label>
+				                      <input id="track" type="checkbox"/>				                      
 				                      <hr>
 				                      <p>
-				                        정확도 : <span id="accuracy"></span>&nbsp;&nbsp;
-				                        고도 : <span id="altitude"></span>&nbsp;&nbsp;
-				                        고도 정확도 : <span id="altitudeAccuracy"></span>&nbsp;&nbsp;
-				                        방향 : <span id="heading"></span>&nbsp;&nbsp;
-				                        속도 : <span id="speed"></span>
+				                        Accuracy : <span id="accuracy"></span>&nbsp;&nbsp;
+				                        Altitude : <span id="altitude"></span>&nbsp;&nbsp;
+				                        Altitude Accuracy : <span id="altitudeAccuracy"></span>&nbsp;&nbsp;
+				                        Heading : <span id="heading"></span>&nbsp;&nbsp;
+				                        Speed : <span id="speed"></span>
 				                      </p>
 		                    </div>
 		                  </div>

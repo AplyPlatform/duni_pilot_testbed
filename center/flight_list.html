@@ -207,7 +207,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card border-left-primary shadow py-2">
 	              	<div class="card-header py-3">
-                  	<h6 class="m-0 font-weight-bold text-primary">DJI 비행기록 파일 업로드</h6>
+                  	<h6 class="m-0 font-weight-bold text-primary" id="msg_dji_file_upload">DJI 비행기록 파일 업로드</h6>
                 	</div>
 	                <div class="card-body">
 
@@ -250,7 +250,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						 <div class="col-xl-6 col-md-6 mb-4">
 	              <div class="card border-left-info shadow py-2">
 	              	<div class="card-header py-3">
-                  	<h6 class="m-0 font-weight-bold text-primary">DUNI 비행기록 파일 업로드</h6>
+                  	<h6 class="m-0 font-weight-bold text-primary" id="msg_duni_file_upload">DUNI 비행기록 파일 업로드</h6>
                 	</div>
 	                <div class="card-body">
 
@@ -270,7 +270,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
 	                </div>
 	                <div class="card-body">
-	                		<a class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">
+	                		<a id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">
 																												    비행기록 파일 포맷 (클릭)
 											</a>
 
@@ -283,45 +283,45 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		"lat" : 123.123, // Latitude
 		"lng" : 37.11, // Longitude
 		"alt" : 5.52, // Altitude
-		"dsec" : 0, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
 		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
 		"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"speed" : 2.1, // Speed (Optional)
-		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
-		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
+		"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+		"actparam" : 0, // Parameter for Action ex) 1 (Optional)
 		"dtimestamp" : 1569903583000, // timestamp (Optional)
-		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+		"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
 	},
 	
 	{
 		"lat" : 123.123, // Latitude
 		"lng" : 37.11, // Longitude
 		"alt" : 5.52, // Altitude
-		"dsec" : 10, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
 		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
 		"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"speed" : 2.1, // Speed (Optional)
-		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
-		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
-		"dtimestamp" : 1569903593000, // timestamp (Optional)
-		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+		"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+		"actparam" : 0, // Parameter for Action ex) 1 (Optional)
+		"dtimestamp" : 1569903583000, // timestamp (Optional)
+		"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
 	},
 	
 	{
 		"lat" : 123.123, // Latitude
 		"lng" : 37.11, // Longitude
 		"alt" : 5.52, // Altitude
-		"dsec" : 20, //영상녹화 시작후 시각. (밀리초) (Optional)
+		"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
 		"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
-		"pitch" : -0, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+		"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
 		"speed" : 2.1, // Speed (Optional)
-		"act"	: 0, //Action - 임의값 또는 개발자 지정 ex) 녹화시작:1, 녹화종료:2 (Optional)
-		"actparam" : 0, //Action을 위한 파라메터 ex) 1 (Optional)
-		"dtimestamp" : 1569903703000, // timestamp (Optional)
-		"etc" : { "battery" : 12 } // 배터리 잔여량 (%) (Optional)
+		"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+		"actparam" : 0, // Parameter for Action ex) 1 (Optional)
+		"dtimestamp" : 1569903583000, // timestamp (Optional)
+		"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
 	}
 ]
 </pre>												
