@@ -156,6 +156,7 @@ function designInit() {
 	document.title = LANG_JSON_DATA[langset]['page_mission_design_title'];
 	$("#head_title").text(document.title);
 			
+	$('#msg_tracker').text(LANG_JSON_DATA[langset]['msg_tracker']);
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$('#go_index_direct_label').text(LANG_JSON_DATA[langset]['go_index_direct_label']);
 	$('#btnForRegistMission').text(LANG_JSON_DATA[langset]['btnForRegistMission']);
