@@ -147,6 +147,7 @@ function initPilotCenter() {
 
 function centerInit() {	
 	document.title = LANG_JSON_DATA[langset]['page_center_title'];
+	$("#head_title").text(document.title);
 	
 	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
 	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);	
@@ -158,12 +159,14 @@ function centerInit() {
 function qaInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_qa_title'];
+	$("#head_title").text(document.title);
 	
 }
 
 function missionListInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_list_title'];
+	$("#head_title").text(LANG_JSON_DATA[langset]['page_center_title']);
 	
 	$('#btnForGetMissionList').click(function() {    	
 		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
@@ -176,6 +179,7 @@ function missionListInit() {
 function flightViewInit() {
 		
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+	$("#head_title").text(document.title);
 
   $('#historyPanel').hide();
   $('#historyList').show();
@@ -203,6 +207,7 @@ function flightViewInit() {
 function flightListInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
+	$("#head_title").text(document.title);
 		
 	$('#btnForUploadFlightList').click(function() {    	
     	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
@@ -221,6 +226,7 @@ function flightListInit() {
 function monitorInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
+	$("#head_title").text(document.title);
 	
 	var page_id = location.search.split('mission_name=')[1];
 	if (isSet(page_id))
@@ -240,6 +246,7 @@ function monitorInit() {
 function designInit() {
 	
 	document.title = LANG_JSON_DATA[langset]['page_mission_design_title'];
+	$("#head_title").text(document.title);
 	
 	
 	initSliderForDesign(1);
@@ -319,6 +326,7 @@ function designInit() {
 
 function dromiInit() {
 	document.title = LANG_JSON_DATA[langset]['page_dromi_title'];
+	$("#head_title").text(document.title);
 	
   $("#chartView").hide();
   setUploadData();
@@ -327,6 +335,7 @@ function dromiInit() {
 
 function dromiListInit() {
 	document.title = LANG_JSON_DATA[langset]['page_dromi_list_title'];
+	$("#head_title").text(document.title);
 	
   $("#chartView").hide();
   $("#googlePhotoPlayer").hide();
