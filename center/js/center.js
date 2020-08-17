@@ -427,8 +427,8 @@ function setDashBoard(rcount, fcount) {
 			fcount = 1;
 		}
 		else {
-			$("#r_count_label").text(label_1 + " : " + rcount);
-			$("#f_count_label").text(label_2 + " : " + fcount);
+			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : " + rcount);
+			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : " + fcount);
 		}
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
