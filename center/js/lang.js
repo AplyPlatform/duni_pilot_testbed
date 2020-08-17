@@ -1,8 +1,22 @@
 var LANG_JSON_DATA = {
 		
 		"KR" : {
-				"menu_dashboard" : "Dashboard",
-				"memu_flight_record" : "Flight record",
+				"side_menu_dashboard" : "Dashboard",
+				"side_menu_flight_plan" : "비행계획",
+				"side_menu_flight_plan_design" : "계획 설계",
+				"side_menu_flight_plan_list" : "계획 목록",
+				"side_menu_flight_plan_mon" : "계획 모니터링",
+				"side_menu_flight_record" : "비행 기록",
+				"side_menu_flight_record_upload" : "기록 업로드",
+				"side_menu_flight_record_list" : "기록 보기",
+				"side_menu_qa" : "문의하기",
+				"side_menu_links" : "관련사이트",
+				"side_menu_links_comm" : "DUNI 커뮤니티",
+				"side_menu_links_blog" : "DUNI 블로그",
+				"side_menu_links_apis" : "DUNI Open APIs",
+				"side_menu_links_dev" : "DUNI 개발자 사이트",
+				"top_menu_logout" : "로그아웃",
+				"top_menu_token" : "개발자 토큰",
 				"data_count_msg" : "님의 데이터 현황",
 				"center_about_title" : "이곳에 관하여...",
 				"center_about_content" : "<p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>" +
@@ -47,10 +61,24 @@ var LANG_JSON_DATA = {
 				
 		
 		"EN" : {
-				"menu_dashboard" : "Dashboard",
-				"memu_flight_record" : "Flight record",
+				"side_menu_dashboard" : "Dashboard",
+				"side_menu_flight_plan" : "Flight mission",
+				"side_menu_flight_plan_design" : "Mission design",
+				"side_menu_flight_plan_list" : "Mission list",
+				"side_menu_flight_plan_mon" : "Mission Monitoring",
+				"side_menu_flight_record" : "Flight record",
+				"side_menu_flight_record_upload" : "Upload record",
+				"side_menu_flight_record_list" : "Record list",
+				"side_menu_qa" : "QnA",
+				"side_menu_links" : "Links",
+				"side_menu_links_comm" : "DUNI Community",
+				"side_menu_links_blog" : "DUNI Blog",
+				"side_menu_links_apis" : "DUNI Open APIs",
+				"side_menu_links_dev" : "DUNI Developer",
+				"top_menu_logout" : "Logout",
+				"top_menu_token" : "Token",
 				"data_count_msg" : "'s data status",
-				"center_about_title" : "이곳에 관하여...",
+				"center_about_title" : "About ...",
 				"center_about_content" : "<p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>" +
 																"<p>디자인 한 비행계획은 DUNI앱과 DJI제품의 드론에서 사용 할 수 있습니다. DUNI앱은 현재 개발중이며 곧 안드로이드/iOS버전이 배포될 예정입니다. ('비행계획' > '계획 설계' 메뉴)</p>" +
 																"<p>DUNI앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href='http://code.duni.io/' target=_new>이곳</a>에서 확인할 수 있습니다.</p>" +

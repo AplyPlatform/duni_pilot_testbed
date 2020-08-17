@@ -76,6 +76,7 @@ function goCenter() {
 function setCommonText() {
 		langset = getCookie("language");
 		
+		$('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
 		$('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
 		$('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
 		$('#side_menu_flight_plan_list').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_list']);
