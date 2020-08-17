@@ -181,7 +181,7 @@ var LANG_JSON_DATA = {
 																"<p>Click <i class='fa fa-user fa-fw'></i> icon at the top to see your developer Token.</p>",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>Android</b></p>"
 							+ "<p>- My file > Internal storage > DJI > dji.go.v4 > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
-							+ "<br><p><b>iOS (Please, refere to links below)</b></p>"
+							+ "<br><p><b>iOS (Please, refer to links below)</b></p>"
 							+ "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
 							+ "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
 							+ "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
