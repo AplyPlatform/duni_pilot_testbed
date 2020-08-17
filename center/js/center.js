@@ -344,6 +344,9 @@ function monitorInit() {
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 	
+	
+	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
+	
 	var page_id = location.search.split('mission_name=')[1];
 	if (isSet(page_id))
 		page_id = page_id.split('&')[0];			
