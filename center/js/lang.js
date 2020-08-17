@@ -52,7 +52,7 @@ var LANG_JSON_DATA = {
 				"msg_no_flight_record" : "There is no flight record or something wrong.",
 				"msg_failed_to_get_position" : "Failed to get object position",
 				"msg_load_more" : "More ...",
-				"msg_are_you_sure", "Are you sure ?",
+				"msg_are_you_sure" : "Are you sure ?",
 				"msg_modify_memo" : "Update Memo",
 				"msg_fill_memo" : "Memo is empty. Please, write something.",
 				"msg_success" : "Success",
