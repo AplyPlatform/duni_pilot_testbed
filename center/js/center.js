@@ -254,7 +254,7 @@ function flightListInit() {
 	$('#btnForUploadDUNIFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
 	$('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
 	$('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
-	$('#collapseRecordFileParams').text(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
+	$('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
 					
 	$('#btnForUploadFlightList').click(function() {    	
     	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
