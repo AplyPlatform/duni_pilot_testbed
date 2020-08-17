@@ -99,12 +99,12 @@ function checkLang() {
 	
 	if (isSet(lang)) {
 		if (lang == "KR") {
-			if(url_string.indexOf("index.html) < 0) {
+			if(url_string.indexOf("index.html") < 0) {
 				location.href = "/index.html";
 			}  		
 		}
 		else {
-			if(url_string.indexOf("index_en.html) < 0) {
+			if(url_string.indexOf("index_en.html") < 0) {
 				location.href = "/index_en.html";
 			}
 		}
