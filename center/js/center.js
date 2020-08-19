@@ -634,14 +634,13 @@ function setSliderPos(i) {
 		$('#sliderText').html( i );
 }
 
-function setYawStatus(degrees) {
-		if (!isSet(degrees)) return;
+function setYawStatus(yaw) {
+		if (!isSet(yaw)) return;
 		if (!isSet($('#yawStatus'))) return;
 		var yawStatus = document.getElementById('yawStatus');
 		if (!isSet(yawStatus)) return;
 
-		degrees *= 1;
-		degrees = degrees.toFixed(3);
+		degrees = yaw * 1;
 		degrees = degrees < 0 ? (360 + degrees) : degrees;
 
 		$("#yawStatus").attr("src", $("#yawStatus").attr("src"));
@@ -654,7 +653,9 @@ function setYawStatus(degrees) {
       '-o-transform': 'rotate(' + degrees + 'deg)'
     });
 
-    $('#yawText').text(degrees);
+    yaw = yaw * 1;
+    yaw = yaw.toFixed(3);
+    $('#yawText').text(yaw);
 }
 
 
