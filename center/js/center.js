@@ -678,6 +678,8 @@ function setPitchStatus(pitch) {
       '-o-transform': 'rotate(' + degrees + 'deg)'
     });
 
+    pitch = pitch * 1;
+    pitch = pitch.toFixed(3);
     $('#pitchText').text(pitch);
 }
 
@@ -688,8 +690,6 @@ function setRollStatus(roll) {
 		if (!isSet(canvas)) return;
 
 		var degrees = roll * 1;
-		degrees = degrees.toFixed(3);
-
 		degrees = 180 + degrees;
 		var degrees2 = degrees + 180;
 
@@ -709,6 +709,8 @@ function setRollStatus(roll) {
     context.strokeStyle = '#0000aa';
     context.stroke();
 
+    roll = roll * 1;
+    roll = roll.toFixed(3);
     $('#rollText').text(roll);
 }
 
