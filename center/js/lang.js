@@ -85,7 +85,7 @@ var LANG_JSON_DATA = {
 				"msg_modify_youtube_data" : "영상정보 수정",
 				"msg_close_youtube_data" : "영상정보 닫기",
 				"msg_dji_file_upload" : "DJI 비행기록 파일 업로드",
-				"msg_duni_file_upload" : "DUNI 비행기록 업로드",
+				"msg_duni_file_upload" : "DUNI 비행기록 파일 업로드",
 				"r_count_label" : "비행기록 수",
 				"f_count_label" : "비행계획 수",
 				"dji_flight_record_get_label" : "비행기록 파일 얻는 방법 (클릭)",
