@@ -60,10 +60,10 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
-function requestRegister() {		
-    showLoader();
-    
+function requestRegister() {		        
     GATAGM('RegisterBtnClickOnRegister', 'CONTENT', 'KR');
+    
+    showLoader();
 
     grecaptcha.ready(function() {
       grecaptcha.execute('6LehUpwUAAAAAKTVpbrZ2ciN3_opkJaKOKK11qY6', {action: 'action_name'})

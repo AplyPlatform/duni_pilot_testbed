@@ -95,11 +95,34 @@ function setCommonText() {
 		$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
 }
 
+function showAskDialog(atitle, acontent, oktitle, okhandler) {
+		$('#askModalLabel').text(atitle);						
+		$('#askModelContent').text(acontent);
+		
+		$('#askModalOKButton').text(oktitle);
+		$('#askModalOKButton').click(okhandler);		
+		$('#askModal').modal('show');  	
+}
+
+function setLogoutBtn() {
+		$('#btnLogout').click(function () {
+			GATAGM('btnLogout', 'MEMU', langset);
+			
+			showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['top_menu_logout'],				
+				function() {logOut();}
+			);
+		});
+}
 
 function initPilotCenter() {	  
 	bMonStarted = false;
 	flightRecArray = [];
-	flightRecDataArray = [];
+	flightRecDataArray = [];		
+	setLogoutBtn();
+	
   mapInit();
   
   var page_data = document.getElementById("page_data");
