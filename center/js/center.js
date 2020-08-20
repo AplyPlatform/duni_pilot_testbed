@@ -284,7 +284,7 @@ function flightViewInit() {
 	$("#option_public_label").text(LANG_JSON_DATA[langset]['option_public_label']);
 	$("#option_unlisted_label").text(LANG_JSON_DATA[langset]['option_unlisted_label']);
 	$("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
-	$("#movieButton").text(LANG_JSON_DATA[langset]['movieButton']);
+	$("#uploadVideoToYoutubeButton").text(LANG_JSON_DATA[langset]['uploadVideoToYoutubeButton']);
 	$("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);

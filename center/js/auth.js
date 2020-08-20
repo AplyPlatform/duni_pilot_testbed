@@ -20,9 +20,13 @@ googleApiClientReady = function() {
 }
 
 function setUploadBtn() {
-	$("#movieButton").click(function() {
+	$("#uploadVideoToYoutubeButton").click(function() {						
+			GATAGM('uploadVideoToYoutubeButton', 'CONTENT', 'KR');
+			showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
+			return;
+			
 			if (apiIsReady == false) {
-				showAlert("죄송합니다. 일시적인 오류가 발생했습니다. 잠시후 다시 시도해 주세요.");
+				showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			}
 			else {
 				if (authSucceed == true) {					
