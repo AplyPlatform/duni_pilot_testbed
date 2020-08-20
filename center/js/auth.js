@@ -21,7 +21,7 @@ googleApiClientReady = function() {
 
 function setUploadBtn() {
 	$("#uploadVideoToYoutubeButton").click(function() {						
-			GATAGM('uploadVideoToYoutubeButton', 'CONTENT', 'KR');
+			GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
 			showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
 			return;
 			

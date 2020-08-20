@@ -29,7 +29,7 @@ $(function() {
 });
 
 function onAgree() {
-			GATAGM('AgreeBtnClickOnRegister', 'CONTENT', 'KR'); 
+			GATAGM('AgreeBtnClickOnRegister', 'CONTENT', langset); 
       showLoader();      
       $("#show_2").show();
       $("#show_1").hide();
@@ -37,7 +37,7 @@ function onAgree() {
 }
 
 function goHome() {
-			GATAGM('BackBtnClickOnRegister', 'CONTENT', 'KR'); 
+			GATAGM('BackBtnClickOnRegister', 'CONTENT', langset); 
       location.href="index.html?fromapp=" + getCookie("isFromApp");
 }
 
@@ -61,7 +61,7 @@ function ajaxRequest(data, callback, errorcallback) {
 }
 
 function requestRegister() {		        
-    GATAGM('RegisterBtnClickOnRegister', 'CONTENT', 'KR');
+    GATAGM('RegisterBtnClickOnRegister', 'CONTENT', langset);
     
     showLoader();
 
@@ -75,19 +75,19 @@ function requestRegister() {
               var droneplay_phonenumber = $('#droneplay_phonenumber').val();                            
 
               if (droneplay_name == null || droneplay_name == "") {
-              	GATAGM('NameIsEmptyOnRegister', 'CONTENT', 'KR');
+              	GATAGM('NameIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_name']);
                 return;
               }              
               
               if (droneplay_email == null || droneplay_email == "") {
-              	GATAGM('EmailIsEmptyOnRegister', 'CONTENT', 'KR');
+              	GATAGM('EmailIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_email']);
                 return;
               }
               
               if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
-              	GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', 'KR');
+              	GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_phone']);
                 return;
               }
@@ -113,7 +113,7 @@ function requestRegister() {
                       		if(r.reason.indexOf("socialid is already exists") >= 0) {
                       			showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
                       			$("#show_2").show();
-                      			GATAGM('EmailIsExistOnRegister', 'CONTENT', 'KR');
+                      			GATAGM('EmailIsExistOnRegister', 'CONTENT', langset);
                       			return;
                       		}
                       		                          
@@ -123,7 +123,7 @@ function requestRegister() {
                   },
                   function(request,status,error){
 		
-										 GATAGM('ErroOnRegister_' + error, 'CONTENT', 'KR');
+										 GATAGM('ErroOnRegister_' + error, 'CONTENT', langset);
                      showAlert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                      //
                      hideLoader();

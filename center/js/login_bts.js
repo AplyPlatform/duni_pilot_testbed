@@ -1,10 +1,5 @@
 var langset = "KR";
 
-function fbLoginCheck() {	
-  checkFacebookLogin();
-};
-
-
 function goHome() {            
   if (langset == "KR" || langset == "")
     location.href="index.html?fromapp=" + getCookie("isFromApp");
@@ -12,7 +7,7 @@ function goHome() {
   	location.href="index_en.html?fromapp=" + getCookie("isFromApp");
 }
 
-function checkFacebookLogin() {
+function facebookInit() {
     if ((typeof FB) === "undefined" || FB == null || FB == "") {
       goHome();
       return;
@@ -169,6 +164,7 @@ function formSubmit(token) {
 
 }
 
+
 function checkLoginStatus() {
 	
   $("#fbLoginButton").hide();
@@ -193,7 +189,7 @@ function checkLoginStatus() {
   if (dev_kind == "facebook") {
   	hideLoader();
     $("#fbLoginButton").show();
-    fbLoginCheck();
+    facebookInit();
   }
   else if (dev_kind == "google") {
   	hideLoader();
@@ -207,8 +203,7 @@ function checkLoginStatus() {
   }
 }
 
-checkLang();
-checkLoginStatus();
+
 
 function checkLang() {
 	langset = getCookie("language");
@@ -225,3 +220,8 @@ function setLang(lang) {
 	setCookie("language", lang, 1);
 	langset = lang;
 }
+
+$(function() {	
+	checkLang();
+	checkLoginStatus();
+});

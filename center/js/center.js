@@ -53,7 +53,7 @@ var langset = "KR";
 
 $(function() {
 	if (askToken() == false) {
-		goIndex();
+		goIndex("");
     return;
   }
       
@@ -63,11 +63,11 @@ $(function() {
 
 });
 
-function goIndex() {
+function goIndex(doAction) {
 	if (langset == "KR" || langset == "")
-    location.href="index.html";
+    location.href="index.html?action=" + doAction;
   else
-  	location.href="index_en.html";
+  	location.href="index_en.html?action=" + doAction;
 }
 
 function goCenter() {
@@ -193,7 +193,7 @@ function designInit() {
 	initSliderForDesign(1);
 
  	map.on('click', function (evt) {
- 			GATAGM('DESIGN_MAP', 'CONTENT', 'KR');
+ 			GATAGM('DESIGN_MAP', 'CONTENT', langset);
  			
       var feature = map.forEachFeatureAtPixel(evt.pixel,
           function (feature) {
@@ -242,25 +242,25 @@ function designInit() {
 
 	$('#saveItemBtn').off('click');
 	$('#saveItemBtn').click(function(){
-		GATAGM('saveItemBtn', 'CONTENT', 'KR');
+		GATAGM('saveItemBtn', 'CONTENT', langset);
 		saveFlightData(0);
 	});
 	
 	$('#btnForRegistMission').off('click');
 	$('#btnForRegistMission').click(function(){
-		GATAGM('btnForRegistMission', 'CONTENT', 'KR');
+		GATAGM('btnForRegistMission', 'CONTENT', langset);
 		registMission();
 	});		
 	
 	$('#btnForClearMission').off('click');
 	$('#btnForClearMission').click(function(){
-		GATAGM('btnForClearMission', 'CONTENT', 'KR');
+		GATAGM('btnForClearMission', 'CONTENT', langset);
 		askClearCurrentDesign();
 	});				
 	
 	$('#btnForSearchAddress').off('click');
 	$('#btnForSearchAddress').click(function(){
-		GATAGM('btnForSearchAddress', 'CONTENT', 'KR');
+		GATAGM('btnForSearchAddress', 'CONTENT', langset);
 		searchCurrentBrowserAddress();
 	});				
 }
@@ -282,12 +282,12 @@ function flightListInit() {
 	$('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
 					
 	$('#btnForUploadFlightList').click(function() {    	
-    	GATAGM('btnForUploadFlightList', 'CONTENT', 'KR');    	
+    	GATAGM('btnForUploadFlightList', 'CONTENT', langset);    	
     	uploadFlightList();
   });
   
   $('#btnForUploadDUNIFlightList').click(function() {    	
-    	GATAGM('btnForUploadDUNIFlightList', 'CONTENT', 'KR');    	
+    	GATAGM('btnForUploadDUNIFlightList', 'CONTENT', langset);    	
     	uploadDUNIFlightList();
   });
     
@@ -327,12 +327,12 @@ function flightViewInit() {
   $('#historyMap').hide();
   
   $('#btnForSetYoutubeID').click(function() {    	
-  	GATAGM('btnForSetYoutubeID', 'CONTENT', 'KR');    	
+  	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
   	setYoutubeID();
   });
   
   $('#btnForLoadFlightList').click(function() {    	
-  	GATAGM('btnForLoadFlightList', 'CONTENT', 'KR');    	
+  	GATAGM('btnForLoadFlightList', 'CONTENT', langset);    	
   	getFlightList();
   });
   
@@ -365,7 +365,7 @@ function missionListInit() {
 	$("#btnForGetMissionList").text(LANG_JSON_DATA[langset]['btnForGetMissionList']);
 	
 	$('#btnForGetMissionList').click(function() {    	
-		GATAGM('btnForGetMissionList', 'CONTENT', 'KR');    	
+		GATAGM('btnForGetMissionList', 'CONTENT', langset);    	
 		getMissionList();
 	});					
 	
@@ -388,7 +388,7 @@ function monitorInit() {
   getMissionToMonitor(page_id);
 	
 	$("#btnStartMon").click(function() {
-		GATAGM('btnStartMon', 'CONTENT', 'KR');
+		GATAGM('btnStartMon', 'CONTENT', langset);
 		startMon();
 	});	
 
@@ -569,7 +569,7 @@ function drawLineGraph() {
 
   document.getElementById("lineGraph").onclick = function(evt){
   	
-  	GATAGM('LINEGRAPH', 'CONTENT', 'KR');
+  	GATAGM('LINEGRAPH', 'CONTENT', langset);
   	
     var activePoints = window.myLine.getElementsAtEvent(evt);
 
@@ -749,7 +749,7 @@ function initSliderForDesign(i) {
 					step : 1,
 					slide : function( event, ui ){
 						
-						GATAGM('slider', 'CONTENT', 'KR');
+						GATAGM('slider', 'CONTENT', langset);
 						
             if (flightRecDataArray.length <= 0) {
 							return;
@@ -765,7 +765,7 @@ function initSliderForDesign(i) {
 
 	$('#goItemBtn').click(function() {
 		
-			GATAGM('goItemBtn', 'CONTENT', 'KR');
+			GATAGM('goItemBtn', 'CONTENT', langset);
 			
 			var index = $('#goItemIndex').val();
 			if (!isSet(index) || $.isNumeric( index ) == false) {
@@ -1148,14 +1148,14 @@ function setDataToDesignTableWithFlightRecord(index) {
 
 	$('#removeItemBtn').off('click');
 	$('#removeItemBtn').click(function(){		
-		GATAGM('removeItemBtn', 'CONTENT', 'KR');
+		GATAGM('removeItemBtn', 'CONTENT', langset);
 		removeFlightData(index);		
 		removeIconOnMap(index);
 	});
 
 	$('#saveItemBtn').off('click');
 	$('#saveItemBtn').click(function(){
-		GATAGM('saveItemBtn', 'CONTENT', 'KR');
+		GATAGM('saveItemBtn', 'CONTENT', langset);
 		saveFlightData(index);
 	});
 }
@@ -1232,7 +1232,7 @@ function appendMissionList(data) {
         $('#dataTable-missions > tbody:last').append(appendRow);
         
         $('#missionListBtnForRemove_' + index).click(function() {
-        	GATAGM('missionListBtnForRemove_' + index, 'CONTENT', 'KR');
+        	GATAGM('missionListBtnForRemove_' + index, 'CONTENT', langset);
         	askRemoveMissionItem(item['name'], "mission_row_" + index);
         });
     });
@@ -1390,7 +1390,7 @@ function showDataWithName(name) {
     	}
     	
     	$("#flightMemoBtn").click(function() {
-    			GATAGM('flightMemoBtn', 'CONTENT', 'KR');
+    			GATAGM('flightMemoBtn', 'CONTENT', langset);
     			updateFlightMemoWithValue(name, $("#memoTextarea").val());
     	});    		
 
@@ -1491,7 +1491,7 @@ function showData(index) {
 	    	}
 	    	
 	    	$("#flightMemoBtn").click(function() {
-	    			GATAGM('flightMemoBtn', 'CONTENT', 'KR');
+	    			GATAGM('flightMemoBtn', 'CONTENT', langset);
 	    			updateFlightMemoWithValue(r.data.name, $("#memoTextarea").val());
 	    	});
 
@@ -1725,17 +1725,17 @@ function appendFlightListTable(item) {
   var curIndex = tableCount;
   
   $('#map_address_' + curIndex).click(function () {
-  	GATAGM('map_address_' + curIndex, 'CONTENT', 'KR');
+  	GATAGM('map_address_' + curIndex, 'CONTENT', langset);
   	moveFlightHistoryMap(flat,flng);
   });
   
   $('#btnForRemoveFlightData_' + curIndex).click(function () {
-  	GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', 'KR');
+  	GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', langset);
   	askDeleteFlightData(name, curIndex);
   });
   
   $('#btnForUpdateMemo_' + curIndex).click(function () {
-  	GATAGM('btnForUpdateMemo_' + curIndex, 'CONTENT', 'KR');
+  	GATAGM('btnForUpdateMemo_' + curIndex, 'CONTENT', langset);
   	updateFlightMemo(curIndex);
   });
 
@@ -1945,7 +1945,7 @@ function registMission() {
 
 function setUploadData() {
       $("#uploadBtn").click(function() {
-      		GATAGM('uploadBtn', 'CONTENT', 'KR');
+      		GATAGM('uploadBtn', 'CONTENT', langset);
       		
           if (cur_flightrecord_name == "") {
             var mname = prompt("데이터셋의 이름을 입력해 주세요.", "");
@@ -2014,7 +2014,7 @@ function drawPosIcons() {
 	if (posIcons.length <= 0) return;
 
   map.on('click', function (evt) {
-  		GATAGM('map', 'CONTENT', 'KR');
+  		GATAGM('map', 'CONTENT', langset);
   		
       var feature = map.forEachFeatureAtPixel(evt.pixel,
           function (feature) {
@@ -2073,7 +2073,7 @@ function drawScatterGraph() {
   ]};
   
   document.getElementById("chartArea").onclick = function(evt){
-  	GATAGM('chartArea', 'CONTENT', 'KR');
+  	GATAGM('chartArea', 'CONTENT', langset);
   	
     var activePoints = window.myScatter.getElementsAtEvent(evt);
         
@@ -2306,7 +2306,7 @@ function ajaxRequest(data, callback, errorcallback) {
 function logOut() {
   setCookie("dev_user_id", "", -1);
   setCookie("user_token", "", -1);
-  goIndex();
+  goIndex(doAction);
 }
 
 
@@ -2905,7 +2905,7 @@ function appendFlightRecordListTableForDromi(name, dtimestamp, data) {
   var curIndex = tableCount;
   
   $('#btnForDeleteDromiData_' + curIndex).click(function() {
-  	GATAGM('btnForDeleteDromiData_' + curIndex, 'CONTENT', 'KR');
+  	GATAGM('btnForDeleteDromiData_' + curIndex, 'CONTENT', langset);
   	askDeleteDromiData(name, curIndex);
   });
   
@@ -2960,7 +2960,7 @@ function hideMovieDataSet() {
 	
 	$('#modifyBtnForMovieData').off('click');
 	$('#modifyBtnForMovieData').click(function(){
-		GATAGM('modifyBtnForMovieData_show', 'CONTENT', 'KR');
+		GATAGM('modifyBtnForMovieData_show', 'CONTENT', langset);
 		showMovieDataSet();
 	});
 	
@@ -2972,7 +2972,7 @@ function showMovieDataSet() {
 	
 	$('#modifyBtnForMovieData').off('click');
 	$('#modifyBtnForMovieData').click(function(){
-		GATAGM('modifyBtnForMovieData_hide', 'CONTENT', 'KR');
+		GATAGM('modifyBtnForMovieData_hide', 'CONTENT', langset);
 		hideMovieDataSet();
 	});
 }
@@ -3221,7 +3221,7 @@ function appendFlightListTableForDromi(name, dtimestamp, data) {
   var curIndex = tableCount;
   
   $('#btnForDeleteFlightDataForDromi_' + curIndex).click(function () {  	
-  	GATAGM('btnForDeleteFlightDataForDromi_' + curIndex, 'CONTENT', 'KR');
+  	GATAGM('btnForDeleteFlightDataForDromi_' + curIndex, 'CONTENT', langset);
   	askDeleteFlightDataForDromis(name, curIndex);
   });
         

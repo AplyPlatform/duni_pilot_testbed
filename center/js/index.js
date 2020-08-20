@@ -52,6 +52,54 @@ function onNaver() {
   formSubmit("naver");
 }
 
+
+var snsFacebookInitStatus = false;
+var snsGoogleInitStatus = false;
+
+function googleSignOut() {
+	if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {      
+    return;
+  }
+  
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+      auth2.disconnect();
+  });
+
+}
+
+function facebookSignOut() {
+	if ((typeof FB) === "undefined" || FB == null || FB == "") {      
+    return;
+  }
+  
+  FB.logout(function(response) {
+		// user is now logged out
+	});
+}
+
+function facebookInit() {
+  if ((typeof FB) === "undefined" || FB == null || FB == "") {      
+    return;
+  }
+
+  FB.getLoginStatus(function(response) {
+    snsFacebookInitStatus = true;
+  });
+}
+
+function googleinit() {
+  if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {
+    return;
+  }
+
+  gapi.load('auth2', function() { // Ready.  	
+    gapi.auth2.init();    
+    snsGoogleInitStatus = true;
+  });
+}
+
+
 function checkLoginStatus() {	
   var url_string = window.location.href;
   var isFromApp = location.search.split('fromapp=')[1];
@@ -70,19 +118,20 @@ function checkLoginStatus() {
   if (isSet(userid) == true && isSet(usertoken) == true) {
     if (isFromApp == "yes") {
       Android.setToken(usertoken, userid);
-      return;
+      return true;
     }
 
     location.href="center.html";
-    return;
-  }
+    return true;
+  }  
 
   setCookie("dev_user_id", "", -1);
   setCookie("socialid", "", -1);
   setCookie("user_token", "", -1);
-  setCookie("device_table_uuid", "", -1);
-  setCookie("dev_kind", "", -1);
+  setCookie("device_table_uuid", "", -1);  
   setCookie("sns_token", "", -1);
+  
+  return false;
 }
 
 
@@ -108,5 +157,27 @@ function setLang(lang) {
 	setCookie("language", lang, 1);
 }
 
-checkLang();
-checkLoginStatus();
+$(function() {
+	checkLang();
+	if (checkLoginStatus() == true) return;
+	
+	var doAction = location.search.split('action=')[1];
+
+	if (!isSet(doAction) || doAction == "") return;
+	
+	if (doAction == "logout") {  	
+  	var dev_kind = getCookie("dev_kind");
+  	
+  	if (dev_kind == "facebook") {
+  		facebookSignOut();
+  	}
+  	else if (dev_kind == "google") {
+  		googleSignOut();
+  	}
+  	else if (dev_kind == "naver") {
+  	}
+  	
+  	setCookie("dev_kind", "", -1);
+  }	  
+	
+});
