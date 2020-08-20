@@ -52,10 +52,6 @@ function onNaver() {
   formSubmit("naver");
 }
 
-
-var snsFacebookInitStatus = false;
-var snsGoogleInitStatus = false;
-
 function googleSignOut() {
 	if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {      
     return;
@@ -84,7 +80,6 @@ function facebookInit() {
   }
 
   FB.getLoginStatus(function(response) {
-    snsFacebookInitStatus = true;
   });
 }
 
@@ -93,10 +88,11 @@ function googleinit() {
     return;
   }
 
-  gapi.load('auth2', function() { // Ready.  	
-    gapi.auth2.init();    
-    snsGoogleInitStatus = true;
-  });
+	if(!gapi.auth2) {
+	  gapi.load('auth2', function() { // Ready.  	
+	    gapi.auth2.init();
+	  });
+	}
 }
 
 
@@ -159,15 +155,17 @@ function setLang(lang) {
 
 $(function() {
 	checkLang();
-	if (checkLoginStatus() == true) return;
-	
-	var doAction = location.search.split('action=')[1];
-
+	if (checkLoginStatus() == true) {
+		return;
+	}
+		
+	var dev_kind = getCookie("dev_kind");
+  setCookie("dev_kind", "", -1);		
+  
+  var doAction = location.search.split('action=')[1];
 	if (!isSet(doAction) || doAction == "") return;
 	
-	if (doAction == "logout") {  	
-  	var dev_kind = getCookie("dev_kind");
-  	
+	if (doAction == "logout") {  	  	  	
   	if (dev_kind == "facebook") {
   		facebookSignOut();
   	}
@@ -175,9 +173,7 @@ $(function() {
   		googleSignOut();
   	}
   	else if (dev_kind == "naver") {
-  	}
-  	
-  	setCookie("dev_kind", "", -1);
+  	}  	  	
   }	  
 	
 });
