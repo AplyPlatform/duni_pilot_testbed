@@ -98,10 +98,16 @@ function setCommonText() {
 }
 
 function showAskDialog(atitle, acontent, oktitle, okhandler) {		
+			
 		$('#askModalLabel').text(atitle);						
 		$('#askModelContent').text(acontent);		
 		$('#askModalOKButton').text(oktitle);				
-		$('#askModalOKButton').click(okhandler);		
+		
+		$('#askModalOKButton').off('click');
+		$('#askModalOKButton').click(function(){
+			okhandler();
+			$('#askModalOKButton').modal('hide');
+		});		
 						
 		$('#askModal').modal('show');  	
 }
