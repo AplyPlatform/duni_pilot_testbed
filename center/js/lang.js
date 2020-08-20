@@ -168,7 +168,7 @@ var LANG_JSON_DATA = {
 				"center_example_title" : "Example",				
 				"msg_no_mission" : "There is no mission or something wrong.",
 				"msg_error_sorry" : "Error. Sorry, please try again later.",
-				"msg_sorry_now_on_preparing": "Sorry. Currently, this feature is in preparation. After uploading the video from the YouTube site, you can set the link of the created video in 'YouTube Video URL'."
+				"msg_sorry_now_on_preparing": "Sorry. Currently, this feature is in preparation. After uploading the video from the YouTube site, you can set the link of the created video in 'YouTube Video URL'.",
 				"msg_no_data" : "There is no data",
 				"msg_modify" : "Modify",
 				"msg_remove" : "Delete",
