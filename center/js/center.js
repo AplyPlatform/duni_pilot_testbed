@@ -93,14 +93,16 @@ function setCommonText() {
 		
 		$('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
 		$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
+		
+		$('#askModalCancelButton').text(LANG_JSON_DATA[langset]['msg_cancel']);
 }
 
-function showAskDialog(atitle, acontent, oktitle, okhandler) {
+function showAskDialog(atitle, acontent, oktitle, okhandler) {		
 		$('#askModalLabel').text(atitle);						
-		$('#askModelContent').text(acontent);
-		
-		$('#askModalOKButton').text(oktitle);
+		$('#askModelContent').text(acontent);		
+		$('#askModalOKButton').text(oktitle);				
 		$('#askModalOKButton').click(okhandler);		
+						
 		$('#askModal').modal('show');  	
 }
 
