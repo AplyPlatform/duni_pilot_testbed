@@ -2306,7 +2306,7 @@ function ajaxRequest(data, callback, errorcallback) {
 function logOut() {
   setCookie("dev_user_id", "", -1);
   setCookie("user_token", "", -1);
-  goIndex(doAction);
+  goIndex("logout");
 }
 
 
