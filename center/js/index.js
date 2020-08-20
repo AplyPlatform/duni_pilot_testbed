@@ -1,3 +1,5 @@
+var dev_kind = "";
+
 function GATAGM(label, category, language) {
   gtag(
       'event', label + "_" + language, {
@@ -80,6 +82,7 @@ function facebookInit() {
   }
 
   FB.getLoginStatus(function(response) {
+  	facebookLogoutCheck();
   });
 }
 
@@ -91,10 +94,30 @@ function googleinit() {
 	if(!gapi.auth2) {
 	  gapi.load('auth2', function() { // Ready.  	
 	    gapi.auth2.init();
+	    
+	    googleLogoutCheck();	    	    	    
 	  });
 	}
 }
 
+function facebookLogoutCheck() {	  
+  var doAction = location.search.split('action=')[1];
+	if (!isSet(doAction) || doAction == "") return;
+	
+	if (doAction == "logout" && dev_kind == "facebook") {  	  	  	  	
+  	facebookSignOut();  	
+  }	  
+}
+
+
+function googleLogoutCheck() {  
+  var doAction = location.search.split('action=')[1];
+	if (!isSet(doAction) || doAction == "") return;
+	
+	if (doAction == "logout" && dev_kind == "google") {  	  	  	  	
+  	googleSignOut();  	
+  }	  
+}
 
 function checkLoginStatus() {	
   var url_string = window.location.href;
@@ -126,6 +149,8 @@ function checkLoginStatus() {
   setCookie("user_token", "", -1);
   setCookie("device_table_uuid", "", -1);  
   setCookie("sns_token", "", -1);
+  dev_kind = getCookie("dev_kind");
+  setCookie("dev_kind", "", -1);
   
   return false;
 }
@@ -155,25 +180,5 @@ function setLang(lang) {
 
 $(function() {
 	checkLang();
-	if (checkLoginStatus() == true) {
-		return;
-	}
-		
-	var dev_kind = getCookie("dev_kind");
-  setCookie("dev_kind", "", -1);		
-  
-  var doAction = location.search.split('action=')[1];
-	if (!isSet(doAction) || doAction == "") return;
-	
-	if (doAction == "logout") {  	  	  	
-  	if (dev_kind == "facebook") {
-  		facebookSignOut();
-  	}
-  	else if (dev_kind == "google") {
-  		googleSignOut();
-  	}
-  	else if (dev_kind == "naver") {
-  	}  	  	
-  }	  
-	
+	checkLoginStatus();	
 });
