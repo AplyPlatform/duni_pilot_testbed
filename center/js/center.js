@@ -253,7 +253,7 @@ function designInit() {
 	$('#btnForClearMission').off('click');
 	$('#btnForClearMission').click(function(){
 		GATAGM('btnForClearMission', 'CONTENT', 'KR');
-		clearCurrentDesign();
+		askClearCurrentDesign();
 	});				
 	
 	$('#btnForSearchAddress').off('click');
@@ -1231,7 +1231,7 @@ function appendMissionList(data) {
         
         $('#missionListBtnForRemove_' + index).click(function() {
         	GATAGM('missionListBtnForRemove_' + index, 'CONTENT', 'KR');
-        	removeMissionItem(item['name'], "mission_row_" + index);
+        	askRemoveMissionItem(item['name'], "mission_row_" + index);
         });
     });
 }
@@ -1271,12 +1271,16 @@ function searchAddressToCoordinate(address) {
 
 var tableCount = 0;
 
-function clearCurrentDesign() {
-    var r = confirm(LANG_JSON_DATA[langset]['msg_are_you_sure']);
-    if (r == false) {
-        return;
-    }
+function askClearCurrentDesign() {
+	showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['btnForClearMission'],				
+				function() {clearCurrentDesign();}
+			);
+}
 
+function clearCurrentDesign() {    
 		if(isSet(lineSource))
     	lineSource.clear();
 
@@ -1725,7 +1729,7 @@ function appendFlightListTable(item) {
   
   $('#btnForRemoveFlightData_' + curIndex).click(function () {
   	GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', 'KR');
-  	deleteFlightData(curIndex);
+  	askDeleteFlightData(name, curIndex);
   });
   
   $('#btnForUpdateMemo_' + curIndex).click(function () {
@@ -1814,18 +1818,19 @@ function updateFlightMemo(index) {
   });
 }
 
+function askDeleteFlightData(name, index) {
+	showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['msg_remove'],
+				function() {deleteFlightData(name, index);}
+			);
+}
 
-function deleteFlightData(index) {
-
-  var item = flightRecArray[index];
-
-  if (confirm(item.name + ' : ' + LANG_JSON_DATA[langset]['msg_are_you_sure'])) {
-  } else {
-    return;
-  }
-
+function deleteFlightData(name, index) {
+  
   var userid = getCookie("dev_user_id");
-  var jdata = {"action": "position", "daction": "delete", "clientid" : userid, "name" : item.name};
+  var jdata = {"action": "position", "daction": "delete", "clientid" : userid, "name" : name};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
@@ -1847,12 +1852,15 @@ function removeTableRow(rowname) {
   $("#" + rowname).remove();
 }
 
-function removeMissionItem(name, trname) {
-    var r = confirm(name + ' : ' + LANG_JSON_DATA[langset]['msg_are_you_sure']);
-    if (r == false) {
-        return;
-    }
-
+function askRemoveMissionItem(name, trname) {
+	showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['msg_remove'],
+				function() {removeMissionItem(name, trname);}
+			);
+}
+function removeMissionItem(name, trname) {    
     var userid = getCookie("dev_user_id");
     var jdata = {"action": "mission","mname" : name, "daction" : "delete", "clientid" : userid};
 
@@ -2896,23 +2904,24 @@ function appendFlightRecordListTableForDromi(name, dtimestamp, data) {
   
   $('#btnForDeleteDromiData_' + curIndex).click(function() {
   	GATAGM('btnForDeleteDromiData_' + curIndex, 'CONTENT', 'KR');
-  	deleteDromiData(curIndex);
+  	askDeleteDromiData(name, curIndex);
   });
   
   tableCount++;
 }
 
-function deleteDromiData(index) {
-  if (dromiDataArray.length == 0) return;
-  var item = dromiDataArray[index];
+function askDeleteDromiData(name, index) {
+		showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['btnForClearMission'],				
+				function() {deleteDromiData(name, index);}
+			);
+}
 
-  if (confirm(item.dname + ': ' +  LANG_JSON_DATA[langset]['msg_are_you_sure'])) {
-  } else {
-    return;
-  }
-
+function deleteDromiData(name, index) {  
   var userid = getCookie("dev_user_id");
-  var jdata = {"action": "dromi", "daction": "delete", "clientid" : userid, "name" : item.dname};
+  var jdata = {"action": "dromi", "daction": "delete", "clientid" : userid, "name" : name};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
@@ -3211,24 +3220,24 @@ function appendFlightListTableForDromi(name, dtimestamp, data) {
   
   $('#btnForDeleteFlightDataForDromi_' + curIndex).click(function () {  	
   	GATAGM('btnForDeleteFlightDataForDromi_' + curIndex, 'CONTENT', 'KR');
-  	deleteFlightDataForDromis(curIndex);
+  	askDeleteFlightDataForDromis(name, curIndex);
   });
         
   tableCount++;
 }
 
+function askDeleteFlightDataForDromis(name, index) {
+	showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['msg_remove'],				
+				function() {deleteFlightDataForDromis(name, index);}
+			);
+}
 
 function deleteFlightDataForDromis(index) {
-
-  var item = flightDataArrayForDromis[index];
-
-  if (confirm('정말로 ' + item.name + ' 비행기록을 삭제하시겠습니까?')) {
-  } else {
-    return;
-  }
-
   var userid = getCookie("dev_user_id");
-  var jdata = {"action": "position", "daction": "delete", "clientid" : userid, "name" : item.name};
+  var jdata = {"action": "position", "daction": "delete", "clientid" : userid, "name" : name};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
