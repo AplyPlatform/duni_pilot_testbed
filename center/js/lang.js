@@ -52,8 +52,8 @@ var LANG_JSON_DATA = {
 				"center_example_title" : "사용예시",				
 				"msg_no_mission" : "비행계획이 존재하지 않습니다.",
 				"msg_error_sorry" : "오류가 발생했습니다. 죄송합니다. 잠시후 다시 시도해 주세요.",
-				"msg_sorry_now_on_preparing", "Sorry. Currently, this feature is in preparation."
-				"msg_no_flight_record" : "죄송합니다. 현재 이 기능은 준비 중입니다. 영상을 유튜브 사이트에서 업로드 한 후, 생성되는 영상의 링크를 '유튜브 영상주소'에 설정하실 수 있습니다.",
+				"msg_sorry_now_on_preparing", "죄송합니다. 현재 이 기능은 준비 중입니다. 영상을 유튜브 사이트에서 업로드 한 후, 생성되는 영상의 링크를 '유튜브 영상주소'에 설정하실 수 있습니다.",
+				"msg_no_flight_record" : "비행기록이 존재하지 않습니다.",
 				"msg_no_data" : "존재하는 데이터가 없습니다.",
 				"msg_load_more" : "더 불러오기",
 				"msg_failed_to_get_position" : "대상 위치 파악 실패",
