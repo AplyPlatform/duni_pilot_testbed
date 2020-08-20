@@ -106,7 +106,7 @@ function showAskDialog(atitle, acontent, oktitle, okhandler) {
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
 			okhandler();
-			$('#askModalOKButton').modal('hide');
+			$('#askModal').modal('hide');
 		});		
 						
 		$('#askModal').modal('show');  	
