@@ -110,6 +110,8 @@ var LANG_JSON_DATA = {
 																	"<p>상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>안드로이드</b></p>"
 							+ "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
+							+ "<p>또는, - 내 파일 > 내장 메모리 > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_연월일시.txt</p>"
+							+ "<p>또는, - 내 파일 > 내장 메모리 > DJI > [그외 앱이름] > FlightRecord > FlightRecord_연월일시.txt</p>"
 							+ "<br><p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>"
 							+ "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
 							+ "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
@@ -227,6 +229,8 @@ var LANG_JSON_DATA = {
 																"<p>Click <i class='fa fa-user fa-fw'></i> icon at the top to see your developer Token.</p>",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>Android</b></p>"
 							+ "<p>- My file > Internal storage > DJI > dji.go.v4 > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
+							+ "<p>Or, - My file > Internal storage > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
+							+ "<p>Or, - My file > Internal storage > DJI > [APP NAME] > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
 							+ "<br><p><b>iOS (Please, refer to links below)</b></p>"
 							+ "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
 							+ "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
