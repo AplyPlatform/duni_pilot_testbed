@@ -813,14 +813,12 @@ form label {
 }
 
 #gtco-header {
-  background: #3dcdbc;
-  background: -moz-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, #3dcdbc), color-stop(100%, #33a1bd));
-  background: -webkit-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
-  background: -o-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
-  background: -ms-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
-  background: linear-gradient(to right, #3dcdbc 0%, #33a1bd 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3dcdbc', endColorstr='#33a1bd', GradientType=1 );
+  background: url('../images/title_img.jpg') no-repeat bottom center scroll;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 }
 #gtco-header p {
   color: #d3f1ed;
