@@ -156,13 +156,16 @@ function initPilotCenter() {
     flightListInit();
   }
   else if (page_action == "flight_view") {
+  	mapInit();
   	flightHistoryMapInit();
     flightViewInit();    
   }
-  else if (page_action == "dromi") {  	
+  else if (page_action == "dromi") {
+  	mapInit();
     dromiInit();
   }
-  else if (page_action == "dromi_list") {  	
+  else if (page_action == "dromi_list") {
+  	mapInit();
     dromiListInit();
   }
 }
@@ -1531,8 +1534,7 @@ function showDataWithName(name) {
 
   		$('#historyList').hide(1500);  		  		
   		$('#historyPanel').show();
-
-			mapInit();
+  					
       setChartData(fdata.data);
 
       if (!isSet(fdata.cada) && fdata.cada == null) {
@@ -1597,8 +1599,7 @@ function showData(index) {
 	    else {
 
 	    	$('#historyList').hide(1500);	    	
-  			$('#historyPanel').show();
-  			mapInit();
+  			$('#historyPanel').show();  			
   			  			
   			if ("memo" in r.data) {
     		 $("#memoTextarea").val(r.data.memo);
@@ -1632,8 +1633,7 @@ function showData(index) {
 		$('#historyList').hide(1500);		
     $('#historyPanel').show();
 
-		showLoader();
-		mapInit();
+		showLoader();		
   	setChartData(item.data);
   	hideLoader();
   }
@@ -2449,7 +2449,6 @@ function styleFunction(textMsg) {
     	})
   ];
 }
-
 
 function mapInit() {
 
