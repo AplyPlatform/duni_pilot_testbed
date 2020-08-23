@@ -1307,7 +1307,7 @@ function clearCurrentDesign() {
 
 function searchFlightRecord(keyword) {
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action": "position", "daction": "find_record", "clientid" : userid};
+  var jdata = {"action": "position", "daction": "find_record", "keyword" : keyword, "clientid" : userid};
   
   if (isSet(hasMore)) {
   	jdata["morekey"] = hasMore;
