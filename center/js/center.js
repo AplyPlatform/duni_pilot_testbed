@@ -1814,7 +1814,7 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
+  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold text-primary text-uppercase mb-1'>" + (tableCount + 1) + "</td>";
   appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");' class='center text-xs font-weight-bold mb-1'>" + name + "</a>";
 
   if (isSet(flat)) {
@@ -3008,7 +3008,7 @@ function setDromilist(data) {
 }
 
 function appendFlightRecordListTableForDromi(name, dtimestamp, data) {
-  var appendRow = "<tr class='odd gradeX' id='dromi-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>"
+  var appendRow = "<tr class='odd gradeX' id='dromi-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1'>" + (tableCount + 1) + "</td>"
       + "<td class='center' bgcolor='#eee'><a href='javascript:showDataForDromi(" + tableCount + ");'>"
       + name + "</a></td><td width='30%' class='center'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"
