@@ -130,34 +130,33 @@ function initPilotCenter() {
 	flightRecArray = [];
 	flightRecDataArray = [];		
 	setLogoutBtn();
-	
-  mapInit();
-  
+	    
   var page_data = document.getElementById("page_data");
 	var page_action = page_data.getAttribute("page_action");
 
 	showLoader();
 	
   if (page_action == "center") {  	
-  	centerInit();		
+  	centerInit();
   }
   if (page_action == "qa") {  	
-  	qaInit();		
+  	qaInit();
   }
-  else if (page_action == "design") {  	
+  else if (page_action == "design") {
+  	mapInit();
     designInit();
   }
-  else if (page_action == "list") {		
+  else if (page_action == "list") {
 		missionListInit();
   }
-  else if (page_action == "monitor") {  	  	
+  else if (page_action == "monitor") {
     monitorInit();
   }
-  else if (page_action == "flightlist") {  	
+  else if (page_action == "flightlist") {
     flightListInit();
   }
-  else if (page_action == "flight_view") {  	
-  	FlightHistoryMapInit();
+  else if (page_action == "flight_view") {
+  	flightHistoryMapInit();
     flightViewInit();    
   }
   else if (page_action == "dromi") {  	
@@ -330,9 +329,9 @@ function flightViewInit() {
 		
 	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_record_search_key']);
 			
-  $('#historyPanel').hide();
-  $('#historyList').show();
+  $('#historyPanel').hide();  
   $('#historyMap').hide();
+  $('#historyList').show();
   
   $("#btnForFlightRecord").click(function() {
 		GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
@@ -437,7 +436,7 @@ function dromiListInit() {
 }
 
 
-function FlightHistoryMapInit() {
+function flightHistoryMapInit() {
 	var dpoint = ol.proj.fromLonLat([0, 0]);
 
   flightHistoryView = new ol.View({
@@ -1241,7 +1240,7 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
-        + "<a href='./monitor.html?mission_name=" + item['name'] + "' class='text-xs font-weight-bold mb-1'>"
+        + "<a href='./monitor.html?mission_name=" + item['name'] + "' class='font-weight-bold mb-1'>"
         + item['name']
         + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
         + item['regtime']
@@ -1530,9 +1529,10 @@ function showDataWithName(name) {
 					showMovieDataSet();
 				}
 
-  		$('#historyList').hide(1500);
+  		$('#historyList').hide(1500);  		  		
   		$('#historyPanel').show();
 
+			mapInit();
       setChartData(fdata.data);
 
       if (!isSet(fdata.cada) && fdata.cada == null) {
@@ -1596,10 +1596,10 @@ function showData(index) {
 	    }
 	    else {
 
-	    	$('#historyList').hide(1500);
+	    	$('#historyList').hide(1500);	    	
   			$('#historyPanel').show();
-  			
-  			
+  			mapInit();
+  			  			
   			if ("memo" in r.data) {
     		 $("#memoTextarea").val(r.data.memo);
 	    	}
@@ -1629,10 +1629,11 @@ function showData(index) {
 	  });
 	}
 	else {
-		$('#historyList').hide(1500);
+		$('#historyList').hide(1500);		
     $('#historyPanel').show();
 
 		showLoader();
+		mapInit();
   	setChartData(item.data);
   	hideLoader();
   }
@@ -1814,8 +1815,8 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold text-primary text-uppercase mb-1'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");' class='center text-xs font-weight-bold mb-1'>" + name + "</a>";
+  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");' class='center font-weight-bold mb-1'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='badge badge-primary text-wrap' id='map_address_" + tableCount + "'></a>";
@@ -1829,7 +1830,7 @@ function appendFlightListTable(item) {
   
   appendRow = appendRow + "</textarea>";  
   appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></form></td>";
-  appendRow = appendRow + "<td width='30%' class='center text-xs font-weight-bold mb-1'> " + dtimestamp + "</td>"
+  appendRow = appendRow + "<td width='30%' class='center text-xs font-weight-bold mb-1' bgcolor='#fff'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"  
       + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button></td>"
       + "</tr>";
