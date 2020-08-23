@@ -1241,13 +1241,13 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
-        + "<a href='./monitor.html?mission_name=" + item['name'] + "'>"
+        + "<a href='./monitor.html?mission_name=" + item['name'] + "' class='text-xs font-weight-bold mb-1'>"
         + item['name']
-        + "</a></td><td class='center'> - </td><td class='center'>"
+        + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
         + item['regtime']
-        + "</td><td class='center'>"
-        + "<a class='btn btn-warning' href='design.html?mission_name=" + item['name'] + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
-        + "<button class='btn btn-primary' type='button' id='missionListBtnForRemove_" + index + "'>"
+        + "</td><td class='center text-xs font-weight-bold mb-1'>"
+        + "<a class='btn btn-warning text-xs' href='design.html?mission_name=" + item['name'] + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
+        + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
         + LANG_JSON_DATA[langset]['msg_remove'] + "</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
         
@@ -1815,7 +1815,7 @@ function appendFlightListTable(item) {
 	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");' class='center text-xs font-weight-bold mb-1'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='badge badge-primary text-wrap' id='map_address_" + tableCount + "'></a>";
@@ -1828,10 +1828,10 @@ function appendFlightListTable(item) {
   }
   
   appendRow = appendRow + "</textarea>";  
-  appendRow = appendRow + "<button class='btn btn-primary' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></form></td>";
-  appendRow = appendRow + "<td width='30%' class='center'> " + dtimestamp + "</td>"
+  appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></form></td>";
+  appendRow = appendRow + "<td width='30%' class='center text-xs font-weight-bold mb-1'> " + dtimestamp + "</td>"
       + "<td width='20%' bgcolor='#fff'>"  
-      + "<button class='btn btn-primary' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button></td>"
+      + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button></td>"
       + "</tr>";
 
   $('#dataTable-Flight_list > tbody:last').append(appendRow);
