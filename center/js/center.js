@@ -375,7 +375,14 @@ function missionListInit() {
 	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
 	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
-	$("#btnForGetMissionList").text(LANG_JSON_DATA[langset]['btnForGetMissionList']);
+	$("#btnForGetMissionList").text(LANG_JSON_DATA[langset]['btnForGetMissionList']);	
+	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_mission_search_key']);
+	
+	
+	$('#btnForMissionRecord').click(function() {    	
+		GATAGM('btnForMissionRecord', 'CONTENT', langset);   		 	
+		searchMission($("#search_key").val());
+	});					
 	
 	$('#btnForGetMissionList').click(function() {    	
 		GATAGM('btnForGetMissionList', 'CONTENT', langset);    	
@@ -1303,6 +1310,50 @@ function clearCurrentDesign() {
     posSource.clear();
     flightRecDataArray = Array();
     $("#dataTable-points").hide();
+}
+
+
+function searchMission(keyword) {
+	if (isSet(keyword) == false) {
+		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+		return;
+	}
+	
+  var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "mission", "daction" : "find_mission", "keyword" : keyword, "clientid" : userid};
+	
+	if (hasMore) {
+		jdata["morekey"] = hasMore;
+	}
+	
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+    	    	
+			$('#dataTable-missions tbody').empty();
+			tableCount = 0;
+			
+      appendMissionList(r.data);
+      
+      if (r.morekey) {
+      	$('#btnForGetMissionList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+      	hasMore = r.morekey;
+      }
+      else {
+      	$('#btnForGetMissionList').hide(1500);
+      	hasMore = null;
+      }
+    }
+    else {
+			if (r.reason == "no data") {
+				showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+			}
+			else {
+			  showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+			}
+    }
+  }, function(request,status,error) {
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
 }
 
 function searchFlightRecord(keyword) {
