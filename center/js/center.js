@@ -326,11 +326,18 @@ function flightViewInit() {
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
 	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);		
 	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);			
-	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);		
+	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
 		
+	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_record_search_key']);
+			
   $('#historyPanel').hide();
   $('#historyList').show();
   $('#historyMap').hide();
+  
+  $("#btnForFlightRecord").click(function() {
+		GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
+  	searchFlightRecord($("#search_key").val());
+	});
   
   $('#btnForSetYoutubeID').click(function() {    	
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
@@ -1298,7 +1305,52 @@ function clearCurrentDesign() {
     $("#dataTable-points").hide();
 }
 
+function searchFlightRecord(keyword) {
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action": "position", "daction": "find_record", "clientid" : userid};
+  
+  if (isSet(hasMore)) {
+  	jdata["morekey"] = hasMore;
+  }
 
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    hideLoader();
+    if(r.result == "success") {
+      if (r.data == null || r.data.length == 0) {
+        showAlert("no data");
+        return;
+      }
+      
+      if (r.morekey) {
+      	hasMore = r.morekey;
+      	$('#btnForLoadFlightList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+      }
+      else {
+      	hasMore = null;
+      	$('#btnForLoadFlightList').hide(1500);
+      }
+			
+			$('#historyMap').show();
+						
+			flightRecArray = [];
+			$('#dataTable-Flight_list tbody').empty();
+			tableCount = 0;
+      setFlightlistHistory(r.data);
+    }
+    else {
+    	if (r.reason == "no data") {
+    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+    	}
+    	else {    		
+	    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	    }
+    }
+  }, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
+}
 
 function getFlightList() {
   var userid = getCookie("dev_user_id");
