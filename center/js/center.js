@@ -336,8 +336,8 @@ function flightViewInit() {
   $('#historyMap').hide();
   $('#historyList').show();
   
-  $("#btnForFlightRecord").click(function() {
-		GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
+  $("#btnForSearchFlightRecord").click(function() {
+		GATAGM('btnForSearchFlightRecord', 'CONTENT', langset);    	
   	searchFlightRecord($("#search_key").val());
 	});
   
@@ -381,8 +381,8 @@ function missionListInit() {
 	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_mission_search_key']);
 	
 	
-	$('#btnForMissionRecord').click(function() {    	
-		GATAGM('btnForMissionRecord', 'CONTENT', langset);   		 	
+	$('#btnForSearchMission').click(function() {    	
+		GATAGM('btnForSearchMission', 'CONTENT', langset);   		 	
 		searchMission($("#search_key").val());
 	});					
 	
@@ -1324,9 +1324,7 @@ function searchMission(keyword) {
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "mission", "daction" : "find_mission", "keyword" : keyword, "clientid" : userid};
 	
-	if (hasMore) {
-		jdata["morekey"] = hasMore;
-	}
+	hasMore = "";
 	
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
@@ -1367,10 +1365,8 @@ function searchFlightRecord(keyword) {
 	var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "find_record", "keyword" : keyword, "clientid" : userid};
   
-  if (isSet(hasMore)) {
-  	jdata["morekey"] = hasMore;
-  }
-
+  hasMore = "";
+  
   showLoader();
   ajaxRequest(jdata, function (r) {
     hideLoader();
