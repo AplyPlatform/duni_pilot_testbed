@@ -1306,6 +1306,11 @@ function clearCurrentDesign() {
 }
 
 function searchFlightRecord(keyword) {
+	if (isSet(keyword) == false) {
+		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+		return;
+	}
+	
 	var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "find_record", "keyword" : keyword, "clientid" : userid};
   
