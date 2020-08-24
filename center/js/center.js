@@ -1235,7 +1235,11 @@ function removeFlightData(index) {
 	$("#slider").slider('value', newIndex);
 	$("#slider").slider('option',{min: 0, max: newIndex});
 
-	moveToPositionOnMap(flightRecDataArray[newIndex].lat, flightRecDataArray[newIndex].lng, flightRecDataArray[newIndex].yaw, flightRecDataArray[newIndex].roll, flightRecDataArray[newIndex].pitch, false);
+	moveToPositionOnMap(flightRecDataArray[newIndex].lat, 
+						flightRecDataArray[newIndex].lng, 
+						flightRecDataArray[newIndex].yaw, 
+						flightRecDataArray[newIndex].roll, 
+						flightRecDataArray[newIndex].pitch, false);
 }
 
 function appendMissionList(data) {
@@ -1372,7 +1376,7 @@ function searchFlightRecord(keyword) {
     hideLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        showAlert("no data");
+        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
         return;
       }
       
@@ -1419,7 +1423,7 @@ function getFlightList() {
     hideLoader();
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
-        showAlert("no data");
+        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
         return;
       }
       
@@ -2531,6 +2535,15 @@ function mapInit() {
 
 
   pointSource = new ol.source.Vector({});
+  
+  pointSource.on('tileloadend', function () {
+  	
+	});
+	
+	pointSource.on('tileloaderror', function () {
+	  showAlert(LANG_JSON_DATA[langset]['msg_failed_to_load_map_sorry']);
+	});
+  
   var pointLayer = new ol.layer.Vector({
       source: pointSource,
       style: new ol.style.Style({
@@ -2548,24 +2561,12 @@ function mapInit() {
               })
             })
           })
-    });
+    });      
 
   scaleLineControl.setUnits("metric");
 
  	maplayers.push(vectorLayer);
- 	maplayers.push(pointLayer);
-
-  map = new ol.Map({
-      target: 'map',
-      controls: ol.control.defaults().extend([
-            scaleLineControl
-          ]),
-      layers: maplayers,
-      // Improve user experience by loading tiles while animating. Will make
-      // animations stutter on mobile or slow devices.
-      loadTilesWhileAnimating: true,
-      view: current_view
-    });
+ 	maplayers.push(pointLayer);  
 
   // update the HTML page when the position changes.
   geolocation.on('change', function() {
@@ -2611,6 +2612,18 @@ function mapInit() {
   maplayers[1].setVisible(true);
   maplayers[3].setVisible(true);
   maplayers[4].setVisible(true);
+  
+  map = new ol.Map({
+      target: 'map',
+      controls: ol.control.defaults().extend([
+            scaleLineControl
+          ]),
+      layers: maplayers,
+      // Improve user experience by loading tiles while animating. Will make
+      // animations stutter on mobile or slow devices.
+      loadTilesWhileAnimating: true,
+      view: current_view
+    });
 }
 
 
