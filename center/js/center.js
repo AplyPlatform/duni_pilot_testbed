@@ -1735,7 +1735,7 @@ function appendFlightListTable(item) {
 	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view_detail.html?record_name=" + name + "'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='flight_view_detail.html?record_name=" + name + "'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
