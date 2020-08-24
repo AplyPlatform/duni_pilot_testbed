@@ -160,6 +160,10 @@ function initPilotCenter() {
   	flightHistoryMapInit();
     flightViewInit();    
   }
+  else if (page_action == "flight_view_detail") {
+  	mapInit();  	
+    flightDetailInit();    
+  }
   else if (page_action == "dromi") {
   	mapInit();
     dromiInit();
@@ -303,13 +307,10 @@ function flightListInit() {
 	hideLoader();
 }
 
-
-
-function flightViewInit() {
-		
+function flightDetailInit() {
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
 	$("#head_title").text(document.title);
-			
+	
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
 	$("#title_for_moviedata_label").text(LANG_JSON_DATA[langset]['title_for_moviedata_label']);
 	$("#desc_for_moviedata_label").text(LANG_JSON_DATA[langset]['desc_for_moviedata_label']);
@@ -322,40 +323,46 @@ function flightViewInit() {
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
-	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
-	
-	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);	
-	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
-	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);		
-	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);			
+	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
 		
-	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_record_search_key']);
-			
-  $('#historyPanel').hide();  
-  $('#historyMap').hide();
-  $('#historyList').show();
-  
-  $("#btnForSearchFlightRecord").click(function() {
-		GATAGM('btnForSearchFlightRecord', 'CONTENT', langset);    	
-  	searchFlightRecord($("#search_key").val());
-	});
-  
   $('#btnForSetYoutubeID').click(function() {    	
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);    	
   	setYoutubeID();
-  });
-  
-  $('#btnForLoadFlightList').click(function() {    	
-  	GATAGM('btnForLoadFlightList', 'CONTENT', langset);    	
-  	getFlightList();
   });
   
   var record_name = location.search.split('record_name=')[1];
   if (record_name != null && record_name != "") {
     showDataWithName(decodeURI(record_name));
   }
-  else hideLoader();
+}
+
+function flightViewInit() { //비행기록 목록
+		
+	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+	$("#head_title").text(document.title);
+			
+	
+	$("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);	
+	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
+	
+	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);	
+	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
+	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);				
+		
+	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_record_search_key']);			  
+  
+  $("#btnForSearchFlightRecord").click(function() {
+		GATAGM('btnForSearchFlightRecord', 'CONTENT', langset);    	
+  	searchFlightRecord($("#search_key").val());
+	});  
+  
+  $('#btnForLoadFlightList').click(function() {    	
+  	GATAGM('btnForLoadFlightList', 'CONTENT', langset);    	
+  	getFlightList();
+  });
+    
+  hideLoader();
 }
 
 
@@ -1531,9 +1538,6 @@ function showDataWithName(name) {
 				else {
 					showMovieDataSet();
 				}
-
-  		$('#historyList').hide(1500);  		  		
-  		$('#historyPanel').show();
   					
       setChartData(fdata.data);
 
@@ -1553,91 +1557,6 @@ function showDataWithName(name) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
-}
-
-function showData(index) {
-  if (flightRecArray.length == 0) return;
-
-  var item = flightRecArray[index];
-
-	moviePlayerVisible = false;
-
-  if ("youtube_data_id" in item) {
-  	if (item.youtube_data_id.indexOf("youtube") >=0) {
-			setYoutubePlayer(item.youtube_data_id);			
-		}
-		else {
-			setYoutubePlayer("");			
-		}
-  }
-  else {
-    $("#youTubePlayer").hide();
-    $("#googlePhotoPlayer").hide();
-  }
-
-  if (moviePlayerVisible == true) {
-		hideMovieDataSet();
-	}
-	else {
-		showMovieDataSet();
-	}
-
-	if (!("data" in item) || !isSet(item.data) || item.data === "-") {
-    var userid = getCookie("dev_user_id");
-    var jdata = {"action" : "position", "daction" : "download_spe", "name" : item.name, "clientid" : userid};
-    setRecordTitle(item.name);
-    cur_flightrecord_name = item.name;        
-	  showLoader();
-	  
-	  $("#movieTitle").val(item.name);
-  	$("#movieDescription").val(item.name);
-	  
-		ajaxRequest(jdata, function (r) {
-	    if(r.result != "success") {
-	      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-	    }
-	    else {
-
-	    	$('#historyList').hide(1500);	    	
-  			$('#historyPanel').show();  			
-  			  			
-  			if ("memo" in r.data) {
-    		 $("#memoTextarea").val(r.data.memo);
-	    	}
-	    	
-	    	$("#flightMemoBtn").click(function() {
-	    			GATAGM('flightMemoBtn', 'CONTENT', langset);
-	    			updateFlightMemoWithValue(r.data.name, $("#memoTextarea").val());
-	    	});
-
-	      setChartData(r.data.data);
-
-				if (!isSet(r.data.cada) || r.data.cada == "") {
-					if (isSet(r.data.flat)) {
-						var dpoint = ol.proj.fromLonLat([r.data.flng, r.data.flat]);
-		    		drawCadastral("#map_address", item.name, dpoint[0], dpoint[1], pointSource);
-		    	}	
-				}
-	      else {
-	      	setAddressAndCada("#map_address", r.data.address, r.data.cada, pointSource);
-	      }
-	    		    		    	
-	    	hideLoader();
-		    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	  });
-	}
-	else {
-		$('#historyList').hide(1500);		
-    $('#historyPanel').show();
-
-		showLoader();		
-  	setChartData(item.data);
-  	hideLoader();
-  }
-
 }
 
 
@@ -1816,7 +1735,7 @@ function appendFlightListTable(item) {
 	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='javascript:showData(" + tableCount + ");'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a href='flight_view_detail.html?record_name=\"" + name + "\"'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
@@ -2614,7 +2533,7 @@ function mapInit() {
   maplayers[4].setVisible(true);
   
   map = new ol.Map({
-      target: 'map',
+      target: 'mainMap',
       controls: ol.control.defaults().extend([
             scaleLineControl
           ]),
