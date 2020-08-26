@@ -1738,7 +1738,7 @@ function setChartData(cdata) {
    			moveToPositionOnMap(lat, lng, item.yaw, item.roll, item.pitch, true);
    						
    			item.lat = kf_lat.filter(lat);
-   			item.lat = kf_lng.filter(lng);
+   			item.lng = kf_lng.filter(lng);
    			
    			addIconToMap(i, item, true); //pred
    			   			   			   			
