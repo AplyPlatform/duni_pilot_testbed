@@ -1716,7 +1716,8 @@ function setChartData(cdata) {
       chartLabelData = new Array();
       chartLocData = new Array();
       lineGraphData = new Array();
-      var kf = new KalmanFilter();
+      var kf_lat = new KalmanFilter();
+      var kf_lng = new KalmanFilter();
       
       setSlider(1);
 			var mLineLayer = drawLineToMap();
@@ -1735,12 +1736,9 @@ function setChartData(cdata) {
    			
    			addIconToMap(i, item);
    			moveToPositionOnMap(item.lat, item.lng, item.yaw, item.roll, item.pitch, true);
-   						   			
-  			var plat = kf.filter(lat);
-  			var plng = kf.filter(lng);     			
-  			
-   			item.lat = plat;
-   			item.lat = plng;
+   						
+   			item.lat = kf_lat.filter(lat);
+   			item.lat = kf_lng.filter(lng);
    			
    			addIconToMap(i, item, true); //pred
    			   			   			   			
