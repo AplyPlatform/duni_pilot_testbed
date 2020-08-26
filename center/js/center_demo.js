@@ -4,6 +4,8 @@ var bMonStarted;
 var current_view;
 var current_pos;
 var current_pos_image;
+var current_pos2;
+var current_pos_image2;
 
 var map;
 
@@ -1760,34 +1762,33 @@ function setChartData(cdata) {
       	var lng = item.lng * 1;
       	var alt = item.alt * 1;      	      	      	      	      	
       	
-      	if (i > 0) {
-      		if (isNeedSkip(lat,lng,alt) == true) {
-      			i++;
-      			return;
-      		}      		      		
-      	}
       	
-   			addChartItem(i, item);
-   			addIconToMap(i, item);
-   			moveToPositionOnMap(lat, lng, item.yaw * 1, item.roll * 1, item.pitch * 1, true);
-
-   			item.lat = kf_lat.filter(lat);
-   			item.lng = kf_lng.filter(lng);
-				item.alt = kf_alt.filter(alt);
-
-				lineGraphData_pred.push({x: i, y: item.alt});
-
-   			addIconToMap(i, item, true); //pred
-
-				window.myLine.update();
-   			mLineLayer.getSource().changed();
-   			
-   			oldLat = lat;
-      	oldLng = lng;
-      	oldAlt = alt;
-
-   			i++;
-   			if (i == cdata.length) clearInterval(playAlert);
+      	if (i > 0 && isNeedSkip(lat,lng,alt) == true) {
+      			
+      	}
+      	else {      	      	
+	   			addChartItem(i, item);
+	   			
+	   			moveToPositionOnMap(lat, lng, item.yaw * 1, item.roll * 1, item.pitch * 1, true);	   				   			
+	
+	   			item.lat = kf_lat.filter(lat);
+	   			item.lng = kf_lng.filter(lng);
+					item.alt = kf_alt.filter(alt);
+	
+					lineGraphData_pred.push({x: i, y: item.alt});
+		   			
+	   			moveTracerTo(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]), item.yaw);
+	
+					window.myLine.update();
+	   			mLineLayer.getSource().changed();
+	   			
+	   			oldLat = lat;
+	      	oldLng = lng;
+	      	oldAlt = alt;
+				}
+	   		
+	   		i++;
+	   		if (i == cdata.length) clearInterval(playAlert);	   		
 			}, 1000);
 }
 
@@ -2034,19 +2035,31 @@ function mapInit() {
   current_pos = new ol.Feature({
       geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
   });
-
   current_pos_image = new ol.style.Icon(({
         //color: '#8959A8',
         crossOrigin: 'anonymous',
         src: './imgs/position2.png'
-      }));
-
+      }));      
   current_pos.setStyle(new ol.style.Style({
       image: current_pos_image
-    }));
+   }));
+   
+         
+  current_pos2 = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
+  });
+
+  current_pos_image2 = new ol.style.Icon(({
+        //color: '#8959A8',
+        crossOrigin: 'anonymous',
+        src: './imgs/position5.png'
+      }));
+  current_pos2.setStyle(new ol.style.Style({
+      image: current_pos_image2
+   }));
 
   var vectorSource = new ol.source.Vector({
-      features: [current_pos, accuracyFeature, positionFeature]
+      features: [current_pos, current_pos2, accuracyFeature, positionFeature]
     });
 
   var vectorLayer = new ol.layer.Vector({
@@ -2182,6 +2195,16 @@ function showLoader() {
 
 function hideLoader() {
   $("#loading").fadeOut(800);
+}
+
+function moveTracerTo(location, yaw) {		
+		yaw *= 1;
+		yaw = yaw < 0 ? (360 + yaw) : yaw;
+
+		yaw = Math.PI/180 * yaw;
+
+    current_pos2.setGeometry(new ol.geom.Point(location));
+    current_pos_image2.setRotation(yaw);    
 }
 
 function flyDirectTo(location, yaw) {
