@@ -24,6 +24,7 @@ var posLayerForDesign;
 var hasMore;
 
 var pos_icon_image = './imgs/position3.png';
+var pos_icon_image_2 = './imgs/position4.png';
 
 
 var arrayData = new Array();
@@ -819,20 +820,21 @@ function initSliderForDesign(i) {
 
 
 
-function createNewIcon(i, item) {
+function createNewIcon(i, item, bcolor = false) {
 	var pos_icon = new ol.Feature({
           geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
           name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
           mindex : i
       });
 
+	
   pos_icon.setStyle(styleFunction(i + ""));
 
   return pos_icon;
 }
 
-function addIconToMap(i, item) {
-	var nIcon = createNewIcon(i, item);
+function addIconToMap(i, item, bcolor = false) {
+	var nIcon = createNewIcon(i, item, bcolor);
 	posSource.addFeature(nIcon);
 }
 
@@ -1714,6 +1716,7 @@ function setChartData(cdata) {
       chartLabelData = new Array();
       chartLocData = new Array();
       lineGraphData = new Array();
+      var kf = new KalmanFilter();
       
       setSlider(1);
 			var mLineLayer = drawLineToMap();
@@ -1722,10 +1725,25 @@ function setChartData(cdata) {
             
       var i = 0;            
       var playAlert = setInterval(function() {
-   			addChartItem(i, cdata[i]);
+      	var item = cdata[i];
+   			addChartItem(i, item);
    			window.myLine.update();
    			mLineLayer.getSource().changed();
-   			addIconToMap(i, cdata[i]);
+   			
+   			var lat = item.lat * 1;
+   			var lng = item.lng * 1;   
+   			
+   			addIconToMap(i, item);
+   			moveToPositionOnMap(item.lat, item.lng, item.yaw, item.roll, item.pitch, true);
+   						   			
+  			var plat = kf.filter(lat);
+  			var plng = kf.filter(lng);     			
+  			
+   			item.lat = plat;
+   			item.lat = plng;
+   			
+   			addIconToMap(i, item, true); //pred
+   			   			   			   			
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
 			}, 1000);
@@ -1884,29 +1902,53 @@ function logOut() {
 }
 
 
-function styleFunction(textMsg) {
-  return [
-    new ol.style.Style(
-    	{        
-	      image: new ol.style.Icon(({
-	      	opacity: 0.75,
-	        crossOrigin: 'anonymous',
-	        scale: 2,
-	        src: pos_icon_image
-	      	}))
-	      ,
-	      text: new ol.style.Text({
-	        font: '12px Calibri,sans-serif',
-	        fill: new ol.style.Fill({ color: '#000' }),
-	        stroke: new ol.style.Stroke({
-	          color: '#fff', width: 2
-	        }),
-	        // get the text from the feature - `this` is ol.Feature
-	        // and show only under certain resolution
-	        text: map.getView().getZoom() > 12 ? textMsg : ''
-	      	})
-    	})
-  ];
+function styleFunction(textMsg, bcolor = false) {
+	if (bcolor == false)
+	  return [
+	    new ol.style.Style(
+	    	{        
+		      image: new ol.style.Icon(({
+		      	opacity: 0.75,
+		        crossOrigin: 'anonymous',
+		        scale: 2,
+		        src: pos_icon_image
+		      	}))
+		      ,
+		      text: new ol.style.Text({
+		        font: '12px Calibri,sans-serif',
+		        fill: new ol.style.Fill({ color: '#000' }),
+		        stroke: new ol.style.Stroke({
+		          color: '#fff', width: 2
+		        }),
+		        // get the text from the feature - `this` is ol.Feature
+		        // and show only under certain resolution
+		        text: map.getView().getZoom() > 12 ? textMsg : ''
+		      	})
+	    	})
+	  ];
+	else
+		return [
+	    new ol.style.Style(
+	    	{        
+		      image: new ol.style.Icon(({
+		      	opacity: 0.75,
+		        crossOrigin: 'anonymous',
+		        scale: 2,
+		        src: pos_icon_image_2
+		      	}))
+		      ,
+		      text: new ol.style.Text({
+		        font: '12px Calibri,sans-serif',
+		        fill: new ol.style.Fill({ color: '#000' }),
+		        stroke: new ol.style.Stroke({
+		          color: '#fff', width: 2
+		        }),
+		        // get the text from the feature - `this` is ol.Feature
+		        // and show only under certain resolution
+		        text: map.getView().getZoom() > 12 ? textMsg : ''
+		      	})
+	    	})
+	  ];
 }
 
 function mapInit() {
