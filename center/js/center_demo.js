@@ -33,7 +33,8 @@ var chartTData = new Array();
 var chartHData = new Array();
 var chartLabelData = new Array();
 var chartLocData = new Array();
-var lineGraphData = Array();
+var lineGraphData = new Array();
+var lineGraphData_pred = new Array()
 
 var bMoved = false;
 var tableCount = 0;
@@ -594,7 +595,13 @@ function drawLineGraph() {
               borderColor: '#f00',
               backgroundColor: '#f66',
               data: lineGraphData
-         }
+         },
+				  {
+						 label: LANG_JSON_DATA[langset]['altitude_msg'],
+						 borderColor: '#4160af',
+						 backgroundColor: '#6388e7',
+						 data: lineGraphData_pred
+					 }
       	]};
 
   document.getElementById("lineGraph").onclick = function(evt){
@@ -1716,8 +1723,10 @@ function setChartData(cdata) {
       chartLabelData = new Array();
       chartLocData = new Array();
       lineGraphData = new Array();
-			var kf_lat = new KalmanFilter({R: 0.01, Q: 3});
-      var kf_lng = new KalmanFilter({R: 0.01, Q: 3});
+			lineGraphData_pred = new Array();
+			var kf_lat = new KalmanFilter();
+      var kf_lng = new KalmanFilter();
+			var kf_alt = new KalmanFilter();
 
       setSlider(1);
 			var mLineLayer = drawLineToMap();
@@ -1728,19 +1737,24 @@ function setChartData(cdata) {
       var playAlert = setInterval(function() {
       	var item = cdata[i];
    			addChartItem(i, item);
-   			window.myLine.update();
-   			mLineLayer.getSource().changed();
 
    			var lat = item.lat * 1;
    			var lng = item.lng * 1;
+				var alt = item.alt * 1;
 
    			addIconToMap(i, item);
    			moveToPositionOnMap(lat, lng, item.yaw * 1, item.roll * 1, item.pitch * 1, true);
 
    			item.lat = kf_lat.filter(lat);
    			item.lng = kf_lng.filter(lng);
+				item.alt = kf_alt.filter(alt);
+
+				lineGraphData_pred.push({x: i, y: item.alt});
 
    			addIconToMap(i, item, true); //pred
+
+				window.myLine.update();
+   			mLineLayer.getSource().changed();
 
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
@@ -3006,31 +3020,6 @@ function addChartItem(i, item) {
 
     var dsec = (item.dsec * 1);
     chartLocData.push({lat : item.lat, lng : item.lng, alt: item.alt, yaw : item.yaw, roll: item.roll, pitch: item.pitch, dsec : dsec});
-
-    var pos_icon = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-        mindex : i
-    });
-
-    var pos_icon_color = '#777777';
-
-    if("etc" in item && "marked" in item.etc) {
-      pos_icon_color = '#ff0000';
-    }
-
-    pos_icon.setStyle(new ol.style.Style({
-        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-          color: pos_icon_color,
-          crossOrigin: 'anonymous',
-          src: pos_icon_image
-        }))
-    }));
-
-    posIcons.push(pos_icon);
-
-    if (bMoved == false)
-      flyTo(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]), item.yaw, function() {bMoved=true;});
 
     lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
 
