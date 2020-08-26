@@ -1587,7 +1587,7 @@ function drawLineToMap() {
 }
 
 function drawPosIcons() {
-	if (posIcons.length <= 0) return;
+	//if (posIcons.length <= 0) return;
 
   map.on('click', function (evt) {
   		GATAGM('map', 'CONTENT', langset);
