@@ -1722,14 +1722,14 @@ var oldLat = 0, oldLng = 0, oldAlt = 0;
 function isNeedSkip(lat, lng, alt) {
 	
 	//var dl1 = Math.abs(oldLat[1] - oldLat[0]); // 0.001
-	//var dl2 = Math.abs(oldLng[1] - oldLng[0]); // 0.0002
+	//var dl2 = Math.abs(oldLng[1] - oldLng[0]); // 0.002
 	//var dl3 = Math.abs(oldAlt[1] - oldAlt[0]); // 3
 	
 	var ddl1 = Math.abs(lat - oldLat);
 	var ddl2 = Math.abs(lng - oldLng);
 	var ddl3 = Math.abs(alt - oldAlt);
 		
-	if (ddl1 > 0.001 || ddl2 > 0.0002 || ddl3 > 3) {
+	if (ddl1 > 0.001 || ddl2 > 0.002 || ddl3 > 3) {
 		return true;
 	}
 	
