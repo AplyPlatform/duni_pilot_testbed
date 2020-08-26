@@ -828,7 +828,7 @@ function createNewIcon(i, item, bcolor = false) {
       });
 
 
-  pos_icon.setStyle(styleFunction(i + ""));
+  pos_icon.setStyle(styleFunction(i + "", bcolor));
 
   return pos_icon;
 }
