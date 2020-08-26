@@ -2175,8 +2175,8 @@ function setChartData(cdata) {
       chartLocData = new Array();
       lineGraphData = new Array();
 
-      var i = 0;
-      cdata.forEach(function (item) {
+      var i = 0;            
+      cdata.forEach(function (item) {      	      	      	
         addChartItem(i, item);
         i++;
       });

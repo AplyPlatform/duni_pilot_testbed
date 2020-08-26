@@ -1715,6 +1715,25 @@ function drawScatterGraph() {
   });
 }
 
+var oldLat = [0,0], oldLng = [0,0], oldAlt = [0,0];
+
+function isNeedSkip(lat, lng, alt) {
+	
+	//var dl1 = Math.abs(oldLat[1] - oldLat[0]); // 0.001
+	//var dl2 = Math.abs(oldLng[1] - oldLng[0]); // 0.0002
+	//var dl3 = Math.abs(oldAlt[1] - oldAlt[0]); // 3
+	
+	var ddl1 = Math.abs(lat - oldLat[1]);
+	var ddl2 = Math.abs(lng - oldLng[1]);
+	var ddl3 = Math.abs(alt - oldAlt[1]);
+		
+	if (ddl1 > 0.001 || ddl2 > 0.0002 || dl3 > 3) {
+		return true;
+	}
+	
+	return false;
+}
+
 function setChartData(cdata) {
 
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") return;
@@ -1733,15 +1752,22 @@ function setChartData(cdata) {
       var mPosLayer = drawPosIcons();
 			drawLineGraph();
 
-      var i = 0;
+      var i = 0;      
       var playAlert = setInterval(function() {
       	var item = cdata[i];
+      	
+      	var lat = item.lat * 1;
+      	var lng = item.lng * 1;
+      	var alt = item.alt * 1;      	      	      	      	      	
+      	
+      	if (i > 1) {
+      		if (isNeedSkip(lat,lng,alt) == true) {
+      			i++;
+      			return;
+      		}      		      		
+      	}
+      	
    			addChartItem(i, item);
-
-   			var lat = item.lat * 1;
-   			var lng = item.lng * 1;
-				var alt = item.alt * 1;
-
    			addIconToMap(i, item);
    			moveToPositionOnMap(lat, lng, item.yaw * 1, item.roll * 1, item.pitch * 1, true);
 
@@ -1755,6 +1781,10 @@ function setChartData(cdata) {
 
 				window.myLine.update();
    			mLineLayer.getSource().changed();
+   			
+   			oldLat[i % 2] = lat;
+      	oldLng[i % 2] = lng;
+      	oldAlt[i % 2] = alt;
 
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
