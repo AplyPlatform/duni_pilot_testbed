@@ -1922,20 +1922,9 @@ function styleFunction(textMsg, bcolor = false) {
 		      image: new ol.style.Icon(({
 		      	opacity: 0.75,
 		        crossOrigin: 'anonymous',
-		        scale: 2,
+		        scale: 1,
 		        src: pos_icon_image
 		      	}))
-		      ,
-		      text: new ol.style.Text({
-		        font: '12px Calibri,sans-serif',
-		        fill: new ol.style.Fill({ color: '#000' }),
-		        stroke: new ol.style.Stroke({
-		          color: '#fff', width: 2
-		        }),
-		        // get the text from the feature - `this` is ol.Feature
-		        // and show only under certain resolution
-		        text: map.getView().getZoom() > 12 ? textMsg : ''
-		      	})
 	    	})
 	  ];
 	else
@@ -1945,20 +1934,9 @@ function styleFunction(textMsg, bcolor = false) {
 		      image: new ol.style.Icon(({
 		      	opacity: 0.75,
 		        crossOrigin: 'anonymous',
-		        scale: 2,
+		        scale: 1,
 		        src: pos_icon_image_2
 		      	}))
-		      ,
-		      text: new ol.style.Text({
-		        font: '12px Calibri,sans-serif',
-		        fill: new ol.style.Fill({ color: '#000' }),
-		        stroke: new ol.style.Stroke({
-		          color: '#fff', width: 2
-		        }),
-		        // get the text from the feature - `this` is ol.Feature
-		        // and show only under certain resolution
-		        text: map.getView().getZoom() > 12 ? textMsg : ''
-		      	})
 	    	})
 	  ];
 }
