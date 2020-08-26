@@ -1725,7 +1725,7 @@ function setChartData(cdata) {
    			addChartItem(i, cdata[i]);
    			window.myLine.update();
    			mLineLayer.getSource().changed();
-   			mPosLayer.getSource().changed();
+   			addIconToMap(i, cdata[i]);
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
 			}, 1000);
