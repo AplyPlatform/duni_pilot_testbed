@@ -1583,7 +1583,7 @@ function drawLineToMap() {
   });
 
 	map.addLayer(lineLayer);
-	return lineSource;
+	return lineLayer;
 }
 
 function drawPosIcons() {
@@ -1622,7 +1622,7 @@ function drawPosIcons() {
 
   map.addLayer(posLayer);
   
-  return posSource;
+  return posLayer;
 }
 
 function drawScatterGraph() {
@@ -1716,15 +1716,16 @@ function setChartData(cdata) {
       lineGraphData = new Array();
       
       setSlider(1);
-			var lineSource = drawLineToMap();
-      var posSource = drawPosIcons();
+			var mLineLayer = drawLineToMap();
+      var mPosLayer = drawPosIcons();
 			drawLineGraph();
             
       var i = 0;            
       var playAlert = setInterval(function() {
    			addChartItem(i, cdata[i]);
    			window.myLine.update();
-   			map.render();
+   			mLineLayer.getSource().changed();
+   			mPosLayer.getSource().changed();
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
 			}, 1000);
