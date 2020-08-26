@@ -1724,8 +1724,7 @@ function setChartData(cdata) {
       var playAlert = setInterval(function() {
    			addChartItem(i, cdata[i]);
    			window.myLine.update();
-   			lineSource.changed();
-   			posSource.changed();
+   			map.render();
    			i++;
    			if (i == cdata.length) clearInterval(playAlert);
 			}, 1000);
