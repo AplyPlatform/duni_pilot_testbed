@@ -3443,7 +3443,7 @@ function addChartItem(i, item) {
 
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-        name: dateString + " / lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex : i
     });
     
