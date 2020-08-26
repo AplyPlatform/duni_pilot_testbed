@@ -1727,7 +1727,7 @@ function isNeedSkip(lat, lng, alt) {
 	var ddl2 = Math.abs(lng - oldLng);
 	var ddl3 = Math.abs(alt - oldAlt);
 		
-	if (ddl1 > 0.001 || ddl2 > 0.0002 || dl3 > 3) {
+	if (ddl1 > 0.001 || ddl2 > 0.0002 || ddl3 > 3) {
 		return true;
 	}
 	
