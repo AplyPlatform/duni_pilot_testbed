@@ -2071,9 +2071,10 @@ function drawPosIcons() {
 
   });
 
-  var posSource = new ol.source.Vector({
+  posSource = new ol.source.Vector({
       features: posIcons
   });
+  
   var posLayer = new ol.layer.Vector({
       source: posSource
   });
