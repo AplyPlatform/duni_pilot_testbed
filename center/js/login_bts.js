@@ -21,7 +21,7 @@ function facebookInit() {
         FB.api('/me', { locale: 'en_US', fields: 'name, email' },
 				  function(lresponse) {
 				    if (token != null && token != "")
-		          formSubmit(token, lresponse.name, "", lresponse.email);
+		          formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
 		        else {
 		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 		        	goHome();
@@ -90,11 +90,11 @@ function naverSignInCallback(naverLogin, token) {
   var skind = getCookie("dev_kind");
   if (skind != "naver") return;
   
-  var email = naverLogin.user.getEmail();
-	var name = naverLogin.user.getNickName();
-	var profileImage = naverLogin.user.getProfileImage();
+  var email = naverLogin.getProfileData('email');
+	var name = naverLogin.getProfileData('name');
+	var image = naverLogin.getProfileData('profile_image');    
   
-  formSubmit(token, name, profileImage, email);
+  formSubmit(token, name, image, email);
 }
 
 function showLoader() {
