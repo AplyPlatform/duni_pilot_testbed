@@ -86,13 +86,14 @@ function naverinit() {
 }
 
 
-function naverSignInCallback(naverLogin, token) {
+function naverSignInCallback() {
   var skind = getCookie("dev_kind");
   if (skind != "naver") return;
   
-  var email = naverLogin.getProfileData('email');
-	var name = naverLogin.getProfileData('name');
-	var image = naverLogin.getProfileData('profile_image');    
+  var token = naver_id_login.oauthParams.access_token;
+  var email = naver_id_login.getProfileData('email');
+	var name = naver_id_login.getProfileData('name');
+	var image = naver_id_login.getProfileData('profile_image');    
   
   formSubmit(token, name, image, email);
 }
