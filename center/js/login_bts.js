@@ -36,17 +36,23 @@ function googleinit() {
     return;
   }
 
-  gapi.load('auth2', function() { // Ready.
-    gapi.auth2.init();    
-  });
+  gapi.load('auth2', function() { // Ready.  	
+    							var gauth = gapi.auth2.init();    
+    
+    							gauth.then(function(){
+                        var gauth2 = gapi.auth2.getAuthInstance();
+                        gauth2.disconnect();
+                  }, function(){
+                        console.error('init fail');
+                  })
+  	});    
 }
 
-function googleSignInCallback(googleUser) {		
-  var skind = getCookie("dev_kind");
-  if (skind != "google") return;
-
-  var token = googleUser.getAuthResponse().id_token;
-  formSubmit(token);
+function googleSignInCallback(googleUser) {		  
+	var skind = getCookie("dev_kind");
+	if (skind != "google") return;
+	var token = googleUser.getAuthResponse().id_token;
+	formSubmit(token);  
 }
 
 
