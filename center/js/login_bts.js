@@ -86,7 +86,7 @@ function naverinit() {
 }
 
 
-function naverSignInCallback(token) {
+function naverSignInCallback(naverLogin, token) {
   var skind = getCookie("dev_kind");
   if (skind != "naver") return;
   
