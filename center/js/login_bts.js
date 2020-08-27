@@ -16,14 +16,18 @@ function facebookInit() {
     FB.getLoginStatus(function(response) {
       var skind = getCookie("dev_kind");
       if (skind != "facebook") return;
-      if (response.status == "connected") {
+      if (response.status == "connected") {      	
         var token = response.authResponse.accessToken;
-        if (token != null && token != "")
-          formSubmit(token);
-        else {
-        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-        	goHome();
-        }
+        FB.api('/me', { locale: 'en_US', fields: 'name, email' },
+				  function(lresponse) {
+				    if (token != null && token != "")
+		          formSubmit(token, lresponse.name, "", lresponse.email);
+		        else {
+		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		        	goHome();
+		        }
+				  }
+				);				        
       }
       else {
       }
@@ -51,8 +55,14 @@ function googleinit() {
 function googleSignInCallback(googleUser) {		  
 	var skind = getCookie("dev_kind");
 	if (skind != "google") return;
+	
+	var profile = googleUser.getBasicProfile();	
 	var token = googleUser.getAuthResponse().id_token;
-	formSubmit(token);  
+	
+	var name = profile.getName();
+	var image = profile.getImageUrl();
+	var email = profile.getEmail();
+	formSubmit(token, name, image, email);  
 }
 
 
@@ -79,7 +89,12 @@ function naverinit() {
 function naverSignInCallback(token) {
   var skind = getCookie("dev_kind");
   if (skind != "naver") return;
-  formSubmit(token);
+  
+  var email = naverLogin.user.getEmail();
+	var name = naverLogin.user.getNickName();
+	var profileImage = naverLogin.user.getProfileImage();
+  
+  formSubmit(token, name, profileImage, email);
 }
 
 function showLoader() {
@@ -132,7 +147,7 @@ function isSet(value) {
   return true;
 }
 
-function formSubmit(token) {
+function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
 	showLoader();
 	
   var skind = getCookie("dev_kind");
@@ -147,7 +162,8 @@ function formSubmit(token) {
     if(r.result == "success") {
       setCookie("dev_user_id", r.emailid, 1);
       setCookie("user_token", r.token, 1);
-      setCookie("user_email", r.socialid, 1);
+      setCookie("user_email", r.socialid, 1);      
+      setCookie("image_url", temp_image, 1);      
 
       if (getCookie("isFromApp") == "yes") {
         Android.setToken(r.token, r.emailid);
@@ -159,7 +175,10 @@ function formSubmit(token) {
     	
       hideLoader();
       alert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
-      setCookie("temp_sns_token", r.sns_token, 1);      
+      setCookie("temp_sns_token", r.sns_token, 1);
+      setCookie("temp_image_url", temp_image, 1);
+      setCookie("temp_email", temp_email, 1);
+      setCookie("temp_name", temp_name, 1);
             
       location.href="register.html";      
     }

@@ -5,7 +5,9 @@ $(function() {
       $("#show_1").show();
       
       langset = getCookie("language");
-      
+            
+      $("#droneplay_name").val(getCookie("temp_name"));
+      $("#droneplay_email").val(getCookie("temp_email"));      
       
       $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
       $("#droneplay_email").attr("placeholder", LANG_JSON_DATA[langset]['email_label']);
