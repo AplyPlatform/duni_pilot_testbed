@@ -1777,7 +1777,7 @@ function setChartData(cdata) {
 	
 					lineGraphData_pred.push({x: i, y: item.alt});
 		   			
-	   			moveTracerTo(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]), item.yaw);
+	   			moveTracerTo(ol.proj.fromLonLat([item.lng, item.lat]), item.yaw * 1);
 	
 					window.myLine.update();
 	   			mLineLayer.getSource().changed();

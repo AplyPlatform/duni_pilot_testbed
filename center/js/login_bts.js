@@ -188,13 +188,11 @@ function checkLoginStatus() {
 
   if (dev_kind == "facebook") {
   	hideLoader();
-    $("#fbLoginButton").show();
-    facebookInit();
+    $("#fbLoginButton").show();    
   }
   else if (dev_kind == "google") {
   	hideLoader();
-    $("#googleLoginButton").show();
-    googleinit();
+    $("#googleLoginButton").show();    
   }
   else if (dev_kind == "naver") {  	
   	hideLoader();
