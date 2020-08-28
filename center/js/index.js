@@ -75,7 +75,7 @@ function facebookSignInCallback() {
         FB.api('/me', { locale: 'en_US', fields: 'name, email' },
 				  function(lresponse) {
 				    if (token != null && token != "") {
-				    	setCookie("dev_kind", "naver", 1);
+				    	setCookie("dev_kind", "facebook", 1);
 		          formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
 		        }
 		        else {
