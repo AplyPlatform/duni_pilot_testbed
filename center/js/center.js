@@ -183,10 +183,6 @@ function initPilotCenter() {
 
 function summaryInit() {
 	document.title = LANG_JSON_DATA[langset]['page_center_title'];
-	$("#head_title").text(document.title);
-
-	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);	
-	$('#data_title').text(LANG_JSON_DATA[langset]['data_count_msg']);
 
 	getAllRecordCount();
 }
@@ -533,7 +529,8 @@ function showAlert(msg) {
 function getAllRecordCount() {
 
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "summary", "clientid" : userid};
+	var useremail = getCookie("user_email");
+  var jdata = {"action" : "position", "daction" : "summary", "clientid" : userid, "email" : useremail};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
