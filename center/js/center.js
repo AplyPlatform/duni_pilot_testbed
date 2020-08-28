@@ -176,6 +176,19 @@ function initPilotCenter() {
   	mapInit();
     dromiListInit();
   }
+  else if (page_action == "summary") {  	
+    summaryInit();
+  }
+}
+
+function summaryInit() {
+	document.title = LANG_JSON_DATA[langset]['page_center_title'];
+	$("#head_title").text(document.title);
+
+	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);	
+	$('#data_title').text(LANG_JSON_DATA[langset]['data_count_msg']);
+
+	getAllRecordCount();
 }
 
 
@@ -516,6 +529,29 @@ function showAlert(msg) {
 	$('#errorModal').modal('show');
 }
 
+
+function getAllRecordCount() {
+
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "summary", "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();
+
+		  setSummaryDashBoard(r.record_count, r.mission_count, r.member_count);
+    }
+    else {
+    	setDashBoard(0, 0);
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    setDashBoard(0, 0);
+    hideLoader();
+  });
+}
+
 function getRecordCount() {
 
 	var userid = getCookie("dev_user_id");
@@ -536,6 +572,58 @@ function getRecordCount() {
     setDashBoard(0, 0);
     hideLoader();
   });
+}
+
+function setSummaryDashBoard(rcount, fcount, mcount) {
+
+		if (rcount == 0 && fcount == 0) {
+			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : 0");
+			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : 0");						
+			rcount = 1;
+			fcount = 1;
+		}
+		else {
+			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : " + rcount);
+			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : " + fcount);
+		}
+		
+		$("#f_member_count_label").text("전체 회원수 : " + mcount);
+		
+		// Set new default font family and font color to mimic Bootstrap's default styling
+		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = '#858796';
+
+		// Pie Chart Example
+		var ctx = document.getElementById("myPieChart");
+		var myPieChart = new Chart(ctx, {
+		  type: 'doughnut',
+		  data: {
+		    labels: [LANG_JSON_DATA[langset]["r_count_label"], LANG_JSON_DATA[langset]["f_count_label"]],
+		    datasets: [{
+		      data: [rcount, fcount],
+		      backgroundColor: ['#4e73df', '#1cc88a'],
+		      hoverBackgroundColor: ['#2e59d9', '#17a673'],
+		      hoverBorderColor: "rgba(234, 236, 244, 1)",
+		    }],
+		  },
+		  options: {
+		    maintainAspectRatio: false,
+		    tooltips: {
+		      backgroundColor: "rgb(255,255,255)",
+		      bodyFontColor: "#858796",
+		      borderColor: '#dddfeb',
+		      borderWidth: 1,
+		      xPadding: 15,
+		      yPadding: 15,
+		      displayColors: false,
+		      caretPadding: 10,
+		    },
+		    legend: {
+		      display: false
+		    },
+		    cutoutPercentage: 80,
+		  },
+		});
 }
 
 function setDashBoard(rcount, fcount) {
