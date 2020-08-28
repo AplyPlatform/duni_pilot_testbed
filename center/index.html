@@ -41,13 +41,30 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
 <body id="page-top">
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+
+(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=109453656066856&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId            : '570867566598427',
+    autoLogAppEvents : true,
+    xfbml            : true,
+    version          : 'v2.11'
+  });
+  
+  document.getElementById('facebookLoginBtn').addEventListener('click', function() {    
+		FB.login(facebookSignInCallback);
+	}, false);	
+};
+</script>
+
 	
 <div id="loading">
 	<div class="loader"></div>
@@ -187,25 +204,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>    
-  <script src="./js/lang.js"></script>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-	<script>
-	    window.fbAsyncInit = function() {
-        FB.init({
-          appId            : '570867566598427',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v2.11'
-        });
-        
-        document.getElementById('facebookLoginBtn').addEventListener('click', function() {    
-    			FB.login(facebookSignInCallback);
-				}, false);	
-    };
-	</script>
-	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>	  
-  <script src="./js/index.js"></script>
+  <script src="./js/lang.js"></script>  
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>	    
+	<script src="./js/index.js"></script>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>		
   <script>
   	setLang("KR");
   </script>  	
