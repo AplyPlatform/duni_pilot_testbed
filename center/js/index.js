@@ -37,6 +37,26 @@ function getCookie(cName) {
     return value? value[2] : null;
 }
 
+function ajaxRequest(data, callback, errorcallback) {
+    $.ajax({url : "https://api.droneplay.io/v1/",
+           dataType : "json",
+           crossDomain: true,
+           cache : false,
+           data : JSON.stringify(data),
+           type : "POST",
+           contentType: "application/json; charset=utf-8",
+           beforeSend: function(request) {
+              request.setRequestHeader("droneplay-token", getCookie('user_token'));
+            },
+           success : function(r) {
+             callback(r);
+           },
+           error:function(request,status,error){
+               monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               errorcallback(request,status,error);
+           }
+    });
+}
 
 function showAlert(msg) {
 
