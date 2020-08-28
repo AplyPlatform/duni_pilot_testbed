@@ -222,5 +222,6 @@ $(function() {
 	}
 	else {
 		naverinit();
+		hideLoader();
 	}
 });
