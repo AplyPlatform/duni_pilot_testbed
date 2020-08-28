@@ -79,7 +79,7 @@ function facebookSignInCallback() {
 		          formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
 		        }
 		        else {
-		        	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);		        	
+		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);		        	
 		        }
 				  }
 				);				        
@@ -175,7 +175,7 @@ function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
     }else {
     	
       hideLoader();
-      showAlert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
+      alert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
       setCookie("temp_sns_token", r.sns_token, 1);
       setCookie("temp_image_url", temp_image, 1);
       setCookie("temp_email", temp_email, 1);
