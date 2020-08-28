@@ -107,6 +107,22 @@ function naverinit() {
   $("#naverLoginBtn").attr("href", naverLogin.generateAuthorizeUrl());
 }
 
+function googleinit() {
+  if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {    
+    return;
+  }
+
+  gapi.load('auth2', function() { // Ready.  	
+				var gauth = gapi.auth2.init();    
+
+				gauth.then(function(){
+              var gauth2 = gapi.auth2.getAuthInstance();
+              gauth2.disconnect();
+        }, function(){
+              console.error('init fail');
+        })
+  	});    
+}
 
 function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
 	showLoader();
