@@ -1,4 +1,5 @@
-var dev_kind = "";
+
+var langset = "KR";
 
 function GATAGM(label, category, language) {
   gtag(
@@ -97,12 +98,6 @@ function naverSignInCallback() {
 	var image = naver_id_login.getProfileData('profile_image');    
   
   formSubmit(token, name, image, email);
-}
-
-function facebookinit() {
-	document.getElementById('facebookLoginBtn').addEventListener('click', function() {    
-    FB.login(facebookSignInCallback, {scope: 'name,email', return_scopes: true});
-	}, false);	
 }
 
 function naverinit() {
@@ -215,9 +210,9 @@ function checkLang() {
 
 function setLang(lang) {
 	setCookie("language", lang, 1);
+	langset = lang;
 }
 
 $(function() {
-	checkLang();	
-	naverinit();	
+	checkLang();
 });

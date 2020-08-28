@@ -187,12 +187,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>    
   <script src="./js/lang.js"></script>
-  <script src="./js/req.js"></script>
-  <script src="./js/index.js"></script>
-  <script>
-  	setLang("KR");
-  </script>  
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 	<script>
 	    window.fbAsyncInit = function() {
         FB.init({
@@ -202,11 +197,17 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           version          : 'v2.11'
         });
         
-        facebookinit();
+        document.getElementById('facebookLoginBtn').addEventListener('click', function() {    
+    			FB.login(facebookSignInCallback, {scope: 'name,email', return_scopes: true});
+				}, false);	
     };
-</script>
+	</script>
 	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>	  
+  <script src="./js/index.js"></script>
+  <script>
+  	setLang("KR");
+  </script>  	
 </body>
 
 </html>
