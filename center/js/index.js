@@ -104,9 +104,9 @@ function googleinit() {
 				
 				var options = new gapi.auth2.SigninOptionsBuilder();
 				options.setPrompt('select_account');
-				gauth.signIn(options);
+				//gauth.signIn(options);
 								
-				gauth.attachClickHandler(document.getElementById('googleLoginBtn'), {},
+				gauth.attachClickHandler(document.getElementById('googleLoginBtn'), options,
 		        function(googleUser) {		          
 		          var skind = getCookie("dev_kind");
 							if (skind != "google") return;		
