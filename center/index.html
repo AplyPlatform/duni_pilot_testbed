@@ -122,13 +122,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					                  <form class="user">
 					                    
 					                    <form class="user">
-							              		<a onclick="onGoogle()" class="btn btn-google btn-user btn-block text-white">
+							              		<a class="btn btn-google btn-user btn-block text-white" data-onsuccess="googleSignInCallback" data-prompt="select_account">
 							                      <i class="fab fa-google fa-fw"></i> Google 로그인
 							                    </a>
-							                  <a onclick="onFacebook()" class="btn btn-facebook btn-user btn-block text-white">
+							                  <a class="btn btn-facebook btn-user btn-block text-white" data-max-rows="1" data-size="large" data-use-continue-as="true" onlogin="facebookSignInCallback();">
 							                      <i class="fab fa-facebook-f fa-fw"></i> Facebook 로그인
 							                  </a>
-							                  <a onclick="onNaver()" class="btn bg-success btn-user btn-block text-white">
+							                  <a id="naverLoginBtn" class="btn bg-success btn-user btn-block text-white">
 							                    <img src="./imgs/naverlogo.png" border=0> Naver 로그인
 							                  </a>              		
 							                </form>
