@@ -37,18 +37,28 @@ function getCookie(cName) {
     return value? value[2] : null;
 }
 
+
+function showAlert(msg) {
+
+	$('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
+	$('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+
+	$('#errorModalLabel').text(msg);
+	$('#errorModal').modal('show');
+}
+
 function facebookSignInCallback() {    
-    FB.getLoginStatus(function(response) {
-      var skind = getCookie("dev_kind");
-      if (skind != "facebook") return;
+    FB.getLoginStatus(function(response) {      
       if (response.status == "connected") {      	
         var token = response.authResponse.accessToken;
         FB.api('/me', { locale: 'en_US', fields: 'name, email' },
 				  function(lresponse) {
-				    if (token != null && token != "")
+				    if (token != null && token != "") {
+				    	setCookie("dev_kind", "naver", 1);
 		          formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
+		        }
 		        else {
-		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);		        	
+		        	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);		        	
 		        }
 				  }
 				);				        
@@ -59,8 +69,7 @@ function facebookSignInCallback() {
 }
 
 function naverSignInCallback() {
-  var skind = getCookie("dev_kind");
-  if (skind != "naver") return;
+  setCookie("dev_kind", "naver", 1);  
   
   var token = naver_id_login.oauthParams.access_token;
   var email = naver_id_login.getProfileData('email');
@@ -108,8 +117,7 @@ function googleinit() {
 								
 				gauth.attachClickHandler(document.getElementById('googleLoginBtn'), options,
 		        function(googleUser) {		          
-		          var skind = getCookie("dev_kind");
-							if (skind != "google") return;		
+		          setCookie("dev_kind", "google", 1);
 												
 							var profile = googleUser.getBasicProfile();	
 							var token = googleUser.getAuthResponse().id_token;
@@ -152,7 +160,7 @@ function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
     }else {
     	
       hideLoader();
-      alert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
+      showAlert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
       setCookie("temp_sns_token", r.sns_token, 1);
       setCookie("temp_image_url", temp_image, 1);
       setCookie("temp_email", temp_email, 1);
@@ -162,7 +170,7 @@ function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
     }
   }, function(request, status, error) {
     hideLoader();
-    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    //("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
 
 }
