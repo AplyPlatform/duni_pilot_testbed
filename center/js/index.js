@@ -174,4 +174,5 @@ function setLang(lang) {
 
 $(function() {
 	checkLang();	
+	naverinit();
 });
