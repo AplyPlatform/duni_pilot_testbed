@@ -688,9 +688,9 @@ function setDashBoard(rcount, fcount, alltime) {
 			console.error(rlabel.error);
 		}
 		
-		var sec = (alltime / 1000) / 60;
+		var mmin = (alltime / 1000) / 60;
 		
-		var alabel = new CountUp('a_time_label_time', alltime, coptions);
+		var alabel = new CountUp('a_time_label_time', mmin, coptions);
 		if (!alabel.error) {
 			alabel.start();
 		} else {
