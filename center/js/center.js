@@ -670,21 +670,25 @@ function setDashBoard(rcount, fcount, alltime) {
 		  },
 		});
 		
-		var rlabel = new CountUp('r_count_label_time', rcount);
+		const coptions = {
+			duration: 5,
+		};
+		
+		var rlabel = new CountUp('r_count_label_time', rcount, coptions);
 		if (!rlabel.error) {
 			rlabel.start();
 		} else {
 			console.error(rlabel.error);
 		}
 		
-		var rlabel = new CountUp('f_count_label_time', fcount);
+		var rlabel = new CountUp('f_count_label_time', fcount, coptions);
 		if (!rlabel.error) {
 			rlabel.start();
 		} else {
 			console.error(rlabel.error);
 		}
 		
-		var alabel = new CountUp('a_time_label_time', alltime);
+		var alabel = new CountUp('a_time_label_time', alltime, coptions);
 		if (!alabel.error) {
 			alabel.start();
 		} else {
