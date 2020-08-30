@@ -196,6 +196,11 @@ function centerInit() {
 	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
+	
+	$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);
+	$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
+	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
+	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
 
 	getRecordCount();
 }
@@ -624,11 +629,7 @@ function setSummaryDashBoard(rcount, fcount, mcount) {
 }
 
 function setDashBoard(rcount, fcount, alltime) {
-
-		$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);
-		$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
-		$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
-			
+					
 		if (rcount == 0 && fcount == 0) {			
 			rcount = 1;
 			fcount = 1;
