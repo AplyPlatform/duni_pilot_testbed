@@ -688,6 +688,8 @@ function setDashBoard(rcount, fcount, alltime) {
 			console.error(rlabel.error);
 		}
 		
+		var sec = (alltime / 1000) / 60;
+		
 		var alabel = new CountUp('a_time_label_time', alltime, coptions);
 		if (!alabel.error) {
 			alabel.start();
