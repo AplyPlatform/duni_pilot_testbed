@@ -540,11 +540,11 @@ function getAllRecordCount() {
 		  setSummaryDashBoard(r.record_count, r.mission_count, r.member_count);
     }
     else {
-    	setDashBoard(0, 0);
+    	setSummaryDashBoard(0, 0, 0);
       hideLoader();
     }
   }, function(request,status,error) {
-    setDashBoard(0, 0);
+    setSummaryDashBoard(0, 0, 0);
     hideLoader();
   });
 }
@@ -559,14 +559,14 @@ function getRecordCount() {
     if(r.result == "success") {
       hideLoader();
 
-		  setDashBoard(r.record_count, r.mission_count);
+		  setDashBoard(r.record_count, r.mission_count, r.alltime);
     }
     else {
-    	setDashBoard(0, 0);
+    	setDashBoard(0, 0, 0);
       hideLoader();
     }
   }, function(request,status,error) {
-    setDashBoard(0, 0);
+    setDashBoard(0, 0, 0);
     hideLoader();
   });
 }
@@ -623,18 +623,17 @@ function setSummaryDashBoard(rcount, fcount, mcount) {
 		});
 }
 
-function setDashBoard(rcount, fcount) {
+function setDashBoard(rcount, fcount, alltime) {
 
-		if (rcount == 0 && fcount == 0) {
-			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : 0");
-			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : 0");
+		$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);
+		$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
+		$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
+			
+		if (rcount == 0 && fcount == 0) {			
 			rcount = 1;
 			fcount = 1;
 		}
-		else {
-			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : " + rcount);
-			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : " + fcount);
-		}
+								
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = '#858796';
@@ -670,6 +669,32 @@ function setDashBoard(rcount, fcount) {
 		    cutoutPercentage: 80,
 		  },
 		});
+		
+		var rlabel = new CountUp('r_count_label_time', rcount);
+		if (!demo.error) {
+			demo.start();
+		} else {
+			console.error(demo.error);
+		}
+		
+		var rlabel = new CountUp('f_count_label_time', fcount);
+		if (!demo.error) {
+			demo.start();
+		} else {
+			console.error(demo.error);
+		}
+		
+		var alabel = new CountUp('a_time_label_time', alltime);
+		if (!demo.error) {
+			demo.start();
+		} else {
+			console.error(demo.error);
+		}
+		/*
+		$("#r_count_label_time").text(rcount);
+		$("#f_count_label_time").text(fcount);
+		$("#a_time_label_time").text(alltime);
+		*/
 }
 
 
