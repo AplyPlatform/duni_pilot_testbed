@@ -671,24 +671,24 @@ function setDashBoard(rcount, fcount, alltime) {
 		});
 		
 		var rlabel = new CountUp('r_count_label_time', rcount);
-		if (!demo.error) {
-			demo.start();
+		if (!rlabel.error) {
+			rlabel.start();
 		} else {
-			console.error(demo.error);
+			console.error(rlabel.error);
 		}
 		
 		var rlabel = new CountUp('f_count_label_time', fcount);
-		if (!demo.error) {
-			demo.start();
+		if (!rlabel.error) {
+			rlabel.start();
 		} else {
-			console.error(demo.error);
+			console.error(rlabel.error);
 		}
 		
 		var alabel = new CountUp('a_time_label_time', alltime);
-		if (!demo.error) {
-			demo.start();
+		if (!alabel.error) {
+			alabel.start();
 		} else {
-			console.error(demo.error);
+			console.error(alabel.error);
 		}
 		/*
 		$("#r_count_label_time").text(rcount);
