@@ -2516,7 +2516,7 @@ function computeCirclularFlight(start) {
       point: {
         pixelSize: 2,
         color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.YELLOW,
+        outlineColor: Cesium.Color.RED,
         outlineWidth: 2,
       },
     });
@@ -2533,6 +2533,12 @@ var fixedFrameTransform;
 var planePrimitive;
 var viewer;
 var c_center = new Cesium.Cartesian3();
+
+function getColor(colorName, alpha) {
+  var color = Cesium.Color[colorName.toUpperCase()];
+  return Cesium.Color.fromAlpha(color, parseFloat(alpha));
+}
+
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
   viewer = new Cesium.Viewer("main3dMap", {
@@ -2577,7 +2583,7 @@ function draw3dMap() {
 		    resolution: 1,
 		    material: new Cesium.PolylineGlowMaterialProperty({
 		      glowPower: 0.1,
-		      color: Cesium.Color.YELLOW,
+		      color: Cesium.Color.RED,
 		    }),
 		    width: 10,
 		  }
@@ -2598,6 +2604,7 @@ function draw3dMap() {
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    color: getColor("YELLOW", 0.8),
 	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
 	      position,
 	      hpRoll,
