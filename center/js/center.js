@@ -2585,13 +2585,7 @@ function draw3dMap() {
 		  //Load the Cesium plane model to represent the entity
 		  model: {
 		    uri: "https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb",
-		    minimumPixelSize: 64,
-		    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
-		      cposition,
-		      hpRoll,
-		      Cesium.Ellipsoid.WGS84,
-		      fixedFrameTransform
-		    )
+		    minimumPixelSize: 64,		    
 		  },
 		
 		  //Show the path as a pink line sampled in 1 second increments.
