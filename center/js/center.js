@@ -1810,7 +1810,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	if (isSet(c3ddataSource)) {			
 			Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
 				var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
-      	return Cesium.Cartesian3.fromDegrees(lonlat[1], lonlat[0], 100);
+      	return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 10);
     	}
 			
 			
