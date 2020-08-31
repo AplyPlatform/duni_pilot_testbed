@@ -2515,10 +2515,10 @@ function computeCirclularFlight(viewer, start) {
     viewer.entities.add({
       position: position,
       point: {
-        pixelSize: 8,
+        pixelSize: 2,
         color: Cesium.Color.TRANSPARENT,
         outlineColor: Cesium.Color.YELLOW,
-        outlineWidth: 3,
+        outlineWidth: 2,
       },
     });
     
