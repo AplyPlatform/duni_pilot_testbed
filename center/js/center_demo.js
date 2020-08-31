@@ -167,6 +167,7 @@ function initPilotCenter() {
   }
   else if (page_action == "flight_view_detail") {
   	mapInit();
+  	map3DInit();
     flightDetailInit();
   }
   else if (page_action == "dromi") {
