@@ -1803,6 +1803,8 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";
+	
+	c3ddataSource.load(cada);
 
   for(var idx=0; idx< cada.length; idx++) {
     try{
@@ -2533,6 +2535,7 @@ var fixedFrameTransform;
 var planePrimitive;
 var viewer;
 var c_center = new Cesium.Cartesian3();
+var c3ddataSource;
 
 function getColor(colorName, alpha) {
   var color = Cesium.Color[colorName.toUpperCase()];
@@ -2620,6 +2623,9 @@ function draw3dMap() {
 	    minimumPixelSize: 64,
 	  })
 	);
+	
+	c3ddataSource = new Cesium.GeoJsonDataSource();
+	viewer.dataSources.add(c3ddataSource);
 		
 	viewer.trackedEntity = undefined;
 	  viewer.zoomTo(
