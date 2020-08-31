@@ -2903,7 +2903,7 @@ function flyTo(location, yaw, done) {
 
 function flyTo(lat, lng, yaw, done) {
 	  var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
-	  move3DmapIcon(lat, lng, yaw});
+	  move3DmapIcon(lat, lng, yaw);
     flyTo(location, yaw, done);
 }
 
