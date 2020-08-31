@@ -1809,7 +1809,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var for3Dtop = {
 		"type":"Feature",
 	  "geometry":{
-	    geoObject;
+	    geoObject
 	  }	  
 	};
 	
