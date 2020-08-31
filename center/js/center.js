@@ -1806,20 +1806,18 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	
 	 if (isSet(c3ddataSource)) {
 					c3ddataSource.load(cada[0]).then(function(dataSource) {
-                    var entities = dataSource.entities.entities;
+										
+                    var entities = dataSource.entities.values;
                    
-                    var colorHash = {};
                     for (var i = 0; i < entities.length; i++) {
-                        var entity = entities[i];
-                        var name = entity.name;
-                                               
-                        if (entity.point) {
-                           	entity.point.color = Cesium.Color.RED;
-                        } else if (entity.polygon) {
-                            entity.polygon.material = Cesium.ColorMaterialProperty.fromColor(Cesium.Color.RED);
-                        }
-                       
-                    }
+	                    var entity = entities[i];
+	                    var color = Cesium.Color.RED;
+	
+	                    entity.polygon.material = color;
+	                    entity.polygon.fill=false;
+	                    entity.polygon.outlineColor = Cesium.Color.RED;
+	
+                		}  
                 });
 		}
 	
