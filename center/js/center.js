@@ -1803,21 +1803,9 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";
-	cada[0].geometry["properties"] = cada[0].properties;
-	var topoJSON = {
-		"type": "Topology",
-  	"objects": {
-		    "example": {
-		      "type": "GeometryCollection",
-		      "geometries": [
-		      	cada[0].geometry
-		      ],		      
-			}
-		}
-	};
-		
+
 	if (isSet(c3ddataSource)) {
-				c3ddataSource.load(topoJSON).then(function(dataSource) {
+				c3ddataSource.load(cada[0]).then(function(dataSource) {
 									
                   var entities = dataSource.entities.values;
                  
