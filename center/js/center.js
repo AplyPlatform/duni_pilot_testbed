@@ -815,20 +815,19 @@ function setYawStatus(yaw) {
 		var yawStatus = document.getElementById('yawStatus');
 		if (!isSet(yawStatus)) return;
 
-		degrees = yaw * 1;
-		degrees = degrees < 0 ? (360 + degrees) : degrees;
+		yaw = yaw * 1;
+		var degree = yaw < 0 ? (360 + yaw) : yaw;
 
 		$("#yawStatus").attr("src", $("#yawStatus").attr("src"));
 
     $('#yawStatus').css({
-      'transform': 'rotate(' + degrees + 'deg)',
-      '-ms-transform': 'rotate(' + degrees + 'deg)',
-      '-moz-transform': 'rotate(' + degrees + 'deg)',
-      '-webkit-transform': 'rotate(' + degrees + 'deg)',
-      '-o-transform': 'rotate(' + degrees + 'deg)'
+      'transform': 'rotate(' + degree + 'deg)',
+      '-ms-transform': 'rotate(' + degree + 'deg)',
+      '-moz-transform': 'rotate(' + degree + 'deg)',
+      '-webkit-transform': 'rotate(' + degree + 'deg)',
+      '-o-transform': 'rotate(' + degree + 'deg)'
     });
 
-    yaw = yaw * 1;
     yaw = yaw.toFixed(3);
     $('#yawText').text(yaw);
 }
@@ -840,20 +839,19 @@ function setPitchStatus(pitch) {
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
 
-		var degrees = pitch * 1;		
-		degrees = degrees < 0 ? (360 + degrees) : degrees;
+		pitch = pitch * 1;		
+		var degree = pitch < 0 ? (360 + pitch) : pitch;
 
 		$("#pitchStatus").attr("src", $("#pitchStatus").attr("src"));
 
     $('#pitchStatus').css({
-      'transform': 'rotate(' + degrees + 'deg)',
-      '-ms-transform': 'rotate(' + degrees + 'deg)',
-      '-moz-transform': 'rotate(' + degrees + 'deg)',
-      '-webkit-transform': 'rotate(' + degrees + 'deg)',
-      '-o-transform': 'rotate(' + degrees + 'deg)'
+      'transform': 'rotate(' + degree + 'deg)',
+      '-ms-transform': 'rotate(' + degree + 'deg)',
+      '-moz-transform': 'rotate(' + degree + 'deg)',
+      '-webkit-transform': 'rotate(' + degree + 'deg)',
+      '-o-transform': 'rotate(' + degree + 'deg)'
     });
 
-    pitch = pitch * 1;
     pitch = pitch.toFixed(3);
     $('#pitchText').text(pitch);
 }
@@ -864,8 +862,8 @@ function setRollStatus(roll) {
 		var canvas = document.getElementById('rollCanvas');
 		if (!isSet(canvas)) return;
 
-		var degrees = roll * 1;
-		degrees = 180 + degrees;
+		roll = roll * 1;
+		var degrees = 180 + roll;
 		var degrees2 = degrees + 180;
 
 		if (degrees2 > 360) degrees2 = degrees2 - 360;
@@ -883,8 +881,7 @@ function setRollStatus(roll) {
     context.fill();
     context.strokeStyle = '#0000aa';
     context.stroke();
-
-    roll = roll * 1;
+    
     roll = roll.toFixed(3);
     $('#rollText').text(roll);
 }
