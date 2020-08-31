@@ -1804,6 +1804,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _features = new Array();
 	var _addressText = "";
 
+	/*
 	if (isSet(c3ddataSource)) {
 				c3ddataSource.load(cada[0]).then(function(dataSource) {
 									
@@ -1820,6 +1821,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
               		}  
               });
 	}
+	*/
 		
 	
 
