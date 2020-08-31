@@ -2309,6 +2309,9 @@ function setChartData(cdata) {
       drawScatterGraph();
       
       draw3dMap();
+      
+      var item = chartLocData[0];
+      flyTo(item.lat * 1, item.lng * 1, item.yaw, function() {bMoved=true;});      
 }
 
 var oldScatterdatasetIndex = -1;
@@ -3733,10 +3736,7 @@ function addChartItem(i, item) {
         }))
     }));
 
-    posIcons.push(pos_icon);
-
-    if (bMoved == false)
-      flyTo(item.lat * 1, item.lng * 1, item.yaw, function() {bMoved=true;});
+    posIcons.push(pos_icon);    
 
     lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
 
