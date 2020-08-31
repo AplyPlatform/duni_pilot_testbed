@@ -2531,6 +2531,7 @@ function computeCirclularFlight(viewer, start) {
 var hpRoll = new Cesium.HeadingPitchRoll();
 var hpRange = new Cesium.HeadingPitchRange();
 var dataSourcePromise;
+var scene;
 
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
@@ -2552,6 +2553,7 @@ function draw3dMap() {
 	  terrainProvider: Cesium.createWorldTerrain(),
 	});
 			
+	scene = viewer.scene;
 	viewer.scene.globe.enableLighting = false;	
 	viewer.scene.globe.depthTestAgainstTerrain = true;	
 	Cesium.Math.setRandomNumberSeed(3);
@@ -2635,7 +2637,8 @@ function move3DmapIcon(lat, lng, alt) {
       alt
     );
     
-	dataSourcePromise.center = position;
+	dataSourcePromise.position = position;
+	scene.render();
 }
 
 
