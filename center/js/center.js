@@ -2593,7 +2593,7 @@ function draw3dMap() {
 	    id: "aircraft model",
 	    name: "Cesium Air",
 	    position: {
-	      cartographicDegrees: [-77, 37, 10000],
+	      cartographicDegrees: [chartLocData[0].lng, chartLocData[0].lat, chartLocData[0].alt],
 	    },
 	    model: {
 	      gltf: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
