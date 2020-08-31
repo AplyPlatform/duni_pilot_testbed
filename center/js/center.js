@@ -1258,7 +1258,8 @@ function moveToPositionOnMap(lat, lng, alt, yaw, roll, pitch, bDirect) {
   setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
-
+  move3DmapIcon(lat, lng, alt, pitch, yaw, roll);
+  
   if (bDirect == true)
   	flyDirectTo(lat, lng, alt, yaw);
   else
@@ -2530,11 +2531,10 @@ function computeCirclularFlight(viewer, start) {
 
 var hpRoll = new Cesium.HeadingPitchRoll();
 var hpRange = new Cesium.HeadingPitchRange();
-var dataSourcePromise;
-var scratchCartesian3 = new Cesium.Cartesian3();
-
-var ellipsoid;
-
+var hpRoll = new Cesium.HeadingPitchRoll();
+var scene = viewer.scene;
+var fixedFrameTransform;
+var planePrimitive;
 
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
@@ -2584,28 +2584,56 @@ function draw3dMap() {
 		      color: Cesium.Color.YELLOW,
 		    }),
 		    width: 10,
-		  },
+		  }
 	});
 	
-	var czml = [
-	  {
-	    id: "document",
-	    name: "CZML Model",
-	    version: "1.0",
-	  },
-	  {
-	    id: "aircraft model",
-	    name: "Cesium Air",
-	    position: {
-	      cartographicDegrees: [chartLocData[0].lng, chartLocData[0].lat, chartLocData[0].alt],
-	    },
-	    model: {
-	      gltf: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
-	      scale: 0.1,
-	      minimumPixelSize: 128,
-	    },
-	  },
-	];
+	var position = Cesium.Cartesian3.fromDegrees(
+	  chartLocData[0].lng, chartLocData[0].lat, chartLocData[0].alt
+	);
+	var speedVector = new Cesium.Cartesian3();
+	fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
+	  "north",
+	  "west"
+	);
+	var camera = viewer.camera;
+	var controller = scene.screenSpaceCameraController;
+	
+	planePrimitive.readyPromise.then(function (model) {
+	  // Play and loop all animations at half-speed
+	  model.activeAnimations.addAll({
+	    multiplier: 0.5,
+	    loop: Cesium.ModelAnimationLoop.REPEAT,
+	  });
+	
+	  // Zoom to model
+	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+	  controller.minimumZoomDistance = r * 0.5;
+	  Cesium.Matrix4.multiplyByPoint(
+	    model.modelMatrix,
+	    model.boundingSphere.center,
+	    center
+	  );
+	  var heading = Cesium.Math.toRadians(230.0);
+	  var pitch = Cesium.Math.toRadians(-20.0);
+	  hpRange.heading = heading;
+	  hpRange.pitch = pitch;
+	  hpRange.range = r * 50.0;
+	  camera.lookAt(center, hpRange);
+	});
+	
+	planePrimitive = scene.primitives.add(
+	  Cesium.Model.fromGltf({
+	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+	      position,
+	      hpRoll,
+	      Cesium.Ellipsoid.WGS84,
+	      fixedFrameTransform	      	      
+	    ),
+	    scale: 0.1,
+	    minimumPixelSize: 128,
+	  })
+	);
 	
 	dataSourcePromise = viewer.dataSources.add(
 	  Cesium.CzmlDataSource.load(czml)
@@ -2633,9 +2661,7 @@ function draw3dMap() {
 	  
 }
 
-
-
-function move3DmapIcon(lat, lng, alt) {
+function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 	 var position = Cesium.Cartesian3.fromDegrees(
       lng,
       lat,
@@ -2643,7 +2669,17 @@ function move3DmapIcon(lat, lng, alt) {
       ellipsoid, scratchCartesian3
     );
     
-	ellipsoid.position = position;
+  hpRoll.pitch = pitch;
+  hpRoll.heading = yaw;
+  hpRoll.roll = roll;
+    
+	Cesium.Transforms.headingPitchRollToFixedFrame(
+    position,
+    hpRoll,
+    Cesium.Ellipsoid.WGS84,
+    fixedFrameTransform,
+    planePrimitive.modelMatrix
+  );
 }
 
 
@@ -2872,8 +2908,7 @@ function flyDirectTo(lat, lng, alt, yaw) {
 
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
-    current_view.setCenter(location);
-    move3DmapIcon(lat, lng, alt);
+    current_view.setCenter(location);    
 }
 
 function flyTo(location, yaw, done) {
@@ -2914,8 +2949,7 @@ function flyTo(location, yaw, done) {
 }
 
 function flyTo(lat, lng, yaw, done) {
-	  var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
-	  move3DmapIcon(lat, lng, yaw);
+	  var location = ol.proj.fromLonLat([lng * 1, lat * 1]);	  
     flyTo(location, yaw, done);
 }
 
