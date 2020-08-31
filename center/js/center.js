@@ -1820,7 +1820,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 			};
 			
 			// Load 
-			Cesium.GeoJsonDataSource.load(cada[0]);
+			c3ddataSource.load(cada[0]);
 	}
 				
   for(var idx=0; idx< cada.length; idx++) {
