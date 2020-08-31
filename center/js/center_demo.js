@@ -2178,9 +2178,9 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
     planePrimitive.modelMatrix
   );
   
-  viewer.camera.flyTo({
-  	destination: position
-  });
+  //viewer.camera.flyTo({
+  //	destination: position
+  //});
 }
 
 function mapInit() {
