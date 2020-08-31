@@ -2162,6 +2162,35 @@ function mapInit() {
     });
 }
 
+function computeCirclularFlight(viewer, start, lon, lat, radius) {
+  var property = new Cesium.SampledPositionProperty();
+  for (var i = 0; i <= 360; i += 45) {
+    var radians = Cesium.Math.toRadians(i);
+    var time = Cesium.JulianDate.addSeconds(
+      start,
+      i,
+      new Cesium.JulianDate()
+    );
+    var position = Cesium.Cartesian3.fromDegrees(
+      lon + radius * 1.5 * Math.cos(radians),
+      lat + radius * Math.sin(radians),
+      Cesium.Math.nextRandomNumber() * 500 + 1750
+    );
+    property.addSample(time, position);
+
+    //Also create a point for each sample we generate.
+    viewer.entities.add({
+      position: position,
+      point: {
+        pixelSize: 8,
+        color: Cesium.Color.TRANSPARENT,
+        outlineColor: Cesium.Color.YELLOW,
+        outlineWidth: 3,
+      },
+    });
+  }
+  return property;
+}
 
 
 function map3DInit() {
