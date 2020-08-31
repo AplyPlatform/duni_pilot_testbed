@@ -1254,17 +1254,15 @@ function appendMissionsToMonitor(mission) {
     });
 }
 
-function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {
-  var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
-
+function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {  
   setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
 
   if (bDirect == true)
-  	flyDirectTo(npos, yaw);
+  	flyDirectTo(lat, lng, yaw);
   else
-  	flyTo(npos, yaw, function() {});
+  	flyTo(lat, lng, yaw, function() {});
 }
 
 function clearDataToDesignTableWithFlightRecord() {
@@ -1314,9 +1312,8 @@ function saveFlightData(index) {
 	if (flightRecDataArray.length <= 0) {
 		var lng = $('#lngdata_index').val();
 		var lat = $('#latdata_index').val();
-		appendNewRecord([lng * 1, lat * 1]);
-		var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
-		flyDirectTo(npos, $('#yawdata_index').val());
+		appendNewRecord([lng * 1, lat * 1]);		
+		flyDirectTo(lat * 1, lng * 1, $('#yawdata_index').val());
 	}
 
 	flightRecDataArray[index].lat = parseFloat($('#latdata_index').val());
@@ -1416,9 +1413,8 @@ function searchCurrentBrowserAddress() {
 // result by latlng coordinate
 function searchAddressToCoordinate(address) {
     ajaxRequestAddress(address, function (r) {
-      //if(r.result == "success") {
-        var latLng = ol.proj.fromLonLat([r['results'][0].geometry.location.lng, r['results'][0].geometry.location.lat]);
-        flyTo(latLng, 0, function() {});
+      //if(r.result == "success") {        
+        flyTo(r['results'][0].geometry.location.lat,r['results'][0].geometry.location.lng, 0, function() {});
       //}
     }, function(request,status,error) {
       showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -2626,6 +2622,17 @@ function draw3dMap() {
 	      1000
 	    )
 	  );	
+	  
+}
+
+function move3DmapIcon(item) {
+	 var position = Cesium.Cartesian3.fromDegrees(
+      item.lng,
+      item.lat,
+      item.alt
+    );
+    
+	dataSourcePromise.position = position;
 }
 
 
@@ -2842,7 +2849,8 @@ function hideLoader() {
   $("#loading").fadeOut(800);
 }
 
-function flyDirectTo(location, yaw) {
+function flyDirectTo(lat, lng, yaw) {
+		var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
 		var duration = 1;
     var called = false;
 
@@ -2854,11 +2862,11 @@ function flyDirectTo(location, yaw) {
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
     current_view.setCenter(location);
+    move3DmapIcon(lat, lng, yaw});        
 }
 
-
 function flyTo(location, yaw, done) {
-    var duration = 1500;
+		var duration = 1500;
     var zoom = current_view.getZoom();
     var parts = 2;
     var called = false;
@@ -2894,6 +2902,12 @@ function flyTo(location, yaw, done) {
     }, callback);
 }
 
+function flyTo(lat, lng, yaw, done) {
+	  var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
+	  move3DmapIcon(lat, lng, yaw});
+    flyTo(location, yaw, done);
+}
+
 var beforeTime = "";
 function nexttour(r) {
   if (r.positiontime == beforeTime) {
@@ -2914,9 +2928,8 @@ function nexttour(r) {
     $('#monitorTable-points > tbody:last').append(appendRow);
   }
 
-  beforeTime = r.positiontime;
-  var npos = ol.proj.fromLonLat([r.lng * 1, r.lat * 1]);
-  flyTo(npos, r.yaw, function() {});
+  beforeTime = r.positiontime;  
+  flyTo(r.lat * 1, r.lng * 1, r.yaw, function() {});
 
   setTimeout(function() {
             if (bMonStarted == false) return;
@@ -3724,7 +3737,7 @@ function addChartItem(i, item) {
     posIcons.push(pos_icon);
 
     if (bMoved == false)
-      flyTo(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]), item.yaw, function() {bMoved=true;});
+      flyTo(item.lat * 1, item.lng * 1, item.yaw, function() {bMoved=true;});
 
     lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
 
