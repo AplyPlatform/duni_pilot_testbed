@@ -2534,7 +2534,7 @@ var hpRange = new Cesium.HeadingPitchRange();
 var fixedFrameTransform;
 var planePrimitive;
 var viewer;
-
+var c_center = new Cesium.Cartesian3();
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
   viewer = new Cesium.Viewer("main3dMap", {
@@ -2634,14 +2634,14 @@ function draw3dMap() {
 	  Cesium.Matrix4.multiplyByPoint(
 	    model.modelMatrix,
 	    model.boundingSphere.center,
-	    center
+	    c_center
 	  );
 	  var heading = Cesium.Math.toRadians(230.0);
 	  var pitch = Cesium.Math.toRadians(-20.0);
 	  hpRange.heading = heading;
 	  hpRange.pitch = pitch;
 	  hpRange.range = r * 50.0;
-	  camera.lookAt(center, hpRange);
+	  camera.lookAt(c_center, hpRange);
 	});
 	  
 }
