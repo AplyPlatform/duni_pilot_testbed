@@ -2594,6 +2594,7 @@ function draw3dMap() {
 	  "west"
 	);
 	var camera = viewer.camera;
+	var scene = viewer.scene;
 	var controller = scene.screenSpaceCameraController;
 	
 	planePrimitive.readyPromise.then(function (model) {
