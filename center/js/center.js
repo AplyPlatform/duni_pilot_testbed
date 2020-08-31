@@ -1807,19 +1807,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _addressText = "";
 
 	
-	if (isSet(c3ddataSource)) {			
-			Cesium.GeoJsonDataSource.crsNames['customProj'] = (coords) =>
-      Cesium.Cartesian3.fromDegrees(coords[0], coords[1], coords[2]);
-			
-			
-			cada[0]['crs'] = {
-			  type: 'name',
-			  properties: {
-			    'name': 'customProj'
-			  }
-			};
-			
-			// Load 
+	if (isSet(c3ddataSource)) {
 			c3ddataSource.load(cada[0]);
 	}
 				
