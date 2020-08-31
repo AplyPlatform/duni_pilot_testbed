@@ -1802,17 +1802,10 @@ function drawCadastral(disp_id, name, x, y, vSource){
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
-	var _addressText = "";		
-		
-	var geoObject = cada[0].geometry;
-      
-	var for3Dtop = {
-		"type":"Feature",
-	  "geometry": geoObject	  	  
-	};
+	var _addressText = "";
 	
 	 if (isSet(c3ddataSource))
-					c3ddataSource.load(for3Dtop, {
+					c3ddataSource.load(cada[0], {
 					  stroke: Cesium.Color.RED,					  
 					  strokeWidth: 3					  
 					});
