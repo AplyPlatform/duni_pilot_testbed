@@ -1799,32 +1799,33 @@ function drawCadastral(disp_id, name, x, y, vSource){
 
 }
 
+function addPolygon(coordinates) {
+    var flatten = [].concat.apply([], coordinates);
+    var orangePolygon = c3ddataSource.entities.add({
+        name: 'Orange polygon with per-position heights and outline',
+        polygon: {
+            hierarchy: Cesium.Cartesian3.fromDegreesArrayHeights(
+                flatten),
+            extrudedHeight: 0,
+            perPositionHeight: true,
+            material: Cesium.Color.ORANGE.withAlpha(0.5),
+            outline: true,
+            outlineColor: Cesium.Color.BLACK
+        }
+    });
+}
+            
+
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";
 
 	
-	if (isSet(c3ddataSource)) {								
-				c3ddataSource.load(cada[0]).then(function(dataSource) {
-									
-                  var entities = dataSource.entities.values;
-                 
-                  for (var i = 0; i < entities.length; i++) {
-                    var entity = entities[i];
-                    var color = Cesium.Color.RED;
-
-                    entity.polygon.material = color;
-                    entity.polygon.fill=false;
-                    entity.polygon.outlineColor = Cesium.Color.RED;
-										entity.polygon.extrudedHeight = 200 + 5;
-              		}  
-              });
+	if (isSet(c3ddataSource)) {												                
+			addPolygon(cada[0].geometry.coordinates[0].map(c => ol.proj.toLonLat(c)));                            
 	}
-	
-		
-	
-
+				
   for(var idx=0; idx< cada.length; idx++) {
     try{
       var geojson_Feature = cada[idx];
@@ -2644,13 +2645,8 @@ function draw3dMap() {
 	    minimumPixelSize: 64,
 	  })
 	);
-	
-	Cesium.GeoJsonDataSource.crsNames['urn:ogc:def:crs:EPSG::4326'] = Cesium.GeoJsonDataSource.crsNames["EPSG:4326"];		
-	c3ddataSource = new Cesium.GeoJsonDataSource();
-	//c3ddataSource.crsNames['EPSG:4326'] = function(coordinates){
-	//			    return Cesium.Cartesian3.fromDegrees(coordinates[0], coordinates[1], coordinates[2]);
-	//};
-	
+		
+	c3ddataSource = new Cesium.GeoJsonDataSource();	
 	viewer.dataSources.add(c3ddataSource);
 		
 	viewer.trackedEntity = undefined;
