@@ -2610,21 +2610,7 @@ function draw3dMap() {
 	    minimumPixelSize: 128,
 	  })
 	);
-	
-	dataSourcePromise = viewer.dataSources.add(
-	  Cesium.CzmlDataSource.load(czml)
-	);
-	
-	dataSourcePromise
-	  .then(function (dataSource) {
-	    viewer.trackedEntity = dataSource.entities.getById(
-	      "aircraft model"
-	    );
-	  })
-	  .otherwise(function (error) {
-	    window.alert(error);
-	  });
-	
+		
 	viewer.trackedEntity = undefined;
 	  viewer.zoomTo(
 	    viewer.entities,
