@@ -2605,7 +2605,7 @@ function draw3dMap() {
 	    new Cesium.HeadingPitchRange(
 	      Cesium.Math.toRadians(-90),
 	      Cesium.Math.toRadians(-15),
-	      7500
+	      200
 	    )
 	  );	
 }
