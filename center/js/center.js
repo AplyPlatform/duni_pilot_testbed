@@ -1823,9 +1823,9 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
 	
 	if (isSet(c3ddataSource)) {			
-			for (let poly of cada[0].geometry.coordinates) {
-          addPolygon(poly[0].map(c => ol.proj.toLonLat(c)));
-      }			
+			//for (let poly of cada[0].geometry.coordinates) {
+          //addPolygon(poly[0].map(c => ol.proj.toLonLat(c)));
+      //}			
 	}
 				
   for(var idx=0; idx< cada.length; idx++) {
