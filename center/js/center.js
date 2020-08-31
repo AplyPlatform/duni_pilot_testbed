@@ -2596,30 +2596,7 @@ function draw3dMap() {
 	var camera = viewer.camera;
 	var scene = viewer.scene;
 	var controller = scene.screenSpaceCameraController;
-	
-	planePrimitive.readyPromise.then(function (model) {
-	  // Play and loop all animations at half-speed
-	  model.activeAnimations.addAll({
-	    multiplier: 0.5,
-	    loop: Cesium.ModelAnimationLoop.REPEAT,
-	  });
-	
-	  // Zoom to model
-	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
-	  controller.minimumZoomDistance = r * 0.5;
-	  Cesium.Matrix4.multiplyByPoint(
-	    model.modelMatrix,
-	    model.boundingSphere.center,
-	    center
-	  );
-	  var heading = Cesium.Math.toRadians(230.0);
-	  var pitch = Cesium.Math.toRadians(-20.0);
-	  hpRange.heading = heading;
-	  hpRange.pitch = pitch;
-	  hpRange.range = r * 50.0;
-	  camera.lookAt(center, hpRange);
-	});
-	
+			
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
@@ -2657,6 +2634,29 @@ function draw3dMap() {
 	      1000
 	    )
 	  );	
+	  
+	 planePrimitive.readyPromise.then(function (model) {
+	  // Play and loop all animations at half-speed
+	  model.activeAnimations.addAll({
+	    multiplier: 0.5,
+	    loop: Cesium.ModelAnimationLoop.REPEAT,
+	  });
+	
+	  // Zoom to model
+	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+	  controller.minimumZoomDistance = r * 0.5;
+	  Cesium.Matrix4.multiplyByPoint(
+	    model.modelMatrix,
+	    model.boundingSphere.center,
+	    center
+	  );
+	  var heading = Cesium.Math.toRadians(230.0);
+	  var pitch = Cesium.Math.toRadians(-20.0);
+	  hpRange.heading = heading;
+	  hpRange.pitch = pitch;
+	  hpRange.range = r * 50.0;
+	  camera.lookAt(center, hpRange);
+	});
 	  
 }
 
