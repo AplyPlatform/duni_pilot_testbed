@@ -1816,7 +1816,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	                    entity.polygon.material = color;
 	                    entity.polygon.fill=false;
 	                    entity.polygon.outlineColor = Cesium.Color.RED;
-											entity.polygon.extrudedHeight = 100 + 5;
+											entity.polygon.extrudedHeight = 200 + 5;
                 		}  
                 });
 		}
