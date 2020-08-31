@@ -1809,7 +1809,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	
 	if (isSet(c3ddataSource)) {			
 			Cesium.GeoJsonDataSource.crsNames['customProj'] = (coords) =>
-      Cesium.Cartesian3.fromDegrees(coords[0], coords[1], coords[2], customEllipsoid);
+      Cesium.Cartesian3.fromDegrees(coords[0], coords[1], coords[2]);
 			
 			
 			cada[0]['crs'] = {
