@@ -2495,7 +2495,7 @@ function styleFunction(textMsg) {
 }
 
 
-function computeCirclularFlight(viewer, start) {
+function computeCirclularFlight(start) {
   var property = new Cesium.SampledPositionProperty();  
             
   var i = 0;
@@ -2533,10 +2533,11 @@ var hpRoll = new Cesium.HeadingPitchRoll();
 var hpRange = new Cesium.HeadingPitchRange();
 var fixedFrameTransform;
 var planePrimitive;
+var viewer;
 
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
-  var viewer = new Cesium.Viewer("main3dMap", {
+  viewer = new Cesium.Viewer("main3dMap", {
 	  infoBox: false, //Disable InfoBox widget
 	  selectionIndicator: false, //Disable selection indicator
 	  shouldAnimate: false, // Enable animations
@@ -2566,7 +2567,7 @@ function draw3dMap() {
 	  new Cesium.JulianDate()
 	);
 		
-	var position = computeCirclularFlight(viewer, start);
+	var position = computeCirclularFlight(start);
 
 	//Actually create the entity
 	var entity = viewer.entities.add({		  
@@ -2677,6 +2678,10 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
     fixedFrameTransform,
     planePrimitive.modelMatrix
   );
+  
+  viewer.camera.flyTo({
+      destination: position
+    });
 }
 
 
