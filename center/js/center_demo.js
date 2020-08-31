@@ -921,6 +921,7 @@ function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {
   setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
+  move3DmapIcon(lat, lng, alt, pitch, yaw, roll);
 
   if (bDirect == true)
   	flyDirectTo(npos, yaw);
@@ -1754,6 +1755,8 @@ function setChartData(cdata) {
 			var mLineLayer = drawLineToMap();
       var mPosLayer = drawPosIcons();
 			drawLineGraph();
+			
+			draw3dMap(cdata[0]);
 
       var i = 0;      
       var playAlert = setInterval(function() {
@@ -1779,6 +1782,7 @@ function setChartData(cdata) {
 					lineGraphData_pred.push({x: i, y: item.alt});
 		   			
 	   			moveTracerTo(ol.proj.fromLonLat([item.lng, item.lat]), item.yaw * 1);
+	   			move3DmapTraceIcon(item.lat, item.lng, item.alt, item.pitch * 1, item.yaw * 1, item.roll * 1);
 	
 					window.myLine.update();
 	   			mLineLayer.getSource().changed();
@@ -1971,6 +1975,212 @@ function styleFunction(textMsg, bcolor = false) {
 		      	}))
 	    	})
 	  ];
+}
+
+var hpRoll = new Cesium.HeadingPitchRoll();
+var hpRange = new Cesium.HeadingPitchRange();
+var fixedFrameTransform;
+var planePrimitive;
+var planePrimitive2;
+var viewer;
+
+function draw3dMap(item) {	
+	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
+  viewer = new Cesium.Viewer("main3dMap", {
+	  infoBox: false, //Disable InfoBox widget
+	  selectionIndicator: false, //Disable selection indicator
+	  shouldAnimate: false, // Enable animations
+	  baseLayerPicker : false,
+	  timeline : false,
+	  animation : false,
+	  clock : false,
+	  fullscreenButton : false,
+	  geocoder : false,
+	  homeButton : false,	  
+	  navigationHelpButton : false,
+	  navigationInstructionsInitiallyVisible : false,
+	  automaticallyTrackDataSourceClocks : false,
+	  orderIndependentTranslucency : false,
+	  terrainProvider: Cesium.createWorldTerrain(),
+	});
+					
+	viewer.scene.globe.enableLighting = false;	
+	viewer.scene.globe.depthTestAgainstTerrain = true;	
+	Cesium.Math.setRandomNumberSeed(3);
+					
+	var position = Cesium.Cartesian3.fromDegrees(
+	  item.lng, item.lat, item.alt
+	);
+	var speedVector = new Cesium.Cartesian3();
+	fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
+	  "north",
+	  "west"
+	);
+	var camera = viewer.camera;
+	var scene = viewer.scene;
+	var controller = scene.screenSpaceCameraController;
+			
+	planePrimitive = scene.primitives.add(
+	  Cesium.Model.fromGltf({
+	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+	      position,
+	      hpRoll,
+	      Cesium.Ellipsoid.WGS84,
+	      fixedFrameTransform	      	      
+	    ),
+	    scale: 0.3,
+	    minimumPixelSize: 64,
+	  })
+	);
+	
+	planePrimitive2 = scene.primitives.add(
+	  Cesium.Model.fromGltf({
+	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    color: getColor("RED", 0.8),
+	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+	      position,
+	      hpRoll,
+	      Cesium.Ellipsoid.WGS84,
+	      fixedFrameTransform	      	      
+	    ),
+	    scale: 0.3,
+	    minimumPixelSize: 64,
+	  })
+	);
+		
+	viewer.trackedEntity = undefined;
+	  viewer.zoomTo(
+	    viewer.entities,
+	    new Cesium.HeadingPitchRange(
+	      Cesium.Math.toRadians(-90),
+	      Cesium.Math.toRadians(-15),
+	      1000
+	    )
+	  );	
+	 
+	 planePrimitive2.readyPromise.then(function (model) {
+	  // Play and loop all animations at half-speed
+	  model.activeAnimations.addAll({
+	    multiplier: 0.5,
+	    loop: Cesium.ModelAnimationLoop.REPEAT,
+	  });
+	
+	  // Zoom to model
+	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+	  controller.minimumZoomDistance = r * 0.5;
+	  Cesium.Matrix4.multiplyByPoint(
+	    model.modelMatrix,
+	    model.boundingSphere.center,
+	    center
+	  );
+	  var heading = Cesium.Math.toRadians(230.0);
+	  var pitch = Cesium.Math.toRadians(-20.0);
+	  hpRange.heading = heading;
+	  hpRange.pitch = pitch;
+	  hpRange.range = r * 50.0;
+	  camera.lookAt(center, hpRange);
+	});
+	  
+	 planePrimitive.readyPromise.then(function (model) {
+	  // Play and loop all animations at half-speed
+	  model.activeAnimations.addAll({
+	    multiplier: 0.5,
+	    loop: Cesium.ModelAnimationLoop.REPEAT,
+	  });
+	
+	  // Zoom to model
+	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+	  controller.minimumZoomDistance = r * 0.5;
+	  Cesium.Matrix4.multiplyByPoint(
+	    model.modelMatrix,
+	    model.boundingSphere.center,
+	    center
+	  );
+	  var heading = Cesium.Math.toRadians(230.0);
+	  var pitch = Cesium.Math.toRadians(-20.0);
+	  hpRange.heading = heading;
+	  hpRange.pitch = pitch;
+	  hpRange.range = r * 50.0;
+	  camera.lookAt(center, hpRange);
+	});	  
+}
+
+function getColor(colorName, alpha) {
+  var color = Cesium.Color[colorName.toUpperCase()];
+  return Cesium.Color.fromAlpha(color, parseFloat(alpha));
+}
+
+function move3DmapTraceIcon(lat, lng, alt, pitch, yaw, roll) {
+	 var position = Cesium.Cartesian3.fromDegrees(
+      lng,
+      lat,
+      alt
+    );  
+  
+  yaw = yaw * 1;
+	yaw = yaw < 0 ? (360 + yaw) : yaw;
+	yaw = Math.PI/180 * yaw;
+	
+	pitch = pitch * 1;
+	pitch = pitch < 0 ? (360 + pitch) : pitch;
+	pitch = Math.PI/180 * pitch;
+	
+	roll = roll * 1;
+	roll = roll < 0 ? (360 + roll) : roll;
+	roll = Math.PI/180 * roll;
+  
+  hpRoll.pitch = pitch;
+  hpRoll.heading = yaw;
+  hpRoll.roll = roll;
+    
+	Cesium.Transforms.headingPitchRollToFixedFrame(
+    position,
+    hpRoll,
+    Cesium.Ellipsoid.WGS84,
+    fixedFrameTransform,
+    planePrimitive2.modelMatrix
+  );
+  
+  //viewer.camera.flyTo({
+  //	destination: position
+  //});
+}
+
+function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
+	 var position = Cesium.Cartesian3.fromDegrees(
+      lng,
+      lat,
+      alt
+    );  
+  
+  yaw = yaw * 1;
+	yaw = yaw < 0 ? (360 + yaw) : yaw;
+	yaw = Math.PI/180 * yaw;
+	
+	pitch = pitch * 1;
+	pitch = pitch < 0 ? (360 + pitch) : pitch;
+	pitch = Math.PI/180 * pitch;
+	
+	roll = roll * 1;
+	roll = roll < 0 ? (360 + roll) : roll;
+	roll = Math.PI/180 * roll;
+  
+  hpRoll.pitch = pitch;
+  hpRoll.heading = yaw;
+  hpRoll.roll = roll;
+    
+	Cesium.Transforms.headingPitchRollToFixedFrame(
+    position,
+    hpRoll,
+    Cesium.Ellipsoid.WGS84,
+    fixedFrameTransform,
+    planePrimitive.modelMatrix
+  );
+  
+  viewer.camera.flyTo({
+  	destination: position
+  });
 }
 
 function mapInit() {
@@ -2848,7 +3058,7 @@ function showDataForDromi(index) {
 			      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			    }
 			    else {
-			      setChartData(r.data);
+			      setChartData(r.data);			      
 			      hideLoader();
 			    }
 			  }, function(request,status,error) {

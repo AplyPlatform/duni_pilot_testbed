@@ -2554,8 +2554,7 @@ function draw3dMap() {
 	  orderIndependentTranslucency : false,
 	  terrainProvider: Cesium.createWorldTerrain(),
 	});
-				
-	ellipsoid = viewer.scene.mapProjection.ellipsoid;
+					
 	viewer.scene.globe.enableLighting = false;	
 	viewer.scene.globe.depthTestAgainstTerrain = true;	
 	Cesium.Math.setRandomNumberSeed(3);
@@ -2630,7 +2629,7 @@ function draw3dMap() {
 	  });
 	
 	  // Zoom to model
-	  r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+	  var r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
 	  controller.minimumZoomDistance = r * 0.5;
 	  Cesium.Matrix4.multiplyByPoint(
 	    model.modelMatrix,
