@@ -1799,22 +1799,7 @@ function drawCadastral(disp_id, name, x, y, vSource){
 
 }
 
-function addPolygon(coordinates) {
-    var flatten = [].concat.apply([], coordinates);
-    var orangePolygon = c3ddataSource.entities.add({
-        name: 'Orange polygon with per-position heights and outline',
-        polygon: {
-            hierarchy: Cesium.Cartesian3.fromDegreesArrayHeights(
-                flatten),
-            extrudedHeight: 0,
-            perPositionHeight: true,
-            material: Cesium.Color.ORANGE.withAlpha(0.5),
-            outline: true,
-            outlineColor: Cesium.Color.BLACK
-        }
-    });
-}
-            
+ 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
@@ -1823,9 +1808,19 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
 	
 	if (isSet(c3ddataSource)) {			
-			//for (let poly of cada[0].geometry.coordinates) {
-          //addPolygon(poly[0].map(c => ol.proj.toLonLat(c)));
-      //}			
+			Cesium.GeoJsonDataSource.crsNames['customProj'] = (coords) =>
+      Cesium.Cartesian3.fromDegrees(coords[0], coords[1], coords[2], customEllipsoid);
+			
+			
+			cada[0]['crs'] = {
+			  type: 'name',
+			  properties: {
+			    'name': 'customProj'
+			  }
+			};
+			
+			// Load 
+			Cesium.GeoJsonDataSource.load(cada[0]);
 	}
 				
   for(var idx=0; idx< cada.length; idx++) {
