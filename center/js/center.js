@@ -1803,19 +1803,29 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";		
+		
+	var geoObject = cada[0].geometry;
+      
+	var for3Dtop = {
+		"type":"Feature",
+	  "geometry":{
+	    geoObject;
+	  }	  
+	};
+	
+	 if (isSet(c3ddataSource))
+					c3ddataSource.load(for3Dtop, {
+					  stroke: Cesium.Color.RED,					  
+					  strokeWidth: 3					  
+					});
+	
 
   for(var idx=0; idx< cada.length; idx++) {
     try{
       var geojson_Feature = cada[idx];
       var geojsonObject = geojson_Feature.geometry;
       
-      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
-      if (isSet(c3ddataSource))
-				c3ddataSource.load(geojsonObject, {
-					  stroke: Cesium.Color.RED,					  
-					  strokeWidth: 3					  
-					});
-		
+      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);     		
       for(var i=0; i< features.length; i++) {
         try{
           var feature = features[i];
