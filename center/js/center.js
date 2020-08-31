@@ -2650,8 +2650,7 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 	 var position = Cesium.Cartesian3.fromDegrees(
       lng,
       lat,
-      alt,
-      ellipsoid, scratchCartesian3
+      alt
     );
     
   hpRoll.pitch = pitch;
