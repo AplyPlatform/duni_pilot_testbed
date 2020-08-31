@@ -2634,7 +2634,7 @@ function move3DmapIcon(item) {
       item.alt
     );
     
-	dataSourcePromise.position = position;
+	dataSourcePromise.center = position;
 }
 
 
