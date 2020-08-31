@@ -915,7 +915,7 @@ function isSet(value) {
   return true;
 }
 
-function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {
+function moveToPositionOnMap(lat, lng, alt, yaw, roll, pitch, bDirect) {
   var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
 
   setRollStatus(roll);
@@ -1773,7 +1773,7 @@ function setChartData(cdata) {
       	else {      	      	
 	   			addChartItem(i, item);
 	   			
-	   			moveToPositionOnMap(lat, lng, item.yaw * 1, item.roll * 1, item.pitch * 1, true);	   				   			
+	   			moveToPositionOnMap(lat, lng, alt, item.yaw * 1, item.roll * 1, item.pitch * 1, true);	   				   			
 	
 	   			item.lat = kf_lat.filter(lat);
 	   			item.lng = kf_lng.filter(lng);
@@ -2696,7 +2696,7 @@ function setMoveActionFromMovie(index, item) {
   setSliderPos(index);
 
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromScatterChart(index, item) {
@@ -2708,7 +2708,7 @@ function setMoveActionFromScatterChart(index, item) {
 
   setSliderPos(index);
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromLineChart(index, item) {
@@ -2720,14 +2720,14 @@ function setMoveActionFromLineChart(index, item) {
 
   setSliderPos(index);
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromSliderOnMove(index, item) {
 	$('#sliderText').html( index );
 
 	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromSliderOnStop(index, item) {
@@ -2740,7 +2740,7 @@ function setMoveActionFromSliderOnStop(index, item) {
   }
 
 	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromMap(index, item) {
