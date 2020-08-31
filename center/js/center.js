@@ -1802,10 +1802,7 @@ function drawCadastral(disp_id, name, x, y, vSource){
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
-	var _addressText = "";
-	
-	if (isSet(c3ddataSource))
-		c3ddataSource.load(cada);
+	var _addressText = "";		
 
   for(var idx=0; idx< cada.length; idx++) {
     try{
@@ -1838,6 +1835,8 @@ function setAddressAndCada(address_id, address, cada, wsource) {
     }
   }
 
+	if (isSet(c3ddataSource))
+		c3ddataSource.load(_features);
   wsource.addFeatures(_features);
 
   if (isSet($(address_id)))
