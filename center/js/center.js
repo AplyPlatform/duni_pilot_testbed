@@ -1808,7 +1808,11 @@ function setAddressAndCada(address_id, address, cada, wsource) {
     try{
       var geojson_Feature = cada[idx];
       var geojsonObject = geojson_Feature.geometry;
+      
       var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
+      if (isSet(c3ddataSource))
+				c3ddataSource.load(features);
+		
       for(var i=0; i< features.length; i++) {
         try{
           var feature = features[i];
@@ -1835,8 +1839,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
     }
   }
 
-	if (isSet(c3ddataSource))
-		c3ddataSource.load(_features);
+	
   wsource.addFeatures(_features);
 
   if (isSet($(address_id)))
