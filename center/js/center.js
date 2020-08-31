@@ -2539,6 +2539,7 @@ function getColor(colorName, alpha) {
   return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
+
 function draw3dMap() {	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
   viewer = new Cesium.Viewer("main3dMap", {
@@ -2604,7 +2605,11 @@ function draw3dMap() {
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
-	    color: getColor("YELLOW", 0.3),
+	    color: getColor("YELLOW", 1.0),	    	    
+      silhouetteColor: getColor(
+       "RED", 1.0
+      ),
+      silhouetteSize: 2.0,
 	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
 	      position,
 	      hpRoll,
