@@ -2311,7 +2311,7 @@ function setChartData(cdata) {
       draw3dMap();
       
       var item = chartLocData[0];
-      flyTo(item.lat * 1, item.lng * 1, item.yaw, function() {bMoved=true;});      
+      flyDirectTo(item.lat * 1, item.lng * 1, item.yaw);      
 }
 
 var oldScatterdatasetIndex = -1;
