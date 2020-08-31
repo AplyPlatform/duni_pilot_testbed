@@ -1822,8 +1822,10 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _addressText = "";
 
 	
-	if (isSet(c3ddataSource)) {												                
-			addPolygon(cada[0].geometry.coordinates[0].map(c => ol.proj.toLonLat(c)));                            
+	if (isSet(c3ddataSource)) {			
+			for (let poly of cada[0].geometry.coordinates) {
+          addPolygon(poly[0].map(c => ol.proj.toLonLat(c)));
+      }			
 	}
 				
   for(var idx=0; idx< cada.length; idx++) {
