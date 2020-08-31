@@ -2567,15 +2567,7 @@ function draw3dMap() {
 	var position = computeCirclularFlight(viewer, start);
 
 	//Actually create the entity
-	var entity = viewer.entities.add({
-		  //Set the entity availability to the same interval as the simulation time.
-		  availability: new Cesium.TimeIntervalCollection([
-		    new Cesium.TimeInterval({
-		      start: start,
-		      stop: stop,
-		    }),
-		  ]),
-		
+	var entity = viewer.entities.add({		  
 		  //Use our computed positions
 		  position: position,
 		
@@ -2584,7 +2576,7 @@ function draw3dMap() {
 		
 		  //Load the Cesium plane model to represent the entity
 		  model: {
-		    uri: "https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb",
+		    uri: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
 		    minimumPixelSize: 64,		    
 		  },
 		
