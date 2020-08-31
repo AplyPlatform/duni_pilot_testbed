@@ -1067,7 +1067,7 @@ function setDesignTableWithFlightRecord() {
   map.addLayer(posLayerForDesign);
 
 
-  moveToPositionOnMap(flightRecDataArray[0].lat, flightRecDataArray[0].lng, flightRecDataArray[0].yaw, flightRecDataArray[0].roll, flightRecDataArray[0].pitch);
+  moveToPositionOnMap(flightRecDataArray[0].lat, flightRecDataArray[0].lng, flightRecDataArray[0].alt, flightRecDataArray[0].yaw, flightRecDataArray[0].roll, flightRecDataArray[0].pitch);
 }
 
 
@@ -1254,13 +1254,13 @@ function appendMissionsToMonitor(mission) {
     });
 }
 
-function moveToPositionOnMap(lat, lng, yaw, roll, pitch, bDirect) {  
+function moveToPositionOnMap(lat, lng, alt, yaw, roll, pitch, bDirect) {  
   setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
 
   if (bDirect == true)
-  	flyDirectTo(lat, lng, yaw);
+  	flyDirectTo(lat, lng, alt, yaw);
   else
   	flyTo(lat, lng, yaw, function() {});
 }
@@ -1313,7 +1313,7 @@ function saveFlightData(index) {
 		var lng = $('#lngdata_index').val();
 		var lat = $('#latdata_index').val();
 		appendNewRecord([lng * 1, lat * 1]);		
-		flyDirectTo(lat * 1, lng * 1, $('#yawdata_index').val());
+		flyDirectTo(lat * 1, lng * 1, parseFloat($('#altdata_index').val()), $('#yawdata_index').val());
 	}
 
 	flightRecDataArray[index].lat = parseFloat($('#latdata_index').val());
@@ -1363,6 +1363,7 @@ function removeFlightData(index) {
 	moveToPositionOnMap(flightRecDataArray[newIndex].lat,
 						flightRecDataArray[newIndex].lng,
 						flightRecDataArray[newIndex].yaw,
+						flightRecDataArray[newIndex].alt,
 						flightRecDataArray[newIndex].roll,
 						flightRecDataArray[newIndex].pitch, false);
 }
@@ -2311,7 +2312,7 @@ function setChartData(cdata) {
       draw3dMap();
       
       var item = chartLocData[0];
-      flyDirectTo(item.lat * 1, item.lng * 1, item.yaw);      
+      flyDirectTo(item.lat * 1, item.lng * 1, item.alt, item.yaw);      
 }
 
 var oldScatterdatasetIndex = -1;
@@ -2627,11 +2628,11 @@ function draw3dMap() {
 	  
 }
 
-function move3DmapIcon(item) {
+function move3DmapIcon(lat, lng, alt) {
 	 var position = Cesium.Cartesian3.fromDegrees(
-      item.lng,
-      item.lat,
-      item.alt
+      lng,
+      lat,
+      alt
     );
     
 	dataSourcePromise.center = position;
@@ -2851,7 +2852,7 @@ function hideLoader() {
   $("#loading").fadeOut(800);
 }
 
-function flyDirectTo(lat, lng, yaw) {
+function flyDirectTo(lat, lng, alt, yaw) {
 		var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
 		var duration = 1;
     var called = false;
@@ -2864,7 +2865,7 @@ function flyDirectTo(lat, lng, yaw) {
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
     current_view.setCenter(location);
-    move3DmapIcon(lat, lng, yaw);
+    move3DmapIcon(lat, lng, alt);
 }
 
 function flyTo(location, yaw, done) {
@@ -3136,7 +3137,7 @@ function setMoveActionFromMovie(index, item) {
   setSliderPos(index);
 
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromScatterChart(index, item) {
@@ -3148,7 +3149,7 @@ function setMoveActionFromScatterChart(index, item) {
 
   setSliderPos(index);
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromLineChart(index, item) {
@@ -3160,14 +3161,14 @@ function setMoveActionFromLineChart(index, item) {
 
   setSliderPos(index);
   showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromSliderOnMove(index, item) {
 	$('#sliderText').html( index );
 
 	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromSliderOnStop(index, item) {
@@ -3180,7 +3181,7 @@ function setMoveActionFromSliderOnStop(index, item) {
   }
 
 	showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.yaw, item.roll, item.pitch, true);
+	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch, true);
 }
 
 function setMoveActionFromMap(index, item) {
