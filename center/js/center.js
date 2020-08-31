@@ -3366,11 +3366,12 @@ function setYoutubeID() {
 
 function setYoutubePlayerPureID(data_id) {
 	if (!isSet(data_id) || data_id == "-") {
-		$("#youTubePlayer").hide();
-		moviePlayerVisible = false;
+		$("#youTubePlayer").hide();		
+		moviePlayerVisible = false;		
 		return;
 	}
 	else {
+		$("#movieData").val("https://youtube.com/watch?v=" + data_id);
 		$("#youTubePlayer").show();
 		moviePlayerVisible = true;
 	}
@@ -3401,6 +3402,7 @@ function setYoutubePlayer(d_id) {
 		moviePlayerVisible = true;
 	}
 
+	$("#movieData").val(d_id);
 	var data_id = d_id;
 	var r_id = d_id.split('=');
 	if (r_id.length > 1) {
