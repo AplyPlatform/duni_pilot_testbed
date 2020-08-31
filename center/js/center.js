@@ -1824,8 +1824,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 			// Load 
 			c3ddataSource.load(cada[0], {
 				  stroke: Cesium.Color.RED,
-				  strokeWidth: 2,
-				  fill : Cesium.Color.YELLOW,
+				  strokeWidth: 2,				  
 				  clampToGround: true			  
 				});
 	}
