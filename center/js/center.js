@@ -2517,7 +2517,7 @@ function computeCirclularFlight(start) {
         pixelSize: 2,
         color: Cesium.Color.TRANSPARENT,
         outlineColor: Cesium.Color.RED,
-        outlineWidth: 2,
+        outlineWidth: 1,
       },
     });
     
