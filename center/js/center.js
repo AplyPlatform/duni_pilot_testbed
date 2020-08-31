@@ -2597,7 +2597,7 @@ function draw3dMap() {
 	    },
 	    model: {
 	      gltf: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
-	      scale: 0.5,
+	      scale: 0.1,
 	      minimumPixelSize: 128,
 	    },
 	  },
