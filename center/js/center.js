@@ -2862,7 +2862,7 @@ function flyDirectTo(lat, lng, yaw) {
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
     current_view.setCenter(location);
-    move3DmapIcon(lat, lng, yaw});        
+    move3DmapIcon(lat, lng, yaw);
 }
 
 function flyTo(location, yaw, done) {
