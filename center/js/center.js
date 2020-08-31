@@ -840,8 +840,7 @@ function setPitchStatus(pitch) {
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
 
-		var degrees = (pitch * 1);
-		degrees = degrees.toFixed(3);
+		var degrees = pitch * 1;		
 		degrees = degrees < 0 ? (360 + degrees) : degrees;
 
 		$("#pitchStatus").attr("src", $("#pitchStatus").attr("src"));
