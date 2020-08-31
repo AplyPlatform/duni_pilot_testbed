@@ -2149,6 +2149,18 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
       lat,
       alt
     );      
+    
+  yaw = yaw * 1;
+	yaw = yaw < 0 ? (360 + yaw) : yaw;
+	yaw = Math.PI/180 * yaw;
+	
+	pitch = pitch * 1;
+	pitch = pitch < 0 ? (360 + pitch) : pitch;
+	pitch = Math.PI/180 * pitch;
+	
+	roll = roll * 1;
+	roll = roll < 0 ? (360 + roll) : roll;
+	roll = Math.PI/180 * roll;
   
   hpRoll.pitch = pitch;
   hpRoll.heading = yaw;
