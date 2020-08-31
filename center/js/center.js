@@ -2604,7 +2604,7 @@ function draw3dMap() {
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
-	    color: getColor("YELLOW", 0.8),
+	    color: getColor("GREEN", 0.9),
 	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
 	      position,
 	      hpRoll,
