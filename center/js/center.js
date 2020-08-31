@@ -2569,17 +2569,9 @@ function draw3dMap() {
 	//Actually create the entity
 	var entity = viewer.entities.add({		  
 		  //Use our computed positions
-		  position: position,
-		
+		  position: position,		
 		  //Automatically compute orientation based on position movement.
-		  orientation: new Cesium.VelocityOrientationProperty(position),
-		
-		  //Load the Cesium plane model to represent the entity
-		  model: {
-		    uri: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
-		    minimumPixelSize: 64,		    
-		  },
-		
+		  orientation: new Cesium.VelocityOrientationProperty(position),				  		
 		  //Show the path as a pink line sampled in 1 second increments.
 		  path: {
 		    resolution: 1,
@@ -2590,6 +2582,40 @@ function draw3dMap() {
 		    width: 10,
 		  },
 	});
+	
+	var czml = [
+	  {
+	    id: "document",
+	    name: "CZML Model",
+	    version: "1.0",
+	  },
+	  {
+	    id: "aircraft model",
+	    name: "Cesium Air",
+	    position: {
+	      cartographicDegrees: [-77, 37, 10000],
+	    },
+	    model: {
+	      gltf: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	      scale: 0.5,
+	      minimumPixelSize: 128,
+	    },
+	  },
+	];
+	
+	var dataSourcePromise = viewer.dataSources.add(
+	  Cesium.CzmlDataSource.load(czml)
+	);
+	
+	dataSourcePromise
+	  .then(function (dataSource) {
+	    viewer.trackedEntity = dataSource.entities.getById(
+	      "aircraft model"
+	    );
+	  })
+	  .otherwise(function (error) {
+	    window.alert(error);
+	  });
 	
 	viewer.trackedEntity = undefined;
 	  viewer.zoomTo(
