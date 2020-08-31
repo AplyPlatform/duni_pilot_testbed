@@ -2531,8 +2531,6 @@ function computeCirclularFlight(viewer, start) {
 
 var hpRoll = new Cesium.HeadingPitchRoll();
 var hpRange = new Cesium.HeadingPitchRange();
-var hpRoll = new Cesium.HeadingPitchRoll();
-var scene = viewer.scene;
 var fixedFrameTransform;
 var planePrimitive;
 
