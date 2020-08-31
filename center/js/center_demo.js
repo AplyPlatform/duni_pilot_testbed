@@ -166,8 +166,7 @@ function initPilotCenter() {
     flightViewInit();
   }
   else if (page_action == "flight_view_detail") {
-  	mapInit();
-  	map3DInit();
+  	mapInit();  	
     flightDetailInit();
   }
   else if (page_action == "dromi") {
@@ -2160,122 +2159,6 @@ function mapInit() {
       loadTilesWhileAnimating: true,
       view: current_view
     });
-}
-
-function computeCirclularFlight(viewer, start, lon, lat, radius) {
-  var property = new Cesium.SampledPositionProperty();
-  for (var i = 0; i <= 360; i += 45) {
-    var radians = Cesium.Math.toRadians(i);
-    var time = Cesium.JulianDate.addSeconds(
-      start,
-      i,
-      new Cesium.JulianDate()
-    );
-    var position = Cesium.Cartesian3.fromDegrees(
-      lon + radius * 1.5 * Math.cos(radians),
-      lat + radius * Math.sin(radians),
-      Cesium.Math.nextRandomNumber() * 500 + 1750
-    );
-    property.addSample(time, position);
-
-    //Also create a point for each sample we generate.
-    viewer.entities.add({
-      position: position,
-      point: {
-        pixelSize: 8,
-        color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.YELLOW,
-        outlineWidth: 3,
-      },
-    });
-  }
-  return property;
-}
-
-
-function map3DInit() {
-	
-	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
-  var viewer = new Cesium.Viewer("main3dMap", {
-	  infoBox: false, //Disable InfoBox widget
-	  selectionIndicator: false, //Disable selection indicator
-	  shouldAnimate: false, // Enable animations
-	  baseLayerPicker : false,
-	  timeline : false,
-	  animation : false,
-	  clock : false,
-	  fullscreenButton : false,
-	  geocoder : false,
-	  homeButton : false,	  
-	  navigationHelpButton : false,
-	  navigationInstructionsInitiallyVisible : false,
-	  automaticallyTrackDataSourceClocks : false,
-	  orderIndependentTranslucency : false,
-	  terrainProvider: Cesium.createWorldTerrain(),
-	});
-	
-	//Enable lighting based on the sun position
-	viewer.scene.globe.enableLighting = false;
-	
-	//Enable depth testing so things behind the terrain disappear.
-	viewer.scene.globe.depthTestAgainstTerrain = true;
-	
-	//Set the random number seed for consistent results.
-	Cesium.Math.setRandomNumberSeed(3);
-	
-	//Set bounds of our simulation time
-	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
-	var stop = Cesium.JulianDate.addSeconds(
-	  start,
-	  360,
-	  new Cesium.JulianDate()
-	);
-	
-	//Compute the entity position property.
-	var position = computeCirclularFlight(viewer, start, -112.110693, 36.0994841, 0.03);
-
-	//Actually create the entity
-	var entity = viewer.entities.add({
-		  //Set the entity availability to the same interval as the simulation time.
-		  availability: new Cesium.TimeIntervalCollection([
-		    new Cesium.TimeInterval({
-		      start: start,
-		      stop: stop,
-		    }),
-		  ]),
-		
-		  //Use our computed positions
-		  position: position,
-		
-		  //Automatically compute orientation based on position movement.
-		  orientation: new Cesium.VelocityOrientationProperty(position),
-		
-		  //Load the Cesium plane model to represent the entity
-		  model: {
-		    uri: "https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb",
-		    minimumPixelSize: 64,
-		  },
-		
-		  //Show the path as a pink line sampled in 1 second increments.
-		  path: {
-		    resolution: 1,
-		    material: new Cesium.PolylineGlowMaterialProperty({
-		      glowPower: 0.1,
-		      color: Cesium.Color.YELLOW,
-		    }),
-		    width: 10,
-		  },
-	});
-	
-	viewer.trackedEntity = undefined;
-	  viewer.zoomTo(
-	    viewer.entities,
-	    new Cesium.HeadingPitchRange(
-	      Cesium.Math.toRadians(-90),
-	      Cesium.Math.toRadians(-15),
-	      7500
-	    )
-	  );	
 }
 
 // A bounce easing method (from https://github.com/DmitryBaranovskiy/raphael).

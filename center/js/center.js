@@ -165,7 +165,7 @@ function initPilotCenter() {
     flightViewInit();
   }
   else if (page_action == "flight_view_detail") {
-  	mapInit();
+  	mapInit();  	
     flightDetailInit();
   }
   else if (page_action == "dromi") {
@@ -2311,6 +2311,8 @@ function setChartData(cdata) {
 			drawLineGraph();
 
       drawScatterGraph();
+      
+      draw3dMap();
 }
 
 var oldScatterdatasetIndex = -1;
@@ -2490,6 +2492,130 @@ function styleFunction(textMsg) {
     	})
   ];
 }
+
+
+function computeCirclularFlight(viewer, start) {
+  var property = new Cesium.SampledPositionProperty();  
+            
+  var i = 0;
+  chartLocData.forEach(function (item) {      	      	      	
+    var time = Cesium.JulianDate.addSeconds(
+      start,
+      i,
+      new Cesium.JulianDate()
+    );
+    var position = Cesium.Cartesian3.fromDegrees(
+      item.lng,
+      item.lat,
+      item.alt
+    );
+    property.addSample(time, position);
+
+		//Also create a point for each sample we generate.
+    viewer.entities.add({
+      position: position,
+      point: {
+        pixelSize: 8,
+        color: Cesium.Color.TRANSPARENT,
+        outlineColor: Cesium.Color.YELLOW,
+        outlineWidth: 3,
+      },
+    });
+    
+    i++;
+  });                
+
+  return property;
+}
+
+var camera;
+var hpRoll = new Cesium.HeadingPitchRoll();
+var hpRange = new Cesium.HeadingPitchRange();
+	
+function draw3dMap() {	
+	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
+  var viewer = new Cesium.Viewer("main3dMap", {
+	  infoBox: false, //Disable InfoBox widget
+	  selectionIndicator: false, //Disable selection indicator
+	  shouldAnimate: false, // Enable animations
+	  baseLayerPicker : false,
+	  timeline : false,
+	  animation : false,
+	  clock : false,
+	  fullscreenButton : false,
+	  geocoder : false,
+	  homeButton : false,	  
+	  navigationHelpButton : false,
+	  navigationInstructionsInitiallyVisible : false,
+	  automaticallyTrackDataSourceClocks : false,
+	  orderIndependentTranslucency : false,
+	  terrainProvider: Cesium.createWorldTerrain(),
+	});
+			
+	camera = viewer.camera;
+	viewer.scene.globe.enableLighting = false;	
+	viewer.scene.globe.depthTestAgainstTerrain = true;	
+	Cesium.Math.setRandomNumberSeed(3);
+	
+	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
+	var stop = Cesium.JulianDate.addSeconds(
+	  start,
+	  360,
+	  new Cesium.JulianDate()
+	);
+		
+	var position = computeCirclularFlight(viewer, start);
+
+	//Actually create the entity
+	var entity = viewer.entities.add({
+		  //Set the entity availability to the same interval as the simulation time.
+		  availability: new Cesium.TimeIntervalCollection([
+		    new Cesium.TimeInterval({
+		      start: start,
+		      stop: stop,
+		    }),
+		  ]),
+		
+		  //Use our computed positions
+		  position: position,
+		
+		  //Automatically compute orientation based on position movement.
+		  orientation: new Cesium.VelocityOrientationProperty(position),
+		
+		  //Load the Cesium plane model to represent the entity
+		  model: {
+		    uri: "https://sandcastle.cesium.com/SampleData/models/CesiumAir/Cesium_Air.glb",
+		    minimumPixelSize: 64,
+		    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+		      cposition,
+		      hpRoll,
+		      Cesium.Ellipsoid.WGS84,
+		      fixedFrameTransform
+		    )
+		  },
+		
+		  //Show the path as a pink line sampled in 1 second increments.
+		  path: {
+		    resolution: 1,
+		    material: new Cesium.PolylineGlowMaterialProperty({
+		      glowPower: 0.1,
+		      color: Cesium.Color.YELLOW,
+		    }),
+		    width: 10,
+		  },
+	});
+	
+	viewer.trackedEntity = undefined;
+	  viewer.zoomTo(
+	    viewer.entities,
+	    new Cesium.HeadingPitchRange(
+	      Cesium.Math.toRadians(-90),
+	      Cesium.Math.toRadians(-15),
+	      7500
+	    )
+	  );	
+}
+
 
 function mapInit() {
 
