@@ -3423,7 +3423,7 @@ function setYoutubePlayer(d_id) {
 function onYouTubeIframeAPIReady() {
     youTubePlayer = new YT.Player('youTubePlayer', {
         width: '1000',
-        height: '300',
+        height: '400',
         videoId: youtube_data_id,
         playerVars: {rel: 0},//추천영상 안보여주게 설정
         events: {
