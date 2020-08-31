@@ -1811,7 +1811,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
       
       var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
       if (isSet(c3ddataSource))
-				c3ddataSource.load(features, {
+				c3ddataSource.load(geojsonObject, {
 					  stroke: Cesium.Color.RED,					  
 					  strokeWidth: 3					  
 					});
