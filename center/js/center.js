@@ -1803,7 +1803,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";
-	
+	cada[0].geometry["properties"] = cada[0].properties;
 	var topoJSON = {
 		"type": "Topology",
   	"objects": {
@@ -1811,8 +1811,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 		      "type": "GeometryCollection",
 		      "geometries": [
 		      	cada[0].geometry
-		      ],
-		      "properties" : cada[0].properties      
+		      ],		      
 			}
 		}
 	};
