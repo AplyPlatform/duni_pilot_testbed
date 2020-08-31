@@ -1804,8 +1804,11 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _features = new Array();
 	var _addressText = "";
 
-	/*
+	
 	if (isSet(c3ddataSource)) {
+				c3ddataSource.crsNames['EPSG:4326'] = function(coordinates){
+				    return Cesium.Cartesian3.fromDegrees(coordinates[0], coordinates[1], coordinates[2]);
+				};
 				c3ddataSource.load(cada[0]).then(function(dataSource) {
 									
                   var entities = dataSource.entities.values;
@@ -1821,7 +1824,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
               		}  
               });
 	}
-	*/
+	
 		
 	
 
