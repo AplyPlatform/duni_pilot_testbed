@@ -2645,11 +2645,11 @@ function draw3dMap() {
 	  })
 	);
 	
-	Cesium.GeoJsonDataSource.crsNames['urn:ogc:def:crs:EPSG::4326'] = Cesium.GeoJsonDataSource.crsNames["EPSG:4326"];	
+	Cesium.GeoJsonDataSource.crsNames['urn:ogc:def:crs:EPSG::4326'] = Cesium.GeoJsonDataSource.crsNames["EPSG:4326"];		
 	c3ddataSource = new Cesium.GeoJsonDataSource();
-	c3ddataSource.crsNames['EPSG:4326'] = function(coordinates){
-				    return Cesium.Cartesian3.fromDegrees(coordinates[0], coordinates[1], coordinates[2]);
-	};
+	//c3ddataSource.crsNames['EPSG:4326'] = function(coordinates){
+	//			    return Cesium.Cartesian3.fromDegrees(coordinates[0], coordinates[1], coordinates[2]);
+	//};
 	
 	viewer.dataSources.add(c3ddataSource);
 		
