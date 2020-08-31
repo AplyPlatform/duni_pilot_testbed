@@ -1805,8 +1805,8 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _addressText = "";
 	
 	 if (isSet(c3ddataSource)) {
-					c3ddataSource.load(cada[0]).then(function() {
-                    var entities = c3ddataSource.entities.entities;
+					c3ddataSource.load(cada[0]).then(function(dataSource) {
+                    var entities = dataSource.entities.entities;
                    
                     var colorHash = {};
                     for (var i = 0; i < entities.length; i++) {
