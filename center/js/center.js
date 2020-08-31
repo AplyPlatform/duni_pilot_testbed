@@ -1804,22 +1804,36 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	var _features = new Array();
 	var _addressText = "";
 	
-	 if (isSet(c3ddataSource)) {
-					c3ddataSource.load(cada[0]).then(function(dataSource) {
-										
-                    var entities = dataSource.entities.values;
-                   
-                    for (var i = 0; i < entities.length; i++) {
-	                    var entity = entities[i];
-	                    var color = Cesium.Color.RED;
-	
-	                    entity.polygon.material = color;
-	                    entity.polygon.fill=false;
-	                    entity.polygon.outlineColor = Cesium.Color.RED;
-											entity.polygon.extrudedHeight = 200 + 5;
-                		}  
-                });
+	var topoJSON = {
+		"type": "Topology",
+  	"objects": {
+		    "example": {
+		      "type": "GeometryCollection",
+		      "geometries": [
+		      	cada[0].geometry
+		      ],
+		      "properties" : cada[0].properties      
+			}
 		}
+	};
+		
+	if (isSet(c3ddataSource)) {
+				c3ddataSource.load(topoJSON).then(function(dataSource) {
+									
+                  var entities = dataSource.entities.values;
+                 
+                  for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    var color = Cesium.Color.RED;
+
+                    entity.polygon.material = color;
+                    entity.polygon.fill=false;
+                    entity.polygon.outlineColor = Cesium.Color.RED;
+										entity.polygon.extrudedHeight = 200 + 5;
+              		}  
+              });
+	}
+		
 	
 
   for(var idx=0; idx< cada.length; idx++) {
