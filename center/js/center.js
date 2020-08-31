@@ -2607,7 +2607,7 @@ function draw3dMap() {
 	      Cesium.Ellipsoid.WGS84,
 	      fixedFrameTransform	      	      
 	    ),
-	    scale: 0.05,
+	    scale: 0.08,
 	    minimumPixelSize: 64,
 	  })
 	);
