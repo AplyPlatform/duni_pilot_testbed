@@ -1806,6 +1806,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
 	
 	if (isSet(c3ddataSource)) {
+				c3ddataSource.crsNames['urn:ogc:def:crs:EPSG::4326'] = c3ddataSource.crsNames["EPSG:4326"];
 				c3ddataSource.crsNames['EPSG:4326'] = function(coordinates){
 				    return Cesium.Cartesian3.fromDegrees(coordinates[0], coordinates[1], coordinates[2]);
 				};
