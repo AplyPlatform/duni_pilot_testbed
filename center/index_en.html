@@ -16,6 +16,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="DUNI PILOT CENTER">
   <meta name="author" content="APLY Inc.">
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="796696970892-p16dtq9oq2oks814lu661hreampk6kjn.apps.googleusercontent.com">
 	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
   <link rel="icon" type="image/png" href="https://pilot.duni.io/logo.png" />
   <link rel="apple-touch-icon" href="https://pilot.duni.io/logo.png" />
@@ -28,6 +30,7 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
 0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
@@ -107,19 +110,16 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					                  <div class="text-center">
 					                    <h1 class="h4 text-gray-900 mb-4">DUNI PILOT Center <B>BETA</B></h1>
 					                  </div>
-					                  <form class="user">
-					                    
-					                    <form class="user">
-							              		<a onclick="onGoogle()" class="btn btn-google btn-user btn-block text-white">
-							                      <i class="fab fa-google fa-fw"></i> Google Login
+					                  <form class="user">					                    					                    
+							              		<a id="googleLoginBtn" class="btn btn-google btn-user btn-block text-white">
+							                      <i class="fab fa-google fa-fw"></i> Sign in with Google
 							                    </a>
-							                  <a onclick="onFacebook()" class="btn btn-facebook btn-user btn-block text-white">
-							                      <i class="fab fa-facebook-f fa-fw"></i> Facebook Login
+							                  <a id="facebookLoginBtn" class="btn btn-facebook btn-user btn-block text-white">
+							                      <i class="fab fa-facebook-f fa-fw"></i> Sign in with Facebook
 							                  </a>
-							                  <a onclick="onNaver()" class="btn bg-success btn-user btn-block text-white">
-							                    <img src="./imgs/naverlogo.png" border=0> Naver Login
-							                  </a>              		
-							                </form>
+							                  <a id="naverLoginBtn" class="btn bg-success btn-user btn-block text-white">
+							                    <img src="./imgs/naverlogo.png" border=0> Sign in with Naver
+							                  </a>							                
 					                  </form>
 					                  <hr>
 					                  
@@ -185,10 +185,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>    
   <script src="./js/lang.js"></script>
-  <script src="./js/index.js"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>	    
+	<script src="./js/index.js"></script>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>		
   <script>
   	setLang("EN");
-  </script>
+  </script>  	
 </body>
 
 </html>
