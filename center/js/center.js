@@ -840,7 +840,7 @@ function setPitchStatus(pitch) {
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
 
-		pitch = pitch * 1;		
+		pitch = pitch * -1; //		
 		var degree = pitch < 0 ? (360 + pitch) : pitch;
 		//degree = Math.PI/180 * degree;
 
