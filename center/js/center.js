@@ -23,7 +23,7 @@ var posLayerForDesign;
 
 var hasMore;
 
-var pos_icon_image = './imgs/position3.png';
+var pos_icon_image = './imgs/position4.png';
 
 
 var arrayData = new Array();
@@ -711,8 +711,8 @@ function drawLineGraph() {
    			datasets: [
           {
               label: LANG_JSON_DATA[langset]['altitude_msg'],
-              borderColor: '#f00',
-              backgroundColor: '#f66',
+              borderColor: '#4bc6ff',
+              backgroundColor: '#9bdfff',
               data: lineGraphData
          }
       	]};
@@ -2180,8 +2180,8 @@ function drawLineToMap() {
       source: lineSource,
       style: new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: '#ff0000',
-                width: 3
+                color: '#55a6cc',
+                width: 2
             })
         })
   });
@@ -2613,7 +2613,7 @@ function draw3dMap() {
 		    resolution: 1,
 		    material: new Cesium.PolylineGlowMaterialProperty({
 		      glowPower: 0.1,
-		      color: Cesium.Color.RED,
+		      color: Cesium.Color.AQUA,
 		    }),
 		    width: 10,
 		  }
@@ -3816,8 +3816,7 @@ function addChartItem(i, item) {
     }
 
     pos_icon.setStyle(new ol.style.Style({
-        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-          color: pos_icon_color,
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({          
           crossOrigin: 'anonymous',
           src: pos_icon_image
         }))
