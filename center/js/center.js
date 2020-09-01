@@ -2500,9 +2500,9 @@ function styleFunction(textMsg) {
     new ol.style.Style(
     	{
 	      image: new ol.style.Icon(({
-	      	opacity: 0.75,
+	      	opacity: 0.55,
 	        crossOrigin: 'anonymous',
-	        scale: 2,
+	        scale: 1.5,
 	        src: pos_icon_image
 	      	}))
 	      ,
@@ -2542,9 +2542,9 @@ function computeCirclularFlight(start) {
     viewer.entities.add({
       position: position,
       point: {
-        pixelSize: 2,
+        pixelSize: 1,
         color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.RED,
+        outlineColor: Cesium.Color.AQUA,
         outlineWidth: 1,
       },
     });
@@ -3818,6 +3818,7 @@ function addChartItem(i, item) {
     pos_icon.setStyle(new ol.style.Style({
         image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({          
           crossOrigin: 'anonymous',
+          opacity: 0.55,          
           src: pos_icon_image
         }))
     }));
