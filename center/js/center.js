@@ -80,6 +80,8 @@ function setCommonText() {
 		if (image_url == "") $('#profile_image').hide();
 		else $('#profile_image').attr("src", image_url);
 			
+		$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
+			
 		$('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
 		$('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
 		$('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
