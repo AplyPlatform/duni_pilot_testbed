@@ -2018,7 +2018,7 @@ function draw3dMap(item) {
 			
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
-	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    url: "https://pilot.duni.io/center/imgs/drone.glb",
 	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
 	      position,
 	      hpRoll,
@@ -2032,7 +2032,7 @@ function draw3dMap(item) {
 	
 	planePrimitive2 = scene.primitives.add(
 	  Cesium.Model.fromGltf({
-	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    url: "https://pilot.duni.io/center/imgs/drone.glb",
 	    color: getColor("RED", 0.8),
 	    modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
 	      position,
