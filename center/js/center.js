@@ -817,7 +817,7 @@ function setYawStatus(yaw) {
 
 		yaw = yaw * 1;
 		var degree = yaw < 0 ? (360 + yaw) : yaw;
-		yaw = Math.PI/180 * yaw;
+		//yaw = Math.PI/180 * yaw;
 
 		$("#yawStatus").attr("src", $("#yawStatus").attr("src"));
 
@@ -842,7 +842,7 @@ function setPitchStatus(pitch) {
 
 		pitch = pitch * 1;		
 		var degree = pitch < 0 ? (360 + pitch) : pitch;
-		degree = Math.PI/180 * degree;
+		//degree = Math.PI/180 * degree;
 
 		$("#pitchStatus").attr("src", $("#pitchStatus").attr("src"));
 
