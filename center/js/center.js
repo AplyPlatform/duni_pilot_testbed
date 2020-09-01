@@ -2635,7 +2635,7 @@ function draw3dMap() {
 			
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
-	    url: "https://pilot.duni.io/center/imgs/Cesium_Air.glb",
+	    url: "https://pilot.duni.io/center/imgs/drone.glb",
 	    color: getColor("YELLOW", 1.0),	    	    
       silhouetteColor: getColor(
        "RED", 1.0
