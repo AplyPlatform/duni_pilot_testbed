@@ -2533,12 +2533,12 @@ function computeCirclularFlight(start) {
   return property;
 }
 
-var hpRoll = new Cesium.HeadingPitchRoll();
-var hpRange = new Cesium.HeadingPitchRange();
+var hpRoll;
+var hpRange;
 var fixedFrameTransform;
 var planePrimitive;
 var viewer;
-var c_center = new Cesium.Cartesian3();
+var c_center;
 var c3ddataSource;
 
 function getColor(colorName, alpha) {
@@ -2546,8 +2546,7 @@ function getColor(colorName, alpha) {
   return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
-function draw3dMap() {
-	
+function draw3dMap() {	
 	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
 	var stop = Cesium.JulianDate.addSeconds(
 	  start,
@@ -2572,11 +2571,10 @@ function draw3dMap() {
 		    }),
 		    width: 10,
 		  }
-	});
-	
+	});	
 }
 
-function map3dInit() {	
+function map3dInit() {			
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
   viewer = new Cesium.Viewer("main3dMap", {
 	  infoBox: false, //Disable InfoBox widget
@@ -2599,6 +2597,10 @@ function map3dInit() {
 	viewer.scene.globe.enableLighting = false;	
 	viewer.scene.globe.depthTestAgainstTerrain = true;	
 	Cesium.Math.setRandomNumberSeed(3);
+	
+	hpRoll = new Cesium.HeadingPitchRoll();
+	hpRange = new Cesium.HeadingPitchRange();
+	c_center = new Cesium.Cartesian3();
 			
 	var position = Cesium.Cartesian3.fromDegrees(
 	  chartLocData[0].lng, chartLocData[0].lat, chartLocData[0].alt
