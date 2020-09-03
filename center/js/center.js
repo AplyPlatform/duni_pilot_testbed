@@ -434,10 +434,7 @@ function monitorInit() {
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
-	});
-	
-	
-	getLatestMon();  
+	});	
 }
 
 function dromiInit() {
@@ -526,28 +523,6 @@ function showAlert(msg) {
 
 	$('#errorModalLabel').text(msg);
 	$('#errorModal').modal('show');
-}
-
-
-
-function getLatestMon() {
-
-	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "get_current_monitor", "clientid" : userid};
-
-  showLoader();
-  ajaxRequest(jdata, function (r) {
-    if(r.result == "success") {
-      hideLoader();
-      cur_flightrecord_name = r.name;
-			$("#current_pos").text(cur_flightrecord_name);
-    }
-    else {
-      hideLoader();
-    }
-  }, function(request,status,error) {
-    hideLoader();
-  });
 }
 
 function getAllRecordCount() {
@@ -1128,17 +1103,7 @@ function startMon() {
     $("#loader").hide();
   }
   else {  	
-  	if (isSet(cur_flightrecord_name) == false) {
-	  	var mname = prompt(LANG_JSON_DATA[langset]['msg_input_record_name'], "");
-	
-	    if (!isSet(mname)) {
-	        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-	        return;
-	    }
-	    
-	    cur_flightrecord_name = mname;
-	  }  	  	
-	  else nextMon();  	  	    
+  	nextMon();  	  	    
   }
 }
 
@@ -1180,7 +1145,7 @@ function first3DcameraMove(item) {
 
 function nextMon() {
   var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "get", "clientid" : userid, "name" : cur_flightrecord_name};
+  var jdata = {"action" : "position", "daction" : "get", "clientid" : userid};
 
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
