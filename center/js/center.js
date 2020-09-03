@@ -435,6 +435,8 @@ function monitorInit() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
 	});	
+		
+	hideLoader();
 }
 
 function dromiInit() {
