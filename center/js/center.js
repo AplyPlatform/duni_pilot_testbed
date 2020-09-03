@@ -2556,8 +2556,8 @@ function draw3dMap() {
 	);
 		
 	var position = computeCirclularFlight(start);	
-	positionentity.position = position;	
-	position.orientation = new Cesium.VelocityOrientationProperty(position);
+	posentity.position = position;	
+	posentity.orientation = new Cesium.VelocityOrientationProperty(position);
 }
 
 function map3dInit() {			
