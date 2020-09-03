@@ -1107,7 +1107,7 @@ function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
     isFirst = true;
-    $('#btnStartMon').text("Start monitoring");
+    $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStartMon']);
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
   }
@@ -1126,6 +1126,40 @@ function startMon() {
 
 var isFirst = true;
 
+function first3DcameraMove(item) {
+	var camera = viewer.camera;
+	camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(
+      item.lng * 1,
+      item.lat * 1,
+      item.alt + 100
+    ),
+    complete: function () {
+      setTimeout(function () {			      				      	
+        camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(
+            item.lng * 1,
+			      item.lat * 1,
+			      item.alt + 100
+          ),
+          orientation: {
+            heading: Cesium.Math.toRadians(200.0),
+            pitch: Cesium.Math.toRadians(-50.0),
+          },
+          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
+        });
+        
+        moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+        setTimeout(function() {
+            if (bMonStarted == false) return;
+            nextMon();
+  			}, 2500);
+        
+      }, 1000);
+    },
+  });
+}
+
 function nextMon() {
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "get", "clientid" : userid, "name" : cur_flightrecord_name};
@@ -1138,40 +1172,8 @@ function nextMon() {
       $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
             
       if (isFirst) {
-      	isFirst = false;
-      	
-      	var camera = viewer.camera;
-				camera.flyTo({
-			    destination: Cesium.Cartesian3.fromDegrees(
-			      r.data.lng * 1,
-			      r.data.lat * 1,
-			      r.data.alt + 100
-			    ),
-			    complete: function () {
-			      setTimeout(function () {			      				      	
-			        camera.flyTo({
-			          destination: Cesium.Cartesian3.fromDegrees(
-			            r.data.lng * 1,
-						      r.data.lat * 1,
-						      r.data.alt + 100
-			          ),
-			          orientation: {
-			            heading: Cesium.Math.toRadians(200.0),
-			            pitch: Cesium.Math.toRadians(-50.0),
-			          },
-			          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-			        });
-			        
-			        moveToPositionOnMap(r.data.lat * 1, r.data.lng * 1, r.data.alt, r.data.yaw, r.data.roll, r.data.pitch);
-			        setTimeout(function() {
-			            if (bMonStarted == false) return;
-			            nextMon();
-			  			}, 2500);
-			        
-			      }, 1000);
-			    },
-			  });
-	  
+      	isFirst = false;      	
+      	first3DcameraMove(r.data);
       }
       else nexttour(r.data);
     }
