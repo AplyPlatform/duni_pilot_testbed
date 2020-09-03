@@ -213,32 +213,74 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
           <div class="row">
 
-            <!-- Area Chart -->
-            <div class="col-lg-6 mb-4">
-              <div class="card shadow mb-4">	               
-	                <div class="card-body h-400">
-										<div id="mainMap" class="map"></div>
-	              	</div>
-	              	
-	                <div class="card-body">
-	                	<button class="btn btn-primary" type="button" id="btnStartMon">
-                                          모니터링 시작하기
-										</button>
-                  	<span id="monitor"></span>
-                  </div>
-
-              </div>
-            </div>
-            
-            <div class="col-lg-6 mb-4">
-              <div class="card shadow mb-4">
-	                <div class="card-body h-400">
-										<div id="main3dMap" class="map"></div>
-	              	</div>
-              </div>
-            </div>
+	            <!-- Area Chart -->
+	            <div class="col-lg-6 mb-4">
+	              <div class="card shadow mb-4">	               
+		                <div class="card-body h-400">
+											<div id="mainMap" class="map"></div>
+		              	</div>
+		              	
+		                <div class="card-body">
+		                	<button class="btn btn-primary" type="button" id="btnStartMon">
+	                                          모니터링 시작하기
+											</button>
+	                  	<span id="monitor"></span>
+	                  </div>
+	
+	              </div>
+	            </div>
+	            
+	            <div class="col-lg-6 mb-4">
+	              <div class="card shadow mb-4">
+		                <div class="card-body h-400">
+											<div id="main3dMap" class="map"></div>
+		              	</div>
+	              </div>
+	            </div>
             
           </div>
+          
+          <div class="row">
+
+		            <!-- Area Chart -->
+		            <div class="col-lg-6 mb-4">
+				              <div class="card shadow mb-4">	 
+				          						<div class="card-body">												
+																	<div class="row no-gutters align-items-center">													
+																			<div class="col mr-2">													
+									                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
+									                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+									                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																										       <option value="Aerial">Aerial</option>
+																										       <option value="AerialWithLabels" selected>Aerial with labels</option>
+																										       <option value="Road">Road</option>
+																						</select>
+																				</div>
+									                    </div>
+									                    <div class="col mr-2">
+									                      <table width="100%" class="table table-condensed">
+								                                <thead>
+								                                    <tr>
+								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
+								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Head <span id="yawText"></span></th>
+								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
+								                                    </tr>
+								                                </thead>
+								                                <tbody>
+								                                		<tr>
+								                                			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
+								                                			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
+								                                			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
+								                                		</tr>	                                		
+								                                </tbody>
+																					</table>
+									                    </div>
+									                </div>					              		                    																											
+															</div>
+				          		</div>
+		              </div>					              		                    																											
+						</div>
+          
         </div>
         <!-- /.container-fluid -->
 

@@ -330,6 +330,24 @@ function flightListInit() {
 	hideLoader();
 }
 
+
+function monitorInit() {
+
+	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
+	$("#head_title").text(document.title);
+	
+	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
+	
+	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
+	$("#btnStartMon").click(function() {
+		GATAGM('btnStartMon', 'CONTENT', langset);				
+		startMon();
+	});	
+		
+	hideLoader();
+}
+
+
 function flightDetailInit() {
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
 	$("#head_title").text(document.title);
@@ -424,20 +442,6 @@ function missionListInit() {
 	hideLoader();
 }
 
-
-function monitorInit() {
-
-	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
-	$("#head_title").text(document.title);
-	
-	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
-	$("#btnStartMon").click(function() {
-		GATAGM('btnStartMon', 'CONTENT', langset);				
-		startMon();
-	});	
-		
-	hideLoader();
-}
 
 function dromiInit() {
 	document.title = LANG_JSON_DATA[langset]['page_dromi_title'];
