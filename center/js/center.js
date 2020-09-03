@@ -1393,7 +1393,7 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
-        + "<a href='./monitor.html?mission_name=" + item['name'] + "' class='font-weight-bold mb-1'>"
+        + "<a href='design.html?mission_name=" + item['name'] + "' class='font-weight-bold mb-1'>"
         + item['name']
         + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
         + item['regtime']
