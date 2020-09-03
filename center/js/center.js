@@ -429,20 +429,15 @@ function monitorInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
-
-
+	
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
-
-	cur_flightrecord_name = location.search.split('name=')[1];
-	if (isSet(cur_flightrecord_name))
-		cur_flightrecord_name = cur_flightrecord_name.split('&')[0];					
-
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
 	});
-
-  hideLoader();
+	
+	
+	getLatestMon();  
 }
 
 function dromiInit() {
@@ -533,6 +528,27 @@ function showAlert(msg) {
 	$('#errorModal').modal('show');
 }
 
+
+
+function getLatestMon() {
+
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "get_current_monitor", "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();
+      cur_flightrecord_name = r.name;
+			$("#current_pos").text(cur_flightrecord_name);
+    }
+    else {
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    hideLoader();
+  });
+}
 
 function getAllRecordCount() {
 
@@ -1112,15 +1128,17 @@ function startMon() {
     $("#loader").hide();
   }
   else {  	
-  	var mname = prompt(LANG_JSON_DATA[langset]['msg_input_record_name'], "");
-
-    if (!isSet(mname)) {
-        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-        return;
-    }
-  	
-  	cur_flightrecord_name = mname;
-  	nextMon();  	  	    
+  	if (isSet(cur_flightrecord_name) == false) {
+	  	var mname = prompt(LANG_JSON_DATA[langset]['msg_input_record_name'], "");
+	
+	    if (!isSet(mname)) {
+	        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+	        return;
+	    }
+	    
+	    cur_flightrecord_name = mname;
+	  }  	  	
+	  else nextMon();  	  	    
   }
 }
 
