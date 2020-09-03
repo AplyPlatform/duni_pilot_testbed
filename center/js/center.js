@@ -1106,6 +1106,7 @@ function appendNewRecord(lonLat) {
 function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
+    isFirst = true;
     $('#btnStartMon').text("Start monitoring");
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
@@ -1123,6 +1124,8 @@ function startMon() {
   }
 }
 
+var isFirst = true;
+
 function nextMon() {
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "get", "clientid" : userid, "name" : cur_flightrecord_name};
@@ -1133,10 +1136,47 @@ function nextMon() {
       $("#loader").show();
       $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStopMon']);
       $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
-      nexttour(r.data);
+            
+      if (isFirst) {
+      	isFirst = false;
+      	
+      	var camera = viewer.camera;
+				camera.flyTo({
+			    destination: Cesium.Cartesian3.fromDegrees(
+			      item.lng * 1,
+			      item.lat * 1,
+			      item.alt + 100
+			    ),
+			    complete: function () {
+			      setTimeout(function () {			      				      	
+			        camera.flyTo({
+			          destination: Cesium.Cartesian3.fromDegrees(
+			            item.lng * 1,
+						      item.lat * 1,
+						      item.alt + 100
+			          ),
+			          orientation: {
+			            heading: Cesium.Math.toRadians(200.0),
+			            pitch: Cesium.Math.toRadians(-50.0),
+			          },
+			          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
+			        });
+			        
+			        moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+			        setTimeout(function() {
+			            if (bMonStarted == false) return;
+			            nextMon();
+			  			}, 2500);
+			        
+			      }, 1000);
+			    },
+			  });
+	  
+      }
+      else nexttour(r.data);
     }
     else {
-      showAlert(LANG_JSON_DATA[langset]['msg_failed_to_get_position']);
+      showAlert(LANG_JSON_DATA[langset]['msg_failed_to_get_position']);      
     }
   }, function(request,status,error) {
     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -2924,42 +2964,12 @@ function moveMapIcon(lat, lng, alt, yaw) {
     current_view.setCenter(location);    
 }
 
-function nexttour(item) {  	
-	var camera = viewer.camera;
-	camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(
-      item.lng * 1,
-      item.lat * 1,
-      item.alt + 100
-    ),
-    complete: function () {
-      setTimeout(function () {
-      	
-      	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
-      	
-        camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(
-            item.lng * 1,
-			      item.lat * 1,
-			      item.alt + 100
-          ),
-          orientation: {
-            heading: Cesium.Math.toRadians(200.0),
-            pitch: Cesium.Math.toRadians(-50.0),
-          },
-          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-        });
-        
-        setTimeout(function() {
-            if (bMonStarted == false) return;
-            nextMon();
-  			}, 2500);
-        
-      }, 1000);
-    },
-  });
-	  
-  
+function nexttour(item) {
+  moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+  setTimeout(function() {
+      if (bMonStarted == false) return;
+      nextMon();
+	}, 2500);
 }
 
 function uploadDUNIFlightList() {
