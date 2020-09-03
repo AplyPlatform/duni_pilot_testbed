@@ -336,14 +336,16 @@ function monitorInit() {
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 	
-	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
+	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);	
+	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 	
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
 	});	
-		
+	
+	drawLineGraph();		
 	hideLoader();
 }
 
@@ -1159,7 +1161,7 @@ function nextMon() {
       $("#loader").show();
       $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStopMon']);
       $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
-            
+                  
       if (isFirst) {
       	isFirst = false;      	
       	first3DcameraMove(r.data);
@@ -2956,6 +2958,10 @@ function moveMapIcon(lat, lng, alt, yaw) {
 }
 
 function nexttour(item) {
+	
+	addChartItem(i, item);
+	window.myLine.update();
+	
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
   setTimeout(function() {
       if (bMonStarted == false) return;
@@ -3738,36 +3744,33 @@ function addChartItem(i, item) {
     chartLabelData.push(dateString);
   }
 
-  if ("lat" in item && "lng" in item && "alt" in item) {
-    var dsec = (item.dsec * 1);
-    chartLocData.push({lat : item.lat, lng : item.lng, alt: item.alt, yaw : item.yaw, roll: item.roll, pitch: item.pitch, dsec : dsec});
+  var dsec = (item.dsec * 1);
+  chartLocData.push({lat : item.lat, lng : item.lng, alt: item.alt, yaw : item.yaw, roll: item.roll, pitch: item.pitch, dsec : dsec});
 
-    var pos_icon = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-        mindex : i
-    });
+  var pos_icon = new ol.Feature({
+      geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+      name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+      mindex : i
+  });
 
-    var pos_icon_color = '#777777';
+  var pos_icon_color = '#777777';
 
-    if("etc" in item && "marked" in item.etc) {
-      pos_icon_color = '#ff0000';
-    }
+  if("etc" in item && "marked" in item.etc) {
+    pos_icon_color = '#ff0000';
+  }
 
-    pos_icon.setStyle(new ol.style.Style({
-        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({          
-          crossOrigin: 'anonymous',
-          opacity: 0.55,          
-          src: pos_icon_image
-        }))
-    }));
+  pos_icon.setStyle(new ol.style.Style({
+      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({          
+        crossOrigin: 'anonymous',
+        opacity: 0.55,          
+        src: pos_icon_image
+      }))
+  }));
 
-    posIcons.push(pos_icon);    
-
-    lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
-
-    lineGraphData.push({x: i, y: item.alt});
-	}
+  posIcons.push(pos_icon);    
+  lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
+  lineGraphData.push({x: i, y: item.alt});
+	
 }
 
 function GATAGM(label, category, language) {
