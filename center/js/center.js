@@ -2672,38 +2672,40 @@ function map3dInit() {
 }
 
 function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
-	if (isSet(Cesium) == false) return;
-	
-	var position = Cesium.Cartesian3.fromDegrees(
-      lng,
-      lat,
-      alt
-    );
-  
-  
-  yaw = yaw * 1;
-	yaw = yaw < 0 ? (360 + yaw) : yaw;
-	yaw = Math.PI/180 * yaw;
-	
-	pitch = pitch * 1;
-	pitch = pitch < 0 ? (360 + pitch) : pitch;
-	pitch = Math.PI/180 * pitch;
-	
-	roll = roll * 1;
-	roll = roll < 0 ? (360 + roll) : roll;
-	roll = Math.PI/180 * roll;
-  
-  hpRoll.pitch = pitch;
-  hpRoll.heading = yaw;
-  hpRoll.roll = roll;
-    
-	Cesium.Transforms.headingPitchRollToFixedFrame(
-    position,
-    hpRoll,
-    Cesium.Ellipsoid.WGS84,
-    fixedFrameTransform,
-    planePrimitive.modelMatrix
-  );    
+	if (typeof Cesium !== "undefined") {
+		
+		var position = Cesium.Cartesian3.fromDegrees(
+	      lng,
+	      lat,
+	      alt
+	    );
+	  
+	  
+	  yaw = yaw * 1;
+		yaw = yaw < 0 ? (360 + yaw) : yaw;
+		yaw = Math.PI/180 * yaw;
+		
+		pitch = pitch * 1;
+		pitch = pitch < 0 ? (360 + pitch) : pitch;
+		pitch = Math.PI/180 * pitch;
+		
+		roll = roll * 1;
+		roll = roll < 0 ? (360 + roll) : roll;
+		roll = Math.PI/180 * roll;
+	  
+	  hpRoll.pitch = pitch;
+	  hpRoll.heading = yaw;
+	  hpRoll.roll = roll;
+	    
+		Cesium.Transforms.headingPitchRollToFixedFrame(
+	    position,
+	    hpRoll,
+	    Cesium.Ellipsoid.WGS84,
+	    fixedFrameTransform,
+	    planePrimitive.modelMatrix
+	  );    
+		
+	}		
 }
 
 
