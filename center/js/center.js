@@ -1143,17 +1143,17 @@ function nextMon() {
       	var camera = viewer.camera;
 				camera.flyTo({
 			    destination: Cesium.Cartesian3.fromDegrees(
-			      item.lng * 1,
-			      item.lat * 1,
-			      item.alt + 100
+			      r.data.lng * 1,
+			      r.data.lat * 1,
+			      r.data.alt + 100
 			    ),
 			    complete: function () {
 			      setTimeout(function () {			      				      	
 			        camera.flyTo({
 			          destination: Cesium.Cartesian3.fromDegrees(
-			            item.lng * 1,
-						      item.lat * 1,
-						      item.alt + 100
+			            r.data.lng * 1,
+						      r.data.lat * 1,
+						      r.data.alt + 100
 			          ),
 			          orientation: {
 			            heading: Cesium.Math.toRadians(200.0),
@@ -1162,7 +1162,7 @@ function nextMon() {
 			          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
 			        });
 			        
-			        moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+			        moveToPositionOnMap(r.data.lat * 1, r.data.lng * 1, r.data.alt, r.data.yaw, r.data.roll, r.data.pitch);
 			        setTimeout(function() {
 			            if (bMonStarted == false) return;
 			            nextMon();
