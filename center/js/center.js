@@ -339,11 +339,19 @@ function monitorInit() {
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);	
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 	
+	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
+	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
+	
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
 	});	
+	
+	$('#btnForSetYoutubeID').click(function() {
+  	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
+  	setYoutubeID();
+  });
 	
 	drawLineGraph();		
 	hideLoader();
@@ -3456,7 +3464,7 @@ function processSeek(curTime) {
       movieProcess = false;
       return;
     }
-
+			
     var index = 0;
     chartLocData.some(function(item) {
       if ("dsec" in item) {
