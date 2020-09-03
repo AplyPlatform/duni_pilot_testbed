@@ -2603,7 +2603,7 @@ function map3dInit() {
 	c_center = new Cesium.Cartesian3();
 			
 	var position = Cesium.Cartesian3.fromDegrees(
-	  chartLocData[0].lng, chartLocData[0].lat, chartLocData[0].alt
+	  126.5610038, 33.3834381, 3000
 	);
 	var speedVector = new Cesium.Cartesian3();
 	fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
