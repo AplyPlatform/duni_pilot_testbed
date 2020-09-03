@@ -2929,17 +2929,17 @@ function nexttour(item) {
 	var camera = viewer.camera;
 	camera.flyTo({
     destination: Cesium.Cartesian3.fromDegrees(
-      item.lat * 1,
       item.lng * 1,
+      item.lat * 1,
       item.alt + 100
     ),
     complete: function () {
       setTimeout(function () {
         camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(
-            -73.98585975679403,
-            40.75759944127251,
-            186.50838555841779
+            item.lng * 1,
+			      item.lat * 1,
+			      item.alt + 100
           ),
           orientation: {
             heading: Cesium.Math.toRadians(200.0),
