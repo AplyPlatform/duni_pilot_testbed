@@ -2547,15 +2547,6 @@ function getColor(colorName, alpha) {
 }
 
 function draw3dMap() {	
-	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
-	var stop = Cesium.JulianDate.addSeconds(
-	  start,
-	  360,
-	  new Cesium.JulianDate()
-	);
-		
-	var position = computeCirclularFlight(start);
-
 	//Actually create the entity
 	var entity = viewer.entities.add({		  
 		  //Use our computed positions
@@ -2571,7 +2562,18 @@ function draw3dMap() {
 		    }),
 		    width: 10,
 		  }
-	});	
+	});
+	
+	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
+	var stop = Cesium.JulianDate.addSeconds(
+	  start,
+	  chartLocData.length,
+	  new Cesium.JulianDate()
+	);
+		
+	var position = computeCirclularFlight(start);
+
+	entity.position = position;	
 }
 
 function map3dInit() {			
