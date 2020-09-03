@@ -2672,7 +2672,9 @@ function map3dInit() {
 }
 
 function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
-	 var position = Cesium.Cartesian3.fromDegrees(
+	if (isSet(Cesium) == false) return;
+	
+	var position = Cesium.Cartesian3.fromDegrees(
       lng,
       lat,
       alt
