@@ -2924,8 +2924,7 @@ function moveMapIcon(lat, lng, alt, yaw) {
     current_view.setCenter(location);    
 }
 
-function nexttour(item) {  
-	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+function nexttour(item) {  	
 	var camera = viewer.camera;
 	camera.flyTo({
     destination: Cesium.Cartesian3.fromDegrees(
@@ -2935,6 +2934,9 @@ function nexttour(item) {
     ),
     complete: function () {
       setTimeout(function () {
+      	
+      	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+      	
         camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(
             item.lng * 1,
@@ -2947,14 +2949,17 @@ function nexttour(item) {
           },
           easingFunction: Cesium.EasingFunction.LINEAR_NONE,
         });
+        
+        setTimeout(function() {
+            if (bMonStarted == false) return;
+            nextMon();
+  			}, 2500);
+        
       }, 1000);
     },
   });
 	  
-  setTimeout(function() {
-            if (bMonStarted == false) return;
-            nextMon();
-  }, 2500);
+  
 }
 
 function uploadDUNIFlightList() {
