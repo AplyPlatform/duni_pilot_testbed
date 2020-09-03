@@ -2540,30 +2540,14 @@ var planePrimitive;
 var viewer;
 var c_center;
 var c3ddataSource;
+var posentity;
 
 function getColor(colorName, alpha) {
   var color = Cesium.Color[colorName.toUpperCase()];
   return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
-function draw3dMap() {	
-	//Actually create the entity
-	var entity = viewer.entities.add({		  
-		  //Use our computed positions
-		  position: position,		
-		  //Automatically compute orientation based on position movement.
-		  orientation: new Cesium.VelocityOrientationProperty(position),				  		
-		  //Show the path as a pink line sampled in 1 second increments.
-		  path: {
-		    resolution: 1,
-		    material: new Cesium.PolylineGlowMaterialProperty({
-		      glowPower: 0.1,
-		      color: Cesium.Color.AQUA,
-		    }),
-		    width: 10,
-		  }
-	});
-	
+function draw3dMap() {		
 	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
 	var stop = Cesium.JulianDate.addSeconds(
 	  start,
@@ -2571,9 +2555,9 @@ function draw3dMap() {
 	  new Cesium.JulianDate()
 	);
 		
-	var position = computeCirclularFlight(start);
-
-	entity.position = position;	
+	var position = computeCirclularFlight(start);	
+	positionentity.position = position;	
+	position.orientation = new Cesium.VelocityOrientationProperty(position);
 }
 
 function map3dInit() {			
@@ -2634,6 +2618,19 @@ function map3dInit() {
 	    minimumPixelSize: 64,
 	  })
 	);
+	
+	//Actually create the entity
+	posentity = viewer.entities.add({		  		  		  
+		  //Show the path as a pink line sampled in 1 second increments.
+		  path: {
+		    resolution: 1,
+		    material: new Cesium.PolylineGlowMaterialProperty({
+		      glowPower: 0.1,
+		      color: Cesium.Color.AQUA,
+		    }),
+		    width: 10,
+		  }
+	});
 		
 	c3ddataSource = new Cesium.GeoJsonDataSource();	
 	viewer.dataSources.add(c3ddataSource);
