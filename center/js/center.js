@@ -2959,7 +2959,8 @@ function moveMapIcon(lat, lng, alt, yaw) {
 
 function nexttour(item) {
 	
-	addChartItem(i, item);
+	addChartItem(tableCount, item);
+	tableCount++;
 	window.myLine.update();
 	
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
