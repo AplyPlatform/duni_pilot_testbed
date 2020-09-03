@@ -342,6 +342,8 @@ function monitorInit() {
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 	
+	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
+	
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
@@ -352,6 +354,9 @@ function monitorInit() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
+	
+	moviePlayerVisible = true;
+	showMovieDataSet();
 	
 	drawLineGraph();		
 	hideLoader();
