@@ -2549,12 +2549,7 @@ function getColor(colorName, alpha) {
 
 function draw3dMap() {		
 	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
-	var stop = Cesium.JulianDate.addSeconds(
-	  start,
-	  chartLocData.length,
-	  new Cesium.JulianDate()
-	);
-		
+	
 	var position = computeCirclularFlight(start);	
 	posentity.position = position;	
 	posentity.orientation = new Cesium.VelocityOrientationProperty(position);
@@ -2931,7 +2926,31 @@ function moveMapIcon(lat, lng, alt, yaw) {
 
 function nexttour(item) {  
 	moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
-  
+	var camera = viewer.camera;
+	camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(
+      item.lat * 1,
+      item.lng * 1,
+      item.alt + 100
+    ),
+    complete: function () {
+      setTimeout(function () {
+        camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(
+            -73.98585975679403,
+            40.75759944127251,
+            186.50838555841779
+          ),
+          orientation: {
+            heading: Cesium.Math.toRadians(200.0),
+            pitch: Cesium.Math.toRadians(-50.0),
+          },
+          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
+        });
+      }, 1000);
+    },
+  });
+	  
   setTimeout(function() {
             if (bMonStarted == false) return;
             nextMon();
