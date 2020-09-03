@@ -2830,7 +2830,9 @@ function mapInit() {
     $('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
     $('#heading').text(geolocation.getHeading() + ' [rad]');
     $('#speed').text(geolocation.getSpeed() + ' [m/s]');    
-    moveToPositionOnMap(geolocation.getLatitude(), geolocation.getLongitude(), 0, geolocation.getHeading(), 0, 0);
+    var pos = geolocation.getPosition();
+    var lonLat = ol.proj.toLonLat(pos);
+    moveToPositionOnMap(lonLat[1], lonLat[0], 0, geolocation.getHeading(), 0, 0);
   });
 
   // handle geolocation error.
