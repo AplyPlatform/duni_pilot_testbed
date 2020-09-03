@@ -2843,14 +2843,7 @@ function mapInit() {
   geolocation.on('error', function(error) {
     var info = $('#monitor');
     info.text(error.message);
-  });
-
-
-  geolocation.on('change:position', function() {
-    var coordinates = geolocation.getPosition();
-    positionFeature.setGeometry(coordinates ?
-      new ol.geom.Point(coordinates) : null);
-  });
+  });  
 
   if (isSet($('#track'))) {
   	$('#track').change(function() {
