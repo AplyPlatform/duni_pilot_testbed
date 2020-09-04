@@ -197,6 +197,7 @@ function centerInit() {
 	document.title = LANG_JSON_DATA[langset]['page_center_title'];
 	$("#head_title").text(document.title);
 
+	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);
 	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
 	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
@@ -339,11 +340,24 @@ function monitorInit() {
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);	
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 	
+	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
+	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
+	
+	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
+	
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
 		GATAGM('btnStartMon', 'CONTENT', langset);				
 		startMon();
 	});	
+	
+	$('#btnForSetYoutubeID').click(function() {
+  	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
+  	setYoutubeID();
+  });
+	
+	moviePlayerVisible = true;
+	showMovieDataSet();
 	
 	drawLineGraph();		
 	hideLoader();
@@ -3456,7 +3470,7 @@ function processSeek(curTime) {
       movieProcess = false;
       return;
     }
-
+			
     var index = 0;
     chartLocData.some(function(item) {
       if ("dsec" in item) {

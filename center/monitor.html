@@ -87,14 +87,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           </div>
         </div>
       </li>
-      
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item" active>      	
-      	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="monitor.html">
-      		<i class="fas fa-fw fa-plane"></i>
-      		<span id="side_menu_flight_plan_mon">드론위치 보기</span></a>
-			</li>
-
+ 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a onclick="GATAGM('side_menu_flight_record', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -108,6 +101,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           </div>
         </div>
       </li>
+       
+			<!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item active">      	
+      	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="monitor.html">
+      		<i class="fas fa-fw fa-plane"></i>
+      		<span id="side_menu_flight_plan_mon">드론위치 추적</span></a>
+			</li>          
 
 			<!-- Divider -->
       <hr class="sidebar-divider">
@@ -210,83 +210,94 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Content Row -->
-
           <div class="row">
-
-	            <!-- Area Chart -->
-	            <div class="col-lg-6 mb-4">
-	              <div class="card shadow mb-4">	               
-		                <div class="card-body h-400">
-											<div id="mainMap" class="map"></div>
-		              	</div>
-		              	
-		                <div class="card-body">
-		                	<button class="btn btn-primary" type="button" id="btnStartMon">
+						 <div class="col-xl-6 col-md-6 mb-4">
+	              <div class="card shadow mb-2">
+	                <div class="card-body h-400">
+	                			<div id="youTubePlayer"></div>	                		                			
+	                </div>
+	                
+	                <div class="card-body">
+	                	
+	                		<button class="btn btn-primary" type="button" id="btnStartMon">
 	                                          모니터링 시작하기
 											</button>
-	                  	<span id="monitor"></span>
-	                  </div>
-	
+	                  	
+	                  	<br>
+	                  	
+	                		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
+	                	
+		                	<div id="movieDataSet">			               					                		                  	
+		                    <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
+		                    <div class="input-group">
+		                          <input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="movieData">
+		                          <span class="input-group-append">
+		                            <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
+		                          </span>
+		                    </div>
+	                    
+		               		</div>
+			               	
+	               		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
+										<canvas id="lineGraph" name="lineGraph"></canvas>
+									</div>	
+	                	        						
 	              </div>
-	            </div>
-	            
-	            <div class="col-lg-6 mb-4">
-	              <div class="card shadow mb-4">
-		                <div class="card-body h-400">
-											<div id="main3dMap" class="map"></div>
-		              	</div>
-	              </div>
-	            </div>
-            
-          </div>
-          
-          <div class="row">
+             </div>
 
-		            <!-- Area Chart -->
-		            <div class="col-lg-6 mb-4">
-				              <div class="card shadow mb-4">	 
-				          						<div class="card-body">												
-																	<div class="row no-gutters align-items-center">													
-																			<div class="col mr-2">													
-									                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
-									                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-									                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																										       <option value="Aerial">Aerial</option>
-																										       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																										       <option value="Road">Road</option>
-																						</select>
-																				</div>
-									                    </div>
-									                    <div class="col mr-2">
-									                      <table width="100%" class="table table-condensed">
-								                                <thead>
-								                                    <tr>
-								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
-								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Head <span id="yawText"></span></th>
-								                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
-								                                    </tr>
-								                                </thead>
-								                                <tbody>
-								                                		<tr>
-								                                			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
-								                                			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
-								                                			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
-								                                		</tr>	                                		
-								                                </tbody>
-																					</table>
-									                    </div>
-									                </div>					              		                    																											
-															</div>
-															
-															<div class="card-body">
-																
-																<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
-																<canvas id="lineGraph" name="lineGraph"></canvas>
-																
-															</div>
-				          		</div>
-		              </div>					              		                    																											
-						</div>
+             <!-- List -->
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow mb-4">
+              				<div class="card-body h-400">
+							            <div id="mainMap" class="map"></div>							                
+											</div>																						
+											<div class="card-body">
+													<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>													
+													<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>																                  	
+											</div>
+											<div class="card-body">												
+													<div class="row no-gutters align-items-center">													
+															<div class="col mr-2">													
+					                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
+					                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+					                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																						       <option value="Aerial">Aerial</option>
+																						       <option value="AerialWithLabels" selected>Aerial with labels</option>
+																						       <option value="Road">Road</option>
+																		</select>
+																</div>
+					                    </div>
+					                    <div class="col mr-2">
+					                      <table width="100%" class="table table-condensed">
+				                                <thead>
+				                                    <tr>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Head <span id="yawText"></span></th>
+				                                        <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
+				                                    </tr>
+				                                </thead>
+				                                <tbody>
+				                                		<tr>
+				                                			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
+				                                			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
+				                                			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
+				                                		</tr>	                                		
+				                                </tbody>
+																	</table>
+					                    </div>
+					                </div>					              		                    																											
+											</div>
+											
+											<div class="card-body h-400">
+							            <div id="main3dMap"></div>							                
+											</div>	
+											
+											<div class="card-body">												
+			                  <span id="monitor"></span>
+											</div>
+			        </div>
+			      </div>
+					</div>		
           
         </div>
         <!-- /.container-fluid -->
