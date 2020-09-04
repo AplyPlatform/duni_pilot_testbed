@@ -82,14 +82,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           </div>
         </div>
       </li>
-      
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">      	
-      	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="monitor.html">
-      		<i class="fas fa-fw fa-plane"></i>
-      		<span id="side_menu_flight_plan_mon">드론위치 보기</span></a>
-			</li>
-
+  
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a onclick="GATAGM('side_menu_flight_record', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -102,7 +95,14 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU', langset);" class="collapse-item" href="flight_view.html" id="side_menu_flight_record_list">기록 보기</a>
           </div>
         </div>
-      </li>
+      </li>      
+       
+			<!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">      	
+      	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="monitor.html">
+      		<i class="fas fa-fw fa-plane"></i>
+      		<span id="side_menu_flight_plan_mon">드론위치 추적</span></a>
+			</li>                
 
 			<!-- Divider -->
       <hr class="sidebar-divider">

@@ -61,7 +61,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a onclick="GATAGM('side_menu_dashboard', 'MEMU', langset);" class="nav-link" href="center.html">
           <i class="fas fa-fw fa-globe"></i>
           <span id="side_menu_dashboard">Dashboard</span></a>
@@ -79,12 +79,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
           	<a onclick="GATAGM('side_menu_flight_plan_design', 'MEMU', langset);" class="collapse-item" href="design.html" id="side_menu_flight_plan_design">계획 설계</a>
-            <a onclick="GATAGM('side_menu_flight_plan_list', 'MEMU', langset);" class="collapse-item" href="list.html" id="side_menu_flight_plan_list">계획 목록</a>
-            <a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="collapse-item" href="monitor.html" id="side_menu_flight_plan_mon">계획 모니터링</a>
+            <a onclick="GATAGM('side_menu_flight_plan_list', 'MEMU', langset);" class="collapse-item" href="list.html" id="side_menu_flight_plan_list">계획 목록</a>            
           </div>
         </div>
       </li>
-
+  
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a onclick="GATAGM('side_menu_flight_record', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -97,13 +96,20 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU', langset);" class="collapse-item" href="flight_view.html" id="side_menu_flight_record_list">기록 보기</a>
           </div>
         </div>
-      </li>
+      </li>      
+       
+			<!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">      	
+      	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="monitor.html">
+      		<i class="fas fa-fw fa-plane"></i>
+      		<span id="side_menu_flight_plan_mon">드론위치 추적</span></a>
+			</li>                
 
 			<!-- Divider -->
       <hr class="sidebar-divider">
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item">
+			<li class="nav-item active">
         <a onclick="GATAGM('side_menu_qa', 'MEMU', langset);" class="nav-link" href="qa.html">
           <i class="fas fa-fw fa-globe"></i>
           <span id="side_menu_qa">문의하기</span></a>
