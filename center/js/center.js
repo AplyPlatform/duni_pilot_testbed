@@ -2372,7 +2372,7 @@ function setChartData(cdata, bfilter) {
       cdata.forEach(function (item) {
       	
       	if (bfilter && 
-      				i > 0 && 
+      				i > 4 && 
       				isNeedSkip(item.lat,item.lng,item.alt) == true) { }
       	else {
       		addChartItem(i, item);
