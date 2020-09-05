@@ -34,7 +34,6 @@ var chartLabelData = new Array();
 var chartLocData = new Array();
 var lineGraphData = new Array();
 
-var bMoved = false;
 var tableCount = 0;
 var dromiDataArray = new Array();
 var flightDataArrayForDromi = new Array();
@@ -382,6 +381,12 @@ function flightDetailInit() {
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
+	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
+	
+	$('#btnForFilter').click(function() {
+  	GATAGM('btnForFilter', 'CONTENT', langset);
+  	setFilter();
+  });
 
   $('#btnForSetYoutubeID').click(function() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
@@ -1628,6 +1633,11 @@ function setRecordTitle(msg) {
 	$("#record_name_field").text(msg);
 }
 
+function setFilter() {
+	setChartData(null, true);	
+	$('#btnForFilter').prop('disabled', true);
+}
+
 function showDataWithName(name) {
 
   setRecordTitle(name);
@@ -2334,9 +2344,28 @@ function drawScatterGraph() {
   });
 }
 
-function setChartData(cdata) {
+var oldLat = 0, oldLng = 0, oldAlt = 0;
 
-			if(isSet(cdata) == false || cdata == "" || cdata == "-") return;
+function isNeedSkip(lat, lng, alt) {	
+			var ddl1 = Math.abs(lat - oldLat);
+			var ddl2 = Math.abs(lng - oldLng);
+			var ddl3 = Math.abs(alt - oldAlt);
+				
+			if (ddl1 > 0.001 || ddl2 > 0.002 || ddl3 > 3) { //임의 필터
+				return true;
+			}
+			
+			return false;
+}
+
+function setChartData(cdata = null, bfilter = false) {
+
+			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
+				if(bfilter == true) {
+					cdata = chartLocData;
+				}
+				return;
+			}
 
       posIcons = new Array();
       chartTData = new Array();
@@ -2346,11 +2375,21 @@ function setChartData(cdata) {
       lineGraphData = new Array();
 
       var i = 0;            
-      cdata.forEach(function (item) {      	      	      	
-        addChartItem(i, item);
-        i++;
+      cdata.forEach(function (item) {      	
+      	if (i > 0 && isNeedSkip(lat,lng,alt) == true) { }
+      	else {
+      		addChartItem(i, item);
+      		oldLat = item.lat;
+	      	oldLng = item.lng;
+	      	oldAlt = item.alt;	      		      	
+      		i++;
+      	}      	      	
       });
-
+                  
+    	lineSource.clear();
+    	pointSource.clear();
+    	posSource.clear();
+    
       setSlider(i);
 
 			drawLineToMap();
