@@ -18,8 +18,8 @@ var flightRecDataArray;
 var flightHistorySource;
 var flightHistoryView;
 
-var lineLayerForDesign;
-var posLayerForDesign;
+var lineLayerForGlobal;
+var posLayerForGlobal;
 
 var hasMore;
 
@@ -1029,16 +1029,8 @@ function addIconToMap(i, item) {
 }
 
 function removeIconOnMap(index) {
-	var features = posSource.getFeatures();
-	var i;
-	for(i = 0; i < features.length; i++) {
-      //if (features[i].get("mindex") == index) {
-      	posSource.removeFeature(features[i]);
-      //	return;
-      //}
-	}
-
-  map.removeLayer(lineLayerForDesign);
+	//var features = posSource.getFeatures();	
+  map.removeLayer(lineLayerForGlobal);
   map.removeLayer(posLayerForDesign);
 
 	setDesignTableWithFlightRecord();
@@ -1068,7 +1060,7 @@ function setDesignTableWithFlightRecord() {
           })]
   });
 
-	lineLayerForDesign = new ol.layer.Vector({
+	lineLayerForGlobal = new ol.layer.Vector({
       source: lineSource,
       style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -1079,12 +1071,12 @@ function setDesignTableWithFlightRecord() {
   });
 
 
-  posLayerForDesign = new ol.layer.Vector({
+  posLayerForGlobal = new ol.layer.Vector({
       source: posSource
   });
 
-  map.addLayer(lineLayerForDesign);
-  map.addLayer(posLayerForDesign);
+  map.addLayer(lineLayerForGlobal);
+  map.addLayer(posLayerForGlobal);
 
 
   moveToPositionOnMap(flightRecDataArray[0].lat, flightRecDataArray[0].lng, flightRecDataArray[0].alt, flightRecDataArray[0].yaw, flightRecDataArray[0].roll, flightRecDataArray[0].pitch);
@@ -2211,7 +2203,7 @@ function drawLineToMap() {
               name: 'Line'
           })]
   });
-	var lineLayer = new ol.layer.Vector({
+	lineLayerForGlobal = new ol.layer.Vector({
       source: lineSource,
       style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -2221,7 +2213,7 @@ function drawLineToMap() {
         })
   });
 
-	map.addLayer(lineLayer);
+	map.addLayer(lineLayerForGlobal);
 }
 
 function drawPosIcons() {
@@ -2251,15 +2243,15 @@ function drawPosIcons() {
 
   });
 
-  posSource = new ol.source.Vector({
+  var posSource = new ol.source.Vector({
       features: posIcons
   });
 
-  var posLayer = new ol.layer.Vector({
+  posLayerForGlobal = new ol.layer.Vector({
       source: posSource
   });
 
-  map.addLayer(posLayer);
+  map.addLayer(posLayerForGlobal);
 
 }
 
@@ -2363,8 +2355,7 @@ function setChartData(cdata = null, bfilter = false) {
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
 				if(bfilter == true) {
 					cdata = chartLocData;
-				}
-				return;
+				}				
 			}
 
       posIcons = new Array();
@@ -2385,13 +2376,12 @@ function setChartData(cdata = null, bfilter = false) {
       		i++;
       	}      	      	
       });
-                  
-			if (isSet(lineSource))
-    		lineSource.clear();
-    	if (isSet(pointSource))
-    		pointSource.clear();    	
-    	if (isSet(posSource))
-    		posSource.clear();
+                      		
+    	if (isSet(lineLayerForGlobal))
+    		map.removeLayer(lineLayerForGlobal);
+    
+    	if (isSet(posLayerForGlobal))
+  			map.removeLayer(posLayerForGlobal);
     
       setSlider(i);
 
@@ -2590,6 +2580,8 @@ function styleFunction(textMsg) {
 
 function computeCirclularFlight(start) {
   var property = new Cesium.SampledPositionProperty();  
+  
+  viewer.entities.removeAll();
             
   var i = 0;
   chartLocData.forEach(function (item) {      	      	      	
