@@ -1684,7 +1684,7 @@ function showDataWithName(name) {
 					showMovieDataSet();
 				}
 
-      setChartData(fdata.data);
+      setChartData(fdata.data, false);
 
       if (!isSet(fdata.cada) && fdata.cada == null) {
       	if (isSet(fdata.flat)) {
@@ -2350,12 +2350,15 @@ function isNeedSkip(lat, lng, alt) {
 			return false;
 }
 
-function setChartData(cdata = null, bfilter = false) {
+function setChartData(cdata, bfilter) {
 
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
 				if(bfilter == true) {
 					cdata = chartLocData;
 				}				
+				else {
+					return;
+				}
 			}
 
       posIcons = new Array();
@@ -2366,15 +2369,18 @@ function setChartData(cdata = null, bfilter = false) {
       lineGraphData = new Array();
 
       var i = 0;            
-      cdata.forEach(function (item) {      	
-      	if (i > 0 && isNeedSkip(item.lat,item.lng,item.alt) == true) { }
+      cdata.forEach(function (item) {
+      	
+      	if (bfilter && 
+      				i > 0 && 
+      				isNeedSkip(item.lat,item.lng,item.alt) == true) { }
       	else {
       		addChartItem(i, item);
       		oldLat = item.lat;
 	      	oldLng = item.lng;
 	      	oldAlt = item.alt;	      		      	
       		i++;
-      	}      	      	
+      	}
       });
                       		
     	if (isSet(lineLayerForGlobal))
@@ -3579,7 +3585,7 @@ function showDataForDromi(index) {
 			      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			    }
 			    else {
-			      setChartData(r.data);
+			      setChartData(r.data, false);
 			      hideLoader();
 			    }
 			  }, function(request,status,error) {
@@ -3591,7 +3597,7 @@ function showDataForDromi(index) {
 	}
 	else {
 		showLoader();
-  	setChartData(item.data);
+  	setChartData(item.data, false);
   	hideLoader();
   }
 
@@ -3761,7 +3767,7 @@ function uploadData(name, mname) {
           return;
         }
 
-        setChartData(r.data);
+        setChartData(r.data, false);
       }
     }, function(request,status,error) {
       cur_flightrecord_name = "";
