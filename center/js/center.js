@@ -33,6 +33,7 @@ var chartHData = new Array();
 var chartLabelData = new Array();
 var chartLocData = new Array();
 var lineGraphData = new Array();
+var lineData = new Array();
 
 var tableCount = 0;
 var dromiDataArray = new Array();
@@ -2367,6 +2368,7 @@ function setChartData(cdata, bfilter) {
       chartLabelData = new Array();
       chartLocData = new Array();
       lineGraphData = new Array();
+      lineData = new Array();
 
       var i = 0;            
       cdata.forEach(function (item) {
@@ -3781,8 +3783,6 @@ function convert2data(t) {
     var date = new Date(t);
     return date;
 }
-
-var lineData = Array();
 
 function addChartItem(i, item) {
   if ("etc" in item && "t" in item.etc && "h" in item.etc) {
