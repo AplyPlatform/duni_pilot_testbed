@@ -2376,7 +2376,7 @@ function setChartData(cdata = null, bfilter = false) {
 
       var i = 0;            
       cdata.forEach(function (item) {      	
-      	if (i > 0 && isNeedSkip(lat,lng,alt) == true) { }
+      	if (i > 0 && isNeedSkip(item.lat,item.lng,item.alt) == true) { }
       	else {
       		addChartItem(i, item);
       		oldLat = item.lat;
