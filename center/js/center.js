@@ -2386,9 +2386,12 @@ function setChartData(cdata = null, bfilter = false) {
       	}      	      	
       });
                   
-    	lineSource.clear();
-    	pointSource.clear();
-    	posSource.clear();
+			if (isSet(lineSource))
+    		lineSource.clear();
+    	if (isSet(pointSource))
+    		pointSource.clear();    	
+    	if (isSet(posSource))
+    		posSource.clear();
     
       setSlider(i);
 
