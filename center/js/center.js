@@ -1696,9 +1696,10 @@ function makeShareFlightData(name, user_email) {
     		 $("#shared_link").html(link_text);
     		 
     		 showAlert(LANG_JSON_DATA[langset]["msg_success"]);
-    	}
-    	hideLoader();
+    	}    	
     }
+    
+    hideLoader();
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -1808,10 +1809,10 @@ function showDataWithName(name) {
     	}
     	else {
     		setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
-    	}
-
-    	hideLoader();
+    	}    	
     }
+    
+    hideLoader();
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
