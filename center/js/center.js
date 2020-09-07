@@ -1743,16 +1743,7 @@ function showDataWithName(name) {
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
     		 	if (item.type == "user") {    		 		
-    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-    		 		
-    		 		$("#user_share_" + index).click(function() {
-    		 			showAskDialog(
-								LANG_JSON_DATA[langset]['modal_title'],
-								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
-								LANG_JSON_DATA[langset]['stop_share_label'],
-								function() {stopShareFlightData(index, fdata.name, item.target);}
-							);
-    		 		});
+    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");    		 		    		 		
     		 	}
     		 	else {
     		 		
@@ -1761,6 +1752,17 @@ function showDataWithName(name) {
     		 
     		 $("#shared_user").html(user_text);
     		 $("#shared_link").html(link_text);
+    		 
+    		 sharedList.some(function(item, index, array){
+    		 		$("#user_share_" + index).click(function() {
+    		 			showAskDialog(
+								LANG_JSON_DATA[langset]['modal_title'],
+								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+								LANG_JSON_DATA[langset]['stop_share_label'],
+								function() {stopShareFlightData(index, name, item.target);}
+							);
+    		 		});
+    		 });
     	}
     	
     	$("#btnForSharing").click(function() {
