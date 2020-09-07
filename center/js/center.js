@@ -1772,7 +1772,7 @@ function showDataWithName(name) {
     	
     	$("#btnForSharing").click(function() {
     		GATAGM('btnForSharing', 'CONTENT', langset);
-    		var email = prompt(LANG_JSON_DATA[langset]['msg_input_email'], "");
+    		var email = prompt(LANG_JSON_DATA[langset]['msg_input_member_email'], "");
 
 		    if (!isSet(email)) {
 		        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
