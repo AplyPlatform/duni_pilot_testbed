@@ -1667,7 +1667,12 @@ function makeShareFlightData(name, user_email) {
 
 	ajaxRequest(jdata, function (r) {
     if(r.result != "success") {
-      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    	if (r.reason == "no user") {
+    		showAlert(LANG_JSON_DATA[langset]['msg_no_email']);
+    	}
+    	else {
+    		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    	}      
     }
     else {
     	if ("sharedList" in r) {
