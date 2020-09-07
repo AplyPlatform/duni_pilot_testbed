@@ -1676,7 +1676,7 @@ function makeShareFlightData(name, user_email) {
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
     		 	if (item.type == "user") {    		 		
-    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['msg_error_sorry'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
     		 		
     		 		$("#user_share_" + index).click(function() {
     		 			showAskDialog(
@@ -1741,7 +1741,7 @@ function showDataWithName(name) {
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
     		 	if (item.type == "user") {    		 		
-    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['msg_error_sorry'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
     		 		
     		 		$("#user_share_" + index).click(function() {
     		 			showAskDialog(
