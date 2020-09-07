@@ -385,7 +385,7 @@ function flightDetailInit() {
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
 	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
-	$("#btnForLink").attr('disabled', true);
+	$("#btnForLink").hide();
 	
 	
 	$('#btnForFilter').click(function() {
