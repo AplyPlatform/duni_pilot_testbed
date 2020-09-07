@@ -1670,8 +1670,8 @@ function makeShareFlightData(name, user_email) {
       showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
     }
     else {
-    	if ("shared" in r) {
-    		 var sharedList = r.shared;
+    	if ("sharedList" in r) {
+    		 var sharedList = r.sharedList;
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
@@ -1692,6 +1692,7 @@ function makeShareFlightData(name, user_email) {
     		 	}
     		 });
     		 
+    		 $("#shared_user").show();    		 
     		 $("#shared_user").html(user_text);
     		 $("#shared_link").html(link_text);
     		 
@@ -1734,8 +1735,8 @@ function showDataWithName(name) {
     		 $("#memoTextarea").val(fdata.memo);
     	}
     	
-    	if ("shared" in fdata) {
-    		 var sharedList = fdata.shared;
+    	if ("sharedList" in fdata) {
+    		 var sharedList = fdata.sharedList;
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
@@ -1813,6 +1814,7 @@ function showDataWithName(name) {
     }
     
     hideLoader();
+    
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
