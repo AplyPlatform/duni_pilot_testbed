@@ -359,9 +359,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             <!-- List -->
             <div class="col-lg-6 mb-4">
               <div class="card shadow mb-4">
-			              	<div class="card-body">
-			              		<canvas id="chartArea"></canvas>
-			              	</div>
+              		<div class="card-body">	              		
+	              		<button class='btn btn-primary' type='button' id="btnForSharing">공유하기</button>	              		
+	              		<button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
+	              	</div>
+	              	
+	              	<div class="card-body">
+	              		<div id="shared_user"></div>
+	              	</div>
+	              	
+	              	<div class="card-body">
+	              		<div id="shared_link"></div>
+	              	</div>
 			        </div>
 			      </div>
 			    </div>

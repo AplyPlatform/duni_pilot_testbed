@@ -383,6 +383,10 @@ function flightDetailInit() {
 	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
+	$("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
+	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
+	$("#btnForLink").attr('disabled', true);
+	
 	
 	$('#btnForFilter').click(function() {
   	GATAGM('btnForFilter', 'CONTENT', langset);
@@ -1627,8 +1631,79 @@ function setRecordTitle(msg) {
 }
 
 function setFilter() {
-	setChartData(null, true);	
+	setFlightRecordDataToView(null, true);	
 	$('#btnForFilter').prop('disabled', true);
+}
+
+function stopShareFlightData(index, name, target_id) {
+	
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "stop_share", "name" : name, "clientid" : userid, "target_id" : target_id};
+
+  showLoader();
+
+	ajaxRequest(jdata, function (r) {
+    if(r.result != "success") {
+      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    }
+    else {
+    	$("#shareid_" + index).hide();
+    	hideLoader();
+    }
+  }, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
+	
+}
+
+
+function makeShareFlightData(name, user_email) {
+	
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
+
+  showLoader();
+
+	ajaxRequest(jdata, function (r) {
+    if(r.result != "success") {
+      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    }
+    else {
+    	if ("shared" in r) {
+    		 var sharedList = r.shared;
+    		 var link_text = "";
+    		 var user_text = "";
+    		 sharedList.some(function(item, index, array){
+    		 	if (item.type == "user") {    		 		
+    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['msg_error_sorry'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+    		 		
+    		 		$("#user_share_" + index).click(function() {
+    		 			showAskDialog(
+								LANG_JSON_DATA[langset]['modal_title'],
+								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+								LANG_JSON_DATA[langset]['stop_share_label'],
+								function() {stopShareFlightData(index, name, item.target);}
+							);
+    		 		});
+    		 	}
+    		 	else {
+    		 		
+    		 	}
+    		 });
+    		 
+    		 $("#shared_user").html(user_text);
+    		 $("#shared_link").html(link_text);
+    		 
+    		 showAlert(LANG_JSON_DATA[langset]["msg_success"]);
+    	}
+    	hideLoader();
+    }
+  }, function(request,status,error) {
+    hideLoader();
+    monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+  });
+	
 }
 
 function showDataWithName(name) {
@@ -1657,10 +1732,48 @@ function showDataWithName(name) {
     	if ("memo" in fdata) {
     		 $("#memoTextarea").val(fdata.memo);
     	}
+    	
+    	if ("shared" in fdata) {
+    		 var sharedList = fdata.shared;
+    		 var link_text = "";
+    		 var user_text = "";
+    		 sharedList.some(function(item, index, array){
+    		 	if (item.type == "user") {    		 		
+    		 		user_text += ("<div id='shareid_'" + index + "'> " + item.email + " : <a href='#' id=user_share_" + index + ">" + LANG_JSON_DATA[langset]['msg_error_sorry'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+    		 		
+    		 		$("#user_share_" + index).click(function() {
+    		 			showAskDialog(
+								LANG_JSON_DATA[langset]['modal_title'],
+								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+								LANG_JSON_DATA[langset]['stop_share_label'],
+								function() {stopShareFlightData(index, fdata.name, item.target);}
+							);
+    		 		});
+    		 	}
+    		 	else {
+    		 		
+    		 	}
+    		 });
+    		 
+    		 $("#shared_user").html(user_text);
+    		 $("#shared_link").html(link_text);
+    	}
+    	
+    	$("#btnForSharing").click(function() {
+    		GATAGM('btnForSharing', 'CONTENT', langset);
+    		var email = prompt(LANG_JSON_DATA[langset]['msg_input_email'], "");
+
+		    if (!isSet(email)) {
+		        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+		        return;
+		    }
+		    
+    		makeShareFlightData(fdata.name, email);
+    	});
 
     	$("#flightMemoBtn").click(function() {
-    			GATAGM('flightMemoBtn', 'CONTENT', langset);
-    			updateFlightMemoWithValue(name, $("#memoTextarea").val());
+    		GATAGM('flightMemoBtn', 'CONTENT', langset);
+    		updateFlightMemoWithValue(name, $("#memoTextarea").val());
     	});
 
     	if ("youtube_data_id" in fdata) {
@@ -1685,7 +1798,7 @@ function showDataWithName(name) {
 					showMovieDataSet();
 				}
 
-      setChartData(fdata.data, false);
+      setFlightRecordDataToView(fdata.data, false);
 
       if (!isSet(fdata.cada) && fdata.cada == null) {
       	if (isSet(fdata.flat)) {
@@ -2351,7 +2464,7 @@ function isNeedSkip(lat, lng, alt) {
 			return false;
 }
 
-function setChartData(cdata, bfilter) {
+function setFlightRecordDataToView(cdata, bfilter) {
 
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
 				if(bfilter == true) {
@@ -3587,7 +3700,7 @@ function showDataForDromi(index) {
 			      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			    }
 			    else {
-			      setChartData(r.data, false);
+			      setFlightRecordDataToView(r.data, false);
 			      hideLoader();
 			    }
 			  }, function(request,status,error) {
@@ -3599,7 +3712,7 @@ function showDataForDromi(index) {
 	}
 	else {
 		showLoader();
-  	setChartData(item.data, false);
+  	setFlightRecordDataToView(item.data, false);
   	hideLoader();
   }
 
@@ -3769,7 +3882,7 @@ function uploadData(name, mname) {
           return;
         }
 
-        setChartData(r.data, false);
+        setFlightRecordDataToView(r.data, false);
       }
     }, function(request,status,error) {
       cur_flightrecord_name = "";
