@@ -386,6 +386,7 @@ function flightDetailInit() {
 	$("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
 	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
 	$("#btnForLink").hide();
+	$("#btnForSharing").hide();
 	
 	
 	$('#btnForFilter').click(function() {
@@ -1740,6 +1741,10 @@ function showDataWithName(name) {
 
     	if ("memo" in fdata) {
     		 $("#memoTextarea").val(fdata.memo);
+    	}
+    	
+    	if ( !("isowner" in fdata) || ("isowner" in fdata && fdata.isowner == true) ) {    		 
+				 $("#btnForSharing").show();
     	}
     	
     	if ("sharedList" in fdata) {
