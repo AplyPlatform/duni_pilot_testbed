@@ -16,7 +16,7 @@ var flightHistoryView;
 var lineLayerForGlobal;
 var posLayerForGlobal;
 
-var pos_icon_image = '../center/js/imgs/position3.png';
+var pos_icon_image = '../center/imgs/position3.png';
 
 
 var flightRecDataArray;
