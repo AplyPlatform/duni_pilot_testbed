@@ -119,7 +119,7 @@ function flightHistoryMapInit() {
 
 function getProfile() {
 	
-	var pluginid = location.search.split('pluginid=')[1];
+	var pluginid = location.search.split('code=')[1];
   if (pluginid == null || pluginid == "") {
   	hideLoader();
   	//todo showErrorMsg  	
