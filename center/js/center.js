@@ -1743,7 +1743,7 @@ function showDataWithName(name) {
     		 $("#memoTextarea").val(fdata.memo);
     	}
     	
-    	if ( !("isowner" in fdata) || ("isowner" in fdata && fdata.isowner == true) ) {    		 
+    	if ( ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {    		 
 				 $("#btnForSharing").show();
     	}
     	
