@@ -45,7 +45,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=109453656066856&autoLogAppEvents=1';
+  js.src = 'https://connect.facebook.net/en_us/sdk.js#xfbml=1&version=v3.2&appId=109453656066856&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 	
@@ -69,8 +69,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                              
 					<!-- Page Heading -->
-          <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h1 class="h5 mb-0 text-gray-800">DUNI PILOT Center</h1>            
+          <div class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <img src=./imgs/duni_logo.png height="20px"> &nbsp;&nbsp;| &nbsp;&nbsp;<a href="index.html">Korean</a>
           </div>
                     
         </nav>
@@ -93,9 +93,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					              		
 						                <h6 class="m-0 font-weight-bold text-primary">About ...</h6>
 						                <br><br>
-						              	<p>This is where you can easily design the drone's flight mission and check flight records and the situation.</p>
-														<p>The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon. ('Flight mission' > 'mission design' menu)</p>
-														<p>The Android version of the DUNI app has a source code and it is opened. <a href='https://code.duni.io/' target=_new>Here</a></p>
+						              	<p>This is where you can easily design the drone's flight mission, check flight records and the status.</p>
+														<p>The flight mission you designed can be used in DUNI application and in the drone of DJI product. DUNI application is currently under development and Android/iOS version will be distributed soon. ('Flight mission' > 'mission design' menu)</p>
+														<p>The source code of DUNI android application is opened. <a href='https://code.duni.io/' target=_new>Here</a></p>
 														<p>Upload the Drone's video to Youtubu or YouTube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)</p>
 														<p>If you are a drone SW developer, you can check out the developer token for using <a href="https://developer.duni.io/" target=_new>DUNI Open API</a> here.</p>
 			                    </div>
@@ -108,8 +108,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					              <div class="col-lg-6">
 					                <div class="p-5">
 					                  <div class="text-center">
-					                    <h1 class="h4 text-gray-900 mb-4">DUNI PILOT Center <B>BETA</B></h1>
+					                    <h1 class="h4 text-gray-900 mb-4"><img src=./imgs/duni_logo.png height="18px"> PILOT Center <B>BETA</B></h1>
 					                  </div>
+					                  <hr size=1>
 					                  <form class="user">					                    					                    
 							              		<a id="googleLoginBtn" class="btn btn-google btn-user btn-block text-white">
 							                      <i class="fab fa-google fa-fw"></i> Sign in with Google
@@ -121,7 +122,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 							                    <img src="./imgs/naverlogo.png" border=0> Sign in with Naver
 							                  </a>  							                
 					                  </form>
-					                  <hr>
+					                  
 					                  
 					                </div>
 					              </div>
@@ -138,11 +139,12 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       </div>
       <!-- End of Main Content -->
 
+      
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
-        <div class="container my-auto">        	
+        <div class="container my-auto">               	
           <div class="copyright text-center my-auto">
-            <span>&copy; APLY Inc. 2020</span>
+            <a href="../privacy.html" target=_new>Privacy</a> &nbsp; <a href="../service.html" target=_new>Terms of Use</a> <span>&nbsp; &copy; APLY Inc. 2020</span>
           </div>
         </div>
       </footer>
