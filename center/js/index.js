@@ -148,7 +148,7 @@ function googleinit() {
   	});    
 }
 
-function formSubmit(token, temp_name = "", temp_image = "", temp_email = "") {
+function formSubmit(token, temp_name, temp_image, temp_email) {
 	showLoader();
 	
   var skind = getCookie("dev_kind");
