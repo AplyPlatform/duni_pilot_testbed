@@ -207,9 +207,9 @@ function centerInit() {
 	$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
 	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
-	
-	$("#badge_nickname_label").text(LANG_JSON_DATA[langset]["badge_nickname_label"]);	
+		
 	$("#badge_nickname").attr("placeholder", LANG_JSON_DATA[langset]['badge_nickname_label']);
+	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);	
 
 	getRecordCount();
 }
