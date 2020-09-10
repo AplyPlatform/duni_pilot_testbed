@@ -24,14 +24,19 @@ function setCommonText() {
 function initPilotPlugin() {
 	showLoader();    
   var parent_url = getQueryVariable("parent_url");
-  mixpanel.identify(parent_url);  
+  var pluginid = getQueryVariable("code");
+  	
+  if (!isSet(pluginid) || !isSet(pluginid)) {
+  	hideLoader();  	
+    return;
+  }      
   
-  GATAGM("plugin_loaded_" + parent_url, "CONTENT", langset);
+  mixpanel.identify(pluginid);  
+	GATAGM("plugin_loaded_" + pluginid + "_" + parent_url, "CONTENT", langset);
   
 	flightHistoryMapInit();
-  flightViewInit(); 
-  
-  getProfile();
+  flightViewInit();   
+  getProfile(pluginid);
 }
 
 function flightViewInit() {
@@ -106,15 +111,7 @@ function getQueryVariable(variable) {
     }
 }
 
-function getProfile() {	
-	var pluginid = getQueryVariable("code");
-	
-  if (!isSet(pluginid) || !isSet(pluginid)) {
-  	hideLoader();
-  	//todo showErrorMsg  	
-    return;
-  }
-	
+function getProfile(pluginid) {		
   var jdata = {"action" : "plugin", "pluginid" : pluginid};
 
   showLoader();
@@ -126,12 +123,10 @@ function getProfile() {
 		  setMap(r);
     }
     else {    	
-      hideLoader();
-      //todo showErrorMsg  	
+      hideLoader();      
     }
   }, function(request,status,error) {
-    hideLoader();
-    //todo showErrorMsg  	
+    hideLoader();    
   });
 }
 
