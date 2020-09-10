@@ -1,31 +1,9 @@
-
-var current_view;
-var current_pos;
-var current_pos_image;
-
-var map;
-
-var posSource;
-var pointSource;
-
-var lineSource;
+// Copyright 2020 APLY Inc. All rights reserved.
 
 var flightHistorySource;
 var flightHistoryView;
 
-var lineLayerForGlobal;
-var posLayerForGlobal;
-
 var pos_icon_image = '../center/imgs/position3.png';
-
-
-var flightRecDataArray;
-var posIcons = new Array();
-var chartLocData = new Array();
-var lineGraphData = new Array();
-var lineData = new Array();
-
-var tableCount = 0;
 
 var langset = "KR";
 
@@ -44,22 +22,22 @@ function setCommonText() {
 
 
 function initPilotPlugin() {
-	flightRecDataArray = [];
-
-	showLoader();
-    
+	showLoader();    
+  var parent_url = getQueryVariable("parent_url");
+  mixpanel.identify(parent_url);  
+  
+  GATAGM("plugin_loaded_" + parent_url, "CONTENT", langset);
+  
 	flightHistoryMapInit();
   flightViewInit(); 
   
   getProfile();
 }
 
-
 function flightViewInit() {
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
 	$("#head_title").text(document.title);	    
 }
-
 
 function flightHistoryMapInit() {
 	var dpoint = ol.proj.fromLonLat([0, 0]);
@@ -128,8 +106,7 @@ function getQueryVariable(variable) {
     }
 }
 
-function getProfile() {
-	
+function getProfile() {	
 	var pluginid = getQueryVariable("code");
 	
   if (!isSet(pluginid) || !isSet(pluginid)) {
