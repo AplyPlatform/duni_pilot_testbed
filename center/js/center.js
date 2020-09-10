@@ -211,7 +211,6 @@ function centerInit() {
 	$("#badge_nickname_label").text(LANG_JSON_DATA[langset]["badge_nickname_label"]);	
 	$("#badge_nickname").attr("placeholder", LANG_JSON_DATA[langset]['badge_nickname_label']);
 
-	setBadgeView();
 	getRecordCount();
 }
 
@@ -585,7 +584,7 @@ function getAllRecordCount() {
 }
 
 function setBadgeView(pluginid, callsign) {
-	if(isSet(pluginid)) {
+	if(isSet(pluginid) && pluginid != "-") {
 		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_del']);
 		$("#badge_view").show();
 		
