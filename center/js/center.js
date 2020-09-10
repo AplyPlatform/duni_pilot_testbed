@@ -3308,7 +3308,10 @@ function uploadDUNIFlightListCallback(mname, base64file) {
         location.href = "flight_view.html";
       }
       else {
-      	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+      	if (r.reason == "same data is exist") {
+      			showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
+      	}
+      	else showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
       }
     }, function(request,status,error) {
     	hideLoader();
@@ -3330,7 +3333,10 @@ function uploadFlightListCallback(mname, base64file) {
         location.href = "flight_view.html";
       }
       else {
-      	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+      	if (r.reason == "same data is exist") {
+      			showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
+      	}
+      	else showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
       }
     }, function(request,status,error) {
     	hideLoader();
