@@ -682,6 +682,7 @@ function getRecordCount() {
     }
     else {
     	setDashBoard(0, 0, 0);
+    	setBadgeView(null);
       hideLoader();
     }
   }, function(request,status,error) {
