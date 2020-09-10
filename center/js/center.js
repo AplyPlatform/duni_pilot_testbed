@@ -583,6 +583,8 @@ function getAllRecordCount() {
   });
 }
 
+
+
 function setBadgeView(fdata) {		
 	if(isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
 		var pluginid = fdata.pluginid;
@@ -596,7 +598,12 @@ function setBadgeView(fdata) {
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
-			removePlugin();
+			showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				LANG_JSON_DATA[langset]['btnForBadge_del'],
+				function() {removePlugin();}
+			);
 		});
 	}
 	else {
