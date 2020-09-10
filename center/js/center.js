@@ -583,13 +583,14 @@ function getAllRecordCount() {
   });
 }
 
-function setBadgeView(pluginid) {
+function setBadgeView(pluginid, callsign) {
 	if(isSet(pluginid)) {
 		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_del']);
 		$("#badge_view").show();
 		
+		$("#badge_nickname").val(callsign);
 		$('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid);
-		$('#badge_code').text("<iframe src=\"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "\"width=\"300\" height=\"450\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"></iframe>");
+		$('#badge_code').text("&lt;iframe src=\"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "\" width=\"300\" height=\"450\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"&gt;&lt;/iframe&gt;");
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
@@ -602,7 +603,16 @@ function setBadgeView(pluginid) {
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
-			generatePlugin();
+			
+			var callsign = $("#badge_nickname").val();
+			
+			if (!isSet(callsign)) {
+				showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+				$("#badge_nickname").focus();
+				return;
+			}
+			
+			generatePlugin(callsign);
 		});
 	}	
 }
@@ -628,9 +638,9 @@ function removePlugin() {
   });
 }
 
-function generatePlugin() {
+function generatePlugin(callsign) {
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "make_plugin", "clientid" : userid};
+  var jdata = {"action" : "position", "daction" : "make_plugin", "clientid" : userid, "callsign" : callsign};
 
   showLoader();
   ajaxRequest(jdata, function (r) {

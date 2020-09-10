@@ -117,10 +117,22 @@ function flightHistoryMapInit() {
     });
 }
 
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
+
 function getProfile() {
 	
-	var pluginid = location.search.split('code=')[1];
-  if (pluginid == null || pluginid == "") {
+	var pluginid = getQueryVariable("code");
+	
+  if (!isSet(pluginid) || !isSet(pluginid)) {
   	hideLoader();
   	//todo showErrorMsg  	
     return;
@@ -166,10 +178,13 @@ function setDashBoard(r) {
 	var rcount = r.record_count;
 	var mcount = 0;
 	var alltime = r.alltime;
+	var callsign = r.callsign;
 				
 	const coptions = {
 			duration: 5,
 	};
+	
+	$("#callsign").text(callsign);
 	
 	var rlabel = new CountUp('r_count_label_time', rcount, coptions);
 	if (!rlabel.error) {
@@ -313,4 +328,10 @@ function GATAGM(label, category, language) {
     label + "_" + language,
     {"event_category": category, "event_label": label}
   );
+}
+
+function isSet(value) {
+  if (value == "" || value == null || value == "undefined") return false;
+
+  return true;
 }
