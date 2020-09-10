@@ -207,7 +207,10 @@ function centerInit() {
 	$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
 	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
+	
+	$("#badge_nickname_label").text(LANG_JSON_DATA[langset]["badge_nickname_label"]);	
 
+	setBadgeView();
 	getRecordCount();
 }
 
@@ -491,7 +494,6 @@ function dromiListInit() {
   hideLoader();
 }
 
-
 function flightHistoryMapInit() {
 	var dpoint = ol.proj.fromLonLat([0, 0]);
 
@@ -581,6 +583,71 @@ function getAllRecordCount() {
   });
 }
 
+function setBadgeView(pluginid) {
+	if(isSet(pluginid)) {
+		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_del']);
+		$("#badge_view").show();
+		
+		$('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid);
+		$('#badge_code').text("<iframe src=\"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "\"width=\"300\" height=\"450\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"></iframe>");
+		
+		$('#btnForBadge').off('click');
+		$("#btnForBadge").click(function() {
+			removePlugin();
+		});
+	}
+	else {
+		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_make']);
+		$("#badge_view").hide();
+		
+		$('#btnForBadge').off('click');
+		$("#btnForBadge").click(function() {
+			generatePlugin();
+		});
+	}	
+}
+
+
+function removePlugin() {
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "remove_plugin", "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();		  
+		  setBadgeView(null);
+    }
+    else {
+    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    hideLoader();
+  });
+}
+
+function generatePlugin() {
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "make_plugin", "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {
+      hideLoader();		  
+		  setBadgeView(r.pluginid);
+    }
+    else {
+    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+    hideLoader();
+  });
+}
+
 function getRecordCount() {
 
 	var userid = getCookie("dev_user_id");
@@ -592,6 +659,7 @@ function getRecordCount() {
       hideLoader();
 
 		  setDashBoard(r.record_count, r.mission_count, r.alltime);
+		  setBadgeView(r.pluginid);
     }
     else {
     	setDashBoard(0, 0, 0);
