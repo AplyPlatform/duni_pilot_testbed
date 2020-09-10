@@ -598,6 +598,7 @@ function setBadgeView(fdata) {
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
+			GATAGM('btnForBadge_delete', 'CONTENT', langset);
 			showAskDialog(
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_are_you_sure'],
@@ -612,6 +613,7 @@ function setBadgeView(fdata) {
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
+			GATAGM('btnForBadge_make', 'CONTENT', langset);
 			
 			var callsign = $("#badge_nickname").val();
 			
