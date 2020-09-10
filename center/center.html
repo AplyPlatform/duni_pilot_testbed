@@ -288,20 +288,32 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	                			<i class="fas fa-circle text-info"></i> <span id="a_time_label">전체 비행시간</span> <strong id="a_time_label_time">0</strong> <strong id="a_time_min_label">Min.</strong>
 	                		</div>
 											<div class="col mr-2">
-	                      <div class="input-group">	                      	                      	
+	                      <div class="input-group">
+	                      	<div class="input-group-prepend">
+	                      		<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+	                      	</div>
 						              <input type="text" id="badge_nickname" class="form-control bg-light border-0 small"  name="badge_nickname" placeholder="" value="">
 						              <div class="input-group-append">
-						                <button class='btn btn-primary' type='button' id="btnForBadge"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 배지 만들기</button>
+						                <button class='btn btn-primary' type='button' id="btnForBadge">배지 만들기</button>
 						              </div>
 						            </div>
 							        </div>
 	                  </div>
 	                  
-	                  <div class="mt-4 text-center" id="badge_view">
+	                  <div class="mt-4" id="badge_view">
 	                  		<div class="mt-4 small">
 	                  			
 	                  			<div class="form-group">
-													  <label for="badge_code" id="badge_code_label"></label>
+													  <label for="badge_code" id="badge_code_label">배지코드</label>
+													  
+													  <a href="#" data-toggle="collapse" data-target="#badgeHelpContent" aria-expanded="false" aria-controls="badgeHelpContent">
+															<div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="help_label">Help</div>
+														</a>
+
+													  <div class="collapse" id="badgeHelpContent">
+														  
+														</div>
+													  
 													  <textarea class="form-control rounded-0" id="badge_code" rows="3"></textarea>
 													</div>
 	                  		

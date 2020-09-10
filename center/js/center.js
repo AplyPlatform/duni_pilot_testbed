@@ -210,6 +210,8 @@ function centerInit() {
 		
 	$("#badge_nickname").attr("placeholder", LANG_JSON_DATA[langset]['badge_nickname_label']);
 	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);	
+	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
+	$("#badgeHelpContent").text(LANG_JSON_DATA[langset]["badgeHelpContent"]);
 
 	getRecordCount();
 }
@@ -227,6 +229,7 @@ function designInit() {
 	$('#btnForClearMission').text(LANG_JSON_DATA[langset]['btnForClearMission']);
 	$('#removeItemBtn').text(LANG_JSON_DATA[langset]['msg_remove']);
 	$('#saveItemBtn').text(LANG_JSON_DATA[langset]['msg_apply']);
+	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
 
 
 	initSliderForDesign(1);
