@@ -594,7 +594,7 @@ function setBadgeView(fdata) {
 						
 		$("#badge_nickname").val(callsign);
 		$('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid);
-		$('#badge_code').text("<iframe src=\"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "\" width=\"300\" height=\"450\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"></iframe>");
+		$('#badge_code').text("<iframe id=\"badge_frame\" src=\"javascript:void(0)\" scrolling=\"no\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\"  aria-hidden=\"false\" tabindex=\"0\" width=\"100%\" height=\"450\"></iframe><script type=\"text/javascript\">document.getElementById(\"badge_frame\").src = \"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "&parenturl=\" + encodeURIComponent(window.location.href);</script>");
 		
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
