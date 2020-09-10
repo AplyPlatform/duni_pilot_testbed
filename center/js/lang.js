@@ -249,9 +249,9 @@ var LANG_JSON_DATA = {
 				"fill_info_label" : "Please fill the form in and click the 'Register' button.",
 				"register_explain_label" : "If you agree with the 'Privacy Policy' below, please click the 'I agree' button below.",
 				"center_about_content" : "<p>This is where you can easily design the drone's flight mission and check flight records and the situation.</p>" +
-																"<p>The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon. ('Flight mission' > 'mission design' menu)</p>" +
+																"<p>The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.</p>" +
 																"<p>The Android version of the DUNI app has a source code and it is opened. <a href='http://code.duni.io/' target=_new>Here</a></p>" +
-																"<p>Upload the Drone's video to Youtubu or YouTube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)</p>" +
+																"<p>Upload the Drone's video to Youtube site or set Youtube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)</p>" +
 																"<p>Click <i class='fa fa-user fa-fw'></i> icon at the top to see your developer Token.</p>",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>Android</b></p>"
 							+ "<p>- My file > Internal storage > DJI > dji.go.v4 > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
