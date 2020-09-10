@@ -1495,12 +1495,12 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
-        + "<a href='design.html?mission_name=" + item['name'] + "' class='font-weight-bold mb-1'>"
+        + "<a href='design.html?mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
         + item['name']
         + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
         + item['regtime']
         + "</td><td class='center text-xs font-weight-bold mb-1'>"
-        + "<a class='btn btn-warning text-xs' href='design.html?mission_name=" + item['name'] + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
+        + "<a class='btn btn-warning text-xs' href='design.html?mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
         + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
         + LANG_JSON_DATA[langset]['msg_remove'] + "</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
@@ -2132,7 +2132,7 @@ function appendFlightListTable(item) {
 	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='flight_view_detail.html?record_name=" + name + "'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='flight_view_detail.html?record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
