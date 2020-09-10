@@ -583,11 +583,13 @@ function getAllRecordCount() {
   });
 }
 
-function setBadgeView(pluginid, callsign) {
-	if(isSet(pluginid) && pluginid != "-") {
+function setBadgeView(fdata) {		
+	if(isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
+		var pluginid = fdata.pluginid;
+		var callsign = fdata.callsign;
 		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_del']);
 		$("#badge_view").show();
-		
+						
 		$("#badge_nickname").val(callsign);
 		$('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid);
 		$('#badge_code').text("<iframe src=\"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "\" width=\"300\" height=\"450\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"></iframe>");
@@ -646,7 +648,7 @@ function generatePlugin(callsign) {
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
       hideLoader();		  
-		  setBadgeView(r.pluginid);
+		  setBadgeView(r);
     }
     else {
     	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -669,7 +671,7 @@ function getRecordCount() {
       hideLoader();
 
 		  setDashBoard(r.record_count, r.mission_count, r.alltime);
-		  setBadgeView(r.pluginid);
+		  setBadgeView(r);
     }
     else {
     	setDashBoard(0, 0, 0);
