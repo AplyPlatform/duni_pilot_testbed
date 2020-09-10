@@ -209,6 +209,7 @@ function centerInit() {
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
 	
 	$("#badge_nickname_label").text(LANG_JSON_DATA[langset]["badge_nickname_label"]);	
+	$("#badge_nickname").attr("placeholder", LANG_JSON_DATA[langset]['badge_nickname_label']);
 
 	setBadgeView();
 	getRecordCount();
