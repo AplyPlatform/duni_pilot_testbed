@@ -15,6 +15,10 @@ $(function() {
 
 
 function setCommonText() {
+	var langt = getQueryVariable("lang");
+	if (isSet(langt))
+		langset = langt;
+		
 	$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);	
 	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
@@ -24,7 +28,7 @@ function setCommonText() {
 function initPilotPlugin() {
 	showLoader();    
   var parent_url = getQueryVariable("parent_url");
-  var pluginid = getQueryVariable("code");
+  var pluginid = getQueryVariable("code");  
   	
   if (!isSet(pluginid) || !isSet(pluginid)) {
   	hideLoader();  	
