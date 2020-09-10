@@ -571,14 +571,14 @@ function getAllRecordCount() {
     if(r.result == "success") {
       hideLoader();
 
-		  setSummaryDashBoard(r.record_count, r.mission_count, r.member_count);
+		  setSummaryDashBoard(r.b_count, r.record_count, r.mission_count, r.member_count);
     }
     else {
-    	setSummaryDashBoard(0, 0, 0);
+    	setSummaryDashBoard(0, 0, 0, 0);
       hideLoader();
     }
   }, function(request,status,error) {
-    setSummaryDashBoard(0, 0, 0);
+    setSummaryDashBoard(0, 0, 0, 0);
     hideLoader();
   });
 }
@@ -693,7 +693,7 @@ function getRecordCount() {
   });
 }
 
-function setSummaryDashBoard(rcount, fcount, mcount) {
+function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 
 		if (rcount == 0 && fcount == 0) {
 			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : 0");
@@ -707,6 +707,7 @@ function setSummaryDashBoard(rcount, fcount, mcount) {
 		}
 		
 		$("#f_member_count_label").text("전체 회원수 : " + mcount);
+		$("#b_count_label").text("생성한 배지수 : " + bcount);
 		
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
