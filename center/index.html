@@ -31,6 +31,21 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <style>
+  	body {
+		  background-image: url('./imgs/airway.jpg');
+		  background-repeat: no-repeat;
+		  background-attachment: fixed;  
+		  background-size: cover;
+		}
+		
+		
+		form.user .btn-user {
+		  font-size: 0.8rem;
+		  border-radius: 4rem;
+		  padding: 0.4rem 0.5rem;
+		}
+ 	</style>
   
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
 0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
@@ -70,126 +85,65 @@ window.fbAsyncInit = function() {
 	<div class="loader"></div>
 </div>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                             
-					<!-- Page Heading -->
-          <div class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <img src=./imgs/duni_logo.png height="20px"> &nbsp;&nbsp;| &nbsp;&nbsp;<a href="index_en.html">English</a>
-          </div>
-                    
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">          
-          <!-- Content Row -->
-
-          <div class="row justify-content-center">
-          	
-          	<div class="col-xl-10 col-lg-12 col-md-9">
-
-					        <div class="card o-hidden border-0 shadow-lg my-5">
-					          <div class="card-body p-0">
-					            <!-- Nested Row within Card Body -->
-					            <div class="row">
-					              <div class="col-lg-6">
-					              	<div class="p-5">
-					              		
-						                <h6 class="m-0 font-weight-bold text-primary">이곳에 관하여...</h6>                  
-						                <br><br>
+	    <!-- Main Content -->
+	    <div id="content">        
+		            
+		            <div class="row">
+				            <div class="col-lg-6">
+				              	<div class="p-5">					              						                
+				              		<div class="row">
+						                <div class="col">
+												      <img src=./imgs/duni_logo.png height="18px">
+												    </div>
+												    <div class="col">
+												    	<font size=4 color=#cccccc>PILOT Center <B>BETA</B></font></a>
+												    </div>
+												  </div>               			                    			                  	
+			                  	<hr color=#777777 size=1>              
+					                <br><br>
+					                <div class="text-xs text-white mb-1">
+						                
 						              	<p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>
 			                      <p>디자인 한 비행계획은 DUNI앱과 DJI제품의 드론에서 사용 할 수 있습니다. DUNI앱은 현재 개발중이며 곧 안드로이드/iOS버전이 배포될 예정입니다. (비행계획 > 계획 설계 메뉴)</p>
-			                      <p>DUNI앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.duni.io/ target=_new>이곳</a>에서 확인할 수 있습니다.</p>
+			                      <p>DUNI앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.duni.io/ target=_new><font color="#65d5ff">이곳</font></a>에서 확인할 수 있습니다.</p>
 			                      <p>DJI 비행기록 파일과 드론 영상이 있는 유튜브 URL을 업로드하면 자세한 비행기록을 확인할 수 있습니다. (비행기록 > 기록 업로드 메뉴)</p>
-			                      <p>드론 SW개발자라면 이곳에서 <a href=https://developer.duni.io/apis/index.html target=new>DUNI Open API</a>의 사용을 위한 개발자토큰을 확인할 수 있습니다.</p>
-			                    </div>
-			                    
-			                    <div class="p-5">
-			                    	<div class="fb-like" data-width="280" data-href="https://www.facebook.com/386832955100142" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
-			                    </div>
-			                    
-					              </div>
-					              <div class="col-lg-6">
-					                <div class="p-5">
-					                  <div class="text-center">
-					                    <h1 class="h4 text-gray-900 mb-4"><img src=./imgs/duni_logo.png height="18px"> PILOT Center <B>BETA</B></h1>
-					                  </div>					 
-					                  <hr size=1>                 					                    
-				                    <form class="user">
-						              		<a id="googleLoginBtn" class="btn btn-google btn-user btn-block text-white">
-						                      <i class="fab fa-google fa-fw"></i> Google 로그인
-						                    </a>
-						                  <a id="facebookLoginBtn" class="btn btn-facebook btn-user btn-block text-white">
-						                      <i class="fab fa-facebook-f fa-fw"></i> Facebook 로그인
-						                  </a>
-						                  <a id="naverLoginBtn" class="btn btn-naver btn-user btn-block text-white">
-						                    <img src="./imgs/naverlogo.png" border=0> Naver 로그인
-						                  </a>              		
-						                </form>						                
-					                </div>
-					              </div>
-					            </div>
+			                      <p>드론 SW개발자라면 이곳에서 <a href=https://developer.duni.io/apis/index.html target=new><font color="#65d5ff">DUNI Open API</font></a>의 사용을 위한 개발자토큰을 확인할 수 있습니다.</p>
+			                    	
+		                    	</div>
+		                    </div>
+		                    
+		                    <div class="p-5">
+		                    	<div class="fb-like" data-width="280" data-href="https://www.facebook.com/386832955100142" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false" data-colorscheme="dark"></div>
+		                    </div>				                    
+				            </div>
+				            
+				            <div class="col-lg-6">
+			                <div class="p-5">		                     					                    
+		                    <form class="user">
+				              		<a id="googleLoginBtn" class="btn btn-google btn-block text-xs text-white mb-1">
+				                      <i class="fab fa-google fa-fw"></i> Google 로그인
+				                    </a>
+				                  <a id="facebookLoginBtn" class="btn btn-facebook btn-block text-xs text-white mb-1">
+				                      <i class="fab fa-facebook-f fa-fw"></i> Facebook 로그인
+				                  </a>
+				                  <a id="naverLoginBtn" class="btn btn-naver btn-block text-xs text-white mb-1">
+				                    <img src="./imgs/naverlogo.png" border=0> Naver 로그인
+				                  </a>              		
+				                </form>						                
+			                </div>
+			              </div>
+			          </div>
+			          
+		            <div class="row">
+		              <div class="container my-auto">               	
+					          <div class="copyright text-center my-auto text-xs text-white mb-1">
+					            <a href="index_en.html"><font color="#65d5ff">English</font></a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../privacy.html" target=_new>개인정보처리방침</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../service.html" target=_new>서비스이용약관</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<span>&nbsp; &copy; APLY Inc. 2020</span>
 					          </div>
 					        </div>
-					
-					      </div>
-
-          </div> 
-
-        </div>
-        <!-- /.container-fluid -->
+		            </div>					             
+   
+     
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">               	
-          <div class="copyright text-center my-auto">
-            <a href="../privacy.html" target=_new>Privacy</a> &nbsp; <a href="../service.html" target=_new>Terms of Use</a> <span>&nbsp; &copy; APLY Inc. 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-title">알림</h5>
-        </div>
-        <div class="modal-body" id="errorModalLabel"></div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">확인</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  	
   	
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -200,10 +154,10 @@ window.fbAsyncInit = function() {
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>    
-  <script src="./js/lang.js"></script>  
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>	    
-	<script src="./js/index.js"></script>
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="js/lang.js"></script>  
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" type="text/javascript" charset="utf-8"></script>	    
+	<script src="js/index.js"></script>
+	<script src="https://connect.facebook.net/ko_KR/sdk.js" async defer crossorigin="anonymous"></script>
 	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>		
   <script>
   	setLang("KR");
