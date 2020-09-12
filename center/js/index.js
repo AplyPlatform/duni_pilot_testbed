@@ -214,7 +214,7 @@ function checkLang() {
 	var lang = getCookie("language");	
 	
 	if (isSet(lang)) {
-		
+		langset = lang;
 	}
 	else {
 		setLang("KR");
