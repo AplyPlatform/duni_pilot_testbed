@@ -107,6 +107,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
 
 		if (needInput == true) {
 			$('#askModalInput').show();
+			$('#askModalInput').val("");
 			$("#askModalInput").attr("placeholder", acontent);
 		}
 		else {
@@ -2351,10 +2352,8 @@ function askMissionNameForDesignRegister() {
 	);
 }
 
-function askSpeedForDesignRegister(mname) {
-	var mspeed = prompt(LANG_JSON_DATA[langset]['msg_input_speed'], "");
-       
-   showAskDialog(
+function askSpeedForDesignRegister(mname) {       
+  showAskDialog(
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_input_speed'],
 				LANG_JSON_DATA[langset]['modal_confirm_btn'],
