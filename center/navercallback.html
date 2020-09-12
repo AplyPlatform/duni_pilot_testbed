@@ -42,6 +42,39 @@
     </div>
 	</div>
 	
+	<!-- Logout Modal-->
+  <div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="askModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="askModalLabel">Ready to Leave?</h5>          
+        </div>
+        <div class="modal-body">        	
+        	<span id="askModalContent">Select "Logout" below if you are ready to end your current session.</span>
+        	<input type="text" id="askModalInput" class="form-control bg-light border-0">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" id="askModalCancelButton">Cancel</button>
+          <button class="btn btn-primary" type="button" id="askModalOKButton">OK</button>          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Notification</h5>
+        </div>
+        <div class="modal-body" id="errorModalLabel"></div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+	
 	
 	
   <form role="form" method="post" action="login.php" id="loginForm">
