@@ -38,9 +38,16 @@ function onAgree() {
       hideLoader();
 }
 
-function goHome() {
-			GATAGM('BackBtnClickOnRegister', 'CONTENT', langset); 
-      location.href="index.html?fromapp=" + getCookie("isFromApp");
+function goHomeButton() {
+			GATAGM('BackBtnClickOnRegister', 'CONTENT', langset); 									
+			goHome();
+}
+
+function goHome() {												
+			if (langset == "KR")
+				location.href="index.html?fromapp=" + getCookie("isFromApp");
+			else
+				location.href="index_en.html?fromapp=" + getCookie("isFromApp");			
 }
 
 function ajaxRequest(data, callback, errorcallback) {
@@ -108,8 +115,7 @@ function requestRegister() {
               ajaxRequest(data, function(r) {
                       hideLoader();
                       if(r.result == "success") {
-                          alert(LANG_JSON_DATA[langset]['msg_register_success']);
-                          window.location.href = "./index.html?fromapp=" + getCookie("isFromApp");
+                          showConfirmDialog();                                                    
                       }
                       else {
                       		if(r.reason.indexOf("socialid is already exists") >= 0) {
@@ -132,6 +138,23 @@ function requestRegister() {
                   });
       });
     });
+}
+
+function showConfirmDialog() {				
+		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title'],);
+		$('#askModalContent').text(LANG_JSON_DATA[langset]['msg_register_success']);
+		$('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+		$('#askModalCancelButton').hide();
+
+		$('#askModalOKButton').off('click');
+		$('#askModalOKButton').click(function(){
+			$('#askModal').modal('hide');			
+			
+			hideLoader();
+      goHome();            
+		});
+
+		$('#askModal').modal('show');
 }
 
 function delCoockie(cName) {

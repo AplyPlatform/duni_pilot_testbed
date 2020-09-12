@@ -66,7 +66,11 @@
 		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", "https://pilot.duni.io/center/navercallback.html");
 		if (naver_id_login.oauthParams.access_token == "") {
 			alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-			location.href="index.html";
+			
+			if (langset == "KR")
+				location.href="index.html";
+			else
+				location.href="index_en.html";
 		}
 		else {
 			naver_id_login.get_naver_userprofile("naverSignInCallback()");			
