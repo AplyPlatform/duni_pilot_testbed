@@ -2347,7 +2347,7 @@ function askMissionNameForDesignRegister() {
 				LANG_JSON_DATA[langset]['modal_confirm_btn'],
 				true,
 				function(mname) {
-					askSpeedForDesignRegister(mname);
+						setTimeout(function() { askSpeedForDesignRegister(mname); } , 300);						
 				}
 	);
 }
