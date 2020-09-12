@@ -2366,7 +2366,7 @@ function askSpeedForDesignRegister(mname) {
         		return;
    				}
    				
-   				registerMission(mname, mspeed);
+   				registMission(mname, mspeed);
 				}
 	);
 }
