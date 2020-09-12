@@ -103,16 +103,36 @@ function setCommonText() {
 		$('#askModalCancelButton').text(LANG_JSON_DATA[langset]['msg_cancel']);
 }
 
-function showAskDialog(atitle, acontent, oktitle, okhandler) {
+function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
 
+		if (needInput == true) {
+			$('#askModalInput').show();
+			$("#askModalInput").attr("placeholder", acontent);
+		}
+		else {
+			$('#askModalInput').hide();
+		}
+		
 		$('#askModalLabel').text(atitle);
-		$('#askModelContent').text(acontent);
+		$('#askModalContent').text(acontent);
 		$('#askModalOKButton').text(oktitle);
 
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
-			$('#askModal').modal('hide');
-			okhandler();
+			$('#askModal').modal('hide');			
+			if (needInput == true) {				
+				var ret = '#askModalInput').val();
+				
+				if (!isSet(ret)) {
+					showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+					return;
+				}
+				
+				okhandler(ret);
+			}
+			else {				
+				okhandler();
+			}						
 		});
 
 		$('#askModal').modal('show');
@@ -126,6 +146,7 @@ function setLogoutBtn() {
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['top_menu_logout'],
+				false,
 				function() {logOut();}
 			);
 		});
@@ -291,7 +312,7 @@ function designInit() {
 	$('#btnForRegistMission').off('click');
 	$('#btnForRegistMission').click(function(){
 		GATAGM('btnForRegistMission', 'CONTENT', langset);
-		registMission();
+		askMissionNameForDesignRegister();
 	});
 
 	$('#btnForClearMission').off('click');
@@ -606,6 +627,7 @@ function setBadgeView(fdata) {
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['btnForBadge_del'],
+				false,
 				function() {removePlugin();}
 			);
 		});
@@ -1551,6 +1573,7 @@ function askClearCurrentDesign() {
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['btnForClearMission'],
+				false,
 				function() {clearCurrentDesign();}
 			);
 }
@@ -1793,6 +1816,7 @@ function makeShareFlightData(name, user_email) {
 								LANG_JSON_DATA[langset]['modal_title'],
 								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 								LANG_JSON_DATA[langset]['stop_share_label'],
+								false,
 								function() {stopShareFlightData(index, name, item.target);}
 							);
     		 		});
@@ -1863,6 +1887,7 @@ function showDataWithName(name) {
 								LANG_JSON_DATA[langset]['modal_title'],
 								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 								LANG_JSON_DATA[langset]['stop_share_label'],
+								false,
 								function() {stopShareFlightData(index, name, item.target);}
 							);
     		 		});
@@ -1870,15 +1895,16 @@ function showDataWithName(name) {
     	}
     	
     	$("#btnForSharing").click(function() {
-    		GATAGM('btnForSharing', 'CONTENT', langset);
-    		var email = prompt(LANG_JSON_DATA[langset]['msg_input_member_email'], "");
-
-		    if (!isSet(email)) {
-		        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-		        return;
-		    }
-		    
-    		makeShareFlightData(fdata.name, email);
+    		GATAGM('btnForSharing', 'CONTENT', langset);    		
+    		showAskDialog(
+								LANG_JSON_DATA[langset]['modal_title'],
+								LANG_JSON_DATA[langset]['msg_input_member_email'],
+								LANG_JSON_DATA[langset]['modal_confirm_btn'],
+								true,
+								function(email) {
+									makeShareFlightData(fdata.name, email);
+								}
+				);
     	});
 
     	$("#flightMemoBtn").click(function() {
@@ -2256,6 +2282,7 @@ function askDeleteFlightData(name, index) {
 				LANG_JSON_DATA[langset]['modal_title'],
 				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['msg_remove'],
+				false,
 				function() {deleteFlightData(name, index);}
 			);
 }
@@ -2290,6 +2317,7 @@ function askRemoveMissionItem(name, trname) {
 				LANG_JSON_DATA[langset]['modal_title'],
 				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['msg_remove'],
+				false,
 				function() {removeMissionItem(name, trname);}
 			);
 }
@@ -2311,22 +2339,38 @@ function monitor(msg) {
   var info = $('#monitor').html("<font color=red><b>" + msg + "</b></font>");
 }
 
-function registMission() {
-    var mname = prompt(LANG_JSON_DATA[langset]['msg_input_mission_name'], "");
+function askMissionNameForDesignRegister() {
+	showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_input_mission_name'],
+				LANG_JSON_DATA[langset]['modal_confirm_btn'],
+				true,
+				function(mname) {
+					askSpeedForDesignRegister(mname);
+				}
+	);
+}
 
-    if (!isSet(mname)) {
-        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-        return;
-    }
+function askSpeedForDesignRegister(mname) {
+	var mspeed = prompt(LANG_JSON_DATA[langset]['msg_input_speed'], "");
+       
+   showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_input_speed'],
+				LANG_JSON_DATA[langset]['modal_confirm_btn'],
+				true,
+				function(mspeed) {
+					if (parseFloat(mspeed) <= 0.0) {
+        		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+        		return;
+   				}
+   				
+   				registerMission(mname, mspeed);
+				}
+	);
+}
 
-    var mspeed = prompt(LANG_JSON_DATA[langset]['msg_input_speed'], "");
-
-    if (!isSet(mspeed) || parseFloat(mspeed) <= 0.0) {
-        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-        return;
-    }
-
-
+function registMission(mname, mspeed) {        
     if (flightRecDataArray.length <= 0) {
       showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
       return;
@@ -3252,16 +3296,17 @@ function nexttour(item) {
 
 function uploadDUNIFlightList() {
 	var files = document.getElementById('dunufile').files;
-  if (files.length > 0) {
-  	var mname = prompt(LANG_JSON_DATA[langset]['msg_input_record_name'], "");
-
-	  if (!isSet(mname)) {
-	      showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-	      return;
-	  }
-
-	  showLoader();
-    getBase64(files[0], mname, uploadDUNIFlightListCallback);
+  if (files.length > 0) {  		  
+	  showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_input_record_name'],
+				LANG_JSON_DATA[langset]['modal_confirm_btn'],
+				true,
+				function(mname) {
+					showLoader();
+    			getBase64(files[0], mname, uploadDUNIFlightListCallback);
+				}
+		);	  
   }
   else {
   	showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
@@ -3272,16 +3317,17 @@ function uploadDUNIFlightList() {
 
 function uploadFlightList() {
 	var files = document.getElementById('file').files;
-  if (files.length > 0) {
-  	var mname = prompt(LANG_JSON_DATA[langset]['msg_input_record_name'], "");
-
-	  if (!isSet(mname)) {
-	      showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-	      return;
-	  }
-
-	  showLoader();
-    getBase64(files[0], mname, uploadFlightListCallback);
+  if (files.length > 0) {  	
+	  showAskDialog(
+				LANG_JSON_DATA[langset]['modal_title'],
+				LANG_JSON_DATA[langset]['msg_input_record_name'],
+				LANG_JSON_DATA[langset]['modal_confirm_btn'],
+				true,
+				function(mname) {
+					showLoader();
+    			getBase64(files[0], mname, uploadFlightListCallback);
+				}
+		);
   }
   else {
   	showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
@@ -3551,6 +3597,7 @@ function askDeleteDromiData(name, index) {
 				LANG_JSON_DATA[langset]['modal_title'],
 				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['btnForClearMission'],
+				false,
 				function() {deleteDromiData(name, index);}
 			);
 }
@@ -3869,6 +3916,7 @@ function askDeleteFlightDataForDromis(name, index) {
 				LANG_JSON_DATA[langset]['modal_title'],
 				name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 				LANG_JSON_DATA[langset]['msg_remove'],
+				false,
 				function() {deleteFlightDataForDromis(name, index);}
 			);
 }

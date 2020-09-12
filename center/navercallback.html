@@ -15,10 +15,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>DUNI PILOT Center</title>
+	<link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
-
+<body>	
+	<div id="loading">
+		<div class="loader"></div>
+	</div>
   <form role="form" method="post" action="login.php" id="loginForm">
       <fieldset>
           <div class="form-group">
@@ -27,16 +30,12 @@
           </div>
       </fieldset>
   </form>
-
-	<!-- (1) LoginWithNaverId Javscript SDK -->
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	
+	<script src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" type="text/javascript" charset="utf-8"></script>
   <script src="./vendor/jquery/jquery.min.js"></script>
   <script src="./js/lang.js"></script>
-	<script src="./js/index.js"></script>
-
-	<!-- (2) LoginWithNaverId Javscript 설정 정보 및 초기화 -->
+	<script src="./js/index.js"></script>	
 	<script>
-
 		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", "https://pilot.duni.io/center/navercallback.html");
 		if (naver_id_login.oauthParams.access_token == "") {
 			alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -45,8 +44,6 @@
 		else {
 			naver_id_login.get_naver_userprofile("naverSignInCallback()");			
 		}
-
-
 	</script>
 </body>
 
