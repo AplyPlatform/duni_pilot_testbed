@@ -142,7 +142,7 @@ function requestRegister() {
 }
 
 function showConfirmDialog() {				
-		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title'],);
+		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title']);
 		$('#askModalContent').text(LANG_JSON_DATA[langset]['msg_register_success']);
 		$('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
 		$('#askModalCancelButton').hide();

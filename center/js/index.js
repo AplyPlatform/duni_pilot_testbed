@@ -179,7 +179,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
 
 
 function showConfirmDialog() {				
-		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title'],);
+		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title']);
 		$('#askModalContent').text(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
 		$('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
 		$('#askModalCancelButton').hide();
