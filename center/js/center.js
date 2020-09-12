@@ -107,10 +107,12 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
 
 		if (needInput == true) {
 			$('#askModalInput').show();
+			$('#askModalContent').hide();
 			$('#askModalInput').val("");
 			$("#askModalInput").attr("placeholder", acontent);
 		}
 		else {
+			$('#askModalContent').show();
 			$('#askModalInput').hide();
 		}
 		
