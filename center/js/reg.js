@@ -115,6 +115,7 @@ function requestRegister() {
               ajaxRequest(data, function(r) {
                       hideLoader();
                       if(r.result == "success") {
+                      		hideLoader();
                           showConfirmDialog();                                                    
                       }
                       else {
@@ -148,9 +149,7 @@ function showConfirmDialog() {
 
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
-			$('#askModal').modal('hide');			
-			
-			hideLoader();
+			$('#askModal').modal('hide');									
       goHome();            
 		});
 

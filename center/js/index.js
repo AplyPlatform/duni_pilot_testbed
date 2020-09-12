@@ -168,7 +168,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
       setCookie("temp_image_url", temp_image, 1);
       setCookie("temp_email", temp_email, 1);
       setCookie("temp_name", temp_name, 1);
-           
+      hideLoader();
       showConfirmDialog();       
     }
   }, function(request, status, error) {
@@ -186,9 +186,7 @@ function showConfirmDialog() {
 
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
-			$('#askModal').modal('hide');			
-			
-			hideLoader();
+			$('#askModal').modal('hide');									
       location.href="register.html";
 		});
 
