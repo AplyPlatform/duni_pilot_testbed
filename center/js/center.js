@@ -121,7 +121,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
 		$('#askModalOKButton').click(function(){
 			$('#askModal').modal('hide');			
 			if (needInput == true) {				
-				var ret = '#askModalInput').val();
+				var ret = $('#askModalInput').val();
 				
 				if (!isSet(ret)) {
 					showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
