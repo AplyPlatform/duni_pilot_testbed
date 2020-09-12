@@ -59,15 +59,6 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
-function showAlert(msg) {
-
-	$('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
-	$('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
-
-	$('#errorModalLabel').text(msg);
-	$('#errorModal').modal('show');
-}
-
 function facebookSignInCallback() {    
     FB.getLoginStatus(function(response) {      
       if (response.status == "connected") {      	
@@ -172,23 +163,47 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
       }
 
       location.href="center.html";     
-    }else {
-    	
-      hideLoader();
-      alert(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
+    }else {    	            
       setCookie("temp_sns_token", r.sns_token, 1);
       setCookie("temp_image_url", temp_image, 1);
       setCookie("temp_email", temp_email, 1);
       setCookie("temp_name", temp_name, 1);
-            
-      location.href="register.html";      
+           
+      showConfirmDialog();       
     }
   }, function(request, status, error) {
     hideLoader();
-    //("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
 
 }
+
+
+function showConfirmDialog() {				
+		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title'],);
+		$('#askModalContent').text(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
+		$('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+		$('#askModalCancelButton').hide();
+
+		$('#askModalOKButton').off('click');
+		$('#askModalOKButton').click(function(){
+			$('#askModal').modal('hide');			
+			
+			hideLoader();
+      location.href="register.html";
+		});
+
+		$('#askModal').modal('show');
+}
+
+
+function showAlert(msg) {
+	$('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
+	$('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+
+	$('#errorModalLabel').text(msg);
+	$('#errorModal').modal('show');
+}
+
 
 function isSet(value) {
   if (value == "" || value == null || value == "undefined") return false;
