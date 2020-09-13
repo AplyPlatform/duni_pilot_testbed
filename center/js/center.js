@@ -3111,13 +3111,14 @@ function map3dInit() {
 function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 	if (typeof Cesium !== "undefined") {
 
+		if (!isSet(hpRoll)) return;
+
 		var position = Cesium.Cartesian3.fromDegrees(
 	      lng,
 	      lat,
 	      alt
 	    );
-
-
+			
 	  yaw = yaw * 1;
 		yaw = yaw < 0 ? (360 + yaw) : yaw;
 		yaw = Math.PI/180 * yaw;
@@ -3130,8 +3131,6 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 		roll = roll < 0 ? (360 + roll) : roll;
 		roll = Math.PI/180 * roll;
 
-		if (!isSet(hpRoll)) return;
-		
 	  hpRoll.pitch = pitch;
 	  hpRoll.heading = yaw;
 	  hpRoll.roll = roll;
