@@ -3130,6 +3130,8 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 		roll = roll < 0 ? (360 + roll) : roll;
 		roll = Math.PI/180 * roll;
 
+		if (!isSet(hpRoll)) return;
+		
 	  hpRoll.pitch = pitch;
 	  hpRoll.heading = yaw;
 	  hpRoll.roll = roll;
