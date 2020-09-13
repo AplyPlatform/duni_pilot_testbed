@@ -23,6 +23,8 @@ var posLayerForGlobal;
 
 var hasMore;
 
+var bFilterOn = false;
+
 var pos_icon_image = './imgs/position4.png';
 
 
@@ -156,7 +158,6 @@ function setLogoutBtn() {
 }
 
 function initPilotCenter() {
-	bMonStarted = false;
 	flightRecArray = [];
 	flightRecDataArray = [];
 	setLogoutBtn();
@@ -361,9 +362,20 @@ function flightListInit() {
 	hideLoader();
 }
 
+function setMonFilterOn() {
+	if (bFilterOn == false) {
+		bFilterOn = true;
+		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
+	}
+	else {
+		bFilterOn = true;
+		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter_rel']);
+	}
+}
 
 function monitorInit() {
 
+	bMonStarted = false;
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 
@@ -374,6 +386,13 @@ function monitorInit() {
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
+
+	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
+
+	$("#btnForFilter").click(function() {
+		GATAGM('btnForFilter', 'CONTENT', langset);
+		setMonFilterOn();
+	});
 
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
@@ -1249,6 +1268,7 @@ function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
     isFirst = true;
+		$("#btnForFilter").hide();
     $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStartMon']);
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
@@ -1260,6 +1280,7 @@ function startMon() {
 		kf_yaw = new KalmanFilter();
 		kf_pitch = new KalmanFilter();
 		kf_roll = new KalmanFilter();
+		$("#btnForFilter").show();
   	nextMon();
   }
 }
@@ -1312,12 +1333,22 @@ function nextMon() {
       $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
 
 			var output = r.data;
-			output.lat = kf_lat.filter(output.lat * 1);
-			output.lng = kf_lng.filter(output.lng * 1);
-			output.alt = kf_alt.filter(output.alt * 1);
-			output.yaw = kf_yaw.filter(output.yaw * 1);
-			output.pitch = kf_pitch.filter(output.pitch * 1);
-			output.roll = kf_roll.filter(output.roll * 1);
+			if (bFilterOn) {
+				output.lat = kf_lat.filter(output.lat * 1);
+				output.lng = kf_lng.filter(output.lng * 1);
+				output.alt = kf_alt.filter(output.alt * 1);
+				output.yaw = kf_yaw.filter(output.yaw * 1);
+				output.pitch = kf_pitch.filter(output.pitch * 1);
+				output.roll = kf_roll.filter(output.roll * 1);
+			}
+			else {
+				kf_lat.filter(output.lat * 1);
+				kf_lng.filter(output.lng * 1);
+				kf_alt.filter(output.alt * 1);
+				kf_yaw.filter(output.yaw * 1);
+				kf_pitch.filter(output.pitch * 1);
+				kf_roll.filter(output.roll * 1);
+			}
 
       if (isFirst) {
       	isFirst = false;

@@ -1,5 +1,5 @@
 var LANG_JSON_DATA = {
-		
+
 		"KR" : {
 				"modal_confirm_btn" : "확인",
 				"modal_title" : "알림",
@@ -57,6 +57,7 @@ var LANG_JSON_DATA = {
 				"btnStartMon" : "모니터링 시작",
 				"btnStopMon" : "모니터링 중지",
 				"btnForFilter" : "필터적용",
+				"btnForFilter_rel" : "필터해제",
 				"center_about_title" : "이곳에 관하여...",
 				"center_example_title" : "사용예시",
 				"msg_notice" : "* 전체 비행시간은 2020년 9월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.",
@@ -69,7 +70,7 @@ var LANG_JSON_DATA = {
 				"msg_no_data" : "존재하는 데이터가 없습니다.",
 				"msg_no_email" : "존재하지 않는 이메일 입니다.",
 				"msg_load_more" : "더 불러오기",
-				"msg_failed_to_get_position" : "대상 위치 파악 실패",				
+				"msg_failed_to_get_position" : "대상 위치 파악 실패",
 				"msg_modify" : "수정",
 				"msg_remove" : "삭제",
 				"msg_apply" : "적용",
@@ -82,7 +83,7 @@ var LANG_JSON_DATA = {
 				"msg_are_you_sure" : "정말로 진행하시겠습니까?",
 				"msg_modify_memo" : "메모 수정",
 				"msg_fill_memo" : "메모 내용을 입력해 주세요",
-				"msg_success" : "반영되었습니다!",				
+				"msg_success" : "반영되었습니다!",
 				"msg_tracker" : "현재 위치를 지도에 표시하기",
 				"msg_register_success" : "축하드립니다. 성공적으로 가입되었습니다.",
 				"msg_email_is_already_exist" : "이미 사용중인 이메일 주소입니다. 다른 이메일 주소를 입력해 주세요.",
@@ -137,8 +138,8 @@ var LANG_JSON_DATA = {
 							+ "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
 							+ "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
 		},
-				
-		
+
+
 		"EN" : {
 				"modal_confirm_btn" : "Confirm",
 				"modal_title" : "Notification",
@@ -188,16 +189,17 @@ var LANG_JSON_DATA = {
 				"privacy_link_label" : "Privacy policy",
 				"privacy_link" : "https://pilot.duni.io/privacy.html",
 				"btnForBadge_make" : "Generate badge code",
-				"btnForBadge_del" : "Delete badge",				
+				"btnForBadge_del" : "Delete badge",
 				"btnForRegistMission" : "Mission Register",
 				"btnForClearMission" : "Clear",
 				"btnForGetMissionList" : "Load mission list",
 				"btnForLoadFlightList" : "Load record list",
 				"btnStartMon" : "Start monitoring",
 				"btnStopMon" : "Stop monitoring",
-				"btnForFilter" : "Apply filter",
+				"btnForFilter" : "Filter on",
+				"btnForFilter_rel" : "Filter off",
 				"center_about_title" : "About ...",
-				"center_example_title" : "Example",				
+				"center_example_title" : "Example",
 				"msg_notice" : "* The total flight time is calculated from flight records uploaded after September 9, 2020.",
 				"msg_no_mission" : "There is no mission or something wrong.",
 				"msg_error_sorry" : "Error. Sorry, please try again later.",
@@ -276,5 +278,5 @@ var LANG_JSON_DATA = {
 							+ "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
 							+ "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
 		}
-			
+
 };
