@@ -164,86 +164,68 @@ function initPilotCenter() {
 	var page_action = getQueryVariable("page_action");
 
   if (page_action == "center") {
-		$('#main_contents').load(function() { centerInit(); });
 		$("#main_contents").load("center.html");
 		$("#dashboard_menu").addClass( "active" );
+		centerInit();
   }
   if (page_action == "qa") {
-		$('#main_contents').load(function() { qaInit(); });
 		$("#main_contents").load("qa.html");
 		$("#record_menu").addClass( "active" );
+		qaInit();
   }
   else if (page_action == "design") {
-		$('#main_contents').load(function() {
-			mapInit();
-    	designInit();
-		});
 		$("#main_contents").load("design.html");
 		$("#mission_menu").addClass( "active" );
+		mapInit();
+		designInit();
   }
   else if (page_action == "list") {
-		$('#main_contents').load(function() {
-			missionListInit();
-		});
 		$("#main_contents").load("list.html");
 		$("#mission_menu").addClass( "active" );
+		missionListInit();
   }
   else if (page_action == "monitor") {
-		$('#main_contents').load(function() {
-			mapInit();
-	  	map3dInit();
-	    monitorInit();
-		});
 		$("#main_contents").load("monitor.html");
 		$("#record_menu").addClass( "active" );
+		mapInit();
+		map3dInit();
+		monitorInit();
   }
   else if (page_action == "flightlist") {
-		$('#main_contents').load(function() {
-			flightListInit();
-		});
 		$("#main_contents").load("flight_list.html");
 		$("#record_menu").addClass( "active" );
+		flightListInit();
   }
   else if (page_action == "flightview") {
-		$('#main_contents').load(function() {
-			mapInit();
-	  	flightHistoryMapInit();
-	    flightViewInit();
-		});
 		$("#main_contents").load("flight_view.html");
 		$("#record_menu").addClass( "active" );
+		mapInit();
+		flightHistoryMapInit();
+		flightViewInit();
   }
   else if (page_action == "flightview_detail") {
-		$('#main_contents').load(function() {
-			mapInit();
-	  	map3dInit();
-	    flightDetailInit();
-		});
 		$("#main_contents").load("flight_view_detail.html");
 		$("#record_menu").addClass( "active" );
+		mapInit();
+		map3dInit();
+		flightDetailInit();
   }
   else if (page_action == "dromi") {
-		$('#main_contents').load(function() {
-			mapInit();
-	    dromiInit();
-		});
 		$("#main_contents").load("dromi.html");
 		$("#record_menu").addClass( "active" );
+		mapInit();
+		dromiInit();
   }
   else if (page_action == "dromi_list") {
-		$('#main_contents').load(function() {
-			mapInit();
-	    dromiListInit();
-		});
 		$("#main_contents").load("dromi_list.html");
 		$("#record_menu").addClass( "active" );
+		mapInit();
+		dromiListInit();
   }
   else if (page_action == "summary") {
-		$('#main_contents').load(function() {
-			summaryInit();
-		});
 		$("#main_contents").load("summary.html");
 		$("#record_menu").addClass( "active" );
+		summaryInit();
   }
 }
 
