@@ -387,8 +387,8 @@ function monitorInit() {
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
 
+	$("#btnForFilter").hide();
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
-
 	$("#btnForFilter").click(function() {
 		GATAGM('btnForFilter', 'CONTENT', langset);
 		setMonFilterOn();
