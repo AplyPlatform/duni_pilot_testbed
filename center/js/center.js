@@ -23,7 +23,7 @@ var posLayerForGlobal;
 
 var hasMore;
 
-var bFilterOn = false;
+var bFilterOn;
 
 var pos_icon_image = './imgs/position4.png';
 
@@ -362,20 +362,22 @@ function flightListInit() {
 	hideLoader();
 }
 
-function setMonFilterOn() {
+function setMonFilter() {
 	if (bFilterOn == false) {
 		bFilterOn = true;
-		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
+		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter_rel']);
 	}
 	else {
-		bFilterOn = true;
-		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter_rel']);
+		bFilterOn = false;
+		$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	}
 }
 
 function monitorInit() {
 
 	bMonStarted = false;
+	bFilterOn = false;
+
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 
@@ -391,7 +393,7 @@ function monitorInit() {
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForFilter").click(function() {
 		GATAGM('btnForFilter', 'CONTENT', langset);
-		setMonFilterOn();
+		setMonFilter();
 	});
 
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
