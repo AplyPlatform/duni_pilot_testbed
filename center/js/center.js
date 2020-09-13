@@ -3445,7 +3445,7 @@ function uploadDUNIFlightListCallback(mname, base64file) {
         $('#btnForUploadDUNIFlightList').hide(1500);
         $('#dunifileform').hide(1500);
         alert(LANG_JSON_DATA[langset]['msg_success']);
-        location.href = "main.html?page_action=flight_view";
+        location.href = "main.html?page_action=flightview";
       }
       else {
       	if (r.reason == "same data is exist") {
@@ -3470,7 +3470,7 @@ function uploadFlightListCallback(mname, base64file) {
         $('#btnForUploadFlightList').hide(1500);
         $('#djifileform').hide(1500);
         alert(LANG_JSON_DATA[langset]['msg_success']);
-        location.href = "main.html?page_action=flight_view";
+        location.href = "main.html?page_action=flightview";
       }
       else {
       	if (r.reason == "same data is exist") {
