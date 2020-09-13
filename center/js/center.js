@@ -523,7 +523,7 @@ function qaInit() {
 
 	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);
 
-	hideLoader
+	hideLoader();
 }
 
 function missionListInit() {
