@@ -76,12 +76,12 @@ function goCenter() {
 function setCommonText() {
 		langset = getCookie("language");
 		var image_url = getCookie("image_url");
-		
+
 		if (image_url == "") $('#profile_image').hide();
 		else $('#profile_image').attr("src", image_url);
-			
+
 		$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
-			
+
 		$('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
 		$('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
 		$('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
@@ -115,27 +115,27 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
 			$('#askModalContent').show();
 			$('#askModalInput').hide();
 		}
-		
+
 		$('#askModalLabel').text(atitle);
 		$('#askModalContent').text(acontent);
 		$('#askModalOKButton').text(oktitle);
 
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
-			$('#askModal').modal('hide');			
-			if (needInput == true) {				
+			$('#askModal').modal('hide');
+			if (needInput == true) {
 				var ret = $('#askModalInput').val();
-				
+
 				if (!isSet(ret)) {
 					showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 					return;
 				}
-				
+
 				okhandler(ret);
 			}
-			else {				
+			else {
 				okhandler();
-			}						
+			}
 		});
 
 		$('#askModal').modal('show');
@@ -205,7 +205,7 @@ function initPilotCenter() {
   	mapInit();
     dromiListInit();
   }
-  else if (page_action == "summary") {  	
+  else if (page_action == "summary") {
     summaryInit();
   }
 }
@@ -226,14 +226,14 @@ function centerInit() {
 	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
-	
+
 	$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);
 	$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"]);
 	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
-		
+
 	$("#badge_nickname").attr("placeholder", LANG_JSON_DATA[langset]['badge_nickname_label']);
-	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);	
+	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);
 	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
 	$("#badgeHelpContent").text(LANG_JSON_DATA[langset]["badgeHelpContent"]);
 
@@ -366,30 +366,30 @@ function monitorInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
-	
-	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);	
+
+	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
-	
+
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
-	
+
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
-	
+
 	$("#btnStartMon").text(LANG_JSON_DATA[langset]['btnStartMon']);
 	$("#btnStartMon").click(function() {
-		GATAGM('btnStartMon', 'CONTENT', langset);				
+		GATAGM('btnStartMon', 'CONTENT', langset);
 		startMon();
-	});	
-	
+	});
+
 	$('#btnForSetYoutubeID').click(function() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
-	
+
 	moviePlayerVisible = true;
 	showMovieDataSet();
-	
-	drawLineGraph();		
+
+	drawLineGraph();
 	hideLoader();
 }
 
@@ -417,8 +417,8 @@ function flightDetailInit() {
 	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
 	$("#btnForLink").hide();
 	$("#btnForSharing").hide();
-	
-	
+
+
 	$('#btnForFilter').click(function() {
   	GATAGM('btnForFilter', 'CONTENT', langset);
   	setFilter();
@@ -612,17 +612,17 @@ function getAllRecordCount() {
 
 
 
-function setBadgeView(fdata) {		
+function setBadgeView(fdata) {
 	if(isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
 		var pluginid = fdata.pluginid;
 		var callsign = fdata.callsign;
 		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_del']);
 		$("#badge_view").show();
-						
+
 		$("#badge_nickname").val(callsign);
 		$('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid + "&lang=" + langset + "&parent_url=" + encodeURIComponent(window.location.href));
 		$('#badge_code').text("<iframe id=\"badge_frame\" src=\"javascript:void(0)\" scrolling=\"no\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\"  aria-hidden=\"false\" tabindex=\"0\" width=\"100%\" height=\"470\"></iframe><script type=\"text/javascript\">document.getElementById(\"badge_frame\").src = \"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "&parent_url=\" + encodeURIComponent(window.location.href) + \"&lang=" + langset + "\";</script>");
-		
+
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
 			GATAGM('btnForBadge_delete', 'CONTENT', langset);
@@ -638,22 +638,22 @@ function setBadgeView(fdata) {
 	else {
 		$("#btnForBadge").text(LANG_JSON_DATA[langset]['btnForBadge_make']);
 		$("#badge_view").hide();
-		
+
 		$('#btnForBadge').off('click');
 		$("#btnForBadge").click(function() {
 			GATAGM('btnForBadge_make', 'CONTENT', langset);
-			
+
 			var callsign = $("#badge_nickname").val();
-			
+
 			if (!isSet(callsign)) {
 				showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 				$("#badge_nickname").focus();
 				return;
 			}
-			
+
 			generatePlugin(callsign);
 		});
-	}	
+	}
 }
 
 
@@ -664,7 +664,7 @@ function removePlugin() {
   showLoader();
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
-      hideLoader();		  
+      hideLoader();
 		  setBadgeView(null);
     }
     else {
@@ -684,7 +684,7 @@ function generatePlugin(callsign) {
   showLoader();
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {
-      hideLoader();		  
+      hideLoader();
 		  setBadgeView(r);
     }
     else {
@@ -725,7 +725,7 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 
 		if (rcount == 0 && fcount == 0) {
 			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : 0");
-			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : 0");						
+			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : 0");
 			rcount = 1;
 			fcount = 1;
 		}
@@ -733,10 +733,10 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 			$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"] + " : " + rcount);
 			$("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : " + fcount);
 		}
-		
+
 		$("#f_member_count_label").text("전체 회원수 : " + mcount);
 		$("#b_count_label").text("생성한 배지수 : " + bcount);
-		
+
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = '#858796';
@@ -775,12 +775,12 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 }
 
 function setDashBoard(rcount, fcount, alltime) {
-					
-		if (rcount == 0 && fcount == 0) {			
+
+		if (rcount == 0 && fcount == 0) {
 			rcount = 1;
 			fcount = 1;
 		}
-								
+
 		// Set new default font family and font color to mimic Bootstrap's default styling
 		Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = '#858796';
@@ -816,27 +816,27 @@ function setDashBoard(rcount, fcount, alltime) {
 		    cutoutPercentage: 80,
 		  },
 		});
-		
+
 		const coptions = {
 			duration: 5,
 		};
-		
+
 		var rlabel = new CountUp('r_count_label_time', rcount, coptions);
 		if (!rlabel.error) {
 			rlabel.start();
 		} else {
 			console.error(rlabel.error);
 		}
-		
+
 		var rlabel = new CountUp('f_count_label_time', fcount, coptions);
 		if (!rlabel.error) {
 			rlabel.start();
 		} else {
 			console.error(rlabel.error);
 		}
-		
+
 		var mmin = (alltime / 1000) / 60;
-		
+
 		var alabel = new CountUp('a_time_label_time', mmin, coptions);
 		if (!alabel.error) {
 			alabel.start();
@@ -986,7 +986,7 @@ function setPitchStatus(pitch) {
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
 
-		pitch = pitch * 1; //		
+		pitch = pitch * 1; //
 		var degree = pitch * -1;
 		degree = degree < 0 ? (360 + degree) : degree;
 		//degree = Math.PI/180 * degree;
@@ -1030,7 +1030,7 @@ function setRollStatus(roll) {
     context.fill();
     context.strokeStyle = '#0000aa';
     context.stroke();
-    
+
     roll = roll.toFixed(3);
     $('#rollText').text(roll);
 }
@@ -1154,7 +1154,7 @@ function addIconToMap(i, item) {
 }
 
 function removeIconOnMap(index) {
-	//var features = posSource.getFeatures();	
+	//var features = posSource.getFeatures();
   map.removeLayer(lineLayerForGlobal);
   map.removeLayer(posLayerForDesign);
 
@@ -1238,6 +1238,13 @@ function appendNewRecord(lonLat) {
 }
 
 
+var kf_lat;
+var kf_lng;
+var kf_alt;
+var kf_yaw;
+var kf_pitch;
+var kf_roll;
+
 function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
@@ -1246,8 +1253,14 @@ function startMon() {
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
   }
-  else {  	
-  	nextMon();  	  	    
+  else {
+		kf_lat = new KalmanFilter();
+		kf_lng = new KalmanFilter();
+		kf_alt = new KalmanFilter();
+		kf_yaw = new KalmanFilter();
+		kf_pitch = new KalmanFilter();
+		kf_roll = new KalmanFilter();
+  	nextMon();
   }
 }
 
@@ -1262,7 +1275,7 @@ function first3DcameraMove(item) {
       item.alt + 100
     ),
     complete: function () {
-      setTimeout(function () {			      				      	
+      setTimeout(function () {
         camera.flyTo({
           destination: Cesium.Cartesian3.fromDegrees(
             item.lng * 1,
@@ -1275,13 +1288,13 @@ function first3DcameraMove(item) {
           },
           easingFunction: Cesium.EasingFunction.LINEAR_NONE,
         });
-        
+
         moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
         setTimeout(function() {
             if (bMonStarted == false) return;
             nextMon();
   			}, 2500);
-        
+
       }, 1000);
     },
   });
@@ -1297,15 +1310,23 @@ function nextMon() {
       $("#loader").show();
       $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStopMon']);
       $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
-                  
+
+			var output = r.data;
+			output.lat = kf_lat.filter(output.lat * 1);
+			output.lng = kf_lng.filter(output.lng * 1);
+			output.alt = kf_alt.filter(output.alt * 1);
+			output.yaw = kf_yaw.filter(output.yaw * 1);
+			output.pitch = kf_pitch.filter(output.pitch * 1);
+			output.roll = kf_roll.filter(output.roll * 1);
+
       if (isFirst) {
-      	isFirst = false;      	
-      	first3DcameraMove(r.data);
+      	isFirst = false;
+      	first3DcameraMove(output);
       }
-      else nexttour(r.data);
+      else nexttour(output);
     }
     else {
-      showAlert(LANG_JSON_DATA[langset]['msg_failed_to_get_position']);      
+      showAlert(LANG_JSON_DATA[langset]['msg_failed_to_get_position']);
     }
   }, function(request,status,error) {
     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -1398,12 +1419,12 @@ function appendMissionsToMonitor(mission) {
     });
 }
 
-function moveToPositionOnMap(lat, lng, alt, yaw, roll, pitch) {  
+function moveToPositionOnMap(lat, lng, alt, yaw, roll, pitch) {
   setRollStatus(roll);
   setYawStatus(yaw);
   setPitchStatus(pitch);
-  move3DmapIcon(lat, lng, alt, pitch, yaw, roll);    
-  moveMapIcon(lat, lng, alt, yaw);  
+  move3DmapIcon(lat, lng, alt, pitch, yaw, roll);
+  moveMapIcon(lat, lng, alt, yaw);
 }
 
 function clearDataToDesignTableWithFlightRecord() {
@@ -1453,8 +1474,8 @@ function saveFlightData(index) {
 	if (flightRecDataArray.length <= 0) {
 		var lng = $('#lngdata_index').val();
 		var lat = $('#latdata_index').val();
-		appendNewRecord([lng * 1, lat * 1]);		
-		moveToPositionOnMap(lat * 1, 
+		appendNewRecord([lng * 1, lat * 1]);
+		moveToPositionOnMap(lat * 1,
 						lng * 1,
 						parseFloat($('#altdata_index').val()),
 						parseFloat($('#yawdata_index').val()),
@@ -1561,9 +1582,9 @@ function searchCurrentBrowserAddress() {
 // result by latlng coordinate
 function searchAddressToCoordinate(address) {
     ajaxRequestAddress(address, function (r) {
-      
+
       moveToPositionOnMap(r['results'][0].geometry.location.lat,r['results'][0].geometry.location.lng, 0, 0, 0, 0);
-      
+
     }, function(request,status,error) {
       showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
     });
@@ -1752,12 +1773,12 @@ function setRecordTitle(msg) {
 }
 
 function setFilter() {
-	setFlightRecordDataToView(null, true);	
+	setFlightRecordDataToView(null, true);
 	$('#btnForFilter').prop('disabled', true);
 }
 
 function stopShareFlightData(index, name, target_id) {
-	
+
 	var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "stop_share", "name" : name, "clientid" : userid, "target_id" : target_id};
 
@@ -1775,12 +1796,12 @@ function stopShareFlightData(index, name, target_id) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
-	
+
 }
 
 
 function makeShareFlightData(name, user_email) {
-	
+
 	var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
 
@@ -1793,7 +1814,7 @@ function makeShareFlightData(name, user_email) {
     	}
     	else {
     		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-    	}      
+    	}
     }
     else {
     	if ("sharedList" in r) {
@@ -1801,18 +1822,18 @@ function makeShareFlightData(name, user_email) {
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
-    		 	if (item.type == "user") {    		 		
-    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");    		 		    		 		
+    		 	if (item.type == "user") {
+    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
     		 	}
     		 	else {
-    		 		
+
     		 	}
     		 });
-    		 
-    		 $("#shared_user").show();    		 
+
+    		 $("#shared_user").show();
     		 $("#shared_user").html(user_text);
     		 $("#shared_link").html(link_text);
-    		 
+
     		 sharedList.some(function(item, index, array){
     		 		$("#user_share_" + index).click(function() {
     		 			showAskDialog(
@@ -1824,17 +1845,17 @@ function makeShareFlightData(name, user_email) {
 							);
     		 		});
     		 });
-    		 
+
     		 showAlert(LANG_JSON_DATA[langset]["msg_success"]);
-    	}    	
+    	}
     }
-    
+
     hideLoader();
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   });
-	
+
 }
 
 function showDataWithName(name) {
@@ -1863,27 +1884,27 @@ function showDataWithName(name) {
     	if ("memo" in fdata) {
     		 $("#memoTextarea").val(fdata.memo);
     	}
-    	
-    	if ( ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {    		 
+
+    	if ( ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {
 				 $("#btnForSharing").show();
     	}
-    	
+
     	if ("sharedList" in fdata) {
     		 var sharedList = fdata.sharedList;
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
-    		 	if (item.type == "user") {    		 		
-    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");    		 		    		 		
+    		 	if (item.type == "user") {
+    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
     		 	}
     		 	else {
-    		 		
+
     		 	}
     		 });
-    		 
+
     		 $("#shared_user").html(user_text);
     		 $("#shared_link").html(link_text);
-    		 
+
     		 sharedList.some(function(item, index, array){
     		 		$("#user_share_" + index).click(function() {
     		 			showAskDialog(
@@ -1896,9 +1917,9 @@ function showDataWithName(name) {
     		 		});
     		 });
     	}
-    	
+
     	$("#btnForSharing").click(function() {
-    		GATAGM('btnForSharing', 'CONTENT', langset);    		
+    		GATAGM('btnForSharing', 'CONTENT', langset);
     		showAskDialog(
 								LANG_JSON_DATA[langset]['modal_title'],
 								LANG_JSON_DATA[langset]['msg_input_member_email'],
@@ -1947,11 +1968,11 @@ function showDataWithName(name) {
     	}
     	else {
     		setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
-    	}    	
+    	}
     }
-    
+
     hideLoader();
-    
+
   }, function(request,status,error) {
     hideLoader();
     monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -2081,42 +2102,42 @@ function drawCadastral(disp_id, name, x, y, vSource){
 
 }
 
- 
+
 
 function setAddressAndCada(address_id, address, cada, wsource) {
 	 //var curText = getRecordTitle();
 	var _features = new Array();
 	var _addressText = "";
 
-	
-	if (isSet(c3ddataSource)) {			
+
+	if (isSet(c3ddataSource)) {
 			Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
 				var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
       	return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
     	}
-			
-			
+
+
 			cada[0]['crs'] = {
 			  type: 'name',
 			  properties: {
 			    'name': 'customProj'
 			  }
 			};
-			
-			// Load 
+
+			// Load
 			c3ddataSource.load(cada[0], {
 				  stroke: Cesium.Color.RED,
-				  strokeWidth: 2,				  
-				  clampToGround: true			  
+				  strokeWidth: 2,
+				  clampToGround: true
 				});
 	}
-				
+
   for(var idx=0; idx< cada.length; idx++) {
     try{
       var geojson_Feature = cada[idx];
       var geojsonObject = geojson_Feature.geometry;
-      
-      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);     		
+
+      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
       for(var i=0; i< features.length; i++) {
         try{
           var feature = features[i];
@@ -2143,7 +2164,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
     }
   }
 
-	
+
   wsource.addFeatures(_features);
 
   if (isSet($(address_id)))
@@ -2354,7 +2375,7 @@ function askMissionNameForDesignRegister() {
 	);
 }
 
-function askSpeedForDesignRegister(mname) {       
+function askSpeedForDesignRegister(mname) {
   showAskDialog(
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_input_speed'],
@@ -2365,13 +2386,13 @@ function askSpeedForDesignRegister(mname) {
         		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
         		return;
    				}
-   				
+
    				registMission(mname, mspeed);
 				}
 	);
 }
 
-function registMission(mname, mspeed) {        
+function registMission(mname, mspeed) {
     if (flightRecDataArray.length <= 0) {
       showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
       return;
@@ -2608,15 +2629,15 @@ function drawScatterGraph() {
 
 var oldLat = 0, oldLng = 0, oldAlt = 0;
 
-function isNeedSkip(lat, lng, alt) {	
+function isNeedSkip(lat, lng, alt) {
 			var ddl1 = Math.abs(lat - oldLat);
 			var ddl2 = Math.abs(lng - oldLng);
 			var ddl3 = Math.abs(alt - oldAlt);
-				
+
 			if (ddl1 > 0.001 || ddl2 > 0.002 || ddl3 > 3) { //임의 필터
 				return true;
 			}
-			
+
 			return false;
 }
 
@@ -2625,7 +2646,7 @@ function setFlightRecordDataToView(cdata, bfilter) {
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
 				if(bfilter == true) {
 					cdata = chartLocData;
-				}				
+				}
 				else {
 					return;
 				}
@@ -2639,27 +2660,27 @@ function setFlightRecordDataToView(cdata, bfilter) {
       lineGraphData = new Array();
       lineData = new Array();
 
-      var i = 0;            
+      var i = 0;
       cdata.forEach(function (item) {
-      	
-      	if (bfilter && 
-      				i > 4 && 
+
+      	if (bfilter &&
+      				i > 4 &&
       				isNeedSkip(item.lat,item.lng,item.alt) == true) { }
       	else {
       		addChartItem(i, item);
       		oldLat = item.lat;
 	      	oldLng = item.lng;
-	      	oldAlt = item.alt;	      		      	
+	      	oldAlt = item.alt;
       		i++;
       	}
       });
-                      		
+
     	if (isSet(lineLayerForGlobal))
     		map.removeLayer(lineLayerForGlobal);
-    
+
     	if (isSet(posLayerForGlobal))
   			map.removeLayer(posLayerForGlobal);
-    
+
       setSlider(i);
 
 			drawLineToMap();
@@ -2669,11 +2690,11 @@ function setFlightRecordDataToView(cdata, bfilter) {
 			drawLineGraph();
 
       drawScatterGraph();
-      
+
       draw3dMap();
-      
+
       var item = chartLocData[0];
-      moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);      
+      moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 var oldScatterdatasetIndex = -1;
@@ -2856,12 +2877,12 @@ function styleFunction(textMsg) {
 
 
 function computeCirclularFlight(start) {
-  var property = new Cesium.SampledPositionProperty();  
-  
+  var property = new Cesium.SampledPositionProperty();
+
   viewer.entities.removeAll();
-            
+
   var i = 0;
-  chartLocData.forEach(function (item) {      	      	      	
+  chartLocData.forEach(function (item) {
     var time = Cesium.JulianDate.addSeconds(
       start,
       i,
@@ -2884,9 +2905,9 @@ function computeCirclularFlight(start) {
         outlineWidth: 1,
       },
     });
-    
+
     i++;
-  });                
+  });
 
   return property;
 }
@@ -2905,16 +2926,16 @@ function getColor(colorName, alpha) {
   return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
-function draw3dMap() {		
+function draw3dMap() {
 	var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
-	
-	var position = computeCirclularFlight(start);	
-	posentity.position = position;	
+
+	var position = computeCirclularFlight(start);
+	posentity.position = position;
 	posentity.orientation = new Cesium.VelocityOrientationProperty(position);
 }
 
-function map3dInit() {			
-	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';  
+function map3dInit() {
+	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
   viewer = new Cesium.Viewer("main3dMap", {
 	  infoBox: false, //Disable InfoBox widget
 	  selectionIndicator: false, //Disable selection indicator
@@ -2925,22 +2946,22 @@ function map3dInit() {
 	  clock : false,
 	  fullscreenButton : false,
 	  geocoder : false,
-	  homeButton : false,	  
+	  homeButton : false,
 	  navigationHelpButton : false,
 	  navigationInstructionsInitiallyVisible : false,
 	  automaticallyTrackDataSourceClocks : false,
 	  orderIndependentTranslucency : false,
 	  terrainProvider: Cesium.createWorldTerrain(),
 	});
-					
-	viewer.scene.globe.enableLighting = false;	
-	viewer.scene.globe.depthTestAgainstTerrain = true;	
+
+	viewer.scene.globe.enableLighting = false;
+	viewer.scene.globe.depthTestAgainstTerrain = true;
 	Cesium.Math.setRandomNumberSeed(3);
-	
+
 	hpRoll = new Cesium.HeadingPitchRoll();
 	hpRange = new Cesium.HeadingPitchRange();
 	c_center = new Cesium.Cartesian3();
-			
+
 	var position = Cesium.Cartesian3.fromDegrees(
 	  126.5610038, 33.3834381, 3000
 	);
@@ -2952,11 +2973,11 @@ function map3dInit() {
 	var camera = viewer.camera;
 	var scene = viewer.scene;
 	var controller = scene.screenSpaceCameraController;
-			
+
 	planePrimitive = scene.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: "https://pilot.duni.io/center/imgs/drone.glb",
-	    color: getColor("YELLOW", 1.0),	    	    
+	    color: getColor("YELLOW", 1.0),
       silhouetteColor: getColor(
        "RED", 1.0
       ),
@@ -2965,15 +2986,15 @@ function map3dInit() {
 	      position,
 	      hpRoll,
 	      Cesium.Ellipsoid.WGS84,
-	      fixedFrameTransform	      	      
+	      fixedFrameTransform
 	    ),
 	    scale: 0.3,
 	    minimumPixelSize: 64,
 	  })
 	);
-	
+
 	//Actually create the entity
-	posentity = viewer.entities.add({		  		  		  
+	posentity = viewer.entities.add({
 		  //Show the path as a pink line sampled in 1 second increments.
 		  path: {
 		    resolution: 1,
@@ -2984,10 +3005,10 @@ function map3dInit() {
 		    width: 10,
 		  }
 	});
-		
-	c3ddataSource = new Cesium.GeoJsonDataSource();	
+
+	c3ddataSource = new Cesium.GeoJsonDataSource();
 	viewer.dataSources.add(c3ddataSource);
-		
+
 	viewer.trackedEntity = undefined;
 	  viewer.zoomTo(
 	    viewer.entities,
@@ -2996,15 +3017,15 @@ function map3dInit() {
 	      Cesium.Math.toRadians(-15),
 	      1000
 	    )
-	  );	
-	  
+	  );
+
 	 planePrimitive.readyPromise.then(function (model) {
 	  // Play and loop all animations at half-speed
 	  model.activeAnimations.addAll({
 	    multiplier: 0.5,
 	    loop: Cesium.ModelAnimationLoop.REPEAT,
 	  });
-	
+
 	  // Zoom to model
 	  var r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
 	  controller.minimumZoomDistance = r * 0.5;
@@ -3020,44 +3041,44 @@ function map3dInit() {
 	  hpRange.range = r * 50.0;
 	  camera.lookAt(c_center, hpRange);
 	});
-	  
+
 }
 
 function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 	if (typeof Cesium !== "undefined") {
-		
+
 		var position = Cesium.Cartesian3.fromDegrees(
 	      lng,
 	      lat,
 	      alt
 	    );
-	  
-	  
+
+
 	  yaw = yaw * 1;
 		yaw = yaw < 0 ? (360 + yaw) : yaw;
 		yaw = Math.PI/180 * yaw;
-		
+
 		pitch = pitch * 1;
 		pitch = pitch < 0 ? (360 + pitch) : pitch;
 		pitch = Math.PI/180 * pitch;
-		
+
 		roll = roll * 1;
 		roll = roll < 0 ? (360 + roll) : roll;
 		roll = Math.PI/180 * roll;
-	  
+
 	  hpRoll.pitch = pitch;
 	  hpRoll.heading = yaw;
 	  hpRoll.roll = roll;
-	    
+
 		Cesium.Transforms.headingPitchRollToFixedFrame(
 	    position,
 	    hpRoll,
 	    Cesium.Ellipsoid.WGS84,
 	    fixedFrameTransform,
 	    planePrimitive.modelMatrix
-	  );    
-		
-	}		
+	  );
+
+	}
 }
 
 
@@ -3185,7 +3206,7 @@ function mapInit() {
     $('#altitude').text(geolocation.getAltitude() + ' [m]');
     $('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
     $('#heading').text(geolocation.getHeading() + ' [rad]');
-    $('#speed').text(geolocation.getSpeed() + ' [m/s]');    
+    $('#speed').text(geolocation.getSpeed() + ' [m/s]');
     var pos = geolocation.getPosition();
     var lonLat = ol.proj.toLonLat(pos);
     moveToPositionOnMap(lonLat[1], lonLat[0], 0, geolocation.getHeading(), 0, 0);
@@ -3195,7 +3216,7 @@ function mapInit() {
   geolocation.on('error', function(error) {
     var info = $('#monitor');
     info.text(error.message);
-  });  
+  });
 
   if (isSet($('#track'))) {
   	$('#track').change(function() {
@@ -3279,15 +3300,15 @@ function moveMapIcon(lat, lng, alt, yaw) {
 
     current_pos.setGeometry(new ol.geom.Point(location));
     current_pos_image.setRotation(yaw);
-    current_view.setCenter(location);    
+    current_view.setCenter(location);
 }
 
 function nexttour(item) {
-	
+
 	addChartItem(tableCount, item);
 	tableCount++;
 	window.myLine.update();
-	
+
   moveToPositionOnMap(item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
   setTimeout(function() {
       if (bMonStarted == false) return;
@@ -3297,7 +3318,7 @@ function nexttour(item) {
 
 function uploadDUNIFlightList() {
 	var files = document.getElementById('dunufile').files;
-  if (files.length > 0) {  		  
+  if (files.length > 0) {
 	  showAskDialog(
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_input_record_name'],
@@ -3307,7 +3328,7 @@ function uploadDUNIFlightList() {
 					showLoader();
     			getBase64(files[0], mname, uploadDUNIFlightListCallback);
 				}
-		);	  
+		);
   }
   else {
   	showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
@@ -3318,7 +3339,7 @@ function uploadDUNIFlightList() {
 
 function uploadFlightList() {
 	var files = document.getElementById('file').files;
-  if (files.length > 0) {  	
+  if (files.length > 0) {
 	  showAskDialog(
 				LANG_JSON_DATA[langset]['modal_title'],
 				LANG_JSON_DATA[langset]['msg_input_record_name'],
@@ -3687,8 +3708,8 @@ function setYoutubeID() {
 
 function setYoutubePlayerPureID(data_id) {
 	if (!isSet(data_id) || data_id == "-") {
-		$("#youTubePlayer").hide();		
-		moviePlayerVisible = false;		
+		$("#youTubePlayer").hide();
+		moviePlayerVisible = false;
 		return;
 	}
 	else {
@@ -3790,7 +3811,7 @@ function processSeek(curTime) {
       movieProcess = false;
       return;
     }
-			
+
     var index = 0;
     chartLocData.some(function(item) {
       if ("dsec" in item) {
@@ -4094,17 +4115,17 @@ function addChartItem(i, item) {
   }
 
   pos_icon.setStyle(new ol.style.Style({
-      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({          
+      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
         crossOrigin: 'anonymous',
-        opacity: 0.55,          
+        opacity: 0.55,
         src: pos_icon_image
       }))
   }));
 
-  posIcons.push(pos_icon);    
+  posIcons.push(pos_icon);
   lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
   lineGraphData.push({x: i, y: item.alt});
-	
+
 }
 
 function GATAGM(label, category, language) {
