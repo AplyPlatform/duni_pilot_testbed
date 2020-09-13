@@ -164,32 +164,32 @@ function initPilotCenter() {
 	var page_action = getQueryVariable("page_action");
 
   if (page_action == "center") {
-		$("#main_contents").load("center.html", funcion() {
+		$("#main_contents").load("center.html", function() {
 				centerInit();
 		});
 		$("#dashboard_menu").addClass( "active" );
   }
   if (page_action == "qa") {
-		$("#main_contents").load("qa.html", funcion() {
+		$("#main_contents").load("qa.html", function() {
 				qaInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "design") {
-		$("#main_contents").load("design.html", funcion() {
+		$("#main_contents").load("design.html", function() {
 			mapInit();
 			designInit();
 		});
 		$("#mission_menu").addClass( "active" );
   }
   else if (page_action == "list") {
-		$("#main_contents").load("list.html", funcion() {
+		$("#main_contents").load("list.html", function() {
 			missionListInit();
 		});
 		$("#mission_menu").addClass( "active" );
   }
   else if (page_action == "monitor") {
-		$("#main_contents").load("monitor.html", funcion() {
+		$("#main_contents").load("monitor.html", function() {
 			mapInit();
 			map3dInit();
 			monitorInit();
@@ -197,13 +197,13 @@ function initPilotCenter() {
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "flightlist") {
-		$("#main_contents").load("flight_list.html", funcion() {
+		$("#main_contents").load("flight_list.html", function() {
 			flightListInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "flightview") {
-		$("#main_contents").load("flight_view.html", funcion() {
+		$("#main_contents").load("flight_view.html", function() {
 			mapInit();
 			flightHistoryMapInit();
 			flightViewInit();
@@ -211,7 +211,7 @@ function initPilotCenter() {
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "flightview_detail") {
-		$("#main_contents").load("flight_view_detail.html", funcion() {
+		$("#main_contents").load("flight_view_detail.html", function() {
 			mapInit();
 			map3dInit();
 			flightDetailInit();
@@ -219,21 +219,21 @@ function initPilotCenter() {
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "dromi") {
-		$("#main_contents").load("dromi.html", funcion() {
+		$("#main_contents").load("dromi.html", function() {
 			mapInit();
 			dromiInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "dromi_list") {
-		$("#main_contents").load("dromi_list.html", funcion() {
+		$("#main_contents").load("dromi_list.html", function() {
 			mapInit();
 			dromiListInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "summary") {
-		$("#main_contents").load("summary.html", funcion() {
+		$("#main_contents").load("summary.html", function() {
 			summaryInit();
 		});
 		$("#record_menu").addClass( "active" );
