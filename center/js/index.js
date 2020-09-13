@@ -59,9 +59,9 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
-function facebookSignInCallback() {    
-    FB.getLoginStatus(function(response) {      
-      if (response.status == "connected") {      	
+function facebookSignInCallback() {
+    FB.getLoginStatus(function(response) {
+      if (response.status == "connected") {
         var token = response.authResponse.accessToken;
         FB.api('/me', { locale: 'en_US', fields: 'name, email' },
 				  function(lresponse) {
@@ -70,10 +70,10 @@ function facebookSignInCallback() {
 		          formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
 		        }
 		        else {
-		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);		        	
+		        	alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 		        }
 				  }
-				);				        
+				);
       }
       else {
       }
@@ -81,13 +81,13 @@ function facebookSignInCallback() {
 }
 
 function naverSignInCallback() {
-  setCookie("dev_kind", "naver", 1);  
-  
+  setCookie("dev_kind", "naver", 1);
+
   var token = naver_id_login.oauthParams.access_token;
   var email = naver_id_login.getProfileData('email');
 	var name = naver_id_login.getProfileData('name');
-	var image = naver_id_login.getProfileData('profile_image');    
-  
+	var image = naver_id_login.getProfileData('profile_image');
+
   formSubmit(token, name, image, email);
 }
 
@@ -96,52 +96,52 @@ function naverinit() {
       {
         clientId: "wSvRwDA6qt1OWrvVY542",
         callbackUrl: "https://pilot.duni.io/center/navercallback.html",
-        isPopup: false        
+        isPopup: false
       }
-    );  
+    );
 
-  if (naverLogin == null) {    
+  if (naverLogin == null) {
     return;
   }
 
   naverLogin.init();
-  
+
   $("#naverLoginBtn").attr("href", naverLogin.generateAuthorizeUrl());
 }
 
 function googleinit() {
-  if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {    
+  if ((typeof gapi) === "undefined" || gapi == null || gapi == "") {
     return;
   }
 
-  gapi.load('auth2', function() { // Ready.  	
-				var gauth = gapi.auth2.init();    
-				
+  gapi.load('auth2', function() { // Ready.
+				var gauth = gapi.auth2.init();
+
 				var options = new gapi.auth2.SigninOptionsBuilder();
 				options.setPrompt('select_account');
 				//gauth.signIn(options);
-								
+
 				gauth.attachClickHandler(document.getElementById('googleLoginBtn'), options,
-		        function(googleUser) {		          
+		        function(googleUser) {
 		          setCookie("dev_kind", "google", 1);
-												
-							var profile = googleUser.getBasicProfile();	
+
+							var profile = googleUser.getBasicProfile();
 							var token = googleUser.getAuthResponse().id_token;
-							
+
 							var name = profile.getName();
 							var image = profile.getImageUrl();
 							var email = profile.getEmail();
-							formSubmit(token, name, image, email);  			              
-		              
+							formSubmit(token, name, image, email);
+
 		        }, function(error) {
 		          //alert(JSON.stringify(error, undefined, 2));
 		        });
-  	});    
+  	});
 }
 
 function formSubmit(token, temp_name, temp_image, temp_email) {
 	showLoader();
-	
+
   var skind = getCookie("dev_kind");
   var jdata = {
     action: "member",
@@ -154,22 +154,22 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     if(r.result == "success") {
       setCookie("dev_user_id", r.emailid, 1);
       setCookie("user_token", r.token, 1);
-      setCookie("user_email", r.socialid, 1);      
-      setCookie("image_url", temp_image, 1);      
+      setCookie("user_email", r.socialid, 1);
+      setCookie("image_url", temp_image, 1);
 
       if (getCookie("isFromApp") == "yes") {
         Android.setToken(r.token, r.emailid);
         return;
       }
 
-      location.href="center.html";     
-    }else {    	            
+      location.href="main.html?page_action=center";
+    }else {
       setCookie("temp_sns_token", r.sns_token, 1);
       setCookie("temp_image_url", temp_image, 1);
       setCookie("temp_email", temp_email, 1);
       setCookie("temp_name", temp_name, 1);
       hideLoader();
-      showConfirmDialog();       
+      showConfirmDialog();
     }
   }, function(request, status, error) {
     hideLoader();
@@ -178,7 +178,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
 }
 
 
-function showConfirmDialog() {				
+function showConfirmDialog() {
 		$('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title']);
 		$('#askModalContent').text(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
 		$('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
@@ -186,7 +186,7 @@ function showConfirmDialog() {
 
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
-			$('#askModal').modal('hide');									
+			$('#askModal').modal('hide');
       location.href="register.html";
 		});
 
@@ -211,8 +211,8 @@ function isSet(value) {
 
 
 function checkLang() {
-	var lang = getCookie("language");	
-	
+	var lang = getCookie("language");
+
 	if (isSet(lang)) {
 		langset = lang;
 	}
@@ -229,9 +229,9 @@ function setLang(lang) {
 $(function() {
 	checkLang();
 	var page = window.location.href;
-	
+
 	if (page.indexOf("navercallback.html") >= 0) {
-		
+
 	}
 	else {
 		naverinit();

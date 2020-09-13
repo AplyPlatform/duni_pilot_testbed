@@ -55,14 +55,14 @@ var langset = "KR";
 
 $(function() {
 	if (askToken() == false) {
-		goIndex("");
-    return;
+		//goIndex("");
+    //return;
   }
+
+  mixpanel.identify(getCookie("dev_user_id"));
 
 	setCommonText();
   initPilotCenter();
-  mixpanel.identify(getCookie("dev_user_id"));
-
 });
 
 function goIndex(doAction) {
@@ -72,17 +72,15 @@ function goIndex(doAction) {
   	location.href="index_en.html?action=" + doAction;
 }
 
-function goCenter() {
-}
-
 function setCommonText() {
-		langset = getCookie("language");
+		var lang = getCookie("language");
+		if (isSet(lang))
+			langset = lang;
+
 		var image_url = getCookie("image_url");
 
 		if (image_url == "") $('#profile_image').hide();
 		else $('#profile_image').attr("src", image_url);
-
-		$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
 
 		$('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
 		$('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
@@ -161,52 +159,72 @@ function initPilotCenter() {
 	flightRecArray = [];
 	flightRecDataArray = [];
 	setLogoutBtn();
-
-  var page_data = document.getElementById("page_data");
-	var page_action = page_data.getAttribute("page_action");
-
 	showLoader();
 
+	var page_action = getQueryVariable("page_action");
+
   if (page_action == "center") {
+		$("#main_contents").load("center.html");
+		$("#dashboard_menu").addClass( "active" );
   	centerInit();
   }
   if (page_action == "qa") {
+		$("#main_contents").load("qa.html");
+		$("#record_menu").addClass( "active" );
   	qaInit();
   }
   else if (page_action == "design") {
+		$("#main_contents").load("design.html");
+		$("#mission_menu").addClass( "active" );
   	mapInit();
     designInit();
   }
   else if (page_action == "list") {
+		$("#main_contents").load("list.html");
+		$("#mission_menu").addClass( "active" );
 		missionListInit();
   }
   else if (page_action == "monitor") {
+		$("#main_contents").load("monitor.html");
+		$("#record_menu").addClass( "active" );
   	mapInit();
   	map3dInit();
     monitorInit();
   }
   else if (page_action == "flightlist") {
+		$("#main_contents").load("flight_list.html");
+		$("#record_menu").addClass( "active" );
     flightListInit();
   }
-  else if (page_action == "flight_view") {
+  else if (page_action == "flightview") {
+		$("#main_contents").load("flight_view.html");
+		$("#record_menu").addClass( "active" );
   	mapInit();
   	flightHistoryMapInit();
     flightViewInit();
   }
-  else if (page_action == "flight_view_detail") {
+  else if (page_action == "flightview_detail") {
+		$("#main_contents").load("flight_view_detail.html");
+		$("#record_menu").addClass( "active" );
   	mapInit();
   	map3dInit();
     flightDetailInit();
   }
   else if (page_action == "dromi") {
+		$("#main_contents").load("dromi.html");
+		$("#record_menu").addClass( "active" );
   	mapInit();
     dromiInit();
   }
   else if (page_action == "dromi_list") {
+		$("#main_contents").load("dromi_list.html");
+		$("#record_menu").addClass( "active" );
   	mapInit();
     dromiListInit();
   }
   else if (page_action == "summary") {
+		$("#main_contents").load("summary.html");
+		$("#record_menu").addClass( "active" );
     summaryInit();
   }
 }
@@ -222,6 +240,8 @@ function centerInit() {
 	document.title = LANG_JSON_DATA[langset]['page_center_title'];
 	$("#head_title").text(document.title);
 
+
+	$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
 	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);
 	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
 	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
@@ -283,7 +303,7 @@ function designInit() {
   });
 
 	var record_name = "";//location.search.split('record_name=')[1];
-  var mission_name = location.search.split('mission_name=')[1];
+  var mission_name = getQueryVariable("mission_name");
 
   mission_name = decodeURIComponent(mission_name);
 
@@ -450,7 +470,7 @@ function flightDetailInit() {
   	setYoutubeID();
   });
 
-  var record_name = location.search.split('record_name=')[1];
+  var record_name = getQueryVariable("record_name");
   if (record_name != null && record_name != "") {
     showDataWithName(decodeURI(record_name));
   }
@@ -1574,12 +1594,12 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
-        + "<a href='design.html?mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+        + "<a href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
         + item['name']
         + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
         + item['regtime']
         + "</td><td class='center text-xs font-weight-bold mb-1'>"
-        + "<a class='btn btn-warning text-xs' href='design.html?mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
+        + "<a class='btn btn-warning text-xs' href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
         + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
         + LANG_JSON_DATA[langset]['msg_remove'] + "</button></td></tr>";
         $('#dataTable-missions > tbody:last').append(appendRow);
@@ -2215,7 +2235,7 @@ function appendFlightListTable(item) {
 	var memo = item.memo;
 
   var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='flight_view_detail.html?record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
@@ -4159,6 +4179,17 @@ function addChartItem(i, item) {
   lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
   lineGraphData.push({x: i, y: item.alt});
 
+}
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
 }
 
 function GATAGM(label, category, language) {
