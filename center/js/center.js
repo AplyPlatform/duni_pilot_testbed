@@ -3748,7 +3748,7 @@ function showMovieDataSet() {
 function setYoutubeID() {
 	var data_id = $('#movieData').val();
 	if (data_id == "") {
-		showAlert("Invalid URL");
+		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 		return;
 	}
 
