@@ -2249,7 +2249,7 @@ function appendFlightListTable(item) {
   
   appendRow = appendRow + "<div class='col-sm'>" + (tableCount + 1) + "</div>";
   appendRow = appendRow + "<div class='col-sm'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
-  appendRow = appendRow + "</div></div><div class='row'>;//row
+  appendRow = appendRow + "</div></div><div class='row'>";//row
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
