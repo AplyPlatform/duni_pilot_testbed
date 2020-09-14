@@ -533,12 +533,10 @@ function flightrecordListInit(target) { //비행기록 목록
   	GATAGM('btnForLoadFlightList', 'CONTENT', langset);
   	getFlightList(target);
   });
-
-	if (target == "public") {
-		$('#btnForLoadFlightList').hide();
-		getFlightList(target);
-	}
-	else hideLoader();
+	
+	$('#btnForLoadFlightList').hide();
+	getFlightList(target);
+	//hideLoader();
 }
 
 
@@ -574,7 +572,10 @@ function missionListInit() {
 		getMissionList();
 	});
 
-	hideLoader();
+	$('#btnForGetMissionList').hide();
+	getMissionList();
+
+	//hideLoader();
 }
 
 
