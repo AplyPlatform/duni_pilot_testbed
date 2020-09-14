@@ -1990,7 +1990,7 @@ function showDataWithName(target, name) {
 				 $("#btnForSharing").show();
     	}
 
-    	if (target == "private") && ("sharedList" in fdata)) {
+    	if ((target == "private") && ("sharedList" in fdata)) {
     		 var sharedList = fdata.sharedList;
     		 var link_text = "";
     		 var user_text = "";
