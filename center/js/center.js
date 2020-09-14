@@ -2252,7 +2252,7 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "</div></div><div class='row'>";//row
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
+  		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
   }
 
   appendRow = appendRow + "<div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
