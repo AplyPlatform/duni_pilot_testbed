@@ -1986,6 +1986,7 @@ function showDataWithName(target, name) {
 
   $("#movieTitle").val(name);
   $("#movieDescription").val(name);
+	$("#btnForPublic").hide();
 
 	ajaxRequest(jdata, function (r) {
     if(r.result != "success") {
@@ -2009,7 +2010,7 @@ function showDataWithName(target, name) {
     	}
 
     	if ((target == "private") && ("sharedList" in fdata)) {
-				$("#btnForPublic").show();
+				 $("#btnForPublic").show();
 
     		 var sharedList = fdata.sharedList;
     		 var link_text = "";
