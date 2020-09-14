@@ -1604,16 +1604,16 @@ function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
-        var appendRow = "<tr class='odd gradeX' id='mission_row_" + index + "'><td class='center'>"
+        var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
         + "<a href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
         + item['name']
-        + "</a></td><td class='center'> - </td><td class='center text-xs font-weight-bold mb-1'>"
+        + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
         + item['regtime']
-        + "</td><td class='center text-xs font-weight-bold mb-1'>"
+        + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
         + "<a class='btn btn-warning text-xs' href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
         + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
-        + LANG_JSON_DATA[langset]['msg_remove'] + "</button></td></tr>";
-        $('#dataTable-missions > tbody:last').append(appendRow);
+        + LANG_JSON_DATA[langset]['msg_remove'] + "</button></div></div></div></div>";
+        $('#dataTable-missions').append(appendRow);
 
         $('#missionListBtnForRemove_' + index).click(function() {
         	GATAGM('missionListBtnForRemove_' + index, 'CONTENT', langset);
@@ -2416,7 +2416,7 @@ function removeMissionItem(name, trname) {
 
     ajaxRequest(jdata, function (r) {
       if(r.result == "success") {
-        $("#" + trname).remove();
+        $("#" + trname).hide();
       }
       else {
       	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
