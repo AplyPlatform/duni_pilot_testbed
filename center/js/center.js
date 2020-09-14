@@ -1897,11 +1897,11 @@ function stopShareFlightData(index, name, target_id) {
 function makeShareFlightData(name, user_email) {
 
 	var userid = getCookie("dev_user_id");
-
-	if (user_email == "public")
-		user_email == "public@duni.io";
-
   var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
+
+	if (user_email == "public") {
+		jdata.daction = "make_public";
+	}
 
   showLoader();
 
