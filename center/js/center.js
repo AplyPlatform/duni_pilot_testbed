@@ -1891,7 +1891,7 @@ function stopShareFlightData(index, name, target_id) {
 			if (target_id == "public@duni.io") {
 				$("#btnForPublic").show();
 			}
-			
+
     	hideLoader();
     }
   }, function(request,status,error) {
@@ -1975,16 +1975,17 @@ function makeShareFlightData(name, user_email) {
 
 function showDataWithName(target, name) {
 
-  setRecordTitle(name);
-  cur_flightrecord_name = name;
-
-  $("#movieTitle").val(name);
-  $("#movieDescription").val(name);
 
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "download_spe", "name" : name, "clientid" : userid};
 
   showLoader();
+
+	setRecordTitle(name);
+  cur_flightrecord_name = name;
+
+  $("#movieTitle").val(name);
+  $("#movieDescription").val(name);
 
 	ajaxRequest(jdata, function (r) {
     if(r.result != "success") {
@@ -1993,6 +1994,10 @@ function showDataWithName(target, name) {
     else {
 
     	var fdata = r.data;
+
+			if ("owner" in fdata && userid != fdata.owner) {
+				setRecordTitle(name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg']);
+			}
 
     	moviePlayerVisible = false;
 
