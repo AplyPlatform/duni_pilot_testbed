@@ -1195,7 +1195,7 @@ function createNewIcon(i, item) {
           mindex : i
       });
 
-  pos_icon.setStyle(styleFunction(i + ""));
+  pos_icon.setStyle(styleFunction((i + 1) + ""));
 
   return pos_icon;
 }
