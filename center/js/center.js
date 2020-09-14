@@ -1995,7 +1995,7 @@ function showDataWithName(target, name) {
 
     	var fdata = r.data;
 
-			if ("owner" in fdata && userid != fdata.owner) {
+			if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
 				setRecordTitle(name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg']);
 			}
 
