@@ -534,7 +534,11 @@ function flightrecordListInit(target) { //비행기록 목록
   	getFlightList(target);
   });
 
-  hideLoader();
+	if (target == "public") {
+		$('#btnForLoadFlightList').hide();
+		getFlightList(target);
+	}
+	else hideLoader();
 }
 
 
