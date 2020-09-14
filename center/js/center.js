@@ -2006,14 +2006,20 @@ function showDataWithName(target, name) {
 
     	var fdata = r.data;
 
+			var n_title = name;
 			if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
-				var n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
+				n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
 				if ("user_email" in fdata) {
 						n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / (" + fdata.user_email + ")";
 				}
-
-				setRecordTitle(n_title);
 			}
+			else {
+				if ((target == "public") && "user_email" in fdata) {
+						n_title = name + " / " + fdata.user_email;
+				}
+			}
+
+			setRecordTitle(n_title);
 
     	moviePlayerVisible = false;
 
@@ -2352,13 +2358,22 @@ function appendFlightListTable(target, item) {
 	var address = item.address;
 	var cada = item.cada;
 	var memo = item.memo;
+	var owner_email = item.user_email;
 
   var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
   appendRow = appendRow + (tableCount + 1) + " | ";
-	if (target == "public")
-		appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_public_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
-	else
-		appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+	if (target == "public") {
+		appendRow = appendRow
+					+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
+					+ name + "\", \"CONTENT\", \""
+					+ langset + "\");' href='main.html?page_action=publicflightview_detail&record_name="
+					+ encodeURIComponent(name) + "'>" + name + "</a>";
+	}
+	else {
+		appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \""
+								+ langset + "\");' href='main.html?page_action=flightview_detail&record_name="
+								+ encodeURIComponent(name) + "'>" + name + "</a>";
+	}
 
   appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
 
@@ -2376,14 +2391,22 @@ function appendFlightListTable(target, item) {
   appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></form></div></div>"; //form-group col-sm
   appendRow = appendRow + "</div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
       + "<div class='col-sm'>"
+			+ "<span id='owner_email_" + tableCount + "' class='col-sm text-xs font-weight-bold mb-1'></span>"
       + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
       + "</div></div></div></div>"; //col, row, card-body, card
 
   $('#dataTable-Flight_list').append(appendRow);
 
 	var curIndex = tableCount;
+	$("#owner_email_" + curIndex).hide();
 
 	if (target == "public") {
+
+		if (isSet(owner_email)) {
+			$("#owner_email_" + curIndex).show();
+			$("#owner_email_" + curIndex).text(owner_email);
+		}
+
 		$("#memoTextarea_" + curIndex).prop('disabled', true);
 		$("#btnForUpdateMemo_" + curIndex).hide();
 		$("#btnForRemoveFlightData_" + curIndex).hide();
