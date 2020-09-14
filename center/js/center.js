@@ -533,7 +533,7 @@ function flightrecordListInit(target) { //비행기록 목록
   	GATAGM('btnForLoadFlightList', 'CONTENT', langset);
   	getFlightList(target);
   });
-	
+
 	$('#btnForLoadFlightList').hide();
 	getFlightList(target);
 	//hideLoader();
@@ -1465,6 +1465,8 @@ function getMissionList() {
         	$('#btnForGetMissionList').hide(1500);
         	hasMore = null;
         }
+
+				hideLoader();
       }
       else {
 				if (r.reason == "no data") {
@@ -1473,8 +1475,11 @@ function getMissionList() {
 				else {
 				  showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 				}
+
+				hideLoader();
       }
     }, function(request,status,error) {
+			hideLoader();
       monitor("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
     });
 }
@@ -1817,6 +1822,7 @@ function getFlightList(target) {
     if(r.result == "success") {
       if (r.data == null || r.data.length == 0) {
         showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+				hideLoader();
         return;
       }
 
@@ -1832,6 +1838,7 @@ function getFlightList(target) {
 			$('#historyMap').show();
 
       setFlightlistHistory(target, r.data);
+			hideLoader();
     }
     else {
     	if (r.reason == "no data") {
@@ -1840,6 +1847,8 @@ function getFlightList(target) {
     	else {
 	    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	    }
+
+			hideLoader();
     }
   }, function(request,status,error) {
     hideLoader();
