@@ -218,11 +218,19 @@ function initPilotCenter() {
 		});
 		$("#record_menu").addClass( "active" );
   }
+	else if (page_action == "publicflightview_detail") {
+		$("#main_contents").load("flight_view_detail.html", function() {
+			mapInit();
+			map3dInit();
+			flightDetailInit("public");
+		});
+		$("#record_menu").addClass( "active" );
+  }
   else if (page_action == "flightview_detail") {
 		$("#main_contents").load("flight_view_detail.html", function() {
 			mapInit();
 			map3dInit();
-			flightDetailInit();
+			flightDetailInit("private");
 		});
 		$("#record_menu").addClass( "active" );
   }
@@ -454,8 +462,12 @@ function monitorInit() {
 }
 
 
-function flightDetailInit() {
-	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+function flightDetailInit(target) {
+	if (target == "public")
+		document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
+	else
+		document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+
 	$("#head_title").text(document.title);
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
@@ -491,13 +503,17 @@ function flightDetailInit() {
 
   var record_name = getQueryVariable("record_name");
   if (record_name != null && record_name != "") {
-    showDataWithName(decodeURI(record_name));
+    showDataWithName(target, decodeURI(record_name));
   }
 }
 
 function flightrecordListInit(target) { //비행기록 목록
 
-	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+	if (target == "public")
+		document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
+	else
+		document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+
 	$("#head_title").text(document.title);
 
 	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
@@ -1850,8 +1866,8 @@ function setRecordTitle(msg) {
 	$("#record_name_field").text(msg);
 }
 
-function setFilter() {
-	setFlightRecordDataToView(null, true);
+function setFilter(target) {
+	setFlightRecordDataToView(target, null, true);
 	$('#btnForFilter').prop('disabled', true);
 }
 
@@ -1936,7 +1952,7 @@ function makeShareFlightData(name, user_email) {
 
 }
 
-function showDataWithName(name) {
+function showDataWithName(target, name) {
 
   setRecordTitle(name);
   cur_flightrecord_name = name;
@@ -1961,13 +1977,16 @@ function showDataWithName(name) {
 
     	if ("memo" in fdata) {
     		 $("#memoTextarea").val(fdata.memo);
+				 if (target == "public") {
+					 $("#memoTextarea").prop("disabled", true);
+				 }
     	}
 
-    	if ( ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {
+    	if ((target == "private") && ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {
 				 $("#btnForSharing").show();
     	}
 
-    	if ("sharedList" in fdata) {
+    	if (target == "private") && ("sharedList" in fdata)) {
     		 var sharedList = fdata.sharedList;
     		 var link_text = "";
     		 var user_text = "";
@@ -2029,14 +2048,22 @@ function showDataWithName(name) {
 		    $("#googlePhotoPlayer").hide();
 		  }
 
-		   if (moviePlayerVisible == true) {
-					hideMovieDataSet();
-				}
-				else {
-					showMovieDataSet();
-				}
+	   	if (moviePlayerVisible == true) {
+				hideMovieDataSet();
+			}
+			else {
+				showMovieDataSet();
+			}
 
-      setFlightRecordDataToView(fdata.data, false);
+			if (target == "public") {
+				$("#modifyBtnForMovieData").hide();
+				$("#btnForSharing").hide();
+				$("#btnForSetYoutubeID").hide();
+				$("#flightMemoBtn").hide();
+				hideMovieDataSet();
+			}
+
+      setFlightRecordDataToView(target, fdata.data, false);
 
       if (!isSet(fdata.cada) && fdata.cada == null) {
       	if (isSet(fdata.flat)) {
@@ -2260,7 +2287,12 @@ function appendFlightListTable(target, item) {
 	var memo = item.memo;
 
   var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
-  appendRow = appendRow + (tableCount + 1) + " | <a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+  appendRow = appendRow + (tableCount + 1) + " | ";
+	if (target == "public")
+		appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_public_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+	else
+		appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+
   appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
 
   if (isSet(flat)) {
@@ -2287,21 +2319,23 @@ function appendFlightListTable(target, item) {
 	if (target == "public") {
 		$("memoTextarea_" + curIndex).prop('disabled', true);
 		$("btnForUpdateMemo_" + curIndex).hide();
+		$("btnForRemoveFlightData_" + curIndex).hide();
+	}
+	else {
+		$('#btnForRemoveFlightData_' + curIndex).click(function () {
+			GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', langset);
+			askDeleteFlightData(name, curIndex);
+		});
+
+		$('#btnForUpdateMemo_' + curIndex).click(function () {
+	  	GATAGM('btnForUpdateMemo_' + curIndex, 'CONTENT', langset);
+	  	updateFlightMemo(curIndex);
+	  });
 	}
 
   $('#map_address_' + curIndex).click(function () {
   	GATAGM('map_address_' + curIndex, 'CONTENT', langset);
   	moveFlightHistoryMap(flat,flng);
-  });
-
-  $('#btnForRemoveFlightData_' + curIndex).click(function () {
-  	GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', langset);
-  	askDeleteFlightData(name, curIndex);
-  });
-
-  $('#btnForUpdateMemo_' + curIndex).click(function () {
-  	GATAGM('btnForUpdateMemo_' + curIndex, 'CONTENT', langset);
-  	updateFlightMemo(curIndex);
   });
 
 	var retSource;
@@ -2725,7 +2759,7 @@ function isNeedSkip(lat, lng, alt) {
 			return false;
 }
 
-function setFlightRecordDataToView(cdata, bfilter) {
+function setFlightRecordDataToView(target, cdata, bfilter) {
 
 			if(isSet(cdata) == false || cdata == "" || cdata == "-") {
 				if(bfilter == true) {
@@ -3978,7 +4012,7 @@ function showDataForDromi(index) {
 			      showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			    }
 			    else {
-			      setFlightRecordDataToView(r.data, false);
+			      setFlightRecordDataToView(target, r.data, false);
 			      hideLoader();
 			    }
 			  }, function(request,status,error) {
@@ -3990,7 +4024,7 @@ function showDataForDromi(index) {
 	}
 	else {
 		showLoader();
-  	setFlightRecordDataToView(item.data, false);
+  	setFlightRecordDataToView(target, item.data, false);
   	hideLoader();
   }
 
@@ -4161,7 +4195,7 @@ function uploadData(name, mname) {
           return;
         }
 
-        setFlightRecordDataToView(r.data, false);
+        setFlightRecordDataToView(target, r.data, false);
       }
     }, function(request,status,error) {
       cur_flightrecord_name = "";
