@@ -1986,7 +1986,7 @@ function showDataWithName(target, name) {
 				 }
     	}
 
-    	if ((target == "private") && ("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata) ) {
+    	if ((target == "private") && (("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata))) {
 				 $("#btnForSharing").show();
     	}
 
