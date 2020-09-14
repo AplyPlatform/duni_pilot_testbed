@@ -2253,14 +2253,14 @@ function appendFlightListTable(item) {
   		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
   }
 
-  appendRow = appendRow + "</div><div class='col-sm text-right'><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+  appendRow = appendRow + "</div><div class='col-sm text-right'><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
   if (isSet(memo)) {
   	 appendRow = appendRow + memo;
   }
 
   appendRow = appendRow + "</textarea>";
-  appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
+  appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></form></div></div>"; //form-group col-sm
   appendRow = appendRow + "</div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
       + "<div class='col-sm'>"
       + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
