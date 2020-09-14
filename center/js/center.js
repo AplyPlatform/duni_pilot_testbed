@@ -2245,15 +2245,15 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<div class='card shadow mb-4 id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'>";    
+  var appendRow = "<div class='card shadow mb-4 id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";    
   appendRow = appendRow + (tableCount + 1) + " | <a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
-  appendRow = appendRow + "</div><div class='row'><div class='col-sm'>";//row
+  appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
+  		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
   }
 
-  appendRow = appendRow + "</div><div class='col-sm'><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+  appendRow = appendRow + "</div><div class='col-sm text-right'><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
   if (isSet(memo)) {
   	 appendRow = appendRow + memo;
