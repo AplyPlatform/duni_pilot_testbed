@@ -2245,7 +2245,7 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<div class='card shadow mb-4 id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";    
+  var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";    
   appendRow = appendRow + (tableCount + 1) + " | <a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
   appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
 
