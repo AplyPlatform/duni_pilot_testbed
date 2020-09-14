@@ -2003,7 +2003,6 @@ function showDataWithName(target, name) {
       showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
     }
     else {
-
     	var fdata = r.data;
 
 			var n_title = name;
