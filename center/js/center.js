@@ -2262,8 +2262,8 @@ function appendFlightListTable(item) {
   }
 
   appendRow = appendRow + "</textarea>";
-  appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div>";
-  appendRow = appendRow + "</div><div class='row center text-xs font-weight-bold mb-1'><div class='col-sm'>" + dtimestamp + "</div>"
+  appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div>"; //form-group
+  appendRow = appendRow + "</div><div class='row'><div class='col-sm  center text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
       + "<div class='col-sm'>"
       + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
       + "</div></div></div></div>"; //col, row, card-body, card
