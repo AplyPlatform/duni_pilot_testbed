@@ -1925,12 +1925,12 @@ function makeShareFlightData(name, user_email) {
 							 premail = LANG_JSON_DATA[langset]['all_member_msg'];
 						 }
 
-	    		 	if (item.type == "user") {
-	    		 		user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-	    		 	}
-	    		 	else {
+		  		 	if (item.type == "user") {
+		  		 		user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+		  		 	}
+		  		 	else {
 
-	    		 	}
+		  		 	}
     		 });
 
     		 $("#shared_user").show();
@@ -1995,20 +1995,21 @@ function showDataWithName(target, name) {
 				 }
     	}
 
-    	if ((target == "private") && (("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata))) {
-				 $("#btnForSharing").show();
-    	}
-
     	if ((target == "private") && ("sharedList" in fdata)) {
+				$("#btnForPublic").show();
+
     		 var sharedList = fdata.sharedList;
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
-    		 	if (item.type == "user") {
-    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-    		 	}
-    		 	else {
+					var premail = item.email;
+					if (item.email == "public@duni.io") {
+						premail = LANG_JSON_DATA[langset]['all_member_msg'];
+						$("#btnForPublic").hide();
+					}
 
+					if (item.type == "user") {
+    		 		user_text += ("<div id='shareid_" + index + "'> " + premail+ " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
     		 	}
     		 });
 
@@ -2084,9 +2085,15 @@ function showDataWithName(target, name) {
 			if (target == "public") {
 				$("#modifyBtnForMovieData").hide();
 				$("#btnForSharing").hide();
+				$("#btnForPublic").hide();
 				$("#btnForSetYoutubeID").hide();
 				$("#flightMemoBtn").hide();
 				hideMovieDataSet();
+			}
+			else {
+				if ((target == "private") && (("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata))) {
+					 $("#btnForSharing").show();
+	    	}
 			}
 
       setFlightRecordDataToView(target, fdata.data, false);
@@ -2343,9 +2350,9 @@ function appendFlightListTable(target, item) {
 	var curIndex = tableCount;
 
 	if (target == "public") {
-		$("memoTextarea_" + curIndex).prop('disabled', true);
-		$("btnForUpdateMemo_" + curIndex).hide();
-		$("btnForRemoveFlightData_" + curIndex).hide();
+		$("#memoTextarea_" + curIndex).prop('disabled', true);
+		$("#btnForUpdateMemo_" + curIndex).hide();
+		$("#btnForRemoveFlightData_" + curIndex).hide();
 	}
 	else {
 		$('#btnForRemoveFlightData_' + curIndex).click(function () {
