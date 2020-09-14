@@ -1897,11 +1897,11 @@ function stopShareFlightData(index, name, target_id) {
 function makeShareFlightData(name, user_email) {
 
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
 
-	if (user_email == "public") {
-		jdata.daction = "make_public";
-	}
+	if (user_email == "public")
+		user_email = "public@duni.io";
+
+  var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
 
   showLoader();
 
@@ -1920,12 +1920,17 @@ function makeShareFlightData(name, user_email) {
     		 var link_text = "";
     		 var user_text = "";
     		 sharedList.some(function(item, index, array){
-    		 	if (item.type == "user") {
-    		 		user_text += ("<div id='shareid_" + index + "'> " + item.email + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-    		 	}
-    		 	else {
+						 var premail = item.email;
+						 if (item.email == "public@duni.io") {
+							 premail = LANG_JSON_DATA[langset]['all_member_msg'];
+						 }
 
-    		 	}
+	    		 	if (item.type == "user") {
+	    		 		user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+	    		 	}
+	    		 	else {
+
+	    		 	}
     		 });
 
     		 $("#shared_user").show();
@@ -1933,10 +1938,14 @@ function makeShareFlightData(name, user_email) {
     		 $("#shared_link").html(link_text);
 
     		 sharedList.some(function(item, index, array){
+					 	var premail = item.email;
+					 	if (item.email == "public@duni.io") {
+							premail = LANG_JSON_DATA[langset]['all_member_msg'];
+						}
     		 		$("#user_share_" + index).click(function() {
     		 			showAskDialog(
 								LANG_JSON_DATA[langset]['modal_title'],
-								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+								premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 								LANG_JSON_DATA[langset]['stop_share_label'],
 								false,
 								function() {stopShareFlightData(index, name, item.target);}
