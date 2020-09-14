@@ -2007,7 +2007,12 @@ function showDataWithName(target, name) {
     	var fdata = r.data;
 
 			if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
-				setRecordTitle(name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg']);
+				var n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
+				if ("user_email" in fdata) {
+						n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / (" + fdata.user_email + ")";
+				}
+
+				setRecordTitle(n_title);
 			}
 
     	moviePlayerVisible = false;
