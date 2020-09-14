@@ -1897,6 +1897,10 @@ function stopShareFlightData(index, name, target_id) {
 function makeShareFlightData(name, user_email) {
 
 	var userid = getCookie("dev_user_id");
+
+	if (user_email == "public")
+		user_email == "public@duni.io";
+
   var jdata = {"action" : "position", "daction" : "share", "name" : name, "clientid" : userid, "target" : user_email};
 
   showLoader();
@@ -2014,6 +2018,19 @@ function showDataWithName(target, name) {
     		 		});
     		 });
     	}
+
+			$("#btnForPublic").click(function() {
+    		GATAGM('btnForSharing', 'CONTENT', langset);
+    		showAskDialog(
+								LANG_JSON_DATA[langset]['modal_title'],//todo
+								LANG_JSON_DATA[langset]['msg_input_member_email'],
+								LANG_JSON_DATA[langset]['modal_confirm_btn'],
+								false,
+								function(email) {
+									makeShareFlightData(fdata.name, "public");
+								}
+				);
+    	});
 
     	$("#btnForSharing").click(function() {
     		GATAGM('btnForSharing', 'CONTENT', langset);
