@@ -1888,6 +1888,10 @@ function stopShareFlightData(index, name, target_id) {
     }
     else {
     	$("#shareid_" + index).hide();
+			if (target_id == "public@duni.io") {
+				$("#btnForPublic").show();
+			}
+			
     	hideLoader();
     }
   }, function(request,status,error) {
