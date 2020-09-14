@@ -2359,6 +2359,7 @@ function appendFlightListTable(target, item) {
 	var cada = item.cada;
 	var memo = item.memo;
 	var owner_email = item.user_email;
+	var sharedList = item.sharedList;
 
   var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
   appendRow = appendRow + (tableCount + 1) + " | ";
@@ -2414,7 +2415,10 @@ function appendFlightListTable(target, item) {
 	else {
 		$('#btnForRemoveFlightData_' + curIndex).click(function () {
 			GATAGM('btnForRemoveFlightData_' + curIndex, 'CONTENT', langset);
-			askDeleteFlightData(name, curIndex);
+			if (isSet(sharedList) && sharedList.length > 0) {
+				showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
+			}
+			else askDeleteFlightData(name, curIndex);
 		});
 
 		$('#btnForUpdateMemo_' + curIndex).click(function () {
