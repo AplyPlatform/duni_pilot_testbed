@@ -2017,15 +2017,20 @@ function showDataWithName(target, name) {
     		 $("#shared_link").html(link_text);
 
     		 sharedList.some(function(item, index, array){
-    		 		$("#user_share_" + index).click(function() {
-    		 			showAskDialog(
-								LANG_JSON_DATA[langset]['modal_title'],
-								item.email + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
-								LANG_JSON_DATA[langset]['stop_share_label'],
-								false,
-								function() {stopShareFlightData(index, name, item.target);}
-							);
-    		 		});
+							var premail = item.email;
+							if (item.email == "public@duni.io") {
+								premail = LANG_JSON_DATA[langset]['all_member_msg'];
+							}
+
+	    		 		$("#user_share_" + index).click(function() {
+	    		 			showAskDialog(
+									LANG_JSON_DATA[langset]['modal_title'],
+									premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+									LANG_JSON_DATA[langset]['stop_share_label'],
+									false,
+									function() {stopShareFlightData(index, name, item.target);}
+								);
+	    		 		});
     		 });
     	}
 
