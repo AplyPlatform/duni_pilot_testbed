@@ -2020,10 +2020,10 @@ function showDataWithName(target, name) {
     	}
 
 			$("#btnForPublic").click(function() {
-    		GATAGM('btnForSharing', 'CONTENT', langset);
+    		GATAGM('btnForPublic', 'CONTENT', langset);
     		showAskDialog(
-								LANG_JSON_DATA[langset]['modal_title'],//todo
-								LANG_JSON_DATA[langset]['msg_input_member_email'],
+								LANG_JSON_DATA[langset]['modal_title'],
+								LANG_JSON_DATA[langset]['msg_sure_for_public'],
 								LANG_JSON_DATA[langset]['modal_confirm_btn'],
 								false,
 								function(email) {
