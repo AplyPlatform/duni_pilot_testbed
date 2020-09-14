@@ -2245,7 +2245,7 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";    
+  var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
   appendRow = appendRow + (tableCount + 1) + " | <a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
   appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
 
@@ -3000,6 +3000,8 @@ function draw3dMap() {
 }
 
 function map3dInit() {
+	$("#map3dViewer").hide();//for the license
+	
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
   viewer = new Cesium.Viewer("main3dMap", {
 	  infoBox: false, //Disable InfoBox widget
@@ -3119,7 +3121,7 @@ function move3DmapIcon(lat, lng, alt, pitch, yaw, roll) {
 	      lat,
 	      alt
 	    );
-			
+
 	  yaw = yaw * 1;
 		yaw = yaw < 0 ? (360 + yaw) : yaw;
 		yaw = Math.PI/180 * yaw;
