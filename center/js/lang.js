@@ -31,7 +31,7 @@ var LANG_JSON_DATA = {
 				"top_menu_token" : "개발자 토큰",
 				"data_count_msg" : "님의 프로필",
 				"all_member_msg" : "전체 멤버",
-				"shared_record_data_msg" : " 는 공유받은 데이터입니다.",
+				"shared_record_data_msg" : "공유받은 데이터입니다.",
 				"map_kind_label" : "지도 종류",
 				"go_index_direct_label" : "바로가기",
 				"phone_label" : "전화번호",
