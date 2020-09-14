@@ -2247,13 +2247,13 @@ function appendFlightListTable(item) {
 
   var appendRow = "<div class='card shadow mb-4 id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'>";    
   appendRow = appendRow + (tableCount + 1) + " | <a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
-  appendRow = appendRow + "</div><div class='row'>";//row
+  appendRow = appendRow + "</div><div class='row'><div class='col-sm'>";//row
 
   if (isSet(flat)) {
   		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
   }
 
-  appendRow = appendRow + "</div><div class='row'><div class='col-sm'><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+  appendRow = appendRow + "</div><div class='col-sm'><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
   if (isSet(memo)) {
   	 appendRow = appendRow + memo;
@@ -2261,7 +2261,7 @@ function appendFlightListTable(item) {
 
   appendRow = appendRow + "</textarea>";
   appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
-  appendRow = appendRow + "<div class='col-sm'><div class='col-sm  center text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
+  appendRow = appendRow + "</div><div class='row'><div class='col-sm'><div class='col-sm  center text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
       + "<div class='col-sm'>"
       + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
       + "</div></div></div></div>"; //col, row, card-body, card
