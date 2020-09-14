@@ -54,7 +54,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main.html?page_action=center">        
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main.html?page_action=center">
         <div class="sidebar-brand-text text-left mx-3"><img src=imgs/duni_logo.png width=43 height=12> PILOT Center<sup>beta</sup></div>
       </a>
 
@@ -94,7 +94,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=recordupload" id="side_menu_flight_record_upload">기록 업로드</a>
-            <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=flightview" id="side_menu_flight_record_list">기록 보기</a>
+            <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=flightview" id="side_menu_flight_record_list">내 기록 보기</a>
+						<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=publicflightview" id="side_menu_flight_record_public_list">공개 기록 보기</a>
           </div>
         </div>
       </li>

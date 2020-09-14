@@ -206,7 +206,15 @@ function initPilotCenter() {
 		$("#main_contents").load("flight_view.html", function() {
 			mapInit();
 			flightHistoryMapInit();
-			flightrecordListInit();
+			flightrecordListInit("private");
+		});
+		$("#record_menu").addClass( "active" );
+  }
+	else if (page_action == "publicflightview") {
+		$("#main_contents").load("flight_view.html", function() {
+			mapInit();
+			flightHistoryMapInit();
+			flightrecordListInit("public");
 		});
 		$("#record_menu").addClass( "active" );
   }
@@ -487,13 +495,11 @@ function flightDetailInit() {
   }
 }
 
-function flightrecordListInit() { //비행기록 목록
+function flightrecordListInit(target) { //비행기록 목록
 
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
 	$("#head_title").text(document.title);
 
-
-	$("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
 	$("#btnForLoadFlightList").text(LANG_JSON_DATA[langset]['btnForLoadFlightList']);
 
 	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
@@ -504,12 +510,12 @@ function flightrecordListInit() { //비행기록 목록
 
   $("#btnForSearchFlightRecord").click(function() {
 		GATAGM('btnForSearchFlightRecord', 'CONTENT', langset);
-  	searchFlightRecord($("#search_key").val());
+  	searchFlightRecord(target, $("#search_key").val());
 	});
 
   $('#btnForLoadFlightList').click(function() {
   	GATAGM('btnForLoadFlightList', 'CONTENT', langset);
-  	getFlightList();
+  	getFlightList(target);
   });
 
   hideLoader();
@@ -1718,7 +1724,7 @@ function searchMission(keyword) {
   });
 }
 
-function searchFlightRecord(keyword) {
+function searchFlightRecord(target, keyword) {
 	if (isSet(keyword) == false) {
 		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 		return;
@@ -1726,6 +1732,10 @@ function searchFlightRecord(keyword) {
 
 	var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "find_record", "keyword" : keyword, "clientid" : userid};
+
+	if (target == "public") {
+		jdata.daction = "find_public_record";
+	}
 
   hasMore = "";
 
@@ -1752,7 +1762,7 @@ function searchFlightRecord(keyword) {
 			flightRecArray = [];
 			$('#dataTable-Flight_list').empty();
 			tableCount = 0;
-      setFlightlistHistory(r.data);
+      setFlightlistHistory(target, r.data);
     }
     else {
     	if (r.reason == "no data") {
@@ -1768,9 +1778,13 @@ function searchFlightRecord(keyword) {
   });
 }
 
-function getFlightList() {
+function getFlightList(target) {
   var userid = getCookie("dev_user_id");
   var jdata = {"action": "position", "daction": "download", "clientid" : userid};
+
+	if (target == "public") {
+		jdata.daction = "download_public";
+	}
 
   if (isSet(hasMore)) {
   	jdata["morekey"] = hasMore;
@@ -1796,7 +1810,7 @@ function getFlightList() {
 
 			$('#historyMap').show();
 
-      setFlightlistHistory(r.data);
+      setFlightlistHistory(target, r.data);
     }
     else {
     	if (r.reason == "no data") {
@@ -1814,12 +1828,12 @@ function getFlightList() {
 
 
 
-function setFlightlistHistory(data) {
+function setFlightlistHistory(target, data) {
   if (data == null || data.length == 0)
     return;
 
   data.forEach(function(item) {
-    appendFlightListTable(item);
+    appendFlightListTable(target, item);
     flightRecArray.push(item);
   });
 }
@@ -2235,7 +2249,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
   	$(address_id).text(address);
 }
 
-function appendFlightListTable(item) {
+function appendFlightListTable(target, item) {
 	var name = item.name;
 	var dtimestamp = item.dtime;
 	var data = item.data;
@@ -2268,7 +2282,12 @@ function appendFlightListTable(item) {
 
   $('#dataTable-Flight_list').append(appendRow);
 
-  var curIndex = tableCount;
+	var curIndex = tableCount;
+
+	if (target == "public") {
+		$("memoTextarea_" + curIndex).prop('disabled', true);
+		$("btnForUpdateMemo_" + curIndex).hide();
+	}
 
   $('#map_address_' + curIndex).click(function () {
   	GATAGM('map_address_' + curIndex, 'CONTENT', langset);
