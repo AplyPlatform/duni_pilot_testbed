@@ -1988,6 +1988,9 @@ function showDataWithName(target, name) {
 
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "download_spe", "name" : name, "clientid" : userid};
+  
+  if (target == "public")
+  	jdata.daction = "download_public_spe";
 
   showLoader();
 
