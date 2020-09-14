@@ -2009,13 +2009,13 @@ function showDataWithName(target, name) {
 			var n_title = name;
 			if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
 				n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
-				if ("user_email" in fdata) {
-						n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / (" + fdata.user_email + ")";
+				if ("owner_email" in fdata) {
+						n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / " + fdata.owner_email;
 				}
 			}
 			else {
-				if ((target == "public") && "user_email" in fdata) {
-						n_title = name + " / " + fdata.user_email;
+				if ((target == "public") && "owner_email" in fdata) {
+						n_title = name + " / " + fdata.owner_email;
 				}
 			}
 
@@ -2358,7 +2358,7 @@ function appendFlightListTable(target, item) {
 	var address = item.address;
 	var cada = item.cada;
 	var memo = item.memo;
-	var owner_email = item.user_email;
+	var owner_email = item.owner_email;
 	var sharedList = item.sharedList;
 
   var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
