@@ -2263,7 +2263,7 @@ function appendFlightListTable(item) {
   appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
   appendRow = appendRow + "</div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
       + "<div class='col-sm'>"
-      + "<button class='btn btn-default text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
+      + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
       + "</div></div></div></div>"; //col, row, card-body, card
 
   $('#dataTable-Flight_list').append(appendRow);
