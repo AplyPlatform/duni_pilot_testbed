@@ -196,9 +196,9 @@ function initPilotCenter() {
 		});
 		$("#record_menu").addClass( "active" );
   }
-  else if (page_action == "flightlist") {
-		$("#main_contents").load("flight_list.html", function() {
-			flightListInit();
+  else if (page_action == "recordupload") {
+		$("#main_contents").load("record_upload.html", function() {
+			flightrecordUploadInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
@@ -206,7 +206,7 @@ function initPilotCenter() {
 		$("#main_contents").load("flight_view.html", function() {
 			mapInit();
 			flightHistoryMapInit();
-			flightViewInit();
+			flightrecordListInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
@@ -365,7 +365,7 @@ function designInit() {
 
 
 
-function flightListInit() {
+function flightrecordUploadInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
 	$("#head_title").text(document.title);
@@ -487,7 +487,7 @@ function flightDetailInit() {
   }
 }
 
-function flightViewInit() { //비행기록 목록
+function flightrecordListInit() { //비행기록 목록
 
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
 	$("#head_title").text(document.title);
@@ -1750,7 +1750,7 @@ function searchFlightRecord(keyword) {
 			$('#historyMap').show();
 
 			flightRecArray = [];
-			$('#dataTable-Flight_list tbody').empty();
+			$('#dataTable-Flight_list').empty();
 			tableCount = 0;
       setFlightlistHistory(r.data);
     }
@@ -2245,27 +2245,30 @@ function appendFlightListTable(item) {
 	var cada = item.cada;
 	var memo = item.memo;
 
-  var appendRow = "<tr class='odd gradeX' id='flight-list-" + tableCount + "'><td width='10%' class='text-xs font-weight-bold mb-1' bgcolor='#fff'>" + (tableCount + 1) + "</td>";
-  appendRow = appendRow + "<td class='center' bgcolor='#eee'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+  var appendRow = "<div class='card shadow mb-4 id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'>";
+  
+  appendRow = appendRow + "<div class='col-sm'>" + (tableCount + 1) + "</div>";
+  appendRow = appendRow + "<div class='col-sm'><a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \"" + langset + "\");' href='main.html?page_action=flightview_detail&record_name=" + encodeURIComponent(name) + "'>" + name + "</a>";
+  appendRow = appendRow + "</div></div><div class='row'>;//row
 
   if (isSet(flat)) {
-  		appendRow = appendRow + "<br><div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'></div><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
+  		appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;' class='panel panel-primary'><br><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
   }
 
-  appendRow = appendRow + "<br><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+  appendRow = appendRow + "<div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
   if (isSet(memo)) {
   	 appendRow = appendRow + memo;
   }
 
   appendRow = appendRow + "</textarea>";
-  appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></td>";
-  appendRow = appendRow + "<td width='30%' class='center text-xs font-weight-bold mb-1' bgcolor='#fff'> " + dtimestamp + "</td>"
-      + "<td width='20%' bgcolor='#fff'>"
-      + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button></td>"
-      + "</tr>";
+  appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div>";
+  appendRow = appendRow + "</div><div class='row center text-xs font-weight-bold mb-1'><div class='col-sm'>" + dtimestamp + "</div>"
+      + "<div class='col-sm'>"
+      + "<button class='btn btn-primary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] +  "</button>"
+      + "</div></div></div></div>"; //col, row, card-body, card
 
-  $('#dataTable-Flight_list > tbody:last').append(appendRow);
+  $('#dataTable-Flight_list').append(appendRow);
 
   var curIndex = tableCount;
 
@@ -2397,7 +2400,7 @@ function deleteFlightData(name, index) {
 
 
 function removeTableRow(rowname) {
-  $("#" + rowname).remove();
+  $("#" + rowname).hide();
 }
 
 function askRemoveMissionItem(name, trname) {
