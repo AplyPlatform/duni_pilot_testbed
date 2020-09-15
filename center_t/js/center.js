@@ -177,6 +177,7 @@ function initPilotCenter() {
   else if (page_action == "design") {
 		$("#main_contents").load("design.html", function() {
 				mapInit();
+				addObjectTo2dMap("private", "drone");
 				designInit();
 		});
 		$("#mission_menu").addClass( "active" );
@@ -204,6 +205,7 @@ function initPilotCenter() {
   else if (page_action == "flightview") {
 		$("#main_contents").load("flight_view.html", function() {
 				mapInit();
+				//addObjectTo2dMap("private", "drone");
 				flightHistoryMapInit();
 				flightrecordListInit("private");
 		});
@@ -3402,7 +3404,7 @@ function addObjectTo2dMap(owner, kind) {
       image: current_pos_image
   }));      
   
-  vectorSource.addfeature(current_pos);   
+  vectorSource.addFeature(current_pos);   
   
   //todo
   current_object_pos[owner].push(current_pos);
