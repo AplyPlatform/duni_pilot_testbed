@@ -7,6 +7,12 @@
         </div>
 
         <div class="card-body">
+        		<div class="row">
+        			<label for="target_objects" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="monitor_target_label">모니터링 대상</label>
+							<div class="col" id="target_objects">
+							</div>
+						</div>
+						
 						<div class="row">
 							<div class="col">
             		<button class="btn btn-primary" type="button" id="btnStartMon">
@@ -18,12 +24,7 @@
 									<button class='btn btn-info text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
 								</span>
 							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col" id="target_objects">
-							</div>
-						</div>
+						</div>												
 						
         		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
 
@@ -37,9 +38,9 @@
               </div>
 
          		</div>
-
-       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
-					<canvas id="lineGraph" name="lineGraph"></canvas>
+         		         		
+	       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
+						<canvas id="lineGraph" name="lineGraph"></canvas>
 				</div>
 
       </div>

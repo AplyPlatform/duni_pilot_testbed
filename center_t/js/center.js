@@ -435,6 +435,7 @@ function monitorInit() {
 
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
+	$("#monitor_target_label").text(LANG_JSON_DATA[langset]['monitor_target_label']);
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
 
@@ -1302,13 +1303,15 @@ function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
     isFirst = true;
-		$("#btnForFilter").hide();
+		$("#btnForFilter").hide();		
+		$("#monitor_target_label").hide();
     $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStartMon']);
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
   }
   else {		
-		$("#btnForFilter").show();
+  	$("#btnForFilter").show();
+		$("#monitor_target_label").show();		
   	nextMon();
   }
 }
