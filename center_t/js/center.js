@@ -3363,7 +3363,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 	    hpRoll,
 	    Cesium.Ellipsoid.WGS84,
 	    fixedFrameTransform,
-	    planePrimitive[owner][index].modelMatrix
+	    planePrimitives[owner][index].modelMatrix
 	  );
 	}
 }
