@@ -1355,8 +1355,14 @@ function first3DcameraMove(owner, fobject) {
   });
 }
 
+var currentMonitorObjects;
+var currentMonitorIndex = 0;
+var currentMonitorOwner = "private";
+
 function processMon(owner, output) {
-	if (!isSet(kf_lat)) {
+	if (!isSet(currentMonitorObjects)) {
+		currentMonitorObjects = {};
+		
 		kf_lat = {};
 		kf_lng = {};
 		kf_alt = {};
@@ -1365,7 +1371,9 @@ function processMon(owner, output) {
 		kf_roll = {};
 	}
 	
-	if (!("owner" in kf_lat)) {
+	if (!("owner" in currentMonitorObjects)) {
+		currentMonitorObjects[owner] = 0;
+		
 		kf_lat[owner] = [];
 		kf_lng[owner] = [];
 		kf_alt[owner] = [];
@@ -1378,7 +1386,7 @@ function processMon(owner, output) {
 		kf_alt[owner].push(new KalmanFilter());
 		kf_yaw[owner].push(new KalmanFilter());
 		kf_pitch[owner].push(new KalmanFilter());
-		kf_roll[owner].push(new KalmanFilter());			
+		kf_roll[owner].push(new KalmanFilter());
 	}
 
 	var fobject;
@@ -1393,8 +1401,7 @@ function processMon(owner, output) {
 			kf_pitch[owner].push(new KalmanFilter());
 			kf_roll[owner].push(new KalmanFilter());	
 		}
-		
-		
+				
 		fobject.forEach(function(item, index){			
 			if (bFilterOn) {
 				item.lat = kf_lat[owner][index].filter(item.lat * 1);
@@ -1411,8 +1418,8 @@ function processMon(owner, output) {
 				kf_yaw[owner][index].filter(item.yaw * 1);
 				kf_pitch[owner][index].filter(item.pitch * 1);
 				kf_roll[owner][index].filter(item.roll * 1);
-			}			
-		});
+			}									
+		});							
 	}
 	else {		
 		if (bFilterOn) {
@@ -1433,14 +1440,39 @@ function processMon(owner, output) {
 		}		
 		
 		fobject = [output];
-	}
+	}		
+	
+	if (currentMonitorObjects[owner] == 0) {
+		currentMonitorObjects[owner] = fobject.length;
 		
+		var replaced_str = owner.replace(/@/g, '_at_');
+		var selectorId = "object_sel_" + replaced_str;
+		var selHtml = "<select class='form-control form-control-sm' id='" + selectorId + "'></select>";				  							
+		$("#target_objects").append(selHtml);
+		
+		fobject.forEach(function(item, index){
+			$("#" + selectorId).append($('<option>', {
+			    value: index,
+			    text: (index + 1) + "-" + owner;
+			}));
+		});
+		
+		$("#" + selectorId).on('change', function() {
+		  selectMonitorIndex(owner, this.value);
+		});
+	}
+					
 	if (isFirst) {
   	isFirst = false;  	  	
   	first3DcameraMove(owner, fobject);
 	}
 	else nexttour(owner, fobject);
 	  
+}
+
+function selectMonitorIndex(owner, index) {
+	currentMonitorIndex = index;
+	currentMonitorOwner = owner;
 }
 
 function nextMon() {
@@ -1557,9 +1589,12 @@ function appendMissionsToMonitor(mission) {
 }
 
 function moveToPositionOnMap(owner, index, lat, lng, alt, yaw, roll, pitch) {
-  setRollStatus(roll);
-  setYawStatus(yaw);
-  setPitchStatus(pitch);
+	if (currentMonitorIndex == index && currentMonitorOwner == owner) {
+	  setRollStatus(roll);
+	  setYawStatus(yaw);
+	  setPitchStatus(pitch);
+	}
+	
   move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll);
   move2DMapIcon(owner, index, lat, lng, alt, yaw);
 }
@@ -3405,8 +3440,7 @@ function addObjectTo2dMap(owner, kind) {
   }));      
   
   vectorSource.addFeature(current_pos);   
-  
-  //todo
+    
   current_object_pos[owner].push(current_pos);
   current_object_pos_image[owner].push(current_pos_image);
 }
