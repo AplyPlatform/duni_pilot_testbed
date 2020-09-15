@@ -1,0 +1,173 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="record_name_field">-</a>
+</div>
+
+<!-- Content Row -->
+
+<div class="row">
+	 <div class="col-xl-6 col-md-6 mb-4">
+      <div class="card shadow mb-2">
+        <div class="card-body h-400">
+        			<div id="youTubePlayer"></div>
+        </div>
+
+        <div class="card-body">
+        		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
+
+          	<div id="movieDataSet">
+            	<div>
+				        <img id="channel-thumbnail" width="50">
+				        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
+				      </div>
+
+				      <div>
+				        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="title_for_moviedata_label">영상 제목</label>
+				        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
+				      </div>
+				      <div>
+				        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">영상 설명</label>
+				        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
+				      </div>
+				      <div>
+				        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="privacy_for_moviedata_label">영상 공개수준</label>
+				        <select id="privacy-status" class="form-control">
+				          <option value="public" id="option_public_label">공개</option>
+				          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+				          <option value="private" id="option_private_label">비공개</option>
+				        </select>
+				      </div>
+
+				      <div class="input-group">
+				        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+				        <span class="input-group-append">
+				        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
+				        </span>
+				      </div>
+
+				      <div class="during-upload">
+				        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% done (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> bytes)</p>
+				        <progress id="upload-progress" max="1" value="0"></progress>
+				      </div>
+
+				      <div class="post-upload">
+				        <ul id="post-upload-status"></ul>
+				        <div id="player"></div>
+				      </div>
+				      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+
+
+              <label for="movieData" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
+              <div class="input-group">
+                    <input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="movieData">
+                    <span class="input-group-append">
+                      <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
+                    </span>
+              </div>
+
+         		</div>
+
+       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
+					<canvas id="lineGraph" name="lineGraph"></canvas>
+				</div>
+
+
+
+
+      </div>
+   </div>
+
+   <!-- List -->
+  <div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+    				<div class="card-body h-400">
+		            <div id="mainMap" class="map"></div>
+						</div>
+						<div class="card-body">
+								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
+								<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+						</div>
+						<div class="card-body">
+								<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<span class="input-group">
+                      	<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
+                    	</span>
+                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																	       <option value="Aerial">Aerial</option>
+																	       <option value="AerialWithLabels" selected>Aerial with labels</option>
+																	       <option value="Road">Road</option>
+													</select>
+											</div>
+                    </div>
+                    <div class="col mr-2">
+                      <table width="100%" class="table table-condensed">
+                              <thead>
+                                  <tr>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Head <span id="yawText"></span></th>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              		<tr>
+                              			<td><canvas id="rollCanvas" width="60" height="60"></canvas></td>
+                              			<td><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></td>
+                              			<td><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></td>
+                              		</tr>
+                              </tbody>
+												</table>
+                    </div>
+                </div>
+						</div>
+
+						<div class="card-body h-400" id="map3dViewer">
+		            <div id="main3dMap"></div>
+						</div>
+
+						<div class="card-body">
+							<form>
+    							<div class='form-group'>
+    								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
+    								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
+    								<br>
+    								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
+    							</div>
+							</form>
+							<br>
+							<span id="position_info"> ... </span>
+              <span id="monitor"></span>
+						</div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- List -->
+  <div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+    		<div class="card-body">
+          <div class="row">
+            <div class="col">
+      		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
+            </div>
+            <div class="col">
+                <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
+            </div>
+            <div class="col">
+        		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
+            </div>
+      	</div>
+
+      	<div class="card-body">
+      		<div id="shared_user"></div>
+      	</div>
+
+      	<div class="card-body">
+      		<div id="shared_link"></div>
+      	</div>
+    </div>
+  </div>
+</div>

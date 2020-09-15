@@ -1,0 +1,128 @@
+<!-- Content Row -->
+<div class="row">
+	 <div class="col-xl-6 col-md-6 mb-4">
+      <div class="card border-left-primary shadow py-2">
+      	<div class="card-header py-3">
+        	<h6 class="m-0 font-weight-bold text-primary" id="msg_dji_file_upload">DJI 비행기록 파일 업로드</h6>
+      	</div>
+        <div class="card-body">
+
+            <div class="col-auto">
+            	<form enctype="multipart/form-data" method="post" id="djifileform">
+            		<div class="input-group">
+							    <input type="file" class="form-control-file form-control bg-light border-0 small" id="file">
+							    <input type="hidden" name="name" id="djifname">
+							    <span class="input-group-append">
+								    <button class="btn btn-primary" type="button" id="btnForUploadFlightList">
+                                  업로드
+                		</button>
+                	</span>
+							  </div>
+							</form>
+            </div>
+
+        </div>
+        <div class="card-body">
+        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">
+																							    비행기록 파일 얻는 방법 (클릭)
+						</a>
+
+						<div class="collapse" id="collapseRecordFileParams">
+							<br>
+							<hr size=1>
+          		<p><b>안드로이드</b></p>
+							<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
+							<br>
+							<p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>
+							<p>- <a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
+							<p>- <a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
+							<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
+						</div>
+        </div>
+      </div>
+   </div>
+
+
+	 <div class="col-xl-6 col-md-6 mb-4">
+      <div class="card border-left-info shadow py-2">
+      	<div class="card-header py-3">
+        	<h6 class="m-0 font-weight-bold text-info" id="msg_duni_file_upload">DUNI 비행기록 파일 업로드</h6>
+      	</div>
+        <div class="card-body">
+
+            <div class="col-auto">
+            	<form enctype="multipart/form-data" method="post" id="dunifileform">
+            		<div class="input-group">
+							    <input type="file" class="form-control-file form-control bg-light border-0 small" id="dunufile">
+							    <input type="hidden" name="name" id="dunifname">
+							    <span class="input-group-append">
+								    <button class="btn btn-info" type="button" id="btnForUploadDUNIFlightList">
+                                  업로드
+                		</button>
+                	</span>
+							  </div>
+							</form>
+            </div>
+
+        </div>
+        <div class="card-body">
+        		<a href="#" id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">
+																							    비행기록 파일 포맷 (클릭)
+						</a>
+
+						<div class="collapse" id="collapseDUNIRecordFileParams">
+							<br>
+							<hr size=1>
+<pre>
+[
+{
+"lat" : 123.123, // Latitude
+"lng" : 37.11, // Longitude
+"alt" : 5.52, // Altitude
+"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
+"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"speed" : 2.1, // Speed (Optional)
+"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+"actparam" : 0, // Parameter for Action ex) 1 (Optional)
+"dtimestamp" : 1569903583000, // timestamp (Optional)
+"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
+},
+
+{
+"lat" : 123.123, // Latitude
+"lng" : 37.11, // Longitude
+"alt" : 5.52, // Altitude
+"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
+"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"speed" : 2.1, // Speed (Optional)
+"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+"actparam" : 0, // Parameter for Action ex) 1 (Optional)
+"dtimestamp" : 1569903583000, // timestamp (Optional)
+"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
+},
+
+{
+"lat" : 123.123, // Latitude
+"lng" : 37.11, // Longitude
+"alt" : 5.52, // Altitude
+"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
+"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
+"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
+"speed" : 2.1, // Speed (Optional)
+"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
+"actparam" : 0, // Parameter for Action ex) 1 (Optional)
+"dtimestamp" : 1569903583000, // timestamp (Optional)
+"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
+}
+]
+</pre>
+						</div>
+        </div>
+      </div>
+   </div>
+</div>

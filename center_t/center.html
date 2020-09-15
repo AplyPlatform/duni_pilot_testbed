@@ -1,0 +1,119 @@
+<div class="row">
+
+  <div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="center_about_title">이곳에 관하여...</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body" id="center_about_content">
+            <p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>
+            <p>디자인 한 비행계획은 DUNI앱과 DJI제품의 드론에서 사용 할 수 있습니다. DUNI앱은 현재 개발중이며 곧 안드로이드/iOS버전이 배포될 예정입니다. ('비행계획' > '계획 설계' 메뉴)</p>
+            <p>DUNI앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.droneplay.io/ target=_new>이곳</a>에서 확인할 수 있습니다.</p>
+            <p>DJI 비행기록 파일과 드론 영상이 있는 유튜브 URL을 업로드하면 자세한 비행기록을 확인할 수 있습니다. ('비행기록' > '기록 업로드' 메뉴)</p>
+            <p>상단의 <i class="fa fa-user fa-fw"></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>
+        </div>
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="qa_label">최근 게시물</h6>
+        </div>
+
+        <div class="card-body">
+					<iframe id="forum_embed"
+						src="javascript:void(0)"
+							scrolling="no"
+						frameborder="0"
+						width="100%"
+						height="400">
+					</iframe>
+					<script type="text/javascript">
+						document.getElementById('forum_embed').src =
+							 'https://groups.google.com/forum/embed/?place=forum/dunicomm'
+							 + '&showsearch=true&showpopout=true&showtabs=false'
+							 + '&parenturl=' + encodeURIComponent(window.location.href);
+					</script>
+        </div>
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="center_example_title">사용 예시</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <p><iframe width="100%" height="350" src="https://www.youtube.com/embed/rQzV7WLQdxA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>
+        </div>
+    </div>
+  </div>
+
+
+	<div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+
+
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        	<h6 class="m-0 font-weight-bold text-primary" id="data_title">데이터 현황</h6>
+      	</div>
+
+        <div class="card-body">
+          <span class="text-xs text-default mb-1" id="msg_notice">* 전체 비행시간은 20209 8월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.</span>
+
+        	<div class="chart-pie pt-4 pb-2">
+            <canvas id="myPieChart"></canvas>
+          </div>
+          <div class="mt-4 text-center small">
+            <span class="mr-2">
+              <i class="fas fa-circle text-primary"></i> <span id="r_count_label">비행기록 수</span> <strong id="r_count_label_time">0</strong>
+            </span>
+            <span class="mr-2">
+              <i class="fas fa-circle text-success"></i> <span id="f_count_label">비행계획 수</span> <strong id="f_count_label_time">0</strong>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body">
+        	<div class="row no-gutters align-items-center">
+        			<i class="fas fa-circle text-info"></i>&nbsp; <span id="a_time_label">전체 비행시간</span> <strong id="a_time_label_time">0</strong> <strong id="a_time_min_label">Min.</strong>
+          </div>
+        </div>
+
+
+        <div class="card-body">
+        	<div class="col">
+              <div class="input-group">
+              	<div class="input-group-prepend">
+              		<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+              	</div>
+	              <input type="text" id="badge_nickname" class="form-control bg-light border-0 small"  name="badge_nickname" placeholder="" value="">
+	              <div class="input-group-append">
+	                <button class='btn btn-primary' type='button' id="btnForBadge">배지 만들기</button>
+	              </div>
+	            </div>
+		      </div>
+          <div class="mt-4" id="badge_view">
+          		<div class="mt-4 small">
+
+          			<div class="form-group">
+								  <div class="row no-gutters align-items-center">
+								  	<span id="badge_code_label">배지코드</span>&nbsp;&nbsp;  |  &nbsp;&nbsp;<a href="#" data-toggle="collapse" data-target="#badgeHelpContent" aria-expanded="false" aria-controls="badgeHelpContent"><div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="help_label">Help</div></a>
+								  </div>
+
+								  <div class="collapse" id="badgeHelpContent">
+
+									</div>
+
+								  <textarea class="form-control rounded-0" id="badge_code" rows="6"></textarea>
+								</div>
+
+          		</div>
+
+          		<iframe id="badge_code_iframe" width="300" height="470" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+
+        </div>
+
+
+    </div>
+  </div>
+</div>
