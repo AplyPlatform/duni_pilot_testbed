@@ -1456,7 +1456,7 @@ function processMon(owner, output) {
 		fobject.forEach(function(item, index){
 			$("#" + selectorId).append($('<option>', {
 			    value: index,
-			    text: (index + 1) + "-" + owner;
+			    text: (index + 1) + "-" + owner
 			}));
 			
 			addObjectTo3DMap(owner, "drone");
