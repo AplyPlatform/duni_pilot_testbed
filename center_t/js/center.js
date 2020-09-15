@@ -1371,7 +1371,7 @@ function processMon(owner, output) {
 		kf_roll = {};
 	}
 	
-	if (!("owner" in currentMonitorObjects)) {
+	if (!(owner in currentMonitorObjects)) {
 		currentMonitorObjects[owner] = 0;
 		
 		kf_lat[owner] = [];
