@@ -1419,6 +1419,9 @@ function processMon(owner, output) {
 				kf_pitch[owner][index].filter(item.pitch * 1);
 				kf_roll[owner][index].filter(item.roll * 1);
 			}									
+			
+			addObjectTo3DMap(owner, "drone");
+			addObjectTo2dMap(owner, "drone");
 		});							
 	}
 	else {		
@@ -1439,7 +1442,7 @@ function processMon(owner, output) {
 			kf_roll[owner][0].filter(output.roll * 1);
 		}		
 		
-		fobject = [output];
+		fobject = [output];		
 	}		
 	
 	if (currentMonitorObjects[owner] == 0) {
@@ -1455,6 +1458,9 @@ function processMon(owner, output) {
 			    value: index,
 			    text: (index + 1) + "-" + owner;
 			}));
+			
+			addObjectTo3DMap(owner, "drone");
+			addObjectTo2dMap(owner, "drone");
 		});
 		
 		$("#" + selectorId).on('change', function() {
