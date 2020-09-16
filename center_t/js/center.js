@@ -3473,7 +3473,7 @@ function remove2dObjects() {
 	  	owner.forEach(function(cur_pos){
 	  		vectorSource.removeFeature(cur_pos);
 	  	});
-	  }  	
+	  });
 	}
   
   current_object_pos_image = null;
