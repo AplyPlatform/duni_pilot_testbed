@@ -1483,9 +1483,16 @@ function processMon(owner, output) {
 			addObjectTo2dMap(owner, "drone");
 		});
 		
+		/*
 		$("#" + selectorId).on('change', function() {
 		  selectMonitorIndex(owner, this.value);
 		});								
+		*/
+		
+		$("#" + selectorId + " > option").on("click", function () {
+       var sval = $("#" + selectorId + " option:selected" ).val();
+       selectMonitorIndex(owner, sval);
+    })
 	}
 					
 	if (isFirst) {
