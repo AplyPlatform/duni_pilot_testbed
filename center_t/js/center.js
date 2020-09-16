@@ -1450,7 +1450,7 @@ function processMon(owner, output) {
 	
 	if (currentMonitorObjects[owner] == 0) {
 		currentMonitorObjects[owner] = fobject.length;
-		
+				
 		var replaced_str = owner.replace(/@/g, '_at_');
 		replaced_str = replaced_str.replace(/\./g, '_dot_');
 		var selectorId = "object_sel_" + replaced_str;
@@ -1469,11 +1469,12 @@ function processMon(owner, output) {
 		
 		$("#" + selectorId).on('change', function() {
 		  selectMonitorIndex(owner, this.value);
-		});
+		});								
 	}
 					
 	if (isFirst) {
-  	isFirst = false;  	  	
+  	isFirst = false;
+  	selectMonitorIndex(owner, 0);
   	first3DcameraMove(owner, fobject);
 	}
 	else nexttour(owner, fobject);
