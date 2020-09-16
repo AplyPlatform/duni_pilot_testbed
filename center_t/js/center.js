@@ -1311,7 +1311,8 @@ function startMon() {
   }
   else {		
   	$("#btnForFilter").show();
-		$("#monitor_target_label").show();		
+		$("#monitor_target_label").show();
+		$("#target_objects").remove();
   	nextMon();
   }
 }
@@ -3419,6 +3420,30 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 	}
 }
 
+function style2DObjectFunction(textMsg) {
+  return [
+    new ol.style.Style(
+    	{
+	      image: new ol.style.Icon(({
+	      	opacity: 0.55,
+	        crossOrigin: 'anonymous',
+	        scale: 1.5,
+	        src: current_pos_image
+	      	}))
+	      ,
+	      text: new ol.style.Text({
+	        font: '12px Calibri,sans-serif',
+	        fill: new ol.style.Fill({ color: '#000' }),
+	        stroke: new ol.style.Stroke({
+	          color: '#fff', width: 2
+	        }),
+	        // get the text from the feature - `this` is ol.Feature
+	        // and show only under certain resolution
+	        text: map.getView().getZoom() > 12 ? textMsg : ''
+	      	})
+    	})
+  ];
+}
 
 function addObjectTo2dMap(owner, kind) {
 	if (!isSet(vectorSource)) return;
@@ -3451,9 +3476,7 @@ function addObjectTo2dMap(owner, kind) {
         src: dsrc
       }));
 
-  current_pos.setStyle(new ol.style.Style({
-      image: current_pos_image
-  }));      
+  current_pos.setStyle(style2DObjectFunction(owner));      
   
   vectorSource.addFeature(current_pos);   
     
