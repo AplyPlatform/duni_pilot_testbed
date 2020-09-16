@@ -3345,8 +3345,8 @@ function addObjectTo3DMap(owner, kind) {
 
 function map3dInit() {
 	// ----[
-	//$("#map3dViewer").hide();//for the license
-	//return;
+	$("#map3dViewer").hide();//for the license
+	return;
 	// ---]
 
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
@@ -3447,6 +3447,11 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 }
 
 function style2DObjectFunction(pImage, textMsg) {
+	
+  if (textMsg == "private") {
+	textMsg = "";
+  }
+
   return [
     new ol.style.Style(
     	{
