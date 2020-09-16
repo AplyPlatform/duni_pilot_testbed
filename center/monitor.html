@@ -7,19 +7,27 @@
         </div>
 
         <div class="card-body">
+        		<div class="row">
+        			<div class="col pt-4">
+        				<span for="target_objects" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="monitor_target_label">모니터링 대상</span>
+        			</div>
+							<div class="col pt-4" id="target_objects">
+							</div>
+						</div>
+						
 						<div class="row">
-							<div class="col">
+							<div class="col pt-4">
             		<button class="btn btn-primary" type="button" id="btnStartMon">
                                       모니터링 시작하기
 								</button>
 							</div>
-							<div class="col">
+							<div class="col pt-4">
 								<span class="input-group">
 									<button class='btn btn-info text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
 								</span>
 							</div>
-						</div>
-
+						</div>												
+						
         		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
 
           	<div id="movieDataSet">
@@ -32,9 +40,9 @@
               </div>
 
          		</div>
-
-       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
-					<canvas id="lineGraph" name="lineGraph"></canvas>
+         		         		
+	       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
+						<canvas id="lineGraph" name="lineGraph"></canvas>
 				</div>
 
       </div>
@@ -47,8 +55,7 @@
 		            <div id="mainMap" class="map"></div>
 						</div>
 						<div class="card-body">
-								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
-								<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>								
 						</div>
 						<div class="card-body">
 								<div class="row no-gutters align-items-center">
