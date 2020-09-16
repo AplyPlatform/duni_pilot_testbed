@@ -3420,16 +3420,11 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 	}
 }
 
-function style2DObjectFunction(posImage, textMsg) {
+function style2DObjectFunction(pImage, textMsg) {
   return [
     new ol.style.Style(
     	{
-	      image: new ol.style.Icon(({
-	      	opacity: 0.55,
-	        crossOrigin: 'anonymous',
-	        scale: 1.5,
-	        src: posImage
-	      	}))
+	      image: pImage
 	      ,
 	      text: new ol.style.Text({
 	        font: '12px Calibri,sans-serif',
@@ -3475,13 +3470,12 @@ function addObjectTo2dMap(owner, kind) {
         crossOrigin: 'anonymous',
         src: dsrc
       }));
-
-  current_pos.setStyle(style2DObjectFunction(current_pos_image, owner));      
-  
-  vectorSource.addFeature(current_pos);   
+      
+  current_pos.setStyle(style2DObjectFunction(current_pos_image, owner)); 
     
+  vectorSource.addFeature(current_pos);       
   current_object_pos[owner].push(current_pos);
-  current_object_pos_image[owner].push(current_pos_image);
+  current_object_pos_image[owner].push(current_pos_image);         
 }
 
 function mapInit() {
