@@ -1312,7 +1312,7 @@ function startMon() {
   else {		
   	$("#btnForFilter").show();
 		$("#monitor_target_label").show();
-		$("#target_objects").remove();
+		$("#target_objects").empty();
   	nextMon();
   }
 }
