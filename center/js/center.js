@@ -1334,43 +1334,45 @@ function startMon() {
 
 
 function first3DcameraMove(owner, fobject) {
+	if (!isSet(viewer)) return;
+
 	var camera = viewer.camera;
 	
 	var item = fobject[0];
 	
 	camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(
-      item.lng * 1,
-      item.lat * 1,
-      item.alt + 100
-    ),
-    complete: function () {
-      setTimeout(function () {
-        camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(
-            item.lng * 1,
-			      item.lat * 1,
-			      item.alt + 100
-          ),
-          orientation: {
-            heading: Cesium.Math.toRadians(200.0),
-            pitch: Cesium.Math.toRadians(-50.0),
-          },
-          easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-        });
+    		destination: Cesium.Cartesian3.fromDegrees(
+      			item.lng * 1,
+      			item.lat * 1,
+      			item.alt + 100
+    		),
+    		complete: function () {
+      			setTimeout(function () {
+        			camera.flyTo({
+          				destination: Cesium.Cartesian3.fromDegrees(
+            					item.lng * 1,
+			      			item.lat * 1,
+			      			item.alt + 100
+          				),
+          				orientation: {
+            					heading: Cesium.Math.toRadians(200.0),
+            					pitch: Cesium.Math.toRadians(-50.0),
+          				},
+          				easingFunction: Cesium.EasingFunction.LINEAR_NONE,
+        			});
 
 				fobject.forEach(function(d, index) {
 						moveToPositionOnMap(owner, index, d.lat * 1, d.lng * 1, d.alt, d.yaw, d.roll, d.pitch);
 				});									        
         
-        setTimeout(function() {
-            if (bMonStarted == false) return;
-            nextMon();
-  			}, 2500);
+        			setTimeout(function() {
+            				if (bMonStarted == false) return;
+            				nextMon();
+  				}, 2500);
 
-      }, 1000);
-    },
-  });
+      			}, 1000);
+    		},
+	});
 }
 
 function processMon(owner, output) {
