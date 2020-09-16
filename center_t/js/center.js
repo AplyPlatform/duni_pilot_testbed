@@ -1456,12 +1456,17 @@ function processMon(owner, output) {
 		var selectorId = "object_sel_" + replaced_str;
 		var selHtml = "<select class='form-control form-control-sm' id='" + selectorId + "'></select>";				  							
 		$("#target_objects").append(selHtml);
-		
+				
 		fobject.forEach(function(item, index){
-			$("#" + selectorId).append($('<option>', {
+									
+			$("#" + selectorId).append($("<option>", {
 			    value: index,
 			    text: (index + 1) + "-" + owner
 			}));
+			
+			if (index == 0) {
+				$("#" + selectorId).val(0);
+			}
 			
 			addObjectTo3DMap(owner, "drone");
 			addObjectTo2dMap(owner, "drone");
