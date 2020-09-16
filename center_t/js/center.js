@@ -1299,10 +1299,25 @@ var kf_yaw;
 var kf_pitch;
 var kf_roll;
 
+var isFirst = true;
+
+var currentMonitorObjects;
+var currentMonitorIndex = 0;
+var currentMonitorOwner = "private";
+
+
 function startMon() {
   if (bMonStarted == true) {
     bMonStarted = false;
     isFirst = true;
+    currentMonitorObjects = null;
+   
+    current_object_pos = null;
+  	current_object_pos_image = null;
+  	
+  	remove2dObjects();
+  	remove3dObjects();
+  	
 		$("#btnForFilter").hide();		
 		$("#monitor_target_label").hide();
     $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStartMon']);
@@ -1317,7 +1332,6 @@ function startMon() {
   }
 }
 
-var isFirst = true;
 
 function first3DcameraMove(owner, fobject) {
 	var camera = viewer.camera;
@@ -1358,10 +1372,6 @@ function first3DcameraMove(owner, fobject) {
     },
   });
 }
-
-var currentMonitorObjects;
-var currentMonitorIndex = 0;
-var currentMonitorOwner = "private";
 
 function processMon(owner, output) {
 	if (!isSet(currentMonitorObjects)) {
@@ -3246,6 +3256,15 @@ function draw3dMap() {
 	posentity.orientation = new Cesium.VelocityOrientationProperty(position);
 }
 
+function remove3dObjects() {
+	if (planePrimitives != null && planePrimitives.length > 0) {
+		planePrimitives.forEach(function(owner) {
+			owner.forEach(function(pr){
+				scene3d.primitives.remove(pr);
+			});
+		});
+	}	
+}
 
 function addObjectTo3DMap(owner, kind) {
 	if (!isSet(planePrimitives)) {
@@ -3438,6 +3457,19 @@ function style2DObjectFunction(pImage, textMsg) {
 	      	})
     	})
   ];
+}
+
+
+function remove2dObjects() {
+	if (current_object_pos != null && current_object_pos.length > 0) {
+	  current_object_pos.forEach(function(owner) {
+	  	owner.forEach(function(cur_pos){
+	  		vectorSource.removeFeature(cur_pos);
+	  	});
+	  }  	
+	}
+  
+  current_object_pos_image = null;
 }
 
 function addObjectTo2dMap(owner, kind) {
