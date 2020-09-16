@@ -1498,9 +1498,13 @@ function processMon(owner, output) {
 	}
 					
 	if (isFirst) {
-  	isFirst = false;
-  	selectMonitorIndex(owner, 0);
-  	first3DcameraMove(owner, fobject);
+  		isFirst = false;
+  		selectMonitorIndex(owner, 0);
+	
+		if (!isSet(viewer)) 
+			 nexttour(owner, fobject);
+		else 
+			first3DcameraMove(owner, fobject);
 	}
 	else nexttour(owner, fobject);
 	  
