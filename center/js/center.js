@@ -3521,7 +3521,7 @@ function addObjectTo2dMap(owner, kind) {
 
   var current_pos_image = new ol.style.Icon(({
         //color: '#8959A8',
-        scale: 2,
+        scale: 1.3,
         crossOrigin: 'anonymous',
         src: dsrc
       }));
