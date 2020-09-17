@@ -1467,7 +1467,7 @@ function processMon(owner, output) {
 		var replaced_str = owner.replace(/@/g, '_at_');
 		replaced_str = replaced_str.replace(/\./g, '_dot_');
 		var selectorId = "object_sel_" + replaced_str;
-		var selHtml = "<select class='form-control form-control-sm' id='" + selectorId + "'></select>";				  							
+		var selHtml = "<select class='form-control bg-light border-0 small' id='" + selectorId + "' name='" + selectorId + "'></select>";
 		$("#target_objects").append(selHtml);
 				
 		fobject.forEach(function(item, index){
