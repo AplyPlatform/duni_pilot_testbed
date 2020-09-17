@@ -1471,18 +1471,22 @@ function processMon(owner, output) {
 		$("#target_objects").append(selHtml);
 				
 		fobject.forEach(function(item, index){
-									
+			var kind = "drone";
+			if ("kind" in item) {
+				kind = item.kind;
+			}
+			
 			$("#" + selectorId).append($("<option>", {
 			    value: index,
-			    text: (index + 1) + "-" + owner
+			    text: (index + 1) + "-" + owner + " / " + kind
 			}));
 			
 			if (index == 0) {
 				$("#" + selectorId).val(0);
 			}
 			
-			addObjectTo3DMap(owner, "drone");
-			addObjectTo2dMap(owner, "drone");
+			addObjectTo3DMap(owner, kind);
+			addObjectTo2dMap(owner, kind);
 		});
 		
 		
@@ -3512,11 +3516,12 @@ function addObjectTo2dMap(owner, kind) {
 		dsrc = './imgs/position2.png';
 	}
 	else {
-		dsrc = './imgs/position5.png';
+		dsrc = './imgs/position4.png';
 	}
 
   var current_pos_image = new ol.style.Icon(({
         //color: '#8959A8',
+        scale: 2,
         crossOrigin: 'anonymous',
         src: dsrc
       }));
