@@ -843,7 +843,7 @@ function generatePlugin(callsign) {
 
 function getPublicRecordCount(rcount, mcount, alltime) {		
 	var userid = getCookie("dev_user_id");
-  var jdata = {"action" : "position", "daction" : "data_count", "clientid" : userid};
+  var jdata = {"action" : "position", "daction" : "public_count", "clientid" : userid};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
