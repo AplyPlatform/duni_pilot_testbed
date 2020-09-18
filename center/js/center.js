@@ -167,8 +167,6 @@ function initPilotCenter() {
   if (page_action == "center") {
 		$("#main_contents").load("center.html", function() {
 				mapInit();
-				selectMonitorIndex("private", 0);
-				addObjectTo2dMap(0, "private", "drone");
 				flightHistoryMapInit();								
 				centerInit();
 		});
