@@ -3466,6 +3466,9 @@ function style2DObjectFunction(pImage, textMsg) {
 	textMsg = "";
   }
 
+	var zoomSize = map.getView().getZoom();
+	pImage.getImage().setScale(1/Math.pow(zoomSize, 1/3));
+	
   return [
     new ol.style.Style(
     	{
@@ -3479,7 +3482,7 @@ function style2DObjectFunction(pImage, textMsg) {
 	        }),
 	        // get the text from the feature - `this` is ol.Feature
 	        // and show only under certain resolution
-	        text: map.getView().getZoom() > 12 ? textMsg : ''
+	        text: zoomSize > 12 ? textMsg : ''
 	      	})
     	})
   ];
