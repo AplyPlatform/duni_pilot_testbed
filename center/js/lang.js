@@ -283,7 +283,7 @@ var LANG_JSON_DATA = {
 				"help_label" : "Help",
 				"Aerial_label" : "Aerial",
 				"Aerial_label_label" : "Aerial with labels",
-				"Road_label" : "Road",
+				"Road_label" : "Road",				
 				"average_alltime_label" : "Average flight time for all members",
 				"average_rcount_label" : "Average number of flights for all members",
 				"r_count_label" : "Number of flights",

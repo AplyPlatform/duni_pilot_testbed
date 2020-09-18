@@ -968,18 +968,18 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			console.error(alabel.error);
 		}	  
 				
-		var ctx = document.getElementById("myBarChart");
+		var ctx = document.getElementById("myBarChart1");
 		var myBarChart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
-		    labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
+		    labels: [LANG_JSON_DATA[langset]["a_time_label"], LANG_JSON_DATA[langset]["average_alltime_label"]],
 		    datasets: [		    
 			    {
 			    	label: "-",			      
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
-			      data: [mmin, emin, fcount, efcount],
-			      backgroundColor: "#4e11df"
+			      data: [mmin, emin],
+			      backgroundColor: ["#e97833", "#e2b362"] 
 			    }		    		    		    
 		    ],
 		  },
@@ -989,7 +989,30 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		      display: false
 		    }		    
 		  }
-		});					
+		});			
+		
+		var ctx = document.getElementById("myBarChart2");
+		var myBarChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: [LANG_JSON_DATA[langset]["r_count_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
+		    datasets: [		    
+			    {
+			    	label: "-",			      
+			      hoverBackgroundColor: "#2e59d9",
+			      borderColor: "#4e73df",
+			      data: [fcount, efcount],
+			      backgroundColor: ["#33c0e9", "#3367e9"] 
+			    }		    		    		    
+		    ],
+		  },
+		  options: {		    
+		  	responsive: true,
+		    legend: {
+		      display: false
+		    }		    
+		  }
+		});				
 }
 
 
