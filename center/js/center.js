@@ -3523,12 +3523,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 	}
 }
 
-function style2DObjectFunction(pImage, textMsg) {
-	
-  if (textMsg == "private") {
-	textMsg = "";
-  }
-	
+function style2DObjectFunction(pImage, textMsg) {		
   return [
     new ol.style.Style(
     	{
@@ -3591,7 +3586,10 @@ function addObjectTo2dMap(index, owner, kind) {
         src: dsrc
       }));
       
-  current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner)); 
+  if (owner == "private" && kind == "drone")
+  	current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));   
+  else
+  	current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner)); 
     
   vectorSource.addFeature(current_pos);       
   current_object_pos[owner].push(current_pos);
