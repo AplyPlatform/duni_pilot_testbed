@@ -943,8 +943,8 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			console.error(rlabel.error);
 		}
 
-		var mmin = Math.round((alltime / 1000) / 60);
-		var emin = Math.round((ealltime / 1000) / 60);
+		var mmin = Math.round(alltime / 60);
+		var emin = Math.round(ealltime / 1000 / 60);
 
 		var alabel = new CountUp('a_time_label_time', mmin, coptions);
 		if (!alabel.error) {
