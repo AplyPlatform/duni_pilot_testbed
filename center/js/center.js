@@ -979,11 +979,12 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [mmin, emin, fcount, efcount],
-			      backgroundColor: ["#4e11df", "#4e55df", "#4e15ef", "#4f35ef"]
+			      backgroundColor: "#4e11df"
 			    }		    		    		    
 		    ],
 		  },
 		  options: {		    
+		  	responsive: true,
 		    legend: {
 		      display: false
 		    }		    
