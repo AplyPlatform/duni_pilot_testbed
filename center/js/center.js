@@ -491,22 +491,7 @@ function monitorInit() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
-  
-  $('#tab_menu_map_selector_2d').click(function() {
-  	GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);
-  	$('#map3dViewer').hide();
-  	$('#map2dViewer').show();
-  });
-  
-  $('#tab_menu_map_selector_3d').click(function() {
-  	GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);
-  	$('#map3dViewer').show();
-  	$('#map2dViewer').hide();
-  });
-
-	$('#map2dViewer').show();
-	$('#map3dViewer').hide();
-	
+   
 	$( "#map_tabs" ).tabs();
 	
 	moviePlayerVisible = true;
