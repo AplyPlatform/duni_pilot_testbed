@@ -944,7 +944,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		}
 
 		var mmin = Math.round(alltime / 60);
-		var emin = Math.round(ealltime / 1000 / 60);
+		var emin = Math.round(ealltime / 60);
 
 		var alabel = new CountUp('a_time_label_time', mmin, coptions);
 		if (!alabel.error) {

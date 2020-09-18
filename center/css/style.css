@@ -20,9 +20,9 @@
   overflow:auto;
 }
 
-#main3dMap {
+.mapviewer {
       width: 100%;
-		  height: 600px;
+		  height: 400px;
 		  overflow: hidden;
 }
 
