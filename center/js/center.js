@@ -851,6 +851,7 @@ function getPublicRecordCount(rcount, mcount, alltime) {
   ajaxRequest(jdata, function (r) {
     if(r.result == "success") {     
 		  setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);
+		  hideLoader();
     }
     else {
     	setDashBoard(0, 0, 0, 0, 0, 0);
