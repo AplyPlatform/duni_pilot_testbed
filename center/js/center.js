@@ -968,7 +968,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		}	  
 				
 		var ctx = document.getElementById("myBarChart");
-		var myBarChart = new Chart, {
+		var myBarChart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
 		    labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
