@@ -956,6 +956,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		}
 
 		var mmin = (alltime / 1000) / 60;
+		var emin = (ealltime / 1000) / 60;
 
 		var alabel = new CountUp('a_time_label_time', mmin, coptions);
 		if (!alabel.error) {
@@ -974,7 +975,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			    	label: "-",			      
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
-			      data: [alltime, ealltime, fcount, efcount],
+			      data: [mmin, emin, fcount, efcount],
 			      backgroundColor: ["#4e11df", "#4e55df", "#4e15ef", "#4f35ef"]
 			    }		    		    		    
 		    ],
