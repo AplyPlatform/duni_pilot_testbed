@@ -37,14 +37,7 @@
 		  background-repeat: no-repeat;
 		  background-attachment: fixed;  
 		  background-size: cover;
-		}
-		
-		
-		form.user .btn-user {
-		  font-size: 0.8rem;
-		  border-radius: 4rem;
-		  padding: 0.4rem 0.5rem;
-		}
+		}		
  	</style>
   
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
@@ -120,16 +113,25 @@ window.fbAsyncInit = function() {
 				            <div class="col-lg-6">
 			                <div class="p-5">		                     					                    
 		                    		<form class="user">
-				              		<a id="googleLoginBtn" class="btn btn-google btn-block text-xs text-white mb-1">
-				                      <i class="fab fa-google fa-fw"></i> Sign in with Google
-				                    </a>
-				                  <a id="facebookLoginBtn" class="btn btn-facebook btn-block text-xs text-white mb-1">
-				                      <i class="fab fa-facebook-f fa-fw"></i> Sign in with Facebook
-				                  </a>
-				                  <a id="naverLoginBtn" class="btn btn-naver btn-block text-xs text-white mb-1">
-				                    <img src="./imgs/naverlogo.png" border=0> Sign in with Naver
-				                  </a>              		
-				                </form>						                
+						              		<div class="col">																							              																                  
+																	<a id="googleLoginBtn" class="btn btn-circle btn-dark btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
+																		<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;<span class="text-white">Continue with Google</span>
+																	</a>
+																	<br>
+																</div>
+																<div class="col">	
+																	<a id="facebookLoginBtn" class="btn btn-circle btn-dark btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
+																		<i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;<span class="text-white">Continue with Facebook</span>
+																	</a>
+																	<br>
+																</div>
+																<div class="col">	
+																	<a id="naverLoginBtn" class="btn btn-circle btn-dark btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
+																		<span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;<span class="text-white">Continue with Naver</span>
+																	</a>
+																	<br>  
+																</div>	           		
+				                		</form>						                
 			                </div>
 			              </div>
 			          </div>
