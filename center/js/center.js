@@ -964,7 +964,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [mmin, emin],
-			      backgroundColor: ["#e97833", "#e2b362"] 
+			      backgroundColor: ["#8c96bd", "#586ebc"] 
 			    }		    		    		    
 		    ],
 		  },
@@ -987,7 +987,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [fcount, Math.round(efcount)],
-			      backgroundColor: ["#33c0e9", "#3367e9"] 
+			      backgroundColor: ["#7ea8b9", "#529ab8"] 
 			    }		    		    		    
 		    ],
 		  },
