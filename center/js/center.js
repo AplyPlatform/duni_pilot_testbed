@@ -3467,7 +3467,7 @@ function style2DObjectFunction(pImage, textMsg) {
   }
 
 	var zoomSize = map.getView().getZoom();
-	pImage.getImage().setScale(1/Math.pow(zoomSize, 1/3));
+	pImage.setScale(1/Math.pow(zoomSize, 1/3));
 	
   return [
     new ol.style.Style(
