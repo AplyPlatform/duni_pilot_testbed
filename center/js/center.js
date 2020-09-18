@@ -505,6 +505,7 @@ function monitorInit() {
   });
 
 	$('#map2dViewer').show();
+	$('#map3dViewer').hide();
 	
 	moviePlayerVisible = true;
 	showMovieDataSet();
