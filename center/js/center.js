@@ -301,7 +301,10 @@ function centerInit() {
 	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
 	$("#badgeHelpContent").text(LANG_JSON_DATA[langset]["badgeHelpContent"]);
 	
-	$("#open_record_label").text(LANG_JSON_DATA[langset]["side_menu_flight_record_public_list"]);
+	$("#open_record_label").text(LANG_JSON_DATA[langset]["open_record_label"]);
+	$("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
+	
+	
 
 	getRecordCount();
 	getFlightList("public");
