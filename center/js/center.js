@@ -90,6 +90,8 @@ function setCommonText() {
 		$('#side_menu_flight_record').text(LANG_JSON_DATA[langset]['side_menu_flight_record']);
 		$('#side_menu_flight_record_upload').text(LANG_JSON_DATA[langset]['side_menu_flight_record_upload']);
 		$('#side_menu_flight_record_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_list']);
+		$('#side_menu_flight_record_public_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_public_list']);
+		
 		$('#side_menu_qa').text(LANG_JSON_DATA[langset]['side_menu_qa']);
 		$('#side_menu_links').text(LANG_JSON_DATA[langset]['side_menu_links']);
 		$('#side_menu_links_comm').text(LANG_JSON_DATA[langset]['side_menu_links_comm']);
@@ -164,6 +166,10 @@ function initPilotCenter() {
 
   if (page_action == "center") {
 		$("#main_contents").load("center.html", function() {
+				mapInit();
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");
+				flightHistoryMapInit();								
 				centerInit();
 		});
 		$("#dashboard_menu").addClass( "active" );
@@ -296,8 +302,11 @@ function centerInit() {
 	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);
 	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
 	$("#badgeHelpContent").text(LANG_JSON_DATA[langset]["badgeHelpContent"]);
+	
+	$("#open_record_label").text(LANG_JSON_DATA[langset]["side_menu_flight_record_public_list"]);
 
 	getRecordCount();
+	getFlightList("public");
 }
 
 
