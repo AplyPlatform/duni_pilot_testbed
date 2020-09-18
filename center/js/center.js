@@ -195,7 +195,7 @@ function initPilotCenter() {
 				map3dInit();
 				monitorInit();
 		});
-		$("#record_menu").addClass( "active" );
+		$("#monitor_menu").addClass( "active" );
   }
   else if (page_action == "recordupload") {
 		$("#main_contents").load("record_upload.html", function() {
@@ -314,8 +314,21 @@ function designInit() {
 	$('#btnForClearMission').text(LANG_JSON_DATA[langset]['btnForClearMission']);
 	$('#removeItemBtn').text(LANG_JSON_DATA[langset]['msg_remove']);
 	$('#saveItemBtn').text(LANG_JSON_DATA[langset]['msg_apply']);
-	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
-
+	$('#help_label').text(LANG_JSON_DATA[langset]['help_label']);
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
+	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);	
+	
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
+	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
+	
+	$('#latitude_label').text(LANG_JSON_DATA[langset]['latitude_label']);
+	$('#longitude_label').text(LANG_JSON_DATA[langset]['longitude_label']);
+	$('#altitude_label').text(LANG_JSON_DATA[langset]['altitude_label']);
+	$('#action_label').text(LANG_JSON_DATA[langset]['action_label']);
+	$('#speed_label').text(LANG_JSON_DATA[langset]['speed_label']);
+	
 
 	initSliderForDesign(1);
 
@@ -436,12 +449,20 @@ function monitorInit() {
 
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
+	
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
+	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
 
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 	$("#monitor_target_label").text(LANG_JSON_DATA[langset]['monitor_target_label']);
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
+	
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
+	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
 
 	$("#btnForFilter").hide();
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
@@ -486,7 +507,7 @@ function flightDetailInit(target) {
 	$("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
 	$("#uploadVideoToYoutubeButton").text(LANG_JSON_DATA[langset]['uploadVideoToYoutubeButton']);
 	$("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
-	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
+	$("#altitude_label_top").text(LANG_JSON_DATA[langset]['altitude_label']);
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
 	$("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
 	$("#map_kind_label").text(LANG_JSON_DATA[langset]['map_kind_label']);
@@ -494,6 +515,15 @@ function flightDetailInit(target) {
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
 	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
+	
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
+	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
+	
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
+	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);	
+	
 	$("#btnForLink").hide();
 	$("#btnForSharing").hide();
 
@@ -560,14 +590,14 @@ function qaInit() {
 function missionListInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_list_title'];
-	$("#head_title").text(LANG_JSON_DATA[langset]['page_center_title']);
+	$("#head_title").text(document.title);
+	
 	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
 	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
 	$("#manage_label").text(LANG_JSON_DATA[langset]['manage_label']);
 	$("#btnForGetMissionList").text(LANG_JSON_DATA[langset]['btnForGetMissionList']);
 	$("#search_key").attr("placeholder", LANG_JSON_DATA[langset]['msg_mission_search_key']);
-
 
 	$('#btnForSearchMission').click(function() {
 		GATAGM('btnForSearchMission', 'CONTENT', langset);

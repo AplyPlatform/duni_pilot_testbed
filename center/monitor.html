@@ -41,7 +41,7 @@
 
          		</div>
          		         		
-	       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label">비행고도</label>
+	       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
 						<canvas id="lineGraph" name="lineGraph"></canvas>
 				</div>
 
@@ -63,9 +63,9 @@
                       <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
                       		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																	       <option value="Aerial">Aerial</option>
-																	       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																	       <option value="Road">Road</option>
+																	       <option value="Aerial" id="Aerial_label">Aerial</option>
+																	       <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
+																	       <option value="Road" id="id="Road_label">Road</option>
 													</select>
 											</div>
                     </div>
@@ -73,9 +73,9 @@
                       <table width="100%" class="table table-condensed">
                               <thead>
                                   <tr>
-                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Roll <span id="rollText"></span></th>
-                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Head <span id="yawText"></span></th>
-                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1">Pitch <span id="pitchText"></span></th>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></th>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></th>
+                                      <th class="text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></th>
                                   </tr>
                               </thead>
                               <tbody>

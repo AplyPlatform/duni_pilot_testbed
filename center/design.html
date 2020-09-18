@@ -17,9 +17,9 @@
 	              		<div class="form-group">
 	                  			<label for="layer-select" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</label>
 	                    		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																	       <option value="Aerial">Aerial</option>
-																	       <option value="AerialWithLabels" selected>Aerial with labels</option>
-																	       <option value="Road">Road</option>
+																	       <option value="Aerial" id="Aerial_label">Aerial</option>
+																	       <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
+																	       <option value="Road" id="id="Road_label">Road</option>
 												</select>
 										</div>
 									</div>
@@ -58,18 +58,18 @@
 																		<tr class='odd gradeX'>
 																			<td><span class="badge badge-light" id="tr_index">0</span></td>
 																			<td>
-																					      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Latitude</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
-																					      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Longitude</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
-																					      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Altitude</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
+																					      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="latitude_label">Latitude</label><input name='latdata_index' id='latdata_index' type='text' placeholder='Latitude' value='0' class='form-control latdata'>
+																					      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="longitude_label">Longitude</label><input name='lngdata_index' id='lngdata_index' type='text' placeholder='Longitude' value='0' class='form-control lngdata'>
+																					      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="altitude_label">Altitude</label><input name='altdata_index' id='altdata_index' type='text' placeholder='Altitude (m)' class='form-control altdata' value='0'><br>
 
 																					      <div style="display:none">
-																					      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Roll</label><input name='rolldata_index' id='rolldata_index' type='text' placeholder='Roll' value='0' class='form-control rolldata'>
-																					      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Pitch</label><input name='pitchdata_index' id='pitchdata_index' type='text' placeholder='Pitch' value='0' class='form-control pitchdata'>
-																					      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Yaw</label><input name='yawdata_index' id='yawdata_index' type='text' placeholder='Yaw' class='form-control yawdata' value='0'><br>
-																					      <label for='speeddata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Speed(m/s)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
+																					      <label for='latdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="roll_label">Roll</label><input name='rolldata_index' id='rolldata_index' type='text' placeholder='Roll' value='0' class='form-control rolldata'>
+																					      <label for='lngdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="pitch_label">Pitch</label><input name='pitchdata_index' id='pitchdata_index' type='text' placeholder='Pitch' value='0' class='form-control pitchdata'>
+																					      <label for='altdata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="yaw_label">Yaw</label><input name='yawdata_index' id='yawdata_index' type='text' placeholder='Yaw' class='form-control yawdata' value='0'><br>
+																					      <label for='speeddata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="speed_label">Speed(m/s)</label><input name='speeddata_index' id='speeddata_index' type='text' placeholder='Speed (m/s)' class='form-control speeddata' value='0'>
 																					    	</div>
 
-																					      <label for='actiondata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1">Action</label>
+																					      <label for='actiondata_index' class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="action_label">Action</label>
 
 																					      <a href="#" data-toggle="collapse" data-target="#collapseActionParams" aria-expanded="false" aria-controls="collapseActionParams">
 																							    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" id="help_label">Help</div>
