@@ -962,32 +962,29 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			alabel.start();
 		} else {
 			console.error(alabel.error);
-		}
-		
-		var barChartData = {
-				labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
+		}	  
+				
+		var ctx = document.getElementById("myBarChart");
+		var myBarChart = new Chart, {
+		  type: 'bar',
+		  data: {
+		    labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
 		    datasets: [		    
 			    {
-			    	label: "-",
-			      backgroundColor: "#4e11df",
+			    	label: "-",			      
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [alltime, ealltime, fcount, efcount],
+			      backgroundColor: ["#4e11df", "#4e55df", "#4e15ef", "#4f35ef"]
 			    }		    		    		    
-		    ]
-		 };
-		
-		
-		var ctx = document.getElementById("myBarChart");
-		var myBarChart = new Chart(ctx).Bar(barChartData, {
-          responsive : true
-    });
-			
-		myBarChart.datasets[0].bars[0].fillColor = "#51e2f3"; //bar 1
-    myBarChart.datasets[0].bars[1].fillColor = "#51a5f3"; //bar 2
-    myBarChart.datasets[0].bars[2].fillColor = "#1d6579"; //bar 3
-    myBarChart.datasets[0].bars[3].fillColor = "#168eb0"; //bar 4
-    myBarChart.update();
+		    ],
+		  },
+		  options: {		    
+		    legend: {
+		      display: false
+		    }		    
+		  }
+		});					
 }
 
 
