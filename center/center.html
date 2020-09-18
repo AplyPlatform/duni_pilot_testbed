@@ -45,28 +45,23 @@
         	<h6 class="m-0 font-weight-bold text-primary" id="data_title">데이터 현황</h6>
       	</div>
 
-        <div class="card-body">
+        <div class="card-body">                  	
+          <div class="mt-4 text-center">
+            <div class="row">
+            	<div class="col">	
+	            	<i class="fas fa-circle text-info"></i>&nbsp; <span id="a_time_label">전체 비행시간</span> <strong id="a_time_label_time">0</strong> <strong id="a_time_min_label">Min.</strong>
+	            </div>
+            	<div class="col">
+	              <i class="fas fa-circle text-primary"></i>&nbsp; <span id="r_count_label">비행기록 수</span> <strong id="r_count_label_time">0</strong>
+	            </div>
+							<div class="col">	
+	              <i class="fas fa-circle text-success"></i>&nbsp; <span id="f_count_label">비행계획 수</span> <strong id="f_count_label_time">0</strong>
+	            </div>	            
+	          </div>            
+          </div>
+          
           <span class="text-xs text-default mb-1" id="msg_notice">* 전체 비행시간은 20209 8월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.</span>
-
-        	<div class="chart-pie pt-4 pb-2">
-            <canvas id="myPieChart"></canvas>
-          </div>
-          <div class="mt-4 text-center small">
-            <span class="mr-2">
-              <i class="fas fa-circle text-primary"></i> <span id="r_count_label">비행기록 수</span> <strong id="r_count_label_time">0</strong>
-            </span>
-            <span class="mr-2">
-              <i class="fas fa-circle text-success"></i> <span id="f_count_label">비행계획 수</span> <strong id="f_count_label_time">0</strong>
-            </span>
-          </div>
-        </div>
-
-        <div class="card-body">
-        	<div class="row no-gutters align-items-center">
-        			<i class="fas fa-circle text-info"></i>&nbsp; <span id="a_time_label">전체 비행시간</span> <strong id="a_time_label_time">0</strong> <strong id="a_time_min_label">Min.</strong>
-          </div>
-        </div>
-
+        </div>        
 
         <div class="card-body">
         	<div class="col">
