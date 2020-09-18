@@ -20,6 +20,12 @@
   overflow:auto;
 }
 
+#main3dMap {
+      width: 100%;
+		  height: 600px;
+		  overflow: hidden;
+}
+
 #slider { width:100%; margin:0 auto; }
 
 /* Safari */
