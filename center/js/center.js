@@ -537,7 +537,7 @@ function flightDetailInit(target) {
 	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);	
 	
 	$("#btnForLink").hide();
-	$("#btnForSharing").hide();
+	$("#btnForSharing").hide();		
 
 
 	$('#btnForFilter').click(function() {
@@ -554,6 +554,8 @@ function flightDetailInit(target) {
   if (record_name != null && record_name != "") {
     showDataWithName(target, decodeURI(record_name));
   }
+  
+  $( "#map_tabs" ).tabs();
 }
 
 function flightrecordListInit(target) { //비행기록 목록
