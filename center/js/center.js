@@ -507,6 +507,8 @@ function monitorInit() {
 	$('#map2dViewer').show();
 	$('#map3dViewer').hide();
 	
+	$( "#map_tabs" ).tabs();
+	
 	moviePlayerVisible = true;
 	showMovieDataSet();
 
