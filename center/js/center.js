@@ -970,40 +970,13 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		  type: 'bar',
 		  data: {
 		    labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
-		    datasets: [
-		    
+		    datasets: [		    
 			    {
-			      label: LANG_JSON_DATA[langset]["my_alltime_label"],
 			      backgroundColor: "#4e11df",
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
-			      data: [alltime],
-			    },
-			    
-			    {
-			      label: LANG_JSON_DATA[langset]["average_alltime_label"],
-			      backgroundColor: "#4e55df",
-			      hoverBackgroundColor: "#2e59d9",
-			      borderColor: "#4e73df",
-			      data: [0, ealltime],
-			    },
-			    
-			    {
-			      label: LANG_JSON_DATA[langset]["my_rcount_label"],
-			      backgroundColor: "#4e99df",
-			      hoverBackgroundColor: "#2e59d9",
-			      borderColor: "#4e73df",
-			      data: [0, 0, fcount],
-			    },
-			    
-			    {
-			      label: LANG_JSON_DATA[langset]["average_rcount_label"],
-			      backgroundColor: "#4eaadf",
-			      hoverBackgroundColor: "#2e59d9",
-			      borderColor: "#4e73df",
-			      data: [0, 0, 0, efcount],
-			    }		    		    
-		    
+			      data: [alltime, ealltime, fcount, efcount],
+			    }		    		    		    
 		    ],
 		  },
 		  options: {
@@ -1074,6 +1047,12 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		    },
 		  }
 		});
+		
+		myBarChart.datasets[0].bars[0].fillColor = "#51e2f3"; //bar 1
+    myBarChart.datasets[0].bars[1].fillColor = "#51a5f3"; //bar 2
+    myBarChart.datasets[0].bars[2].fillColor = "#1d6579"; //bar 3
+    myBarChart.datasets[0].bars[3].fillColor = "#168eb0"; //bar 4
+    myBarChart.update();
 }
 
 
