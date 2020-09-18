@@ -3465,9 +3465,6 @@ function style2DObjectFunction(pImage, textMsg) {
   if (textMsg == "private") {
 	textMsg = "";
   }
-
-	var zoomSize = map.getView().getZoom();
-	pImage.setScale(1/Math.pow(zoomSize, 1/3));
 	
   return [
     new ol.style.Style(
@@ -3479,10 +3476,8 @@ function style2DObjectFunction(pImage, textMsg) {
 	        fill: new ol.style.Fill({ color: '#000' }),
 	        stroke: new ol.style.Stroke({
 	          color: '#fff', width: 2
-	        }),
-	        // get the text from the feature - `this` is ol.Feature
-	        // and show only under certain resolution
-	        text: zoomSize > 12 ? textMsg : ''
+	        }),	        
+	        text: textMsg
 	      	})
     	})
   ];
