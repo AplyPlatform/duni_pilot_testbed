@@ -473,7 +473,7 @@ function monitorInit() {
 	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
 	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
 	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
-
+	
 	$("#btnForFilter").hide();
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForFilter").click(function() {
@@ -491,7 +491,21 @@ function monitorInit() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
+  
+  $('#tab_menu_map_selector_2d').click(function() {
+  	GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);
+  	$('#map3dViewer').hide();
+  	$('#map2dViewer').show();
+  });
+  
+  $('#tab_menu_map_selector_3d').click(function() {
+  	GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);
+  	$('#map3dViewer').show();
+  	$('#map2dViewer').hide();
+  });
 
+	$('#map2dViewer').show();
+	
 	moviePlayerVisible = true;
 	showMovieDataSet();
 
