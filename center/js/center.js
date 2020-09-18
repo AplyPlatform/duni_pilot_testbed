@@ -826,6 +826,26 @@ function generatePlugin(callsign) {
   });
 }
 
+function getPublicRecordCount(rcount, mcount, alltime) {		
+	var userid = getCookie("dev_user_id");
+  var jdata = {"action" : "position", "daction" : "data_count", "clientid" : userid};
+
+  showLoader();
+  ajaxRequest(jdata, function (r) {
+    if(r.result == "success") {     
+		  setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);
+    }
+    else {
+    	setDashBoard(0, 0, 0, 0, 0, 0);
+    	setBadgeView(null);
+      hideLoader();
+    }
+  }, function(request,status,error) {
+    setDashBoard(0, 0, 0, 0, 0, 0);
+    hideLoader();
+  });
+}
+
 function getRecordCount() {
 
 	var userid = getCookie("dev_user_id");
@@ -833,19 +853,17 @@ function getRecordCount() {
 
   showLoader();
   ajaxRequest(jdata, function (r) {
-    if(r.result == "success") {
-      hideLoader();
-
-		  setDashBoard(r.record_count, r.mission_count, r.alltime);
-		  setBadgeView(r);
+    if(r.result == "success") {     
+    	setBadgeView(r);
+		  getPublicRecordCount(r.record_count, r.mission_count, r.alltime);
     }
     else {
-    	setDashBoard(0, 0, 0);
+    	setDashBoard(0, 0, 0, 0, 0, 0);
     	setBadgeView(null);
       hideLoader();
     }
   }, function(request,status,error) {
-    setDashBoard(0, 0, 0);
+    setDashBoard(0, 0, 0, 0, 0, 0);
     hideLoader();
   });
 }
@@ -903,7 +921,7 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 		});
 }
 
-function setDashBoard(rcount, fcount, alltime) {		
+function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {		
 		const coptions = {
 			duration: 5,
 		};
@@ -930,11 +948,117 @@ function setDashBoard(rcount, fcount, alltime) {
 		} else {
 			console.error(alabel.error);
 		}
-		/*
-		$("#r_count_label_time").text(rcount);
-		$("#f_count_label_time").text(fcount);
-		$("#a_time_label_time").text(alltime);
-		*/
+		
+		
+		var ctx = document.getElementById("myBarChart");
+		var myBarChart = new Chart(ctx, {
+		  type: 'bar',
+		  data: {
+		    labels: [LANG_JSON_DATA[langset]["my_alltime_label"], LANG_JSON_DATA[langset]["average_alltime_label"], LANG_JSON_DATA[langset]["my_rcount_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
+		    datasets: [
+		    
+			    {
+			      label: LANG_JSON_DATA[langset]["my_alltime_label"],
+			      backgroundColor: "#4e11df",
+			      hoverBackgroundColor: "#2e59d9",
+			      borderColor: "#4e73df",
+			      data: [alltime],
+			    },
+			    
+			    {
+			      label: LANG_JSON_DATA[langset]["average_alltime_label"],
+			      backgroundColor: "#4e55df",
+			      hoverBackgroundColor: "#2e59d9",
+			      borderColor: "#4e73df",
+			      data: [0, ealltime],
+			    },
+			    
+			    {
+			      label: LANG_JSON_DATA[langset]["my_rcount_label"],
+			      backgroundColor: "#4e99df",
+			      hoverBackgroundColor: "#2e59d9",
+			      borderColor: "#4e73df",
+			      data: [0, 0, fcount],
+			    },
+			    
+			    {
+			      label: LANG_JSON_DATA[langset]["average_rcount_label"],
+			      backgroundColor: "#4eaadf",
+			      hoverBackgroundColor: "#2e59d9",
+			      borderColor: "#4e73df",
+			      data: [0, 0, 0, efcount],
+			    }		    		    
+		    
+		    ],
+		  },
+		  options: {
+		    maintainAspectRatio: false,
+		    layout: {
+		      padding: {
+		        left: 10,
+		        right: 25,
+		        top: 25,
+		        bottom: 0
+		      }
+		    },
+		    scales: {
+		      xAxes: [{
+		        time: {
+		          unit: 'data'
+		        },
+		        gridLines: {
+		          display: false,
+		          drawBorder: false
+		        },
+		        ticks: {
+		          maxTicksLimit: 6
+		        },
+		        maxBarThickness: 25,
+		      }],
+		      yAxes: [{
+		        ticks: {
+		          min: 0,
+		          max: 5000,
+		          maxTicksLimit: 5,
+		          padding: 10,
+		          // Include a dollar sign in the ticks
+		          callback: function(value, index, values) {
+		            return number_format(value);
+		          }
+		        },
+		        gridLines: {
+		          color: "rgb(234, 236, 244)",
+		          zeroLineColor: "rgb(234, 236, 244)",
+		          drawBorder: false,
+		          borderDash: [2],
+		          zeroLineBorderDash: [2]
+		        }
+		      }],
+		    },
+		    legend: {
+		      display: false
+		    },
+		    tooltips: {
+		      titleMarginBottom: 10,
+		      titleFontColor: '#6e707e',
+		      titleFontSize: 14,
+		      backgroundColor: "rgb(255,255,255)",
+		      bodyFontColor: "#858796",
+		      borderColor: '#dddfeb',
+		      borderWidth: 1,
+		      xPadding: 15,
+		      yPadding: 15,
+		      displayColors: false,
+		      caretPadding: 10,
+		      callbacks: {
+		        label: function(tooltipItem, chart) {
+		          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+		          return datasetLabel + number_format(tooltipItem.yLabel);
+		        }
+		      }
+		    },
+		  }
+		});
 }
 
 
