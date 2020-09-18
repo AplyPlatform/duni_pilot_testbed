@@ -177,7 +177,8 @@ function initPilotCenter() {
   else if (page_action == "design") {
 		$("#main_contents").load("design.html", function() {
 				mapInit();
-				addObjectTo2dMap("private", "drone");
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");				
 				designInit();
 		});
 		$("#mission_menu").addClass( "active" );
@@ -214,7 +215,8 @@ function initPilotCenter() {
 	else if (page_action == "publicflightview") {
 		$("#main_contents").load("flight_view.html", function() {
 				mapInit();
-				addObjectTo2dMap("private", "drone");
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");
 				flightHistoryMapInit();
 				flightrecordListInit("public");
 		});
@@ -223,9 +225,10 @@ function initPilotCenter() {
 	else if (page_action == "publicflightview_detail") {
 		$("#main_contents").load("flight_view_detail.html", function() {
 				mapInit();
-				addObjectTo2dMap("private", "drone");
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");
 				map3dInit();			
-				addObjectTo3DMap("private", "drone");
+				addObjectTo3DMap(0, "private", "drone");
 				flightDetailInit("public");
 		});
 		$("#record_menu").addClass( "active" );
@@ -233,9 +236,10 @@ function initPilotCenter() {
   else if (page_action == "flightview_detail") {
 		$("#main_contents").load("flight_view_detail.html", function() {
 				mapInit();
-				addObjectTo2dMap("private", "drone");
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");
 				map3dInit();
-				addObjectTo3DMap("private", "drone");
+				addObjectTo3DMap(0, "private", "drone");
 				flightDetailInit("private");
 		});
 		$("#record_menu").addClass( "active" );
@@ -243,15 +247,15 @@ function initPilotCenter() {
   else if (page_action == "dromi") {
 		$("#main_contents").load("dromi.html", function() {
 				mapInit();
-				addObjectTo2dMap("private", "drone");
+				selectMonitorIndex("private", 0);
+				addObjectTo2dMap(0, "private", "drone");
 				dromiInit();
 		});
 		$("#record_menu").addClass( "active" );
   }
   else if (page_action == "dromi_list") {
 		$("#main_contents").load("dromi_list.html", function() {
-				mapInit();
-				addObjectTo2dMap("private", "drone");
+				mapInit();				
 				dromiListInit();
 		});
 		$("#record_menu").addClass( "active" );
@@ -599,6 +603,9 @@ function dromiListInit() {
   $("#googlePhotoPlayer").hide();
   $("#youTubePlayer").hide();
 
+	selectMonitorIndex("private", 0);
+	addObjectTo2dMap(0, "private", "drone");
+	
   hideMovieDataSet();
   hideLoader();
 }
@@ -1482,8 +1489,8 @@ function processMon(owner, output) {
 				$("#" + selectorId).val(0);
 			}
 			
-			addObjectTo3DMap(owner, kind);
-			addObjectTo2dMap(owner, kind);
+			addObjectTo3DMap((index+1), owner, kind);
+			addObjectTo2dMap((index+1), owner, kind);
 		});
 		
 		
@@ -1503,7 +1510,7 @@ function processMon(owner, output) {
   		selectMonitorIndex(owner, 0);
 	
 		if (!isSet(viewer)) 
-			 nexttour(owner, fobject);
+			nexttour(owner, fobject);
 		else 
 			first3DcameraMove(owner, fobject);
 	}
@@ -3280,7 +3287,7 @@ function remove3dObjects() {
 	}	
 }
 
-function addObjectTo3DMap(owner, kind) {
+function addObjectTo3DMap(index, owner, kind) {
 	if (!isSet(planePrimitives)) {
 		return;
 	}	
@@ -3491,7 +3498,7 @@ function remove2dObjects() {
   current_object_pos_image = null;
 }
 
-function addObjectTo2dMap(owner, kind) {
+function addObjectTo2dMap(index, owner, kind) {
 	if (!isSet(vectorSource)) return;
 	
 	if (!isSet(current_object_pos)) {
@@ -3523,7 +3530,7 @@ function addObjectTo2dMap(owner, kind) {
         src: dsrc
       }));
       
-  current_pos.setStyle(style2DObjectFunction(current_pos_image, owner)); 
+  current_pos.setStyle(style2DObjectFunction(current_pos_image, owner + " / " + index)); 
     
   vectorSource.addFeature(current_pos);       
   current_object_pos[owner].push(current_pos);
@@ -3734,7 +3741,10 @@ function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
 
     current_object_pos[owner][index].setGeometry(new ol.geom.Point(location));
     current_object_pos_image[owner][index].setRotation(yaw);
-    current_view.setCenter(location);
+    
+    
+    if (owner == currentMonitorOwner && currentMonitorIndex == index)
+    	current_view.setCenter(location);
 }
 
 function nexttour(owner, fobject) {
