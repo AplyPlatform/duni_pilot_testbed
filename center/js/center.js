@@ -3513,12 +3513,12 @@ function addObjectTo2dMap(owner, kind) {
 		dsrc = './imgs/position2.png';
 	}
 	else {
-		dsrc = './imgs/position4.png';
+		dsrc = './imgs/position.png';
 	}
 
   var current_pos_image = new ol.style.Icon(({
         //color: '#8959A8',
-        scale: 1.3,
+        scale: 1.4,
         crossOrigin: 'anonymous',
         src: dsrc
       }));
