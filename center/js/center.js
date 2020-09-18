@@ -1482,7 +1482,7 @@ function processMon(owner, output) {
 			
 			$("#" + selectorId).append($("<option>", {
 			    value: index,
-			    text: (index + 1) + "-" + owner + " / " + kind
+			    text: (index + 1) + " : " + kind + " / " + owner
 			}));
 			
 			if (index == 0) {
@@ -3530,7 +3530,7 @@ function addObjectTo2dMap(index, owner, kind) {
         src: dsrc
       }));
       
-  current_pos.setStyle(style2DObjectFunction(current_pos_image, index + "-" + kind + " / " + owner)); 
+  current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner)); 
     
   vectorSource.addFeature(current_pos);       
   current_object_pos[owner].push(current_pos);
