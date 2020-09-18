@@ -1434,10 +1434,7 @@ function processMon(owner, output) {
 				kf_yaw[owner][index].filter(item.yaw * 1);
 				kf_pitch[owner][index].filter(item.pitch * 1);
 				kf_roll[owner][index].filter(item.roll * 1);
-			}									
-			
-			addObjectTo3DMap(owner, "drone");
-			addObjectTo2dMap(owner, "drone");
+			}						
 		});							
 	}
 	else {		
