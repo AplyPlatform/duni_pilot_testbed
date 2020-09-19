@@ -3274,7 +3274,7 @@ function styleFunction(alt, textMsg) {
 	var icon_color_base = "32c8fb"; 
   var icon_color = parseInt(icon_color_base, 16);
   
-  icon_color = icon_color + (alt / 5);
+  icon_color = Math.floor(icon_color + (alt / 5));
   var pos_icon_color = "#" + icon_color.toString(16);  
 	
   return [
@@ -3323,7 +3323,7 @@ function computeCirclularFlight(start) {
     );
     property.addSample(time, position);
         
-	  var icon_color = item.alt / 5;	  
+	  var icon_color = Math.floor(item.alt / 5);
     	
 		//Also create a point for each sample we generate.
     viewer.entities.add({
@@ -4645,7 +4645,7 @@ function addChartItem(i, item) {
   var icon_color_base = "32c8fb"; 
   var icon_color = parseInt(icon_color_base, 16);
   
-  icon_color = icon_color + (item.alt / 5);
+  icon_color = Math.floor(icon_color + (item.alt / 5));
   var pos_icon_color = "#" + icon_color.toString(16);
   
   if("etc" in item && "marked" in item.etc) {
