@@ -169,7 +169,7 @@ function setDashBoard(r) {
 		console.error(rlabel.error);
 	}
 	
-	var mmin = (alltime / 1000) / 60;
+	var mmin = Math.round(alltime / 60);
 	
 	var alabel = new CountUp('a_time_label_time', mmin, coptions);
 	if (!alabel.error) {
