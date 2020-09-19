@@ -162,7 +162,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
         return;
       }
 
-      location.href="main.html?page_action=center";
+      location.href="/center/main.html?page_action=center";
     }else {
       setCookie("temp_sns_token", r.sns_token, 1);
       setCookie("temp_image_url", temp_image, 1);
@@ -187,7 +187,7 @@ function showConfirmDialog() {
 		$('#askModalOKButton').off('click');
 		$('#askModalOKButton').click(function(){
 			$('#askModal').modal('hide');
-      location.href="register.html";
+      location.href="/center/register.html";
 		});
 
 		$('#askModal').modal('show');
