@@ -3269,14 +3269,9 @@ function logOut() {
 }
 
 
-function styleFunction(alt, textMsg) {
-	
-	var icon_color = Math.floor(alt / 2);  
- 	var r = 50 + icon_color;
- 	var g = 50 + icon_color;
- 	var b = 100 + icon_color;
- 	var pos_icon_color = "#" + r.toString(16) + g.toString(16) + b.toString(16);  
-	
+function styleFunction(alt, textMsg) {		
+ 	var pos_icon_color = getColorPerAlt(alt);
+ 	 		
   return [
     new ol.style.Style(
     	{
@@ -3322,8 +3317,8 @@ function computeCirclularFlight(start) {
       item.alt
     );
     property.addSample(time, position);
-        
-	  var icon_color = Math.floor(item.alt / 2);
+        	  
+	  var icon_color = getColorPerAlt3d(item.alt);
     	
 		//Also create a point for each sample we generate.
     viewer.entities.add({
@@ -3331,7 +3326,7 @@ function computeCirclularFlight(start) {
       point: {
         pixelSize: 1,
         color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.fromBytes(50 + icon_color, 150 + icon_color, 100 + icon_color, 255),
+        outlineColor: icon_color,
         outlineWidth: 1,
       },
     });
@@ -4617,6 +4612,34 @@ function convert2data(t) {
     return date;
 }
 
+
+function getColorPerAlt3d(alt) {
+	var icon_color = Math.floor(alt / 2);
+ 	var r = 50 + icon_color;
+ 	var g = 200 + icon_color;
+ 	var b = 100 + icon_color;
+ 	
+ 	if (r > 255) r = 255;
+ 	if (g > 255) g = 255;
+ 	if (b > 255) b = 255;
+ 	
+	return Cesium.Color.fromBytes(r, g, b, 240);
+}
+
+function getColorPerAlt(alt) {
+	var icon_color = Math.floor(alt / 2);  
+ 	var r = 50 + icon_color;
+ 	var g = 200 + icon_color;
+ 	var b = 100 + icon_color;
+ 	
+ 	if (r > 255) r = 255;
+ 	if (g > 255) g = 255;
+ 	if (b > 255) b = 255;
+ 	
+ 	var pos_icon_color = "#" + r.toString(16) + g.toString(16) + b.toString(16);
+ 	return pos_icon_color;
+}
+
 function addChartItem(i, item) {
   if ("etc" in item && "t" in item.etc && "h" in item.etc) {
     chartTData.push({x: i, y: item.etc.t});
@@ -4642,11 +4665,7 @@ function addChartItem(i, item) {
   });
 
  
-  var icon_color = Math.floor(item.alt / 2);  
- 	var r = 50 + icon_color;
- 	var g = 50 + icon_color;
- 	var b = 100 + icon_color;
- 	var pos_icon_color = "#" + r.toString(16) + g.toString(16) + b.toString(16);
+  var pos_icon_color = getColorPerAlt(item.alt);
  	
  	if("etc" in item && "marked" in item.etc) {
     pos_icon_color = '#ff0000';
