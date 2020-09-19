@@ -974,7 +974,15 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		  	responsive: true,
 		    legend: {
 		      display: false
-		    }		    
+		    },
+		    scales:{
+            xAxes: [{
+                display: false, //this will remove all the x-axis grid lines,
+                ticks: {
+                    display: false //this will remove only the label
+                }
+            }]
+        }		    
 		  }
 		});			
 		
@@ -997,7 +1005,15 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		  	responsive: true,
 		    legend: {
 		      display: false
-		    }		    
+		    },
+		    scales:{
+            xAxes: [{
+                display: false, //this will remove all the x-axis grid lines,
+                ticks: {
+                    display: false //this will remove only the label
+                }
+            }]
+        }		    
 		  }
 		});				
 }
