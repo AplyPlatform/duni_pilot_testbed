@@ -984,7 +984,12 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
                 ticks: {
                     display: false //this will remove only the label
                 }
-            }]
+            }],
+            yAxes: [{
+		            ticks: {
+		                beginAtZero: true
+		            	}
+        		}]
         }		    
 		  }
 		});			
@@ -1015,7 +1020,12 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
                 ticks: {
                     display: false //this will remove only the label
                 }
-            }]
+            }],
+            yAxes: [{
+		            ticks: {
+		                beginAtZero: true
+		            	}
+        		}]
         }		    
 		  }
 		});				
