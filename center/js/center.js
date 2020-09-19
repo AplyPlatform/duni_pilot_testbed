@@ -4614,10 +4614,10 @@ function convert2data(t) {
 
 
 function getColorPerAlt3d(alt) {
-	var icon_color = Math.floor(alt);
- 	var r = 50 + icon_color;
- 	var g = 50 + icon_color;
- 	var b = 80 + icon_color;
+	var icon_color = Math.floor(alt * 1.2);
+ 	var r = 30 + icon_color;
+ 	var g = 30 + icon_color;
+ 	var b = 60 + icon_color;
  	
  	if (r > 255) r = 255;
  	if (g > 255) g = 255;
@@ -4627,10 +4627,10 @@ function getColorPerAlt3d(alt) {
 }
 
 function getColorPerAlt(alt) {
-	var icon_color = Math.floor(alt);  
- 	var r = 50 + icon_color;
- 	var g = 50 + icon_color;
- 	var b = 80 + icon_color;
+	var icon_color = Math.floor(alt * 1.2);  
+ 	var r = 30 + icon_color;
+ 	var g = 30 + icon_color;
+ 	var b = 60 + icon_color;
  	
  	if (r > 255) r = 255;
  	if (g > 255) g = 255;
