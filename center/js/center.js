@@ -54,6 +54,7 @@ var moviePlayerVisible = false;
 var langset = "KR";
 
 $(function() {
+	
 	if (askToken() == false) {
 		goIndex("");
     return;
