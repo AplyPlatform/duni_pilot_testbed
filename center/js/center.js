@@ -3271,7 +3271,7 @@ function logOut() {
 
 function styleFunction(alt, textMsg) {
 	
-	var icon_color = Math.floor(alt / 5);  
+	var icon_color = Math.floor(alt / 2);  
  	var r = 50 + icon_color;
  	var g = 50 + icon_color;
  	var b = 100 + icon_color;
@@ -3323,7 +3323,7 @@ function computeCirclularFlight(start) {
     );
     property.addSample(time, position);
         
-	  var icon_color = Math.floor(item.alt / 5);		
+	  var icon_color = Math.floor(item.alt / 2);
     	
 		//Also create a point for each sample we generate.
     viewer.entities.add({
@@ -4642,7 +4642,7 @@ function addChartItem(i, item) {
   });
 
  
-  var icon_color = Math.floor(item.alt / 5);  
+  var icon_color = Math.floor(item.alt / 2);  
  	var r = 50 + icon_color;
  	var g = 50 + icon_color;
  	var b = 100 + icon_color;
