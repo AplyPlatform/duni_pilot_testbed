@@ -509,10 +509,22 @@
 	  if (isSet($(address_id)))
 	  	$(address_id).text(address);
 	}
+	
+	function getQueryVariable(query, variable) {    
+    var varfirst = query.split('?');
+    var vars = varfirst[1].split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+	}
 
 	function setYoutubeVideo(index, youtube_url) {
+		var vid = getQueryVariable(youtube_url, "v");		
 		$("#youTubePlayer_" + index).show();
-		$("#youTubePlayerIframe_" + index).attr('src', youtube_url);
+		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
 	}
 
 	function appendFlightListTable(item) {
