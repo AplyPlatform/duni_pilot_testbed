@@ -411,7 +411,7 @@
 	
 	  var c_view = new ol.View({
 	      center: dpoint,
-	      zoom: 14
+	      zoom: 16
 	    });
 	
 	  var vSource = new ol.source.Vector();
