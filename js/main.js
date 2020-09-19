@@ -531,7 +531,7 @@
 	  		appendRow = appendRow + "<span class='text-xs' id='map_address_" + tableCount + "'></span>";
 	  }
 	
-	  appendRow = appendRow + "<span class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</span>";	
+	  appendRow = appendRow + "<br><span class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</span>";	
 		  
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service, 
 	
