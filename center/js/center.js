@@ -962,7 +962,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		    labels: [LANG_JSON_DATA[langset]["a_time_label"], LANG_JSON_DATA[langset]["average_alltime_label"]],
 		    datasets: [		    
 			    {
-			    	label: "-",			      
+			    	label: "",			      
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [mmin, emin],
@@ -993,7 +993,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		    labels: [LANG_JSON_DATA[langset]["r_count_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
 		    datasets: [		    
 			    {
-			    	label: "-",			      
+			    	label: "",
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [fcount, Math.round(efcount)],

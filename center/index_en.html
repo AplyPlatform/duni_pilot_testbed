@@ -32,12 +32,13 @@
   <link href="css/sb-admin-2.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <style>
-  	body {
+  	.backgroundStyle {
 		  background-image: url('./imgs/airway.jpg');
 		  background-repeat: no-repeat;
 		  background-attachment: fixed;  
 		  background-size: cover;
-		}		
+		}
+
  	</style>
   
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
@@ -47,7 +48,7 @@ MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mix
 mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="backgroundStyle">
 <div id="fb-root"></div>
 <script>
 
@@ -78,6 +79,8 @@ window.fbAsyncInit = function() {
 	<div class="loader"></div>
 </div>
 
+<div id="wrapper">
+	<div id="content-wrapper" class="backgroundStyle d-flex flex-column">			          
 	    <!-- Main Content -->
 	    <div id="content">        
 		            
@@ -138,14 +141,14 @@ window.fbAsyncInit = function() {
 			          
 		            <div class="row">
 			              <div class="container my-auto">               	
-					<div class="copyright text-center my-auto text-xs text-white mb-1">
-					            <a href="index.html"><font color="#65d5ff">Korean</font></a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../privacy.html" target=_new>Privacy</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../service.html" target=_new>Terms of Use</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<span>&nbsp; &copy; APLY Inc. 2020</span><br><br><br>
-					</div>
+												<div class="copyright text-center my-auto text-xs text-white mb-1">
+												            <a href="index.html"><font color="#65d5ff">Korean</font></a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../privacy.html" target=_new>Privacy</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<a href="../service.html" target=_new>Terms of Use</a>&nbsp;&nbsp;<font color=#777777>|</font>&nbsp;&nbsp;<span>&nbsp; &copy; APLY Inc. 2020</span><br><br><br>
+												</div>
 			              </div>
 		            </div>
-   
-     
+  		</div>
   </div>
+</div>    
   
   <!-- Logout Modal-->
   <div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="askModalLabel" aria-hidden="true">

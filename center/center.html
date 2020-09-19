@@ -40,12 +40,12 @@
 	<div class="col-lg-6 mb-4">
     <div class="card shadow mb-4">
 
-
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         	<h6 class="m-0 font-weight-bold text-primary" id="data_title">데이터 현황</h6>
       	</div>
 
-        <div class="card-body">                  	
+        <div class="card-body">         
+        	<span class="text-xs text-default mb-1" id="msg_notice">* 전체 비행시간은 20209 8월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.</span>         	
           <div class="mt-4 text-center">
           	<div class="row h-400">
           		<div class="col">
@@ -57,18 +57,15 @@
           	</div>
             <div class="row">
             	<div class="col">	
-	            	<i class="fas fa-circle text-info"></i>&nbsp; <span id="a_time_label">전체 비행시간</span> <strong id="a_time_label_time">0</strong> <strong id="a_time_min_label">Min.</strong>
+	            	<i class="fas fa-circle text-primary"></i>&nbsp; <span id="a_time_label" class="text-xs">전체 비행시간</span> <strong id="a_time_label_time" class="text-xs">0</strong> <strong id="a_time_min_label" class="text-xs">Min.</strong>
 	            </div>
             	<div class="col">
-	              <i class="fas fa-circle text-primary"></i>&nbsp; <span id="r_count_label">비행기록 수</span> <strong id="r_count_label_time">0</strong>
-	            </div>
-							<div class="col">	
-	              <i class="fas fa-circle text-success"></i>&nbsp; <span id="f_count_label">비행계획 수</span> <strong id="f_count_label_time">0</strong>
-	            </div>	            
-	          </div>            
-          </div>
-          
-          <span class="text-xs text-default mb-1" id="msg_notice">* 전체 비행시간은 20209 8월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.</span>
+	              <i class="fas fa-circle text-info"></i>&nbsp; <span id="r_count_label" class="text-xs">비행기록 수</span> <strong id="r_count_label_time" class="text-xs">0</strong>
+	            </div>							  
+	          </div>  
+	          	          	
+	          <span id="f_count_label" class="text-xs">비행계획 수</span> <strong id="f_count_label_time" class="text-xs">0</strong>	          
+          </div>                    
         </div>        
 
         <div class="card-body">
