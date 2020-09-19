@@ -3271,11 +3271,11 @@ function logOut() {
 
 function styleFunction(alt, textMsg) {
 	
-	var icon_color_base = "32c8fb"; 
-  var icon_color = parseInt(icon_color_base, 16);
-  
-  icon_color = Math.floor(icon_color + (alt / 5));
-  var pos_icon_color = "#" + icon_color.toString(16);  
+	var icon_color = Math.floor(alt / 5);  
+ 	var r = 50 + icon_color;
+ 	var g = 50 + icon_color;
+ 	var b = 100 + icon_color;
+ 	var pos_icon_color = "#" + r.toString(16) + g.toString(16) + b.toString(16);  
 	
   return [
     new ol.style.Style(
@@ -3323,7 +3323,7 @@ function computeCirclularFlight(start) {
     );
     property.addSample(time, position);
         
-	  var icon_color = Math.floor(item.alt / 5);
+	  var icon_color = Math.floor(item.alt / 5);		
     	
 		//Also create a point for each sample we generate.
     viewer.entities.add({
@@ -3331,7 +3331,7 @@ function computeCirclularFlight(start) {
       point: {
         pixelSize: 1,
         color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.fromBytes(50, 200, icon_color, 255),
+        outlineColor: Cesium.Color.fromBytes(50 + icon_color, 150 + icon_color, 100 + icon_color, 255),
         outlineWidth: 1,
       },
     });
@@ -4642,13 +4642,13 @@ function addChartItem(i, item) {
   });
 
  
-  var icon_color_base = "32c8fb"; 
-  var icon_color = parseInt(icon_color_base, 16);
-  
-  icon_color = Math.floor(icon_color + (item.alt / 5));
-  var pos_icon_color = "#" + icon_color.toString(16);
-  
-  if("etc" in item && "marked" in item.etc) {
+  var icon_color = Math.floor(item.alt / 5);  
+ 	var r = 50 + icon_color;
+ 	var g = 50 + icon_color;
+ 	var b = 100 + icon_color;
+ 	var pos_icon_color = "#" + r.toString(16) + g.toString(16) + b.toString(16);
+ 	
+ 	if("etc" in item && "marked" in item.etc) {
     pos_icon_color = '#ff0000';
   }
 
