@@ -4615,7 +4615,7 @@ function convert2data(t) {
 
 function getColorPerAlt3d(alt) {
 	var icon_color = Math.floor(alt * 1.2);
- 	var r = 4 + icon_color;
+ 	var r = 4;
  	var g = 20 + icon_color;
  	var b = 50 + icon_color;
  	
