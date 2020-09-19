@@ -1287,7 +1287,7 @@ function createNewIconFor2DMap(i, item) {
           mindex : i
       });
 
-  pos_icon.setStyle(styleFunction((i + 1) + ""));
+  pos_icon.setStyle(styleFunction(item.alt, (i + 1) + ""));
 
   return pos_icon;
 }
@@ -3269,12 +3269,19 @@ function logOut() {
 }
 
 
-function styleFunction(textMsg) {
+function styleFunction(alt, textMsg) {
+	
+	var icon_color_base = "32c8fb"; 
+  var icon_color = parseInt(icon_color_base, 16);
+  
+  icon_color = icon_color + (alt / 5);
+  var pos_icon_color = "#" + icon_color.toString(16);  
+	
   return [
     new ol.style.Style(
     	{
 	      image: new ol.style.Icon(({
-	      	opacity: 0.55,
+	      	color : pos_icon_color,	      	
 	        crossOrigin: 'anonymous',
 	        scale: 1.5,
 	        src: pos_icon_image
@@ -3315,14 +3322,16 @@ function computeCirclularFlight(start) {
       item.alt
     );
     property.addSample(time, position);
-
+        
+	  var icon_color = item.alt / 5;	  
+    	
 		//Also create a point for each sample we generate.
     viewer.entities.add({
       position: position,
       point: {
         pixelSize: 1,
         color: Cesium.Color.TRANSPARENT,
-        outlineColor: Cesium.Color.AQUA,
+        outlineColor: Cesium.Color.fromBytes(50, 200, icon_color, 255),
         outlineWidth: 1,
       },
     });
@@ -4632,14 +4641,20 @@ function addChartItem(i, item) {
       mindex : i
   });
 
-  var pos_icon_color = '#777777';
-
+ 
+  var icon_color_base = "32c8fb"; 
+  var icon_color = parseInt(icon_color_base, 16);
+  
+  icon_color = icon_color + (item.alt / 5);
+  var pos_icon_color = "#" + icon_color.toString(16);
+  
   if("etc" in item && "marked" in item.etc) {
     pos_icon_color = '#ff0000';
   }
 
   pos_icon.setStyle(new ol.style.Style({
       image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+      	color: pos_icon_color,
         crossOrigin: 'anonymous',
         opacity: 0.55,
         src: pos_icon_image
