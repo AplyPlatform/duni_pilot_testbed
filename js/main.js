@@ -510,6 +510,11 @@
 	  	$(address_id).text(address);
 	}
 
+	function setYoutubeVideo(index, youtube_url) {
+		$("#youTubePlayer_" + index).show();
+		$("#youTubePlayerIframe_" + index).attr('src', youtube_url);
+	}
+
 	function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
@@ -517,10 +522,15 @@
 		var flat = item.flat;
 		var flng = item.flng;
 		var address = item.address;
-		var cada = item.cada;				
+		var cada = item.cada;
+		var youtube_url = item.youtube_data_id;
 	
-	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "'><div class='row'><div class='col-md-6'><div id='map_" + tableCount + "' style='height:100px;width:100%;'></div>";	  		
-	  appendRow = appendRow + "</div><div class='col-md-6'>";//row	  	  
+	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "'><div class='row'><div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";	  		
+	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
+	  
+	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";//row	  	  
+	  
+	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
 						+ name + "\", \"CONTENT\", \""
@@ -528,10 +538,10 @@
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";	
 	
 	  if (isSet(flat)) {
-	  		appendRow = appendRow + "<span class='text-xs' id='map_address_" + tableCount + "'></span>";
+	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + tableCount + "'></span></small>";
 	  }
 	
-	  appendRow = appendRow + "<br><span class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</span>";	
+	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";	
 		  
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service, 
 	
@@ -546,7 +556,12 @@
 	
 	  if (isSet(address) && address != "") {
 	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);	  	
-	  }	  
+	  }
+	  
+	  
+	  if (isSet(youtube_url)) {
+	  	setYoutubeVideo(tableCount, youtube_url);
+	  }
 	
 	  tableCount++;
 	}
