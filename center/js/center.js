@@ -999,7 +999,7 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			    	label: "",
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
-			      data: [fcount, Math.round(efcount)],
+			      data: [rcount, Math.round(efcount)],
 			      backgroundColor: ["#7ea8b9", "#529ab8"] 
 			    }		    		    		    
 		    ],
