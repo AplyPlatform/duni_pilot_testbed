@@ -1,3 +1,5 @@
+body {margin: 0; font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif; font-weight: 400; line-height: 1.8; color: #788487; text-align: left; background-color: #fff;}
+
 #youTubePlayer {position:relative;width:100%;}
 #youTubePlayer iframe {position:absolute;width:100%;height:100%;}
 
@@ -46,6 +48,26 @@
   100% { transform: rotate(360deg); }
 }
 
+.btn-outline-brand {
+    color: #505cfd;
+    background-color:#f8f9fa;
+    background-image: none;
+    border-color: #505cfd;
+}
+
+.btn-outline-brand:hover {
+    color: #fff;
+    background-color: #505cfd;
+    border-color: #505cfd;
+}
+
+.btn-outline-brand:focus,
+.btn-outline-brand.focus {
+    box-shadow: 0 0 0 .2rem rgba(80, 92, 253, .5);
+}
+
+.btn.btn-circle {border-radius: 1.875rem;}
+
 .btn-dark {
     color: #fff;
     background-color: #343a40;
@@ -79,14 +101,9 @@
 }
 
 
-.btn-block {
-    display: block;
-    width: 100%;
-}
+.btn-block {display: block; width: 100%;}
 
-.btn-block + .btn-block {
-    margin-top: .5rem;
-}
+.btn-block + .btn-block {margin-top: .5rem;}
 
 input[type="submit"].btn-block,
 input[type="reset"].btn-block,
@@ -112,10 +129,23 @@ input[type="button"].btn-block {
 }
 
 .btn {
-    text-transform: uppercase;
-    letter-spacing: .1125rem;
-    font-size: .75rem;
-    cursor: pointer;
+    display: inline-block; margin-bottom:4px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    border: 2px solid transparent;
+    padding: 1rem 1.875rem;
+    line-height: 1.5;
+    border-radius: .1875rem;
+    transition: color .15s ease-in-out,
+                background-color .15s ease-in-out,
+                border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
 }
 
 .btn:focus,
@@ -131,10 +161,6 @@ input[type="button"].btn-block {
 .btn:not(:disabled):not(.disabled):active:focus,
 .btn:not(:disabled):not(.disabled).active:focus {
     box-shadow: none;
-}
-
-.btn.btn-circle {
-    border-radius: 1.875rem;
 }
 
 .btn .btn-icon-left {
