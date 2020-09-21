@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="DUNI PILOT CENTER | DUNI 파일럿 센터">
   <meta name="author" content="APLY Inc.">
-	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
   <link rel="icon" type="image/png" href="https://pilot.duni.io/logo.png" />
   <link rel="apple-touch-icon" href="https://pilot.duni.io/logo.png" />
 
@@ -25,12 +25,13 @@
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="./css/sb-admin-2.min.css" rel="stylesheet">
-	<link href="./css/jquery-ui.min.css" rel="stylesheet">
+  <link href="./css/sb-admin-2.css" rel="stylesheet">
+  <link href="./css/jquery-ui.min.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-	<link href="./css/ol.css" rel="stylesheet">
+  <link href="./css/ol.css" rel="stylesheet">
   <link href="https://cesium.com/downloads/cesiumjs/releases/1.72/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
@@ -56,7 +57,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <!-- Sidebar - Brand -->
       <li class="nav-item">
 	      <a onclick="GATAGM('side_menu_top_title', 'MEMU', langset);" class="nav-link" href="main.html?page_action=center">
-	        <img src="imgs/duni_logo.png" width=43 height=12> <span id="menu_left_top_title_label">파일럿 센터</span><sup>beta</sup>
+	        <img src="imgs/duni_logo.png" width=43 height=12> <span id="menu_left_top_title_label">파일럿 센터</span> <sup>beta</sup>
 	      </a>
 	    </li>
 
@@ -106,8 +107,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <!-- Nav Item - Pages Collapse Menu -->
       <li id="monitor_menu" class="nav-item">
       	<a onclick="GATAGM('side_menu_flight_plan_mon', 'MEMU', langset);" class="nav-link" href="main.html?page_action=monitor">
-      		<i class="fas fa-fw fa-plane"></i>
-      		<span id="side_menu_flight_plan_mon">드론위치 추적</span></a>
+      		<i class="fas fa-fw fa-crosshairs"></i>
+      		<span id="side_menu_flight_plan_mon">드론위치 보기</span></a>
 			</li>
 
 			<!-- Divider -->
@@ -116,8 +117,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a onclick="GATAGM('side_menu_links', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
-          <i class="fas fa-fw fa-satellite"></i>
-          <span id="side_menu_links">관련사이트</span>
+          <i class="fas fa-fw fa-hashtag"></i>
+          <span id="side_menu_links">관련 사이트</span>
         </a>
         <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -158,9 +159,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             <i class="fa fa-bars"></i>
           </button>
 
-					<!-- Page Heading -->
+		 <!-- Page Heading -->
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h1 class="h5 mb-0 text-gray-800" id="head_title">DUNI PILOT Center</h1>
+            <h1 class="h5 mb-0 text-gray-800" id="head_title">DUNI 파일럿 센터</h1>
           </div>
 
           <!-- Topbar Navbar -->
