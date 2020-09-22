@@ -145,11 +145,9 @@ var LANG_JSON_DATA = {
 				"page_dromi_list_title" : "Dromi Data View",
 				"fill_info_label" : "내용을 채우신 후 '가입하기'버튼을 클릭해 주세요.",
 				"register_explain_label" : "하기의 '개인정보취급방침'의 내용에 동의하시면 아래 '동의합니다' 버튼을 클릭해 주세요.",
-				"center_about_content" : "<p>드론의 비행계획을 쉽게 디자인하고 비행기록과 상황를 확인할 수 있는 곳입니다.</p>" +
-																	"<p>디자인 한 비행계획은 DUNI 파일럿 앱과 DJI제품의 드론에서 사용 할 수 있습니다. DUNI 퍼일럿 앱은 현재 개발중이며 곧 안드로이드/iOS버전이 배포될 예정입니다. ('비행계획' > '계획 설계' 메뉴)</p>" +
-																	"<p>DUNI 파일럿 앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href='http://code.duni.io/' target=_new>이곳</a>에서 확인할 수 있습니다.</p>" +
-																	"<p>DJI 비행기록 파일과 드론 영상이 있는 유튜브 URL을 업로드하면 자세한 비행기록을 확인할 수 있습니다. ('비행기록' > '기록 업로드' 메뉴)</p>" +
-																	"<p>상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>",
+				"center_about_content" : "<p>드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있으며 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br />" +
+										"DUNI 앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.droneplay.io/ target=_new>이곳</a>에서 확인할 수 있습니다.<br />" +
+										"오른쪽 상단의 <i class="fa fa-user fa-fw"></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.</p>",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>안드로이드</b></p>"
 							+ "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
 							+ "<p>또는, - 내 파일 > 내장 메모리 > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_연월일시.txt</p>"
