@@ -279,11 +279,10 @@ function centerInit() {
 	document.title = LANG_JSON_DATA[langset]['page_center_title'];
 	$("#head_title").text(document.title);
 
+	$('#page_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
+	$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
 
 	$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
-	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);
-	$('#center_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
-	$('#center_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
 
