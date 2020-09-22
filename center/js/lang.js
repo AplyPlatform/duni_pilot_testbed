@@ -145,7 +145,7 @@ var LANG_JSON_DATA = {
 				"page_dromi_list_title" : "Dromi Data View",
 				"fill_info_label" : "내용을 채우신 후 '가입하기'버튼을 클릭해 주세요.",
 				"register_explain_label" : "하기의 '개인정보취급방침'의 내용에 동의하시면 아래 '동의합니다' 버튼을 클릭해 주세요.",
-				"center_about_content" : ,
+
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>안드로이드</b></p>"
 							+ "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
 							+ "<p>또는, - 내 파일 > 내장 메모리 > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_연월일시.txt</p>"
