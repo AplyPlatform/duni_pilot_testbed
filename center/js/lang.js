@@ -310,7 +310,7 @@ var LANG_JSON_DATA = {
 				"page_dromi_list_title" : "Dromi Data View",
 				"mission_about_content" : "Search the flight plan you designed.",
 				"fill_info_label" : "Please fill the form in and click the 'Register' button.",
-				"register_explain_label" : "If you agree with the 'Privacy Policy' below, please click the 'I agree' button below.<br>",
+				"register_explain_label" : "If you agree with the 'Privacy Policy' below, please click the 'I agree' button below.",
 				"record_list_about_content" : "Review your flight !",
 				"record_public_list_about_content" : "You can see flight records of other members.",
 				"monitor_about_content" : "Check your drone's location in realtime.",
