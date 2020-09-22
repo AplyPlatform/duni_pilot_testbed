@@ -311,8 +311,8 @@ var LANG_JSON_DATA = {
 				"mission_about_content" : "Search the flight plan you designed.",
 				"fill_info_label" : "Please fill the form in and click the 'Register' button.",
 				"register_explain_label" : "If you agree with the 'Privacy Policy' below, please click the 'I agree' button below.<br>",
-				"detail_about_content" : "Review your flight !",
-				"detail_public_about_content" : "You can view flight records of other members."
+				"record_list_about_content" : "Review your flight !",
+				"record_public_list_about_content" : "You can see flight records of other members.",
 				"monitor_about_content" : "Check your drone's location in realtime.",
 				"upload_about_content" : "Upload your flight record.",
 				"design_about_content" : "You can easily design the drone's flight mission",
