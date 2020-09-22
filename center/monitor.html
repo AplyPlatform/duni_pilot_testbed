@@ -4,10 +4,10 @@
     <div class="card shadow">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary" id="center_about_title">드론위치 보기</h6>
+          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">드론위치 보기</h6>
         </div>
         <!-- Card Body -->
-        <div class="card-body" id="center_about_content">        	
+        <div class="card-body" id="page_about_content">        	
            DUNI 앱을 활용하여 현재 드론의 위치를 실시간으로 모니터링할 수 있습니다.
         </div>
     </div>
@@ -26,7 +26,7 @@
 							<div class="col pt-4" id="target_objects">
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col pt-4">
             		<button class="btn btn-primary" type="button" id="btnStartMon">
@@ -38,8 +38,8 @@
 									<button class='btn btn-info text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
 								</span>
 							</div>
-						</div>												
-						
+						</div>
+
         		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
 
           	<div id="movieDataSet">
@@ -52,7 +52,7 @@
               </div>
 
          		</div>
-         		         		
+
 	       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
 						<canvas id="lineGraph" name="lineGraph"></canvas>
 				</div>
@@ -62,24 +62,24 @@
 
    <!-- List -->
   <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">    	
-    				<div class="card-body">		            		            
+    <div class="card shadow mb-4">
+    				<div class="card-body">
 		            <div id="map_tabs">
-		            	<ul>									  
+		            	<ul>
 									 	<li><a href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
 									  <li><a href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
 									</ul>
-									
+
 									<div class="mapviewer" id="map2dViewer">
 		            		<div id="mainMap" class="mapviewerIn"></div>
 			            </div>
 			            <div class="mapviewer" id="map3dViewer">
 			            	<div id="main3dMap" class="mapviewerIn"></div>
 									</div>
-								</div>		            		            								
+								</div>
 						</div>
 						<div class="card-body">
-								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>								
+								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
 						</div>
 						<div class="card-body">
 								<div class="row no-gutters align-items-center">
@@ -112,7 +112,7 @@
 												</table>
                     </div>
                 </div>
-						</div>						
+						</div>
 
 						<div class="card-body">
               <span id="monitor"></span>

@@ -175,12 +175,6 @@ function initPilotCenter() {
 		});
 		$("#dashboard_menu").addClass( "active" );
   }
-  if (page_action == "qa") {
-		$("#main_contents").load("qa.html", function() {
-				qaInit();
-		});
-		$("#record_menu").addClass( "active" );
-  }
   else if (page_action == "design") {
 		$("#main_contents").load("design.html", function() {
 				mapInit();
@@ -213,7 +207,6 @@ function initPilotCenter() {
   else if (page_action == "flightview") {
 		$("#main_contents").load("flight_view.html", function() {
 				mapInit();
-				//addObjectTo2dMap("private", "drone");
 				flightHistoryMapInit();
 				flightrecordListInit("private");
 		});
@@ -420,8 +413,8 @@ function flightrecordUploadInit() {
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
 	$("#head_title").text(document.title);
 
-	$('#upload_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
-	$('#upload_about_content').text(LANG_JSON_DATA[langset]['upload_about_content']);
+	$('#page_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
+	$('#page_about_content').text(LANG_JSON_DATA[langset]['upload_about_content']);
 	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
 	$('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
 	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
@@ -464,8 +457,8 @@ function monitorInit() {
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 
-	$('#monitor_about_title').text(LANG_JSON_DATA[langset]['page_monitor_title']);
-	$('#monitor_about_content').text(LANG_JSON_DATA[langset]['monitor_about_content']);
+	$('#page_about_title').text(LANG_JSON_DATA[langset]['page_monitor_title']);
+	$('#page_about_content').text(LANG_JSON_DATA[langset]['monitor_about_content']);
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
 
@@ -520,8 +513,6 @@ function flightDetailInit(target) {
 	}
 
 	$("#head_title").text(document.title);
-
-
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
 	$("#title_for_moviedata_label").text(LANG_JSON_DATA[langset]['title_for_moviedata_label']);
 	$("#desc_for_moviedata_label").text(LANG_JSON_DATA[langset]['desc_for_moviedata_label']);
@@ -574,13 +565,13 @@ function flightrecordListInit(target) { //비행기록 목록
 
 	if (target == "public") {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
-		$('#reclist_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_public_view_title']);
-		$('#reclist_about_content').text(LANG_JSON_DATA[langset]['record_public_list_about_content']);
+		$('#page_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_public_view_title']);
+		$('#page_about_content').text(LANG_JSON_DATA[langset]['record_public_list_about_content']);
 	}
 	else {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
-		$('#reclist_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_view_title']);
-		$('#reclist_about_content').text(LANG_JSON_DATA[langset]['record_list_about_content']);
+		$('#page_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_view_title']);
+		$('#page_about_content').text(LANG_JSON_DATA[langset]['record_list_about_content']);
 	}
 
 	$("#head_title").text(document.title);
@@ -608,24 +599,13 @@ function flightrecordListInit(target) { //비행기록 목록
 	//hideLoader();
 }
 
-
-function qaInit() {
-
-	document.title = LANG_JSON_DATA[langset]['page_qa_title'];
-	$("#head_title").text(document.title);
-
-	$("#qa_label").text(LANG_JSON_DATA[langset]['qa_label']);
-
-	hideLoader();
-}
-
 function missionListInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_list_title'];
 	$("#head_title").text(document.title);
 
-	$("#mission_about_title").text(LANG_JSON_DATA[langset]['page_list_title']);
-	$("#mission_about_content").text(LANG_JSON_DATA[langset]['mission_about_content']);
+	$("#page_about_title").text(LANG_JSON_DATA[langset]['page_list_title']);
+	$("#page_about_content").text(LANG_JSON_DATA[langset]['mission_about_content']);
 	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
 	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
