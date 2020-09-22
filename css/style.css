@@ -1192,7 +1192,7 @@ form label {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-    border: 2px solid transparent;
+    border: none;
     padding: 1rem 1.875rem;
     line-height: 1.5;
     border-radius: .1875rem;
@@ -1226,9 +1226,7 @@ form label {
 }
 
 .btn-outline-brand:focus,
-.btn-outline-brand.focus {
-    box-shadow: 0 0 0 .2rem rgba(80, 92, 253, .5);
-}
+.btn-outline-brand.focus {box-shadow: 0 0 0 .2rem rgba(80, 92, 253, .5);}
 
 .btn.btn-circle {border-radius: 1.875rem;}
 
