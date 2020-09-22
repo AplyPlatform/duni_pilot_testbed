@@ -54,7 +54,7 @@ var moviePlayerVisible = false;
 var langset = "KR";
 
 $(function() {
-	
+
 	if (askToken() == false) {
 		goIndex("");
     return;
@@ -82,7 +82,7 @@ function setCommonText() {
 
 		if (image_url == "") $('#profile_image').hide();
 		else $('#profile_image').attr("src", image_url);
-			
+
 		$('#menu_left_top_title_label').text(LANG_JSON_DATA[langset]['menu_left_top_title_label']);
 
 		$('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
@@ -94,7 +94,7 @@ function setCommonText() {
 		$('#side_menu_flight_record_upload').text(LANG_JSON_DATA[langset]['side_menu_flight_record_upload']);
 		$('#side_menu_flight_record_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_list']);
 		$('#side_menu_flight_record_public_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_public_list']);
-		
+
 		$('#side_menu_qa').text(LANG_JSON_DATA[langset]['side_menu_qa']);
 		$('#side_menu_links').text(LANG_JSON_DATA[langset]['side_menu_links']);
 		$('#side_menu_links_comm').text(LANG_JSON_DATA[langset]['side_menu_links_comm']);
@@ -161,7 +161,7 @@ function setLogoutBtn() {
 }
 
 function initPilotCenter() {
-	flightRecArray = [];	
+	flightRecArray = [];
 	setLogoutBtn();
 	showLoader();
 
@@ -170,7 +170,7 @@ function initPilotCenter() {
   if (page_action == "center") {
 		$("#main_contents").load("center.html", function() {
 				mapInit();
-				flightHistoryMapInit();								
+				flightHistoryMapInit();
 				centerInit();
 		});
 		$("#dashboard_menu").addClass( "active" );
@@ -185,7 +185,7 @@ function initPilotCenter() {
 		$("#main_contents").load("design.html", function() {
 				mapInit();
 				selectMonitorIndex("private", 0);
-				addObjectTo2dMap(0, "private", "drone");				
+				addObjectTo2dMap(0, "private", "drone");
 				designInit();
 		});
 		$("#mission_menu").addClass( "active" );
@@ -234,7 +234,7 @@ function initPilotCenter() {
 				mapInit();
 				selectMonitorIndex("private", 0);
 				addObjectTo2dMap(0, "private", "drone");
-				map3dInit();			
+				map3dInit();
 				addObjectTo3DMap(0, "private", "drone");
 				flightDetailInit("public");
 		});
@@ -262,7 +262,7 @@ function initPilotCenter() {
   }
   else if (page_action == "dromi_list") {
 		$("#main_contents").load("dromi_list.html", function() {
-				mapInit();				
+				mapInit();
 				dromiListInit();
 		});
 		$("#record_menu").addClass( "active" );
@@ -303,11 +303,11 @@ function centerInit() {
 	$("#badge_code_label").text(LANG_JSON_DATA[langset]["badge_code_label"]);
 	$("#help_label").text(LANG_JSON_DATA[langset]["help_label"]);
 	$("#badgeHelpContent").text(LANG_JSON_DATA[langset]["badgeHelpContent"]);
-	
+
 	$("#open_record_label").text(LANG_JSON_DATA[langset]["open_record_label"]);
 	$("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
-	
-	
+
+
 
 	getRecordCount();
 	getFlightList("public");
@@ -316,10 +316,12 @@ function centerInit() {
 
 function designInit() {
 	designDataArray = [];
-	
+
 	document.title = LANG_JSON_DATA[langset]['page_mission_design_title'];
 	$("#head_title").text(document.title);
 
+	$('#design_about_title').text(LANG_JSON_DATA[langset]['page_mission_design_title']);
+	$('#design_about_content').text(LANG_JSON_DATA[langset]['design_about_content']);
 	$('#msg_tracker').text(LANG_JSON_DATA[langset]['msg_tracker']);
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$('#go_index_direct_label').text(LANG_JSON_DATA[langset]['go_index_direct_label']);
@@ -328,20 +330,20 @@ function designInit() {
 	$('#removeItemBtn').text(LANG_JSON_DATA[langset]['msg_remove']);
 	$('#saveItemBtn').text(LANG_JSON_DATA[langset]['msg_apply']);
 	$('#help_label').text(LANG_JSON_DATA[langset]['help_label']);
-	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
-	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
-	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);	
-	
-	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
-	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
+	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
+
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);
 	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
-	
+
 	$('#latitude_label').text(LANG_JSON_DATA[langset]['latitude_label']);
 	$('#longitude_label').text(LANG_JSON_DATA[langset]['longitude_label']);
 	$('#altitude_label').text(LANG_JSON_DATA[langset]['altitude_label']);
 	$('#action_label').text(LANG_JSON_DATA[langset]['action_label']);
 	$('#speed_label').text(LANG_JSON_DATA[langset]['speed_label']);
-	
+
 
 	initSliderForDesign(1);
 
@@ -367,7 +369,7 @@ function designInit() {
 			var lonLat = ol.proj.toLonLat(evt.coordinate);
 			appendDataToDesignTable(lonLat);
   });
-	  
+
   var mission_name = decodeURIComponent(getQueryVariable("mission_name"));
 
 	if (isSet(mission_name) && mission_name != "") {
@@ -418,6 +420,8 @@ function flightrecordUploadInit() {
 	document.title = LANG_JSON_DATA[langset]['page_flight_rec_upload_title'];
 	$("#head_title").text(document.title);
 
+	$('#upload_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
+	$('#upload_about_content').text(LANG_JSON_DATA[langset]['upload_about_content']);
 	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
 	$('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
 	$('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
@@ -460,11 +464,13 @@ function monitorInit() {
 	document.title = LANG_JSON_DATA[langset]['page_monitor_title'];
 	$("#head_title").text(document.title);
 
+	$('#monitor_about_title').text(LANG_JSON_DATA[langset]['page_monitor_title']);
+	$('#monitor_about_content').text(LANG_JSON_DATA[langset]['monitor_about_content']);
 	$('#map_kind_label').text(LANG_JSON_DATA[langset]['map_kind_label']);
 	$("#altitude_label").text(LANG_JSON_DATA[langset]['altitude_label']);
-	
-	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
-	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
+
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);
 	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
 
 	$("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
@@ -472,11 +478,11 @@ function monitorInit() {
 	$("#monitor_target_label").text(LANG_JSON_DATA[langset]['monitor_target_label']);
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
-	
-	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
-	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
+
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
 	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
-	
+
 	$("#btnForFilter").hide();
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForFilter").click(function() {
@@ -494,9 +500,9 @@ function monitorInit() {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
-   
+
 	$( "#map_tabs" ).tabs();
-	
+
 	moviePlayerVisible = true;
 	showMovieDataSet();
 
@@ -506,12 +512,15 @@ function monitorInit() {
 
 
 function flightDetailInit(target) {
-	if (target == "public")
+	if (target == "public") {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
-	else
+	}
+	else {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+	}
 
 	$("#head_title").text(document.title);
+
 
 	$("#modifyBtnForMovieData").text(LANG_JSON_DATA[langset]['modifyBtnForMovieData']);
 	$("#title_for_moviedata_label").text(LANG_JSON_DATA[langset]['title_for_moviedata_label']);
@@ -530,17 +539,17 @@ function flightDetailInit(target) {
 	$("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
 	$("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
 	$("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
-	
-	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);	
-	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);	
+
+	$('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
+	$('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
 	$('#Road_label').text(LANG_JSON_DATA[langset]['Road_label']);
-	
-	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);	
-	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);	
-	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);	
-	
+
+	$('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);
+	$('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);
+	$('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
+
 	$("#btnForLink").hide();
-	$("#btnForSharing").hide();		
+	$("#btnForSharing").hide();
 
 
 	$('#btnForFilter').click(function() {
@@ -557,16 +566,22 @@ function flightDetailInit(target) {
   if (record_name != null && record_name != "") {
     showDataWithName(target, decodeURI(record_name));
   }
-  
+
   $( "#map_tabs" ).tabs();
 }
 
 function flightrecordListInit(target) { //비행기록 목록
 
-	if (target == "public")
+	if (target == "public") {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
-	else
+		$('#reclist_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_public_view_title']);
+		$('#reclist_about_content').text(LANG_JSON_DATA[langset]['record_public_list_about_content']);
+	}
+	else {
 		document.title = LANG_JSON_DATA[langset]['page_flight_rec_view_title'];
+		$('#reclist_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_view_title']);
+		$('#reclist_about_content').text(LANG_JSON_DATA[langset]['record_list_about_content']);
+	}
 
 	$("#head_title").text(document.title);
 
@@ -608,7 +623,9 @@ function missionListInit() {
 
 	document.title = LANG_JSON_DATA[langset]['page_list_title'];
 	$("#head_title").text(document.title);
-	
+
+	$("#mission_about_title").text(LANG_JSON_DATA[langset]['page_list_title']);
+	$("#mission_about_content").text(LANG_JSON_DATA[langset]['mission_about_content']);
 	$("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
 	$("#status_label").text(LANG_JSON_DATA[langset]['status_label']);
 	$("#date_label").text(LANG_JSON_DATA[langset]['date_label']);
@@ -652,7 +669,7 @@ function dromiListInit() {
 
 	selectMonitorIndex("private", 0);
 	addObjectTo2dMap(0, "private", "drone");
-	
+
   hideMovieDataSet();
   hideLoader();
 }
@@ -833,13 +850,13 @@ function generatePlugin(callsign) {
   });
 }
 
-function getPublicRecordCount(rcount, mcount, alltime) {		
+function getPublicRecordCount(rcount, mcount, alltime) {
 	var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "public_count", "clientid" : userid};
 
   showLoader();
   ajaxRequest(jdata, function (r) {
-    if(r.result == "success") {     
+    if(r.result == "success") {
 		  setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);
 		  hideLoader();
     }
@@ -861,7 +878,7 @@ function getRecordCount() {
 
   showLoader();
   ajaxRequest(jdata, function (r) {
-    if(r.result == "success") {     
+    if(r.result == "success") {
     	setBadgeView(r);
 		  getPublicRecordCount(r.record_count, r.mission_count, r.alltime);
     }
@@ -929,7 +946,7 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
 		});
 }
 
-function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {		
+function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		const coptions = {
 			duration: 5,
 		};
@@ -956,24 +973,24 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 			alabel.start();
 		} else {
 			console.error(alabel.error);
-		}	  
-				
+		}
+
 		var ctx = document.getElementById("myBarChart1");
 		var myBarChart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
 		    labels: [LANG_JSON_DATA[langset]["a_time_label"], LANG_JSON_DATA[langset]["average_alltime_label"]],
-		    datasets: [		    
+		    datasets: [
 			    {
-			    	label: "",			      
+			    	label: "",
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [mmin, emin],
-			      backgroundColor: ["#8c96bd", "#586ebc"] 
-			    }		    		    		    
+			      backgroundColor: ["#8c96bd", "#586ebc"]
+			    }
 		    ],
 		  },
-		  options: {		    
+		  options: {
 		  	responsive: true,
 		    legend: {
 		      display: false
@@ -990,26 +1007,26 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		                beginAtZero: true
 		            	}
         		}]
-        }		    
+        }
 		  }
-		});			
-		
+		});
+
 		var ctx = document.getElementById("myBarChart2");
 		var myBarChart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
 		    labels: [LANG_JSON_DATA[langset]["r_count_label"], LANG_JSON_DATA[langset]["average_rcount_label"]],
-		    datasets: [		    
+		    datasets: [
 			    {
 			    	label: "",
 			      hoverBackgroundColor: "#2e59d9",
 			      borderColor: "#4e73df",
 			      data: [rcount, Math.round(efcount)],
-			      backgroundColor: ["#7ea8b9", "#529ab8"] 
-			    }		    		    		    
+			      backgroundColor: ["#7ea8b9", "#529ab8"]
+			    }
 		    ],
 		  },
-		  options: {		    
+		  options: {
 		  	responsive: true,
 		    legend: {
 		      display: false
@@ -1026,9 +1043,9 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 		                beginAtZero: true
 		            	}
         		}]
-        }		    
+        }
 		  }
-		});				
+		});
 }
 
 
@@ -1140,7 +1157,7 @@ function setYawStatus(yaw) {
 		if (!isSet($('#yawStatus'))) return;
 		var yawStatus = document.getElementById('yawStatus');
 		if (!isSet(yawStatus)) return;
-		if (!isSet(yaw)) return;		
+		if (!isSet(yaw)) return;
 
 		yaw = yaw * 1;
 		var degree = yaw < 0 ? (360 + yaw) : yaw;
@@ -1165,7 +1182,7 @@ function setPitchStatus(pitch) {
 		if (!isSet($('#pitchStatus'))) return;
 		var pitchStatus = document.getElementById('pitchStatus');
 		if (!isSet(pitchStatus)) return;
-		if (!isSet(pitch)) return;		
+		if (!isSet(pitch)) return;
 
 		pitch = pitch * 1; //
 		var degree = pitch * -1;
@@ -1186,10 +1203,10 @@ function setPitchStatus(pitch) {
     $('#pitchText').text(pitch);
 }
 
-function setRollStatus(roll) {		
-		if (!isSet($('#rollCanvas'))) return;		
+function setRollStatus(roll) {
+		if (!isSet($('#rollCanvas'))) return;
 		var canvas = document.getElementById('rollCanvas');
-		if (!isSet(canvas)) return;		
+		if (!isSet(canvas)) return;
 		if (!isSet(roll)) return;
 
 		roll = roll * 1;
@@ -1410,20 +1427,20 @@ function startMon() {
     bMonStarted = false;
     isFirst = true;
     currentMonitorObjects = null;
-   
+
     current_object_pos = null;
   	current_object_pos_image = null;
-  	
+
   	remove2dObjects();
   	remove3dObjects();
-  	
-		$("#btnForFilter").hide();		
+
+		$("#btnForFilter").hide();
 		$("#monitor_target_label").hide();
     $('#btnStartMon').text(LANG_JSON_DATA[langset]['btnStartMon']);
     $("#btnStartMon").removeClass("btn-warning").addClass("btn-primary");
     $("#loader").hide();
   }
-  else {		
+  else {
   	$("#btnForFilter").show();
 		$("#monitor_target_label").show();
 		$("#target_objects").empty();
@@ -1436,9 +1453,9 @@ function first3DcameraMove(owner, fobject) {
 	if (!isSet(viewer)) return;
 
 	var camera = viewer.camera;
-	
+
 	var item = fobject[0];
-	
+
 	camera.flyTo({
     		destination: Cesium.Cartesian3.fromDegrees(
       			item.lng * 1,
@@ -1458,15 +1475,15 @@ function first3DcameraMove(owner, fobject) {
 		            					pitch: Cesium.Math.toRadians(-50.0),
 		          				},
 		          				easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-		        			});							
+		        			});
 		  					}, 2500);
     		},
 	});
-	
+
 	fobject.forEach(function(d, index) {
 			moveToPositionOnMap(owner, index, d.lat * 1, d.lng * 1, d.alt, d.yaw, d.roll, d.pitch);
-	});									        
-        
+	});
+
 	setTimeout(function() {
 			if (bMonStarted == false) return;
 			nextMon();
@@ -1476,7 +1493,7 @@ function first3DcameraMove(owner, fobject) {
 function processMon(owner, output) {
 	if (!isSet(currentMonitorObjects)) {
 		currentMonitorObjects = {};
-		
+
 		kf_lat = {};
 		kf_lng = {};
 		kf_alt = {};
@@ -1484,17 +1501,17 @@ function processMon(owner, output) {
 		kf_pitch = {};
 		kf_roll = {};
 	}
-	
+
 	if (!(owner in currentMonitorObjects)) {
 		currentMonitorObjects[owner] = 0;
-		
+
 		kf_lat[owner] = [];
 		kf_lng[owner] = [];
 		kf_alt[owner] = [];
 		kf_yaw[owner] = [];
 		kf_pitch[owner] = [];
 		kf_roll[owner] = [];
-		
+
 		kf_lat[owner].push(new KalmanFilter());
 		kf_lng[owner].push(new KalmanFilter());
 		kf_alt[owner].push(new KalmanFilter());
@@ -1506,17 +1523,17 @@ function processMon(owner, output) {
 	var fobject;
 	if ("objects" in output) {
 		fobject = output.objects;
-		
+
 		while (kf_lat[owner].length < fobject.length) {
 			kf_lat[owner].push(new KalmanFilter());
 			kf_lng[owner].push(new KalmanFilter());
 			kf_alt[owner].push(new KalmanFilter());
 			kf_yaw[owner].push(new KalmanFilter());
 			kf_pitch[owner].push(new KalmanFilter());
-			kf_roll[owner].push(new KalmanFilter());	
+			kf_roll[owner].push(new KalmanFilter());
 		}
-				
-		fobject.forEach(function(item, index){			
+
+		fobject.forEach(function(item, index){
 			if (bFilterOn) {
 				item.lat = kf_lat[owner][index].filter(item.lat * 1);
 				item.lng = kf_lng[owner][index].filter(item.lng * 1);
@@ -1532,10 +1549,10 @@ function processMon(owner, output) {
 				kf_yaw[owner][index].filter(item.yaw * 1);
 				kf_pitch[owner][index].filter(item.pitch * 1);
 				kf_roll[owner][index].filter(item.roll * 1);
-			}						
-		});							
+			}
+		});
 	}
-	else {		
+	else {
 		if (bFilterOn) {
 			output.lat = kf_lat[owner][0].filter(output.lat * 1);
 			output.lng = kf_lng[owner][0].filter(output.lng * 1);
@@ -1551,62 +1568,62 @@ function processMon(owner, output) {
 			kf_yaw[owner][0].filter(output.yaw * 1);
 			kf_pitch[owner][0].filter(output.pitch * 1);
 			kf_roll[owner][0].filter(output.roll * 1);
-		}		
-		
-		fobject = [output];		
-	}		
-	
+		}
+
+		fobject = [output];
+	}
+
 	if (currentMonitorObjects[owner] == 0) {
 		currentMonitorObjects[owner] = fobject.length;
-				
+
 		var replaced_str = owner.replace(/@/g, '_at_');
 		replaced_str = replaced_str.replace(/\./g, '_dot_');
 		var selectorId = "object_sel_" + replaced_str;
 		var selHtml = "<select class='form-control bg-light border-0 small' id='" + selectorId + "' name='" + selectorId + "'></select>";
 		$("#target_objects").append(selHtml);
-				
+
 		fobject.forEach(function(item, index){
 			var kind = "drone";
 			if ("kind" in item) {
 				kind = item.kind;
 			}
-			
+
 			$("#" + selectorId).append($("<option>", {
 			    value: index,
 			    text: (index + 1) + " : " + kind + " / " + owner
 			}));
-			
+
 			if (index == 0) {
 				$("#" + selectorId).val(0);
 			}
-			
+
 			addObjectTo3DMap((index+1), owner, kind);
 			addObjectTo2dMap((index+1), owner, kind);
 		});
-		
-		
+
+
 		$("#" + selectorId).on('change', function() {
 		  selectMonitorIndex(owner, this.value);
-		});								
-		
-		
+		});
+
+
 		$("#" + selectorId).on("click", function () {
        var sval = $("#" + selectorId + " option:selected" ).val();
        selectMonitorIndex(owner, sval);
     })
 	}
-					
+
 	if (isFirst) {
   		isFirst = false;
   		selectMonitorIndex(owner, 0);
-	
-		if (!isSet(viewer)) 
+
+		if (!isSet(viewer))
 			nexttour(owner, fobject);
-		else 
+		else
 			first3DcameraMove(owner, fobject);
 	}
 	else nexttour(owner, fobject);
-	  
+
 }
 
 function selectMonitorIndex(owner, index) {
@@ -1733,7 +1750,7 @@ function moveToPositionOnMap(owner, index, lat, lng, alt, yaw, roll, pitch) {
 	  setYawStatus(yaw);
 	  setPitchStatus(pitch);
 	}
-	
+
   move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll);
   move2DMapIcon(owner, index, lat, lng, alt, yaw);
 }
@@ -2203,7 +2220,7 @@ function showDataWithName(target, name) {
 
   var userid = getCookie("dev_user_id");
   var jdata = {"action" : "position", "daction" : "download_spe", "name" : name, "clientid" : userid};
-  
+
   if (target == "public")
   	jdata.daction = "download_public_spe";
 
@@ -3279,14 +3296,14 @@ function logOut() {
 }
 
 
-function styleFunction(alt, textMsg) {		
+function styleFunction(alt, textMsg) {
  	var pos_icon_color = getColorPerAlt(alt);
- 	 		
+
   return [
     new ol.style.Style(
     	{
 	      image: new ol.style.Icon(({
-	      	color : pos_icon_color,	      	
+	      	color : pos_icon_color,
 	        crossOrigin: 'anonymous',
 	        scale: 1.5,
 	        src: pos_icon_image
@@ -3327,9 +3344,9 @@ function computeCirclularFlight(start) {
       item.alt
     );
     property.addSample(time, position);
-        	  
+
 	  var icon_color = getColorPerAlt3d(item.alt);
-    	
+
 		//Also create a point for each sample we generate.
     viewer.entities.add({
       position: position,
@@ -3379,33 +3396,33 @@ function remove3dObjects() {
 				scene3d.primitives.remove(pr);
 			});
 		});
-	}	
+	}
 }
 
 function addObjectTo3DMap(index, owner, kind) {
 	if (!isSet(planePrimitives)) {
 		return;
-	}	
-		
-	if (!(owner in planePrimitives)) {
-		planePrimitives[owner] = [];	
 	}
-	
-	var camera = viewer.camera;	
-	
+
+	if (!(owner in planePrimitives)) {
+		planePrimitives[owner] = [];
+	}
+
+	var camera = viewer.camera;
+
 	var position = Cesium.Cartesian3.fromDegrees(
 	  126.5610038, 33.3834381, 3000
 	);
-		
+
 	var glbUrl;
 	if (kind == "drone") {
 		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
 	}
 	else {
 		glbUrl = "https://pilot.duni.io/center/imgs/Cesium_Air.glb";
-	}	
-	
-	var hpRoll = new Cesium.HeadingPitchRoll();				
+	}
+
+	var hpRoll = new Cesium.HeadingPitchRoll();
 	var planePrimitive = scene3d.primitives.add(
 	  Cesium.Model.fromGltf({
 	    url: glbUrl,
@@ -3424,7 +3441,7 @@ function addObjectTo3DMap(index, owner, kind) {
 	    minimumPixelSize: 64,
 	  })
 	);
-		
+
 	planePrimitive.readyPromise.then(function (model) {
 	  // Play and loop all animations at half-speed
 	  model.activeAnimations.addAll({
@@ -3448,7 +3465,7 @@ function addObjectTo3DMap(index, owner, kind) {
 	  hpRange.range = r * 50.0;
 	  camera.lookAt(c_center, hpRange);
 	});
-	
+
 	planePrimitives[owner].push(planePrimitive);
 }
 
@@ -3480,16 +3497,16 @@ function map3dInit() {
 	viewer.scene.globe.enableLighting = false;
 	viewer.scene.globe.depthTestAgainstTerrain = true;
 	Cesium.Math.setRandomNumberSeed(3);
-		
+
 	fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
 	  "north",
 	  "west"
 	);
-	
+
 	scene3d = viewer.scene;
-	
+
 	//Actually create the entity
-	posentity = viewer.entities.add({		  
+	posentity = viewer.entities.add({
 		  path: {
 		    resolution: 1,
 		    material: new Cesium.PolylineGlowMaterialProperty({
@@ -3512,7 +3529,7 @@ function map3dInit() {
       1000
     )
   );
-		
+
 	c_center = new Cesium.Cartesian3();
 	controller = scene3d.screenSpaceCameraController;
 	planePrimitives = {};
@@ -3540,7 +3557,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 		roll = roll < 0 ? (360 + roll) : roll;
 		roll = Math.PI/180 * roll;
 
-		var hpRoll = new Cesium.HeadingPitchRoll();	
+		var hpRoll = new Cesium.HeadingPitchRoll();
 	  hpRoll.pitch = pitch;
 	  hpRoll.heading = yaw;
 	  hpRoll.roll = roll;
@@ -3555,7 +3572,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 	}
 }
 
-function style2DObjectFunction(pImage, textMsg) {		
+function style2DObjectFunction(pImage, textMsg) {
   return [
     new ol.style.Style(
     	{
@@ -3566,7 +3583,7 @@ function style2DObjectFunction(pImage, textMsg) {
 	        fill: new ol.style.Fill({ color: '#000' }),
 	        stroke: new ol.style.Stroke({
 	          color: '#fff', width: 2
-	        }),	        
+	        }),
 	        text: textMsg
 	      	})
     	})
@@ -3582,27 +3599,27 @@ function remove2dObjects() {
 	  	});
 	  });
 	}
-  
+
   current_object_pos_image = null;
 }
 
 function addObjectTo2dMap(index, owner, kind) {
 	if (!isSet(vectorSource)) return;
-	
+
 	if (!isSet(current_object_pos)) {
 		current_object_pos = {};
   	current_object_pos_image = {};
 	}
-	
+
 	if (!(owner in current_object_pos)) {
 		current_object_pos[owner] = [];
 		current_object_pos_image[owner] = [];
 	}
-	
+
 	var current_pos = new ol.Feature({
       geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
   });
-	
+
 	var dsrc;
 	if (kind == "drone") {
 		dsrc = './imgs/position2.png';
@@ -3617,15 +3634,15 @@ function addObjectTo2dMap(index, owner, kind) {
         crossOrigin: 'anonymous',
         src: dsrc
       }));
-      
+
   if (owner == "private" && kind == "drone")
-  	current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));   
+  	current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));
   else
-  	current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner)); 
-    
-  vectorSource.addFeature(current_pos);       
+  	current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner));
+
+  vectorSource.addFeature(current_pos);
   current_object_pos[owner].push(current_pos);
-  current_object_pos_image[owner].push(current_pos_image);         
+  current_object_pos_image[owner].push(current_pos_image);
 }
 
 function mapInit() {
@@ -3661,7 +3678,7 @@ function mapInit() {
       zoom: 17
     });
 
-  var geolocation = new ol.Geolocation({          
+  var geolocation = new ol.Geolocation({
           trackingOptions: {
             enableHighAccuracy: true
           },
@@ -3687,7 +3704,7 @@ function mapInit() {
     })
   }));
 
-  
+
   vectorSource = new ol.source.Vector({
       features: [accuracyFeature, positionFeature]
     });
@@ -3781,7 +3798,7 @@ function mapInit() {
       // animations stutter on mobile or slow devices.
       loadTilesWhileAnimating: true,
       view: current_view
-    });      
+    });
 }
 
 
@@ -3832,8 +3849,8 @@ function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
 
     current_object_pos[owner][index].setGeometry(new ol.geom.Point(location));
     current_object_pos_image[owner][index].setRotation(yaw);
-    
-    
+
+
     if (owner == currentMonitorOwner && currentMonitorIndex == index)
     	current_view.setCenter(location);
 }
@@ -3844,10 +3861,10 @@ function nexttour(owner, fobject) {
 		addChartItem(tableCount, item);
 		moveToPositionOnMap(owner, index, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 	});
-	
+
 	tableCount++;
-	window.myLine.update();  
-  
+	window.myLine.update();
+
   setTimeout(function() {
       if (bMonStarted == false) return;
       nextMon();
@@ -4628,24 +4645,24 @@ function getColorPerAlt3d(alt) {
  	var r = 4;
  	var g = 20 + icon_color;
  	var b = 50 + icon_color;
- 	
+
  	//if (r > 255) r = 255;
  	if (g > 255) g = 255;
  	if (b > 255) b = 255;
- 	
+
 	return Cesium.Color.fromBytes(r, g, b, 240);
 }
 
 function getColorPerAlt(alt) {
-	var icon_color = Math.floor(alt * 1.2);  
+	var icon_color = Math.floor(alt * 1.2);
  	var r = 4;
  	var g = 20 + icon_color;
  	var b = 50 + icon_color;
- 	
+
  	//if (r > 255) r = 255;
  	if (g > 255) g = 255;
  	if (b > 255) b = 255;
- 	
+
  	var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + b.toString(16);
  	return pos_icon_color;
 }
@@ -4674,9 +4691,9 @@ function addChartItem(i, item) {
       mindex : i
   });
 
- 
+
   var pos_icon_color = getColorPerAlt(item.alt);
- 	
+
  	if("etc" in item && "marked" in item.etc) {
     pos_icon_color = '#ff0000';
   }
