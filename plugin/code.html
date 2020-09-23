@@ -16,22 +16,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="DUNI PILOT CENTER">
   <meta name="author" content="APLY Inc.">
-	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/logo.png" />
   <link rel="icon" type="image/png" href="https://pilot.duni.io/logo.png" />
   <link rel="apple-touch-icon" href="https://pilot.duni.io/logo.png" />
 
-  <title>DUNI PILOT PLUGIN</title>
-    
+  <title>DUNI 파일럿 센터</title>
+  
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">    
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
   <!-- Custom styles for this template-->
 	<link href="../center/css/ol.css" rel="stylesheet">
 	<link href="../center/css/style.css" rel="stylesheet">	
 	<style>
-		html, body, #header {
-    margin: 0 !important;
-    padding: 0 !important;
-	}
+		html, body, #header {margin: 0 !important; padding: 0 !important;}
 	</style>
 <script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
 0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
@@ -40,30 +38,38 @@ MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mix
 mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
 </head>
 
-<body id="page-top" bgcolor="#555555">
+<body id="page-top" style="margin:0; padding:0;">
 	
-  <table border=0 width=100% height=100% cellpadding=0 cellspacing=0 valign=top bgcolor=white>
+  <table style="border:1px solid #666; width:100%; height:100%;" cellpadding=0 cellspacing=0 valign="top">
   	<tr>
-  		<td><a href="https://pilot.duni.io/center" target=_new><img src=../center/imgs/test_logo.png style="height:100px;width:100%" border=0></a></td>
+  		<td><a href="https://pilot.duni.io" target="_blank"><img src="../center/imgs/star_pilot.png" style="width:400px;"></a></td>
   		</tr>
 	  	<tr>
 	  		<td><div id="historyMap" style="height:200px;width:100%"></td>
 	  	</tr>  		
 	  	<tr>
-	  		<td align=center bgcolor="#1e324a">	  			
-	  				<font size=5 color=#ffffff><b><strong id="callsign"></strong></b></font>	  			
+	  		<td style="text-align:center; background-color:#2d3092; padding:10px;">	  			
+	  			<div style="font-size:1.2em; color:#45cdba; font-weight:500;" id="callsign"></div>	  			
 	  			<br>
-	  			<font color="#eeeeee" size=2>
-		  			<i class="fas fa-circle text-primary"></i> <span id="r_count_label">비행횟수</span> <font size=5><b><strong id="r_count_label_time">0</strong></b></font><hr size=2 color=white>
-		  			<i class="fas fa-circle text-info"></i> <span id="a_time_label">비행시간</span> <font size=5><b><strong id="a_time_label_time">0</strong></font></b> <strong id="a_time_min_label">Min.</strong><br><br>
+	  			<div style="font-size:.75em; color:#eee;">
+		  			<i class="fas fa-circle text-primary"></i>&nbsp;
+		  			<span id="r_count_label">비행회수</span>&nbsp;
+		  			<span style="font-size:1em;" id="r_count_label_time">0</span>
+		  			
+		  			<hr style="border-top:1px solid #eee;">
+		  			
+		  			<i class="fas fa-circle text-info"></i>&nbsp;
+		  			<span id="a_time_label">비행시간</span>&nbsp;
+		  			<span style="font-size:1em;" id="a_time_label_time">0</span>&nbsp;
+		  			<strong id="a_time_min_label">Min.</strong><br><br>
 	  			</font>
 	  		</td>
 	  	</tr>
 	  	<tr>
-	  		<td align=center>  			
-	  			<font color="#777777" size=2><b>
-		  			powered by <a href="https://pilot.duni.io/center" target=_new><img src=../center/imgs/duni_logo.png height="12px" border=0></a>
-	  			</b></font>
+	  		<td style="text-align:center; background-color:#fff;">  			
+	  			<div style="font-size:.75em; color:#777;">
+	  				powered by <a href="https://pilot.duni.io/center" target="_blank"><img src="../center/imgs/duni_logo.png" style="height:12px; border:none;"></a>
+	  			</div>
 	  		</td>
 	  	</tr>
   </table>
