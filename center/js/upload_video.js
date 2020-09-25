@@ -80,7 +80,7 @@ UploadVideo.prototype.ready = function(accessToken) {
       }
     }.bind(this)
   });
-  $('#movieButton').on("click", this.handleUploadClicked.bind(this));
+  $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
 
 /**
@@ -147,7 +147,7 @@ UploadVideo.prototype.uploadFile = function(file) {
       saveYoutubeUrl("https://youtube.com/watch?v=" + this.videoId);   
       setYoutubePlayerPureID(this.videoId);
       hideMovieDataSet();      
-      $('#movieButton').attr('disabled', false);
+      $('#uploadVideoToYoutubeButton').attr('disabled', false);
       this.pollForVideoStatus();
     }.bind(this)
   });
@@ -163,7 +163,7 @@ UploadVideo.prototype.handleUploadClicked = function() {
 		return;
 	}
 	
-  $('#movieButton').attr('disabled', true);
+  $('#uploadVideoToYoutubeButton').attr('disabled', true);
   this.uploadFile($('#movieFile').get(0).files[0]);
 };
 

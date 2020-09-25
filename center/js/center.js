@@ -551,6 +551,11 @@ function flightDetailInit(target) {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
+  
+  $('#uploadVideoToYoutubeButton').click(function() {
+  	GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
+  	
+  });
 
   var record_name = getQueryVariable("record_name");
   if (record_name != null && record_name != "") {
@@ -3450,7 +3455,8 @@ function addObjectTo3DMap(index, owner, kind) {
 
 function map3dInit() {
 	// ----[
-	$("#map3dViewer").hide();//for the license
+	$("#main3dMap").hide();//for the license
+	$("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);	
 	return;
 	// ---]
 
