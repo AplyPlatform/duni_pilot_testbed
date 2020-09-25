@@ -58,8 +58,8 @@ var viewmode = "pilot"; //developer
 $(function() {
 
 	if (askToken() == false) {
-		//goIndex("");
-    //return;
+		goIndex("");
+    return;
   }
 
   mixpanel.identify(getCookie("dev_user_id"));
