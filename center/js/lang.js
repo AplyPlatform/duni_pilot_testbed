@@ -296,7 +296,7 @@ var LANG_JSON_DATA = {
 				"average_rcount_label" : "Average number of flights for all members",
 				"r_count_label" : "Number of flights",
 				"f_count_label" : "Number of flight missions",
-				"a_time_label" : "Total flight time(min.)",
+				"a_time_label" : "Total flight time",
 				"a_time_min_label" : "minute(s)",
 				"callsign_pre_label": "DUNI PILOT",
 				"dji_flight_record_get_label" : "How to get DJI flight-record file (Click)",
