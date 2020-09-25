@@ -53,16 +53,19 @@ var moviePlayerVisible = false;
 
 var langset = "KR";
 
+var viewmode = "pilot"; //developer
+
 $(function() {
 
 	if (askToken() == false) {
-		goIndex("");
-    return;
+		//goIndex("");
+    //return;
   }
 
   mixpanel.identify(getCookie("dev_user_id"));
 
 	setCommonText();
+	setViewMode();
   initPilotCenter();
 });
 
@@ -71,6 +74,31 @@ function goIndex(doAction) {
     location.href="/index.html?action=" + doAction;
   else
   	location.href="/index_en.html?action=" + doAction;
+}
+
+function setViewMode() {
+	$('#view_mode_selector').off('click');
+	
+	if (viewmode == "pilot") {
+		$("#mission_menu").hide();
+		$("#monitor_menu").hide();
+		$("#side_menu_links_dev").hide();
+		$("#side_menu_links_apis").hide();
+		$("#developer_token_menu").hide();
+		
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);		
+		$('#view_mode_selector').click(function(){
+			setCookie("viewmode", "developer", 1);
+			location.reload();
+		});
+	}	
+	else {
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);	
+		$('#view_mode_selector').click(function(){
+			setCookie("viewmode", "pilot", 1);
+			location.reload();
+		});
+	}
 }
 
 function setCommonText() {
