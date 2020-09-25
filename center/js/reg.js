@@ -86,18 +86,21 @@ function requestRegister() {
               if (droneplay_name == null || droneplay_name == "") {
               	GATAGM('NameIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_name']);
+                hideLoader();
                 return;
               }              
               
               if (droneplay_email == null || droneplay_email == "") {
               	GATAGM('EmailIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_email']);
+                hideLoader();
                 return;
               }
               
               if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
               	GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_input_phone']);
+                hideLoader();
                 return;
               }
               
@@ -123,11 +126,13 @@ function requestRegister() {
                       			showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
                       			$("#show_2").show();
                       			GATAGM('EmailIsExistOnRegister', 'CONTENT', langset);
+                      			hideLoader();
                       			return;
                       		}
                       		                          
                           showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
                           $("#show_2").show();
+                          hideLoader();
                       }
                   },
                   function(request,status,error){
