@@ -459,7 +459,7 @@ function flightrecordUploadInit() {
 	$('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
 	$('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
 	
-	if (viewmode == "developer") {
+	if (viewmode == "pilot") {
 		$('#duni_upload_viewer').hide();
 	}
 
