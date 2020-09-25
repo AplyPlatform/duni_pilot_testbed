@@ -3450,8 +3450,8 @@ function addObjectTo3DMap(index, owner, kind) {
 
 function map3dInit() {
 	// ----[
-	//$("#map3dViewer").hide();//for the license
-	//return;
+	$("#map3dViewer").hide();//for the license
+	return;
 	// ---]
 
 	Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
