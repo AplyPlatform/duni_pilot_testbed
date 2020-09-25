@@ -91,6 +91,7 @@ function setViewMode() {
 		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);		
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
+			GATAGM('view_mode_selector_developer', 'MEMU', langset);
 			location.reload();
 		});
 	}	
@@ -98,6 +99,7 @@ function setViewMode() {
 		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);	
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
+			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
 			location.reload();
 		});
 	}
@@ -456,6 +458,10 @@ function flightrecordUploadInit() {
 	$('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
 	$('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
 	$('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
+	
+	if (viewmode == "developer") {
+		$('#duni_upload_viewer').hide();
+	}
 
 	$('#btnForUploadFlightList').click(function() {
     	GATAGM('btnForUploadFlightList', 'CONTENT', langset);
