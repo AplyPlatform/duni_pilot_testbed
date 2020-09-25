@@ -76,10 +76,12 @@ function goIndex(doAction) {
   	location.href="/index_en.html?action=" + doAction;
 }
 
-function setViewMode() {
+function setViewMode() {		
+	viewmode = getCookie("viewmode");
+	
 	$('#view_mode_selector').off('click');
 	
-	if (viewmode == "pilot") {
+	if (viewmode == "" || viewmode == "pilot") {
 		$("#mission_menu").hide();
 		$("#monitor_menu").hide();
 		$("#side_menu_links_dev").hide();
@@ -308,8 +310,12 @@ function centerInit() {
 	$("#head_title").text(document.title);
 
 	$('#page_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
-	$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_content']);
-
+	
+	if (viewmode == "developer")
+		$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
+	else
+		$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_pilot_content']);
+	
 	$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);

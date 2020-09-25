@@ -229,6 +229,8 @@ function setLang(lang) {
 $(function() {
 	checkLang();
 	var page = window.location.href;
+	
+	setCookie("viewmode", "pilot", 1);
 
 	if (page.indexOf("navercallback.html") >= 0) {
 
