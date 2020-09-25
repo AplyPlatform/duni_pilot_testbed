@@ -68,9 +68,9 @@ $(function() {
 
 function goIndex(doAction) {
 	if (langset == "KR" || langset == "")
-    location.href="index.html?action=" + doAction;
+    location.href="/index.html?action=" + doAction;
   else
-  	location.href="index_en.html?action=" + doAction;
+  	location.href="/index_en.html?action=" + doAction;
 }
 
 function setCommonText() {

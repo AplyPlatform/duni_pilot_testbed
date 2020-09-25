@@ -45,9 +45,9 @@ function goHomeButton() {
 
 function goHome() {												
 			if (langset == "KR")
-				location.href="index.html?fromapp=" + getCookie("isFromApp");
+				location.href="/index.html?fromapp=" + getCookie("isFromApp");
 			else
-				location.href="index_en.html?fromapp=" + getCookie("isFromApp");			
+				location.href="/index_en.html?fromapp=" + getCookie("isFromApp");			
 }
 
 function ajaxRequest(data, callback, errorcallback) {
