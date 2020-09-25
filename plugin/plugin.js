@@ -19,9 +19,12 @@ function setCommonText() {
 	if (isSet(langt))
 		langset = langt;
 		
+	document.title = LANG_JSON_DATA[langset]['page_center_title'];	
+		
 	$("#r_count_label").text(LANG_JSON_DATA[langset]["r_count_label"]);	
 	$("#a_time_label").text(LANG_JSON_DATA[langset]["a_time_label"]);
 	$("#a_time_min_label").text(LANG_JSON_DATA[langset]["a_time_min_label"]);
+	$("#callsign_pre_label").text(LANG_JSON_DATA[langset]["callsign_pre_label"]);
 }
 
 
