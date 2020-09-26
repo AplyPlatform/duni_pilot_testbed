@@ -86,6 +86,8 @@ function setViewMode() {
 		$("#monitor_menu").hide();
 		$("#side_menu_links_dev").hide();
 		$("#side_menu_links_apis").hide();
+		$("#side_menu_links_codes").hide();
+		$("#side_menu_links_samples").hide();		
 		$("#developer_token_menu").hide();
 		
 		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);		
