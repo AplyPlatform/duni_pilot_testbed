@@ -18,6 +18,8 @@ var LANG_JSON_DATA = {
 				"side_menu_links_blog" : "DUNI 블로그",
 				"side_menu_links_apis" : "DUNI Open APIs",
 				"side_menu_links_dev" : "DUNI 개발자 사이트",
+				"side_menu_links_codes" : "DUNI 코드",
+				"side_menu_links_samples" : "DUNI 코드 예제",
 				"modifyBtnForMovieData" : "영상정보 수정",
 				"title_for_moviedata_label" : "영상 제목",
 				"desc_for_moviedata_label" : "영상 설명",
@@ -157,7 +159,7 @@ var LANG_JSON_DATA = {
 				"center_about_pilot_content" : "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있으며 드론의 비행계획을 쉽게 디자인할 수 있습니다.",
 				"center_about_developer_content" : "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있으며 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br>" +
             								"DUNI 앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href='http://code.duni.io/' target=_new>이곳</a>에서 확인할 수 있습니다.<br>" +
-            								"오른쪽 상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.",				
+            								"오른쪽 상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.",
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>안드로이드</b></p>"
 							+ "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
 							+ "<p>또는, - 내 파일 > 내장 메모리 > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_연월일시.txt</p>"
@@ -187,6 +189,8 @@ var LANG_JSON_DATA = {
 				"side_menu_links_blog" : "DUNI Blog",
 				"side_menu_links_apis" : "DUNI Open APIs",
 				"side_menu_links_dev" : "DUNI Developer",
+				"side_menu_links_codes" : "DUNI Codes",
+				"side_menu_links_samples" : "DUNI Code Samples",
 				"modifyBtnForMovieData" : "Modify Video info.",
 				"title_for_moviedata_label" : "Video title",
 				"desc_for_moviedata_label" : "Video description",
@@ -324,7 +328,7 @@ var LANG_JSON_DATA = {
 				"upload_about_content" : "Upload your flight record.",
 				"design_about_content" : "You can easily design the drone's flight mission",
 				"center_about_pilot_content" : "This is where you can easily design the drone's flight mission and check flight records and the situation." +
-																"The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.<br>" +																
+																"The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.<br>" +
 																"Upload the Drone's video to Youtube site or set Youtube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)",
 				"center_about_developer_content" : "This is where you can easily design the drone's flight mission and check flight records and the situation." +
 																"The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.<br>" +

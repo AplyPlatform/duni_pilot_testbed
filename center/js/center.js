@@ -76,29 +76,29 @@ function goIndex(doAction) {
   	location.href="/index_en.html?action=" + doAction;
 }
 
-function setViewMode() {		
+function setViewMode() {
 	viewmode = getCookie("viewmode");
-	
+
 	$('#view_mode_selector').off('click');
-	
+
 	if (viewmode == "" || viewmode == "pilot") {
 		$("#mission_menu").hide();
 		$("#monitor_menu").hide();
 		$("#side_menu_links_dev").hide();
 		$("#side_menu_links_apis").hide();
 		$("#side_menu_links_codes").hide();
-		$("#side_menu_links_samples").hide();		
+		$("#side_menu_links_samples").hide();
 		$("#developer_token_menu").hide();
-		
-		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);		
+
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
 			location.reload();
 		});
-	}	
+	}
 	else {
-		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);	
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
@@ -135,7 +135,9 @@ function setCommonText() {
 		$('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);
 		$('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
 		$('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
-
+		$('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
+		$('#side_menu_links_codes').text(LANG_JSON_DATA[langset]['side_menu_links_codes']);
+		
 		$('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
 		$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
 
@@ -314,12 +316,12 @@ function centerInit() {
 	$("#head_title").text(document.title);
 
 	$('#page_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
-	
+
 	if (viewmode == "developer")
 		$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
 	else
 		$('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_pilot_content']);
-	
+
 	$('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
 	$('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
 	$('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
@@ -460,7 +462,7 @@ function flightrecordUploadInit() {
 	$('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
 	$('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
 	$('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
-	
+
 	if (viewmode == "pilot") {
 		$('#duni_upload_viewer').hide();
 	}
@@ -593,10 +595,10 @@ function flightDetailInit(target) {
   	GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
   	setYoutubeID();
   });
-  
+
   $('#uploadVideoToYoutubeButton').click(function() {
   	GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-  	
+
   });
 
   var record_name = getQueryVariable("record_name");
@@ -3498,7 +3500,7 @@ function addObjectTo3DMap(index, owner, kind) {
 function map3dInit() {
 	// ----[
 	$("#main3dMap").hide();//for the license
-	$("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);	
+	$("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
 	return;
 	// ---]
 
