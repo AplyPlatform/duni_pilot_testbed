@@ -156,7 +156,7 @@ var LANG_JSON_DATA = {
 				"design_about_content" : "설계한 비행계획은 DUNI 앱과 DJI 제품의 드론에서 사용할 수 있습니다.",
 				"center_about_pilot_content" : "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있으며 드론의 비행계획을 쉽게 디자인할 수 있습니다.",
 				"center_about_developer_content" : "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있으며 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br>" +
-            								"DUNI 앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href=http://code.droneplay.io/ target=_new>이곳</a>에서 확인할 수 있습니다.<br>" +
+            								"DUNI 앱의 안드로이드 버전은 소스코드가 공개되어 있습니다. <a href='http://code.duni.io/' target=_new>이곳</a>에서 확인할 수 있습니다.<br>" +
             								"오른쪽 상단의 <i class='fa fa-user fa-fw'></i> 아이콘을 클릭하면 본인의 개발자 Token을 확인할 수 있습니다.",				
 				"collapseRecordFileParams" : "<br><hr size=1><p><b>안드로이드</b></p>"
 							+ "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
