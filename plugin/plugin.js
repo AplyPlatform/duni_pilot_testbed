@@ -30,16 +30,10 @@ function setCommonText() {
 
 function initPilotPlugin() {
 	showLoader();    
-  var parent_url;
-  
-  if (isSet(parent))
-  	parent_url = parent.document.location.href;
-  else 
-  	parent_url = getQueryVariable("parent_url");
-  	
+  var parent_url = getQueryVariable("parent_url");  	
   var pluginid = getQueryVariable("code");  
   	
-  if (!isSet(pluginid) || !isSet(parent_url)) {
+  if (!isSet(pluginid)) {
   	hideLoader();  	
     return;
   }  
