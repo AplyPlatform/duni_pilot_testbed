@@ -30,16 +30,22 @@ function setCommonText() {
 
 function initPilotPlugin() {
 	showLoader();    
-  var parent_url = getQueryVariable("parent_url");
+  var parent_url;
+  
+  if (isSet(parent))
+  	parent_url = parent.document.location.href;
+  else 
+  	parent_url = getQueryVariable("parent_url");
+  	
   var pluginid = getQueryVariable("code");  
   	
-  if (!isSet(pluginid) || !isSet(pluginid)) {
+  if (!isSet(pluginid) || !isSet(parent_url)) {
   	hideLoader();  	
     return;
-  }      
+  }  
   
   mixpanel.identify(pluginid);  
-	GATAGM("plugin_loaded_" + pluginid + "_" + parent_url, "CONTENT", langset);
+	GATAGM("plugin_loaded_" + pluginid + "_" + parent_url, "PLUGIN", langset);
   
 	flightHistoryMapInit();
   flightViewInit();   
