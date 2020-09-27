@@ -70,41 +70,41 @@ $(function () {
 });
 
 function goIndex(doAction) {
-    if (langset == "KR" || langset == "")
-        location.href = "/index.html?action=" + doAction;
-    else
-        location.href = "/index_en.html?action=" + doAction;
+  if (langset == "KR" || langset == "")
+    location.href="/index.html?action=" + doAction;
+  else
+  	location.href="/index_en.html?action=" + doAction;
 }
 
 function setViewMode() {
-    viewmode = getCookie("viewmode");
+	viewmode = getCookie("viewmode");
 
-    $('#view_mode_selector').off('click');
+	$('#view_mode_selector').off('click');
 
-    if (viewmode == "" || viewmode == "pilot") {
-        $("#mission_menu").hide();
-        $("#monitor_menu").hide();
-        $("#side_menu_links_dev").hide();
-        $("#side_menu_links_apis").hide();
-        $("#side_menu_links_codes").hide();
-        $("#side_menu_links_samples").hide();
-        $("#developer_token_menu").hide();
+	if (viewmode == "" || viewmode == "pilot") {
+		$("#mission_menu").hide();
+		$("#monitor_menu").hide();
+		$("#side_menu_links_dev").hide();
+		$("#side_menu_links_apis").hide();
+		$("#side_menu_links_codes").hide();
+		$("#side_menu_links_samples").hide();
+		$("#developer_token_menu").hide();
 
-        $("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
-        $('#view_mode_selector').click(function () {
-            setCookie("viewmode", "developer", 1);
-            GATAGM('view_mode_selector_developer', 'MEMU', langset);
-            location.reload();
-        });
-    }
-    else {
-        $("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
-        $('#view_mode_selector').click(function () {
-            setCookie("viewmode", "pilot", 1);
-            GATAGM('view_mode_selector_pilot', 'MEMU', langset);
-            location.reload();
-        });
-    }
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
+		$('#view_mode_selector').click(function(){
+			setCookie("viewmode", "developer", 1);
+			GATAGM('view_mode_selector_developer', 'MEMU', langset);
+			location.reload();
+		});
+	}
+	else {
+		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
+		$('#view_mode_selector').click(function(){
+			setCookie("viewmode", "pilot", 1);
+			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
+			location.reload();
+		});
+	}
 }
 
 function setCommonText() {
@@ -135,6 +135,8 @@ function setCommonText() {
     $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);
     $('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
     $('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
+    $('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
+    $('#side_menu_links_codes').text(LANG_JSON_DATA[langset]['side_menu_links_codes']);    
 
     $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
     $('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
@@ -178,6 +180,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
     });
 
     $('#askModal').modal('show');
+
 }
 
 function setLogoutBtn() {
@@ -546,6 +549,7 @@ function monitorInit() {
 
 
 function flightDetailInit(target) {
+
     if (target == "public") {
         document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
     }
@@ -605,6 +609,7 @@ function flightDetailInit(target) {
     }
 
     $("#map_tabs").tabs();
+
 }
 
 function flightrecordListInit(target) { //비행기록 목록
@@ -3431,6 +3436,7 @@ function remove3dObjects() {
 }
 
 function addObjectTo3DMap(index, owner, kind) {
+
     if (!isSet(planePrimitives)) {
         return;
     }
@@ -3498,6 +3504,7 @@ function addObjectTo3DMap(index, owner, kind) {
     });
 
     planePrimitives[owner].push(planePrimitive);
+
 }
 
 function map3dInit() {

@@ -1,5 +1,4 @@
 var LANG_JSON_DATA = {
-
     "KR": {
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
@@ -18,6 +17,8 @@ var LANG_JSON_DATA = {
         "side_menu_links_blog": "DUNI 블로그",
         "side_menu_links_apis": "DUNI Open APIs",
         "side_menu_links_dev": "DUNI 개발자 사이트",
+        "side_menu_links_codes": "DUNI 코드",
+        "side_menu_links_samples": "DUNI 코드 예제",
         "modifyBtnForMovieData": "영상정보 수정",
         "title_for_moviedata_label": "영상 제목",
         "desc_for_moviedata_label": "영상 설명",
@@ -187,6 +188,8 @@ var LANG_JSON_DATA = {
         "side_menu_links_blog": "DUNI Blog",
         "side_menu_links_apis": "DUNI Open APIs",
         "side_menu_links_dev": "DUNI Developer",
+        "side_menu_links_codes": "DUNI Codes",
+        "side_menu_links_samples": "DUNI Code Samples",
         "modifyBtnForMovieData": "Modify Video info.",
         "title_for_moviedata_label": "Video title",
         "desc_for_moviedata_label": "Video description",
@@ -340,5 +343,4 @@ var LANG_JSON_DATA = {
             + "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
             + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
     }
-
 };
