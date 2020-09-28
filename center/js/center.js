@@ -54,6 +54,7 @@ var moviePlayerVisible = false;
 var langset = "KR";
 
 var viewmode = "pilot"; //developer
+var cur_controller;
 
 $(function () {
 
@@ -63,7 +64,11 @@ $(function () {
     }
 
     mixpanel.identify(getCookie("dev_user_id"));
-
+    
+    var image_url = getCookie("image_url");
+    if (image_url == "") $('#profile_image').hide();
+    else $('#profile_image').attr("src", image_url);
+		
     setCommonText();
     setViewMode();
     initPilotCenter();
@@ -80,29 +85,27 @@ function setViewMode() {
 	viewmode = getCookie("viewmode");
 
 	$('#view_mode_selector').off('click');
-
-	if (viewmode == "" || viewmode == "pilot") {
-		$("#mission_menu").hide();
-		$("#monitor_menu").hide();
-		$("#side_menu_links_dev").hide();
-		$("#side_menu_links_apis").hide();
-		$("#side_menu_links_codes").hide();
-		$("#side_menu_links_samples").hide();
-		$("#developer_token_menu").hide();
-
+	
+	if(viewmode == "") viewmode = "pilot";
+			
+	if(viewmode == "pilot") {						
+		cur_controller = "/center/main.html";
+		
 		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
-			GATAGM('view_mode_selector_developer', 'MEMU', langset);
-			location.reload();
+			GATAGM('view_mode_selector_developer', 'MEMU', langset);			
+			location.href= cur_controller + "?page_action=center";
 		});
 	}
 	else {
+		cur_controller = "/center/main_dev.html";
+		
 		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
-			location.reload();
+			location.href= cur_controller + "?page_action=center";
 		});
 	}
 }
@@ -110,12 +113,14 @@ function setViewMode() {
 function setCommonText() {
     var lang = getCookie("language");
     if (isSet(lang))
-        langset = lang;
-
-    var image_url = getCookie("image_url");
-
-    if (image_url == "") $('#profile_image').hide();
-    else $('#profile_image').attr("src", image_url);
+        langset = lang;   
+        
+    if (viewmode == "developer") {
+    	$('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
+    	$('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
+    	$('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
+    	$('#side_menu_links_codes').text(LANG_JSON_DATA[langset]['side_menu_links_codes']);
+    }
 
     $('#menu_left_top_title_label').text(LANG_JSON_DATA[langset]['menu_left_top_title_label']);
 
@@ -132,11 +137,7 @@ function setCommonText() {
     $('#side_menu_qa').text(LANG_JSON_DATA[langset]['side_menu_qa']);
     $('#side_menu_links').text(LANG_JSON_DATA[langset]['side_menu_links']);
     $('#side_menu_links_comm').text(LANG_JSON_DATA[langset]['side_menu_links_comm']);
-    $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);
-    $('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
-    $('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
-    $('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
-    $('#side_menu_links_codes').text(LANG_JSON_DATA[langset]['side_menu_links_codes']);    
+    $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);    
 
     $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
     $('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
@@ -1721,6 +1722,7 @@ function getMissionList() {
             if (r.morekey) {
                 $('#btnForGetMissionList').text(LANG_JSON_DATA[langset]['msg_load_more']);
                 hasMore = r.morekey;
+                $('#btnForGetMissionList').show();
             }
             else {
                 $('#btnForGetMissionList').hide(1500);
@@ -1901,12 +1903,12 @@ function appendMissionList(data) {
     if (data.length == 0) return;
     data.forEach(function (item, index, array) {
         var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
-            + "<a href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+            + "<a href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
             + item['name']
             + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
             + item['regtime']
             + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
-            + "<a class='btn btn-warning text-xs' href='main.html?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
+            + "<a class='btn btn-warning text-xs' href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
             + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
             + LANG_JSON_DATA[langset]['msg_remove'] + "</button></div></div></div></div>";
         $('#dataTable-missions').append(appendRow);
@@ -2635,12 +2637,12 @@ function appendFlightListTable(target, item) {
         appendRow = appendRow
             + "<a onclick='GATAGM(\"flight_list_public_title_click_"
             + name + "\", \"CONTENT\", \""
-            + langset + "\");' href='main.html?page_action=publicflightview_detail&record_name="
+            + langset + "\");' href='" + cur_controller + "?page_action=publicflightview_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
     else {
         appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \""
-            + langset + "\");' href='main.html?page_action=flightview_detail&record_name="
+            + langset + "\");' href='" + cur_controller + "?page_action=flightview_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
 
@@ -3975,7 +3977,7 @@ function uploadDUNIFlightListCallback(mname, base64file) {
             $('#btnForUploadDUNIFlightList').hide(1500);
             $('#dunifileform').hide(1500);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = "main.html?page_action=flightview";
+            location.href = cur_controller + "?page_action=flightview";
         }
         else {
             if (r.reason == "same data is exist") {
@@ -4000,7 +4002,7 @@ function uploadFlightListCallback(mname, base64file) {
             $('#btnForUploadFlightList').hide(1500);
             $('#djifileform').hide(1500);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = "main.html?page_action=flightview";
+            location.href = cur_controller + "?page_action=flightview";
         }
         else {
             if (r.reason == "same data is exist") {
