@@ -2094,6 +2094,7 @@ function getFlightList(target) {
             if (r.morekey) {
                 hasMore = r.morekey;
                 $('#btnForLoadFlightList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+                $('#btnForLoadFlightList').show();
             }
             else {
                 hasMore = null;
