@@ -1346,6 +1346,9 @@ function setMissionDataToDesignView(name) {
     var jdata = { "action": "mission", "daction": "get_spec", "mname": name, "clientid": userid };
 
     showLoader();
+    
+    $("#mission_name_field").text(name);
+    
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             hideLoader();
