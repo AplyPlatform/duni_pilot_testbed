@@ -68,9 +68,9 @@ $(function () {
     var image_url = getCookie("image_url");
     if (image_url == "") $('#profile_image').hide();
     else $('#profile_image').attr("src", image_url);
-		
-    setCommonText();
+		    
     setViewMode();
+    setCommonText();
     initPilotCenter();
 });
 
