@@ -143,6 +143,7 @@ function setCommonText() {
     	$('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
     	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);    	
 			$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
+			$("#droneplaytoken_view").val(getCookie("user_token"));
     }
     else {
     	$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
@@ -1723,8 +1724,7 @@ function askToken() {
     if (isSet(useremail) == false || isSet(userid) == false || isSet(usertoken) == false)
         return false;
 
-    $("#email_field").text(useremail);
-    $("#droneplaytoken_view").val(usertoken);
+    $("#email_field").text(useremail);    
 
     return true;
 }
