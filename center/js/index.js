@@ -68,7 +68,7 @@ function facebookSignInCallback() {
                 function (lresponse) {
                     if (token != null && token != "") {
                         setCookie("dev_kind", "facebook", 1);
-                        formSubmit(token, lresponse.name, "http://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
+                        formSubmit(token, lresponse.name, "https://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
                     }
                     else {
                         alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
