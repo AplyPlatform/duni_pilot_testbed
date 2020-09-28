@@ -81,17 +81,36 @@ function goIndex(doAction) {
   	location.href="/index_en.html?action=" + doAction;
 }
 
-function setViewMode() {
-	viewmode = getCookie("viewmode");
+function setCurrentViewMode() {
+	var segments = window.location.pathname.split('/');
+	var toDelete = [];
+	for (var i = 0; i < segments.length; i++) {
+	    if (segments[i].length < 1) {
+	        toDelete.push(i);
+	    }
+	}
+	for (var i = 0; i < toDelete.length; i++) {
+	    segments.splice(i, 1);
+	}
+	var filename = segments[segments.length - 1];
+	
+	if (isSet(filename) && filename.indexOf("main_dev.html") >= 0) {
+		viewmode = "developer";
+	}
+	else {
+		viewmode = "pilot";
+	}
+}
 
+function setViewMode() {
+	setCurrentViewMode();
+	
 	$('#view_mode_selector').off('click');
 	
 	if(viewmode == "") viewmode = "pilot";
 			
 	if(viewmode == "pilot") {						
-		cur_controller = "/center/main.html";
-		
-		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
+		cur_controller = "/center/main.html";				
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);			
@@ -99,9 +118,7 @@ function setViewMode() {
 		});
 	}
 	else {
-		cur_controller = "/center/main_dev.html";
-		
-		$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
+		cur_controller = "/center/main_dev.html";				
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
@@ -120,15 +137,20 @@ function setCommonText() {
     	$('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
     	$('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
     	$('#side_menu_links_codes').text(LANG_JSON_DATA[langset]['side_menu_links_codes']);
+    	$('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
+    	$('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
+    	$('#side_menu_flight_plan_list').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_list']);
+    	$('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
+    	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);    	
+			$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
     }
-
+    else {
+    	$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
+    }
+    
     $('#menu_left_top_title_label').text(LANG_JSON_DATA[langset]['menu_left_top_title_label']);
 
-    $('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
-    $('#side_menu_flight_plan').text(LANG_JSON_DATA[langset]['side_menu_flight_plan']);
-    $('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
-    $('#side_menu_flight_plan_list').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_list']);
-    $('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
+    $('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);    
     $('#side_menu_flight_record').text(LANG_JSON_DATA[langset]['side_menu_flight_record']);
     $('#side_menu_flight_record_upload').text(LANG_JSON_DATA[langset]['side_menu_flight_record_upload']);
     $('#side_menu_flight_record_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_list']);
@@ -139,8 +161,7 @@ function setCommonText() {
     $('#side_menu_links_comm').text(LANG_JSON_DATA[langset]['side_menu_links_comm']);
     $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);    
 
-    $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
-    $('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
+    $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);    
 
     $('#askModalCancelButton').text(LANG_JSON_DATA[langset]['msg_cancel']);
 }
@@ -206,7 +227,13 @@ function initPilotCenter() {
     var page_action = getQueryVariable("page_action");
 
     if (page_action == "center") {
-        $("#main_contents").load("center.html", function () {
+    		var loadPage = "center.html";
+    		
+    		if (viewmode == "developer") {
+    			loadPage = "center_dev.html";
+    		}
+    		
+        $("#main_contents").load(loadPage, function () {
             mapInit();
             flightHistoryMapInit();
             centerInit();
