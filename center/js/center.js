@@ -342,8 +342,8 @@ function initPilotCenter() {
         $("#record_menu").addClass("active");
     }
     else {
-    	showAlert(LANG_JSON_DATA[langset]['msg_error']);
-    	centerPageInit();
+    		showAlert(LANG_JSON_DATA[langset]['msg_error']);
+    		centerPageInit();
     }
 }
 
