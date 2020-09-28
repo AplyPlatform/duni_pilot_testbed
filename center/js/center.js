@@ -226,6 +226,10 @@ function initPilotCenter() {
     showLoader();
 
     var page_action = getQueryVariable("page_action");
+    
+    if (!isSet(page_action)) {
+    	page_action = "center";
+    }
 
     if (page_action == "center") {
     		var loadPage = "center.html";
