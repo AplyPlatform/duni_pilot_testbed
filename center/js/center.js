@@ -220,6 +220,22 @@ function setLogoutBtn() {
     });
 }
 
+function centerPageInit() {
+	var loadPage = "center.html";
+    		
+	if (viewmode == "developer") {
+			loadPage = "center_dev.html";
+	}
+	
+  $("#main_contents").load(loadPage, function () {
+      mapInit();
+      flightHistoryMapInit();
+      centerInit();
+  });
+  
+  $("#dashboard_menu").addClass("active");
+}
+
 function initPilotCenter() {
     flightRecArray = [];
     setLogoutBtn();
@@ -228,22 +244,11 @@ function initPilotCenter() {
     var page_action = getQueryVariable("page_action");
     
     if (!isSet(page_action)) {
-    	page_action = "center";
+    		page_action = "center";
     }
 
     if (page_action == "center") {
-    		var loadPage = "center.html";
-    		
-    		if (viewmode == "developer") {
-    			loadPage = "center_dev.html";
-    		}
-    		
-        $("#main_contents").load(loadPage, function () {
-            mapInit();
-            flightHistoryMapInit();
-            centerInit();
-        });
-        $("#dashboard_menu").addClass("active");
+    		centerPageInit();
     }
     else if (page_action == "design") {
         $("#main_contents").load("design.html", function () {
@@ -338,6 +343,7 @@ function initPilotCenter() {
     }
     else {
     	showAlert(LANG_JSON_DATA[langset]['msg_error']);
+    	centerPageInit();
     }
 }
 
