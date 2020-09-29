@@ -4330,7 +4330,7 @@ function massageYotubeUrl(data_id) {
         var splitUrl = data_id.split('/');
         if (splitUrl.length < 4) return "";
 
-        return splitUrl[3];
+        return "https://www.youtube.com/watch?v=" + splitUrl[3];
     }
 
     return "";
@@ -4352,6 +4352,7 @@ function setYoutubeID() {
         saveYoutubeUrl(fi_data_url);
     }
     else {
+        showAlert(LANG_JSON_DATA[langset]['msg_wrong_youtube_url_input']);
         setYoutubePlayer("");
     }
 
