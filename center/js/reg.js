@@ -46,8 +46,8 @@ function showPrivacyButton() {
    	});	  	      
 }
 
-function goHomeButton() {
-    GATAGM('BackBtnClickOnRegister', 'CONTENT', langset);
+function goHomeButton(btnName) {
+    GATAGM(btnName, 'CONTENT', langset);
     goHome();
 }
 
