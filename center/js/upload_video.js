@@ -158,6 +158,7 @@ UploadVideo.prototype.uploadFile = function (file) {
 
 UploadVideo.prototype.handleUploadClicked = function () {
 
+		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
     if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
         showAlert("영상 파일을 선택해 주세요");
         return;

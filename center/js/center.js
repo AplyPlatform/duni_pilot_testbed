@@ -638,12 +638,7 @@ function flightDetailInit(target) {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });
-
-    $('#uploadVideoToYoutubeButton').click(function () {
-        GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-
-    });
+    });    
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
