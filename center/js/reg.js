@@ -39,7 +39,7 @@ function onAgree() {
 function showPrivacyButton() {
 	  GATAGM('privacy_link_label', 'CONTENT', langset);
 	  	  
-	  $.get("/privacy" + langset + "_raw.html", function(html_string){
+	  $.get("/privacy_" + langset + "_raw.html", function(html_string){
       showAlert(html_string);
    	});	  	      
 }
