@@ -2516,7 +2516,7 @@ function makeForFlightListMap(index, flat, flng) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, "#ff0000", { lat: flat, lng: flng, alt: 0 });
+    var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0 });
     vSource.addFeature(icon);
 
     if (isSet(flightHistorySource)) {
