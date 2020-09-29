@@ -38,6 +38,14 @@ function onAgree() {
     hideLoader();
 }
 
+function showPrivacyButton() {
+	  GATAGM('privacy_link_label', 'CONTENT', langset);
+	  	  
+	  $.get("/privacy.html", function(html_string){
+      showAlert(html_string);
+   	});	  	      
+}
+
 function goHomeButton() {
     GATAGM('BackBtnClickOnRegister', 'CONTENT', langset);
     goHome();
