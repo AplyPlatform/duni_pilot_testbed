@@ -11,9 +11,7 @@ $(function () {
 
     $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
     $("#droneplay_email").attr("placeholder", LANG_JSON_DATA[langset]['email_label']);
-    $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);
-
-    $("#privacy_link_label").attr("href", LANG_JSON_DATA[langset]['privacy_link']);
+    $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);    
 
     $("#register_label").text(LANG_JSON_DATA[langset]['register_label']);
     $("#privacy_link_label").text(LANG_JSON_DATA[langset]['privacy_link_label']);
