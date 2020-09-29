@@ -189,7 +189,7 @@ function showAlert(msg) {
     $('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
     $('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
 
-    $('#errorModalLabel').text(msg);
+    $('#errorModalLabel').html(msg);
     $('#errorModal').modal('show');
 }
 
