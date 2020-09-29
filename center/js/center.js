@@ -629,7 +629,13 @@ function flightDetailInit(target) {
     $("#btnForLink").hide();
     $("#btnForSharing").hide();
 
-
+		// ------------[
+		$("#uploadVideoToYoutubeButton").click(function () {
+        GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
+        showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
+		});        
+		// ]-----------
+        
     $('#btnForFilter').click(function () {
         GATAGM('btnForFilter', 'CONTENT', langset);
         setFilter();

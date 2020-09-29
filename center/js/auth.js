@@ -10,14 +10,14 @@ var OAUTH2_SCOPES = [
 var apiIsReady = false;
 var authSucceed = false;
 // Upon loading, the Google APIs JS client automatically invokes this callback.
-googleApiClientReady = function () {
+var googleApiClientReady = function () {
 
     gapi.auth.init(function () {
         apiIsReady = true;
     });
 
-    setUploadBtn();
-}
+    //setUploadBtn();
+};
 
 function setUploadBtn() {
     $("#uploadVideoToYoutubeButton").click(function () {
