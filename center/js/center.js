@@ -749,7 +749,7 @@ function dromiListInit() {
 }
 
 function flightHistoryMapInit() {
-    var dpoint = ol.proj.fromLonLat([0, 0]);
+    var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
 
     flightHistoryView = new ol.View({
         center: dpoint,
@@ -1385,20 +1385,20 @@ function setMissionDataToDesignView(name) {
 }
 
 
-function createNewIconFor2DMap(i, item) {
+function createNewIconFor2DMap(i, color, item) {
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i
     });
 
-    pos_icon.setStyle(styleFunction(item.alt, (i + 1) + ""));
+    pos_icon.setStyle(styleFunction(item.alt, color, (i + 1) + ""));
 
     return pos_icon;
 }
 
-function addNewIconToDesignMap(i, item) {
-    var nIcon = createNewIconFor2DMap(i, item);
+function addNewIconToDesignMap(i, color, item) {
+    var nIcon = createNewIconFor2DMap(i, color, item);
     posSource.addFeature(nIcon);
 }
 
@@ -1414,7 +1414,7 @@ function setDesignTable() {
     var coordinates = [];
 
     designDataArray.forEach(function (item) {
-        addNewIconToDesignMap(i, item);
+        addNewIconToDesignMap(i, "#0000ff", item);
         coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
         i++;
     });
@@ -1482,7 +1482,7 @@ function appendDataToDesignTable(lonLat) {
     $("#slider").slider('value', index);
 
     setDataToDesignView(index);
-    addNewIconToDesignMap(index, data);
+    addNewIconToDesignMap(index, "#0000ff", data);
 }
 
 
@@ -2516,7 +2516,7 @@ function makeForFlightListMap(index, flat, flng) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, { lat: flat, lng: flng, alt: 0 });
+    var icon = createNewIconFor2DMap(index, "#ff0000", { lat: flat, lng: flng, alt: 0 });
     vSource.addFeature(icon);
 
     if (isSet(flightHistorySource)) {
@@ -3379,8 +3379,9 @@ function logOut() {
 }
 
 
-function styleFunction(alt, textMsg) {
+function styleFunction(alt, color, textMsg) {
     var pos_icon_color = getColorPerAlt(alt);
+    if (isSet(color)) pos_icon_color = color;
 
     return [
         new ol.style.Style(
