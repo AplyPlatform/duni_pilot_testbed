@@ -274,17 +274,17 @@ function ajaxRequest(data, callback, errorcallback) {
 
 function styleFunction() {
 	var pos_icon_image = '../center/imgs/position4.png';
-	var resolution = vMap.getView().getResolution();
+	//var resolution = vMap.getView().getResolution();
 			
   return [
     new ol.style.Style(
     	{
-	      image: new ol.style.Icon(({
+	      image: new ol.style.Icon({
 	      	opacity: 0.55,
 	        crossOrigin: 'anonymous',
-	        scale: 1/Math.pow(resolution, 1/3),
+	        scale: 1.2,
 	        src: pos_icon_image
-	      	}))	      	      
+	      	})
     	})
   ];
 }
