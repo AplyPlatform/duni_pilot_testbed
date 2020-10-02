@@ -2,9 +2,9 @@
 
 var flightHistorySource;
 var flightHistoryView;
-var iconStyleArray = new Array();
-var langset = "KR";
+var vMap;
 
+var langset = "KR";
 
 $(function() {
 	setCommonText();
@@ -63,14 +63,21 @@ function flightHistoryMapInit() {
   var vVectorLayer = new ol.layer.Vector({
       source: flightHistorySource,
       zIndex: 10000,
-      style: function(feature, resolution) {
-      	
-      	iconStyleArray.forEach(function (ia) {
-      		ia.getImage().setScale(1/Math.pow(resolution, 1/3));
-      	});      	
-        
-        return iconStyleArray;
-    	}
+      style: new ol.style.Style({
+            fill: new ol.style.Fill({
+              color: 'rgba(255, 255, 255, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+              color: '#ff0000',
+              width: 2
+            }),
+            image: new ol.style.Circle({
+              radius: 7,
+              fill: new ol.style.Fill({
+                color: '#ff0000'
+              })
+            })
+          })
     });
 
   var bingLayer = new ol.layer.Tile({
@@ -87,7 +94,7 @@ function flightHistoryMapInit() {
     })
 	});
 
-  var vMap = new ol.Map({
+  vMap = new ol.Map({
       target: 'historyMap',
       layers: [
           bingLayer, vVectorLayer
@@ -228,20 +235,8 @@ function createNewIcon(i, item) {
           name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
           mindex : i
       });
- 	
- 	var pos_icon_image = '../center/imgs/position4.png';
- 	
-  var icon_style = new ol.style.Style({
-	      image: new ol.style.Icon(({
-	      	opacity: 0.55,
-	        crossOrigin: 'anonymous',
-	        src: pos_icon_image
-	      	}))	      	      
-	});
 
-  pos_icon.setStyle(icon_style);
-  
-  iconStyleArray.push(icon_style);
+  pos_icon.setStyle(styleFunction());
 
   return pos_icon;
 }
@@ -274,6 +269,24 @@ function ajaxRequest(data, callback, errorcallback) {
                errorcallback(request,status,error);
            }
     });
+}
+
+
+function styleFunction() {
+	var pos_icon_image = '../center/imgs/position4.png';
+	var resolution = vMap.getView().getResolution();
+			
+  return [
+    new ol.style.Style(
+    	{
+	      image: new ol.style.Icon(({
+	      	opacity: 0.55,
+	        crossOrigin: 'anonymous',
+	        scale: 1/Math.pow(resolution, 1/3),
+	        src: pos_icon_image
+	      	}))	      	      
+    	})
+  ];
 }
 
 function showLoader() {
