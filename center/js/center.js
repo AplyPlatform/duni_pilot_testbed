@@ -64,11 +64,11 @@ $(function () {
     }
 
     mixpanel.identify(getCookie("dev_user_id"));
-    
+
     var image_url = getCookie("image_url");
     if (image_url == "") $('#profile_image').hide();
     else $('#profile_image').attr("src", image_url);
-		    
+
     setViewMode();
     setCommonText();
     initPilotCenter();
@@ -93,7 +93,7 @@ function setCurrentViewMode() {
 	    segments.splice(i, 1);
 	}
 	var filename = segments[segments.length - 1];
-	
+
 	if (isSet(filename) && filename.indexOf("main_dev.html") >= 0) {
 		viewmode = "developer";
 	}
@@ -104,21 +104,21 @@ function setCurrentViewMode() {
 
 function setViewMode() {
 	setCurrentViewMode();
-	
+
 	$('#view_mode_selector').off('click');
-	
+
 	if(viewmode == "") viewmode = "pilot";
-			
-	if(viewmode == "pilot") {						
-		cur_controller = "/center/main.html";				
+
+	if(viewmode == "pilot") {
+		cur_controller = "/center/main.html";
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
-			GATAGM('view_mode_selector_developer', 'MEMU', langset);			
+			GATAGM('view_mode_selector_developer', 'MEMU', langset);
 			location.href = "/center/main_dev.html?page_action=center";
 		});
 	}
 	else {
-		cur_controller = "/center/main_dev.html";				
+		cur_controller = "/center/main_dev.html";
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
@@ -130,8 +130,8 @@ function setViewMode() {
 function setCommonText() {
     var lang = getCookie("language");
     if (isSet(lang))
-        langset = lang;   
-        
+        langset = lang;
+
     if (viewmode == "developer") {
     	$('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
     	$('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
@@ -141,17 +141,17 @@ function setCommonText() {
     	$('#side_menu_flight_plan_design').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_design']);
     	$('#side_menu_flight_plan_list').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_list']);
     	$('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
-    	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);    	
+    	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
 			$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
 			$("#droneplaytoken_view").val(getCookie("user_token"));
     }
     else {
     	$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
     }
-    
+
     $('#menu_left_top_title_label').text(LANG_JSON_DATA[langset]['menu_left_top_title_label']);
 
-    $('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);    
+    $('#side_menu_dashboard').text(LANG_JSON_DATA[langset]['side_menu_dashboard']);
     $('#side_menu_flight_record').text(LANG_JSON_DATA[langset]['side_menu_flight_record']);
     $('#side_menu_flight_record_upload').text(LANG_JSON_DATA[langset]['side_menu_flight_record_upload']);
     $('#side_menu_flight_record_list').text(LANG_JSON_DATA[langset]['side_menu_flight_record_list']);
@@ -160,9 +160,9 @@ function setCommonText() {
     $('#side_menu_qa').text(LANG_JSON_DATA[langset]['side_menu_qa']);
     $('#side_menu_links').text(LANG_JSON_DATA[langset]['side_menu_links']);
     $('#side_menu_links_comm').text(LANG_JSON_DATA[langset]['side_menu_links_comm']);
-    $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);    
+    $('#side_menu_links_blog').text(LANG_JSON_DATA[langset]['side_menu_links_blog']);
 
-    $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);    
+    $('#top_menu_logout').text(LANG_JSON_DATA[langset]['top_menu_logout']);
 
     $('#askModalCancelButton').text(LANG_JSON_DATA[langset]['msg_cancel']);
 }
@@ -222,17 +222,17 @@ function setLogoutBtn() {
 
 function centerPageInit() {
 	var loadPage = "center.html";
-    		
+
 	if (viewmode == "developer") {
 			loadPage = "center_dev.html";
 	}
-	
+
   $("#main_contents").load(loadPage, function () {
       mapInit();
       flightHistoryMapInit();
       centerInit();
   });
-  
+
   $("#dashboard_menu").addClass("active");
 }
 
@@ -242,7 +242,7 @@ function initPilotCenter() {
     showLoader();
 
     var page_action = getQueryVariable("page_action");
-    
+
     if (!isSet(page_action)) {
     		page_action = "center";
     }
@@ -633,9 +633,9 @@ function flightDetailInit(target) {
 		$("#uploadVideoToYoutubeButton").click(function () {
         GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
         showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
-		});        
+		});
 		// ]-----------
-        
+
     $('#btnForFilter').click(function () {
         GATAGM('btnForFilter', 'CONTENT', langset);
         setFilter();
@@ -644,7 +644,7 @@ function flightDetailInit(target) {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });    
+    });
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
@@ -749,7 +749,7 @@ function dromiListInit() {
 }
 
 function flightHistoryMapInit() {
-    var dpoint = ol.proj.fromLonLat([0, 0]);
+    var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
 
     flightHistoryView = new ol.View({
         center: dpoint,
@@ -1361,9 +1361,9 @@ function setMissionDataToDesignView(name) {
     var jdata = { "action": "mission", "daction": "get_spec", "mname": name, "clientid": userid };
 
     showLoader();
-    
+
     $("#mission_name_field").text(name);
-    
+
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             hideLoader();
@@ -1385,20 +1385,20 @@ function setMissionDataToDesignView(name) {
 }
 
 
-function createNewIconFor2DMap(i, item) {
+function createNewIconFor2DMap(i, color, item) {
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i
     });
 
-    pos_icon.setStyle(styleFunction(item.alt, (i + 1) + ""));
+    pos_icon.setStyle(styleFunction(item.alt, color, (i + 1) + ""));
 
     return pos_icon;
 }
 
-function addNewIconToDesignMap(i, item) {
-    var nIcon = createNewIconFor2DMap(i, item);
+function addNewIconToDesignMap(i, color, item) {
+    var nIcon = createNewIconFor2DMap(i, color, item);
     posSource.addFeature(nIcon);
 }
 
@@ -1414,7 +1414,7 @@ function setDesignTable() {
     var coordinates = [];
 
     designDataArray.forEach(function (item) {
-        addNewIconToDesignMap(i, item);
+        addNewIconToDesignMap(i, "#0000ff", item);
         coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
         i++;
     });
@@ -1482,7 +1482,7 @@ function appendDataToDesignTable(lonLat) {
     $("#slider").slider('value', index);
 
     setDataToDesignView(index);
-    addNewIconToDesignMap(index, data);
+    addNewIconToDesignMap(index, "#0000ff", data);
 }
 
 
@@ -1738,7 +1738,7 @@ function askToken() {
     if (isSet(useremail) == false || isSet(userid) == false || isSet(usertoken) == false)
         return false;
 
-    $("#email_field").text(useremail);    
+    $("#email_field").text(useremail);
 
     return true;
 }
@@ -2516,7 +2516,7 @@ function makeForFlightListMap(index, flat, flng) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, { lat: flat, lng: flng, alt: 0 });
+    var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0 });
     vSource.addFeature(icon);
 
     if (isSet(flightHistorySource)) {
@@ -3379,8 +3379,9 @@ function logOut() {
 }
 
 
-function styleFunction(alt, textMsg) {
+function styleFunction(alt, color, textMsg) {
     var pos_icon_color = getColorPerAlt(alt);
+    if (isSet(color)) pos_icon_color = color;
 
     return [
         new ol.style.Style(
@@ -4321,6 +4322,21 @@ function showMovieDataSet() {
     });
 }
 
+function massageYotubeUrl(data_id) {
+    if (!isSet(data_id)) return "";
+
+    if (data_id.indexOf("?v=") >= 5) return data_id;
+
+    if (data_id.indexOf("youtu.be") >= 0) {
+        var splitUrl = data_id.split('/');
+        if (splitUrl.length < 4) return "";
+
+        return "https://www.youtube.com/watch?v=" + splitUrl[3];
+    }
+
+    return "";
+}
+
 function setYoutubeID() {
     var data_id = $('#movieData').val();
     if (data_id == "") {
@@ -4330,12 +4346,14 @@ function setYoutubeID() {
 
     moviePlayerVisible = false;
 
-    if (data_id.indexOf("youtube") >= 0) {
-        setYoutubePlayer(data_id);
+    var fi_data_url = massageYotubeUrl(data_id);
 
-        saveYoutubeUrl(data_id);
+    if (fi_data_url.indexOf("youtube") >= 0) {
+        setYoutubePlayer(fi_data_url);
+        saveYoutubeUrl(fi_data_url);
     }
     else {
+        showAlert(LANG_JSON_DATA[langset]['msg_wrong_youtube_url_input']);
         setYoutubePlayer("");
     }
 
