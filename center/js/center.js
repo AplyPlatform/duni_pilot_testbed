@@ -4033,14 +4033,19 @@ function uploadDUNIFlightListCallback(mname, base64file) {
         if (r.result == "success") {
             $('#btnForUploadDUNIFlightList').hide(1500);
             $('#dunifileform').hide(1500);
+            GATAGM('duni_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
             location.href = cur_controller + "?page_action=flightview";
         }
         else {
             if (r.reason == "same data is exist") {
+            		GATAGM('duni_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
             }
-            else showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+            else {
+            	GATAGM('duni_file_upload_failed', 'CONTENT', langset);
+            	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+            }
         }
     }, function (request, status, error) {
         hideLoader();
@@ -4058,14 +4063,19 @@ function uploadFlightListCallback(mname, base64file) {
         if (r.result == "success") {
             $('#btnForUploadFlightList').hide(1500);
             $('#djifileform').hide(1500);
+            GATAGM('dji_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = cur_controller + "?page_action=flightview";
+            location.href = cur_controller + "?page_action=flightview";            
         }
         else {
             if (r.reason == "same data is exist") {
+            		GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
             }
-            else showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+            else {
+            	GATAGM('dji_file_upload_failed', 'CONTENT', langset);
+            	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
+            }
         }
     }, function (request, status, error) {
         hideLoader();
