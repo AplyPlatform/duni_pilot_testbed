@@ -1957,6 +1957,14 @@ function removeMissionData(index) {
 function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
+         
+		data.sort(function(a, b) { // 내림차순
+			var regtime_a = convert2data(a.regtime);
+			var regtime_b = convert2data(b.regtime);    
+    	return regtime_b.getTime() - regtime_a.getTime();
+		});
+    
+    
     data.forEach(function (item, index, array) {
         var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
             + "<a href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
@@ -2185,6 +2193,10 @@ function getFlightList(target) {
 function setFlightlistHistory(target, data) {
     if (data == null || data.length == 0)
         return;
+        
+    data.sort(function(a, b) { // 내림차순
+    	return b.dtimestamp - a.dtimestamp;
+		});
 
     data.forEach(function (item) {
         appendFlightListTable(target, item);
