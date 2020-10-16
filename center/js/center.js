@@ -628,7 +628,9 @@ function flightDetailInit(target) {
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
     $("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
     $("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
-    $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
+    $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);    
+    $("#btnForDelete").text(LANG_JSON_DATA[langset]['msg_remove']);
+    
 
     $('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
     $('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
@@ -657,6 +659,12 @@ function flightDetailInit(target) {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
     });
+    
+    $("#btnForUpdateTitle").click(function () {
+        GATAGM('btnForUpdateTitle', 'CONTENT', langset);        
+		    setRecordTitleName();
+    });
+    
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
@@ -2406,6 +2414,18 @@ function showDataWithName(target, name) {
                     });
                 });
             }
+            
+            $("#btnForDelete").click(function () {
+                GATAGM('btnForPublic', 'CONTENT', langset);
+                
+						    showAskDialog(
+						        LANG_JSON_DATA[langset]['modal_title'],
+						        fdata.name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+						        LANG_JSON_DATA[langset]['msg_remove'],
+						        false,
+						        function () { deleteFlightData(name, -1); }
+						    );
+            });
 
             $("#btnForPublic").click(function () {
                 GATAGM('btnForPublic', 'CONTENT', langset);
@@ -2436,7 +2456,7 @@ function showDataWithName(target, name) {
             $("#flightMemoBtn").click(function () {
                 GATAGM('flightMemoBtn', 'CONTENT', langset);
                 updateFlightMemoWithValue(name, $("#memoTextarea").val());
-            });
+            });                        
 
             if ("youtube_data_id" in fdata) {
                 if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
@@ -2464,6 +2484,7 @@ function showDataWithName(target, name) {
                 $("#modifyBtnForMovieData").hide();
                 $("#btnForSharing").hide();
                 $("#btnForPublic").hide();
+                $("#btnForDelete").hide();
                 $("#btnForSetYoutubeID").hide();
                 $("#flightMemoBtn").hide();
                 hideMovieDataSet();
@@ -2873,7 +2894,12 @@ function deleteFlightData(name, index) {
             showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         }
         else {
-            removeTableRow("flight-list-" + index);
+        		if (index >= 0)
+            	removeTableRow("flight-list-" + index);
+            else {
+            	alert(LANG_JSON_DATA[langset]['msg_success']);
+            	location.href = cur_controller + "?page_action=flightview"; //todo
+            }
         }
     }, function (request, status, error) {
         hideLoader();
@@ -4369,6 +4395,35 @@ function massageYotubeUrl(data_id) {
     }
 
     return "";
+}
+
+function setRecordTitleName() {
+		var target_name = $('#record_name_field').val();
+    if (target_name == "") {
+        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+        return;
+    }
+    
+    var userid = getCookie("dev_user_id");
+    var jdata = { "action": "position", "daction": "set_name", "target_name": target_name, "name": cur_flightrecord_name };
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        hideLoader();
+        if (r.result == "success") {
+					showAlert(LANG_JSON_DATA[langset]['msg_success']);
+        }
+        else {
+        	if (r.reason.indexOf("already") >= 0)
+        		showAlert(LANG_JSON_DATA[langset]['msg_name_is_already_exist']);
+        	else
+        		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        }
+    }, function (request, status, error) {
+        hideLoader();
+        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
 }
 
 function setYoutubeID() {

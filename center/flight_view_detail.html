@@ -5,8 +5,13 @@
 		<div class="col-12 mb-4">
 		    <div class="card shadow">
 		        <!-- Card Header - Dropdown -->
-		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-		          <h6 class="m-0 font-weight-bold text-primary" id="record_name_field">-</h6>
+		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">		          
+		          <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Name" id="record_name_field">
+                    <span class="input-group-append">
+                      <button class='btn btn-primary' type='button' id="btnForUpdateTitle">수정</button>
+                    </span>
+              </div>
 		        </div>        
 		    </div>
 		</div>
@@ -162,6 +167,9 @@
             </div>
             <div class="col">
                 <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
+            </div>
+            <div class="col">
+                <button class='btn btn-warning' type='button' id="btnForDelete">삭제하기</button>
             </div>
             <div class="col">
         		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
