@@ -630,7 +630,8 @@ function flightDetailInit(target) {
     $("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
     $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);    
     $("#btnForDelete").text(LANG_JSON_DATA[langset]['msg_remove']);
-    
+    $("#btnForUpdateTitle").text(LANG_JSON_DATA[langset]['msg_modify']);
+        
 
     $('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
     $('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
@@ -658,12 +659,7 @@ function flightDetailInit(target) {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });
-    
-    $("#btnForUpdateTitle").click(function () {
-        GATAGM('btnForUpdateTitle', 'CONTENT', langset);        
-		    setRecordTitleName();
-    });
+    });        
     
 
     var record_name = getQueryVariable("record_name");
@@ -2417,8 +2413,24 @@ function showDataWithName(target, name) {
                 });
             }
             
+            $("#btnForUpdateTitle").click(function () {
+            		GATAGM('btnForUpdateTitle', 'CONTENT', langset);        
+            		
+            		if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
+		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
+		                return;
+		            }
+		            
+						    setRecordTitleName();
+				    });
+            
             $("#btnForDelete").click(function () {
                 GATAGM('btnForPublic', 'CONTENT', langset);
+                             
+		            if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
+		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
+		                return;
+		            }
                 
 						    showAskDialog(
 						        LANG_JSON_DATA[langset]['modal_title'],
