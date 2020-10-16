@@ -2221,7 +2221,7 @@ function getRecordTitle() {
 function setRecordTitle(msg) {
     if (!isSet($("#record_name_field"))) return;
 
-    $("#record_name_field").text(msg);
+    $("#record_name_field").val(msg);
 }
 
 function setFilter(target) {
@@ -2344,6 +2344,8 @@ function showDataWithName(target, name) {
     $("#movieTitle").val(name);
     $("#movieDescription").val(name);
     $("#btnForPublic").hide();
+    $("#btnForDelete").hide();
+    $("#btnForUpdateTitle").hide();
 
     ajaxRequest(jdata, function (r) {
         if (r.result != "success") {
@@ -2483,10 +2485,11 @@ function showDataWithName(target, name) {
             if (target == "public") {
                 $("#modifyBtnForMovieData").hide();
                 $("#btnForSharing").hide();
-                $("#btnForPublic").hide();
-                $("#btnForDelete").hide();
+                $("#btnForPublic").hide();                
                 $("#btnForSetYoutubeID").hide();
-                $("#flightMemoBtn").hide();
+                $("#flightMemoBtn").hide();                
+    						$("#btnForUpdateTitle").hide();
+    						$("#btnForDelete").hide();
                 hideMovieDataSet();
             }
             else {
