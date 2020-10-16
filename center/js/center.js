@@ -4431,8 +4431,8 @@ function setRecordTitleName() {
     ajaxRequest(jdata, function (r) {
         hideLoader();
         if (r.result == "success") {
-					showAlert(LANG_JSON_DATA[langset]['msg_success']);
-					location.href = cur_controller + "?page_action=flightview&record_name=" + target_name;
+					showAlert(LANG_JSON_DATA[langset]['msg_success']);					
+					cur_flightrecord_name = target_name;
         }
         else {
         	if (r.reason.indexOf("already") >= 0)
