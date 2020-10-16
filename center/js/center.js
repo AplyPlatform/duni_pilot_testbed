@@ -2493,9 +2493,14 @@ function showDataWithName(target, name) {
                 hideMovieDataSet();
             }
             else {
-                if ((target == "private") && (("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata))) {
-                    $("#btnForSharing").show();
-                }
+                if (target == "private") {
+                	if(("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata)) {
+                    $("#btnForSharing").show();                    
+                  }
+                  
+                  $("#btnForDelete").show();
+                  $("#btnForUpdateTitle").show();
+                }                                
             }
 
             setFlightRecordDataToView(target, fdata.data, false);
