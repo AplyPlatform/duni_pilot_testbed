@@ -521,6 +521,11 @@
     }
 	}
 
+	function setEmptyVideo(index) {
+		$("#youTubePlayer_" + index).show();
+		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
+	}
+	
 	function setYoutubeVideo(index, youtube_url) {
 		var vid = getQueryVariable(youtube_url, "v");		
 		$("#youTubePlayer_" + index).show();
@@ -573,6 +578,9 @@
 	  
 	  if (isSet(youtube_url)) {
 	  	setYoutubeVideo(tableCount, youtube_url);
+	  }
+	  else {
+	  	setEmptyVideo(tableCount);
 	  }
 	
 	  tableCount++;

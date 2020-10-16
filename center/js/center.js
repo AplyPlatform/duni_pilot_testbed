@@ -4412,8 +4412,8 @@ function setRecordTitleName() {
         return;
     }
     
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_name", "target_name": target_name, "name": cur_flightrecord_name };
+    var userid = getCookie("dev_user_id");            
+    var jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": cur_flightrecord_name };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
