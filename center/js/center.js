@@ -2918,7 +2918,7 @@ function deleteFlightData(name, index) {
             	removeTableRow("flight-list-" + index);
             else {
             	alert(LANG_JSON_DATA[langset]['msg_success']);
-            	location.href = cur_controller + "?page_action=flightview"; //todo
+            	location.href = cur_controller + "?page_action=flightview";
             }
         }
     }, function (request, status, error) {
@@ -4432,6 +4432,7 @@ function setRecordTitleName() {
         hideLoader();
         if (r.result == "success") {
 					showAlert(LANG_JSON_DATA[langset]['msg_success']);
+					location.href = cur_controller + "?page_action=flightview&record_name=" + target_name;
         }
         else {
         	if (r.reason.indexOf("already") >= 0)
