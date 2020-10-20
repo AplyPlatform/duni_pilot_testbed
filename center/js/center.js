@@ -68,7 +68,7 @@ var langset = "KR";
 var viewmode = "pilot"; // or "developer"
 var cur_controller;
 
-var use3DMap = true; 
+var use3DMap = false; 
 
 $(function () {
 
@@ -3571,7 +3571,7 @@ function addObjectTo3DMap(index, owner, kind) {
         126.5610038, 33.3834381, 3000
     );
 
-    var glbUrl;
+    var glbUrl, gColor, gColor;
     if (kind == "drone") {        
         glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
         gColor = "YELLOW";
@@ -3636,7 +3636,7 @@ function map3dInit() {
 	    $("#main3dMap").hide();//for the license
 	    $("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
 	    return;
-	  }
+	}
   
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
