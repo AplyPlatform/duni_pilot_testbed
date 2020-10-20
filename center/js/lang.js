@@ -172,6 +172,10 @@ var LANG_JSON_DATA = {
         "monitor_about_content": "DUNI 앱을 활용하여 현재 드론의 위치를 실시간으로 모니터링할 수 있습니다.",
         "upload_about_content": "내 비행기록을 업로드하세요.",
         "design_about_content": "설계한 비행계획은 DUNI 앱과 DJI 제품의 드론에서 사용할 수 있습니다.",
+        "head_pilot_title": "DUNI 파일럿 센터: 파일럿 뷰",
+        "head_developer_title": "DUNI 파일럿 센터: Lab & Developer",
+        "center_about_pilot_title": "파일럿 뷰를 소개합니다.",
+        "center_about_developer_title": "Lab & Developer를 소개합니다.",
         "center_about_pilot_content": "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있습니다.",
         "center_about_developer_content": "DUNI Lab은 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br>" +
             "DUNI Developer는 Drone SW Platform으로서 드론 소프트웨어 개발자가 쉽고 마음 편히 사용할 수 있는 Open API를 제공합니다. ",
@@ -346,6 +350,10 @@ var LANG_JSON_DATA = {
         "monitor_about_content": "Check your drone's location in realtime.",
         "upload_about_content": "Upload your flight record.",
         "design_about_content": "You can easily design the drone's flight mission",
+        "head_pilot_title": "DUNI Pilot Center: Pilot View",
+        "head_developer_title": "DUNI Pilot Center: Lab & Developer",
+        "center_about_pilot_title": "About Pilot View",
+        "center_about_developer_title": "About Lab & Developer",
         "center_about_pilot_content": "This is where you can easily design the drone's flight mission and check flight records and the situation." +
             "The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.<br>" +
             "Upload the Drone's video to Youtube site or set Youtube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)",

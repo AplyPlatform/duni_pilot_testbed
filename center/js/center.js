@@ -372,9 +372,16 @@ function summaryInit() {
 
 function centerInit() {
     document.title = LANG_JSON_DATA[langset]['page_center_title'];
-    $("#head_title").text(document.title);
-
-    $('#page_about_title').text(LANG_JSON_DATA[langset]['center_about_title']);
+    
+    if (viewmode == "developer")
+        $('#head_title').html(LANG_JSON_DATA[langset]['head_developer_title']);
+    else
+        $('#head_title').html(LANG_JSON_DATA[langset]['head_pilot_title']);
+    
+    if (viewmode == "developer")
+        $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_developer_title']);
+    else
+        $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_pilot_title']);
 
     if (viewmode == "developer")
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
