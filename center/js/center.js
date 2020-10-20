@@ -147,6 +147,8 @@ function setCommonText() {
         langset = lang;
 
     if (viewmode == "developer") {
+    	$('#side_menu_dev').text(LANG_JSON_DATA[langset]['side_menu_dev']);
+    	$('#side_menu_lab').text(LANG_JSON_DATA[langset]['side_menu_lab']);
     	$('#side_menu_links_apis').text(LANG_JSON_DATA[langset]['side_menu_links_apis']);
     	$('#side_menu_links_dev').text(LANG_JSON_DATA[langset]['side_menu_links_dev']);
     	$('#side_menu_links_samples').text(LANG_JSON_DATA[langset]['side_menu_links_samples']);
@@ -378,7 +380,7 @@ function centerInit() {
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
     else
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_pilot_content']);
-
+                
     $('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
     $('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
     $('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
