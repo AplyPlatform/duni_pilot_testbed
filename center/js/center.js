@@ -404,6 +404,8 @@ function centerInit() {
 
     $("#open_record_label").text(LANG_JSON_DATA[langset]["open_record_label"]);
     $("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
+    
+    $("#dev_token_title").text(LANG_JSON_DATA[langset]["dev_token_title"]);
 
 
 
