@@ -179,7 +179,7 @@ var LANG_JSON_DATA = {
         "center_about_pilot_content": "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있습니다.",
         "center_about_developer_content": "DUNI Lab은 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br>" +
             "DUNI Developer는 Drone SW Platform으로서 드론 소프트웨어 개발자가 쉽고 마음 편히 사용할 수 있는 Open API를 제공합니다. ",
-        "dev_token_title": "개발자 토큰 발급"
+        "dev_token_title": "개발자 토큰 발급",
         "collapseRecordFileParams": "<br><hr size=1><p><b>안드로이드</b></p>"
             + "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
             + "<p>또는, - 내 파일 > 내장 메모리 > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_연월일시.txt</p>"
