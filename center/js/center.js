@@ -3572,20 +3572,24 @@ function addObjectTo3DMap(index, owner, kind) {
     );
 
     var glbUrl;
-    if (kind == "drone") {
-        glbUrl = "https://pilot.duni.io/center/imgs/object.glb";
+    if (kind == "drone") {        
+        glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
+        gColor = "YELLOW";
+        sColor = "RED";
     }
     else {
     		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";        
+    		gColor = "GREEN";
+    		sColor = "CYAN";
     }
 
     var hpRoll = new Cesium.HeadingPitchRoll();
     var planePrimitive = scene3d.primitives.add(
         Cesium.Model.fromGltf({
             url: glbUrl,
-            color: getColor("YELLOW", 1.0),
+            color: getColor(gColor, 1.0),
             silhouetteColor: getColor(
-                "RED", 1.0
+                sColor, 1.0
             ),
             silhouetteSize: 2.0,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
