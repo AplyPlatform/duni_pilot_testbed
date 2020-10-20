@@ -3571,7 +3571,7 @@ function addObjectTo3DMap(index, owner, kind) {
         126.5610038, 33.3834381, 3000
     );
 
-    var glbUrl;
+    var glbUrl, gColor, gColor;
     if (kind == "drone") {        
         glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
         gColor = "YELLOW";
