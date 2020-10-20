@@ -65,8 +65,10 @@ var moviePlayerVisible = false;
 
 var langset = "KR";
 
-var viewmode = "pilot"; //developer
+var viewmode = "pilot"; // or "developer"
 var cur_controller;
+
+var use3DMap = true; 
 
 $(function () {
 
@@ -3571,10 +3573,10 @@ function addObjectTo3DMap(index, owner, kind) {
 
     var glbUrl;
     if (kind == "drone") {
-        glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
+        glbUrl = "https://pilot.duni.io/center/imgs/object.glb";
     }
     else {
-        glbUrl = "https://pilot.duni.io/center/imgs/Cesium_Air.glb";
+    		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";        
     }
 
     var hpRoll = new Cesium.HeadingPitchRoll();
@@ -3626,11 +3628,12 @@ function addObjectTo3DMap(index, owner, kind) {
 }
 
 function map3dInit() {
-    // ----[
-    $("#main3dMap").hide();//for the license
-    $("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
-    return;
-    // ---]
+  	if(use3DMap == false) {
+	    $("#main3dMap").hide();//for the license
+	    $("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
+	    return;
+	  }
+  
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
     viewer = new Cesium.Viewer("main3dMap", {
