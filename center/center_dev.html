@@ -18,12 +18,10 @@
           <h6 class="m-0 font-weight-bold text-primary" id="dev_token_title">개발자 토큰</h6>
         </div>
 
-        <div class="card-body">
-					<a onclick="GATAGM('token', 'MEMU', langset);" href="#" id="developer_token_section">
-           <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-           <input name="droneplaytoken_view_section" id="droneplaytoken_view_section" type="text" class="form-control bg-light border-0 small" value="">
-           <span id="show_token">보기</span>
-          </a>
+        <div class="card-body">					
+          <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+          <input name="droneplaytoken_view_section" id="droneplaytoken_view_section" type="text" class="form-control bg-light border-0 small" value="" onclick="GATAGM('token_section', 'MEMU', langset);">
+          <span id="show_token">보기</span>          
         </div>
     </div>
   </div>

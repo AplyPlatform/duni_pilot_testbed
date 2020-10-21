@@ -383,10 +383,13 @@ function centerInit() {
         $("#droneplaytoken_view_section").hide();
         $("#show_token").click(function(){
         	if (isShowToken) {        		
+        		GATAGM('show_token', 'CONTENT', langset);
+        		
         		$("#droneplaytoken_view_section").hide();
         		$("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);        		
         	}
         	else {
+        		GATAGM('hide_token', 'CONTENT', langset);
         		$("#droneplaytoken_view_section").show();
         		$("#show_token").text(LANG_JSON_DATA[langset]['msg_hide_token']);
         	}
