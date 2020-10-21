@@ -379,8 +379,8 @@ function centerInit() {
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
         $('#dev_token_title').text(LANG_JSON_DATA[langset]['top_menu_token']);
         $("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);
-        $("#droneplaytoken_view").val(getCookie("user_token"));
-                
+        $("#droneplaytoken_view_section").val(getCookie("user_token"));
+        $("#droneplaytoken_view_section").hide();
         $("#show_token").click(function(){
         	if (isShowToken) {        		
         		$("#droneplaytoken_view_section").hide();
