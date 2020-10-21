@@ -159,7 +159,7 @@ function setCommonText() {
     	$('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
     	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
 			$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
-			$("#droneplaytoken_view").val(getCookie("user_token"));
+			$("#droneplaytoken_view").val(getCookie("user_token"));			
     }
     else {
     	$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
@@ -369,24 +369,36 @@ function summaryInit() {
     getAllRecordCount();
 }
 
-
+var isShowToken = false;
 function centerInit() {
     document.title = LANG_JSON_DATA[langset]['page_center_title'];
     
-    if (viewmode == "developer")
+    if (viewmode == "developer") {
         $('#head_title').html(LANG_JSON_DATA[langset]['head_developer_title']);
-    else
-        $('#head_title').html(LANG_JSON_DATA[langset]['head_pilot_title']);
-    
-    if (viewmode == "developer")
         $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_developer_title']);
-    else
-        $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_pilot_title']);
-
-    if (viewmode == "developer")
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_developer_content']);
-    else
+        $('#dev_token_title').text(LANG_JSON_DATA[langset]['top_menu_token']);
+        $("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);
+        $("#droneplaytoken_view").val(getCookie("user_token"));
+                
+        $("#show_token").click(function(){
+        	if (isShowToken) {        		
+        		$("#droneplaytoken_view_section").hide();
+        		$("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);        		
+        	}
+        	else {
+        		$("#droneplaytoken_view_section").show();
+        		$("#show_token").text(LANG_JSON_DATA[langset]['msg_hide_token']);
+        	}
+        	
+        	isShowToken = !isShowToken;
+        });
+    }
+    else {
+        $('#head_title').html(LANG_JSON_DATA[langset]['head_pilot_title']);
+        $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_pilot_title']);
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_pilot_content']);
+    }    
                 
     $('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
     $('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
