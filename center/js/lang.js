@@ -355,8 +355,8 @@ var LANG_JSON_DATA = {
         "monitor_about_content": "Check your drone's location in realtime.",
         "upload_about_content": "Upload your flight record.",
         "design_about_content": "You can easily design the drone's flight mission",
-        "head_pilot_title": "DUNI Pilot Center: Pilot View",
-        "head_developer_title": "DUNI Pilot Center: Lab & Developer",
+        "head_pilot_title": "Pilot Center for Pilot",
+        "head_developer_title": "Pilot Center for Lab & Developer",
         "center_about_pilot_title": "About Pilot View",
         "center_about_developer_title": "About Lab & Developer",
         "center_about_pilot_content": "This is where you can easily design the drone's flight mission and check flight records and the situation." +
