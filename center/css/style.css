@@ -8725,7 +8725,7 @@ a:focus {
   flex: 1 0 auto;
 }
 
-.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {pdding-top:1.5rem; padding-left: 1.5rem; padding-right: 1.5rem;}
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {padding-top:1.5rem; padding-left: 1.5rem; padding-right: 1.5rem;}
 
 .scroll-to-top {
   position: fixed;
@@ -8918,14 +8918,9 @@ a:focus {
   background-color: #dddfeb;
 }
 
-.topbar .navbar-search {
-  width: 25rem;
-}
+.topbar .navbar-search {width:75%;}
 
-.topbar .navbar-search input {
-  font-size: 0.85rem;
-  height: auto;
-}
+.topbar .navbar-search input {font-size: 0.85rem; height: auto;}
 
 .topbar .topbar-divider {
   width: 0;
