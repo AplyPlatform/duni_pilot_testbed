@@ -2802,7 +2802,7 @@ function appendFlightListTable(target, item) {
 
     appendRow = appendRow + "</textarea>";
     appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></form></div></div>"; //form-group col-sm
-    appendRow = appendRow + "</div><div class='row'><span id='owner_email_" + tableCount + "' class='col-sm text-xs font-weight-bold mb-1'></span> | <span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div>"
+    appendRow = appendRow + "</div><div class='row'><span id='owner_email_" + tableCount + "' class='text-xs font-weight-bold mb-1'></span> | <span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div>"
         + "<div class='row'>"        
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div>"; //row, card-body, card
