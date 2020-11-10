@@ -566,12 +566,12 @@
 	
 		var curIndex = tableCount;							
 		
-		var retSource;
+		var retSource = null;
 		if (isSet(flat)) {
 	  	retSource = makeForFlightListMap(curIndex, flat, flng);
 	  }
 	
-	  if (isSet(address) && address != "") {
+	  if (isSet(retSource) && isSet(address) && address != "") {
 	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);	  	
 	  }
 	  
