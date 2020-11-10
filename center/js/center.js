@@ -2787,11 +2787,11 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row    
     
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div class='col-sm'><div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div></div>";
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
     }
     
     if (isSet(flat)) {
-        appendRow = appendRow + "<div class='col-sm'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div></div>";
+        appendRow = appendRow + "<div class='col-sm' id='map_" + tableCount + "' style='height:200px;'></div>";
     }
 
     appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
