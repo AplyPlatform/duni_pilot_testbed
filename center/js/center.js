@@ -2794,18 +2794,18 @@ function appendFlightListTable(target, item) {
         appendRow = appendRow + "<div class='col-sm'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div></div>";
     }
 
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
     if (isSet(memo)) {
         appendRow = appendRow + memo;
     }
 
     appendRow = appendRow + "</textarea>";
-    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></form></div></div>"; //form-group col-sm
-    appendRow = appendRow + "</div><div class='row'><span id='owner_email_" + tableCount + "' class='text-xs font-weight-bold mb-1'></span> | <span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div>"
-        + "<div class='row'>"        
+    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
+    appendRow = appendRow + "</div><div class='row'><span id='owner_email_" + tableCount + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div>"
+        + "<div class='row'><div class='col-sm text-right'>"        
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
-        + "</div></div></div>"; //row, card-body, card
+        + "</div></div></div></div>"; //row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
         		
@@ -2815,7 +2815,7 @@ function appendFlightListTable(target, item) {
     if (target == "public") {
         if (isSet(owner_email)) {
             $("#owner_email_" + curIndex).show();
-            $("#owner_email_" + curIndex).text(owner_email);
+            $("#owner_email_" + curIndex).text(owner_email + " | ");
         }
 
         $("#memoTextarea_" + curIndex).prop('disabled', true);
