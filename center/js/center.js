@@ -2842,7 +2842,7 @@ function appendFlightListTable(target, item) {
         moveFlightHistoryMap(flat, flng);
     });
 
-    var retSource;
+    var retSource = null;
     if (isSet(flat)) {    	
         retSource = makeForFlightListMap(curIndex, flat, flng);        
     }    
