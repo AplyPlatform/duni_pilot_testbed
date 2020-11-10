@@ -2784,17 +2784,17 @@ function appendFlightListTable(target, item) {
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
 
-    appendRow = appendRow + "</div></div><div class='row'><div class='col-sm'>";//row
+    appendRow = appendRow + "</div></div><div class='row'>";//row
 
     if (isSet(flat)) {
-        appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div>";
+        appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
     }
     
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='100px' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
+    		appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
     }
 
-    appendRow = appendRow + "<a href='#' class='text-xs' id='map_address_" + tableCount + "'></a></div><div class='col-sm text-right'><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
     if (isSet(memo)) {
         appendRow = appendRow + memo;
