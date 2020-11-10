@@ -2767,6 +2767,7 @@ function appendFlightListTable(target, item) {
     var memo = item.memo;
     var owner_email = item.owner_email;
     var sharedList = item.sharedList;
+    var youtube_data_id = item.youtube_data_id;
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (tableCount + 1) + " | ";
@@ -2788,6 +2789,9 @@ function appendFlightListTable(target, item) {
     if (isSet(flat)) {
         appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
     }
+    else (isSet(youtube_data_id)) {
+    		appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100px' height='100px' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
+    }
 
     appendRow = appendRow + "</div><div class='col-sm text-right'><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
 
@@ -2804,12 +2808,11 @@ function appendFlightListTable(target, item) {
         + "</div></div></div></div>"; //col, row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
-
+        		
     var curIndex = tableCount;
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
-
         if (isSet(owner_email)) {
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).text(owner_email);
@@ -2840,9 +2843,12 @@ function appendFlightListTable(target, item) {
     });
 
     var retSource;
-    if (isSet(flat)) {
-        retSource = makeForFlightListMap(curIndex, flat, flng);
-    }
+    if (isSet(flat)) {    	
+        retSource = makeForFlightListMap(curIndex, flat, flng);        
+    }    
+    else (isSet(youtube_data_id)) {
+    		setYoutubeVideo(curIndex, youtube_data_id);
+    }    
 
     if (isSet(address) && address != "") {
         setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
@@ -2865,6 +2871,12 @@ function appendFlightListTable(target, item) {
 function moveFlightHistoryMap(lat, lng) {
     var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
     flightHistoryView.setCenter(npos);
+}
+
+function setYoutubeVideo(index, youtube_url) {
+		var vid = getQueryVariable(youtube_url, "v");		
+		$("#youTubePlayer_" + index).show();
+		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
 }
 
 
