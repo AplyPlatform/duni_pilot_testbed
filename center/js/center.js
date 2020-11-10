@@ -2787,11 +2787,11 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row
 
     if (isSet(flat)) {
-        appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
+        appendRow = appendRow + "<div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div></div>";
     }
     
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
+    		appendRow = appendRow + "<div class='col-md-4'><div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='50%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div></div>";
     }
 
     appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><form><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
@@ -2802,9 +2802,8 @@ function appendFlightListTable(target, item) {
 
     appendRow = appendRow + "</textarea>";
     appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></form></div></div>"; //form-group col-sm
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
-        + "<div class='col-sm'>"
-        + "<span id='owner_email_" + tableCount + "' class='col-sm text-xs font-weight-bold mb-1'></span>"
+    appendRow = appendRow + "</div><div class='row'><span id='owner_email_" + tableCount + "' class='col-sm text-xs font-weight-bold mb-1'></span> | <div class='col-sm text-xs font-weight-bold mb-1'>" + dtimestamp + "</div>"
+        + "<div class='col-sm'>"        
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //col, row, card-body, card
 
