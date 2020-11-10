@@ -2850,7 +2850,7 @@ function appendFlightListTable(target, item) {
     		setYoutubeVideo(curIndex, youtube_data_id);
     }    
 
-    if (isSet(address) && address != "") {
+    if (isSet(retSource) && isSet(address) && address != "") {
         setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
         setAddressAndCada("#map_address_" + curIndex, address, cada, flightHistorySource);
     }
