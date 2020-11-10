@@ -2789,7 +2789,7 @@ function appendFlightListTable(target, item) {
     if (isSet(flat)) {
         appendRow = appendRow + "<div id='map_" + tableCount + "' style='height:100px;width:100%;'></div><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a>";
     }
-    else (isSet(youtube_data_id)) {
+    else if(isSet(youtube_data_id)) {
     		appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100px' height='100px' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
     }
 
@@ -2846,7 +2846,7 @@ function appendFlightListTable(target, item) {
     if (isSet(flat)) {    	
         retSource = makeForFlightListMap(curIndex, flat, flng);        
     }    
-    else (isSet(youtube_data_id)) {
+    else if(isSet(youtube_data_id)) {
     		setYoutubeVideo(curIndex, youtube_data_id);
     }    
 
