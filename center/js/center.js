@@ -68,7 +68,7 @@ var langset = "KR";
 var viewmode = "pilot"; // or "developer"
 var cur_controller;
 
-var use3DMap = false; 
+var use3DMap = true; 
 
 $(function () {
 
