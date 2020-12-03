@@ -52,7 +52,7 @@ function getCookie(cName) {
 
 function ajaxRequest(data, callback, errorcallback) {
     $.ajax({
-        url: "https://api.droneplay.io/v1/",
+        url: "https://api.duni.io/v1/",
         dataType: "json",
         crossDomain: true,
         cache: false,
@@ -120,6 +120,50 @@ function naverinit() {
     naverLogin.init();
 
     $("#naverLoginBtn").attr("href", naverLogin.generateAuthorizeUrl());
+}
+
+function kakaoLogin() {
+	Kakao.Auth.login({	    
+	    success: function(authObj) {
+	      Kakao.API.request({
+	        url: '/v2/user/me',
+	        success: function(res) {	        	
+            setCookie("dev_kind", "kakao", 1);
+							
+						var name = "";
+						if ("properties" in res && "nickname" in properties) {
+							name = res.properties['nickname'];							
+						}
+						
+						var email = "";
+						if ("kaccount_email" in res) {
+							email = res.kaccount_email;
+						}
+																																					
+    				var token = authObj.access_token;    				
+    				var image = naver_id_login.getProfileData('profile_image');
+
+    				formSubmit(token, name, image, email);
+	        },
+	        fail: function(error) {
+	          showDialog("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.", null);
+	        },
+	      })
+	    },
+	    fail: function(err) {
+	      showDialog("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.", null);
+	    },
+	  });
+}
+
+function kakaoinit() {
+	Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
+	
+	if (document.getElementById('kakaoLoginBtn')) {
+		document.getElementById('kakaoLoginBtn').addEventListener('click', function() {    
+	  			kakaoLogin();
+		}, false);
+	}		
 }
 
 function googleinit() {
@@ -248,6 +292,7 @@ $(function () {
     }
     else {
         naverinit();
+        kakaoinit();
         hideLoader();
     }
 });

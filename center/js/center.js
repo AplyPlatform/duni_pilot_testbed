@@ -3463,7 +3463,7 @@ function analyzeData(datas) {
 
 function ajaxRequest(data, callback, errorcallback) {
     $.ajax({
-        url: "https://api.droneplay.io/v1/",
+        url: "https://api.duni.io/v1/",
         dataType: "json",
         crossDomain: true,
         cache: false,
