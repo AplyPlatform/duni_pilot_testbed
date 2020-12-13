@@ -131,27 +131,33 @@ function kakaoLogin() {
             setCookie("dev_kind", "kakao", 1);
 							
 						var name = "";
-						if ("properties" in res && "nickname" in properties) {
-							name = res.properties['nickname'];							
-						}
-						
+						var image = "";
 						var email = "";
+						var token = authObj.access_token;
+						
+						if ("properties" in res) {
+							if ("nickname" in properties) {
+								name = res.properties['nickname'];							
+							}
+							
+							if ("profile_image" in properties) {
+								image = res.properties['profile_image'];							
+							}
+						}
+												
 						if ("kaccount_email" in res) {
 							email = res.kaccount_email;
-						}
-																																					
-    				var token = authObj.access_token;    				
-    				var image = naver_id_login.getProfileData('profile_image');
-
+						}																																					
+    				    				
     				formSubmit(token, name, image, email);
 	        },
 	        fail: function(error) {
-	          showDialog("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.", null);
+	          alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	        },
 	      })
 	    },
 	    fail: function(err) {
-	      showDialog("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.", null);
+	      alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	    },
 	  });
 }
@@ -164,6 +170,36 @@ function kakaoinit() {
 	  			kakaoLogin();
 		}, false);
 	}		
+}
+
+function appleinit() {
+	AppleID.auth.init({
+            clientId : 'biz.aply.duni.signin',
+            scope : 'name email',
+            redirectURI: 'https://pilot.duni.io',            
+            usePopup : true
+        });
+  if (document.getElementById('appleLoginBtn')) {
+  			const buttonElement = document.getElementById('appleLoginBtn');
+        buttonElement.addEventListener('click', () => {
+            AppleID.auth.signIn();
+        });
+	}		
+	
+	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
+			setCookie("dev_kind", "apple", 1);
+			var token = data.detail.authorization.id_token;
+			
+		  var name = "";
+      var image = "";
+      var email = "";
+      formSubmit(token, name, image, email);
+	});
+	//Listen for authorization failures
+	document.addEventListener('AppleIDSignInOnFailure', function (error) {
+	     //handle error.
+	     alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	});
 }
 
 function googleinit() {
@@ -293,6 +329,7 @@ $(function () {
     else {
         naverinit();
         kakaoinit();
+        appleinit();
         hideLoader();
     }
 });
