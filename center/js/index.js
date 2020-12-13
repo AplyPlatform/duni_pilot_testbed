@@ -141,12 +141,14 @@ function kakaoLogin() {
 							}
 							
 							if ("profile_image" in res.properties) {
-								image = res.properties['profile_image'];							
+								image = res.properties['profile_image'];
 							}
 						}
 												
-						if ("kaccount_email" in res) {
-							email = res.kaccount_email;
+						if ("kakao_account" in res) {
+							if ("email" in res.kakao_account) {
+								email = res.kakao_account['email'];
+							}							
 						}																																					
     				    				
     				formSubmit(token, name, image, email);
