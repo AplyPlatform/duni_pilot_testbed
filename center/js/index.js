@@ -136,11 +136,11 @@ function kakaoLogin() {
 						var token = authObj.access_token;
 						
 						if ("properties" in res) {
-							if ("nickname" in properties) {
+							if ("nickname" in res.properties) {
 								name = res.properties['nickname'];							
 							}
 							
-							if ("profile_image" in properties) {
+							if ("profile_image" in res.properties) {
 								image = res.properties['profile_image'];							
 							}
 						}
