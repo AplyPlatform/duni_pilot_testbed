@@ -1516,7 +1516,7 @@ function appendDataToDesignTable(lonLat) {
     data['pitch'] = 0;
     data['roll'] = 0;
     data['act'] = 0;
-    data['actparam'] = 0;
+    data['actparam'] = "0";
     data['lng'] = lonLat[0];
     data['lat'] = lonLat[1];
 
@@ -1942,7 +1942,7 @@ function saveDesignData(index) {
     designDataArray[index].pitch = parseFloat($('#pitchdata_index').val());
     designDataArray[index].speed = parseFloat($('#speeddata_index').val());
     designDataArray[index].act = parseInt($('#actiondata_index').val());
-    designDataArray[index].actparam = parseFloat($('#actionparam_index').val());
+    designDataArray[index].actparam = $('#actionparam_index').val() + "";
 }
 
 function removeSelectedFeature(selectedFeatureID) {
