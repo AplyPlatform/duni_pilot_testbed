@@ -3894,7 +3894,7 @@ function mapInit() {
     geolocation.on('change:accuracyGeometry', function () {
         accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
-    */
+    
 
     var positionFeature = new ol.Feature();
     positionFeature.setStyle(new ol.style.Style({
@@ -3919,6 +3919,7 @@ function mapInit() {
         source: vectorSource,
         zIndex: 10000
     });
+    */
 
 
     pointSource = new ol.source.Vector({});
@@ -3952,7 +3953,7 @@ function mapInit() {
 
     scaleLineControl.setUnits("metric");
 
-    maplayers.push(vectorLayer);
+    //maplayers.push(vectorLayer);
     maplayers.push(pointLayer);
 
     // update the HTML page when the position changes.
