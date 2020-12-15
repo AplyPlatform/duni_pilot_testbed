@@ -3993,7 +3993,7 @@ function mapInit() {
 
     maplayers[1].setVisible(true);
     maplayers[3].setVisible(true);
-    maplayers[4].setVisible(true);
+    //maplayers[4].setVisible(true);
 
     map = new ol.Map({
         target: 'mainMap',
