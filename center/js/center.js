@@ -4047,16 +4047,15 @@ function hideLoader() {
 
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
-    var duration = 1;
-    var called = false;
+    
+    if (current_object_pos != null && current_object_pos.length > 0) {
+	    yaw *= 1;
+	    yaw = yaw < 0 ? (360 + yaw) : yaw;
+	    yaw = Math.PI / 180 * yaw;
 
-    yaw *= 1;
-    yaw = yaw < 0 ? (360 + yaw) : yaw;
-    yaw = Math.PI / 180 * yaw;
-
-    current_object_pos[owner][index].setGeometry(new ol.geom.Point(location));
-    current_object_pos_image[owner][index].setRotation(yaw);
-
+    	current_object_pos[owner][index].setGeometry(new ol.geom.Point(location));
+    	current_object_pos_image[owner][index].setRotation(yaw);
+    }
 
     if (owner == currentMonitorOwner && currentMonitorIndex == index)
         current_view.setCenter(location);
