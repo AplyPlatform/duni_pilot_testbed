@@ -3889,10 +3889,12 @@ function mapInit() {
         projection: current_view.getProjection()
     });
 
+		/*
     var accuracyFeature = new ol.Feature();
     geolocation.on('change:accuracyGeometry', function () {
         accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
+    */
 
     var positionFeature = new ol.Feature();
     positionFeature.setStyle(new ol.style.Style({
