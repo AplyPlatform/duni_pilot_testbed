@@ -3068,13 +3068,8 @@ function registMission(mname, mspeed) {
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {            
-            showAskDialog(
-				        LANG_JSON_DATA[langset]['modal_title'],
-				        mname + " (" + mspeed + "m/s) : " + LANG_JSON_DATA[langset]['msg_success'],
-				        LANG_JSON_DATA[langset]['modal_confirm_btn'],
-				        false,
-				        function () { location.href = cur_controller + "?page_action=list"; }
-				    );				    				    
+				    alert(mname + " (" + mspeed + "m/s) : " + LANG_JSON_DATA[langset]['msg_success']);
+				    location.href = cur_controller + "?page_action=list";
         }
         else {
             showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
