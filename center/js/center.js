@@ -2086,7 +2086,7 @@ function searchMission(keyword) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
 
-            $('#dataTable-missions tbody').empty();
+            $('#dataTable-missions').empty(); //todo
             tableCount = 0;
 
             appendMissionList(r.data);
