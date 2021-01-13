@@ -18,23 +18,29 @@
             <div class="col-auto">
             	<form enctype="multipart/form-data" method="post" id="uploadfileform">
             		<div class="input-group">
-		              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
-		              	<input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
-		            </div>
-		            
-		            <div class="input-group">
-		              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
-            			<input type="text" class="form-control" id="record_name_field">
-            		</div>
-            			            			           			            												
-								<div class="input-group">
-									<input type="radio" id="dji_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_name_label"> DJI 비행기록 파일</label>
-									<input type="radio" id="duni_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_name_label"> DUNI 비행기록 파일</label>	
+	            		<div>
+			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
+			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
+			            </div>
+			            
+			            <div>
+			              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
+	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">
+	            		</div>
+	            			            			           			            												
+									<div>
+										<input type="radio" id="dji_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_name_label"> DJI 비행기록 파일</label>
+										<input type="radio" id="duni_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_name_label"> DUNI 비행기록 파일</label>	
+									</div>
+										   
+									<div>
+										<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+									</div>
+								  
+								  <div>								  								  								  								    
+								  	<button class="btn btn-primary" type="button" id="btnForUploadFlightList">업로드</button>							  
+								  </div>
 								</div>
-									            			
-								<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
-							  								  								  								  								    
-							  <button class="btn btn-primary" type="button" id="btnForUploadFlightList">업로드</button>							  
 							</form>
             </div>
 
