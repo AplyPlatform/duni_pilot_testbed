@@ -548,8 +548,8 @@ function flightrecordUploadInit() {
     $('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     
-    $("#record_name_field").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
-    $("#name_label").text(LANG_JSON_DATA[langset]['msg_input_record_name']);
+    $("#record_name_field").attr("placeholder", LANG_JSON_DATA[langset]['msg_input_record_name']);
+    $("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
         
     $('input[name="recordTypeRadio"]').change(function() {
 	    // 모든 radio를 순회한다.
