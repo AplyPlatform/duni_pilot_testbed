@@ -2327,10 +2327,7 @@ function makeShareFlightData(name, user_email) {
 
                     if (item.type == "user") {
                         user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-                    }
-                    else {
-
-                    }
+                    }                    
                 });
 
                 $("#shared_user").show();
@@ -2341,7 +2338,10 @@ function makeShareFlightData(name, user_email) {
                     var premail = item.email;
                     if (item.email == "public@duni.io") {
                         premail = LANG_JSON_DATA[langset]['all_member_msg'];
+                        
+                        $("#btnForPublic").hide();
                     }
+                                        
                     $("#user_share_" + index).click(function () {
                         showAskDialog(
                             LANG_JSON_DATA[langset]['modal_title'],
