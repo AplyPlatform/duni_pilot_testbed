@@ -547,10 +547,6 @@ function flightrecordUploadInit() {
     $('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
     $('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
-
-    if (viewmode == "pilot") {        
-        $('#filetypeSelector').hide();
-    }
     
     $("#record_name_field").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
     $("#name_label").text(LANG_JSON_DATA[langset]['msg_input_record_name']);
