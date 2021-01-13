@@ -4116,7 +4116,7 @@ function uploadFlightList() {
     }
     else {
     	youtube_data = massageYotubeUrl(youtube_data);
-    	saveYoutubeUrl(mname, fi_data_url, function(bSuccess) {
+    	saveYoutubeUrl(mname, youtube_data, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         		location.href = cur_controller + "?page_action=flightview";
