@@ -1,6 +1,6 @@
 <!-- Content Row -->
 <div class="row">
-   <div class="col-12 mb-4">
+  <div class="col-12 mb-4">
     <div class="card shadow">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -13,32 +13,34 @@
     </div>
   </div>
 	<div class="col-xl-6 col-md-6 mb-4">
-      <div class="card border-left-primary shadow py-2">
-      	<div class="card-header py-3">
-        	<h6 class="m-0 font-weight-bold text-primary" id="msg_dji_file_upload">DJI 비행기록 파일 업로드</h6>
-      	</div>
+      <div class="card border-left-primary shadow py-2">      	
         <div class="card-body">
-
             <div class="col-auto">
-            	<form enctype="multipart/form-data" method="post" id="djifileform">
+            	<form enctype="multipart/form-data" method="post" id="uploadfileform">
             		<div class="input-group">
-							    <input type="file" class="form-control-file form-control bg-light border-0 small" id="file">
-							    <input type="hidden" name="name" id="djifname">
-							    <span class="input-group-append">
-								    <button class="btn btn-primary" type="button" id="btnForUploadFlightList">
-                                  업로드
-                		</button>
-                	</span>
+            			<div>
+		              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
+		              	<input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
+		              </div>
+		              
+		              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
+            			<input type="text" class="form-control" id="record_name_field">
+            			            			            			            												
+									<div id="filetypeSelector">
+										<input type="radio" id="dji_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_name_label"> DJI 비행기록 파일</label>
+										<input type="radio" id="duni_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_name_label"> DUNI 비행기록 파일</label>	
+									</div>
+									            			
+								  <input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+							  								  								  								  								    
+							    <button class="btn btn-primary" type="button" id="btnForUploadFlightList">업로드</button>                	
 							  </div>
 							</form>
             </div>
 
         </div>
         <div class="card-body">
-        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">
-																							    비행기록 파일 얻는 방법 (클릭)
-						</a>
-
+        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">DJI 비행기록 파일 얻는 방법 (클릭)</a>
 						<div class="collapse" id="collapseRecordFileParams">
 							<br>
 							<hr size=1>
@@ -50,38 +52,8 @@
 							<p>- <a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
 							<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
 						</div>
-        </div>
-      </div>
-   </div>
-
-
-	 <div class="col-xl-6 col-md-6 mb-4" id="duni_upload_viewer">
-      <div class="card border-left-info shadow py-2">
-      	<div class="card-header py-3">
-        	<h6 class="m-0 font-weight-bold text-info" id="msg_duni_file_upload">DUNI 비행기록 파일 업로드</h6>
-      	</div>
-        <div class="card-body">
-
-            <div class="col-auto">
-            	<form enctype="multipart/form-data" method="post" id="dunifileform">
-            		<div class="input-group">
-							    <input type="file" class="form-control-file form-control bg-light border-0 small" id="dunufile">
-							    <input type="hidden" name="name" id="dunifname">
-							    <span class="input-group-append">
-								    <button class="btn btn-info" type="button" id="btnForUploadDUNIFlightList">
-                                  업로드
-                		</button>
-                	</span>
-							  </div>
-							</form>
-            </div>
-
-        </div>
-        <div class="card-body">
-        		<a href="#" id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">
-																							    비행기록 파일 포맷 (클릭)
-						</a>
-
+						
+						<a href="#" id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">DUNI 비행기록 파일 포맷 (클릭)</a>
 						<div class="collapse" id="collapseDUNIRecordFileParams">
 							<br>
 							<hr size=1>
@@ -136,5 +108,5 @@
 						</div>
         </div>
       </div>
-   </div>         
+   </div>	 
 </div>
