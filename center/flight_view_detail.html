@@ -20,13 +20,48 @@
 <div class="row">
 	 <div class="col-xl-6 col-md-6 mb-4">
       <div class="card shadow mb-2">
+      	      	
         <div class="card-body h-400">
         			<div id="youTubePlayer"></div>
-        </div>
+        </div>                
+                
+        <div id="recordDataSet">
+	        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	          <h6 class="m-0 font-weight-bold text-primary" id="uploadBtnForFlightRecord">비행기록 파일 업로드</h6>
+	        </div>
+	        
+	        <div class="card-body">	        			        												
+						<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
+							<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>	
+						</div>											   										
+						<div class="input-group">
+							<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+							<span class="input-group-append">
+              	<button class='btn btn-primary' type='button' id="btnForUploadFlightList">업로드</button>
+              </span>
+						</div>
+					</div>
+				</div>
 
         <div class="card-body">
-        		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a> <br>
-
+        		<div id="recordDataSet">
+	        		<span id="uploadBtnForFlightRecord" class="text-xs font-weight-bold text-primary text-uppercase mb-1">비행기록 파일 업로드</span>
+	        		<div>
+										<br>
+										<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
+											<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>	
+										</div>											   										
+										<div class="input-group">
+											<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+											<span class="input-group-append">
+			                	<button class='btn btn-primary' type='button' id="btnForUploadFlightList">업로드</button>
+			                </span>
+										</div>																				
+							</div>
+						</div>
+						
+        		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
+        		<br>						
           	<div id="movieDataSet">
           		<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
               <div class="input-group">
@@ -79,9 +114,9 @@
 				      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>              
 
          		</div>
-
-       		<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
-					<canvas id="lineGraph" name="lineGraph"></canvas>
+       			
+						<canvas id="lineGraph" name="lineGraph"></canvas>
+						<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
 				</div>
 
 

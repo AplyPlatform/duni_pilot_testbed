@@ -538,18 +538,21 @@ function flightrecordUploadInit() {
 
     $('#page_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
     $('#page_about_content').text(LANG_JSON_DATA[langset]['upload_about_content']);
-    $('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
+    
     $('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
-    $('#msg_dji_file_upload').text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
-    $('#msg_duni_file_upload').text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);
-    $('#btnForUploadDUNIFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
+    
     $('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
     $('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
     $('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
-    $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     
+    $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);    
     $("#record_name_field").attr("placeholder", LANG_JSON_DATA[langset]['msg_input_record_name']);
     $("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
+    $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
+    $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);    
+    
+    $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
+    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);        
         
     $('input[name="recordTypeRadio"]').change(function() {
 	    // 모든 radio를 순회한다.
@@ -572,7 +575,7 @@ function flightrecordUploadInit() {
 
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
-        uploadFlightList();
+        uploadFlightList(false);
     });
 
     hideLoader();
@@ -674,6 +677,10 @@ function flightDetailInit(target) {
     $("#btnForDelete").text(LANG_JSON_DATA[langset]['msg_remove']);
     $("#btnForUpdateTitle").text(LANG_JSON_DATA[langset]['msg_modify']);
         
+    $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
+    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);    
+    $('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
+    $('#uploadBtnForFlightRecord').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);        
 
     $('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
     $('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
@@ -703,6 +710,10 @@ function flightDetailInit(target) {
         setYoutubeID();
     });        
     
+    $('#btnForUploadFlightList').click(function () {    	    		
+        GATAGM('btnForUploadFlightList', 'CONTENT', langset);
+        uploadFlightList(true);
+    });    
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
@@ -2544,6 +2555,7 @@ function showDataWithName(target, name) {
                 $("#flightMemoBtn").hide();                
     						$("#btnForUpdateTitle").hide();
     						$("#btnForDelete").hide();
+    						$("#recordDataSet").hide();
                 hideMovieDataSet();
             }
             else {
@@ -2554,6 +2566,10 @@ function showDataWithName(target, name) {
                   
                   $("#btnForDelete").show();
                   $("#btnForUpdateTitle").show();
+                  
+                  if (isSet(fdata.flat)) {
+                    $("#recordDataSet").hide();
+                	}
                 }                                
             }
 
@@ -4091,7 +4107,7 @@ function nexttour(owner, fobject) {
     }, 2500);
 }
 
-function uploadFlightList() {				
+function uploadFlightList(isUpdate) {				
 		var mname = $("#record_name_field").val();
 		
 		if (mname == "") {
@@ -4106,15 +4122,15 @@ function uploadFlightList() {
     	showLoader();
     	
     	if (isDUNIFileType == false)
-       	getBase64(files[0], mname, youtube_data, uploadDJIFlightListCallback);
+       	getBase64(files[0], mname, youtube_data, isUpdate, uploadDJIFlightListCallback);
       else
-       	getBase64(files[0], mname, youtube_data, uploadDUNIFlightListCallback);
+       	getBase64(files[0], mname, youtube_data, isUpdate, uploadDUNIFlightListCallback);
       
       return;
-    }
+    }        
     
-    if (youtube_data == "") {
-    	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);		    	
+    if (isUpdate == true || youtube_data == "") {
+    	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
     }
     else {
     	youtube_data = massageYotubeUrl(youtube_data);
@@ -4130,12 +4146,12 @@ function uploadFlightList() {
     }
 }
 
-function getBase64(file, mname, youtube_data, callback) {		
+function getBase64(file, mname, youtube_data, isUpdate, callback) {		
     var reader = new FileReader();
         
     reader.readAsDataURL(file);
     reader.onload = function () {    		
-        callback(mname, youtube_data, reader.result);
+        callback(mname, youtube_data, isUpdate, reader.result);
     };
     reader.onerror = function (error) {
         hideLoader();
@@ -4143,7 +4159,7 @@ function getBase64(file, mname, youtube_data, callback) {
     };
 }
 
-function uploadDUNIFlightListCallback(mname, youtube_data, base64file) {
+function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
     var userid = getCookie("dev_user_id");
     
     youtube_data = massageYotubeUrl(youtube_data);
@@ -4151,12 +4167,13 @@ function uploadDUNIFlightListCallback(mname, youtube_data, base64file) {
     var jdata = { "action": "position", "daction": "duni_file_upload",
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
+    	"update" : isUpdate,
     	"recordfile": base64file
     };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
-            $('#btnForUploadDUNIFlightList').hide(1500);
+            $('#btnForUploadFlightList').hide(1500);
             $('#uploadFileform').hide(1500);
             GATAGM('duni_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
@@ -4178,7 +4195,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, base64file) {
     });
 }
 
-function uploadDJIFlightListCallback(mname, youtube_data, base64file) {
+function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
     var userid = getCookie("dev_user_id");
     
     youtube_data = massageYotubeUrl(youtube_data);
@@ -4186,6 +4203,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, base64file) {
     var jdata = { "action": "position", "daction": "convert",
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
+    	"update" : isUpdate,
     	"recordfile": base64file };
 
     ajaxRequest(jdata, function (r) {
@@ -4458,9 +4476,9 @@ function hideMovieDataSet() {
     $('#modifyBtnForMovieData').text(LANG_JSON_DATA[langset]['msg_modify_youtube_data']);
 
     $('#modifyBtnForMovieData').off('click');
-    $('#modifyBtnForMovieData').click(function () {
+    $('#modifyBtnForMovieData').click(function () {    		    		
         GATAGM('modifyBtnForMovieData_show', 'CONTENT', langset);
-        showMovieDataSet();
+        showMovieDataSet();                       }
     });
 
 }
@@ -4471,8 +4489,8 @@ function showMovieDataSet() {
 
     $('#modifyBtnForMovieData').off('click');
     $('#modifyBtnForMovieData').click(function () {
-        GATAGM('modifyBtnForMovieData_hide', 'CONTENT', langset);
-        hideMovieDataSet();
+				GATAGM('modifyBtnForMovieData_hide', 'CONTENT', langset);
+        hideMovieDataSet();        
     });
 }
 
