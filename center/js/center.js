@@ -721,6 +721,7 @@ function flightDetailInit(target) {
     }
 
     $("#map_tabs").tabs();
+    $("#recordDataSet").hide(); //비행기록 업로드 버튼
 
 }
 
@@ -2567,8 +2568,8 @@ function showDataWithName(target, name) {
                   $("#btnForDelete").show();
                   $("#btnForUpdateTitle").show();
                   
-                  if (isSet(fdata.flat)) {
-                    $("#recordDataSet").hide();
+                  if (!isSet(fdata.flat)) {
+                    $("#recordDataSet").show();
                 	}
                 }                                
             }
@@ -2582,6 +2583,7 @@ function showDataWithName(target, name) {
                 }
                 else {
                 		$("#altitude_graph_area").hide();
+                		$("#map_area").hide();
                 }
             }
             else {
