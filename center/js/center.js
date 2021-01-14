@@ -4478,7 +4478,7 @@ function hideMovieDataSet() {
     $('#modifyBtnForMovieData').off('click');
     $('#modifyBtnForMovieData').click(function () {    		    		
         GATAGM('modifyBtnForMovieData_show', 'CONTENT', langset);
-        showMovieDataSet();                       }
+        showMovieDataSet();
     });
 
 }
