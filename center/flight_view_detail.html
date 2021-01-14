@@ -43,23 +43,7 @@
 					</div>
 				</div>
 
-        <div class="card-body">
-        		<div id="recordDataSet">
-	        		<span id="uploadBtnForFlightRecord" class="text-xs font-weight-bold text-primary text-uppercase mb-1">비행기록 파일 업로드</span>
-	        		<div>
-										<br>
-										<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
-											<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>	
-										</div>											   										
-										<div class="input-group">
-											<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
-											<span class="input-group-append">
-			                	<button class='btn btn-primary' type='button' id="btnForUploadFlightList">업로드</button>
-			                </span>
-										</div>																				
-							</div>
-						</div>
-						
+        <div class="card-body">        								
         		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
         		<br>						
           	<div id="movieDataSet">
@@ -115,8 +99,10 @@
 
          		</div>
        			
-						<canvas id="lineGraph" name="lineGraph"></canvas>
-						<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
+       			<div id="altitude_graph_area">
+							<canvas id="lineGraph" name="lineGraph"></canvas>
+							<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
+						</div>
 				</div>
 
 

@@ -2546,7 +2546,7 @@ function showDataWithName(target, name) {
             else {
                 showMovieDataSet();
             }
-
+						
             if (target == "public") {
                 $("#modifyBtnForMovieData").hide();
                 $("#btnForSharing").hide();
@@ -2579,6 +2579,9 @@ function showDataWithName(target, name) {
                 if (isSet(fdata.flat)) {
                     var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
                     drawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);
+                }
+                else {
+                		$("#altitude_graph_area").hide();
                 }
             }
             else {
