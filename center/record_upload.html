@@ -18,19 +18,20 @@
             <div class="col-auto">
             	<form enctype="multipart/form-data" method="post" id="uploadfileform">
             		<div class="form-group">
-	            		<div>
-			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
-			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
-			            </div>
-			            
-			            <div>
+            			<div>
 			              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
 	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">
 	            		</div>
+	            		
+	            		<div>
+			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
+			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
+			            </div>			            			            
 	            			            			           			            												
 									<div>
-										<input type="radio" id="dji_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_name_label"> DJI 비행기록 파일</label> &nbsp;
-										<input type="radio" id="duni_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_name_label"> DUNI 비행기록 파일</label>	
+										<br>
+										<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_name_label"> DJI 비행기록 파일</label> &nbsp;
+										<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_name_label"> DUNI 비행기록 파일</label>	
 									</div>
 										   
 									<div>
@@ -46,7 +47,7 @@
 
         </div>
         <div class="card-body">
-        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">비행기록 파일 얻는 방법 (클릭)</a>
+        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">비행기록 파일 얻는 방법 (클릭)</a><br>
         		<a href="#" id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">DUNI 비행기록 파일 포맷 (클릭)</a>
         		
 						<div class="collapse" id="collapseRecordFileParams">
