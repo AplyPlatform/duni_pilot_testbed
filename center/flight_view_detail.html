@@ -112,68 +112,58 @@
    </div>
 
    <!-- List -->
-  <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">
-    				<div id="map_area">
-	    				<div class="card-body">		            		            
-			            <div id="map_tabs">
-			            	<ul>									  									  
-										  <li><a href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
-										  <li><a href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
-										</ul>
-										
-										<div class="mapviewer" id="map2dViewer">
-			            		<div id="mainMap" class="mapviewerIn"></div>
-				            </div>
-				            <div class="mapviewer" id="map3dViewer">
-				            	<div id="main3dMap" class="mapviewerIn"></div>
-										</div>
-									</div>		            		            								
-							</div>
-							<div class="card-body">
-									<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
-									<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
-							</div>
-							<div class="card-body">
-									<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<span class="input-group">
-	                      	<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
-	                    	</span>
-	                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
-	                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																		       <option value="Aerial" id="Aerial_label">Aerial</option>
-																		       <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
-																		       <option value="Road" id="Road_label">Road</option>
-														</select>
-												</div>
-	                    </div>
-	                    <div class="col mr-2">
-	                      <div class="row">
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
-	                      </div>
-	                      <div class="row">
-	                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
-	                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
-	                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
-												</div>
-	                    </div>
-	                </div>
-							</div>
+  <div class="col-lg-6 mb-4" id="map_area">
+    <div class="card shadow mb-4">    				
+    				<div class="card-body">		            		            
+		            <div id="map_tabs">
+		            	<ul>									  									  
+									  <li><a href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
+									  <li><a href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
+									</ul>
+									
+									<div class="mapviewer" id="map2dViewer">
+		            		<div id="mainMap" class="mapviewerIn"></div>
+			            </div>
+			            <div class="mapviewer" id="map3dViewer">
+			            	<div id="main3dMap" class="mapviewerIn"></div>
+									</div>
+								</div>		            		            								
 						</div>
-
 						<div class="card-body">
-							<form>
-    							<div class='form-group'>
-    								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
-    								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
-    								<br>
-    								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
-    							</div>
-							</form>
+								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
+								<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+						</div>
+						<div class="card-body">
+								<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<span class="input-group">
+                      	<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
+                    	</span>
+                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																	       <option value="Aerial" id="Aerial_label">Aerial</option>
+																	       <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
+																	       <option value="Road" id="Road_label">Road</option>
+													</select>
+											</div>
+                    </div>
+                    <div class="col mr-2">
+                      <div class="row">
+                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
+                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
+                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
+                      </div>
+                      <div class="row">
+                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
+                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
+                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
+											</div>
+                    </div>
+                </div>
+						</div>						
+
+						<div class="card-body">							
 							<br>
 							<span id="position_info"> ... </span>
               <span id="monitor"></span>
@@ -185,8 +175,18 @@
 <div class="row">
   <!-- List -->
   <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4">    	      									
     		<div class="card-body">
+    			<div class="row">
+	    			<form>
+							<div class='form-group'>
+								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
+								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
+								<br>
+								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
+							</div>
+						</form>
+					</div>
           <div class="row">
             <div class="col">
       		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
@@ -200,6 +200,7 @@
             <div class="col">
         		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
             </div>
+          </div>
       	</div>
 
       	<div class="card-body">
