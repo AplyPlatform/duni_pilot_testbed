@@ -552,7 +552,7 @@
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }	  	  
 	  
-	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen'></iframe></div>";//row
+	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen' allowfullscreen="allowfullscreen"></iframe></div>";//row
 	  
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
 		appendRow = appendRow
