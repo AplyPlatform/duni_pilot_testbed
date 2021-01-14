@@ -542,10 +542,17 @@
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
 	
-	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "'><div class='row'><div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";	  		
-	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
+	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "'><div class='row'>";
 	  
-	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";//row	  	  
+	  if (isSet(flat)) {
+	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
+	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
+	  }
+	  else {
+	  	appendRow = appendRow + "<div class='col-md-8'>";//row
+	  }	  	  
+	  
+	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";//row
 	  
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
 		appendRow = appendRow
