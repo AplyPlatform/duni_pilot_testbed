@@ -4103,6 +4103,8 @@ function uploadFlightList() {
 						            
     var files = document.getElementById('flight_record_file').files;
     if (files.length > 0) {
+    	showLoader();
+    	
     	if (isDUNIFileType == false)
        	getBase64(files[0], mname, youtube_data, uploadDJIFlightListCallback);
       else
@@ -4130,11 +4132,9 @@ function uploadFlightList() {
 
 function getBase64(file, mname, youtube_data, callback) {		
     var reader = new FileReader();
-    
-    showLoader();
+        
     reader.readAsDataURL(file);
-    reader.onload = function () {
-    		hideLoader();
+    reader.onload = function () {    		
         callback(mname, youtube_data, reader.result);
     };
     reader.onerror = function (error) {
@@ -4205,6 +4205,8 @@ function uploadDJIFlightListCallback(mname, youtube_data, base64file) {
             	GATAGM('dji_file_upload_failed', 'CONTENT', langset);
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
             }
+            
+            hideLoader();
         }
     }, function (request, status, error) {
         hideLoader();
