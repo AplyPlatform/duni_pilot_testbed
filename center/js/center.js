@@ -2801,7 +2801,7 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row    
     
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe></div>";
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
     }
     
     if (isSet(flat)) {
