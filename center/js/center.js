@@ -3878,10 +3878,11 @@ function addObjectTo2dMap(index, owner, kind) {
         current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));
     else
         current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner));
-
-    vectorSource.addFeature(current_pos);
+    
     current_object_pos[owner].push(current_pos);
     current_object_pos_image[owner].push(current_pos_image);
+    
+    vectorSource.addFeature(current_pos);
 }
 
 function mapInit() {
@@ -3981,9 +3982,9 @@ function mapInit() {
         source: vectorSource,
         zIndex: 10000
     });
-    
-    maplayers.push(vectorLayer);
+        
     maplayers.push(pointLayer);
+    maplayers.push(vectorLayer);
 
     // update the HTML page when the position changes.
     geolocation.on('change', function () {
@@ -4021,8 +4022,8 @@ function mapInit() {
     }
 		
     maplayers[1].setVisible(true); //Aerial
-    maplayers[3].setVisible(true); //vectorLayer
-    maplayers[4].setVisible(true); //pointLayer
+    maplayers[3].setVisible(true); //pointLayer
+    maplayers[4].setVisible(true); //vectorLayer
 
     map = new ol.Map({
         target: 'mainMap',
@@ -4077,7 +4078,7 @@ function hideLoader() {
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
     
-    if (current_object_pos != null && current_object_pos.length > 0) {
+    if (current_object_pos != null) {
 	    yaw *= 1;
 	    yaw = yaw < 0 ? (360 + yaw) : yaw;
 	    yaw = Math.PI / 180 * yaw;
