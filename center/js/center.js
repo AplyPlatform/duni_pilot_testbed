@@ -4019,11 +4019,10 @@ function mapInit() {
             }
         });
     }
-
-		maplayers[0].setVisible(true);
-    maplayers[1].setVisible(true);
-    maplayers[3].setVisible(true);
-    //maplayers[4].setVisible(true);
+		
+    maplayers[1].setVisible(true); //Aerial
+    maplayers[3].setVisible(true); //vectorLayer
+    maplayers[4].setVisible(true); //pointLayer
 
     map = new ol.Map({
         target: 'mainMap',
