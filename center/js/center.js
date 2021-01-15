@@ -4078,7 +4078,7 @@ function hideLoader() {
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
     
-    if (current_object_pos != null && current_object_pos.length > 0) {
+    if (current_object_pos != null && owner in current_object_pos) {
 	    yaw *= 1;
 	    yaw = yaw < 0 ? (360 + yaw) : yaw;
 	    yaw = Math.PI / 180 * yaw;
