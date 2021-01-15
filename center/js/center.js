@@ -4020,6 +4020,7 @@ function mapInit() {
         });
     }
 
+		maplayers[0].setVisible(true);
     maplayers[1].setVisible(true);
     maplayers[3].setVisible(true);
     //maplayers[4].setVisible(true);
