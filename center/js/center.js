@@ -3831,7 +3831,7 @@ function style2DObjectFunction(pImage, textMsg) {
 
 
 function remove2dObjects() {
-    if (current_object_pos != null && current_object_pos.length > 0) {
+    if (current_object_pos != null) {
         current_object_pos.forEach(function (owner) {
             owner.forEach(function (cur_pos) {
                 vectorSource.removeFeature(cur_pos);
@@ -3846,8 +3846,8 @@ function addObjectTo2dMap(index, owner, kind) {
     if (!isSet(vectorSource)) return;
 
     if (!isSet(current_object_pos)) {
-        current_object_pos = {};
-        current_object_pos_image = {};
+        current_object_pos = [];
+        current_object_pos_image = [];
     }
 
     if (!(owner in current_object_pos)) {
@@ -4078,7 +4078,7 @@ function hideLoader() {
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
     
-    if (current_object_pos != null) {
+    if (current_object_pos != null && current_object_pos.length > 0) {
 	    yaw *= 1;
 	    yaw = yaw < 0 ? (360 + yaw) : yaw;
 	    yaw = Math.PI / 180 * yaw;
