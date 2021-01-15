@@ -3985,7 +3985,7 @@ function mapInit() {
 
     scaleLineControl.setUnits("metric");
 
-    //maplayers.push(vectorLayer);
+    maplayers.push(vectorLayer);
     maplayers.push(pointLayer);
 
     // update the HTML page when the position changes.
