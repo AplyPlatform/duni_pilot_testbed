@@ -3929,8 +3929,7 @@ function mapInit() {
     geolocation.on('change:accuracyGeometry', function () {
         accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
-    */
-
+    
     var positionFeature = new ol.Feature();
     positionFeature.setStyle(new ol.style.Style({
         image: new ol.style.Circle({
@@ -3944,18 +3943,9 @@ function mapInit() {
             })
         })
     }));
-				
-    vectorSource = new ol.source.Vector({
-        features: [positionFeature]
-    });
-
-    var vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        zIndex: 10000
-    });
-    
+    */    
+				        
     pointSource = new ol.source.Vector({});
-
     pointSource.on('tileloadend', function () {
 
     });
@@ -3984,7 +3974,14 @@ function mapInit() {
     });
 
     scaleLineControl.setUnits("metric");
+		
+		vectorSource = new ol.source.Vector();
 
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        zIndex: 10000
+    });
+    
     maplayers.push(vectorLayer);
     maplayers.push(pointLayer);
 
