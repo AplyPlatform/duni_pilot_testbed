@@ -2050,6 +2050,11 @@ function ajaxRequestAddress(address, callback, errorcallback) {
         cache: false,
         type: "GET",
         success: function (r) {
+        		if (r.result != "success" && r.reason.indexOf("invalid token") >= 0) {
+        			alert(LANG_JSON_DATA[langset]['msg_login_another_device_sorry']); //todo
+        			logOut();
+        			return;
+        		}
             callback(r);
         },
         error: function (request, status, error) {
@@ -3522,6 +3527,7 @@ function ajaxRequest(data, callback, errorcallback) {
 function logOut() {
     setCookie("dev_user_id", "", -1);
     setCookie("user_token", "", -1);
+    setCookie("dev_token", "", -1);
     goIndex("logout");
 }
 
