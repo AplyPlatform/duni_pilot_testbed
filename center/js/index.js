@@ -259,7 +259,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
 
             location.href = "/center/main.html?page_action=center";
         } else {
-            setCookie("temp_sns_token", r.sns_token, 1);
+            setCookie("temp_sns_token", token, 1);
             setCookie("temp_image_url", temp_image, 1);
             setCookie("temp_email", temp_email, 1);
             setCookie("temp_name", temp_name, 1);
