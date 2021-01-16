@@ -238,11 +238,16 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     showLoader();
 
     var skind = getCookie("dev_kind");
+    var device_kind = getCookie("device_kind"); //모바일 기기에서 로그인 대비
+    var device_id = getCookie("device_id"); //푸시 토큰
+    
     var jdata = {
         action: "member",
         daction: "login",
         sns_token: token,
-        sns_kind: skind
+        sns_kind: skind,
+        device_kind: device_kind,
+        device_id: device_id
     };
 
     ajaxRequest(jdata, function (r) {
