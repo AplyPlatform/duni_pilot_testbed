@@ -3530,6 +3530,8 @@ function logOut() {
     setCookie("dev_user_id", "", -1);
     setCookie("user_token", "", -1);
     setCookie("dev_token", "", -1);
+    setCookie("device_kind", "", -1);
+    setCookie("device_id", "", -1);
             
     var jdata = { 
     	"action": "member", 
