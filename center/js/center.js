@@ -3511,7 +3511,7 @@ function ajaxRequest(data, callback, errorcallback) {
         },
         success: function (r) {
         		if (r.result != "success" && (("reason" in r) && r.reason.indexOf("invalid token") >= 0)) {
-        			alert(LANG_JSON_DATA[langset]['msg_login_another_device_sorry']); //todo
+        			alert(LANG_JSON_DATA[langset]['msg_login_another_device_sorry']);
         			logOut();
         			return;
         		}
@@ -3526,10 +3526,23 @@ function ajaxRequest(data, callback, errorcallback) {
 }
 
 function logOut() {
+		var userid = getCookie("dev_user_id");
     setCookie("dev_user_id", "", -1);
     setCookie("user_token", "", -1);
     setCookie("dev_token", "", -1);
-    goIndex("logout");
+            
+    var jdata = { 
+    	"action": "member", 
+    	"daction": "logout",
+    	"clientid": userid
+    };
+
+    ajaxRequest(jdata, function (r) {
+        //if (r.result == "success") {}        
+        goIndex("logout");        
+    }, function (request, status, error) {
+    		goIndex("logout");
+    });        
 }
 
 
