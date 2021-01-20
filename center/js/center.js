@@ -3526,13 +3526,7 @@ function ajaxRequest(data, callback, errorcallback) {
 }
 
 function logOut() {
-		var userid = getCookie("dev_user_id");
-    setCookie("dev_user_id", "", -1);
-    setCookie("user_token", "", -1);
-    setCookie("dev_token", "", -1);
-    setCookie("device_kind", "", -1);
-    setCookie("device_id", "", -1);
-            
+		var userid = getCookie("dev_user_id");                
     var jdata = { 
     	"action": "member", 
     	"daction": "logout",
@@ -3540,9 +3534,19 @@ function logOut() {
     };
 
     ajaxRequest(jdata, function (r) {
-        //if (r.result == "success") {}        
+        //if (r.result == "success") {}       
+        setCookie("dev_user_id", "", -1);
+		    setCookie("user_token", "", -1);
+		    setCookie("dev_token", "", -1);
+		    setCookie("device_kind", "", -1);
+		    setCookie("device_id", "", -1); 
         goIndex("logout");        
     }, function (request, status, error) {
+    		setCookie("dev_user_id", "", -1);
+		    setCookie("user_token", "", -1);
+		    setCookie("dev_token", "", -1);
+		    setCookie("device_kind", "", -1);
+		    setCookie("device_id", "", -1);
     		goIndex("logout");
     });        
 }
