@@ -765,10 +765,6 @@ function flightrecordListInit(target) { //비행기록 목록
     initYoutubeAPIForFlightList();                
 }
 
-function onYouTubeIframeAPIReady() {			  
-	  
-}	
-
 function initYoutubeAPIForFlightList() {
 		var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
