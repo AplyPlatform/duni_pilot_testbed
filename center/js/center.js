@@ -2672,14 +2672,15 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 
     ajaxRequest(jdata, function (r) {
         hideLoader();
-        if (r.response.status !== "OK") return;
+        if (r == null || r.data == nulll || r.data.response.status !== "OK") return;
 
+				var response = r.data.response;
         var _features = new Array();
         var _addressText = "";
 
-        for (var idx = 0; idx < r.response.result.featureCollection.features.length; idx++) {
+        for (var idx = 0; idx < response.result.featureCollection.features.length; idx++) {
             try {
-                var geojson_Feature = r.response.result.featureCollection.features[idx];
+                var geojson_Feature = response.result.featureCollection.features[idx];
                 var geojsonObject = geojson_Feature.geometry;
                 var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
                 for (var i = 0; i < features.length; i++) {
@@ -2713,7 +2714,7 @@ function drawCadastral(disp_id, name, x, y, vSource) {
             setAddressAndCada(disp_id, _addressText, _features, flightHistorySource);
         }
 
-        updateCadaData(name, _addressText, r.response.result.featureCollection.features);
+        updateCadaData(name, _addressText, response.result.featureCollection.features);
 
     }, function (request, status, error) {
         hideLoader();
