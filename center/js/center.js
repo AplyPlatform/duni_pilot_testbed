@@ -11,6 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+var current_target = "private";
+
 var bMonStarted;
 
 var current_view;
@@ -756,8 +758,21 @@ function flightrecordListInit(target) { //비행기록 목록
     });
 
     $('#btnForLoadFlightList').hide();
-    getFlightList(target);
-    //hideLoader();
+    
+    
+    current_target = target;
+    initYoutubeAPIForFlightList();                
+}
+
+function onYouTubeIframeAPIReady() {			  
+	  getFlightList(current_target);
+}	
+
+function initYoutubeAPIForFlightList() {
+		var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
 function missionListInit() {
@@ -903,7 +918,36 @@ function getAllRecordCount() {
     });
 }
 
+function setScrollEvent() {							
+	$(document).scroll(function (e) {
+        var scrollAmount = $(window).scrollTop();
+        var documentHeight = $('body').height();
+        var viewPortHeight = $(window).height();
 
+        var a = viewPortHeight + scrollAmount;
+        var b = documentHeight - a;	
+        var scrollHeight = window.innerHeight / 2;
+				var scrolltop = $(window).scrollTop() + scrollHeight;
+				checkAutoPlay(scrolltop);
+	});							
+}
+
+function checkAutoPlay(scrollCenter) {							
+		for(var i=0;i<tableCount;i++) {				
+			var divName = "flight-list-" + i;				
+			var videoTop = $("#" + divName).offset().top;
+			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
+											
+			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
+				if (player[i] && player[i].getPlayerState() != 1)
+					player[i].playVideo();
+			}
+			else {				
+				if (player[i] && player[i].getPlayerState() == 1)
+					player[i].stopVideo();
+			}
+		}
+}
 
 function setBadgeView(fdata) {
     if (isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
@@ -2256,6 +2300,8 @@ function setFlightlistHistory(target, data) {
         appendFlightListTable(target, item);
         flightRecArray.push(item);
     });
+    
+    setScrollEvent();
 }
 
 function getRecordTitle() {
@@ -2818,7 +2864,7 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row    
     
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'></div>";
     }
     
     if (isSet(flat)) {
@@ -2907,10 +2953,23 @@ function moveFlightHistoryMap(lat, lng) {
 
 function setYoutubeVideo(index, youtube_url) {
 		var vid = getQueryVariableWithURL(youtube_url, "v");		
-		$("#youTubePlayer_" + index).show();
-		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
+		//$("#youTubePlayer_" + index).show();
+		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
+		
+		player[index] = new YT.Player("youTubePlayer_" + index, {
+      height: '200',
+      width: '100%',
+      videoId: vid,
+      events: {
+        'onReady': onPlayerReadyForList,
+        'onStateChange': onPlayerStateChange
+      }
+    });
 }
 
+function onPlayerReadyForList(event) {
+  	event.target.stopVideo();
+}      
 
 function updateFlightMemoWithValue(name, memo) {
     var userid = getCookie("dev_user_id");
