@@ -1,4 +1,4 @@
-;(function () {
+
 	
 	'use strict';
 
@@ -732,19 +732,17 @@
 	  getFlightList();
   }	
 	
-	$(function(){
-		mobileMenuOutsideClick();
-		offcanvasMenu();
-		burgerMenu();
-		contentWayPoint();
-		dropdown();
-		owlCarousel();
-		tabs();
-		goToTop();
-		loaderPage();						
-		initYoutubeAPI();
-		setScrollEvent();
-	});
+$(function(){
+	mobileMenuOutsideClick();
+	offcanvasMenu();
+	burgerMenu();
+	contentWayPoint();
+	dropdown();
+	owlCarousel();
+	tabs();
+	goToTop();
+	loaderPage();						
+	initYoutubeAPI();
+	setScrollEvent();
+});
 
-
-}());
