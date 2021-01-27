@@ -11,6 +11,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+var page_action = "center";
 var current_target = "private";
 
 var bMonStarted;
@@ -257,7 +258,7 @@ function initPilotCenter() {
     setLogoutBtn();
     showLoader();
 
-    var page_action = getQueryVariable("page_action");
+    page_action = getQueryVariable("page_action");
 
     if (!isSet(page_action)) {
     		page_action = "center";
@@ -765,7 +766,7 @@ function flightrecordListInit(target) { //비행기록 목록
 }
 
 function onYouTubeIframeAPIReady() {			  
-	  getFlightList(current_target);
+	  
 }	
 
 function initYoutubeAPIForFlightList() {
@@ -4715,6 +4716,11 @@ function setYoutubePlayer(d_id) {
 }
 
 function onYouTubeIframeAPIReady() {
+		if (page_action == "flightview" || page_action == "publicflightview") {
+    	getFlightList(current_target);    
+    	return;
+    }
+    
     youTubePlayer = new YT.Player('youTubePlayer', {
         width: '1000',
         height: '400',
@@ -4724,7 +4730,7 @@ function onYouTubeIframeAPIReady() {
             'onReady': onPlayerReady, //로딩할때 이벤트 실행
             'onStateChange': onPlayerStateChange //플레이어 상태 변화시 이벤트실행
         }
-    });//youTubePlayer1셋팅
+    });//youTubePlayer1셋팅            	
 }
 
 var movieProcess = false;
