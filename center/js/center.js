@@ -2672,7 +2672,7 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 
     ajaxRequest(jdata, function (r) {
         hideLoader();
-        if (r == null || r.data == nulll || r.data.response.status !== "OK") return;
+        if (r == null || r.data == null || r.data.response.status !== "OK") return;
 
 				var response = r.data.response;
         var _features = new Array();
