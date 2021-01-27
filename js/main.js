@@ -526,7 +526,7 @@
 
 	var player = [];
 	function setEmptyVideo(index) {
-		$("#youTubePlayer_" + index).show();
+		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
 		player[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
@@ -541,7 +541,7 @@
 	
 	function setYoutubeVideo(index, youtube_url) {
 		var vid = getQueryVariable(youtube_url, "v");		
-		$("#youTubePlayer_" + index).show();
+		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
 		
 		player[index] = new YT.Player("youTubePlayer_" + index, {
@@ -705,11 +705,11 @@
 			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
 											
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] != null && player[i].getPlayerState() != 1)
+				if (player[i] && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
 			else {				
-				if (player[i] != null && player[i].getPlayerState() == 1)
+				if (player[i] && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
 		}
