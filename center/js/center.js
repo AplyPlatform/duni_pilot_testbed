@@ -2922,10 +2922,8 @@ function appendFlightListTable(target, item) {
     if (isSet(flat)) {    	
         retSource = makeForFlightListMap(curIndex, flat, flng);        
     }    
-    
-    if(isSet(youtube_data_id)) {
-    		setYoutubeVideo(curIndex, youtube_data_id);
-    }    
+        
+    setYoutubeVideo(curIndex, youtube_data_id);
 
     if (isSet(retSource) && isSet(address) && address != "") {
         setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
@@ -2951,6 +2949,11 @@ function moveFlightHistoryMap(lat, lng) {
 }
 
 function setYoutubeVideo(index, youtube_url) {
+		if (isSet(youtube_url) == false) {
+				player[index] = null;
+				return;
+		}
+		
 		var vid = getQueryVariableWithURL(youtube_url, "v");		
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
