@@ -57,9 +57,6 @@ var flightDataArrayForDromi = new Array();
 var youTubePlayer = null;
 var youtube_data_id;
 
-var googlePhotoPlayer = null;
-var googlePhotoPlayerAr = null;
-
 var cur_flightrecord_name = "";
 
 var moviePlayerVisible = false;
@@ -807,8 +804,7 @@ function dromiListInit() {
     document.title = LANG_JSON_DATA[langset]['page_dromi_list_title'];
     $("#head_title").text(document.title);
 
-    $("#chartView").hide();
-    $("#googlePhotoPlayer").hide();
+    $("#chartView").hide();    
     $("#youTubePlayer").hide();
 
     selectMonitorIndex("private", 0);
@@ -2537,8 +2533,7 @@ function showDataWithName(target, name) {
                 hideMovieDataSet();
             }
             else {
-                $("#youTubePlayer").hide();
-                $("#googlePhotoPlayer").hide();
+                $("#youTubePlayer").hide();                
             }
 
             if (moviePlayerVisible == true) {
@@ -4724,11 +4719,7 @@ function processSeek(curTime) {
 }
 
 function movieSeekTo(where) {
-    movieProcess = true;
-
-    if (googlePhotoPlayer != null && googlePhotoPlayerAr.is(":visible") == true) {
-        googlePhotoPlayer.currentTime = where;
-    }
+    movieProcess = true;    
 
     if (youTubePlayer != null && $('#youTubePlayer').is(":visible") == true) {
         youTubePlayer.seekTo(where, true);
@@ -4751,8 +4742,7 @@ function showDataForDromi(index) {
         }
     }
     else {
-        $("#youTubePlayer").hide();
-        $("#googlePhotoPlayer").hide();
+        $("#youTubePlayer").hide();        
     }
 
     if (moviePlayerVisible == true) {

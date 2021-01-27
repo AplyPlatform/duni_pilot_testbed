@@ -346,6 +346,9 @@
 	};
 
 	
+	
+	
+	
 	var flightRecArray = [];
 	var tableCount = 0;
 	var pos_icon_image = './center/imgs/position4.png';
@@ -521,17 +524,45 @@
     }
 	}
 
+	var player = [];
 	function setEmptyVideo(index) {
 		$("#youTubePlayer_" + index).show();
-		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
+		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
+		player[index] = new YT.Player("youTubePlayer_" + index, {
+      height: '200',
+      width: '100%',
+      videoId: "q2PzFbh6HBE",
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
 	}
 	
 	function setYoutubeVideo(index, youtube_url) {
 		var vid = getQueryVariable(youtube_url, "v");		
 		$("#youTubePlayer_" + index).show();
-		$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
+		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
+		
+		player[index] = new YT.Player("youTubePlayer_" + index, {
+      height: '200',
+      width: '100%',
+      videoId: vid,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
 	}
-
+	
+	function onPlayerReady(event) {
+  	event.target.stopVideo();
+  }
+      
+  function onPlayerStateChange(event) {
+  	
+  }
+      
 	function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
@@ -552,7 +583,8 @@
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }	  	  
 	  
-	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";//row
+	  //appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";//row
+	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'></div>";//row
 	  
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
 		appendRow = appendRow
@@ -599,7 +631,7 @@
 	
 	  data.forEach(function(item) {
 	    appendFlightListTable(item);
-	    flightRecArray.push(item);
+	    flightRecArray.push(item);	    
 	  });
 	}
 	
@@ -619,7 +651,7 @@
                errorcallback(request,status,error);
            }
     });
-	}
+	}		
 
 	function getFlightList() {	  
 	  var jdata = {"action": "public_record_list"};
@@ -652,7 +684,53 @@
 	  });
 	}
 	
-
+	function setScrollEvent() {							
+		$(document).scroll(function (e) {
+	        var scrollAmount = $(window).scrollTop();
+	        var documentHeight = $('body').height();
+	        var viewPortHeight = $(window).height();
+	
+	        var a = viewPortHeight + scrollAmount;
+	        var b = documentHeight - a;	
+	        var scrollHeight = window.innerHeight / 2;
+					var scrolltop = $(window).scrollTop() + scrollHeight;
+					checkAutoPlay(scrolltop);
+		});							
+	}
+	
+	function checkAutoPlay(scrollCenter) {							
+		for(var i=0;i<tableCount;i++) {				
+			var divName = "mediaField_" + i;				
+			var videoTop = $("#" + divName).offset().top;
+			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
+											
+			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
+				var mValue = $('#dataMoveField_' + i).val();
+				if (mValue === undefined) continue;
+				//TODO PLAY
+				if (player[i] != null)
+					player[i].playVideo();
+			}
+			else {									
+				var mValue = $('#dataField_' + i).val();
+				if (mValue === undefined) continue;				
+				//TODO STOP
+				if (player[i] != null)
+					player[i].stopVideo();
+			}
+		}
+	}
+	
+	function initYoutubeAPI() {
+		var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	}
+			
+	function onYouTubeIframeAPIReady() {			  
+	  getFlightList();
+  }	
 	
 	$(function(){
 		mobileMenuOutsideClick();
@@ -663,8 +741,9 @@
 		owlCarousel();
 		tabs();
 		goToTop();
-		loaderPage();				
-		getFlightList();
+		loaderPage();						
+		initYoutubeAPI();
+		setScrollEvent();
 	});
 
 
