@@ -700,22 +700,19 @@
 	
 	function checkAutoPlay(scrollCenter) {							
 		for(var i=0;i<tableCount;i++) {				
-			var divName = "mediaField_" + i;				
+			var divName = "flight-list-" + i;				
 			var videoTop = $("#" + divName).offset().top;
 			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
 											
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				var mValue = $('#dataMoveField_' + i).val();
-				if (mValue === undefined) continue;
-				//TODO PLAY
-				if (player[i] != null)
+				if (player[i] != null && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
 			else {									
 				var mValue = $('#dataField_' + i).val();
 				if (mValue === undefined) continue;				
 				//TODO STOP
-				if (player[i] != null)
+				if (player[i] != null && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
 		}
