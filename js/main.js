@@ -708,10 +708,7 @@
 				if (player[i] != null && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
-			else {									
-				var mValue = $('#dataField_' + i).val();
-				if (mValue === undefined) continue;				
-				//TODO STOP
+			else {				
 				if (player[i] != null && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
