@@ -426,7 +426,8 @@ function centerInit() {
 
 
     getRecordCount();
-    getFlightList("public");
+    current_target = "public";
+    initYoutubeAPIForFlightList();
 }
 
 
@@ -759,10 +760,9 @@ function flightrecordListInit(target) { //비행기록 목록
     });
 
     $('#btnForLoadFlightList').hide();
-    
-    
+        
     current_target = target;
-    initYoutubeAPIForFlightList();                
+    initYoutubeAPIForFlightList();
 }
 
 function initYoutubeAPIForFlightList() {
@@ -4712,7 +4712,7 @@ function setYoutubePlayer(d_id) {
 }
 
 function onYouTubeIframeAPIReady() {
-		if (page_action == "flightview" || page_action == "publicflightview") {
+		if (page_action == "flightview" || page_action == "publicflightview" || page_action == "center") {
     	getFlightList(current_target);    
     	return;
     }
