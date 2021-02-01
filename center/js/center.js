@@ -3813,7 +3813,7 @@ function map3dInit() {
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
     viewer = new Cesium.Viewer("main3dMap", {
-        infoBox: true, //Disable InfoBox widget
+        infoBox: false, //Disable InfoBox widget
         selectionIndicator: false, //Disable selection indicator
         shouldAnimate: false, // Enable animations
         baseLayerPicker: false,
@@ -3823,7 +3823,7 @@ function map3dInit() {
         fullscreenButton: true,
         geocoder: false,
         homeButton: false,
-        navigationHelpButton: false,
+        navigationHelpButton: true,
         navigationInstructionsInitiallyVisible: false,
         automaticallyTrackDataSourceClocks: false,
         orderIndependentTranslucency: false,
