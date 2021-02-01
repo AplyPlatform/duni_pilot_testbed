@@ -2631,7 +2631,7 @@ function showDataWithName(target, name) {
             }
             
 						if (isSet(fdata.flng) && isSet(fdata.flat)) {
-            		moveToStartPoint3D(fdata.flng, fdata.flat, 600);
+            		moveToStartPoint3D(fdata.flng, fdata.flat, 700);
             }
         }
 
@@ -2649,7 +2649,7 @@ function moveToStartPoint3D(lng, lat, alt) {
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
-        pitch : Cesium.Math.toRadians(-25.0),
+        pitch : Cesium.Math.toRadians(-45.0),
       }
     });			
 }
