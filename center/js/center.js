@@ -322,7 +322,7 @@ function initPilotCenter() {
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
             map3dInit();
-            addObjectTo3DMap(0, "private", "drone");
+            addObjectTo3DMap(0, "private", "drone");            
             flightDetailInit("public");
         });
         $("#record_menu").addClass("active");
@@ -2614,7 +2614,7 @@ function showDataWithName(target, name) {
                 }                                
             }
 
-            setFlightRecordDataToView(target, fdata.data, false);
+            setFlightRecordDataToView(target, fdata.data, false);                        
 
             if (!isSet(fdata.cada) && fdata.cada == null) {
                 if (isSet(fdata.flat)) {
@@ -2629,6 +2629,10 @@ function showDataWithName(target, name) {
             else {
                 setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
             }
+            
+						if (isSet(fdata.flng) && isSet(fdata.flat)) {
+            		moveToStartPoint3D(fdata.flng, fdata.flat, 400);
+            }
         }
 
         hideLoader();
@@ -2639,6 +2643,16 @@ function showDataWithName(target, name) {
     });
 }
 
+function moveToStartPoint3D(lng, lat, alt) {
+		var camera = viewer.camera;		
+		camera.flyTo({
+      destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
+      orientation : {
+        heading : Cesium.Math.toRadians(0.0),
+        pitch : Cesium.Math.toRadians(-15.0),
+      }
+    });			
+}
 
 function makeForFlightListMap(index, flat, flng) {
     var dpoint = ol.proj.fromLonLat([flng, flat]);
@@ -3799,14 +3813,14 @@ function map3dInit() {
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
     viewer = new Cesium.Viewer("main3dMap", {
-        infoBox: false, //Disable InfoBox widget
+        infoBox: true, //Disable InfoBox widget
         selectionIndicator: false, //Disable selection indicator
         shouldAnimate: false, // Enable animations
         baseLayerPicker: false,
         timeline: false,
         animation: false,
         clock: false,
-        fullscreenButton: false,
+        fullscreenButton: true,
         geocoder: false,
         homeButton: false,
         navigationHelpButton: false,
