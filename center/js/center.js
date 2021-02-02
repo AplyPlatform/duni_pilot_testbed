@@ -638,9 +638,7 @@ function monitorInit() {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });
-
-    $("#map_tabs").tabs();
+    });    
 
     moviePlayerVisible = true;
     showMovieDataSet();
@@ -722,8 +720,7 @@ function flightDetailInit(target) {
     if (record_name != null && record_name != "") {
         showDataWithName(target, decodeURI(record_name));
     }
-
-    $("#map_tabs").tabs();
+    
     $("#recordDataSet").hide(); //비행기록 업로드 버튼
 
 }
