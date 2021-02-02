@@ -2628,11 +2628,7 @@ function showDataWithName(target, name) {
             }
             else {
                 setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
-            }
-            
-						if (isSet(fdata.flng) && isSet(fdata.flat)) {
-            		moveToStartPoint3D(fdata.flng, fdata.flat, 600);
-            }
+            }            						
         }
 
         hideLoader();
@@ -2644,12 +2640,14 @@ function showDataWithName(target, name) {
 }
 
 function moveToStartPoint3D(lng, lat, alt) {
+		if (isSet(viewer) == false) return;
+		
 		var camera = viewer.camera;		
 		camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
-        pitch : Cesium.Math.toRadians(-70.0),
+        pitch : Cesium.Math.toRadians(-50.0),
       }
     });			
 }
@@ -3389,11 +3387,12 @@ function isNeedSkip(lat, lng, alt) {
 
 function setFlightRecordDataToView(target, cdata, bfilter) {
 
-    if (isSet(cdata) == false || cdata == "" || cdata == "-") {
+    if (isSet(cdata) == false || cdata.length <= 0 || cdata == "" || cdata == "-") {
         if (bfilter == true) {
             cdata = chartLocData;
         }
         else {
+        		//위치 데이터가 없음.
             return;
         }
     }
@@ -3406,18 +3405,25 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     lineGraphData = new Array();
     lineData = new Array();
 
-    var i = 0;
-    cdata.forEach(function (item) {
+		var rlng, rlat;    
+    cdata.forEach(function (item, i, arr) {
 
-        if (bfilter &&
-            i > 4 &&
-            isNeedSkip(item.lat, item.lng, item.alt) == true) { }
-        else {
-            addChartItem(i, item);
-            oldLat = item.lat;
-            oldLng = item.lng;
-            oldAlt = item.alt;
-            i++;
+        if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
+        	continue;
+				}
+        
+        addChartItem(i, item);
+        oldLat = item.lat;
+        oldLng = item.lng;
+        oldAlt = item.alt;
+        
+        if (isSet(rlat) == false) {
+        	rlat = oldLat;
+        }
+        
+        if (rlat > oldLat) {
+        		rlat = oldLat;
+        		rlng = oldLng;
         }
     });
 
@@ -3426,8 +3432,12 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
 
     if (isSet(posLayerForGlobal))
         map.removeLayer(posLayerForGlobal);
+        
+		if (isSet(rlng) && isSet(rlat)) {
+				moveToStartPoint3D(rlng, rlat, 400);
+		}        
 
-    setSlider(i);
+    setSlider(cdata.length - 1);
 
     drawLineToMap();
 
@@ -3440,7 +3450,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     draw3dMap();
 
     var item = chartLocData[0];
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);        
 }
 
 var oldScatterdatasetIndex = -1;
