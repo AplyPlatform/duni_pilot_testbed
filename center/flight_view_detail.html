@@ -109,20 +109,17 @@
    <!-- List -->
   <div class="col-lg-6 mb-4" id="map_area">
     <div class="card shadow mb-4">    				
-    				<div class="card-body">		            		            
-		            <div id="map_tabs">
-		            	<ul>									  									  
-									  <li><a href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
-									  <li><a href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
-									</ul>
-									
-									<div class="mapviewer" id="map2dViewer">
-		            		<div id="mainMap" class="mapviewerIn"></div>
-			            </div>
-			            <div class="mapviewer" id="map3dViewer">
-			            	<div id="main3dMap" class="mapviewerIn"></div>
-									</div>
-								</div>		            		            								
+    				<div class="card-body" id="map_tabs">		            	            									
+								<div class="mapviewer" id="map2dViewer">
+	            		<div id="mainMap" class="mapviewerIn"></div>
+		            </div>
+		            <div class="mapviewer" id="map3dViewer">
+		            	<div id="main3dMap" class="mapviewerIn"></div>
+								</div>
+								<ul>									  									  
+								  <li><a href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
+								  <li><a href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
+								</ul>
 						</div>
 						<div class="card-body">
 								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
