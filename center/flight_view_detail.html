@@ -110,16 +110,16 @@
     <div class="card shadow mb-4">
     				<div class="card-body">
 								<div class="tab-content">
-									<div class="tab-pane fade show active mapviewer" id="map2dViewer">
+									<div class="tab-pane fade aactive mapviewer" id="map2dViewer">
 		            		<div id="mainMap" class="mapviewerIn"></div>
 			            </div>
 			            <div class="tab-pane fade mapviewer" id="map3dViewer">
 			            	<div id="main3dMap" class="mapviewerIn"></div>
 									</div>
 								</div>
-								<div class="nav btn-group">
-								  <a class="btn btn-secondary" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</div>
-								  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</div>
+								<div class="btn-group btn-group-justified" data-toggle="buttons">
+								  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);"><input type="radio" />2D</div>
+								  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);"><input type="radio" />3D</div>
 								</div>
 						</div>
 						<div class="card-body">
