@@ -2647,7 +2647,7 @@ function moveToStartPoint3D(lng, lat, alt) {
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
-        pitch : Cesium.Math.toRadians(-50.0),
+        pitch : Cesium.Math.toRadians(-70.0),
       }
     });			
 }
@@ -3434,7 +3434,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
         map.removeLayer(posLayerForGlobal);
         
 		if (isSet(rlng) && isSet(rlat)) {
-				moveToStartPoint3D(rlng, rlat, 400);
+				moveToStartPoint3D(rlng, rlat, 600);
 		}        
 
     setSlider(cdata.length - 1);
