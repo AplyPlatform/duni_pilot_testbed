@@ -3409,7 +3409,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     cdata.forEach(function (item, i, arr) {
 
         if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
-        	continue;
+        	return true;
 				}
         
         addChartItem(i, item);
