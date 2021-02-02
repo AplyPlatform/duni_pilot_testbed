@@ -1,4 +1,15 @@
 
+<style>
+.btn-group.nav {
+	display: inline-flex;
+}
+
+.btn-group .btn.active {
+	background-color: var(--primary);
+	color: #fff;
+}
+</style>
+
 <!-- Content Row -->
 <div class="row">
 		<!-- Page Heading -->
@@ -111,16 +122,16 @@
     <div class="card shadow mb-4">
     				<div class="card-body">
 								<div class="tab-content">
-									<div class="tab-pane fade show active mapviewer" role="tabpanel" id="map2dViewer">
+									<div class="tab-pane fade show active mapviewer" id="map2dViewer">
 		            		<div id="mainMap" class="mapviewerIn"></div>
 			            </div>
-			            <div class="tab-pane fade mapviewer" role="tabpanel" id="map3dViewer">
+			            <div class="tab-pane fade mapviewer" id="map3dViewer">
 			            	<div id="main3dMap" class="mapviewerIn"></div>
 									</div>
 								</div>
-								<div class="btn-group" role="tablist">
-								  <button type="button" class="btn btn-secondary" aria-controls="map2dViewer" data-toggle="tab" href="#map2dViewer" role="tab" aria-selected="true" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</button>
-								  <button type="button" class="btn btn-secondary" aria-controls="map3dViewer" data-toggle="tab" href="#map3dViewer" role="tab" aria-selected="false" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</button>
+								<div class="nav btn-group">
+								  <a class="btn btn-secondary" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</div>
+								  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</div>
 								</div>
 						</div>
 						<div class="card-body">
@@ -181,12 +192,14 @@
 						</div>
 					</div>
           <div class="row">
-            <div class="btn-group" role="group">
-      		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
-                <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
-                <button class='btn btn-warning' type='button' id="btnForDelete">삭제하기</button>
-        		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
-            </div>
+						<div class="col-sm">
+	            <div class="btn-group" role="group">
+	      		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
+	                <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
+	        		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
+									<button class='btn btn-warning' type='button' id="btnForDelete">삭제하기</button>
+	            </div>
+						</div>
           </div>
       	</div>
 
