@@ -71,7 +71,7 @@ var cur_controller;
 
 var use3DMap = true;
 
-var player = []; //youtube players 
+var player = []; //youtube players
 
 $(function () {
 
@@ -162,7 +162,7 @@ function setCommonText() {
     	$('#side_menu_flight_plan_mon').text(LANG_JSON_DATA[langset]['side_menu_flight_plan_mon']);
     	$('#top_menu_token').text(LANG_JSON_DATA[langset]['top_menu_token']);
 			$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_pilot_label']);
-			$("#droneplaytoken_view").val(getCookie("dev_token"));			
+			$("#droneplaytoken_view").val(getCookie("dev_token"));
     }
     else {
     	$("#view_mode_selector").text(LANG_JSON_DATA[langset]['mode_developer_label']);
@@ -322,7 +322,7 @@ function initPilotCenter() {
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
             map3dInit();
-            addObjectTo3DMap(0, "private", "drone");            
+            addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("public");
         });
         $("#record_menu").addClass("active");
@@ -375,7 +375,7 @@ function summaryInit() {
 var isShowToken = false;
 function centerInit() {
     document.title = LANG_JSON_DATA[langset]['page_center_title'];
-    
+
     if (viewmode == "developer") {
         $('#head_title').html(LANG_JSON_DATA[langset]['head_developer_title']);
         $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_developer_title']);
@@ -385,18 +385,18 @@ function centerInit() {
         $("#droneplaytoken_view_section").val(getCookie("dev_token"));
         $("#droneplaytoken_view_section").hide();
         $("#show_token").click(function(){
-        	if (isShowToken) {        		
+        	if (isShowToken) {
         		GATAGM('show_token', 'CONTENT', langset);
-        		
+
         		$("#droneplaytoken_view_section").hide();
-        		$("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);        		
+        		$("#show_token").text(LANG_JSON_DATA[langset]['msg_show_token']);
         	}
         	else {
         		GATAGM('hide_token', 'CONTENT', langset);
         		$("#droneplaytoken_view_section").show();
         		$("#show_token").text(LANG_JSON_DATA[langset]['msg_hide_token']);
         	}
-        	
+
         	isShowToken = !isShowToken;
         });
     }
@@ -404,8 +404,8 @@ function centerInit() {
         $('#head_title').html(LANG_JSON_DATA[langset]['head_pilot_title']);
         $('#page_about_title').html(LANG_JSON_DATA[langset]['center_about_pilot_title']);
         $('#page_about_content').html(LANG_JSON_DATA[langset]['center_about_pilot_content']);
-    }    
-                
+    }
+
     $('#msg_notice').text(LANG_JSON_DATA[langset]['msg_notice']);
     $('#center_example_title').html(LANG_JSON_DATA[langset]['center_example_title']);
     $('#data_title').text("'" + getCookie("user_email") + "'" + LANG_JSON_DATA[langset]['data_count_msg']);
@@ -422,7 +422,7 @@ function centerInit() {
 
     $("#open_record_label").text(LANG_JSON_DATA[langset]["open_record_label"]);
     $("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
-    
+
     $("#dev_token_title").text(LANG_JSON_DATA[langset]["dev_token_title"]);
 
 
@@ -541,40 +541,40 @@ function flightrecordUploadInit() {
 
     $('#page_about_title').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
     $('#page_about_content').text(LANG_JSON_DATA[langset]['upload_about_content']);
-    
+
     $('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
-    
+
     $('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
     $('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
     $('#collapseRecordFileParams').html(LANG_JSON_DATA[langset]['collapseRecordFileParams']);
-    
-    $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);    
+
+    $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     $("#record_name_field").attr("placeholder", LANG_JSON_DATA[langset]['msg_input_record_name']);
     $("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
-    $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);    
-    
+    $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
+
     $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
-    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);        
-        
+    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);
+
     $('input[name="recordTypeRadio"]').change(function() {
 	    // 모든 radio를 순회한다.
 	    $('input[name="recordTypeRadio"]').each(function() {
 	        var id = $(this).attr('id');
     			var checked = $(this).prop('checked');
-    			
+
     			if (checked) {
-    				if (id == "dji_file_opt") {    					
+    				if (id == "dji_file_opt") {
     					isDUNIFileType = false;
-    				}    			
-    				else {    					
+    				}
+    				else {
     					isDUNIFileType = true;
     				}
     				return;
-    			}    			
+    			}
 	    });
 		});
-    
+
 
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
@@ -638,7 +638,7 @@ function monitorInit() {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });    
+    });
 
     moviePlayerVisible = true;
     showMovieDataSet();
@@ -674,14 +674,14 @@ function flightDetailInit(target) {
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
     $("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
     $("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
-    $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);    
+    $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
     $("#btnForDelete").text(LANG_JSON_DATA[langset]['msg_remove']);
     $("#btnForUpdateTitle").text(LANG_JSON_DATA[langset]['msg_modify']);
-        
+
     $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
-    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);    
+    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);
     $('#btnForUploadFlightList').text(LANG_JSON_DATA[langset]['msg_upload']);
-    $('#uploadBtnForFlightRecord').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);        
+    $('#uploadBtnForFlightRecord').text(LANG_JSON_DATA[langset]['page_flight_rec_upload_title']);
 
     $('#Aerial_label').text(LANG_JSON_DATA[langset]['Aerial_label']);
     $('#Aerial_label_label').text(LANG_JSON_DATA[langset]['Aerial_label_label']);
@@ -709,18 +709,18 @@ function flightDetailInit(target) {
     $('#btnForSetYoutubeID').click(function () {
         GATAGM('btnForSetYoutubeID', 'CONTENT', langset);
         setYoutubeID();
-    });        
-    
-    $('#btnForUploadFlightList').click(function () {    	    		
+    });
+
+    $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
         uploadFlightList(true);
-    });    
+    });
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
         showDataWithName(target, decodeURI(record_name));
     }
-    
+
     $("#recordDataSet").hide(); //비행기록 업로드 버튼
 
 }
@@ -759,7 +759,7 @@ function flightrecordListInit(target) { //비행기록 목록
     });
 
     $('#btnForLoadFlightList').hide();
-        
+
     current_target = target;
     initYoutubeAPIForFlightList();
 }
@@ -815,7 +815,7 @@ function dromiListInit() {
     document.title = LANG_JSON_DATA[langset]['page_dromi_list_title'];
     $("#head_title").text(document.title);
 
-    $("#chartView").hide();    
+    $("#chartView").hide();
     $("#youTubePlayer").hide();
 
     selectMonitorIndex("private", 0);
@@ -914,31 +914,31 @@ function getAllRecordCount() {
     });
 }
 
-function setScrollEvent() {							
+function setScrollEvent() {
 	$(document).scroll(function (e) {
         var scrollAmount = $(window).scrollTop();
         var documentHeight = $('body').height();
         var viewPortHeight = $(window).height();
 
         var a = viewPortHeight + scrollAmount;
-        var b = documentHeight - a;	
+        var b = documentHeight - a;
         var scrollHeight = window.innerHeight / 2;
 				var scrolltop = $(window).scrollTop() + scrollHeight;
 				checkAutoPlay(scrolltop);
-	});							
+	});
 }
 
-function checkAutoPlay(scrollCenter) {							
-		for(var i=0;i<tableCount;i++) {				
-			var divName = "flight-list-" + i;				
+function checkAutoPlay(scrollCenter) {
+		for(var i=0;i<tableCount;i++) {
+			var divName = "flight-list-" + i;
 			var videoTop = $("#" + divName).offset().top;
-			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
-											
+			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
+
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
 				if (player[i] && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
-			else {				
+			else {
 				if (player[i] && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
@@ -2051,14 +2051,14 @@ function removeMissionData(index) {
 function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
-         
+
 		data.sort(function(a, b) { // 내림차순
 			var regtime_a = convert2data(a.regtime);
-			var regtime_b = convert2data(b.regtime);    
+			var regtime_b = convert2data(b.regtime);
     	return regtime_b.getTime() - regtime_a.getTime();
 		});
-    
-    
+
+
     data.forEach(function (item, index, array) {
         var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
             + "<a href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
@@ -2085,7 +2085,7 @@ function ajaxRequestAddress(address, callback, errorcallback) {
         crossDomain: true,
         cache: false,
         type: "GET",
-        success: function (r) {        		
+        success: function (r) {
             callback(r);
         },
         error: function (request, status, error) {
@@ -2287,7 +2287,7 @@ function getFlightList(target) {
 function setFlightlistHistory(target, data) {
     if (data == null || data.length == 0)
         return;
-        
+
     data.sort(function(a, b) { // 내림차순
     	return b.dtimestamp - a.dtimestamp;
 		});
@@ -2296,7 +2296,7 @@ function setFlightlistHistory(target, data) {
         appendFlightListTable(target, item);
         flightRecArray.push(item);
     });
-    
+
     setScrollEvent();
 }
 
@@ -2377,7 +2377,7 @@ function makeShareFlightData(name, user_email) {
 
                     if (item.type == "user") {
                         user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-                    }                    
+                    }
                 });
 
                 $("#shared_user").show();
@@ -2388,10 +2388,10 @@ function makeShareFlightData(name, user_email) {
                     var premail = item.email;
                     if (item.email == "public@duni.io") {
                         premail = LANG_JSON_DATA[langset]['all_member_msg'];
-                        
+
                         $("#btnForPublic").hide();
                     }
-                                        
+
                     $("#user_share_" + index).click(function () {
                         showAskDialog(
                             LANG_JSON_DATA[langset]['modal_title'],
@@ -2504,26 +2504,26 @@ function showDataWithName(target, name) {
                     });
                 });
             }
-            
+
             $("#btnForUpdateTitle").click(function () {
-            		GATAGM('btnForUpdateTitle', 'CONTENT', langset);        
-            		
+            		GATAGM('btnForUpdateTitle', 'CONTENT', langset);
+
             		if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
 		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
 		                return;
 		            }
-		            
+
 						    setRecordTitleName();
 				    });
-            
+
             $("#btnForDelete").click(function () {
                 GATAGM('btnForPublic', 'CONTENT', langset);
-                             
+
 		            if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
 		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
 		                return;
 		            }
-                
+
 						    showAskDialog(
 						        LANG_JSON_DATA[langset]['modal_title'],
 						        fdata.name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
@@ -2562,7 +2562,7 @@ function showDataWithName(target, name) {
             $("#flightMemoBtn").click(function () {
                 GATAGM('flightMemoBtn', 'CONTENT', langset);
                 updateFlightMemoWithValue(name, $("#memoTextarea").val());
-            });                        
+            });
 
             if ("youtube_data_id" in fdata) {
                 if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
@@ -2575,7 +2575,7 @@ function showDataWithName(target, name) {
                 hideMovieDataSet();
             }
             else {
-                $("#youTubePlayer").hide();                
+                $("#youTubePlayer").hide();
             }
 
             if (moviePlayerVisible == true) {
@@ -2584,13 +2584,13 @@ function showDataWithName(target, name) {
             else {
                 showMovieDataSet();
             }
-						
+
             if (target == "public") {
                 $("#modifyBtnForMovieData").hide();
                 $("#btnForSharing").hide();
-                $("#btnForPublic").hide();                
+                $("#btnForPublic").hide();
                 $("#btnForSetYoutubeID").hide();
-                $("#flightMemoBtn").hide();                
+                $("#flightMemoBtn").hide();
     						$("#btnForUpdateTitle").hide();
     						$("#btnForDelete").hide();
     						$("#recordDataSet").hide();
@@ -2599,19 +2599,19 @@ function showDataWithName(target, name) {
             else {
                 if (target == "private") {
                 	if(("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata)) {
-                    $("#btnForSharing").show();                    
+                    $("#btnForSharing").show();
                   }
-                  
+
                   $("#btnForDelete").show();
                   $("#btnForUpdateTitle").show();
-                  
+
                   if (!isSet(fdata.flat)) {
                     $("#recordDataSet").show();
                 	}
-                }                                
+                }
             }
 
-            setFlightRecordDataToView(target, fdata.data, false);                        
+            setFlightRecordDataToView(target, fdata.data, false);
 
             if (!isSet(fdata.cada) && fdata.cada == null) {
                 if (isSet(fdata.flat)) {
@@ -2625,7 +2625,7 @@ function showDataWithName(target, name) {
             }
             else {
                 setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
-            }            						
+            }
         }
 
         hideLoader();
@@ -2638,15 +2638,15 @@ function showDataWithName(target, name) {
 
 function moveToStartPoint3D(lng, lat, alt) {
 		if (isSet(viewer) == false) return;
-		
-		var camera = viewer.camera;		
+
+		var camera = viewer.camera;
 		camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
         pitch : Cesium.Math.toRadians(-70.0),
       }
-    });			
+    });
 }
 
 function makeForFlightListMap(index, flat, flng) {
@@ -2869,12 +2869,12 @@ function appendFlightListTable(target, item) {
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
 
-    appendRow = appendRow + "</div></div><div class='row'>";//row    
-    
+    appendRow = appendRow + "</div></div><div class='row'>";//row
+
     if(isSet(youtube_data_id)) {
     		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'></div>";
     }
-    
+
     if (isSet(flat)) {
         appendRow = appendRow + "<div class='col-sm' id='map_" + tableCount + "' style='height:200px;'></div>";
     }
@@ -2888,12 +2888,12 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</textarea>";
     appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
     appendRow = appendRow + "</div><div class='row'><div class='col-sm'><span id='owner_email_" + tableCount + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
-        + "<div class='row'><div class='col-sm text-right'>"        
+        + "<div class='row'><div class='col-sm text-right'>"
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
-        		
+
     var curIndex = tableCount;
     $("#owner_email_" + curIndex).hide();
 
@@ -2928,10 +2928,10 @@ function appendFlightListTable(target, item) {
     });
 
     var retSource = null;
-    if (isSet(flat)) {    	
-        retSource = makeForFlightListMap(curIndex, flat, flng);        
-    }    
-        
+    if (isSet(flat)) {
+        retSource = makeForFlightListMap(curIndex, flat, flng);
+    }
+
     setYoutubeVideo(curIndex, youtube_data_id);
 
     if (isSet(retSource) && isSet(address) && address != "") {
@@ -2962,11 +2962,11 @@ function setYoutubeVideo(index, youtube_url) {
 				player[index] = null;
 				return;
 		}
-		
-		var vid = getQueryVariableWithURL(youtube_url, "v");		
+
+		var vid = getQueryVariableWithURL(youtube_url, "v");
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
-		
+
 		player[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
@@ -2980,7 +2980,7 @@ function setYoutubeVideo(index, youtube_url) {
 
 function onPlayerReadyForList(event) {
   	event.target.stopVideo();
-}      
+}
 
 function updateFlightMemoWithValue(name, memo) {
     var userid = getCookie("dev_user_id");
@@ -3168,7 +3168,7 @@ function registMission(mname, mspeed) {
     var jdata = { "action": "mission", "mname": mname, "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {            
+        if (r.result == "success") {
 				    alert(mname + " (" + mspeed + "m/s) : " + LANG_JSON_DATA[langset]['msg_success']);
 				    location.href = cur_controller + "?page_action=list";
         }
@@ -3402,22 +3402,22 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     lineGraphData = new Array();
     lineData = new Array();
 
-		var rlng, rlat;    
+		var rlng, rlat;
     cdata.forEach(function (item, i, arr) {
 
         if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
         	return true;
 				}
-        
+
         addChartItem(i, item);
         oldLat = item.lat;
         oldLng = item.lng;
         oldAlt = item.alt;
-        
+
         if (isSet(rlat) == false) {
         	rlat = oldLat;
         }
-        
+
         if (rlat > oldLat) {
         		rlat = oldLat;
         		rlng = oldLng;
@@ -3429,10 +3429,10 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
 
     if (isSet(posLayerForGlobal))
         map.removeLayer(posLayerForGlobal);
-        
+
 		if (isSet(rlng) && isSet(rlat)) {
 				moveToStartPoint3D(rlng, rlat, 600);
-		}        
+		}
 
     setSlider(cdata.length - 1);
 
@@ -3447,7 +3447,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     draw3dMap();
 
     var item = chartLocData[0];
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);        
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 var oldScatterdatasetIndex = -1;
@@ -3593,7 +3593,7 @@ function ajaxRequest(data, callback, errorcallback) {
         			logOut();
         			return;
         		}
-        		
+
             callback(r);
         },
         error: function (request, status, error) {
@@ -3604,29 +3604,43 @@ function ajaxRequest(data, callback, errorcallback) {
 }
 
 function logOut() {
-		var userid = getCookie("dev_user_id");                
-    var jdata = { 
-    	"action": "member", 
+		var userid = getCookie("dev_user_id");
+    var jdata = {
+    	"action": "member",
     	"daction": "logout",
     	"clientid": userid
     };
 
     ajaxRequest(jdata, function (r) {
-        //if (r.result == "success") {}       
+        //if (r.result == "success") {}
         setCookie("dev_user_id", "", -1);
 		    setCookie("user_token", "", -1);
 		    setCookie("dev_token", "", -1);
 		    setCookie("device_kind", "", -1);
-		    setCookie("device_id", "", -1); 
-        goIndex("logout");        
-    }, function (request, status, error) {
-    		setCookie("dev_user_id", "", -1);
-		    setCookie("user_token", "", -1);
-		    setCookie("dev_token", "", -1);
-		    setCookie("device_kind", "", -1);
 		    setCookie("device_id", "", -1);
+        setCookie("user_email", "", -1);
+        setCookie("image_url", "", -1);
+        setCookie("temp_sns_token", "", -1);
+        setCookie("temp_image_url", "", -1);
+        setCookie("temp_email", "", -1);
+        setCookie("temp_name", "", -1);
+
+        goIndex("logout");
+    }, function (request, status, error) {
+        setCookie("dev_user_id", "", -1);
+        setCookie("user_token", "", -1);
+        setCookie("dev_token", "", -1);
+        setCookie("device_kind", "", -1);
+        setCookie("device_id", "", -1);
+        setCookie("user_email", "", -1);
+        setCookie("image_url", "", -1);
+        setCookie("temp_sns_token", "", -1);
+        setCookie("temp_image_url", "", -1);
+        setCookie("temp_email", "", -1);
+        setCookie("temp_name", "", -1);
+
     		goIndex("logout");
-    });        
+    });
 }
 
 
@@ -3751,13 +3765,13 @@ function addObjectTo3DMap(index, owner, kind) {
     );
 
     var glbUrl, gColor, gColor;
-    if (kind == "drone") {        
+    if (kind == "drone") {
         glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
         gColor = "YELLOW";
         sColor = "RED";
     }
     else {
-    		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";        
+    		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
     		gColor = "GREEN";
     		sColor = "CYAN";
     }
@@ -3816,7 +3830,7 @@ function map3dInit() {
 	    $("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
 	    return;
 	}
-  
+
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
     viewer = new Cesium.Viewer("main3dMap", {
@@ -3982,10 +3996,10 @@ function addObjectTo2dMap(index, owner, kind) {
         current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));
     else
         current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner));
-    
+
     current_object_pos[owner].push(current_pos);
     current_object_pos_image[owner].push(current_pos_image);
-    
+
     vectorSource.addFeature(current_pos);
 }
 
@@ -4034,7 +4048,7 @@ function mapInit() {
     geolocation.on('change:accuracyGeometry', function () {
         accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
     });
-    
+
     var positionFeature = new ol.Feature();
     positionFeature.setStyle(new ol.style.Style({
         image: new ol.style.Circle({
@@ -4048,8 +4062,8 @@ function mapInit() {
             })
         })
     }));
-    */    
-				        
+    */
+
     pointSource = new ol.source.Vector({});
     pointSource.on('tileloadend', function () {
 
@@ -4079,14 +4093,14 @@ function mapInit() {
     });
 
     scaleLineControl.setUnits("metric");
-		
+
 		vectorSource = new ol.source.Vector();
 
     var vectorLayer = new ol.layer.Vector({
         source: vectorSource,
         zIndex: 10000
     });
-        
+
     maplayers.push(pointLayer);
     maplayers.push(vectorLayer);
 
@@ -4124,7 +4138,7 @@ function mapInit() {
             }
         });
     }
-		
+
     maplayers[1].setVisible(true); //Aerial
     maplayers[3].setVisible(true); //pointLayer
     maplayers[4].setVisible(true); //vectorLayer
@@ -4181,7 +4195,7 @@ function hideLoader() {
 
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
-    
+
     if (current_object_pos != null && owner in current_object_pos) {
 	    yaw *= 1;
 	    yaw = yaw < 0 ? (360 + yaw) : yaw;
@@ -4211,28 +4225,28 @@ function nexttour(owner, fobject) {
     }, 2500);
 }
 
-function uploadFlightList(isUpdate) {				
+function uploadFlightList(isUpdate) {
 		var mname = $("#record_name_field").val();
-		
+
 		if (mname == "") {
 			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
 			return;
 		}
-		
+
 		var youtube_data = $("#youtube_url_data").val();
-						            
+
     var files = document.getElementById('flight_record_file').files;
     if (files.length > 0) {
     	showLoader();
-    	
+
     	if (isDUNIFileType == false)
        	getBase64(files[0], mname, youtube_data, isUpdate, uploadDJIFlightListCallback);
       else
        	getBase64(files[0], mname, youtube_data, isUpdate, uploadDUNIFlightListCallback);
-      
+
       return;
-    }        
-    
+    }
+
     if (isUpdate == true || youtube_data == "") {
     	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
     }
@@ -4250,11 +4264,11 @@ function uploadFlightList(isUpdate) {
     }
 }
 
-function getBase64(file, mname, youtube_data, isUpdate, callback) {		
+function getBase64(file, mname, youtube_data, isUpdate, callback) {
     var reader = new FileReader();
-        
+
     reader.readAsDataURL(file);
-    reader.onload = function () {    		
+    reader.onload = function () {
         callback(mname, youtube_data, isUpdate, reader.result);
     };
     reader.onerror = function (error) {
@@ -4265,9 +4279,9 @@ function getBase64(file, mname, youtube_data, isUpdate, callback) {
 
 function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
     var userid = getCookie("dev_user_id");
-    
+
     youtube_data = massageYotubeUrl(youtube_data);
-    
+
     var jdata = { "action": "position", "daction": "duni_file_upload",
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
@@ -4301,9 +4315,9 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file)
 
 function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
     var userid = getCookie("dev_user_id");
-    
+
     youtube_data = massageYotubeUrl(youtube_data);
-    
+
     var jdata = { "action": "position", "daction": "convert",
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
@@ -4316,7 +4330,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) 
             $('#uploadFileform').hide(1500);
             GATAGM('dji_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = cur_controller + "?page_action=flightview";            
+            location.href = cur_controller + "?page_action=flightview";
         }
         else {
             if (r.reason == "same data is exist") {
@@ -4327,7 +4341,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) 
             	GATAGM('dji_file_upload_failed', 'CONTENT', langset);
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
             }
-            
+
             hideLoader();
         }
     }, function (request, status, error) {
@@ -4580,7 +4594,7 @@ function hideMovieDataSet() {
     $('#modifyBtnForMovieData').text(LANG_JSON_DATA[langset]['msg_modify_youtube_data']);
 
     $('#modifyBtnForMovieData').off('click');
-    $('#modifyBtnForMovieData').click(function () {    		    		
+    $('#modifyBtnForMovieData').click(function () {
         GATAGM('modifyBtnForMovieData_show', 'CONTENT', langset);
         showMovieDataSet();
     });
@@ -4594,7 +4608,7 @@ function showMovieDataSet() {
     $('#modifyBtnForMovieData').off('click');
     $('#modifyBtnForMovieData').click(function () {
 				GATAGM('modifyBtnForMovieData_hide', 'CONTENT', langset);
-        hideMovieDataSet();        
+        hideMovieDataSet();
     });
 }
 
@@ -4619,16 +4633,16 @@ function setRecordTitleName() {
         showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
         return;
     }
-    
-    var userid = getCookie("dev_user_id");            
+
+    var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": cur_flightrecord_name };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
         hideLoader();
         if (r.result == "success") {
-					showAlert(LANG_JSON_DATA[langset]['msg_success']);					
-					cur_flightrecord_name = target_name;										
+					showAlert(LANG_JSON_DATA[langset]['msg_success']);
+					cur_flightrecord_name = target_name;
 					location.href = cur_controller + "?page_action=flightview_detail&record_name=" + encodeURIComponent(target_name);
         }
         else {
@@ -4739,10 +4753,10 @@ function setYoutubePlayer(d_id) {
 
 function onYouTubeIframeAPIReady() {
 		if (page_action == "flightview" || page_action == "publicflightview" || page_action == "center") {
-    	getFlightList(current_target);    
+    	getFlightList(current_target);
     	return;
     }
-    
+
     youTubePlayer = new YT.Player('youTubePlayer', {
         width: '1000',
         height: '400',
@@ -4752,7 +4766,7 @@ function onYouTubeIframeAPIReady() {
             'onReady': onPlayerReady, //로딩할때 이벤트 실행
             'onStateChange': onPlayerStateChange //플레이어 상태 변화시 이벤트실행
         }
-    });//youTubePlayer1셋팅            	
+    });//youTubePlayer1셋팅
 }
 
 var movieProcess = false;
@@ -4806,7 +4820,7 @@ function processSeek(curTime) {
 }
 
 function movieSeekTo(where) {
-    movieProcess = true;    
+    movieProcess = true;
 
     if (youTubePlayer != null && $('#youTubePlayer').is(":visible") == true) {
         youTubePlayer.seekTo(where, true);
@@ -4829,7 +4843,7 @@ function showDataForDromi(index) {
         }
     }
     else {
-        $("#youTubePlayer").hide();        
+        $("#youTubePlayer").hide();
     }
 
     if (moviePlayerVisible == true) {
@@ -5131,7 +5145,7 @@ function addChartItem(i, item) {
 
 }
 
-function getQueryVariableWithURL(query, variable) {    
+function getQueryVariableWithURL(query, variable) {
   var varfirst = query.split('?');
   var vars = varfirst[1].split('&');
   for (var i = 0; i < vars.length; i++) {
@@ -5141,7 +5155,7 @@ function getQueryVariableWithURL(query, variable) {
       }
   }
 }
-	
+
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split('&');
