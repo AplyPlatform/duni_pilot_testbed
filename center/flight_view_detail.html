@@ -1,38 +1,37 @@
-
 <!-- Content Row -->
 <div class="row">
 		<!-- Page Heading -->
 		<div class="col-12 col-md-6 mb-4">
 		    <div class="card shadow">
 		        <!-- Card Header - Dropdown -->
-		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">		          
+		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 		          <div class="input-group">
                     <input type="text" class="form-control" placeholder="Name" id="record_name_field">
                     <span class="input-group-append">
                       <button class='btn btn-primary' type='button' id="btnForUpdateTitle">수정</button>
                     </span>
               </div>
-		        </div>        
+		        </div>
 		    </div>
 		</div>
-		
+
 </div>
 <div class="row">
 	 <div class="col-xl-6 col-md-6 mb-4">
       <div class="card shadow mb-2">
-      	      	
+
         <div class="card-body h-400">
         			<div id="youTubePlayer"></div>
-        </div>                
-                
+        </div>
+
         <div id="recordDataSet">
 	        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	          <h6 class="m-0 font-weight-bold text-primary" id="uploadBtnForFlightRecord">비행기록 파일 업로드</h6>
 	        </div>
-	        
-	        <div class="card-body">	        			        												
+
+	        <div class="card-body">
 						<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
-						<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>	
+						<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>
 
 						<div class="input-group">
 							<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
@@ -43,9 +42,9 @@
 					</div>
 				</div>
 
-        <div class="card-body">        								
+        <div class="card-body">
         		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
-        		<br>						
+        		<br>
           	<div id="movieDataSet">
           		<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
               <div class="input-group">
@@ -54,9 +53,9 @@
                       <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
                     </span>
               </div>
-              
+
               <hr size=1 color="#eeeeee">
-              
+
             	<div>
 				        <img id="channel-thumbnail" width="50">
 				        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
@@ -97,7 +96,7 @@
 				      </div>
 				      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
          		</div>
-       			
+
        			<div id="altitude_graph_area">
 							<canvas id="lineGraph" name="lineGraph"></canvas>
 							<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
@@ -108,20 +107,20 @@
 
    <!-- List -->
   <div class="col-lg-6 mb-4" id="map_area">
-    <div class="card shadow mb-4">    				
-    				<div class="card-body">    						
-								<div class="tab-content nav-tabs-bottom">
-									<div class="tab-pane fade show active mapviewer" id="map2dViewer">
-		            		<div id="mainMap" class="mapviewerIn"></div>
-			            </div>
-			            <div class="tab-pane fade mapviewer" id="map3dViewer">
-			            	<div id="main3dMap" class="mapviewerIn"></div>
-									</div>								
-								</div>
-								<ul class="nav nav-tabs navbar-bottom">
-								  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a></li>
-								  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a></li>
-								</ul>
+    <div class="card shadow mb-4">
+    				<div class="card-body">
+									<div class="tab-content">
+											<div class="tab-pane fade show active mapviewer" id="map2dViewer">
+				            		<div id="mainMap" class="mapviewerIn"></div>
+					            </div>
+					            <div class="tab-pane fade mapviewer" id="map3dViewer">
+					            	<div id="main3dMap" class="mapviewerIn"></div>
+											</div>
+									</div>
+									<div class="btn-group btn-group-justified" data-toggle="buttons">
+										  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT', langset);">2D</a>
+										  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT', langset);">3D</a>
+									</div>
 						</div>
 						<div class="card-body">
 								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
@@ -155,9 +154,9 @@
 											</div>
                     </div>
                 </div>
-						</div>						
+						</div>
 
-						<div class="card-body">							
+						<div class="card-body">
 							<br>
 							<span id="position_info"> ... </span>
               <span id="monitor"></span>
@@ -169,30 +168,26 @@
 <div class="row">
   <!-- List -->
   <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">    	      									
+    <div class="card shadow mb-4">
     		<div class="card-body">
     			<div class="row">
 	    			<div class="col-sm">
 							<div class='form-group'>
 								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
-								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>								
+								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
 								<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>
 							</div>
 						</div>
 					</div>
           <div class="row">
-            <div class="col-sm">
-      		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
-            </div>
-            <div class="col-sm">
-                <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
-            </div>
-            <div class="col-sm">
-                <button class='btn btn-warning' type='button' id="btnForDelete">삭제하기</button>
-            </div>
-            <div class="col-sm">
-        		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
-            </div>
+						<div class="col-sm">
+	            <div class="btn-group" role="group">
+	      		      <button class='btn btn-info' type='button' id="btnForSharing">공유하기</button>
+	                <button class='btn btn-light' type='button' id="btnForPublic">공개하기</button>
+	        		    <button class='btn btn-success' type='button' id="btnForLink">외부링크생성</button>
+									<button class='btn btn-warning' type='button' id="btnForDelete">삭제하기</button>
+	            </div>
+						</div>
           </div>
       	</div>
 
