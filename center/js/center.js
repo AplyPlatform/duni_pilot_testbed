@@ -845,6 +845,8 @@ function flightHistoryMapInit() {
         source: clusterSource,
         zIndex: 100,
         style: function (feature) {
+        	if (!feature) return;
+        	
 			    var size = feature.get('features').length;
 			    var style = styleCache[size];
 			    if (!style) {
