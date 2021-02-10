@@ -859,7 +859,7 @@ function flightHistoryMapInit() {
 			       style = [new ol.style.Style({
                 image: new ol.style.Circle({
 		            radius: radius,
-		            fill: new ol.style.Fill({ color: '#a022ffb8' }), 
+		            fill: new ol.style.Fill({ color: '#a03e8bd2' }), 
 		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
                 }),
                 text: new ol.style.Text({
