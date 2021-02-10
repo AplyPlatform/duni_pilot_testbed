@@ -922,7 +922,7 @@ function isCluster(feature) {
         return false; 
   }
   
-  return feature.get('features').length > 1;
+  return feature.get('features').length >= 1;
 }
 
 function showAlert(msg) {

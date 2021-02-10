@@ -139,17 +139,31 @@ function flightHistoryMapInit() {
     
   vMap.on('click', function(e) {    		    		
         var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
-
-        var locdata = null;
-        if (feature) {        	
-            var tname = feature.get('titlename');
-            if (isSet(tname)) {                        	
-            	GATAGM("plugin_map_click_" + pluginid + "_" + parent_url + "_" + ii, "PLUGIN", langset);            	
-            	location.href = "https://pilot.duni.io/center/main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(tname);
-            	return;
-          	}
-        }        
+        
+        if (isCluster(feature)) {
+        	var features = feature.get('features');
+			    for(var i = 0; i < features.length; i++) {			      
+			      var tname = features[i].get('titlename');			      
+			      
+            if (isSet(tname)) {
+            	GATAGM("plugin_map_click_" + pluginid + "_" + parent_url + "_" +  encodeURIComponent(tname), "PLUGIN", langset);
+	          	location.href = "https://pilot.duni.io/center/main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(tname);
+	          	return;
+	          }
+	          
+	          GATAGM("plugin_map_click_" + pluginid + "_" + parent_url, "PLUGIN", langset);
+          	return;
+			    }
+        }
 		});
+}
+
+function isCluster(feature) {
+  if (!feature || !feature.get('features')) { 
+        return false; 
+  }
+  
+  return feature.get('features').length >= 1;
 }
 
 function getQueryVariable(variable) {
