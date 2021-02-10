@@ -2947,7 +2947,7 @@ function appendFlightListTable(target, item) {
 
     var retSource = null;
     if (isSet(flat)) {
-        retSource = makeForFlightListMap(curIndex, flat, flng);
+        retSource = makeForFlightListMap(curIndex, flat * 1, flng * 1);
     }
 
     setYoutubeVideo(curIndex, youtube_data_id);
