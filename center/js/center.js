@@ -855,6 +855,7 @@ function flightHistoryMapInit() {
         	if (!feature) return;
         	
 			    var size = feature.get('features').length;
+			    var radius;
 			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 			    var style = styleCache[size];
 			    if (!style) {
