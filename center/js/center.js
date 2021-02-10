@@ -869,7 +869,7 @@ function flightHistoryMapInit() {
                 })
               })];
     
-            styleCashe[size] = style
+            styleCache[size] = style
 			    }
 			    return style;
 			  },
