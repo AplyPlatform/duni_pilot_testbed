@@ -852,7 +852,8 @@ $(function(){
 	owlCarousel();
 	tabs();
 	goToTop();
-	loaderPage();						
+	loaderPage();
+	flightHistoryMapInit();
 	initYoutubeAPI();
 	setScrollEvent();
 });
