@@ -595,7 +595,7 @@
 	      view: flightHistoryView
 	    });
 	        
-	  vMap.on('click', function(e) {    		    		
+	  vMap.on('click', function(e) {
 	        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
 	        
 	        if (isCluster(feature)) {
