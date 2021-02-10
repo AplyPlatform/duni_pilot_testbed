@@ -850,7 +850,8 @@ function flightHistoryMapInit() {
 
 		var styleCache = {};
     var vVectorLayer = new ol.layer.Vector({
-        source: clusterSource,        
+        source: clusterSource,   
+        zIndex: 1000,     
         style: function (feature) {
         	if (!feature) return;
         	
