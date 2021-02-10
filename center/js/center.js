@@ -904,19 +904,26 @@ function flightHistoryMapInit() {
     vMap.on('click', function(e) {    		
         var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
 
-        var locdata = null;
-        if (feature) {
-            var ii = feature.get('mindex');
-            if (isSet(ii)) {            
-            	GATAGM("vMap_" + ii, "PLUGIN", langset);
-            	var scrollTarget = "flight-list-" + ii;
-            	location.href = "#" + scrollTarget;
-            	return;
-          	}
+        if (isCluster(feature)) {
+        	var features = feature.get('features');
+			    for(var i = 0; i < features.length; i++) {			      
+			      var ii = features[i].get('mindex'));
+			      GATAGM("vMap_" + ii, "PLUGIN", langset);
+          	var scrollTarget = "flight-list-" + ii;
+          	location.href = "#" + scrollTarget;
+          	return;
+			    }
         }        
 		});
 }
 
+function isCluster(feature) {
+  if (!feature || !feature.get('features')) { 
+        return false; 
+  }
+  
+  return feature.get('features').length > 1;
+}
 
 function showAlert(msg) {
 
