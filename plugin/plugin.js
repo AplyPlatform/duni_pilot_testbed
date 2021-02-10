@@ -136,6 +136,20 @@ function flightHistoryMapInit() {
       loadTilesWhileAnimating: true,
       view: flightHistoryView
     });
+    
+  vMap.on('click', function(e) {    		    		
+        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
+
+        var locdata = null;
+        if (feature) {        	
+            var tname = feature.get('titlename');
+            if (isSet(tname)) {                        	
+            	GATAGM("plugin_map_click_" + pluginid + "_" + parent_url + "_" + ii, "PLUGIN", langset);            	
+            	location.href = "https://pilot.duni.io/center/main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(tname);
+            	return;
+          	}
+        }        
+		});
 }
 
 function getQueryVariable(variable) {
@@ -168,15 +182,15 @@ function getProfile(pluginid) {
   });
 }
 
-function makeForFlightListMap(index, flat, flng) {
+function makeForFlightListMap(index, name, flat, flng) {
 	var dpoint = ol.proj.fromLonLat([flng, flat]);
-  var icon = createNewIcon(index, {lat:flat, lng:flng, alt:0});    
+  var icon = createNewIcon(index, {name: name, lat:flat, lng:flng, alt:0});    
   flightHistorySource.addFeature(icon);  
 }
 
 function setMap(r) {
 	r.locations.forEach(function(val, index, array) {
-		makeForFlightListMap(index, val.flat, val.flng);
+		makeForFlightListMap(index, val.name, val.flat, val.flng);
 	});
 	
 	if (r.locations.length > 0) {
@@ -265,7 +279,8 @@ function createNewIcon(i, item) {
 	var pos_icon = new ol.Feature({
           geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
           name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-          mindex : i
+          mindex : i,
+          titlename : item.name
       });
  	
  	var pos_icon_image = '../center/imgs/position4.png';

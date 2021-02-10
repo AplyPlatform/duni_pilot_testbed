@@ -899,6 +899,22 @@ function flightHistoryMapInit() {
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
+    
+    
+    vMap.on('click', function(e) {    		
+        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
+
+        var locdata = null;
+        if (feature) {
+            var ii = feature.get('mindex');
+            if (isSet(ii)) {            
+            	GATAGM("vMap_" + ii, "PLUGIN", langset);
+            	var scrollTarget = "flight-list-" + ii;
+            	location.href = "#" + scrollTarget;
+            	return;
+          	}
+        }        
+		});
 }
 
 
@@ -1516,9 +1532,7 @@ function createNewIconFor2DMap(i, color, item) {
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i
-    });
-
-    //pos_icon.setStyle(styleFunction(item.alt, color, (i + 1) + ""));
+    });    
 
     return pos_icon;
 }
@@ -2874,7 +2888,7 @@ function appendFlightListTable(target, item) {
     var sharedList = item.sharedList;
     var youtube_data_id = item.youtube_data_id;
 
-    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
+    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "' name='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (tableCount + 1) + " | ";
     if (target == "public") {
         appendRow = appendRow
@@ -3661,35 +3675,6 @@ function logOut() {
 
     		goIndex("logout");
     });
-}
-
-
-function styleFunction(alt, color, textMsg) {
-    var pos_icon_color = getColorPerAlt(alt);
-    if (isSet(color)) pos_icon_color = color;
-
-    return [
-        new ol.style.Style(
-            {
-                image: new ol.style.Icon(({
-                    color: pos_icon_color,
-                    crossOrigin: 'anonymous',
-                    scale: 1.5,
-                    src: pos_icon_image
-                }))
-                ,
-                text: new ol.style.Text({
-                    font: '12px Calibri,sans-serif',
-                    fill: new ol.style.Fill({ color: '#000' }),
-                    stroke: new ol.style.Stroke({
-                        color: '#fff', width: 2
-                    }),
-                    // get the text from the feature - `this` is ol.Feature
-                    // and show only under certain resolution
-                    text: map.getView().getZoom() > 12 ? textMsg : ''
-                })
-            })
-    ];
 }
 
 
