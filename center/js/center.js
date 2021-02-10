@@ -908,7 +908,9 @@ function flightHistoryMapInit() {
         	var features = feature.get('features');
 			    for(var i = 0; i < features.length; i++) {			      
 			      var ii = features[i].get('mindex');
-			      GATAGM("vMap_" + ii, "PLUGIN", langset);
+			      if (!isSet(ii)) return;
+			      
+			      GATAGM("vMap_" + ii, "CONTENT", langset);
           	var scrollTarget = "flight-list-" + ii;
           	location.href = "#" + scrollTarget;
           	return;

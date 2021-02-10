@@ -466,6 +466,10 @@
 		
 		  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0});
 		  vSource.addFeature(icon);
+		  		  
+	    if (isSet(flightHistorySource)) {
+	        flightHistorySource.addFeature(icon);
+	    }
 		
 		  return vSource;
 	}
@@ -511,6 +515,115 @@
 	
 	  if (isSet($(address_id)))
 	  	$(address_id).text(address);
+	}
+	
+	var flightHistorySource;
+	var flightHistoryView;
+	
+	function flightHistoryMapInit() {
+		var dpoint = ol.proj.fromLonLat([0, 0]);
+	
+	  flightHistoryView = new ol.View({
+	      center: dpoint,
+	      zoom: 4
+	    });
+	
+	  flightHistorySource = new ol.source.Vector();
+	  
+	  var clusterSource = new ol.source.Cluster({
+			  distance: 40,
+			  source: flightHistorySource,
+			  geometryFunction: function(feature) {
+	        var geom = feature.getGeometry();
+	    		return geom.getType() == 'Point' ? geom : null;
+	    	},
+			});
+	
+		var styleCache = {};
+	  var vVectorLayer = new ol.layer.Vector({
+	      source: clusterSource,
+	      zIndex: 1000,
+	      style:  function (feature) {
+	        	if (!feature) return;
+	        	
+				    var size = feature.get('features').length;
+				    var radius;
+				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var style = styleCache[size];
+				    if (!style) {
+				       style = [new ol.style.Style({
+	                image: new ol.style.Circle({
+			            radius: radius,
+			            fill: new ol.style.Fill({ color: '#a03e8bd2' }), 
+			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                }),
+	                text: new ol.style.Text({
+	                  text: size.toString(),
+	                  fill: new ol.style.Fill({ color: '#fff' }),
+	                  scale: 1.5,
+	                })
+	              })];
+	    
+	            styleCache[size] = style
+				    }
+				    return style;
+				  },
+	    });
+	
+	  var bingLayer = new ol.layer.Tile({
+	    visible: true,
+	    preload: Infinity,
+	    source: new ol.source.BingMaps({
+	        // We need a key to get the layer from the provider.
+	        // Sign in with Bing Maps and you will get your key (for free)
+	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
+	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
+	        // "no photos at this zoom level" tiles
+	        maxZoom: 19
+	    })
+		});
+	
+	  var vMap = new ol.Map({
+	      target: 'historyMap',
+	      layers: [
+	          bingLayer, vVectorLayer
+	      ],
+	      // Improve user experience by loading tiles while animating. Will make
+	      // animations stutter on mobile or slow devices.
+	      loadTilesWhileAnimating: true,
+	      view: flightHistoryView
+	    });
+	        
+	  vMap.on('click', function(e) {    		    		
+	        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
+	        
+	        if (isCluster(feature)) {
+	        	var features = feature.get('features');
+				    for(var i = 0; i < features.length; i++) {			      
+				      var ii = features[i].get('mindex');
+				      if (!isSet(ii)) return;
+				      
+				      GATAGM("index_vMap_" + ii, "CONTENT", langset);
+	          	var scrollTarget = "flight-list-" + ii;
+	          	location.href = "#" + scrollTarget;
+	          	return;
+				    }
+	        }  
+			});
+	}
+	
+	function isCluster(feature) {
+	  if (!feature || !feature.get('features')) { 
+	        return false; 
+	  }
+	  
+	  return feature.get('features').length >= 1;
+	}
+		
+	function moveFlightHistoryMap(lat, lng) {
+		var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
+		flightHistoryView.setCenter(npos);
 	}
 	
 	function getQueryVariable(query, variable) {    
@@ -573,7 +686,7 @@
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
 	
-	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "'><div class='row'>";
+	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "' name='flight-list-" + tableCount + "'><div class='row'>";
 	  
 	  if (isSet(flat)) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
@@ -621,6 +734,10 @@
 	  else {
 	  	setEmptyVideo(tableCount);
 	  }
+	  
+	  if (isSet(flat)) {
+        moveFlightHistoryMap(flat * 1, flng * 1);
+    }
 	
 	  tableCount++;
 	}

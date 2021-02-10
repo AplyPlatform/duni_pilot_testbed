@@ -14,7 +14,6 @@ limitations under the License.
 
 var flightHistorySource;
 var flightHistoryView;
-var iconStyleArray = new Array();
 var langset = "KR";
 var parent_url;  	
 var pluginid;
@@ -309,9 +308,7 @@ function createNewIcon(i, item) {
 	      	}))	      	      
 	});
 
-  pos_icon.setStyle(icon_style);
-  
-  iconStyleArray.push(icon_style);
+  pos_icon.setStyle(icon_style);    
 
   return pos_icon;
 }
