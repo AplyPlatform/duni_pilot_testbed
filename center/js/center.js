@@ -842,32 +842,28 @@ function flightHistoryMapInit() {
 
 		var styleCache = {};
     var vVectorLayer = new ol.layer.Vector({
-        source: clusterSource,
-        zIndex: 100,
+        source: clusterSource,        
         style: function (feature) {
         	if (!feature) return;
         	
 			    var size = feature.get('features').length;
+			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 			    var style = styleCache[size];
 			    if (!style) {
-			      style = new ol.style.Style({
-			        image: new ol.style.Circle({
-			          radius: 10,
-			          stroke: new ol.style.Stroke({
-			            color: '#fff',
-			          }),
-			          fill: new ol.style.Fill({
-			            color: '#3399CC',
-			          }),
-			        }),
-			        text: new ol.style.Text({
-			          text: size.toString(),
-			          fill: new ol.style.Fill({
-			            color: '#fff',
-			          }),
-			        }),
-			      });
-			      styleCache[size] = style;
+			       style = [new ol.style.Style({
+                image: new ol.style.Circle({
+		            radius: radius,
+		            fill: new ol.style.Fill({ color: '#a022ffb8' }), 
+		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+                }),
+                text: new ol.style.Text({
+                  text: size.toString(),
+                  fill: new ol.style.Fill({ color: '#fff' }),
+                  scale: 1.5,
+                })
+              })];
+    
+            styleCashe[size] = style
 			    }
 			    return style;
 			  },
@@ -1516,7 +1512,7 @@ function createNewIconFor2DMap(i, color, item) {
         mindex: i
     });
 
-    pos_icon.setStyle(styleFunction(item.alt, color, (i + 1) + ""));
+    //pos_icon.setStyle(styleFunction(item.alt, color, (i + 1) + ""));
 
     return pos_icon;
 }
@@ -2668,7 +2664,7 @@ function moveToStartPoint3D(lng, lat, alt) {
 }
 
 function makeForFlightListMap(index, flat, flng) {
-    var dpoint = ol.proj.fromLonLat([flng, flat]);
+    var dpoint = ol.proj.fromLonLat([flng * 1, flat * 1]);
 
     var c_view = new ol.View({
         center: dpoint,
@@ -2947,7 +2943,7 @@ function appendFlightListTable(target, item) {
 
     var retSource = null;
     if (isSet(flat)) {
-        retSource = makeForFlightListMap(curIndex, flat * 1, flng * 1);
+        retSource = makeForFlightListMap(curIndex, flat, flng);
     }
 
     setYoutubeVideo(curIndex, youtube_data_id);
@@ -2964,7 +2960,7 @@ function appendFlightListTable(target, item) {
     }
 
     if (isSet(flat)) {
-        moveFlightHistoryMap(flat, flng);
+        moveFlightHistoryMap(flat * 1, flng * 1);
     }
 
     tableCount++;
