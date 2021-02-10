@@ -833,7 +833,7 @@ function flightHistoryMapInit() {
         zoom: 8
     });
     
-    flightHistorySource = new ol.source.Source();
+    flightHistorySource = new ol.source.Vector();
 		
 		var clusterSource = new ol.source.Cluster({
 		  distance: parseInt(distance.value, 10),
