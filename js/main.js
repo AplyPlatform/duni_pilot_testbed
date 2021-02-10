@@ -822,11 +822,11 @@
 			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
 											
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] && player[i].getPlayerState() != 1)
+				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
 			else {				
-				if (player[i] && player[i].getPlayerState() == 1)
+				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
 		}
