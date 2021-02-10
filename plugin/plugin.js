@@ -71,18 +71,45 @@ function flightHistoryMapInit() {
     });
 
   flightHistorySource = new ol.source.Vector();
+  
+  var clusterSource = new ol.source.Cluster({
+		  distance: 40,
+		  source: flightHistorySource,
+		  geometryFunction: function(feature) {
+        var geom = feature.getGeometry();
+    		return geom.getType() == 'Point' ? geom : null;
+    	},
+		});
 
+	var styleCache = {};
   var vVectorLayer = new ol.layer.Vector({
-      source: flightHistorySource,
-      zIndex: 10000,
-      style: function(feature) {
-      	var resolution = flightHistoryView.getResolution();
-      	iconStyleArray.forEach(function (ia) {
-      		ia.getImage().setScale(1/Math.pow(resolution, 1/3));
-      	});      	
-        
-        return iconStyleArray;
-    	}
+      source: clusterSource,
+      zIndex: 1000,
+      style:  function (feature) {
+        	if (!feature) return;
+        	
+			    var size = feature.get('features').length;
+			    var radius;
+			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+			    var style = styleCache[size];
+			    if (!style) {
+			       style = [new ol.style.Style({
+                image: new ol.style.Circle({
+		            radius: radius,
+		            fill: new ol.style.Fill({ color: '#a09ccefd' }), 
+		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+                }),
+                text: new ol.style.Text({
+                  text: size.toString(),
+                  fill: new ol.style.Fill({ color: '#fff' }),
+                  scale: 1.5,
+                })
+              })];
+    
+            styleCache[size] = style
+			    }
+			    return style;
+			  },
     });
 
   var bingLayer = new ol.layer.Tile({
