@@ -16,6 +16,8 @@ var flightHistorySource;
 var flightHistoryView;
 var iconStyleArray = new Array();
 var langset = "KR";
+var parent_url;  	
+var pluginid;
 
 
 $(function() {
@@ -41,8 +43,8 @@ function setCommonText() {
 
 function initPilotPlugin() {
 	showLoader();    
-  var parent_url = getQueryVariable("parent_url");  	
-  var pluginid = getQueryVariable("code");  
+  parent_url = getQueryVariable("parent_url");  	
+  pluginid = getQueryVariable("code");  
   	
   if (!isSet(pluginid)) {
   	hideLoader();  	
@@ -136,7 +138,7 @@ function flightHistoryMapInit() {
       loadTilesWhileAnimating: true,
       view: flightHistoryView
     });
-    
+        
   vMap.on('click', function(e) {    		    		
         var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
         
