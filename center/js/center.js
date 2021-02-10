@@ -832,27 +832,43 @@ function flightHistoryMapInit() {
         center: dpoint,
         zoom: 8
     });
+    
+    flightHistorySource = new ol.source.Source();
+		
+		var clusterSource = new ol.source.Cluster({
+		  distance: parseInt(distance.value, 10),
+		  source: flightHistorySource,
+		});
 
-    flightHistorySource = new ol.source.Vector();
-
+		var styleCache = {};
     var vVectorLayer = new ol.layer.Vector({
-        source: flightHistorySource,
-        zIndex: 10000,
-        style: new ol.style.Style({
-            fill: new ol.style.Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
-            }),
-            stroke: new ol.style.Stroke({
-                color: '#ff0000',
-                width: 2
-            }),
-            image: new ol.style.Circle({
-                radius: 7,
-                fill: new ol.style.Fill({
-                    color: '#ff0000'
-                })
-            })
-        })
+        source: clusterSource,
+        zIndex: 100,
+        style: function (feature) {
+			    var size = feature.get('features').length;
+			    var style = styleCache[size];
+			    if (!style) {
+			      style = new ol.style.Style({
+			        image: new ol.style.Circle({
+			          radius: 10,
+			          stroke: new ol.style.Stroke({
+			            color: '#fff',
+			          }),
+			          fill: new ol.style.Fill({
+			            color: '#3399CC',
+			          }),
+			        }),
+			        text: new ol.style.Text({
+			          text: size.toString(),
+			          fill: new ol.style.Fill({
+			            color: '#fff',
+			          }),
+			        }),
+			      });
+			      styleCache[size] = style;
+			    }
+			    return style;
+			  },
     });
 
     var bingLayer = new ol.layer.Tile({
