@@ -839,12 +839,8 @@ function flightHistoryMapInit() {
 		  distance: 40,
 		  source: flightHistorySource,
 		  geometryFunction: function(feature) {
-        let type = feature.getGeometry().getType();
-        if (type === 'Polygon') {
-            return feature.getGeometry().getInteriorPoint();
-        } else if (type === 'LineString') {
-            return feature.getGeometry().getCoordinateAt(0.5);
-        }
+        var geom = feature.getGeometry();
+    		return geom.getType() == 'Point' ? geom : null;
     	},
 		});
 
