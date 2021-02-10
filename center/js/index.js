@@ -270,7 +270,11 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("temp_email", temp_email, 1);
             setCookie("temp_name", temp_name, 1);
             hideLoader();
-            showConfirmDialog();
+            
+            if (r.reason.indexOf("Error:") >= 0)
+            	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+            else
+            	showConfirmDialog();
         }
     }, function (request, status, error) {
         hideLoader();
