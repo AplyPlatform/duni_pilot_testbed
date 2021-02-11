@@ -524,22 +524,22 @@
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
 
-	var overlay = new ol.Overlay({
-	  element: container,
-	  autoPan: true,
-	  autoPanAnimation: {
-	    duration: 250,
-	  },
-	});
-
-	closer.onclick = function () {
-	  overlay.setPosition(undefined);
-	  closer.blur();
-	  return false;
-	};
-
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
+
+		var overlay = new ol.Overlay({
+		  element: container,
+		  autoPan: true,
+		  autoPanAnimation: {
+		    duration: 250,
+		  },
+		});
+
+		closer.onclick = function () {
+		  overlay.setPosition(undefined);
+		  closer.blur();
+		  return false;
+		};
 
 	  flightHistoryView = new ol.View({
 	      center: dpoint,
