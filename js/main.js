@@ -1,5 +1,5 @@
 
-	
+
 	'use strict';
 
 	var mobileMenuOutsideClick = function() {
@@ -13,10 +13,10 @@
 
     			$('body').removeClass('offcanvas');
     			$('.js-gtco-nav-toggle').removeClass('active');
-				
+
 	    	}
-	    
-	    	
+
+
 	    }
 		});
 
@@ -44,14 +44,14 @@
 			$this
 				.addClass('active')
 				.find('ul')
-				.slideDown(500, 'easeOutExpo');				
+				.slideDown(500, 'easeOutExpo');
 		}).mouseleave(function(){
 
 			var $this = $(this);
 			$this
 				.removeClass('active')
 				.find('ul')
-				.slideUp(500, 'easeOutExpo');				
+				.slideUp(500, 'easeOutExpo');
 		});
 
 
@@ -61,7 +61,7 @@
 
     			$('body').removeClass('offcanvas');
     			$('.js-gtco-nav-toggle').removeClass('active');
-				
+
 	    	}
 		});
 	};
@@ -95,7 +95,7 @@
 			$('.animate-box').waypoint( function( direction ) {
 
 				if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
-					
+
 					i++;
 
 					$(this.element).addClass('item-animate');
@@ -118,9 +118,9 @@
 								el.removeClass('item-animate');
 							},  k * 50, 'easeInOutExpo' );
 						});
-						
+
 					}, 100);
-					
+
 				}
 
 			} , { offset: '85%' } );
@@ -138,7 +138,7 @@
 			$('.animate-change').waypoint( function( direction ) {
 
 				if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
-					
+
 					i++;
 
 					$(this.element).addClass('item-animate');
@@ -151,9 +151,9 @@
 								el.removeClass('item-animate');
 							},  k * 100, 'easeInOutExpo' );
 						});
-						
+
 					}, 100);
-					
+
 				}
 
 			} , { offset: '85%' } );
@@ -184,7 +184,7 @@
 
 
 	var owlCarousel = function(){
-		
+
 		var owl = $('.owl-carousel-carousel');
 		owl.owlCarousel({
 			items: 3,
@@ -226,7 +226,7 @@
 		});
 
 
-		
+
 
 	};
 
@@ -255,7 +255,7 @@
 				});
 
 			}, 100);
-			
+
 		};
 
 		autoHeight();
@@ -263,7 +263,7 @@
 
 		// Click tab menu
 		$('.gtco-tab-nav a').on('click', function(event){
-			
+
 			var $this = $(this),
 				tab = $this.data('tab');
 
@@ -274,7 +274,7 @@
 				.removeClass('active');
 
 			$('.gtco-tab-nav li').removeClass('active');
-			
+
 			$this
 				.closest('li')
 					.addClass('active')
@@ -289,20 +289,20 @@
 			autoHeight();
 			event.preventDefault();
 
-		}); 
+		});
 	};
 
 
 	var goToTop = function() {
 
 		$('.js-gotop').on('click', function(event){
-			
+
 			event.preventDefault();
 
 			$('html, body').animate({
 				scrollTop: $('html').offset().top
 			}, 500, 'easeInOutExpo');
-			
+
 			return false;
 		});
 
@@ -316,7 +316,7 @@
 			}
 
 		});
-	
+
 	};
 
 
@@ -336,28 +336,28 @@
 	var counterWayPoint = function() {
 		if ($('#gtco-counter').length > 0 ) {
 			$('#gtco-counter').waypoint( function( direction ) {
-										
+
 				if( direction === 'down' && !$(this.element).hasClass('animated') ) {
-					setTimeout( counter , 400);					
+					setTimeout( counter , 400);
 					$(this.element).addClass('animated');
 				}
 			} , { offset: '90%' } );
 		}
 	};
 
-	
-	
-	
-	
+
+
+
+
 	var flightRecArray = [];
 	var tableCount = 0;
 	var pos_icon_image = './center/imgs/position4.png';
 	function isSet(value) {
 	  if (value == "" || value == null || value == "undefined") return false;
-	
+
 	  return true;
 	}
-		
+
 	function GATAGM(label, category, language) {
 	  gtag(
 	      'event', label + "_" + language, {
@@ -365,12 +365,12 @@
 	        'event_label' : label
 	      }
 	    );
-	
+
 	  mixpanel.track(
 	    label + "_" + language,
 	    {"event_category": category, "event_label": label}
 	  );
-	}		
+	}
 
 	function styleFunction(textMsg) {
 	  return [
@@ -396,29 +396,30 @@
 	    	})
 	  ];
 	}
-	
+
 	function createNewIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-	          mindex : i
+	          mindex : i,
+						maddress : item.address
 	      });
-	
+
 	  pos_icon.setStyle(styleFunction((i + 1) + ""));
-	
+
 	  return pos_icon;
 	}
 
-	function makeForFlightListMap(index, flat, flng) {
+	function makeForFlightListMap(index, flat, flng, address) {
 		var dpoint = ol.proj.fromLonLat([flng, flat]);
-	
+
 	  var c_view = new ol.View({
 	      center: dpoint,
 	      zoom: 16
 	    });
-	
+
 	  var vSource = new ol.source.Vector();
-	
+
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: vSource,
 	      zIndex: 10000,
@@ -438,7 +439,7 @@
 	            })
 	          })
 	    });
-	    
+
 	    var bingLayer = new ol.layer.Tile({
 		    visible: true,
 		    preload: Infinity,
@@ -452,7 +453,7 @@
 		        maxZoom: 19
 		    })
 			});
-	
+
 		  var vMap = new ol.Map({
 		      target: 'map_' + index,
 		      layers: [
@@ -463,26 +464,26 @@
 		      loadTilesWhileAnimating: true,
 		      view: c_view
 		    });
-		
-		  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0});
+
+		  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address});
 		  vSource.addFeature(icon);
-		  		  
+
 	    if (isSet(flightHistorySource)) {
 	        flightHistorySource.addFeature(icon);
 	    }
-		
+
 		  return vSource;
 	}
-			
-	function setAddressAndCada(address_id, address, cada, wsource) {		 
+
+	function setAddressAndCada(address_id, address, cada, wsource) {
 		var _features = [];
-		var _addressText = "";				
-	
+		var _addressText = "";
+
 	  for(var idx=0; idx< cada.length; idx++) {
 	    try{
 	      var geojson_Feature = cada[idx];
 	      var geojsonObject = geojson_Feature.geometry;
-	
+
 	      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
 	      for(var i=0; i< features.length; i++) {
 	        try{
@@ -492,11 +493,11 @@
 	          for (var key in geojson_Feature.properties) {
 	            try{
 	              var value = geojson_Feature.properties[key];
-	
+
 	              if (_addressText == "" && key == "addr") {
 	              	_addressText = value;
 	              }
-	
+
 	              feature.values_[key] = value;
 	              feature.properties[key] = value;
 	            }catch (e){
@@ -509,27 +510,44 @@
 	    }catch (e){
 	    }
 	  }
-	
-	
+
+
 	  wsource.addFeatures(_features);
-	
+
 	  if (isSet($(address_id)))
 	  	$(address_id).text(address);
 	}
-	
+
 	var flightHistorySource;
 	var flightHistoryView;
-	
+	var container = document.getElementById('popup');
+	var content = document.getElementById('popup-content');
+	var closer = document.getElementById('popup-closer');
+
+	var overlay = new Overlay({
+	  element: container,
+	  autoPan: true,
+	  autoPanAnimation: {
+	    duration: 250,
+	  },
+	});
+
+	closer.onclick = function () {
+	  overlay.setPosition(undefined);
+	  closer.blur();
+	  return false;
+	};
+
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
-	
+
 	  flightHistoryView = new ol.View({
 	      center: dpoint,
 	      zoom: 4
 	    });
-	
+
 	  flightHistorySource = new ol.source.Vector();
-	  
+
 	  var clusterSource = new ol.source.Cluster({
 			  distance: 40,
 			  source: flightHistorySource,
@@ -538,14 +556,14 @@
 	    		return geom.getType() == 'Point' ? geom : null;
 	    	},
 			});
-	
+
 		var styleCache = {};
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: clusterSource,
 	      zIndex: 1000,
 	      style:  function (feature) {
 	        	if (!feature) return;
-	        	
+
 				    var size = feature.get('features').length;
 				    var radius;
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
@@ -554,7 +572,7 @@
 				       style = [new ol.style.Style({
 	                image: new ol.style.Circle({
 			            radius: radius,
-			            fill: new ol.style.Fill({ color: '#a03e8bd2' }), 
+			            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
 			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
 	                }),
 	                text: new ol.style.Text({
@@ -563,13 +581,13 @@
 	                  scale: 1.5,
 	                })
 	              })];
-	    
+
 	            styleCache[size] = style
 				    }
 				    return style;
 				  },
 	    });
-	
+
 	  var bingLayer = new ol.layer.Tile({
 	    visible: true,
 	    preload: Infinity,
@@ -583,50 +601,72 @@
 	        maxZoom: 19
 	    })
 		});
-	
+
 	  var vMap = new ol.Map({
 	      target: 'historyMap',
 	      layers: [
 	          bingLayer, vVectorLayer
 	      ],
+				overlays: [overlay],
 	      // Improve user experience by loading tiles while animating. Will make
 	      // animations stutter on mobile or slow devices.
 	      loadTilesWhileAnimating: true,
 	      view: flightHistoryView
 	    });
-	        
+
 	  vMap.on('click', function(e) {
 	        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
-	        
+
 	        if (isCluster(feature)) {
 	        	var features = feature.get('features');
-				    for(var i = 0; i < features.length; i++) {			      
+				    for(var i = 0; i < features.length; i++) {
 				      var ii = features[i].get('mindex');
 				      if (!isSet(ii)) return;
-				      
-				      GATAGM("index_vMap_" + ii, "CONTENT", langset);
+
+				      GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
 	          	var scrollTarget = "flight-list-" + ii;
 	          	location.href = "#" + scrollTarget;
 	          	return;
 				    }
-	        }  
+	        }
 			});
+
+		vMap.on('pointermove', function(evt) {
+		        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
+
+		        if (isCluster(feature)) {
+		        	var features = feature.get('features');
+					    for(var i = 0; i < features.length; i++) {
+					      var ii = features[i].get('mindex');
+					      if (!isSet(ii)) return;
+
+					      GATAGM("index_page_vMap_pointmove_" + ii, "CONTENT", langset);
+
+								var title = features[i].get('maddress');
+								var coordinate = evt.coordinate;
+							  content.innerHTML = '<p>' + title + '</p>';
+							  overlay.setPosition(coordinate);
+
+		          	return;
+					    }
+		        }
+				});
 	}
-	
+
 	function isCluster(feature) {
-	  if (!feature || !feature.get('features')) { 
-	        return false; 
+	  if (!feature || !feature.get('features')) {
+	        return false;
 	  }
-	  
+
 	  return feature.get('features').length >= 1;
 	}
-		
+
 	function moveFlightHistoryMap(lat, lng) {
 		var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
 		flightHistoryView.setCenter(npos);
 	}
-	
-	function getQueryVariable(query, variable) {    
+
+	function getQueryVariable(query, variable) {
     var varfirst = query.split('?');
     var vars = varfirst[1].split('&');
     for (var i = 0; i < vars.length; i++) {
@@ -651,12 +691,12 @@
       }
     });
 	}
-	
+
 	function setYoutubeVideo(index, youtube_url) {
-		var vid = getQueryVariable(youtube_url, "v");		
+		var vid = getQueryVariable(youtube_url, "v");
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
-		
+
 		player[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
@@ -667,15 +707,15 @@
       }
     });
 	}
-	
+
 	function onPlayerReady(event) {
   	event.target.stopVideo();
   }
-      
+
   function onPlayerStateChange(event) {
-  	
+
   }
-      
+
 	function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
@@ -685,73 +725,73 @@
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
-	
+
 	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "' name='flight-list-" + tableCount + "'><div class='row'>";
-	  
+
 	  if (isSet(flat)) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
 	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
 	  }
 	  else {
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
-	  }	  	  
-	  
+	  }
+
 	  //appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";//row
 	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'></div>";//row
-	  
-	  appendRow = appendRow + "</div><div class='col-md-4'>";//row	  	  
+
+	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
 						+ name + "\", \"CONTENT\", \""
 						+ langset + "\");' href='/center/main.html?page_action=publicflightview_detail&record_name="
-						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";	
-	
+						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
+
 	  if (isSet(flat)) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + tableCount + "'></span></small>";
 	  }
-	
-	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";	
-		  
-	  appendRow = appendRow + "</div></div></div>"; //col, row, service, 
-	
+
+	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
+
+	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
+
 	  $('#dataTable-Flight_list').append(appendRow);
-	
-		var curIndex = tableCount;							
-		
+
+		var curIndex = tableCount;
+
 		var retSource = null;
 		if (isSet(flat)) {
-	  	retSource = makeForFlightListMap(curIndex, flat, flng);
+	  	retSource = makeForFlightListMap(curIndex, flat, flng, address);
 	  }
-	
+
 	  if (isSet(retSource) && isSet(address) && address != "") {
-	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);	  	
+	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
 	  }
-	  
-	  
+
+
 	  if (isSet(youtube_url)) {
 	  	setYoutubeVideo(tableCount, youtube_url);
 	  }
 	  else {
 	  	setEmptyVideo(tableCount);
 	  }
-	  
+
 	  if (isSet(flat)) {
         moveFlightHistoryMap(flat * 1, flng * 1);
     }
-	
+
 	  tableCount++;
 	}
-	
+
 	function setFlightlistHistory(data) {
 	  if (data == null || data.length == 0)
 	    return;
-	
+
 	  data.forEach(function(item) {
 	    appendFlightListTable(item);
-	    flightRecArray.push(item);	    
+	    flightRecArray.push(item);
 	  });
 	}
-	
+
 	function ajaxRequest(data, callback, errorcallback) {
     $.ajax({url : "https://api.duni.io/v1/",
            dataType : "json",
@@ -759,7 +799,7 @@
            cache : false,
            data : JSON.stringify(data),
            type : "POST",
-           contentType: "application/json; charset=utf-8",           
+           contentType: "application/json; charset=utf-8",
            success : function(r) {
              callback(r);
            },
@@ -768,11 +808,11 @@
                errorcallback(request,status,error);
            }
     });
-	}		
+	}
 
-	function getFlightList() {	  
+	function getFlightList() {
 	  var jdata = {"action": "public_record_list"};
-	  	
+
 	  showLoader();
 	  ajaxRequest(jdata, function (r) {
 	    hideLoader();
@@ -782,7 +822,7 @@
 					hideLoader();
 	        return;
 	      }
-		  
+
 	      setFlightlistHistory(r.data);
 				hideLoader();
 	    }
@@ -793,56 +833,56 @@
 	    	else {
 		    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 		    }
-	
+
 				hideLoader();
 	    }
 	  }, function(request,status,error) {
-	    hideLoader();	    
+	    hideLoader();
 	  });
 	}
-	
-	function setScrollEvent() {							
+
+	function setScrollEvent() {
 		$(document).scroll(function (e) {
 	        var scrollAmount = $(window).scrollTop();
 	        var documentHeight = $('body').height();
 	        var viewPortHeight = $(window).height();
-	
+
 	        var a = viewPortHeight + scrollAmount;
-	        var b = documentHeight - a;	
+	        var b = documentHeight - a;
 	        var scrollHeight = window.innerHeight / 2;
 					var scrolltop = $(window).scrollTop() + scrollHeight;
 					checkAutoPlay(scrolltop);
-		});							
+		});
 	}
-	
-	function checkAutoPlay(scrollCenter) {							
-		for(var i=0;i<tableCount;i++) {				
-			var divName = "flight-list-" + i;				
+
+	function checkAutoPlay(scrollCenter) {
+		for(var i=0;i<tableCount;i++) {
+			var divName = "flight-list-" + i;
 			var videoTop = $("#" + divName).offset().top;
-			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();   
-											
+			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
+
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
 				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() != 1)
 					player[i].playVideo();
 			}
-			else {				
+			else {
 				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() == 1)
 					player[i].stopVideo();
 			}
 		}
 	}
-	
+
 	function initYoutubeAPI() {
 		var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 	}
-			
-	function onYouTubeIframeAPIReady() {			  
+
+	function onYouTubeIframeAPIReady() {
 	  getFlightList();
-  }	
-	
+  }
+
 $(function(){
 	mobileMenuOutsideClick();
 	offcanvasMenu();
@@ -857,4 +897,3 @@ $(function(){
 	initYoutubeAPI();
 	setScrollEvent();
 });
-
