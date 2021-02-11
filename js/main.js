@@ -524,7 +524,7 @@
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
 
-	var overlay = new Overlay({
+	var overlay = new ol.Overlay({
 	  element: container,
 	  autoPan: true,
 	  autoPanAnimation: {
