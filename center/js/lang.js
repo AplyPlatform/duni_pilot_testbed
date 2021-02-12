@@ -68,7 +68,7 @@ var LANG_JSON_DATA = {
         "privacy_link_label": "개인정보취급방침 보기",
         "btnForBadge_make": "배지 생성하기",
         "btnForBadge_del": "배지 삭제하기",
-        "btnForSharing": "공유하기",        
+        "btnForSharing": "공유하기",
         "btnForLink": "링크 생성하기",
         "btnForRegistMission": "계획등록",
         "btnForClearMission": "초기화",
@@ -80,6 +80,7 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "필터해제",
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
         "center_example_title": "사용예시",
+        "msg_do_login" : "자세히 확인하시려면 로그인 해 주세요.",
         "msg_login_another_device_sorry" : "다른 기기에서 로그인을 하였거나 일시적인 문제가 발생하였습니다.",
         "msg_notice": "* 전체 비행시간은 2020년 9월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.",
         "msg_no_mission": "비행계획이 존재하지 않습니다.",
@@ -263,6 +264,7 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "Filter off",
         "center_about_title": "About ...",
         "center_example_title": "Example",
+        "msg_do_login" : "Please sign in to view details.",
         "msg_login_another_device_sorry": "You have logged in from another device or there is a temporary problem, sorry.",
         "msg_notice": "* The total flight time is calculated from flight records uploaded after September 9, 2020.",
         "msg_no_mission": "There is no mission or something wrong.",
@@ -371,7 +373,7 @@ var LANG_JSON_DATA = {
             "The Android version of the DUNI app has a source code and it is opened. <a href='http://code.duni.io/' target=_new>Here</a><br>" +
             "Upload the Drone's video to Youtube site or set Youtube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)<br>" +
             "Click <i class='fa fa-user fa-fw'></i> icon at the top to see your developer Token.",
-        "dev_token_title": "Token for Developer", 
+        "dev_token_title": "Token for Developer",
         "collapseRecordFileParams": "<br><hr size=1><p><b>Android</b></p>"
             + "<p>- My file > Internal storage > DJI > dji.go.v4 > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"
             + "<p>Or, - My file > Internal storage > DJI > com.dji.industry.pilot > FlightRecord > FlightRecord_yyyymmddhh.txt</p>"

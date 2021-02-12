@@ -76,7 +76,13 @@ var player = []; //youtube players
 $(function () {
 
     if (askToken() == false) {
-        goIndex("");
+        showAskDialog(
+            LANG_JSON_DATA[langset]['modal_title'],
+            LANG_JSON_DATA[langset]['msg_do_login'],
+            LANG_JSON_DATA[langset]['modal_confirm_btn'],
+            false,
+            function () { goIndex(""); }
+        );
         return;
     }
 
@@ -832,9 +838,9 @@ function flightHistoryMapInit() {
         center: dpoint,
         zoom: 8
     });
-    
+
     flightHistorySource = new ol.source.Vector();
-		
+
 		var clusterSource = new ol.source.Cluster({
 		  distance: 40,
 		  source: flightHistorySource,
@@ -846,11 +852,11 @@ function flightHistoryMapInit() {
 
 		var styleCache = {};
     var vVectorLayer = new ol.layer.Vector({
-        source: clusterSource,   
-        zIndex: 1000,     
+        source: clusterSource,
+        zIndex: 1000,
         style: function (feature) {
         	if (!feature) return;
-        	
+
 			    var size = feature.get('features').length;
 			    var radius;
 			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
@@ -859,7 +865,7 @@ function flightHistoryMapInit() {
 			       style = [new ol.style.Style({
                 image: new ol.style.Circle({
 		            radius: radius,
-		            fill: new ol.style.Fill({ color: '#a03e8bd2' }), 
+		            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
 		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
                 }),
                 text: new ol.style.Text({
@@ -868,7 +874,7 @@ function flightHistoryMapInit() {
                   scale: 1.5,
                 })
               })];
-    
+
             styleCache[size] = style
 			    }
 			    return style;
@@ -899,31 +905,31 @@ function flightHistoryMapInit() {
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
-    
-    
-    vMap.on('click', function(e) {    		
+
+
+    vMap.on('click', function(e) {
         var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
 
         if (isCluster(feature)) {
         	var features = feature.get('features');
-			    for(var i = 0; i < features.length; i++) {			      
+			    for(var i = 0; i < features.length; i++) {
 			      var ii = features[i].get('mindex');
 			      if (!isSet(ii)) return;
-			      
+
 			      GATAGM("vMap_" + ii, "CONTENT", langset);
           	var scrollTarget = "flight-list-" + ii;
           	location.href = "#" + scrollTarget;
           	return;
 			    }
-        }        
+        }
 		});
 }
 
 function isCluster(feature) {
-  if (!feature || !feature.get('features')) { 
-        return false; 
+  if (!feature || !feature.get('features')) {
+        return false;
   }
-  
+
   return feature.get('features').length >= 1;
 }
 
@@ -1541,7 +1547,7 @@ function createNewIconFor2DMap(i, color, item) {
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i
-    });    
+    });
 
     return pos_icon;
 }
