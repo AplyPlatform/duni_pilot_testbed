@@ -81,7 +81,8 @@ $(function () {
             LANG_JSON_DATA[langset]['msg_do_login'],
             LANG_JSON_DATA[langset]['modal_confirm_btn'],
             false,
-            function () { goIndex(""); }
+            function () { goIndex(""); },
+            null
         );
         return;
     }
@@ -192,7 +193,7 @@ function setCommonText() {
     $('#askModalCancelButton').text(LANG_JSON_DATA[langset]['msg_cancel']);
 }
 
-function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
+function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelhandler) {
 
     if (needInput == true) {
         $('#askModalInput').show();
@@ -208,6 +209,18 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler) {
     $('#askModalLabel').text(atitle);
     $('#askModalContent').text(acontent);
     $('#askModalOKButton').text(oktitle);
+
+
+    if (cancelhandler) {
+      $('#askModalCancelButton').show();
+      $('#askModalCancelButton').off('click');
+      $('#askModalCancelButton').click(function () {
+          cancelhandler();
+      });
+    }
+    else {
+      $('#askModalCancelButton').hide();
+    }
 
     $('#askModalOKButton').off('click');
     $('#askModalOKButton').click(function () {
@@ -240,7 +253,8 @@ function setLogoutBtn() {
             LANG_JSON_DATA[langset]['msg_are_you_sure'],
             LANG_JSON_DATA[langset]['top_menu_logout'],
             false,
-            function () { logOut(); }
+            function () { logOut(); },
+            null
         );
     });
 }
@@ -1015,7 +1029,8 @@ function setBadgeView(fdata) {
                 LANG_JSON_DATA[langset]['msg_are_you_sure'],
                 LANG_JSON_DATA[langset]['btnForBadge_del'],
                 false,
-                function () { removePlugin(); }
+                function () { removePlugin(); },
+                function () {}
             );
         });
     }
@@ -2168,7 +2183,8 @@ function askClearCurrentDesign() {
         LANG_JSON_DATA[langset]['msg_are_you_sure'],
         LANG_JSON_DATA[langset]['btnForClearMission'],
         false,
-        function () { clearCurrentDesign(); }
+        function () { clearCurrentDesign(); },
+        function () {}
     );
 }
 
@@ -2447,7 +2463,8 @@ function makeShareFlightData(name, user_email) {
                             premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
                             LANG_JSON_DATA[langset]['stop_share_label'],
                             false,
-                            function () { stopShareFlightData(index, name, item.target); }
+                            function () { stopShareFlightData(index, name, item.target); },
+                            function () {}
                         );
                     });
                 });
@@ -2548,7 +2565,8 @@ function showDataWithName(target, name) {
                             premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
                             LANG_JSON_DATA[langset]['stop_share_label'],
                             false,
-                            function () { stopShareFlightData(index, name, item.target); }
+                            function () { stopShareFlightData(index, name, item.target); },
+                            function () {}
                         );
                     });
                 });
@@ -2578,7 +2596,8 @@ function showDataWithName(target, name) {
 						        fdata.name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
 						        LANG_JSON_DATA[langset]['msg_remove'],
 						        false,
-						        function () { deleteFlightData(name, -1); }
+						        function () { deleteFlightData(name, -1); },
+                    function () {}
 						    );
             });
 
@@ -2591,7 +2610,8 @@ function showDataWithName(target, name) {
                     false,
                     function (email) {
                         makeShareFlightData(fdata.name, "public");
-                    }
+                    },
+                    function () {}
                 );
             });
 
@@ -2604,7 +2624,8 @@ function showDataWithName(target, name) {
                     true,
                     function (email) {
                         makeShareFlightData(fdata.name, email);
-                    }
+                    },
+                    function () {}
                 );
             });
 
@@ -3089,7 +3110,8 @@ function askDeleteFlightData(name, index) {
         name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
         LANG_JSON_DATA[langset]['msg_remove'],
         false,
-        function () { deleteFlightData(name, index); }
+        function () { deleteFlightData(name, index); },
+        function () {}
     );
 }
 
@@ -3129,7 +3151,8 @@ function askRemoveMissionItem(name, trname) {
         name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
         LANG_JSON_DATA[langset]['msg_remove'],
         false,
-        function () { removeMissionItem(name, trname); }
+        function () { removeMissionItem(name, trname); },
+        function () {}
     );
 }
 function removeMissionItem(name, trname) {
@@ -3158,7 +3181,8 @@ function askMissionNameForDesignRegister() {
         true,
         function (mname) {
             setTimeout(function () { askSpeedForDesignRegister(mname); }, 1000);
-        }
+        },
+        function () {}
     );
 }
 
@@ -3175,7 +3199,8 @@ function askSpeedForDesignRegister(mname) {
             }
 
             registMission(mname, mspeed);
-        }
+        },
+        function () {}
     );
 }
 
@@ -4571,7 +4596,8 @@ function askDeleteDromiData(name, index) {
         name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
         LANG_JSON_DATA[langset]['btnForClearMission'],
         false,
-        function () { deleteDromiData(name, index); }
+        function () { deleteDromiData(name, index); },
+        function () {}
     );
 }
 
@@ -4946,7 +4972,8 @@ function askDeleteFlightDataForDromis(name, index) {
         name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
         LANG_JSON_DATA[langset]['msg_remove'],
         false,
-        function () { deleteFlightDataForDromis(name, index); }
+        function () { deleteFlightDataForDromis(name, index); },
+        function () {}
     );
 }
 
