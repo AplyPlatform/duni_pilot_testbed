@@ -74,7 +74,10 @@ var use3DMap = true;
 var player = []; //youtube players
 
 $(function () {
-
+		var lang = getCookie("language");
+    if (isSet(lang))
+        langset = lang;    
+        
     if (askToken() == false) {
         showAskDialog(
             LANG_JSON_DATA[langset]['modal_title'],
@@ -151,11 +154,7 @@ function setViewMode() {
 	}
 }
 
-function setCommonText() {
-    var lang = getCookie("language");
-    if (isSet(lang))
-        langset = lang;
-
+function setCommonText() {    
     if (viewmode == "developer") {
     	$('#side_menu_dev').text(LANG_JSON_DATA[langset]['side_menu_dev']);
     	$('#side_menu_lab').text(LANG_JSON_DATA[langset]['side_menu_lab']);
