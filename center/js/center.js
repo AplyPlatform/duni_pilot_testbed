@@ -76,8 +76,8 @@ var player = []; //youtube players
 $(function () {
 		var lang = getCookie("language");
     if (isSet(lang))
-        langset = lang;    
-        
+        langset = lang;
+
     if (askToken() == false) {
         showAskDialog(
             LANG_JSON_DATA[langset]['modal_title'],
@@ -154,7 +154,7 @@ function setViewMode() {
 	}
 }
 
-function setCommonText() {    
+function setCommonText() {
     if (viewmode == "developer") {
     	$('#side_menu_dev').text(LANG_JSON_DATA[langset]['side_menu_dev']);
     	$('#side_menu_lab').text(LANG_JSON_DATA[langset]['side_menu_lab']);
@@ -2295,7 +2295,7 @@ function getFlightList(target) {
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
 
     if (target == "public") {
-        jdata.daction = "download_public";
+        jdata['public'] = true;
     }
 
     if (isSet(hasMore)) {
@@ -2478,13 +2478,13 @@ function makeShareFlightData(name, user_email) {
 }
 
 function showDataWithName(target, name) {
-
-
+	
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid };
 
-    if (target == "public")
-        jdata.daction = "download_public_spe";
+		if (target == "public") {
+        jdata['public'] = true;
+    }
 
     showLoader();
 
