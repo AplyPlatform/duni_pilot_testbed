@@ -2246,11 +2246,7 @@ function searchFlightRecord(target, keyword) {
     }
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid };
-
-    if (target == "public") {
-        jdata.daction = "find_public_record";
-    }
+    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": target };
 
     hasMore = "";
 
