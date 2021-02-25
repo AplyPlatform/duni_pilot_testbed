@@ -4338,7 +4338,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file)
             alert(LANG_JSON_DATA[langset]['msg_success']);
             location.href = cur_controller + "?page_action=flightview";
         }
-        else {
+        else {        		
             if (r.reason == "same data is exist") {
             		GATAGM('duni_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
@@ -4347,6 +4347,8 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file)
             	GATAGM('duni_file_upload_failed', 'CONTENT', langset);
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
             }
+            
+            hideLoader();
         }
     }, function (request, status, error) {
         hideLoader();
