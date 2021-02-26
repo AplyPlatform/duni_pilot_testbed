@@ -13,6 +13,7 @@ limitations under the License.
 
 var LANG_JSON_DATA = {
     "KR": {
+    		"modal_yes_btn": "네",
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
         "side_menu_dashboard": "Dashboard",
@@ -80,6 +81,7 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "필터해제",
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
         "center_example_title": "사용예시",
+        "msg_is_sync_data" : "영상의 길이와 비행기록의 길이가 일치하나요?",
         "msg_do_login" : "로그인이 필요한 서비스 입니다.",
         "msg_login_another_device_sorry" : "다른 기기에서 로그인을 하였거나 일시적인 문제가 발생하였습니다.",
         "msg_notice": "* 전체 비행시간은 2020년 9월 9일 이후부터 업로드 한 비행기록에서 집계 하는 수치입니다.",
@@ -197,6 +199,7 @@ var LANG_JSON_DATA = {
 
 
     "EN": {
+    		"modal_yes_btn": "Yes",
         "modal_confirm_btn": "Confirm",
         "modal_title": "Notification",
         "side_menu_dashboard": "Dashboard",
@@ -264,6 +267,7 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "Filter off",
         "center_about_title": "About ...",
         "center_example_title": "Example",
+        "msg_is_sync_data" : "Is the length of the video the same as the flight record?",
         "msg_do_login" : "This service requires Sign-In.",
         "msg_login_another_device_sorry": "You have logged in from another device or there is a temporary problem, sorry.",
         "msg_notice": "* The total flight time is calculated from flight records uploaded after September 9, 2020.",

@@ -963,14 +963,13 @@ function getAllRecordCount() {
 
     showLoader();
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            hideLoader();
-
+    		hideLoader();
+    		
+        if (r.result == "success") {            
             setSummaryDashBoard(r.b_count, r.record_count, r.mission_count, r.member_count);
         }
         else {
-            setSummaryDashBoard(0, 0, 0, 0);
-            hideLoader();
+            setSummaryDashBoard(0, 0, 0, 0);        
         }
     }, function (request, status, error) {
         setSummaryDashBoard(0, 0, 0, 0);
@@ -1061,13 +1060,13 @@ function removePlugin() {
 
     showLoader();
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            hideLoader();
+    		hideLoader();
+    		
+        if (r.result == "success") {            
             setBadgeView(null);
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-            hideLoader();
+            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);            
         }
     }, function (request, status, error) {
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -1081,13 +1080,12 @@ function generatePlugin(callsign) {
 
     showLoader();
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            hideLoader();
+    		hideLoader();
+        if (r.result == "success") {            
             setBadgeView(r);
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-            hideLoader();
+            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);            
         }
     }, function (request, status, error) {
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -1100,16 +1098,16 @@ function getPublicRecordCount(rcount, mcount, alltime) {
     var jdata = { "action": "position", "daction": "public_count", "clientid": userid };
 
     showLoader();
-    ajaxRequest(jdata, function (r) {
+    ajaxRequest(jdata, function (r) {    		
         if (r.result == "success") {
-            setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);
-            hideLoader();
+            setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);            
         }
         else {
             setDashBoard(0, 0, 0, 0, 0, 0);
-            setBadgeView(null);
-            hideLoader();
+            setBadgeView(null);        
         }
+        
+        hideLoader();
     }, function (request, status, error) {
         setDashBoard(0, 0, 0, 0, 0, 0);
         hideLoader();
@@ -1129,9 +1127,9 @@ function getRecordCount() {
         }
         else {
             setDashBoard(0, 0, 0, 0, 0, 0);
-            setBadgeView(null);
+            setBadgeView(null);            
             hideLoader();
-        }
+        }                
     }, function (request, status, error) {
         setDashBoard(0, 0, 0, 0, 0, 0);
         hideLoader();
@@ -1536,17 +1534,15 @@ function setMissionDataToDesignView(name) {
     $("#mission_name_field").text(name);
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            hideLoader();
+    		hideLoader();
+        if (r.result == "success") {            
 
             if (!isSet(r.data.mission) || r.data.mission.length == 0) return;
             designDataArray = r.data.mission;
-
             setDesignTable();
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_no_mission']);
-            hideLoader();
+            showAlert(LANG_JSON_DATA[langset]['msg_no_mission']);            
         }
     }, function (request, status, error) {
 
@@ -1894,9 +1890,11 @@ function nextMon() {
         }
         else {
             showAlert(LANG_JSON_DATA[langset]['msg_failed_to_get_position']);
+            hideLoader();
         }
     }, function (request, status, error) {
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        hideLoader();
     });
 }
 
@@ -1940,9 +1938,7 @@ function getMissionList() {
             else {
                 $('#btnForGetMissionList').hide(1500);
                 hasMore = null;
-            }
-
-            hideLoader();
+            }            
         }
         else {
             if (r.reason == "no data") {
@@ -1950,10 +1946,10 @@ function getMissionList() {
             }
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-            }
-
-            hideLoader();
+            }            
         }
+        
+        hideLoader();
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -2233,6 +2229,8 @@ function searchMission(keyword) {
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
             }
+            
+            hideLoader();
         }
     }, function (request, status, error) {
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -2252,11 +2250,11 @@ function searchFlightRecord(target, keyword) {
     hasMore = "";
 
     showLoader();
-    ajaxRequest(jdata, function (r) {
-        hideLoader();
+    ajaxRequest(jdata, function (r) {    		        
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
                 showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+                hideLoader();
                 return;
             }
 
@@ -2275,6 +2273,7 @@ function searchFlightRecord(target, keyword) {
             $('#dataTable-Flight_list').empty();
             tableCount = 0;
             setFlightlistHistory(target, r.data);
+            hideLoader();
         }
         else {
             if (r.reason == "no data") {
@@ -2283,6 +2282,8 @@ function searchFlightRecord(target, keyword) {
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
             }
+            
+            hideLoader();
         }
     }, function (request, status, error) {
         hideLoader();
@@ -2303,8 +2304,7 @@ function getFlightList(target) {
     }
 
     showLoader();
-    ajaxRequest(jdata, function (r) {
-        hideLoader();
+    ajaxRequest(jdata, function (r) {        
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
                 showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
@@ -2393,10 +2393,10 @@ function stopShareFlightData(index, name, target_id) {
             $("#shareid_" + index).hide();
             if (target_id == "public@duni.io") {
                 $("#btnForPublic").show();
-            }
-
-            hideLoader();
+            }            
         }
+        
+        hideLoader();
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -2786,8 +2786,10 @@ function drawCadastral(disp_id, name, x, y, vSource) {
     var jdata = { "action": "position", "daction": "cada", "clientid": userid, "x": x, "y": y };
 
     ajaxRequest(jdata, function (r) {
-        hideLoader();
-        if (r == null || r.data == null || r.data.response.status !== "OK") return;
+    	  hideLoader();
+        if (r == null || r.data == null || r.data.response.status !== "OK") {        	
+        	return;
+        }
 
 				var response = r.data.response;
         var _features = new Array();
@@ -4266,6 +4268,31 @@ function nexttour(owner, fobject) {
     }, 2500);
 }
 
+function askIsSyncData() {
+    showAskDialog(
+        LANG_JSON_DATA[langset]['modal_title'],
+        LANG_JSON_DATA[langset]['msg_is_sync_data'],
+        LANG_JSON_DATA[langset]['modal_yes_btn'],
+        false,
+        function () {
+        		showLoader();
+
+			    	if (isDUNIFileType == false)
+			       	getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);
+			      else
+			       	getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDUNIFlightListCallback);
+        },
+        function () {
+        		showLoader();
+
+			    	if (isDUNIFileType == false)
+			       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);
+			      else
+			       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDUNIFlightListCallback);
+        }
+    );
+}
+
 function uploadFlightList(isUpdate) {
 		var mname = $("#record_name_field").val();
 
@@ -4278,12 +4305,18 @@ function uploadFlightList(isUpdate) {
 
     var files = document.getElementById('flight_record_file').files;
     if (files.length > 0) {
+    	
+    	if (isSet(youtube_data)) {
+    		askIsSyncData();
+    		return;
+    	}
+    	
     	showLoader();
 
     	if (isDUNIFileType == false)
-       	getBase64(files[0], mname, youtube_data, isUpdate, uploadDJIFlightListCallback);
+       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);
       else
-       	getBase64(files[0], mname, youtube_data, isUpdate, uploadDUNIFlightListCallback);
+       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDUNIFlightListCallback);
 
       return;
     }
@@ -4305,12 +4338,12 @@ function uploadFlightList(isUpdate) {
     }
 }
 
-function getBase64(file, mname, youtube_data, isUpdate, callback) {
+function getBase64(file, mname, youtube_data, isUpdate, isSyncData, callback) {
     var reader = new FileReader();
 
     reader.readAsDataURL(file);
     reader.onload = function () {
-        callback(mname, youtube_data, isUpdate, reader.result);
+        callback(mname, youtube_data, isUpdate, isSyncData, reader.result);
     };
     reader.onerror = function (error) {
         hideLoader();
@@ -4318,7 +4351,7 @@ function getBase64(file, mname, youtube_data, isUpdate, callback) {
     };
 }
 
-function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
+function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, base64file) {
     var userid = getCookie("dev_user_id");
 
     youtube_data = massageYotubeUrl(youtube_data);
@@ -4327,6 +4360,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file)
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
     	"update" : isUpdate,
+    	"sync" : isSyncData,
     	"recordfile": base64file
     };
 
@@ -4356,7 +4390,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, base64file)
     });
 }
 
-function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) {
+function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, base64file) {
     var userid = getCookie("dev_user_id");
 
     youtube_data = massageYotubeUrl(youtube_data);
@@ -4365,6 +4399,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, base64file) 
     	"clientid": userid, "name": mname,
     	"youtube_data_id": youtube_data,
     	"update" : isUpdate,
+    	"sync" : isSyncData,
     	"recordfile": base64file };
 
     ajaxRequest(jdata, function (r) {
@@ -4917,9 +4952,10 @@ function showDataForDromi(index) {
                     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
                 }
                 else {
-                    setFlightRecordDataToView(target, r.data, false);
-                    hideLoader();
+                    setFlightRecordDataToView(target, r.data, false);                    
                 }
+                
+                hideLoader();
             }, function (request, status, error) {
                 hideLoader();
                 monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
