@@ -3747,7 +3747,7 @@ function computeCirclularFlight(start) {
                 pixelSize: 1,
                 color: Cesium.Color.TRANSPARENT,
                 outlineColor: icon_color,
-                outlineWidth: 1,
+                outlineWidth: 0.5,
             },
         });
 
@@ -5159,25 +5159,25 @@ function convert2data(t) {
 function getColorPerAlt3d(alt) {
     var icon_color = Math.floor(alt * 1.2);
     var r = 4;
-    var g = 20 + icon_color;
-    var b = 50 + icon_color;
-
+    var b = 4;
+    var g = 40 + icon_color;
+    
     //if (r > 255) r = 255;
+    //if (b > 255) b = 255;
     if (g > 255) g = 255;
-    if (b > 255) b = 255;
-
-    return Cesium.Color.fromBytes(r, g, b, 240);
+    
+    return Cesium.Color.fromBytes(r, g, b, 230);
 }
 
 function getColorPerAlt(alt) {
     var icon_color = Math.floor(alt * 1.2);
     var r = 4;
-    var g = 20 + icon_color;
-    var b = 50 + icon_color;
-
+    var b = 4;
+    var g = 40 + icon_color;
+    
     //if (r > 255) r = 255;
+    //if (b > 255) b = 255;
     if (g > 255) g = 255;
-    if (b > 255) b = 255;
 
     var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + b.toString(16);
     return pos_icon_color;
