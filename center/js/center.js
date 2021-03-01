@@ -3824,18 +3824,18 @@ function addObjectTo3DMap(index, owner, kind) {
     var planePrimitive = scene3d.primitives.add(
         Cesium.Model.fromGltf({
             url: glbUrl,
-            color: getColor(gColor, 1.0),
+            color: getColor(gColor, 0.5),
             silhouetteColor: getColor(
-                sColor, 1.0
+                sColor, 0.5
             ),
-            silhouetteSize: 2.0,
+            silhouetteSize: 1.4,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
                 position,
                 hpRoll,
                 Cesium.Ellipsoid.WGS84,
                 fixedFrameTransform
             ),
-            scale: 0.3,
+            scale: 0.2,
             minimumPixelSize: 64,
         })
     );
