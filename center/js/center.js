@@ -3825,17 +3825,15 @@ function addObjectTo3DMap(index, owner, kind) {
         Cesium.Model.fromGltf({
             url: glbUrl,
             color: getColor(gColor, 1.0),
-            silhouetteColor: getColor(
-                sColor, 1.0
-            ),
-            silhouetteSize: 2.0,
+            silhouetteColor: getColor(sColor, 0.8),
+            silhouetteSize: 1.2,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
                 position,
                 hpRoll,
                 Cesium.Ellipsoid.WGS84,
                 fixedFrameTransform
             ),
-            scale: 0.3,
+            scale: 0.2,
             minimumPixelSize: 64,
         })
     );
