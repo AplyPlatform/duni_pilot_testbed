@@ -3905,6 +3905,8 @@ function map3dInit() {
     );
 
     scene3d = viewer.scene;
+    
+    const osmBuildings = scene3d.primitives.add(Cesium.createOsmBuildings());
 
     //Actually create the entity
     posentity = viewer.entities.add({
