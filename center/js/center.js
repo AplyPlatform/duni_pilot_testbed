@@ -3747,7 +3747,7 @@ function computeCirclularFlight(start) {
                 pixelSize: 1,
                 color: Cesium.Color.TRANSPARENT,
                 outlineColor: icon_color,
-                outlineWidth: 0.5,
+                outlineWidth: 1,
             },
         });
 
@@ -3824,18 +3824,18 @@ function addObjectTo3DMap(index, owner, kind) {
     var planePrimitive = scene3d.primitives.add(
         Cesium.Model.fromGltf({
             url: glbUrl,
-            color: getColor(gColor, 0.5),
+            color: getColor(gColor, 1.0),
             silhouetteColor: getColor(
-                sColor, 0.5
+                sColor, 1.0
             ),
-            silhouetteSize: 1,
+            silhouetteSize: 2.0,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
                 position,
                 hpRoll,
                 Cesium.Ellipsoid.WGS84,
                 fixedFrameTransform
             ),
-            scale: 0.2,
+            scale: 0.3,
             minimumPixelSize: 64,
         })
     );
@@ -5159,25 +5159,25 @@ function convert2data(t) {
 function getColorPerAlt3d(alt) {
     var icon_color = Math.floor(alt * 1.2);
     var r = 4;
-    var b = 4;
-    var g = 40 + icon_color;
-    
+    var g = 20 + icon_color;
+    var b = 50 + icon_color;
+
     //if (r > 255) r = 255;
-    //if (b > 255) b = 255;
     if (g > 255) g = 255;
-    
-    return Cesium.Color.fromBytes(r, g, b, 230);
+    if (b > 255) b = 255;
+
+    return Cesium.Color.fromBytes(r, g, b, 240);
 }
 
 function getColorPerAlt(alt) {
     var icon_color = Math.floor(alt * 1.2);
     var r = 4;
-    var b = 4;
-    var g = 40 + icon_color;
-    
+    var g = 20 + icon_color;
+    var b = 50 + icon_color;
+
     //if (r > 255) r = 255;
-    //if (b > 255) b = 255;
     if (g > 255) g = 255;
+    if (b > 255) b = 255;
 
     var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + b.toString(16);
     return pos_icon_color;
