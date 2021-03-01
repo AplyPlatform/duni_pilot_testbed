@@ -3828,7 +3828,7 @@ function addObjectTo3DMap(index, owner, kind) {
             silhouetteColor: getColor(
                 sColor, 0.5
             ),
-            silhouetteSize: 1.4,
+            silhouetteSize: 1,
             modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
                 position,
                 hpRoll,
