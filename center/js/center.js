@@ -5177,7 +5177,7 @@ function getColorPerAlt(alt) {
     //if (b > 255) b = 255;
     if (g > 255) g = 255;    
 
-    var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + b.toString(16);
+    var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + "0" + b.toString(16);
     return pos_icon_color;
 }
 
