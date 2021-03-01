@@ -693,6 +693,7 @@ function flightDetailInit(target) {
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
     $("#btnForFilter").text(LANG_JSON_DATA[langset]['btnForFilter']);
     $("#btnForSharing").text(LANG_JSON_DATA[langset]['btnForSharing']);
+    $("#btnForPublic").text(LANG_JSON_DATA[langset]['btnForOpening']);
     $("#btnForLink").text(LANG_JSON_DATA[langset]['btnForLink']);
     $("#btnForDelete").text(LANG_JSON_DATA[langset]['msg_remove']);
     $("#btnForUpdateTitle").text(LANG_JSON_DATA[langset]['msg_modify']);
