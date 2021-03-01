@@ -5156,28 +5156,20 @@ function convert2data(t) {
 
 function getColorPerAlt3d(alt) {
     var icon_color = Math.floor(alt * 1.2);
-    var r = 4;
+    
     var g = 40 + icon_color;
-    var b = 4;
-
-    //if (r > 255) r = 255;
-    //if (b > 255) b = 255;
     if (g > 255) g = 255;
         
-    return Cesium.Color.fromBytes(r, g, b, 230);
+    return Cesium.Color.fromBytes(4, g, 4, 230);
 }
 
 function getColorPerAlt(alt) {
     var icon_color = Math.floor(alt * 1.2);
-    var r = 4;
-    var g = 40 + icon_color;
-    var b = 4;
-
-    //if (r > 255) r = 255;
-    //if (b > 255) b = 255;
+    
+    var g = 40 + icon_color;        
     if (g > 255) g = 255;    
 
-    var pos_icon_color = "#0" + r.toString(16) + g.toString(16) + "0" + b.toString(16);
+    var pos_icon_color = "#04" + g.toString(16) + "04";
     return pos_icon_color;
 }
 
