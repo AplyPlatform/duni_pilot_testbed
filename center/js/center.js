@@ -3745,9 +3745,8 @@ function computeCirclularFlight(start) {
             position: position,
             point: {
                 pixelSize: 1,
-                color: Cesium.Color.TRANSPARENT,
-                outlineColor: icon_color,
-                outlineWidth: 1,
+                color: icon_color,
+                outlineWidth: 0
             },
         });
 
