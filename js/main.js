@@ -377,7 +377,7 @@
 	    new ol.style.Style(
 	    	{
 		      image: new ol.style.Icon(({
-		      	opacity: 0.55,
+		      	opacity: 0.77,
 		        crossOrigin: 'anonymous',
 		        scale: 1.5,
 		        src: pos_icon_image
