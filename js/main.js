@@ -677,7 +677,7 @@
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          cname: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-	          cindex : i,
+	          cindex : (i + 1),
 						caddress : item.address
 	      });
 
