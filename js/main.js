@@ -725,7 +725,7 @@
       var ii = features[i].get('mindex');
       if (!isSet(ii)) {
       	ii = features[i].get('cindex');      	
-      	if (if (!isSet(ii)) return;
+      	if (!isSet(ii)) return;
       	
       	var title = features[i].get('caddress');
 				var coordinate = evt.coordinate;
@@ -753,7 +753,7 @@
       var ii = features[i].get('mindex');
       if (!isSet(ii)) {      	
       	ii = features[i].get('cindex');      	
-      	if (if (!isSet(ii)) return;
+      	if (!isSet(ii)) return;
       	
       	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);    		
       	return;
@@ -768,7 +768,7 @@
 
 	function isCluster(feature) {
 	  if (!feature || !feature.get('features')) {
-	        return false;
+	  	return false;
 	  }
 
 	  return feature.get('features').length >= 1;
