@@ -686,10 +686,9 @@
   					
   					if (Math.abs(oldLat - lonlat[1]) > 0.1 || Math.abs(oldLng - lonlat[0]) > 0.4) {
   							processMapMove(lonlat[0], lonlat[1]);
-  					}
-  					
-  					oldLng = lonlat[0];				    
-  					oldLat = lonlat[1];  					
+  							oldLng = lonlat[0];				    
+  							oldLat = lonlat[1]; 
+  					}  					  					 					
 			});
 	}
 	
