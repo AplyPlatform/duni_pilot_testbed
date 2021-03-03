@@ -520,9 +520,7 @@
 
 	var flightHistorySource;
 	var flightCompanySource;
-	var flightHistoryView;	
-	
-	var oldLonlat = 0;
+	var flightHistoryView;		
 	
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
@@ -679,16 +677,13 @@
   					if (Math.abs(bottomLeft[0] - topRight[0]) > 0.4) return;
   					if (Math.abs(bottomLeft[1] - topRight[1]) > 0.1) return;
   
-  					*/
-  					
+  					*/  					  					  					
+  					var z = vMap.getView().getZoom();
+  					if (z < 5) return;
+  					  
   					var coord = flightHistoryView.getCenter();
-  					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
-  					
-  					if (Math.abs(oldLonlat[1] - lonlat[1]) > 0.1 || Math.abs(oldLonlat[0] - lonlat[0]) > 0.3) {
-  							processMapMove(lonlat[0], lonlat[1]);  							
-  					}  					  					 					
-  					
-  					oldLonlat = lonlat;
+  					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    					
+  					processMapMove(lonlat[0], lonlat[1]);  							  					  					  					 					  					  					
 			});
 	}
 	
