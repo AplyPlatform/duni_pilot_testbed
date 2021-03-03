@@ -669,10 +669,18 @@
 				});
 				
 		vMap.on('moveend', function(evt) {						
+			
+						var extent = vMap.getView().calculateExtent(vMap.getSize());
+  					var bottomLeft = ol.proj.toLonLat(ol.extent.getBottomLeft(extent));
+  					var topRight = ol.proj.toLonLat(ol.extent.getTopRight(extent));
+  					  					
+  					if (abs(bottomLeft[0] - bottomLeft[1]) > 0.08) return;
+  					if (abs(topRight[0] - topRight[1]) > 0.03) return;
+  
   					var coord = flightHistoryView.getCenter();
   					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
   					
-  					if (Math.abs(oldLat - lonlat[1]) > 0.1 || Math.abs(oldLng - lonlat[0]) > 0.1) {
+  					if (Math.abs(oldLat - lonlat[1]) > 0.01 || Math.abs(oldLng - lonlat[0]) > 0.01) {
   							processMapMove(lonlat[0], lonlat[1]);
   					}
   					
