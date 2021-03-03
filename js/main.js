@@ -519,7 +519,9 @@
 	}
 
 	var flightHistorySource;
-	var flightHistoryView;
+	var flightCompanySource;
+	var flightHistoryView;		
+	
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
@@ -545,9 +547,49 @@
 	      center: dpoint,
 	      zoom: 4
 	    });
+	    
+	  flightCompanySource = new ol.source.Vector();
+		var clusterCompanySource = new ol.source.Cluster({
+			  distance: 40,
+			  source: flightCompanySource,
+			  geometryFunction: function(feature) {
+	        var geom = feature.getGeometry();
+	    		return geom.getType() == 'Point' ? geom : null;
+	    	},
+			});
 
+		var styleCacheForCompany = {};
+	  var vVectorLayerForCompany = new ol.layer.Vector({
+	      source: clusterCompanySource,
+	      zIndex: 99,
+	      style:  function (feature) {
+	        	if (!feature) return;
+
+				    var size = feature.get('features').length;
+				    var radius;
+				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var style = styleCacheForCompany[size];
+				    if (!style) {
+				    		style = [new ol.style.Style({
+	                image: new ol.style.Circle({
+			            radius: radius,
+			            fill: new ol.style.Fill({ color: '#a08bd23e' }),
+			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                }),
+	                text: new ol.style.Text({
+	                  text: size.toString(),
+	                  fill: new ol.style.Fill({ color: '#fff' }),
+	                  scale: 1.5,
+	                })
+	              })];
+
+	          		styleCacheForCompany[size] = style
+				    }
+				    return style;
+				  },
+	    });
+		
 	  flightHistorySource = new ol.source.Vector();
-
 	  var clusterSource = new ol.source.Cluster({
 			  distance: 40,
 			  source: flightHistorySource,
@@ -560,7 +602,7 @@
 		var styleCache = {};
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: clusterSource,
-	      zIndex: 1000,
+	      zIndex: 100,
 	      style:  function (feature) {
 	        	if (!feature) return;
 
@@ -569,7 +611,7 @@
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 				    var style = styleCache[size];
 				    if (!style) {
-				       style = [new ol.style.Style({
+				       	style = [new ol.style.Style({
 	                image: new ol.style.Circle({
 			            radius: radius,
 			            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
@@ -582,7 +624,7 @@
 	                })
 	              })];
 
-	            styleCache[size] = style
+	          		styleCache[size] = style
 				    }
 				    return style;
 				  },
@@ -605,7 +647,7 @@
 	  var vMap = new ol.Map({
 	      target: 'historyMap',
 	      layers: [
-	          bingLayer, vVectorLayer
+	          bingLayer, vVectorLayer, vVectorLayerForCompany
 	      ],
 				overlays: [overlay],
 	      // Improve user experience by loading tiles while animating. Will make
@@ -614,43 +656,114 @@
 	      view: flightHistoryView
 	    });
 
-	  vMap.on('click', function(e) {
-	        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
-
-	        if (isCluster(feature)) {
-	        	var features = feature.get('features');
-				    for(var i = 0; i < features.length; i++) {
-				      var ii = features[i].get('mindex');
-				      if (!isSet(ii)) return;
-
-				      GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
-	          	var scrollTarget = "flight-list-" + ii;
-	          	location.href = "#" + scrollTarget;
-	          	return;
-				    }
-	        }
+	  vMap.on('click', function(evt) {
+	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
+	        	processMapClick(feature);
 			});
 
 		vMap.on('pointermove', function(evt) {
 		        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-
-		        if (isCluster(feature)) {
-		        	var features = feature.get('features');
-					    for(var i = 0; i < features.length; i++) {
-					      var ii = features[i].get('mindex');
-					      if (!isSet(ii)) return;
-
-					      GATAGM("index_page_vMap_pointmove_" + ii, "CONTENT", langset);
-
-								var title = features[i].get('maddress');
-								var coordinate = evt.coordinate;
-							  content.innerHTML = '<p>' + title + '</p>';
-							  overlay.setPosition(coordinate);
-
-		          	return;
-					    }
-		        }
+		        processMapOver(feature, overlay);
 				});
+				
+		vMap.on('moveend', function(evt) {		  
+		  			var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+				    var curLon = coord[0];
+				    var curLat = coord[1];
+				    
+				    processMapMove(curLon, curLat);
+			});
+	}
+	
+	function createNewCompanyIconFor2DMap(i, item) {
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+	          cname: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+	          cindex : i,
+						caddress : item.address
+	      });
+
+	  pos_icon.setStyle(styleFunction((i + 1) + ""));
+	  return pos_icon;
+	}
+	
+	function processMapMove(curLon, curLat) {		
+		flightCompanySource.clear();
+						
+	  var jdata = {"action": "public_company_list", "lat" : curLat, "lng" : curLon};
+
+		showLoader();	  
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	      if (r.data == null || r.data.length == 0) {	        
+					hideLoader();
+	        return;
+	      }	      
+	      
+	      r.data.forEach(function(item, index, arr) {	    
+	      	var icon = createNewCompanyIconFor2DMap(index, {lat:item.lat, lng:item.lng, alt:0, address: item.address});		
+					flightCompanySource.addFeature(icon);
+	  		});
+	      
+				hideLoader();
+	    }
+	    else {	    	
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });								
+	}
+	
+	function processMapOver(feature, overlay) {
+		if (!isCluster(feature)) return;
+				
+  	var features = feature.get('features');
+  	
+    for(var i = 0; i < features.length; i++) {
+      var ii = features[i].get('mindex');
+      if (!isSet(ii)) {
+      	ii = features[i].get('cindex');      	
+      	if (if (!isSet(ii)) return;
+      	
+      	var title = features[i].get('caddress');
+				var coordinate = evt.coordinate;
+			  content.innerHTML = '<p>' + title + '</p>';
+			  overlay.setPosition(coordinate);
+      	GATAGM("index_page_vMap_pointmove_cindex_" + ii, "CONTENT", langset);
+      	return;
+      }
+      
+			var title = features[i].get('maddress');
+			var coordinate = evt.coordinate;
+		  content.innerHTML = '<p>' + title + '</p>';
+		  overlay.setPosition(coordinate);
+			GATAGM("index_page_vMap_pointmove_" + ii, "CONTENT", langset);
+    	return;
+    }    
+	}
+
+	function processMapClick(feature) {
+		if (!isCluster(feature)) return;
+		
+  	var features = feature.get('features');
+  	
+    for(var i = 0; i < features.length; i++) {
+      var ii = features[i].get('mindex');
+      if (!isSet(ii)) {      	
+      	ii = features[i].get('cindex');      	
+      	if (if (!isSet(ii)) return;
+      	
+      	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);    		
+      	return;
+      }
+
+      GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
+    	var scrollTarget = "flight-list-" + ii;
+    	location.href = "#" + scrollTarget;
+    	return;
+    }
 	}
 
 	function isCluster(feature) {
@@ -895,5 +1008,5 @@ $(function(){
 	loaderPage();
 	flightHistoryMapInit();
 	initYoutubeAPI();
-	setScrollEvent();
+	setScrollEvent();	
 });
