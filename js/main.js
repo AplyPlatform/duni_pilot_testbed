@@ -520,7 +520,9 @@
 
 	var flightHistorySource;
 	var flightCompanySource;
-	var flightHistoryView;		
+	var flightHistoryView;	
+	
+	var oldLat = 0 , oldLng = 0;	
 	
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
