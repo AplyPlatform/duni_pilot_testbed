@@ -669,7 +669,13 @@
 		vMap.on('moveend', function(evt) {						
   					var coord = flightHistoryView.getCenter();
   					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
-				    processMapMove(lonlat[0], lonlat[1]);
+  					
+  					if (abs(oldLat - lonlat[1]) > 0.1) || abs(oldLng - lonlat[0]) > 0.1)) {
+  							processMapMove(lonlat[0], lonlat[1]);
+  					}
+  					
+  					oldLng = lonlat[0];				    
+  					oldLat = lonlat[1];  					
 			});
 	}
 	
