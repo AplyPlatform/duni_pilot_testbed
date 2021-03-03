@@ -674,8 +674,8 @@
   					var bottomLeft = ol.proj.toLonLat(ol.extent.getBottomLeft(extent));
   					var topRight = ol.proj.toLonLat(ol.extent.getTopRight(extent));
   					  					
-  					if (abs(bottomLeft[0] - bottomLeft[1]) > 0.08) return;
-  					if (abs(topRight[0] - topRight[1]) > 0.03) return;
+  					if (Math.abs(bottomLeft[0] - bottomLeft[1]) > 0.08) return;
+  					if (Math.abs(topRight[0] - topRight[1]) > 0.03) return;
   
   					var coord = flightHistoryView.getCenter();
   					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
