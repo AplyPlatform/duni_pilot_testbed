@@ -666,8 +666,8 @@
 		        processMapOver(feature, overlay);
 				});
 				
-		vMap.on('moveend', function(evt) {		  
-		  			var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+		vMap.on('moveend', function(evt) {		  		  			
+		  			var coord = vMap.getCenter();
 				    var curLon = coord[0];
 				    var curLat = coord[1];
 				    
