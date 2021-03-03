@@ -748,7 +748,7 @@
     }    
 	}
 
-	function processMapClick(feature) {
+	function processMapClick(evt, feature) {
 		if (!isCluster(feature)) return;
 		
   	var features = feature.get('features');
