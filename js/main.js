@@ -670,7 +670,7 @@
   					var coord = flightHistoryView.getCenter();
   					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
   					
-  					if (abs(oldLat - lonlat[1]) > 0.1) || abs(oldLng - lonlat[0]) > 0.1)) {
+  					if (Math.abs(oldLat - lonlat[1]) > 0.1 || Math.abs(oldLng - lonlat[0]) > 0.1) {
   							processMapMove(lonlat[0], lonlat[1]);
   					}
   					
