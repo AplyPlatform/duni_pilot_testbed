@@ -668,11 +668,9 @@
 				
 		vMap.on('moveend', function(evt) {
 						var view = vMap.getView();
-  					var coord = view.getCenter();		  			
-				    var curLon = (coord[0].toFixed(2));
-				    var curLat = (coord[1].toFixed(2));
-				    
-				    processMapMove(curLon, curLat);
+  					var coord = view.getCenter();
+  					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
+				    processMapMove(lonlat[0], lonlat[1]);
 			});
 	}
 	
