@@ -667,9 +667,10 @@
 				});
 				
 		vMap.on('moveend', function(evt) {
-		  			var coord = flightHistoryView.getCenter();
-				    var curLon = coord[0].toFixed(2);
-				    var curLat = coord[1].toFixed(2);
+						var view = vMap.getView();
+  					var coord = view.getCenter();		  			
+				    var curLon = (coord[0].toFixed(2));
+				    var curLat = (coord[1].toFixed(2));
 				    
 				    processMapMove(curLon, curLat);
 			});
