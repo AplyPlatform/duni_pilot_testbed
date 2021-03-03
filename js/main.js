@@ -658,17 +658,16 @@
 
 	  vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
-	        	processMapClick(feature);
+	        	processMapClick(evt, feature);
 			});
 
 		vMap.on('pointermove', function(evt) {
 		        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-		        processMapOver(feature, overlay);
+		        processMapOver(evt, feature, overlay);
 				});
 				
-		vMap.on('moveend', function(evt) {
-						var view = vMap.getView();
-  					var coord = view.getCenter();
+		vMap.on('moveend', function(evt) {						
+  					var coord = flightHistoryView.getCenter();
   					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');				    
 				    processMapMove(lonlat[0], lonlat[1]);
 			});
@@ -715,7 +714,7 @@
 	  });								
 	}
 	
-	function processMapOver(feature, overlay) {
+	function processMapOver(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
 				
   	var features = feature.get('features');
