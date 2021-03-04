@@ -660,11 +660,7 @@
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
 	        	processMapClick(evt, feature);
 			});
-
-		vMap.on('pointermove', function(evt) {
-		        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-		        processMapOver(evt, feature, overlay);
-				});						
+	
 	}
 	
 	function createNewCompanyIconFor2DMap(i, item) {
@@ -708,7 +704,7 @@
 	  });								
 	}
 	
-	function getCompanyInfo(cid, overlay) {										
+	function getCompanyInfo(cid) {										
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
 
 		showLoader();	  
@@ -730,59 +726,38 @@
 	    hideLoader();
 	  });								
 	}
-	
-	
-	function processMapOver(evt, feature, overlay) {
-		if (!isCluster(feature)) return;
-		
-		if ($('#popup-content').is(':visible')) return;
-				
-  	var features = feature.get('features');
-  	
-    for(var i = 0; i < features.length; i++) {
-      var ii = features[i].get('mindex');
-      if (!isSet(ii)) {
-      	ii = features[i].get('cindex');      	
-      	if (!isSet(ii)) return;
-      	
-      	var title = features[i].get('cname');
-				var coordinate = evt.coordinate;
-			  content.innerHTML = '<p>' + title + '</p>';
-			  overlay.setPosition(coordinate);
-      	GATAGM("index_page_vMap_pointmove_cindex_" + ii, "CONTENT", langset);
-      	getCompanyInfo(ii);
-      	return;
-      }
-      
-			var title = features[i].get('maddress');
-			var coordinate = evt.coordinate;
-		  content.innerHTML = '<p>' + title + '</p>';
-		  overlay.setPosition(coordinate);
-			GATAGM("index_page_vMap_pointmove_" + ii, "CONTENT", langset);
-    	return;
-    }    
-	}
 
 	function processMapClick(evt, feature) {
 		if (!isCluster(feature)) return;
 		
   	var features = feature.get('features');
-  	
-    for(var i = 0; i < features.length; i++) {
-      var ii = features[i].get('mindex');
-      if (!isSet(ii)) {      	
-      	ii = features[i].get('cindex');      	
-      	if (!isSet(ii)) return;
-      	
-      	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);    		
-      	return;
-      }
-
-      GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
-    	var scrollTarget = "flight-list-" + ii;
-    	location.href = "#" + scrollTarget;
+  	var count = features.length;
+		if (count <= 0) return;
+		    
+    var ii = features[0].get('mindex');
+    if (!isSet(ii)) {      	
+    	ii = features[0].get('cindex');      	
+    	if (!isSet(ii)) return;
+    	
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);    		
+    	
+    	var title = features[0].get('cname');
+			var coordinate = evt.coordinate;
+			
+			if (count > 1)
+				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
+			else
+				title = '<p>' + title + '</p>';
+				
+		  content.innerHTML = title;
+		  overlay.setPosition(coordinate);      	
+    	getCompanyInfo(ii);
     	return;
     }
+
+    GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
+  	var scrollTarget = "flight-list-" + ii;
+  	location.href = "#" + scrollTarget;        
 	}
 
 	function isCluster(feature) {
