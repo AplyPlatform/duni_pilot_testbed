@@ -735,6 +735,8 @@
 	
 	function processMapOver(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
+		
+		if ($('#popup-content').is(':visible')) return;
 				
   	var features = feature.get('features');
   	
