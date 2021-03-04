@@ -1026,5 +1026,6 @@ $(function(){
 	loaderPage();
 	flightHistoryMapInit();
 	initYoutubeAPI();
-	setScrollEvent();	
+	setScrollEvent();
+	getCompanyList();	
 });
