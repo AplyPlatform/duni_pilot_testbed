@@ -658,7 +658,7 @@
 
 	  vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
-	        	processMapClick(evt, feature);
+	        	processMapClick(evt, feature, overlay);
 			});
 	
 	}
@@ -706,28 +706,21 @@
 	
 	function getCompanyInfo(cid) {										
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
-
-		showLoader();	  
+		
   	ajaxRequest(jdata, function (r) {
 	    hideLoader();
 	    if(r.result == "success") {
 	      if (r.data == null) {
-					hideLoader();
 	        return;
 	      }	      	      	   
 	         	      
-	      content.innerHTML += ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');
-				hideLoader();
-	    }
-	    else {	    	
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
+	      content.innerHTML += ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');				
+	    }	    
+	  }, function(request,status,error) {	    
 	  });								
 	}
 
-	function processMapClick(evt, feature) {
+	function processMapClick(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
 		
   	var features = feature.get('features');
@@ -750,7 +743,7 @@
 				title = '<p>' + title + '</p>';
 				
 		  content.innerHTML = title;
-		  overlay.setPosition(coordinate);      	
+		  overlay.setPosition(coordinate);
     	getCompanyInfo(ii);
     	return;
     }
