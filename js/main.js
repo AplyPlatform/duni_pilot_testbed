@@ -670,9 +670,8 @@
 	function createNewCompanyIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-	          cname: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-	          cindex : item.cid,
-						caddress : item.name
+	          cname: item.name,
+	          cindex : item.cid						
 	      });
 
 	  pos_icon.setStyle(styleFunction((i + 1) + ""));
@@ -695,7 +694,7 @@
 	      }	      
 	      
 	      r.data.forEach(function(item, index, arr) {	    
-	      	var icon = createNewCompanyIconFor2DMap(index, {lat:item.lat, lng:item.lng, alt:0, name: item.name, cid: item.cid});		
+	      	var icon = createNewCompanyIconFor2DMap(index, item);		
 					flightCompanySource.addFeature(icon);
 	  		});
 	      
@@ -721,7 +720,7 @@
 	        return;
 	      }	      	      	   
 	         	      
-	      content.innerHTML += ('<br><p>' + r.data.address + '</p>' + '<br><p>' + r.data.phone_num_1 + '</p>');
+	      content.innerHTML += ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');
 				hideLoader();
 	    }
 	    else {	    	
