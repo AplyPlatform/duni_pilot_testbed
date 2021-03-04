@@ -520,9 +520,7 @@
 
 	var flightHistorySource;
 	var flightCompanySource;
-	var flightHistoryView;	
-	
-	var oldLonlat = 0;
+	var flightHistoryView;		
 	
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
@@ -666,50 +664,26 @@
 		vMap.on('pointermove', function(evt) {
 		        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
 		        processMapOver(evt, feature, overlay);
-				});
-				
-		vMap.on('moveend', function(evt) {						
-						
-						/*
-								
-						var extent = vMap.getView().calculateExtent(vMap.getSize());
-  					var bottomLeft = ol.proj.toLonLat(ol.extent.getBottomLeft(extent));
-  					var topRight = ol.proj.toLonLat(ol.extent.getTopRight(extent));
-  					  					
-  					if (Math.abs(bottomLeft[0] - topRight[0]) > 0.4) return;
-  					if (Math.abs(bottomLeft[1] - topRight[1]) > 0.1) return;
-  
-  					*/  					  					  					
-  					var z = vMap.getView().getZoom();
-  					if (z < 11) return;
-  					 
-  					var coord = flightHistoryView.getCenter();
-  					var lonlat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326');
-  					 					
-  					if (Math.abs(lonlat[0] - oldLonlat[0]) > 0.15 || Math.abs(lonlat[1] - oldLonlat[1]) > 0.04) {
-  							processMapMove(lonlat[0], lonlat[1]);
-  					}
-  					  					  					 					  					
-  					oldLonlat = lonlat;
-			});
+				});						
 	}
 	
 	function createNewCompanyIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          cname: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-	          cindex : (i + 1),
-						caddress : item.address
+	          cindex : item.cid,
+						caddress : item.name
 	      });
 
 	  pos_icon.setStyle(styleFunction((i + 1) + ""));
 	  return pos_icon;
 	}
 	
-	function processMapMove(curLon, curLat) {		
+	
+	function getCompanyList() {		
 		flightCompanySource.clear();
 						
-	  var jdata = {"action": "public_company_list", "lat" : curLat, "lng" : curLon};
+	  var jdata = {"action": "public_company_list"};
 
 		showLoader();	  
   	ajaxRequest(jdata, function (r) {
@@ -721,7 +695,7 @@
 	      }	      
 	      
 	      r.data.forEach(function(item, index, arr) {	    
-	      	var icon = createNewCompanyIconFor2DMap(index, {lat:item.lat, lng:item.lng, alt:0, address: item.address});		
+	      	var icon = createNewCompanyIconFor2DMap(index, {lat:item.lat, lng:item.lng, alt:0, name: item.name, cid: item.cid});		
 					flightCompanySource.addFeature(icon);
 	  		});
 	      
@@ -735,6 +709,30 @@
 	  });								
 	}
 	
+	function getCompanyInfo(cid, overlay) {										
+	  var jdata = {"action": "public_company_detail", "cid" : cid};
+
+		showLoader();	  
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	      if (r.data == null) {
+					hideLoader();
+	        return;
+	      }	      	      	   
+	         	      
+	      content.innerHTML += ('<br><p>' + r.data.address + '</p>' + '<br><p>' + r.data.phone_num_1 + '</p>');
+				hideLoader();
+	    }
+	    else {	    	
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });								
+	}
+	
+	
 	function processMapOver(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
 				
@@ -746,11 +744,12 @@
       	ii = features[i].get('cindex');      	
       	if (!isSet(ii)) return;
       	
-      	var title = features[i].get('caddress');
+      	var title = features[i].get('cname');
 				var coordinate = evt.coordinate;
 			  content.innerHTML = '<p>' + title + '</p>';
 			  overlay.setPosition(coordinate);
       	GATAGM("index_page_vMap_pointmove_cindex_" + ii, "CONTENT", langset);
+      	getCompanyInfo(ii);
       	return;
       }
       
