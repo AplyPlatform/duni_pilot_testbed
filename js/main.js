@@ -704,19 +704,23 @@
 	  });								
 	}
 	
-	function getCompanyInfo(cid) {										
+	function getCompanyInfo(title, cid) {										
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
 		
-  	ajaxRequest(jdata, function (r) {
-	    hideLoader();
+		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
+		
+  	ajaxRequest(jdata, function (r) {	    
 	    if(r.result == "success") {
 	      if (r.data == null) {
+	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
 	      }	      	      	   
 	         	      
-	      content.innerHTML += ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');				
+	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');				
 	    }	    
-	  }, function(request,status,error) {	    
+	  },
+	  	function(request,status,error) {	    
+	  		content.innerHTML = title + "<p>Failed to get more info.</p>";	  	
 	  });								
 	}
 
@@ -741,10 +745,9 @@
 				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
 			else
 				title = '<p>' + title + '</p>';
-				
-		  content.innerHTML = title;
+						  
 		  overlay.setPosition(coordinate);
-    	getCompanyInfo(ii);
+    	getCompanyInfo(title, ii);
     	return;
     }
 
