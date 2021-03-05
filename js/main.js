@@ -741,7 +741,7 @@
 	      }	      	      	   	         	      
 	      	      	         	      
 	      if (r.data.partner == true) {
-	      		title = title + "<table border=0 cellpadding=0 cellspacing=2><tr><td><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>공식 파트너 기업</b></td></tr></table>";
+	      		title = title + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
 	      }
 	      
 	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');
