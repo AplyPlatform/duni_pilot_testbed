@@ -348,8 +348,6 @@
 
 
 
-
-	var flightRecArray = [];
 	var tableCount = 0;
 	var pos_icon_image = './center/imgs/position4.png';
 	function isSet(value) {
@@ -440,39 +438,39 @@
 	          })
 	    });
 
-	    var bingLayer = new ol.layer.Tile({
-		    visible: true,
-		    preload: Infinity,
-		    source: new ol.source.BingMaps({
-		        // We need a key to get the layer from the provider.
-		        // Sign in with Bing Maps and you will get your key (for free)
-		        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-		        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
-		        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
-		        // "no photos at this zoom level" tiles
-		        maxZoom: 19
-		    })
-			});
+    var bingLayer = new ol.layer.Tile({
+	    visible: true,
+	    preload: Infinity,
+	    source: new ol.source.BingMaps({
+	        // We need a key to get the layer from the provider.
+	        // Sign in with Bing Maps and you will get your key (for free)
+	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
+	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
+	        // "no photos at this zoom level" tiles
+	        maxZoom: 19
+	    })
+		});
 
-		  var vMap = new ol.Map({
-		      target: 'map_' + index,
-		      layers: [
-		          bingLayer, vVectorLayer
-		      ],
-		      // Improve user experience by loading tiles while animating. Will make
-		      // animations stutter on mobile or slow devices.
-		      loadTilesWhileAnimating: true,
-		      view: c_view
-		    });
+	  var vMap = new ol.Map({
+	      target: 'map_' + index,
+	      layers: [
+	          bingLayer, vVectorLayer
+	      ],
+	      // Improve user experience by loading tiles while animating. Will make
+	      // animations stutter on mobile or slow devices.
+	      loadTilesWhileAnimating: true,
+	      view: c_view
+	    });
 
-		  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address});
-		  vSource.addFeature(icon);
+	  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address});
+	  vSource.addFeature(icon);
 
-	    if (isSet(flightHistorySource)) {
-	        flightHistorySource.addFeature(icon);
-	    }
+    if (isSet(flightHistorySource)) {
+        flightHistorySource.addFeature(icon);
+    }
 
-		  return vSource;
+	  return vSource;
 	}
 
 	function setAddressAndCada(address_id, address, cada, wsource) {
@@ -520,11 +518,34 @@
 
 	var flightHistorySource;
 	var flightCompanySource;
-	var flightHistoryView;		
+	var flightHistoryView;
+	
+	var vVectorLayerForCompany;
+	var vVectorLayerForHistory;
+	
+	var flightRecArray = [];
+	var companyArray = [];
 	
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
+		
+	$("#chkFlightHistory").change(function(){
+		showHistoryList($("#chkFlightHistory").is(":checked"));
+  });
+  
+  $("#chkCompany").change(function(){        
+		showCompanyList($("#chkCompany").is(":checked"));
+  });
+		
+	function showCompanyList(bshow) {		
+		vVectorLayerForCompany.setVisible(bshow);		
+	}		
+	
+	function showHistoryList(bshow) {		
+		vVectorLayerForHistory.setVisible(bshow);		
+	}
+	
 
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
@@ -559,7 +580,7 @@
 			});
 
 		var styleCacheForCompany = {};
-	  var vVectorLayerForCompany = new ol.layer.Vector({
+	  vVectorLayerForCompany = new ol.layer.Vector({
 	      source: clusterCompanySource,
 	      zIndex: 99,
 	      style:  function (feature) {
@@ -600,7 +621,7 @@
 			});
 
 		var styleCache = {};
-	  var vVectorLayer = new ol.layer.Vector({
+	  vVectorLayerForHistory = new ol.layer.Vector({
 	      source: clusterSource,
 	      zIndex: 100,
 	      style:  function (feature) {
@@ -647,7 +668,7 @@
 	  var vMap = new ol.Map({
 	      target: 'historyMap',
 	      layers: [
-	          bingLayer, vVectorLayer, vVectorLayerForCompany
+	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
 	      ],
 				overlays: [overlay],
 	      // Improve user experience by loading tiles while animating. Will make
@@ -672,9 +693,8 @@
 
 	  pos_icon.setStyle(styleFunction((i + 1) + ""));
 	  return pos_icon;
-	}
-	
-	
+	}		
+
 	function getCompanyList() {		
 		flightCompanySource.clear();
 						
@@ -689,7 +709,9 @@
 	        return;
 	      }	      
 	      
-	      r.data.forEach(function(item, index, arr) {	    
+	      companyArray = r.data;
+	      
+	      companyArray.forEach(function(item, index, arr) {	    
 	      	var icon = createNewCompanyIconFor2DMap(index, item);		
 					flightCompanySource.addFeature(icon);
 	  		});
@@ -885,13 +907,9 @@
 	  tableCount++;
 	}
 
-	function setFlightlistHistory(data) {
-	  if (data == null || data.length == 0)
-	    return;
-
-	  data.forEach(function(item) {
-	    appendFlightListTable(item);
-	    flightRecArray.push(item);
+	function setFlightlistHistory() {	  
+	  flightRecArray.forEach(function(item) {
+	    appendFlightListTable(item);	    
 	  });
 	}
 
@@ -912,7 +930,7 @@
            }
     });
 	}
-
+	
 	function getFlightList() {
 	  var jdata = {"action": "public_record_list"};
 
@@ -926,7 +944,8 @@
 	        return;
 	      }
 
-	      setFlightlistHistory(r.data);
+				flightRecArray = r.data;
+	      setFlightlistHistory();
 				hideLoader();
 	    }
 	    else {
@@ -965,12 +984,14 @@
 			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
 
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() != 1)
-					player[i].playVideo();
+				if (player[i] && typeof player[i] === 'object' 
+						&& typeof player[i].getPlayerState !== 'undefined'
+						&& player[i].getPlayerState() != 1) player[i].playVideo();
 			}
 			else {
-				if (player[i] && typeof player[i] === 'object' && player[i].getPlayerState() == 1)
-					player[i].stopVideo();
+				if (player[i] && typeof player[i] === 'object' 
+						&& typeof player[i].getPlayerState !== 'undefined'
+						&& player[i].getPlayerState() == 1) player[i].stopVideo();
 			}
 		}
 	}
