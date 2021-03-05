@@ -350,6 +350,8 @@
 
 	var tableCount = 0;
 	var pos_icon_image = './center/imgs/position4.png';
+	var duni_logo = '/duni_logo.png';
+	
 	function isSet(value) {
 	  if (value == "" || value == null || value == "undefined") return false;
 
@@ -736,8 +738,12 @@
 	      if (r.data == null) {
 	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
-	      }	      	      	   
+	      }	      	      	   	         	      
 	         	      
+	      if (r.data.partner == true) {
+	      		title + "<br><img src='" + duni_logo + "' border='0' width='50' height='14'> 공식 파트너 기업";
+	      }
+	      
 	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');				
 	    }	    
 	  },
