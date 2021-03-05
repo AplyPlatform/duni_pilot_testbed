@@ -1,4 +1,4 @@
-
+ï»¿
 
 	'use strict';
 
@@ -739,12 +739,12 @@
 	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
 	      }	      	      	   	         	      
-	         	      
+	      	      	         	      
 	      if (r.data.partner == true) {
-	      		title = title + "<br><img src='" + duni_logo + "' border='0' width='50' height='14'> °ø½Ä ÆÄÆ®³Ê ±â¾÷";
+	      		title = title + "<table border=0 cellpadding=0 cellspacing=2><tr><td><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>ê³µì‹ íŒŒíŠ¸ë„ˆ ê¸°ì—…</b></td></tr></table>";
 	      }
 	      
-	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');				
+	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');
 	    }	    
 	  },
 	  	function(request,status,error) {	    
