@@ -20,17 +20,17 @@
 	<meta name="author" content="aply.biz"/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.png"/>
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-  	<!-- Facebook and Twitter integration -->
+  <!-- Facebook and Twitter integration -->
 	<meta property="og:title" content="DUNI PILOT CENTER"/>
 	<meta property="og:image" content="https://pilot.duni.io/duni_title.png"/>
 	<meta property="og:url" content="https://pilot.duni.io"/>
 	<meta property="og:site_name" content="DUNI PILOT CENTER"/>
 	<meta property="og:description" content="DUNI PILOT - Drones Come True"/>
 	<meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="796696970892-p16dtq9oq2oks814lu661hreampk6kjn.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="796696970892-p16dtq9oq2oks814lu661hreampk6kjn.apps.googleusercontent.com">
 
 	<link href="./center/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
 
 	<!-- Animate.css -->
@@ -184,17 +184,20 @@ window.fbAsyncInit = function() {
 
 						<div class="row row-pb-sm">
 							<div class="service-wrap">
-								<div><img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record / <img src="./images/company_pos.png" width="30px" height="30px">Drone Company</div>
-								<div id="historyMap" class="service" style="width:100%;height:600px"></div>
-							</div>
+								<div class="service">
+									<div class="text-left"><img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record / <img src="./images/company_pos.png" width="30px" height="30px">Drone Education Institution</div><br>
+									<div id="historyMap" style="width:100%;height:600px"></div>
+								</div>
+							</div>														
 						</div>
 
 						<div class="row row-pb-sm">
+							<div class="service-wrap" id="dataTable-Flight_list"></div>							
 							<div class="service-wrap">
-								<div id="dataTable-Flight_list"></div>
+							<div class="service">
+								<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicflightview" id="more_label">More</a>
 							</div>
-							<div class="text-right"><a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicflightview" id="more_label">More</a></div>
-						</div>
+						</div>						
 				</div>
 			</div>
 		</div>
