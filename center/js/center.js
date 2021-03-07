@@ -3884,6 +3884,7 @@ function map3dInit() {
         clock: false,
         fullscreenButton: true,
         geocoder: false,
+        scene3DOnly: true,
         homeButton: false,
         navigationHelpButton: true,
         navigationInstructionsInitiallyVisible: false,
