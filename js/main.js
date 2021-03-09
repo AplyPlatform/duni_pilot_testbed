@@ -739,6 +739,10 @@
 	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
 	      }	      	      	   	         	      
+	      	      	         	     
+	     	if (r.data.is_playground == true) {
+	     			title = "<드론비행/체험장> " + title; 
+	     	}
 	      	      	         	      
 	      if (r.data.partner == true) {
 	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
@@ -746,10 +750,15 @@
 	      else {
 	      		title = "<b>" + title + "</b>";
 	      }
-	      	      	      
-	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');	      	      
+	      	            	      
+	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
 	      
-	      if (isSet(r.data.homeaddress)) {
+	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
+	      	title = title + ('<br>' + r.data.phone_num_2);
+	      	
+	      title = title + '</p>';
+	      
+	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
 	      		title = title + ('<div class="text-right"><a href="' + r.data.homeaddress + '" target=_new>홈페이지</a></div>');
 	      }
 	      
