@@ -741,10 +741,19 @@
 	      }	      	      	   	         	      
 	      	      	         	      
 	      if (r.data.partner == true) {
-	      		title = title + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+	      }
+	      else {
+	      		title = "<b>" + title + "</b>";
 	      }
 	      
-	      content.innerHTML = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');
+	      if (r.data.homepage != "-") {
+	      		title = title + ('<p><a href="' + r.data.homepage + '" target=_new>홈페이지</a></p>');
+	      }
+	      
+	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');	      	      
+	      
+	      content.innerHTML = title;
 	    }	    
 	  },
 	  	function(request,status,error) {	    
