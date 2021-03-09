@@ -746,12 +746,12 @@
 	      else {
 	      		title = "<b>" + title + "</b>";
 	      }
-	      
-	      if (r.data.homepage != "-") {
-	      		title = title + ('<p><a href="' + r.data.homepage + '" target=_new>홈페이지</a></p>');
-	      }
-	      
+	      	      	      
 	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1 + '</p>');	      	      
+	      
+	      if (isSet(r.data.homeaddress)) {
+	      		title = title + ('<div class="text-right"><a href="' + r.data.homeaddress + '" target=_new>홈페이지</a></div>');
+	      }
 	      
 	      content.innerHTML = title;
 	    }	    
