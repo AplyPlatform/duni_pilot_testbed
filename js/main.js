@@ -757,10 +757,17 @@
 	      	title = title + ('<br>' + r.data.phone_num_2);
 	      	
 	      title = title + '</p>';
+	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
+	      
+	      if (r.data.spe_edu == true) {
+	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
+				}
 	      
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + ('<div class="text-right"><a href="' + r.data.homeaddress + '" target=_new onClick="GATAGM(\'index_page_vMap_cindex_home_click_' + cid + '\', \'CONTENT\', langset);">홈페이지</a></div>');
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";	      		
 	      }
+	      
+	      title = title + "</tr></table>";
 	      
 	      content.innerHTML = title;
 	    }	    
