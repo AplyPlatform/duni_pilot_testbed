@@ -759,7 +759,7 @@
 	      title = title + '</p>';
 	      
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + ('<div class="text-right"><a href="' + r.data.homeaddress + '" target=_new>홈페이지</a></div>');
+	      		title = title + ('<div class="text-right"><a href="' + r.data.homeaddress + '" target=_new onClick="GATAGM(\'index_page_vMap_cindex_home_click_' + cid + '\', \'CONTENT\', langset);">홈페이지</a></div>');
 	      }
 	      
 	      content.innerHTML = title;
@@ -782,7 +782,7 @@
     	ii = features[0].get('cindex');      	
     	if (!isSet(ii)) return;
     	
-    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);    		
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);
     	
     	var title = features[0].get('cname');
 			var coordinate = evt.coordinate;
