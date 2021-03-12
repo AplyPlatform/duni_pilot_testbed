@@ -185,12 +185,20 @@ window.fbAsyncInit = function() {
 						<div class="row row-pb-sm">
 							<div class="service-wrap">
 								<div class="service">																		
-									<div class="text-left"><img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record 
-										<input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked>
-										 / 
-										<img src="./images/company_pos.png" width="30px" height="30px">Drone Company(Including Drone Education Institution)
-										<input type="checkbox" name="chkCompany" id="chkCompany" checked>								
+									<div class="text-left">
+											<table border=0 cellspacing=0 cellpadding=2><tr><td>
+													<img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record 
+											</td><td>
+													<input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked>
+											</td></tr></table>
+										
+											<table border=0 cellspacing=0 cellpadding=2><tr><td>
+													<img src="./images/company_pos.png" width="30px" height="30px">Drone Company(Including Drone Education Institution)
+											</td><td>
+													<input type="checkbox" name="chkCompany" id="chkCompany" checked>
+											</td></tr></table>
 									</div>
+									
 									<br>																		
 									<div id="historyMap" style="width:100%;height:600px"></div>
 								</div>
