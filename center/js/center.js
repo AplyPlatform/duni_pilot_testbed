@@ -78,18 +78,19 @@ $(function () {
     if (isSet(lang))
         langset = lang;
 
-    if (askToken() == false) {
-        showAskDialog(
-            LANG_JSON_DATA[langset]['modal_title'],
-            LANG_JSON_DATA[langset]['msg_do_login'],
-            LANG_JSON_DATA[langset]['modal_confirm_btn'],
-            false,
-            function () { goIndex(""); },
-            null
-        );
-        return;
-    }
-
+		
+		if (askToken() == false) {
+      showAskDialog(
+          LANG_JSON_DATA[langset]['modal_title'],
+          LANG_JSON_DATA[langset]['msg_do_login'],
+          LANG_JSON_DATA[langset]['modal_confirm_btn'],
+          false,
+          function () { goIndex(""); },
+          null
+      );
+      return;
+  	}
+    
     mixpanel.identify(getCookie("dev_user_id"));
 
     var image_url = getCookie("image_url");
@@ -288,8 +289,8 @@ function initPilotCenter() {
     if (page_action == "center") {
     		centerPageInit();
     }
-    else if (page_action == "design") {
-        $("#main_contents").load("design.html", function () {
+    else if (page_action == "missiondesign") {
+        $("#main_contents").load("mission_design.html", function () {
             mapInit();
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
@@ -297,8 +298,8 @@ function initPilotCenter() {
         });
         $("#mission_menu").addClass("active");
     }
-    else if (page_action == "list") {
-        $("#main_contents").load("list.html", function () {
+    else if (page_action == "missionlist") {
+        $("#main_contents").load("mission_list.html", function () {
             missionListInit();
         });
         $("#mission_menu").addClass("active");
@@ -317,16 +318,16 @@ function initPilotCenter() {
         });
         $("#record_menu").addClass("active");
     }
-    else if (page_action == "flightview") {
-        $("#main_contents").load("flight_view.html", function () {
+    else if (page_action == "recordlist") {
+        $("#main_contents").load("record_list.html", function () {
             mapInit();
             flightHistoryMapInit();
             flightrecordListInit("private");
         });
         $("#record_menu").addClass("active");
     }
-    else if (page_action == "publicflightview") {
-        $("#main_contents").load("flight_view.html", function () {
+    else if (page_action == "publicrecordlist") {
+        $("#main_contents").load("record_list.html", function () {
             mapInit();
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
@@ -335,8 +336,8 @@ function initPilotCenter() {
         });
         $("#record_menu").addClass("active");
     }
-    else if (page_action == "publicflightview_detail") {
-        $("#main_contents").load("flight_view_detail.html", function () {
+    else if (page_action == "publicrecordlist_detail") {
+        $("#main_contents").load("record_detail.html", function () {
             mapInit();
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
@@ -346,8 +347,8 @@ function initPilotCenter() {
         });
         $("#record_menu").addClass("active");
     }
-    else if (page_action == "flightview_detail") {
-        $("#main_contents").load("flight_view_detail.html", function () {
+    else if (page_action == "recordlist_detail") {
+        $("#main_contents").load("record_detail.html", function () {
             mapInit();
             selectMonitorIndex("private", 0);
             addObjectTo2dMap(0, "private", "drone");
@@ -2298,6 +2299,11 @@ function getFlightList(target) {
 
     if (target == "public") {
         jdata['public'] = true;
+        
+        var targetId = getQueryVariable("user_id");
+        if (isSet(targetId)) {
+        	jdata['owner_email'] = targetId;
+        }
     }
 
     if (isSet(hasMore)) {
@@ -2929,12 +2935,12 @@ function appendFlightListTable(target, item) {
         appendRow = appendRow
             + "<a onclick='GATAGM(\"flight_list_public_title_click_"
             + name + "\", \"CONTENT\", \""
-            + langset + "\");' href='" + cur_controller + "?page_action=publicflightview_detail&record_name="
+            + langset + "\");' href='" + cur_controller + "?page_action=publicrecordlist_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
     else {
         appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\", \""
-            + langset + "\");' href='" + cur_controller + "?page_action=flightview_detail&record_name="
+            + langset + "\");' href='" + cur_controller + "?page_action=recordlist_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
 
@@ -3130,7 +3136,7 @@ function deleteFlightData(name, index) {
             	removeTableRow("flight-list-" + index);
             else {
             	alert(LANG_JSON_DATA[langset]['msg_success']);
-            	location.href = cur_controller + "?page_action=flightview";
+            	location.href = cur_controller + "?page_action=recordlist";
             }
         }
     }, function (request, status, error) {
@@ -4330,7 +4336,7 @@ function uploadFlightList(isUpdate) {
     	saveYoutubeUrl(mname, youtube_data, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
-        		location.href = cur_controller + "?page_action=flightview";
+        		location.href = cur_controller + "?page_action=recordlist";
         	}
         	else {
         		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -4371,7 +4377,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, isSyncData,
             $('#uploadFileform').hide(1500);
             GATAGM('duni_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = cur_controller + "?page_action=flightview";
+            location.href = cur_controller + "?page_action=recordlist";
         }
         else {        		
             if (r.reason == "same data is exist") {
@@ -4409,7 +4415,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, 
             $('#uploadFileform').hide(1500);
             GATAGM('dji_file_upload_success', 'CONTENT', langset);
             alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = cur_controller + "?page_action=flightview";
+            location.href = cur_controller + "?page_action=recordlist";
         }
         else {
             if (r.reason == "same data is exist") {
@@ -4723,7 +4729,7 @@ function setRecordTitleName() {
         if (r.result == "success") {
 					showAlert(LANG_JSON_DATA[langset]['msg_success']);
 					cur_flightrecord_name = target_name;
-					location.href = cur_controller + "?page_action=flightview_detail&record_name=" + encodeURIComponent(target_name);
+					location.href = cur_controller + "?page_action=recordlist_detail&record_name=" + encodeURIComponent(target_name);
         }
         else {
         	if (r.reason.indexOf("already") >= 0)
@@ -4832,7 +4838,7 @@ function setYoutubePlayer(d_id) {
 }
 
 function onYouTubeIframeAPIReady() {
-		if (page_action == "flightview" || page_action == "publicflightview" || page_action == "center") {
+		if (page_action == "recordlist" || page_action == "publicrecordlist" || page_action == "center") {
     	getFlightList(current_target);
     	return;
     }

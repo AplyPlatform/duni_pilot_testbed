@@ -899,7 +899,7 @@
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
 						+ name + "\", \"CONTENT\", \""
-						+ langset + "\");' href='/center/main.html?page_action=publicflightview_detail&record_name="
+						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (isSet(flat)) {

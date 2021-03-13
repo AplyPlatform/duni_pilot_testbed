@@ -148,7 +148,7 @@ function flightHistoryMapInit() {
 			      
             if (isSet(tname)) {
             	GATAGM("plugin_map_click_" + pluginid + "_" + parent_url + "_" +  encodeURIComponent(tname), "PLUGIN", langset);
-            	var addr = "https://pilot.duni.io/center/main.html?page_action=publicflightview_detail&record_name=" + encodeURIComponent(tname);
+            	var addr = "https://pilot.duni.io/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(tname);
             	if (window.parent)
             		window.parent.location.href = addr;
             	else
