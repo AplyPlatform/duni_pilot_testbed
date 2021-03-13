@@ -2298,9 +2298,8 @@ function getFlightList(target) {
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
 
     if (target == "public") {
-        jdata['public'] = true;
-        
-        var targetId = getQueryVariable("user_id");
+        jdata['public'] = true;        
+        var targetId = decodeURIComponent(getQueryVariable("user_id"));
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
         }
