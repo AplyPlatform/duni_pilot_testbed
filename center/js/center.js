@@ -2299,7 +2299,7 @@ function getFlightList(target) {
 
     if (target == "public") {
         jdata['public'] = true;        
-        var targetId = decodeURIComponent(getQueryVariable("user_id"));
+        var targetId = decodeURIComponent(getQueryVariable("user_email"));
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
         }
@@ -2973,7 +2973,7 @@ function appendFlightListTable(target, item) {
 
     if (target == "public") {
         if (isSet(owner_email)) {            
-            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_id=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";            
+            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";            
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
