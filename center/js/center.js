@@ -2974,7 +2974,7 @@ function appendFlightListTable(target, item) {
 
     if (target == "public") {
         if (isSet(owner_email)) {            
-            var oemail = "<a href='" + cur_controller + "?page_action=page_action=publicrecordlist&user_id=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> |";            
+            var oemail = "<a href='" + cur_controller + "?page_action=page_action=publicrecordlist&user_id=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";            
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
