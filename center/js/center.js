@@ -2247,7 +2247,7 @@ function searchFlightRecord(target, keyword) {
 
     var userid = getCookie("dev_user_id");
     var isPublic = (target == "public") ? true : false;
-    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };
+    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };        
 
     hasMore = "";
 
@@ -2973,9 +2973,10 @@ function appendFlightListTable(target, item) {
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
-        if (isSet(owner_email)) {
+        if (isSet(owner_email)) {            
+            var oemail = "<a href='" + cur_controller + "?page_action=page_action=publicrecordlist&user_id=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> |";            
             $("#owner_email_" + curIndex).show();
-            $("#owner_email_" + curIndex).text(owner_email + " | ");
+            $("#owner_email_" + curIndex).text(oemail);
         }
 
         $("#memoTextarea_" + curIndex).prop('disabled', true);
