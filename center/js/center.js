@@ -1151,7 +1151,7 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
         $("#f_count_label").text(LANG_JSON_DATA[langset]["f_count_label"] + " : " + fcount);
     }
 
-    $("#f_member_count_label").text("전체 회원수 : " + mcount);
+    $("#f_member_count_label").text(mcount);
     $("#b_count_label").text("생성한 배지수 : " + bcount);
 
     // Set new default font family and font color to mimic Bootstrap's default styling
