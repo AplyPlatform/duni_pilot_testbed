@@ -177,7 +177,7 @@ function kakaoinit() {
 function appleinit() {
 	AppleID.auth.init({
             clientId : 'biz.aply.dunipilot.signin',
-            scope : 'scope=name email',
+            scope : 'name email',
             redirectURI: 'https://pilot.duni.io',            
             usePopup : true
         });
