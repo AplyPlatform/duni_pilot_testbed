@@ -244,7 +244,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     var jdata = {
         action: "member",
         daction: "login",
-        sns_token: encodeURIComponent(token),
+        sns_token: token,
         sns_kind: skind,
         device_kind: device_kind,
         device_id: device_id
