@@ -178,7 +178,8 @@ function appleinit() {
 	AppleID.auth.init({
             clientId : 'biz.aply.dunipilot.signin',
             scope : 'name email',
-            redirectURI: 'https://pilot.duni.io',            
+            redirectURI: 'https://pilot.duni.io',
+            nonce : '123423',
             usePopup : true
         });
   if (document.getElementById('appleLoginBtn')) {
