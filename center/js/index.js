@@ -270,7 +270,6 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("user_email", r.socialid, 1);
             setCookie("dev_token", r.dev_token, 1);
             setCookie("image_url", temp_image, 1);
-
             location.href = "/center/main.html?page_action=center";
         } else {
             setCookie("temp_sns_token", token, 1);
