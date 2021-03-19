@@ -271,11 +271,6 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("dev_token", r.dev_token, 1);
             setCookie("image_url", temp_image, 1);
 
-            if (getCookie("isFromApp") == "yes") {
-                Android.setToken(r.token, r.emailid);
-                return;
-            }
-
             location.href = "/center/main.html?page_action=center";
         } else {
             setCookie("temp_sns_token", token, 1);
@@ -290,6 +285,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             	showConfirmDialog();
         }
     }, function (request, status, error) {
+        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         hideLoader();
     });
 
