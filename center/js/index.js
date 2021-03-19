@@ -123,34 +123,34 @@ function naverinit() {
 }
 
 function kakaoLogin() {
-	Kakao.Auth.login({	    
+	Kakao.Auth.login({
 	    success: function(authObj) {
 	      Kakao.API.request({
 	        url: '/v2/user/me',
-	        success: function(res) {	        	
+	        success: function(res) {
             setCookie("dev_kind", "kakao", 1);
-							
+
 						var name = "";
 						var image = "";
 						var email = "";
 						var token = authObj.access_token;
-						
+
 						if ("properties" in res) {
 							if ("nickname" in res.properties) {
-								name = res.properties['nickname'];							
+								name = res.properties['nickname'];
 							}
-							
+
 							if ("profile_image" in res.properties) {
 								image = res.properties['profile_image'];
 							}
 						}
-												
+
 						if ("kakao_account" in res) {
 							if ("email" in res.kakao_account) {
 								email = res.kakao_account['email'];
-							}							
-						}																																					
-    				    				
+							}
+						}
+
     				formSubmit(token, name, image, email);
 	        },
 	        fail: function(error) {
@@ -166,12 +166,12 @@ function kakaoLogin() {
 
 function kakaoinit() {
 	Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
-	
+
 	if (document.getElementById('kakaoLoginBtn')) {
-		document.getElementById('kakaoLoginBtn').addEventListener('click', function() {    
+		document.getElementById('kakaoLoginBtn').addEventListener('click', function() {
 	  			kakaoLogin();
 		}, false);
-	}		
+	}
 }
 
 function appleinit() {
@@ -187,12 +187,12 @@ function appleinit() {
         buttonElement.addEventListener('click', () => {
             AppleID.auth.signIn();
         });
-	}		
-	
+	}
+
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
 			setCookie("dev_kind", "apple", 1);
 			var token = data.detail.authorization.id_token;
-			
+
 		  var name = "";
       var image = "";
       var email = "";
@@ -238,10 +238,22 @@ function googleinit() {
 function formSubmit(token, temp_name, temp_image, temp_email) {
     showLoader();
 
+    if (isSet(temp_name) == false) {
+        temp_name = "";
+    }
+
+    if (isSet(temp_email) == false) {
+        temp_email = "";
+    }
+
+    if (isSet(temp_image) == false) {
+        temp_image = "";
+    }
+
     var skind = getCookie("dev_kind");
-    var device_kind = getCookie("device_kind"); //¸ð¹ÙÀÏ ±â±â¿¡¼­ ·Î±×ÀÎ ´ëºñ
-    var device_id = getCookie("device_id"); //Çª½Ã ÅäÅ«
-    
+    var device_kind = getCookie("device_kind"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    var device_id = getCookie("device_id"); //Çªï¿½ï¿½ ï¿½ï¿½Å«
+
     var jdata = {
         action: "member",
         daction: "login",
@@ -256,8 +268,8 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("dev_user_id", r.emailid, 1);
             setCookie("user_token", r.token, 1);
             setCookie("user_email", r.socialid, 1);
-            setCookie("dev_token", r.dev_token, 1);            
-            setCookie("image_url", temp_image, 1);            
+            setCookie("dev_token", r.dev_token, 1);
+            setCookie("image_url", temp_image, 1);
 
             if (getCookie("isFromApp") == "yes") {
                 Android.setToken(r.token, r.emailid);
@@ -271,7 +283,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("temp_email", temp_email, 1);
             setCookie("temp_name", temp_name, 1);
             hideLoader();
-            
+
             if (r.reason.indexOf("Error:") >= 0)
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
             else
@@ -334,7 +346,7 @@ function setLang(lang) {
 
 $(function () {
     checkLang();
-    var page = window.location.href;    
+    var page = window.location.href;
 
     if (page.indexOf("navercallback.html") >= 0) {
 
