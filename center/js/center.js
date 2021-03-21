@@ -962,15 +962,18 @@ function flightHistoryMapInit() {
 		            radius: radius,
 		            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
 		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-                }),
-                text: new ol.style.Text({
-                  text: size.toString(),
-                  fill: new ol.style.Fill({ color: '#fff' }),
-                  scale: 1.5,
-                })
+                })                
               })];
-
-            styleCache[size] = style
+              
+							if (page_action != "center") {
+								style[0]["text"] = new ol.style.Text({
+				                  text: size.toString(),
+				                  fill: new ol.style.Fill({ color: '#fff' }),
+				                  scale: 1.5,
+				                });
+							}
+           
+							styleCache[size] = style
 			    }
 			    return style;
 			  },
