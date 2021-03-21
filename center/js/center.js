@@ -995,14 +995,16 @@ function flightHistoryMapInit() {
         target: 'historyMap',
         layers: [
             bingLayer, vVectorLayer, vVectorLayerForCompany
-        ],
-        
-        overlays: [overlay],
+        ],                
         // Improve user experience by loading tiles while animating. Will make
         // animations stutter on mobile or slow devices.
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
+    		
+    if (isSet(overlay)) {
+    	vMap.addOverlay(overlay);
+    }
     		
 		vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
