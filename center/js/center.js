@@ -1714,7 +1714,8 @@ function createNewIconFor2DMap(i, color, item) {
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-        mindex: i
+        mindex: i,
+        mhasYoutube : item.hasYoutube
     });
 
     return pos_icon;
@@ -2879,7 +2880,7 @@ function moveToStartPoint3D(lng, lat, alt) {
     });
 }
 
-function makeForFlightListMap(index, flat, flng) {
+function makeForFlightListMap(index, flat, flng, hasYoutube) {
     var dpoint = ol.proj.fromLonLat([flng * 1, flat * 1]);
 
     var c_view = new ol.View({
@@ -2923,7 +2924,7 @@ function makeForFlightListMap(index, flat, flng) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0 });
+    var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
     vSource.addFeature(icon);
 
     if (isSet(vVectorLayerForHistory)) {
@@ -3123,6 +3124,11 @@ function appendFlightListTable(target, item) {
         + "<div class='row'><div class='col-sm text-right'>"
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
+        
+    if (isSet(youtube_data_id)) {
+	  	var vid = getYoutubeQueryVariable(youtube_data_id);	  	
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+	  }
 
     $('#dataTable-Flight_list').append(appendRow);
 
@@ -3162,7 +3168,7 @@ function appendFlightListTable(target, item) {
 
     var retSource = null;
     if (isSet(flat)) {
-        retSource = makeForFlightListMap(curIndex, flat, flng);
+        retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
 
     setYoutubeVideo(curIndex, youtube_data_id);
@@ -3196,7 +3202,7 @@ function setYoutubeVideo(index, youtube_url) {
 				return;
 		}
 
-		var vid = getQueryVariableWithURL(youtube_url, "v");
+		var vid = getYoutubeQueryVariable(youtube_url);
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
 
@@ -5433,12 +5439,12 @@ function addChartItem(i, item) {
 
 }
 
-function getQueryVariableWithURL(query, variable) {
+function getYoutubeQueryVariable(query) {
   var varfirst = query.split('?');
   var vars = varfirst[1].split('&');
   for (var i = 0; i < vars.length; i++) {
       var pair = vars[i].split('=');
-      if (decodeURIComponent(pair[0]) == variable) {
+      if (decodeURIComponent(pair[0]) == "v") {
           return decodeURIComponent(pair[1]);
       }
   }
