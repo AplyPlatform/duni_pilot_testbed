@@ -1052,7 +1052,7 @@ function processMapClick(evt, feature, overlay) {
 function getCompanyInfo(title, cid) {										
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
 		
-		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
+		c_content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
 		
   	ajaxRequest(jdata, function (r) {	    
 	    if(r.result == "success") {
