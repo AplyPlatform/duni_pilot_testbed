@@ -36,7 +36,7 @@ var LANG_JSON_DATA = {
         "side_menu_links_codes": "DUNI 코드",
         "side_menu_links_samples": "DUNI 코드 예제",
         "title_for_company_flightlist": "비행기록 및 드론기업",
-        "title_company_chkbox": "드론기업(전문비행교육원포함)",
+        "title_company_chkbox": "드론기업(드론전문교육기관포함)",
         "title_history_chkbox": "비행기록",        
         "modifyBtnForMovieData": "영상정보 수정",
         "title_for_moviedata_label": "영상 제목",
