@@ -30,7 +30,7 @@ var lineSource;
 var flightRecArray;
 var designDataArray;
 
-var flightHistorySource;
+var vVectorLayerForHistory;
 var flightHistoryView;
 
 var flightCompanySource;	
@@ -935,11 +935,11 @@ function flightHistoryMapInit() {
 	    });
     
 
-    flightHistorySource = new ol.source.Vector();
+    vVectorLayerForHistory = new ol.source.Vector();
 
 		var clusterSource = new ol.source.Cluster({
 		  distance: 40,
-		  source: flightHistorySource,
+		  source: vVectorLayerForHistory,
 		  geometryFunction: function(feature) {
         var geom = feature.getGeometry();
     		return geom.getType() == 'Point' ? geom : null;
@@ -2926,8 +2926,8 @@ function makeForFlightListMap(index, flat, flng) {
     var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0 });
     vSource.addFeature(icon);
 
-    if (isSet(flightHistorySource)) {
-        flightHistorySource.addFeature(icon);
+    if (isSet(vVectorLayerForHistory)) {
+        vVectorLayerForHistory.addFeature(icon);
     }
 
     return vSource;
@@ -2991,8 +2991,8 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         }
 
         setAddressAndCada(disp_id, _addressText, _features, vSource);
-        if (flightHistorySource) {
-            setAddressAndCada(disp_id, _addressText, _features, flightHistorySource);
+        if (vVectorLayerForHistory) {
+            setAddressAndCada(disp_id, _addressText, _features, vVectorLayerForHistory);
         }
 
         updateCadaData(name, _addressText, response.result.featureCollection.features);
@@ -3169,7 +3169,7 @@ function appendFlightListTable(target, item) {
 
     if (isSet(retSource) && isSet(address) && address != "") {
         setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
-        setAddressAndCada("#map_address_" + curIndex, address, cada, flightHistorySource);
+        setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorLayerForHistory);
     }
     else {
         if (isSet(flat)) {
@@ -5136,18 +5136,12 @@ function showDataForDromi(index) {
 
 }
 
-
-var container = document.getElementById('popup');
-var content = document.getElementById('popup-content');
-var closer = document.getElementById('popup-closer');
-
-
 function showCompanyList(bshow) {		
 		vVectorLayerForCompany.setVisible(bshow);		
 }		
 	
 function showHistoryList(bshow) {		
-		vVectorLayerForHistory.setVisible(bshow);		
+		vVectorLayerForHistory.setVisible(bshow);				
 }
 
 function createNewCompanyIconFor2DMap(i, item) {
