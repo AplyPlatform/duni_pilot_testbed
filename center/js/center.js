@@ -14,6 +14,8 @@ limitations under the License.
 var page_action = "center";
 var current_target = "private";
 
+var duni_logo = '/duni_logo.png';
+
 var bMonStarted;
 
 var current_view;
