@@ -910,10 +910,10 @@
 	  }
 
 	  if (isSet(youtube_url)) {
-	  	setYoutubeVideo(tableCount, youtube_url);	  		  	                        			
+	  	setYoutubeVideo(curIndex, youtube_url);	  		  	                        			
 	  }
 	  else {
-	  	setEmptyVideo(tableCount);
+	  	setEmptyVideo(curIndex);
 	  }
 
 	  if (isSet(flat)) {

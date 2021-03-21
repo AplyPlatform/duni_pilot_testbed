@@ -13,21 +13,39 @@
 
   <div class="col-lg-6 mb-4">
     <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
+    		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="open_company_label">드론 기업 정보</h6>
+        </div>
+
+        <div class="card-body">										
+							<table border=0 cellspacing=0 cellpadding=2><tr><td>
+									<img src="/images/f_record_pos.png" width="30px" height="30px"><span id="title_history_chkbox">비행기록</span>
+							</td><td>
+									<input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked>
+							</td></tr></table>
+						
+							<table border=0 cellspacing=0 cellpadding=2><tr><td>
+									<img src="/images/company_pos.png" width="30px" height="30px"><span id="title_company_chkbox">드론기업(드론전문교육기관 포함)</span>
+							</td><td>
+									<input type="checkbox" name="chkCompany" id="chkCompany" checked>
+							</td></tr></table>										
+					<br>
+					<div id="historyMap" style="width:100%;height:400px"></div>
+        </div>
+    	   
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary" id="open_record_label">비행기록</h6>
+          <h6 class="m-0 font-weight-bold text-primary" id="open_record_label">공개 비행기록</h6>
         </div>
 
         <div class="card-body">
 					<div id="dataTable-Flight_list"></div>
-					<div class="text-right"><a onclick="GATAGM('more_label', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=publicrecordlist" id="more_label">공개 기록 보기</a></div>
+					<div class="text-right"><a onclick="GATAGM('more_label', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=publicrecordlist" id="more_label">더보기</a></div>
         </div>
-
-        <!-- Card Header - Dropdown -->
+        
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
           <h6 class="m-0 font-weight-bold text-primary" id="center_example_title">사용 예시</h6>
         </div>
-        <!-- Card Body -->
+
         <div class="card-body">
             <p><iframe width="100%" height="350" src="https://www.youtube.com/embed/rQzV7WLQdxA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>
         </div>
@@ -98,4 +116,9 @@
 
     </div>
   </div>
+</div>
+
+<div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
 </div>

@@ -33,6 +33,9 @@ var designDataArray;
 var flightHistorySource;
 var flightHistoryView;
 
+var flightCompanySource;	
+var vVectorLayerForCompany;
+
 var lineLayerForGlobal;
 var posLayerForGlobal;
 
@@ -44,18 +47,19 @@ var pos_icon_image = './imgs/position4.png';
 
 var isDUNIFileType = false;
 
-var arrayData = new Array();
-var posIcons = new Array();
-var chartTData = new Array();
-var chartHData = new Array();
-var chartLabelData = new Array();
-var chartLocData = new Array();
-var lineGraphData = new Array();
-var lineData = new Array();
+var arrayData = [];
+var posIcons = [];
+var chartTData = [];
+var chartHData = [];
+var chartLabelData = [];
+var chartLocData = [];
+var lineGraphData = [];
+var lineData = [];
+var companyArray = [];
 
 var tableCount = 0;
-var dromiDataArray = new Array();
-var flightDataArrayForDromi = new Array();
+var dromiDataArray = [];
+var flightDataArrayForDromi = [];
 
 var youTubePlayer = null;
 var youtube_data_id;
@@ -72,6 +76,12 @@ var cur_controller;
 var use3DMap = true;
 
 var player = []; //youtube players
+
+
+var c_container;
+var c_content;
+var c_closer;
+
 
 $(function () {
 		var lang = getCookie("language");
@@ -444,12 +454,29 @@ function centerInit() {
     $("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
 
     $("#dev_token_title").text(LANG_JSON_DATA[langset]["dev_token_title"]);
-
-
-
+    
+    
+    $("#open_company_label").text(LANG_JSON_DATA[langset]["title_for_company_flightlist"]);
+    $("#title_history_chkbox").text(LANG_JSON_DATA[langset]["title_history_chkbox"]);
+    $("#title_company_chkbox").text(LANG_JSON_DATA[langset]["title_company_chkbox"]);
+    		
     getRecordCount();
     current_target = "public";
     initYoutubeAPIForFlightList();
+    
+    c_container = document.getElementById('popup');
+		c_content = document.getElementById('popup-content');
+		c_closer = document.getElementById('popup-closer');
+		
+		$("#chkFlightHistory").change(function(){
+			showHistoryList($("#chkFlightHistory").is(":checked"));
+	  });
+	  
+	  $("#chkCompany").change(function(){        
+			showCompanyList($("#chkCompany").is(":checked"));
+	  });
+				
+    getCompanyList();
 }
 
 
@@ -848,11 +875,65 @@ function dromiListInit() {
 
 function flightHistoryMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
-
+    
+    var overlay;
+    if (isSet(c_container)) {    	
+    	overlay = new ol.Overlay({
+			  element: c_container,
+			  autoPan: true,
+			  autoPanAnimation: {
+			    duration: 250,
+			  },
+			});
+	
+			c_closer.onclick = function () {
+			  overlay.setPosition(undefined);
+			  c_closer.blur();
+			  return false;
+			};    	            
+    }
+    
     flightHistoryView = new ol.View({
         center: dpoint,
         zoom: 8
-    });
+    });    
+    
+    flightCompanySource = new ol.source.Vector();
+		var clusterCompanySource = new ol.source.Cluster({
+			  distance: 40,
+			  source: flightCompanySource,
+			  geometryFunction: function(feature) {
+	        var geom = feature.getGeometry();
+	    		return geom.getType() == 'Point' ? geom : null;
+	    	},
+			});
+
+		var styleCacheForCompany = {};
+	  vVectorLayerForCompany = new ol.layer.Vector({
+	      source: clusterCompanySource,
+	      zIndex: 99,
+	      style:  function (feature) {
+	        	if (!feature) return;
+
+				    var size = feature.get('features').length;
+				    var radius;
+				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var style = styleCacheForCompany[size];
+				    if (!style) {
+				    		style = [new ol.style.Style({
+	                image: new ol.style.Circle({
+			            radius: radius,
+			            fill: new ol.style.Fill({ color: '#779977dd' }),
+			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                })	                
+	              })];
+
+	          		styleCacheForCompany[size] = style
+				    }
+				    return style;
+				  },
+	    });
+    
 
     flightHistorySource = new ol.source.Vector();
 
@@ -913,39 +994,112 @@ function flightHistoryMapInit() {
     var vMap = new ol.Map({
         target: 'historyMap',
         layers: [
-            bingLayer, vVectorLayer
+            bingLayer, vVectorLayer, vVectorLayerForCompany
         ],
+        
+        overlays: [overlay],
         // Improve user experience by loading tiles while animating. Will make
         // animations stutter on mobile or slow devices.
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
-
-
-    vMap.on('click', function(e) {
-        var feature = vMap.forEachFeatureAtPixel(e.pixel, function (feature) { return feature; });
-
-        if (isCluster(feature)) {
-        	var features = feature.get('features');
-			    for(var i = 0; i < features.length; i++) {
-			      var ii = features[i].get('mindex');
-			      if (!isSet(ii)) return;
-
-			      GATAGM("vMap_" + ii, "CONTENT", langset);
-          	var scrollTarget = "flight-list-" + ii;
-          	location.href = "#" + scrollTarget;
-          	return;
-			    }
-        }
+    		
+		vMap.on('click', function(evt) {
+	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
+	        	processMapClick(evt, feature, overlay);
 		});
 }
 
 function isCluster(feature) {
-  if (!feature || !feature.get('features')) {
-        return false;
-  }
+	  if (!feature || !feature.get('features')) {
+	        return false;
+	  }
+	
+	  return feature.get('features').length >= 1;
+}
 
-  return feature.get('features').length >= 1;
+function processMapClick(evt, feature, overlay) {
+		if (!isCluster(feature)) return;
+		
+  	var features = feature.get('features');
+  	var count = features.length;
+		if (count <= 0) return;
+		    
+    var ii = features[0].get('mindex');
+    if (!isSet(ii)) {      	
+    	ii = features[0].get('cindex');      	
+    	if (!isSet(ii)) return;
+    	
+    	GATAGM("vMap_cindex_" + ii, "CONTENT", langset);
+    	
+    	var title = features[0].get('cname');
+			var coordinate = evt.coordinate;
+			
+			if (count > 1)
+				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
+			else
+				title = '<p>' + title + '</p>';
+						  
+		  overlay.setPosition(coordinate);
+    	getCompanyInfo(title, ii);
+    	return;
+    }
+
+    GATAGM("vMap_" + ii, "CONTENT", langset);
+    
+    var hasYoutube = features[0].get('mhasYoutube');
+  	  	
+  	if (hasYoutube)
+  		$("#video-pop-" + ii).click();
+}
+
+function getCompanyInfo(title, cid) {										
+	  var jdata = {"action": "public_company_detail", "cid" : cid};
+		
+		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
+		
+  	ajaxRequest(jdata, function (r) {	    
+	    if(r.result == "success") {
+	      if (r.data == null) {
+	      	c_content.innerHTML = title + "<p>Failed to get more info.</p>";
+	        return;
+	      }	      	      	   	         	      
+	      	      	         	     
+	     	if (r.data.is_playground == true) {
+	     			title = "<드론비행/체험장> " + title; 
+	     	}
+	      	      	         	      
+	      if (r.data.partner == true) {
+	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+	      }
+	      else {
+	      		title = "<b>" + title + "</b>";
+	      }
+	      	            	      
+	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
+	      
+	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
+	      	title = title + ('<br>' + r.data.phone_num_2);
+	      	
+	      title = title + '</p>';
+	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
+	      
+	      if (r.data.spe_edu == true) {
+	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
+				}
+	      
+	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";	      		
+	      }
+	      
+	      title = title + "</tr></table>";
+	      
+	      c_content.innerHTML = title;
+	    }	    
+	  },
+	  	function(request,status,error) {	    
+	  		c_content.innerHTML = title + "<p>Failed to get more info.</p>";	  	
+	  });								
 }
 
 function showAlert(msg) {
@@ -2292,6 +2446,8 @@ function searchFlightRecord(target, keyword) {
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
     });
 }
+
+
 
 function getFlightList(target) {
     var userid = getCookie("dev_user_id");
@@ -4976,6 +5132,62 @@ function showDataForDromi(index) {
         hideLoader();
     }
 
+}
+
+
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
+
+function showCompanyList(bshow) {		
+		vVectorLayerForCompany.setVisible(bshow);		
+}		
+	
+function showHistoryList(bshow) {		
+		vVectorLayerForHistory.setVisible(bshow);		
+}
+
+function createNewCompanyIconFor2DMap(i, item) {
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+	          cname: item.name,
+	          cindex : item.cid						
+	      });
+
+	  pos_icon.setStyle(styleFunction());
+	  return pos_icon;
+}		
+	
+function getCompanyList() {		
+		flightCompanySource.clear();
+						
+	  var jdata = {"action": "public_company_list"};
+
+		showLoader();	  
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	      if (r.data == null || r.data.length == 0) {	        
+					hideLoader();
+	        return;
+	      }	      
+	      
+	      companyArray = r.data;
+	      
+	      companyArray.forEach(function(item, index, arr) {	    
+	      	var icon = createNewCompanyIconFor2DMap(index, item);		
+					flightCompanySource.addFeature(icon);
+	  		});
+	      
+				hideLoader();
+	    }
+	    else {	    	
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });								
 }
 
 function setFlightlistForDromi(data) {
