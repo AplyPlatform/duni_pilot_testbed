@@ -875,23 +875,20 @@ function dromiListInit() {
 
 function flightHistoryMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
-    
-    var overlay;
-    if (isSet(c_container)) {    	
-    	overlay = new ol.Overlay({
-			  element: c_container,
-			  autoPan: true,
-			  autoPanAnimation: {
-			    duration: 250,
-			  },
-			});
-	
-			c_closer.onclick = function () {
-			  overlay.setPosition(undefined);
-			  c_closer.blur();
-			  return false;
-			};    	            
-    }
+            
+  	var overlay = new ol.Overlay({
+		  element: c_container,
+		  autoPan: true,
+		  autoPanAnimation: {
+		    duration: 250,
+		  },
+		});
+
+		c_closer.onclick = function () {
+		  overlay.setPosition(undefined);
+		  c_closer.blur();
+		  return false;
+		};    	                
     
     flightHistoryView = new ol.View({
         center: dpoint,
@@ -996,16 +993,13 @@ function flightHistoryMapInit() {
         layers: [
             bingLayer, vVectorLayer, vVectorLayerForCompany
         ],                
+        overlays: [ overlay ],
         // Improve user experience by loading tiles while animating. Will make
         // animations stutter on mobile or slow devices.
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
-    		
-    if (isSet(overlay)) {
-    	vMap.addOverlay(overlay);
-    }
-    		
+       	
 		vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
 	        	processMapClick(evt, feature, overlay);
