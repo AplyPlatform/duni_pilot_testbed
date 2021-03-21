@@ -3086,9 +3086,10 @@ function appendFlightListTable(target, item) {
     var owner_email = item.owner_email;
     var sharedList = item.sharedList;
     var youtube_data_id = item.youtube_data_id;
+    var curIndex = tableCount;
 
-    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + tableCount + "' name='flight-list-" + tableCount + "'><div class='card-body'><div class='row'><div class='col-sm'>";
-    appendRow = appendRow + (tableCount + 1) + " | ";
+    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
+    appendRow = appendRow + (curIndex + 1) + " | ";
     if (target == "public") {
         appendRow = appendRow
             + "<a onclick='GATAGM(\"flight_list_public_title_click_"
@@ -3105,24 +3106,24 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row
 
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + tableCount + "'></div>";
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + curIndex + "'></div>";
     }
 
     if (isSet(flat)) {
-        appendRow = appendRow + "<div class='col-sm' id='map_" + tableCount + "' style='height:200px;'></div>";
+        appendRow = appendRow + "<div class='col-sm' id='map_" + curIndex + "' style='height:200px;'></div>";
     }
 
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + tableCount + "'></a><div class='form-group'><textarea class='form-control' id='memoTextarea_" + tableCount + "' rows='3'>";
+    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a><div class='form-group'><textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='3'>";
 
     if (isSet(memo)) {
         appendRow = appendRow + memo;
     }
 
     appendRow = appendRow + "</textarea>";
-    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm'><span id='owner_email_" + tableCount + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
+    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
+    appendRow = appendRow + "</div><div class='row'><div class='col-sm'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
         + "<div class='row'><div class='col-sm text-right'>"
-        + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + tableCount + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
+        + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
         
     if (isSet(youtube_data_id)) {
@@ -3132,8 +3133,6 @@ function appendFlightListTable(target, item) {
 	  }	  	  
 
     $('#dataTable-Flight_list').append(appendRow);
-
-    var curIndex = tableCount;
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
