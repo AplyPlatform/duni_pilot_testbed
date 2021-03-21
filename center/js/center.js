@@ -32,8 +32,10 @@ var lineSource;
 var flightRecArray;
 var designDataArray;
 
-var vVectorLayerForHistory;
+
 var flightHistoryView;
+var vVectorForHistory;
+var vVectorLayerForHistory;
 
 var flightCompanySource;	
 var vVectorLayerForCompany;
@@ -934,11 +936,11 @@ function flightHistoryMapInit() {
 	    });
     
 
-    vVectorLayerForHistory = new ol.source.Vector();
+    vVectorForHistory = new ol.source.Vector();
 
 		var clusterSource = new ol.source.Cluster({
 		  distance: 40,
-		  source: vVectorLayerForHistory,
+		  source: vVectorForHistory,
 		  geometryFunction: function(feature) {
         var geom = feature.getGeometry();
     		return geom.getType() == 'Point' ? geom : null;
@@ -946,7 +948,7 @@ function flightHistoryMapInit() {
 		});
 
 		var styleCache = {};
-    var vVectorLayer = new ol.layer.Vector({
+    vVectorLayerForHistory = new ol.layer.Vector({
         source: clusterSource,
         zIndex: 1000,
         style: function (feature) {
@@ -996,7 +998,7 @@ function flightHistoryMapInit() {
     var vMap = new ol.Map({
         target: 'historyMap',
         layers: [
-            bingLayer, vVectorLayer, vVectorLayerForCompany
+            bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
         ],                
         overlays: [ overlay ],
         // Improve user experience by loading tiles while animating. Will make
@@ -2932,8 +2934,8 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
     var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
     vSource.addFeature(icon);
 
-    if (isSet(vVectorLayerForHistory)) {
-        vVectorLayerForHistory.addFeature(icon);
+    if (isSet(vVectorForHistory)) {
+        vVectorForHistory.addFeature(icon);
     }
 
     return vSource;
@@ -2997,8 +2999,8 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         }
 
         setAddressAndCada(disp_id, _addressText, _features, vSource);
-        if (vVectorLayerForHistory) {
-            setAddressAndCada(disp_id, _addressText, _features, vVectorLayerForHistory);
+        if (vVectorForHistory) {
+            setAddressAndCada(disp_id, _addressText, _features, vVectorForHistory);
         }
 
         updateCadaData(name, _addressText, response.result.featureCollection.features);
@@ -3184,7 +3186,7 @@ function appendFlightListTable(target, item) {
 
     if (isSet(retSource) && isSet(address) && address != "") {
         setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
-        setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorLayerForHistory);
+        setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorForHistory);
     }
     else {
         if (isSet(flat)) {
