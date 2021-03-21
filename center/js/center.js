@@ -892,7 +892,7 @@ function flightHistoryMapInit() {
     
     flightHistoryView = new ol.View({
         center: dpoint,
-        zoom: 8
+        zoom: 9
     });    
     
     flightCompanySource = new ol.source.Vector();

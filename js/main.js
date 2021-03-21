@@ -558,7 +558,7 @@
 
 	  flightHistoryView = new ol.View({
 	      center: dpoint,
-	      zoom: 4
+	      zoom: 7
 	    });
 	    
 	  flightCompanySource = new ol.source.Vector();
