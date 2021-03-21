@@ -1713,7 +1713,7 @@ function setMissionDataToDesignView(name) {
 function createNewIconFor2DMap(i, color, item) {
 	
 		var hasYoutube = false;
-		if (isSet(item.hasYoutube) {
+		if (isSet(item.hasYoutube)) {
     	hasYoutube = item.hasYoutube;
     }
         
