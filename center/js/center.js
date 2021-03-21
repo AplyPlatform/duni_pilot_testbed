@@ -82,7 +82,6 @@ var c_container;
 var c_content;
 var c_closer;
 
-
 $(function () {
 		var lang = getCookie("language");
     if (isSet(lang))
@@ -277,6 +276,10 @@ function centerPageInit() {
 	}
 
   $("#main_contents").load(loadPage, function () {
+  		c_container = document.getElementById('popup');
+			c_content = document.getElementById('popup-content');
+			c_closer = document.getElementById('popup-closer');
+
       mapInit();
       flightHistoryMapInit();
       centerInit();
@@ -462,11 +465,7 @@ function centerInit() {
     		
     getRecordCount();
     current_target = "public";
-    initYoutubeAPIForFlightList();
-    
-    c_container = document.getElementById('popup');
-		c_content = document.getElementById('popup-content');
-		c_closer = document.getElementById('popup-closer');
+    initYoutubeAPIForFlightList();                
 		
 		$("#chkFlightHistory").change(function(){
 			showHistoryList($("#chkFlightHistory").is(":checked"));
