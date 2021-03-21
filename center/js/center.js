@@ -968,7 +968,7 @@ function flightHistoryMapInit() {
               })];
               
 							if (page_action != "center") {
-								style[1] = new ol.style.Text({
+								style[0].text = new ol.style.Text({
 				                  text: size.toString(),
 				                  fill: new ol.style.Fill({ color: '#fff' }),
 				                  scale: 1.5
