@@ -1711,12 +1711,18 @@ function setMissionDataToDesignView(name) {
 
 
 function createNewIconFor2DMap(i, color, item) {
+	
+		var hasYoutube = false
+		if (isSet(item.hasYoutube) {
+    	hasYoutube = item.hasYoutube;
+    }
+        
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i,
-        mhasYoutube : item.hasYoutube
-    });
+        mhasYoutube : hasYoutube
+    });        
 
     return pos_icon;
 }
@@ -5147,7 +5153,7 @@ function showCompanyList(bshow) {
 }		
 	
 function showHistoryList(bshow) {		
-		vVectorLayerForHistory.setVisible(bshow);				
+		vVectorLayerForHistory.setVisible(bshow);
 }
 
 function createNewCompanyIconFor2DMap(i, item) {
@@ -5156,8 +5162,7 @@ function createNewCompanyIconFor2DMap(i, item) {
 	          cname: item.name,
 	          cindex : item.cid						
 	      });
-
-	  pos_icon.setStyle(styleFunction());
+	  
 	  return pos_icon;
 }		
 	
