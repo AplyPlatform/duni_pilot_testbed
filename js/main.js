@@ -898,7 +898,9 @@
 
 	  $('#dataTable-Flight_list').append(appendRow);
 
-		$("#video-pop-" + curIndex).videoPopup();				
+		if (isSet(youtube_url)) {
+			$("#video-pop-" + curIndex).videoPopup();				
+		}
 
 		var retSource = null;
 		if (isSet(flat)) {

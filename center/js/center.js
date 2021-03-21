@@ -3128,11 +3128,15 @@ function appendFlightListTable(target, item) {
         
     if (isSet(youtube_data_id)) {
 	  	var vid = getYoutubeQueryVariable(youtube_data_id);	  	
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
-			$("#video-pop-" + curIndex).videoPopup();
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";			
 	  }	  	  
 
     $('#dataTable-Flight_list').append(appendRow);
+    
+    if (isSet(youtube_data_id)) {	  	
+			$("#video-pop-" + curIndex).videoPopup();
+	  }	  	  
+    
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
