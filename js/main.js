@@ -372,7 +372,7 @@
 	  );
 	}
 
-	function styleFunction(textMsg) {
+	function styleFunction() {
 	  return [
 	    new ol.style.Style(
 	    	{
@@ -381,18 +381,7 @@
 		        crossOrigin: 'anonymous',
 		        scale: 1.5,
 		        src: pos_icon_image
-		      	}))
-		      ,
-		      text: new ol.style.Text({
-		        font: '12px Calibri,sans-serif',
-		        fill: new ol.style.Fill({ color: '#000' }),
-		        stroke: new ol.style.Stroke({
-		          color: '#fff', width: 2
-		        }),
-		        // get the text from the feature - `this` is ol.Feature
-		        // and show only under certain resolution
-		        text: textMsg
-		      	})
+		      	}))		      		      
 	    	})
 	  ];
 	}
@@ -402,15 +391,16 @@
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
 	          mindex : i,
-						maddress : item.address
+						maddress : item.address,
+						mhasYoutube : item.hasYoutube
 	      });
 
-	  pos_icon.setStyle(styleFunction((i + 1) + ""));
+	  pos_icon.setStyle(styleFunction());
 
 	  return pos_icon;
 	}
 
-	function makeForFlightListMap(index, flat, flng, address) {
+	function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		var dpoint = ol.proj.fromLonLat([flng, flat]);
 
 	  var c_view = new ol.View({
@@ -465,7 +455,7 @@
 	      view: c_view
 	    });
 
-	  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address});
+	  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address, hasYoutube : hasYoutube});
 	  vSource.addFeature(icon);
 
     if (isSet(flightHistorySource)) {
@@ -596,14 +586,9 @@
 				    		style = [new ol.style.Style({
 	                image: new ol.style.Circle({
 			            radius: radius,
-			            fill: new ol.style.Fill({ color: '#a08bd23e' }),
+			            fill: new ol.style.Fill({ color: '#779977dd' }),
 			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                }),
-	                text: new ol.style.Text({
-	                  text: size.toString(),
-	                  fill: new ol.style.Fill({ color: '#fff' }),
-	                  scale: 1.5,
-	                })
+	                })	                
 	              })];
 
 	          		styleCacheForCompany[size] = style
@@ -635,16 +620,11 @@
 				    var style = styleCache[size];
 				    if (!style) {
 				       	style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-			            radius: radius,
-			            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
-			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                }),
-	                text: new ol.style.Text({
-	                  text: size.toString(),
-	                  fill: new ol.style.Fill({ color: '#fff' }),
-	                  scale: 1.5,
-	                })
+		                image: new ol.style.Circle({
+					            radius: radius,
+					            fill: new ol.style.Fill({ color: '#964383dd' }),
+					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                	})
 	              })];
 
 	          		styleCache[size] = style
@@ -693,7 +673,7 @@
 	          cindex : item.cid						
 	      });
 
-	  pos_icon.setStyle(styleFunction((i + 1) + ""));
+	  pos_icon.setStyle(styleFunction());
 	  return pos_icon;
 	}		
 
@@ -805,8 +785,11 @@
     }
 
     GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
-  	var scrollTarget = "flight-list-" + ii;
-  	location.href = "#" + scrollTarget;        
+    
+    var hasYoutube = features[0].get('mhasYoutube');
+  	  	
+  	if (hasYoutube)
+  		$("#video-pop-" + ii).click();
 	}
 
 	function isCluster(feature) {
@@ -822,15 +805,17 @@
 		flightHistoryView.setCenter(npos);
 	}
 
-	function getQueryVariable(query, variable) {
+	function getYoutubeQueryVariable(query) {
     var varfirst = query.split('?');
     var vars = varfirst[1].split('&');
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
+        if (decodeURIComponent(pair[0]) == "v") {
             return decodeURIComponent(pair[1]);
         }
     }
+    
+    return "";
 	}
 
 	var player = [];
@@ -849,9 +834,7 @@
 	}
 
 	function setYoutubeVideo(index, youtube_url) {
-		var vid = getQueryVariable(youtube_url, "v");
-		//$("#youTubePlayer_" + index).show();
-		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/" + vid);
+		var vid = getYoutubeQueryVariable(youtube_url);
 
 		player[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
@@ -861,7 +844,7 @@
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       }
-    });
+    });    
 	}
 
 	function onPlayerReady(event) {
@@ -880,21 +863,19 @@
 		var flng = item.flng;
 		var address = item.address;
 		var cada = item.cada;
-		var youtube_url = item.youtube_data_id;
-
-	  var appendRow = "<div class='service' id='flight-list-" + tableCount + "' name='flight-list-" + tableCount + "'><div class='row'>";
+		var youtube_url = item.youtube_data_id;		
+		var curIndex = tableCount;
+	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 
 	  if (isSet(flat)) {
-	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + tableCount + "' style='height:200px;width:100%;'></div>";
+	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
 	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
 	  }
 	  else {
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }
-
-	  //appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'><iframe id='youTubePlayerIframe_" + tableCount + "' width='100%' height='200' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>";//row
-	  appendRow = appendRow + "<div id='youTubePlayer_" + tableCount + "'></div>";//row
-
+	  
+	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row	  	  
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
@@ -903,36 +884,40 @@
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (isSet(flat)) {
-	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + tableCount + "'></span></small>";
+	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
 
 	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
 
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
+	  
+	  if (isSet(youtube_url)) {
+	  	var vid = getYoutubeQueryVariable(youtube_url);	  	
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+	  }
 
 	  $('#dataTable-Flight_list').append(appendRow);
 
-		var curIndex = tableCount;
+		$("#video-pop-" + curIndex).videoPopup();				
 
 		var retSource = null;
 		if (isSet(flat)) {
-	  	retSource = makeForFlightListMap(curIndex, flat, flng, address);
+	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));	  	
 	  }
 
 	  if (isSet(retSource) && isSet(address) && address != "") {
 	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
 	  }
 
-
 	  if (isSet(youtube_url)) {
-	  	setYoutubeVideo(tableCount, youtube_url);
+	  	setYoutubeVideo(tableCount, youtube_url);	  		  	                        			
 	  }
 	  else {
 	  	setEmptyVideo(tableCount);
 	  }
 
 	  if (isSet(flat)) {
-        moveFlightHistoryMap(flat * 1, flng * 1);
+      moveFlightHistoryMap(flat * 1, flng * 1);
     }
 
 	  tableCount++;
