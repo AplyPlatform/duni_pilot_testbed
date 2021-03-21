@@ -148,6 +148,11 @@ function setViewMode() {
 
 	if(viewmode == "pilot") {
 		cur_controller = "/center/main.html";
+		
+		c_container = document.getElementById('popup');
+		c_content = document.getElementById('popup-content');
+		c_closer = document.getElementById('popup-closer');
+		
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
@@ -275,11 +280,7 @@ function centerPageInit() {
 			loadPage = "center_dev.html";
 	}
 
-  $("#main_contents").load(loadPage, function () {
-  		c_container = document.getElementById('popup');
-			c_content = document.getElementById('popup-content');
-			c_closer = document.getElementById('popup-closer');
-
+  $("#main_contents").load(loadPage, function () {  		
       mapInit();
       flightHistoryMapInit();
       centerInit();
