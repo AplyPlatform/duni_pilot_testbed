@@ -2084,12 +2084,10 @@ function askToken() {
 
 function isSet(value) {		
 		if ( typeof(value) === 'number' )
-	      return true;
-	      
-	  if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
-			return false;
-	
-	  return true;
+        return true;
+    if (value == "" || value == null || value == "undefined" || value == undefined)
+        return false;
+    return true;
 }
 
 
