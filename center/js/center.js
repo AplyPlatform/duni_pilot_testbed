@@ -1052,8 +1052,13 @@ function processMapClick(evt, feature, overlay) {
     
     var hasYoutube = features[0].get('mhasYoutube');
   	  	
-  	if (hasYoutube)
+  	if (hasYoutube) {
   		$("#video-pop-" + ii).click();
+  	}
+  	else {
+  		var scrollTarget = "flight-list-" + ii;
+			location.href = "#" + scrollTarget;
+  	}
 }
 
 function getCompanyInfo(title, cid) {										
