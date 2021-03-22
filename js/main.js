@@ -590,16 +590,14 @@
 	                image: new ol.style.Circle({
 			            radius: radius,
 			            fill: new ol.style.Fill({ color: '#779977dd' }),
-			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 }),
+									text: new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+													})
 	                })
 	              })];
-
-								style[0].setText(new ol.style.Text({
-				                  text: size.toString(),
-				                  fill: new ol.style.Fill({ color: '#fff' }),
-				                  scale: 1.5
-								}));
-
 	          		styleCacheForCompany[size] = style
 				    }
 				    return style;
@@ -632,7 +630,12 @@
 		                image: new ol.style.Circle({
 					            radius: radius,
 					            fill: new ol.style.Fill({ color: '#964383dd' }),
-					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 }),
+											text: new ol.style.Text({
+							                  text: size.toString(),
+							                  fill: new ol.style.Fill({ color: '#fff' }),
+							                  scale: 1.5
+															})
 	                	})
 	              })];
 
@@ -771,7 +774,7 @@
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0 || count >= 1) return;
+		if (count <= 0 || count >= 2) return;
 
     var ii = features[0].get('mindex');
     if (!isSet(ii)) {

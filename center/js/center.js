@@ -37,7 +37,7 @@ var flightHistoryView;
 var vVectorForHistory;
 var vVectorLayerForHistory;
 
-var flightCompanySource;	
+var flightCompanySource;
 var vVectorLayerForCompany;
 
 var lineLayerForGlobal;
@@ -91,7 +91,7 @@ $(function () {
     if (isSet(lang))
         langset = lang;
 
-		
+
 		if (askToken() == false) {
       showAskDialog(
           LANG_JSON_DATA[langset]['modal_title'],
@@ -103,7 +103,7 @@ $(function () {
       );
       return;
   	}
-    
+
     mixpanel.identify(getCookie("dev_user_id"));
 
     var image_url = getCookie("image_url");
@@ -152,11 +152,11 @@ function setViewMode() {
 
 	if(viewmode == "pilot") {
 		cur_controller = "/center/main.html";
-		
+
 		c_container = document.getElementById('popup');
 		c_content = document.getElementById('popup-content');
 		c_closer = document.getElementById('popup-closer');
-		
+
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
@@ -284,7 +284,7 @@ function centerPageInit() {
 			loadPage = "center_dev.html";
 	}
 
-  $("#main_contents").load(loadPage, function () {  		
+  $("#main_contents").load(loadPage, function () {
       mapInit();
       flightHistoryMapInit();
       centerInit();
@@ -462,24 +462,24 @@ function centerInit() {
     $("#more_label").text(LANG_JSON_DATA[langset]["more_label"]);
 
     $("#dev_token_title").text(LANG_JSON_DATA[langset]["dev_token_title"]);
-    
-    
+
+
     $("#open_company_label").text(LANG_JSON_DATA[langset]["title_for_company_flightlist"]);
     $("#title_history_chkbox").text(LANG_JSON_DATA[langset]["title_history_chkbox"]);
     $("#title_company_chkbox").text(LANG_JSON_DATA[langset]["title_company_chkbox"]);
-    		
+
     getRecordCount();
     current_target = "public";
-    initYoutubeAPIForFlightList();                
-		
+    initYoutubeAPIForFlightList();
+
 		$("#chkFlightHistory").change(function(){
 			showHistoryList($("#chkFlightHistory").is(":checked"));
 	  });
-	  
-	  $("#chkCompany").change(function(){        
+
+	  $("#chkCompany").change(function(){
 			showCompanyList($("#chkCompany").is(":checked"));
 	  });
-				
+
     getCompanyList();
 }
 
@@ -879,7 +879,7 @@ function dromiListInit() {
 
 function flightHistoryMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
-            
+
   	var overlay = new ol.Overlay({
 		  element: c_container,
 		  autoPan: true,
@@ -892,13 +892,13 @@ function flightHistoryMapInit() {
 		  overlay.setPosition(undefined);
 		  c_closer.blur();
 		  return false;
-		};    	                
-    
+		};
+
     flightHistoryView = new ol.View({
         center: dpoint,
         zoom: 9
-    });    
-    
+    });
+
     flightCompanySource = new ol.source.Vector();
 		var clusterCompanySource = new ol.source.Cluster({
 			  distance: 40,
@@ -926,15 +926,23 @@ function flightHistoryMapInit() {
 			            radius: radius,
 			            fill: new ol.style.Fill({ color: '#779977dd' }),
 			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                })	                
+	                })
 	              })];
+
+								if (page_action != "center") {
+									style[0].setText(new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+									}));
+								}
 
 	          		styleCacheForCompany[size] = style
 				    }
 				    return style;
 				  },
 	    });
-    
+
 
     vVectorForHistory = new ol.source.Vector();
 
@@ -964,9 +972,9 @@ function flightHistoryMapInit() {
 		            radius: radius,
 		            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
 		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-                })                
+                })
               })];
-              
+
 							if (page_action != "center") {
 								style[0].setText(new ol.style.Text({
 				                  text: size.toString(),
@@ -974,7 +982,7 @@ function flightHistoryMapInit() {
 				                  scale: 1.5
 								}));
 							}
-           
+
 							styleCache[size] = style
 			    }
 			    return style;
@@ -999,16 +1007,16 @@ function flightHistoryMapInit() {
         target: 'historyMap',
         layers: [
             bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
-        ],                
+        ],
         overlays: [ overlay ],
         // Improve user experience by loading tiles while animating. Will make
         // animations stutter on mobile or slow devices.
         loadTilesWhileAnimating: true,
         view: flightHistoryView
     });
-       	
+
 		vMap.on('click', function(evt) {
-	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
+	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
 	        	processMapClick(evt, feature, overlay);
 		});
 }
@@ -1017,41 +1025,41 @@ function isCluster(feature) {
 	  if (!feature || !feature.get('features')) {
 	        return false;
 	  }
-	
+
 	  return feature.get('features').length >= 1;
 }
 
 function processMapClick(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
-		
+
   	var features = feature.get('features');
   	var count = features.length;
 		if (count <= 0) return;
-		    
+
     var ii = features[0].get('mindex');
-    if (!isSet(ii)) {      	
-    	ii = features[0].get('cindex');      	
+    if (!isSet(ii)) {
+    	ii = features[0].get('cindex');
     	if (!isSet(ii)) return;
-    	
+
     	GATAGM("vMap_cindex_" + ii, "CONTENT", langset);
-    	
+
     	var title = features[0].get('cname');
 			var coordinate = evt.coordinate;
-			
+
 			if (count > 1)
 				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
 			else
 				title = '<p>' + title + '</p>';
-						  
+
 		  overlay.setPosition(coordinate);
     	getCompanyInfo(title, ii);
     	return;
     }
 
     GATAGM("vMap_" + ii, "CONTENT", langset);
-    
+
     var hasYoutube = features[0].get('mhasYoutube');
-  	  	
+
   	if (hasYoutube) {
   		$("#video-pop-" + ii).click();
   	}
@@ -1061,53 +1069,53 @@ function processMapClick(evt, feature, overlay) {
   	}
 }
 
-function getCompanyInfo(title, cid) {										
+function getCompanyInfo(title, cid) {
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
-		
-		c_content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
-		
-  	ajaxRequest(jdata, function (r) {	    
+
+		c_content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
+
+  	ajaxRequest(jdata, function (r) {
 	    if(r.result == "success") {
 	      if (r.data == null) {
 	      	c_content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
-	      }	      	      	   	         	      
-	      	      	         	     
+	      }
+
 	     	if (r.data.is_playground == true) {
-	     			title = "<드론비행/체험장> " + title; 
+	     			title = "<드론비행/체험장> " + title;
 	     	}
-	      	      	         	      
+
 	      if (r.data.partner == true) {
 	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
 	      }
 	      else {
 	      		title = "<b>" + title + "</b>";
 	      }
-	      	            	      
+
 	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
-	      
+
 	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
 	      	title = title + ('<br>' + r.data.phone_num_2);
-	      	
+
 	      title = title + '</p>';
 	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
-	      
+
 	      if (r.data.spe_edu == true) {
 	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
 				}
-	      
+
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";	      		
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
 	      }
-	      
+
 	      title = title + "</tr></table>";
-	      
+
 	      c_content.innerHTML = title;
-	    }	    
+	    }
 	  },
-	  	function(request,status,error) {	    
-	  		c_content.innerHTML = title + "<p>Failed to get more info.</p>";	  	
-	  });								
+	  	function(request,status,error) {
+	  		c_content.innerHTML = title + "<p>Failed to get more info.</p>";
+	  });
 }
 
 function showAlert(msg) {
@@ -1128,12 +1136,12 @@ function getAllRecordCount() {
     showLoader();
     ajaxRequest(jdata, function (r) {
     		hideLoader();
-    		
-        if (r.result == "success") {            
+
+        if (r.result == "success") {
             setSummaryDashBoard(r.b_count, r.record_count, r.mission_count, r.member_count);
         }
         else {
-            setSummaryDashBoard(0, 0, 0, 0);        
+            setSummaryDashBoard(0, 0, 0, 0);
         }
     }, function (request, status, error) {
         setSummaryDashBoard(0, 0, 0, 0);
@@ -1225,12 +1233,12 @@ function removePlugin() {
     showLoader();
     ajaxRequest(jdata, function (r) {
     		hideLoader();
-    		
-        if (r.result == "success") {            
+
+        if (r.result == "success") {
             setBadgeView(null);
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);            
+            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         }
     }, function (request, status, error) {
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -1245,11 +1253,11 @@ function generatePlugin(callsign) {
     showLoader();
     ajaxRequest(jdata, function (r) {
     		hideLoader();
-        if (r.result == "success") {            
+        if (r.result == "success") {
             setBadgeView(r);
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);            
+            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         }
     }, function (request, status, error) {
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -1262,15 +1270,15 @@ function getPublicRecordCount(rcount, mcount, alltime) {
     var jdata = { "action": "position", "daction": "public_count", "clientid": userid };
 
     showLoader();
-    ajaxRequest(jdata, function (r) {    		
+    ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
-            setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);            
+            setDashBoard(rcount, mcount, alltime, r.ercount, r.ealltime);
         }
         else {
             setDashBoard(0, 0, 0, 0, 0, 0);
-            setBadgeView(null);        
+            setBadgeView(null);
         }
-        
+
         hideLoader();
     }, function (request, status, error) {
         setDashBoard(0, 0, 0, 0, 0, 0);
@@ -1291,9 +1299,9 @@ function getRecordCount() {
         }
         else {
             setDashBoard(0, 0, 0, 0, 0, 0);
-            setBadgeView(null);            
+            setBadgeView(null);
             hideLoader();
-        }                
+        }
     }, function (request, status, error) {
         setDashBoard(0, 0, 0, 0, 0, 0);
         hideLoader();
@@ -1699,14 +1707,14 @@ function setMissionDataToDesignView(name) {
 
     ajaxRequest(jdata, function (r) {
     		hideLoader();
-        if (r.result == "success") {            
+        if (r.result == "success") {
 
             if (!isSet(r.data.mission) || r.data.mission.length == 0) return;
             designDataArray = r.data.mission;
             setDesignTable();
         }
         else {
-            showAlert(LANG_JSON_DATA[langset]['msg_no_mission']);            
+            showAlert(LANG_JSON_DATA[langset]['msg_no_mission']);
         }
     }, function (request, status, error) {
 
@@ -1717,18 +1725,18 @@ function setMissionDataToDesignView(name) {
 
 
 function createNewIconFor2DMap(i, color, item) {
-	
+
 		var hasYoutube = false;
 		if (isSet(item.hasYoutube)) {
     	hasYoutube = item.hasYoutube;
     }
-        
+
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i,
         mhasYoutube : hasYoutube
-    });        
+    });
 
     return pos_icon;
 }
@@ -2082,7 +2090,7 @@ function askToken() {
 }
 
 
-function isSet(value) {		
+function isSet(value) {
 		if ( typeof(value) === 'number' )
         return true;
     if (value == "" || value == null || value == "undefined" || value == undefined)
@@ -2112,7 +2120,7 @@ function getMissionList() {
             else {
                 $('#btnForGetMissionList').hide(1500);
                 hasMore = null;
-            }            
+            }
         }
         else {
             if (r.reason == "no data") {
@@ -2120,9 +2128,9 @@ function getMissionList() {
             }
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-            }            
+            }
         }
-        
+
         hideLoader();
     }, function (request, status, error) {
         hideLoader();
@@ -2403,7 +2411,7 @@ function searchMission(keyword) {
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
             }
-            
+
             hideLoader();
         }
     }, function (request, status, error) {
@@ -2419,12 +2427,12 @@ function searchFlightRecord(target, keyword) {
 
     var userid = getCookie("dev_user_id");
     var isPublic = (target == "public") ? true : false;
-    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };        
+    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };
 
     hasMore = "";
 
     showLoader();
-    ajaxRequest(jdata, function (r) {    		        
+    ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
                 showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
@@ -2456,7 +2464,7 @@ function searchFlightRecord(target, keyword) {
             else {
                 showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
             }
-            
+
             hideLoader();
         }
     }, function (request, status, error) {
@@ -2472,7 +2480,7 @@ function getFlightList(target) {
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
 
     if (target == "public") {
-        jdata['public'] = true;        
+        jdata['public'] = true;
         var targetId = decodeURIComponent(getQueryVariable("user_email"));
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
@@ -2484,7 +2492,7 @@ function getFlightList(target) {
     }
 
     showLoader();
-    ajaxRequest(jdata, function (r) {        
+    ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
                 showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
@@ -2573,9 +2581,9 @@ function stopShareFlightData(index, name, target_id) {
             $("#shareid_" + index).hide();
             if (target_id == "public@duni.io") {
                 $("#btnForPublic").show();
-            }            
+            }
         }
-        
+
         hideLoader();
     }, function (request, status, error) {
         hideLoader();
@@ -2658,7 +2666,7 @@ function makeShareFlightData(name, user_email) {
 }
 
 function showDataWithName(target, name) {
-	
+
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid };
 
@@ -2967,7 +2975,7 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 
     ajaxRequest(jdata, function (r) {
     	  hideLoader();
-        if (r == null || r.data == null || r.data.response.status !== "OK") {        	
+        if (r == null || r.data == null || r.data.response.status !== "OK") {
         	return;
         }
 
@@ -3140,23 +3148,23 @@ function appendFlightListTable(target, item) {
         + "<div class='row'><div class='col-sm text-right'>"
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
-        
+
     if (isSet(youtube_data_id)) {
-	  	var vid = getYoutubeQueryVariable(youtube_data_id);	  	
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";			
-	  }	  	  
+	  	var vid = getYoutubeQueryVariable(youtube_data_id);
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+	  }
 
     $('#dataTable-Flight_list').append(appendRow);
-    
-    if (isSet(youtube_data_id)) {	  	
+
+    if (isSet(youtube_data_id)) {
 			$("#video-pop-" + curIndex).videoPopup();
-	  }	  	  
-    
+	  }
+
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
-        if (isSet(owner_email)) {            
-            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";            
+        if (isSet(owner_email)) {
+            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
@@ -4092,7 +4100,7 @@ function map3dInit() {
     );
 
     scene3d = viewer.scene;
-    
+
     const osmBuildings = scene3d.primitives.add(Cesium.createOsmBuildings());
 
     //Actually create the entity
@@ -4495,12 +4503,12 @@ function uploadFlightList(isUpdate) {
 
     var files = document.getElementById('flight_record_file').files;
     if (files.length > 0) {
-    	
+
     	if (isSet(youtube_data)) {
     		askIsSyncData();
     		return;
     	}
-    	
+
     	showLoader();
 
     	if (isDUNIFileType == false)
@@ -4562,7 +4570,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, isSyncData,
             alert(LANG_JSON_DATA[langset]['msg_success']);
             location.href = cur_controller + "?page_action=recordlist";
         }
-        else {        		
+        else {
             if (r.reason == "same data is exist") {
             		GATAGM('duni_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
@@ -4571,7 +4579,7 @@ function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, isSyncData,
             	GATAGM('duni_file_upload_failed', 'CONTENT', langset);
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
             }
-            
+
             hideLoader();
         }
     }, function (request, status, error) {
@@ -5142,9 +5150,9 @@ function showDataForDromi(index) {
                     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
                 }
                 else {
-                    setFlightRecordDataToView(target, r.data, false);                    
+                    setFlightRecordDataToView(target, r.data, false);
                 }
-                
+
                 hideLoader();
             }, function (request, status, error) {
                 hideLoader();
@@ -5161,11 +5169,11 @@ function showDataForDromi(index) {
 
 }
 
-function showCompanyList(bshow) {		
-		vVectorLayerForCompany.setVisible(bshow);		
-}		
-	
-function showHistoryList(bshow) {		
+function showCompanyList(bshow) {
+		vVectorLayerForCompany.setVisible(bshow);
+}
+
+function showHistoryList(bshow) {
 		vVectorLayerForHistory.setVisible(bshow);
 }
 
@@ -5173,41 +5181,41 @@ function createNewCompanyIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          cname: item.name,
-	          cindex : item.cid						
+	          cindex : item.cid
 	      });
-	  
+
 	  return pos_icon;
-}		
-	
-function getCompanyList() {		
+}
+
+function getCompanyList() {
 		flightCompanySource.clear();
-						
+
 	  var jdata = {"action": "public_company_list"};
 
-		showLoader();	  
+		showLoader();
   	ajaxRequest(jdata, function (r) {
 	    hideLoader();
 	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {	        
+	      if (r.data == null || r.data.length == 0) {
 					hideLoader();
 	        return;
-	      }	      
-	      
+	      }
+
 	      companyArray = r.data;
-	      
-	      companyArray.forEach(function(item, index, arr) {	    
-	      	var icon = createNewCompanyIconFor2DMap(index, item);		
+
+	      companyArray.forEach(function(item, index, arr) {
+	      	var icon = createNewCompanyIconFor2DMap(index, item);
 					flightCompanySource.addFeature(icon);
 	  		});
-	      
+
 				hideLoader();
 	    }
-	    else {	    	
+	    else {
 				hideLoader();
 	    }
 	  }, function(request,status,error) {
 	    hideLoader();
-	  });								
+	  });
 }
 
 function setFlightlistForDromi(data) {
@@ -5394,18 +5402,18 @@ function convert2data(t) {
 
 function getColorPerAlt3d(alt) {
     var icon_color = Math.floor(alt * 1.2);
-    
+
     var g = 40 + icon_color;
     if (g > 255) g = 255;
-        
+
     return Cesium.Color.fromBytes(4, g, 4, 230);
 }
 
 function getColorPerAlt(alt) {
     var icon_color = Math.floor(alt * 1.2);
-    
-    var g = 40 + icon_color;        
-    if (g > 255) g = 255;    
+
+    var g = 40 + icon_color;
+    if (g > 255) g = 255;
 
     var pos_icon_color = "#04" + g.toString(16) + "04";
     return pos_icon_color;
