@@ -184,7 +184,7 @@ function appleinit() {
         });
   if (document.getElementById('appleLoginBtn')) {
   			const buttonElement = document.getElementById('appleLoginBtn');
-        buttonElement.addEventListener('click', () => {
+        buttonElement.addEventListener('click', function() {
             AppleID.auth.signIn();
         });
 	}
