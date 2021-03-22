@@ -450,6 +450,7 @@
 	      target: 'map_' + index,
 	      layers: [
 	          bingLayer, vVectorLayer
+	          //vVectorLayer
 	      ],
 	      // Improve user experience by loading tiles while animating. Will make
 	      // animations stutter on mobile or slow devices.
@@ -652,7 +653,7 @@
 	  var vMap = new ol.Map({
 	      target: 'historyMap',
 	      layers: [
-	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
+	          vVectorLayerForHistory, vVectorLayerForCompany
 	      ],
 				overlays: [overlay],
 	      // Improve user experience by loading tiles while animating. Will make
