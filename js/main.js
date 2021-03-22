@@ -588,15 +588,15 @@
 				    if (!style) {
 				    		style = [new ol.style.Style({
 	                image: new ol.style.Circle({
-			            radius: radius,
-			            fill: new ol.style.Fill({ color: '#779977dd' }),
-			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 }),
+				            radius: radius,
+				            fill: new ol.style.Fill({ color: '#779977dd' }),
+				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+									}),
 									text: new ol.style.Text({
-					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#fff' }),
-					                  scale: 1.5
+														text: size.toString(),
+														fill: new ol.style.Fill({ color: '#fff' }),
+														scale: 1.5
 													})
-	                })
 	              })];
 	          		styleCacheForCompany[size] = style
 				    }
@@ -628,15 +628,15 @@
 				    if (!style) {
 				       	style = [new ol.style.Style({
 		                image: new ol.style.Circle({
-					            radius: radius,
-					            fill: new ol.style.Fill({ color: '#964383dd' }),
-					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 }),
-											text: new ol.style.Text({
-							                  text: size.toString(),
-							                  fill: new ol.style.Fill({ color: '#fff' }),
-							                  scale: 1.5
-															})
-	                	})
+						            radius: radius,
+						            fill: new ol.style.Fill({ color: '#964383dd' }),
+						            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                		}),
+										text: new ol.style.Text({
+												text: size.toString(),
+												fill: new ol.style.Fill({ color: '#fff' }),
+												scale: 1.5
+											})
 	              })];
 
 	          		styleCache[size] = style
