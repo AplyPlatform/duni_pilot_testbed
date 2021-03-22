@@ -591,13 +591,17 @@
 				            radius: radius,
 				            fill: new ol.style.Fill({ color: '#779977dd' }),
 				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-									}),
-									text: new ol.style.Text({
-														text: size.toString(),
-														fill: new ol.style.Fill({ color: '#fff' }),
-														scale: 1.5
-													})
+									})
 	              })];
+
+								if (size > 1) {
+									style[0].setText(new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+									}));
+								}
+
 	          		styleCacheForCompany[size] = style
 				    }
 				    return style;
@@ -631,13 +635,16 @@
 						            radius: radius,
 						            fill: new ol.style.Fill({ color: '#964383dd' }),
 						            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                		}),
-										text: new ol.style.Text({
-												text: size.toString(),
-												fill: new ol.style.Fill({ color: '#fff' }),
-												scale: 1.5
-											})
+	                		})
 	              })];
+
+								if (size > 1) {
+									style[0].setText(new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+									}));
+								}
 
 	          		styleCache[size] = style
 				    }
@@ -673,7 +680,7 @@
 
 	  vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(evt, feature, overlay);
+	        	processMapClick(vMap, evt, feature, overlay);
 			});
 
 	}
@@ -769,12 +776,24 @@
 	  });
 	}
 
-	function processMapClick(evt, feature, overlay) {
-		if (!isCluster(feature)) return;
+	function processMapClick(map, evt, feature, overlay) {
+		if (!isCluster(feature)) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0 || count >= 2) return;
+		if (count <= 0 || count >= 2) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
 
     var ii = features[0].get('mindex');
     if (!isSet(ii)) {
