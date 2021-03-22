@@ -317,13 +317,13 @@ function showAlert(msg) {
 
 
 function isSet(value) {		
-	if ( typeof(value) === 'number' )
-      return (value === 0 ) ? true : false;
-      
-  if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
-		return false;
-
-  return true;
+		if ( typeof(value) === 'number' )
+	      return true;
+	      
+	  if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
+			return false;
+	
+	  return true;
 }
 
 function checkLang() {
