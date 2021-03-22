@@ -2082,8 +2082,9 @@ function askToken() {
 }
 
 
-function isSet(value) {
-    if (value == "" || value == null || value == "undefined") return false;
+function isSet(value) {		
+    if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
+			return false;
 
     return true;
 }
