@@ -317,7 +317,7 @@ function showAlert(msg) {
 
 
 function isSet(value) {		
-	if ( typeof(value) === 'number' ) {         
+	if ( typeof(value) === 'number' )
       return (value === 0 ) ? true : false;
       
   if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
@@ -325,7 +325,6 @@ function isSet(value) {
 
   return true;
 }
-
 
 function checkLang() {
     var lang = getCookie("language");

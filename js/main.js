@@ -353,13 +353,13 @@
 	var duni_logo = '/duni_logo.png';
 	
 	function isSet(value) {		
-		if ( typeof(value) === 'number' ) {         
-        return (value === 0 ) ? true : false;
-        
-    if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
+		if ( typeof(value) === 'number' )
+	      return (value === 0 ) ? true : false;
+	      
+	  if (value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length))
 			return false;
-
-    return true;
+	
+	  return true;
 	}
 
 	function GATAGM(label, category, language) {
