@@ -351,8 +351,8 @@
 	var tableCount = 0;
 	var pos_icon_image = './center/imgs/position4.png';
 	var duni_logo = '/duni_logo.png';
-	
-	function isSet(value) {		
+
+	function isSet(value) {
 			if ( typeof(value) === 'number' )
           return true;
 	    if (value == "" || value == null || value == "undefined" || value == undefined)
@@ -383,7 +383,7 @@
 		        crossOrigin: 'anonymous',
 		        scale: 1.5,
 		        src: pos_icon_image
-		      	}))		      		      
+		      	}))
 	    	})
 	  ];
 	}
@@ -514,33 +514,33 @@
 	var flightHistorySource;
 	var flightCompanySource;
 	var flightHistoryView;
-	
+
 	var vVectorLayerForCompany;
 	var vVectorLayerForHistory;
-	
+
 	var flightRecArray = [];
 	var companyArray = [];
-	
+
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
-		
+
 	$("#chkFlightHistory").change(function(){
 		showHistoryList($("#chkFlightHistory").is(":checked"));
   });
-  
-  $("#chkCompany").change(function(){        
+
+  $("#chkCompany").change(function(){
 		showCompanyList($("#chkCompany").is(":checked"));
   });
-		
-	function showCompanyList(bshow) {		
-		vVectorLayerForCompany.setVisible(bshow);		
-	}		
-	
-	function showHistoryList(bshow) {		
-		vVectorLayerForHistory.setVisible(bshow);		
+
+	function showCompanyList(bshow) {
+		vVectorLayerForCompany.setVisible(bshow);
 	}
-	
+
+	function showHistoryList(bshow) {
+		vVectorLayerForHistory.setVisible(bshow);
+	}
+
 
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
@@ -563,7 +563,7 @@
 	      center: dpoint,
 	      zoom: 7
 	    });
-	    
+
 	  flightCompanySource = new ol.source.Vector();
 		var clusterCompanySource = new ol.source.Cluster({
 			  distance: 40,
@@ -591,15 +591,21 @@
 			            radius: radius,
 			            fill: new ol.style.Fill({ color: '#779977dd' }),
 			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                })	                
+	                })
 	              })];
+
+								style[0].setText(new ol.style.Text({
+				                  text: size.toString(),
+				                  fill: new ol.style.Fill({ color: '#fff' }),
+				                  scale: 1.5
+								}));
 
 	          		styleCacheForCompany[size] = style
 				    }
 				    return style;
 				  },
 	    });
-		
+
 	  flightHistorySource = new ol.source.Vector();
 	  var clusterSource = new ol.source.Cluster({
 			  distance: 40,
@@ -643,7 +649,7 @@
 	        // We need a key to get the layer from the provider.
 	        // Sign in with Bing Maps and you will get your key (for free)
 	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+	        imagerySet: 'Road', // or 'Road', 'AerialWithLabels', etc.
 	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
 	        // "no photos at this zoom level" tiles
 	        maxZoom: 19
@@ -653,7 +659,7 @@
 	  var vMap = new ol.Map({
 	      target: 'historyMap',
 	      layers: [
-	          vVectorLayerForHistory, vVectorLayerForCompany
+	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
 	      ],
 				overlays: [overlay],
 	      // Improve user experience by loading tiles while animating. Will make
@@ -663,134 +669,134 @@
 	    });
 
 	  vMap.on('click', function(evt) {
-	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });	        		        					    	        		        		        	
+	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
 	        	processMapClick(evt, feature, overlay);
 			});
-	
+
 	}
-	
+
 	function createNewCompanyIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
 	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 	          cname: item.name,
-	          cindex : item.cid						
+	          cindex : item.cid
 	      });
 
 	  pos_icon.setStyle(styleFunction());
 	  return pos_icon;
-	}		
+	}
 
-	function getCompanyList() {		
+	function getCompanyList() {
 		flightCompanySource.clear();
-						
+
 	  var jdata = {"action": "public_company_list"};
 
-		showLoader();	  
+		showLoader();
   	ajaxRequest(jdata, function (r) {
 	    hideLoader();
 	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {	        
+	      if (r.data == null || r.data.length == 0) {
 					hideLoader();
 	        return;
-	      }	      
-	      
+	      }
+
 	      companyArray = r.data;
-	      
-	      companyArray.forEach(function(item, index, arr) {	    
-	      	var icon = createNewCompanyIconFor2DMap(index, item);		
+
+	      companyArray.forEach(function(item, index, arr) {
+	      	var icon = createNewCompanyIconFor2DMap(index, item);
 					flightCompanySource.addFeature(icon);
 	  		});
-	      
+
 				hideLoader();
 	    }
-	    else {	    	
+	    else {
 				hideLoader();
 	    }
 	  }, function(request,status,error) {
 	    hideLoader();
-	  });								
+	  });
 	}
-	
-	function getCompanyInfo(title, cid) {										
+
+	function getCompanyInfo(title, cid) {
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
-		
-		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';				
-		
-  	ajaxRequest(jdata, function (r) {	    
+
+		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
+
+  	ajaxRequest(jdata, function (r) {
 	    if(r.result == "success") {
 	      if (r.data == null) {
 	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
-	      }	      	      	   	         	      
-	      	      	         	     
+	      }
+
 	     	if (r.data.is_playground == true) {
-	     			title = "<드론비행/체험장> " + title; 
+	     			title = "<드론비행/체험장> " + title;
 	     	}
-	      	      	         	      
+
 	      if (r.data.partner == true) {
 	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
 	      }
 	      else {
 	      		title = "<b>" + title + "</b>";
 	      }
-	      	            	      
+
 	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
-	      
+
 	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
 	      	title = title + ('<br>' + r.data.phone_num_2);
-	      	
+
 	      title = title + '</p>';
 	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
-	      
+
 	      if (r.data.spe_edu == true) {
 	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
 				}
-	      
+
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";	      		
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
 	      }
-	      
+
 	      title = title + "</tr></table>";
-	      
+
 	      content.innerHTML = title;
-	    }	    
+	    }
 	  },
-	  	function(request,status,error) {	    
-	  		content.innerHTML = title + "<p>Failed to get more info.</p>";	  	
-	  });								
+	  	function(request,status,error) {
+	  		content.innerHTML = title + "<p>Failed to get more info.</p>";
+	  });
 	}
 
 	function processMapClick(evt, feature, overlay) {
 		if (!isCluster(feature)) return;
-		
+
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0) return;
-		    
+		if (count <= 0 || count >= 1) return;
+
     var ii = features[0].get('mindex');
-    if (!isSet(ii)) {      	
-    	ii = features[0].get('cindex');      	
+    if (!isSet(ii)) {
+    	ii = features[0].get('cindex');
     	if (!isSet(ii)) return;
-    	
+
     	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);
-    	
+
     	var title = features[0].get('cname');
 			var coordinate = evt.coordinate;
-			
+
 			if (count > 1)
 				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
 			else
 				title = '<p>' + title + '</p>';
-						  
+
 		  overlay.setPosition(coordinate);
     	getCompanyInfo(title, ii);
     	return;
     }
 
     GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
-    
+
     var hasYoutube = features[0].get('mhasYoutube');
-  	  	
+
   	if (hasYoutube)
   		$("#video-pop-" + ii).click();
 	}
@@ -817,7 +823,7 @@
             return decodeURIComponent(pair[1]);
         }
     }
-    
+
     return "";
 	}
 
@@ -847,7 +853,7 @@
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       }
-    });    
+    });
 	}
 
 	function onPlayerReady(event) {
@@ -866,7 +872,7 @@
 		var flng = item.flng;
 		var address = item.address;
 		var cada = item.cada;
-		var youtube_url = item.youtube_data_id;		
+		var youtube_url = item.youtube_data_id;
 		var curIndex = tableCount;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 
@@ -877,8 +883,8 @@
 	  else {
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }
-	  
-	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row	  	  
+
+	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
@@ -893,21 +899,21 @@
 	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
 
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
-	  
+
 	  if (isSet(youtube_url)) {
-	  	var vid = getYoutubeQueryVariable(youtube_url);	  	
+	  	var vid = getYoutubeQueryVariable(youtube_url);
 			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
 	  $('#dataTable-Flight_list').append(appendRow);
 
 		if (isSet(youtube_url)) {
-			$("#video-pop-" + curIndex).videoPopup();				
+			$("#video-pop-" + curIndex).videoPopup();
 		}
 
 		var retSource = null;
 		if (isSet(flat)) {
-	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));	  	
+	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));
 	  }
 
 	  if (isSet(retSource) && isSet(address) && address != "") {
@@ -915,7 +921,7 @@
 	  }
 
 	  if (isSet(youtube_url)) {
-	  	setYoutubeVideo(curIndex, youtube_url);	  		  	                        			
+	  	setYoutubeVideo(curIndex, youtube_url);
 	  }
 	  else {
 	  	setEmptyVideo(curIndex);
@@ -928,9 +934,9 @@
 	  tableCount++;
 	}
 
-	function setFlightlistHistory() {	  
+	function setFlightlistHistory() {
 	  flightRecArray.forEach(function(item) {
-	    appendFlightListTable(item);	    
+	    appendFlightListTable(item);
 	  });
 	}
 
@@ -951,7 +957,7 @@
            }
     });
 	}
-	
+
 	function getFlightList() {
 	  var jdata = {"action": "public_record_list"};
 
@@ -1005,12 +1011,12 @@
 			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
 
 			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] && typeof player[i] === 'object' 
+				if (player[i] && typeof player[i] === 'object'
 						&& typeof player[i].getPlayerState !== 'undefined'
 						&& player[i].getPlayerState() != 1) player[i].playVideo();
 			}
 			else {
-				if (player[i] && typeof player[i] === 'object' 
+				if (player[i] && typeof player[i] === 'object'
 						&& typeof player[i].getPlayerState !== 'undefined'
 						&& player[i].getPlayerState() == 1) player[i].stopVideo();
 			}
@@ -1041,5 +1047,5 @@ $(function(){
 	flightHistoryMapInit();
 	initYoutubeAPI();
 	setScrollEvent();
-	getCompanyList();	
+	getCompanyList();
 });
