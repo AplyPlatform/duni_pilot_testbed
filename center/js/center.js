@@ -645,7 +645,7 @@ function checkAddress(address) {
     }
     
     var userid = getCookie("dev_user_id");    
-    var jdata = {"clientid" : userid, "action": "gps_by_address", "address" : address};
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
 		
 		ajaxRequest(jdata, function (r) {
 	    	if(r.result == "success") {
