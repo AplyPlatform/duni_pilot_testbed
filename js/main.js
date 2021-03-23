@@ -896,10 +896,10 @@
 		var curIndex = tableCount;								
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 	  
-	  var flat = (isSet(item.flat) ? item.flat * 1 : -1);
-		var flng = (isSet(item.flng) ? item.flng * 1 : -1);	  
+	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -1);
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -1);	  
 
-	  if (isSet(flat)) {
+	  if (flat > 0) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
 	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
 	  }
@@ -915,7 +915,7 @@
 						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
-	  if (isSet(flat)) {
+	  if (flat > 0) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
 
@@ -935,7 +935,7 @@
 		}
 
 		var retSource = null;
-		if (isSet(flat)) {
+		if (flat > 0) {
 	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));
 	  }
 
@@ -950,7 +950,7 @@
 	  	setEmptyVideo(curIndex);
 	  }
 
-	  if (isSet(flat)) {
+	  if (flat > 0) {
       moveFlightHistoryMap(flat, flng);
     }
 
