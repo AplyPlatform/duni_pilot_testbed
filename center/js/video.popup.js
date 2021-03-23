@@ -79,13 +79,18 @@
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '';
+						var htmlString = '<div class="row"><div class="col text-left">';
+						
 						if(name) {
-							htmlString = '<div class="col text-left"><font color="white"><b>' + name + '</b></font>';
+							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font>';
 						}
 						
 						if(owner) {
 							htmlString = htmlString + ' / <font color="white"><b>' + owner + '</b></font>';
+							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_email_click_'
+							+ owner + '\', \'CONTENT\', \''
+							+ langset + '\');" href="/center/main.html?page_action=publicrecordlist&user_email='
+							+ owner + '"><font color=cyan>' + owner + '</font></a>';
 						}
 						
 						htmlString = htmlString + '</div><div class="col text-right">';						
@@ -95,9 +100,9 @@
 						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_title_click_'
 							+ name + '\', \'CONTENT\', \''
 							+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == true ? 'public' : '') + 'recordlist_detail&record_name='
-							+ encodeURIComponent(name) + '">' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>';
+							+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
 						
-						htmlString = htmlString + '</div><hr size=1 width=100% color=white>';
+						htmlString = htmlString + '</div><hr size=1 width=100% color=white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            

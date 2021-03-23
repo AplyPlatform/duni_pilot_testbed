@@ -79,9 +79,10 @@
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '';
+						var htmlString = '<div class="row"><div class="col text-left">';
+						
 						if(name) {
-							htmlString = '<div class="col text-left"><font color="white"><b>' + name + '</b></font>';
+							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font>';
 						}
 						
 						if(owner) {
@@ -95,7 +96,7 @@
 							+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
 							+ encodeURIComponent(name) + '">' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>';
 						
-						htmlString = htmlString + '</div><hr size=1 width=100% color=#white>';
+						htmlString = htmlString + '</div><hr size=1 width=100% color=#white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
