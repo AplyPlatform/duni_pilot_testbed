@@ -606,11 +606,11 @@ function flightrecordUploadInit() {
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
 
     $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);    
-    $("btnForAddressCheck").text(LANG_JSON_DATA[langset]['btnForAddressCheck']);    
-    $("address_input_data_label").text(LANG_JSON_DATA[langset]['address_input_data_label']);
+    $("#btnForAddressCheck").text(LANG_JSON_DATA[langset]['btnForAddressCheck']);    
+    $("#address_input_data_label").text(LANG_JSON_DATA[langset]['address_input_data_label']);
     
-    $("tab_menu_upload_selector_dji").text(LANG_JSON_DATA[langset]['address_input_data_label']);
-    $("tab_menu_upload_selector_address").text(LANG_JSON_DATA[langset]['address_input_data_label']);            
+    $("#tab_menu_upload_selector_dji").text(LANG_JSON_DATA[langset]['address_input_data_label']);
+    $("#tab_menu_upload_selector_address").text(LANG_JSON_DATA[langset]['address_input_data_label']);            
     
     $( "#upload_tabs" ).tabs();
 
