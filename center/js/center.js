@@ -961,20 +961,18 @@ function flightHistoryMapInit() {
 				    if (!style) {
 				    		style = [new ol.style.Style({
 	                image: new ol.style.Circle({
-			            radius: radius,
-			            fill: new ol.style.Fill({ color: '#779977dd' }),
-			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                })
-	              })];
-
-								if (page_action != "center") {
-									style[0].setText(new ol.style.Text({
+				            radius: radius,
+				            fill: new ol.style.Fill({ color: '#779977dd' }),
+				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+		                }),
+		              text: new ol.style.Text({
 					                  text: size.toString(),
 					                  fill: new ol.style.Fill({ color: '#fff' }),
 					                  scale: 1.5
-									}));
-								}
-
+										})
+		                
+	              })];
+								
 	          		styleCacheForCompany[size] = style
 				    }
 				    return style;
@@ -1007,19 +1005,16 @@ function flightHistoryMapInit() {
 			    if (!style) {
 			       style = [new ol.style.Style({
                 image: new ol.style.Circle({
-		            radius: radius,
-		            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
-		            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-                })
-              })];
-
-							if (page_action != "center") {
-								style[0].setText(new ol.style.Text({
+			            radius: radius,
+			            fill: new ol.style.Fill({ color: '#a03e8bd2' }),
+			            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                }),
+	              text: new ol.style.Text({
 				                  text: size.toString(),
 				                  fill: new ol.style.Fill({ color: '#fff' }),
 				                  scale: 1.5
-								}));
-							}
+								})
+              })];							
 
 							styleCache[size] = style
 			    }
@@ -1034,7 +1029,7 @@ function flightHistoryMapInit() {
             // We need a key to get the layer from the provider.
             // Sign in with Bing Maps and you will get your key (for free)
             key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-            imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+            imagerySet: 'Road', // or 'Road', 'AerialWithLabels', etc.
             // use maxZoom 19 to see stretched tiles instead of the Bing Maps
             // "no photos at this zoom level" tiles
             maxZoom: 19
@@ -1055,7 +1050,7 @@ function flightHistoryMapInit() {
 
 		vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(evt, feature, overlay);
+	        	processMapClick(vMap, evt, feature, overlay);
 		});
 }
 
@@ -1067,12 +1062,24 @@ function isCluster(feature) {
 	  return feature.get('features').length >= 1;
 }
 
-function processMapClick(evt, feature, overlay) {
-		if (!isCluster(feature)) return;
+function processMapClick(map, evt, feature, overlay) {
+		if (!isCluster(feature)) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0) return;
+		if (count <= 0 || count >= 2) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
 
     var ii = features[0].get('mindex');
     if (!isSet(ii)) {
