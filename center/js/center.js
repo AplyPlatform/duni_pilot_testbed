@@ -4533,7 +4533,7 @@ function uploadFlightList(isUpdate) {
     var files = document.getElementById('flight_record_file').files;
     if (bDJIFileUpload == true) {    	
     	if (files.length <= 0) {
-    		showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
+    		showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
     		return;
     	}
     	
@@ -4552,7 +4552,7 @@ function uploadFlightList(isUpdate) {
     }
     else {
     	if (address_flat < 0) {    			
-    			showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+    			showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
     			return;
     	}
     	
