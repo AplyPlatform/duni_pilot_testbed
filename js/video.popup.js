@@ -72,23 +72,30 @@
             })
         }
 
-        function mountIframe(name, owner) {
+        function mountIframe(langset, name, owner) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<hr size=1 width=100% color=#333333>';
+						var htmlString = '';
 						if(name) {
-							htmlString = '<font color="white"><b>' + name + '</b></font>';
+							htmlString = '<div class="col text-left"><font color="white"><b>' + name + '</b></font>';
 						}
 						
 						if(owner) {
 							htmlString = htmlString + ' / <font color="white"><b>' + owner + '</b></font>';
 						}
 						
-						htmlString = htmlString + '<hr size=1 width=100% color=#333333>';
+						htmlString = htmlString + '</div><div class="col text-right">';						
+						
+						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_title_click_'
+							+ name + '\', \'CONTENT\', \''
+							+ langset + '\'); href="/center/main.html?page_action=publicrecordlist_detail&record_name='
+							+ encodeURIComponent(name) + '">' + (langset == "KR" ? "상세보기" : "Detailed View") + '</a>';
+						
+						htmlString = htmlString + '</div><hr size=1 width=100% color=#333333>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
@@ -107,8 +114,9 @@
             var videoIframe = mountEmbedLink(videoUrl);
             var videoName = $(this).attr("video-name");
             var videoOwner = $(this).attr("video-owner");
+            var langset = $(this).attr("video-lang");
 
-            $("body").append(mountIframe(videoName, videoOwner));
+            $("body").append(mountIframe(langset, videoName, videoOwner));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {

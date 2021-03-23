@@ -923,8 +923,8 @@
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
 
 	  if (isSet(youtube_url)) {
-	  	var vid = getYoutubeQueryVariable(youtube_url);
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+	  	var vid = getYoutubeQueryVariable(youtube_url);			
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langSet + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
 	  $('#dataTable-Flight_list').append(appendRow);
