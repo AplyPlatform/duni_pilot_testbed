@@ -611,6 +611,8 @@ function flightrecordUploadInit() {
     
     $("tab_menu_upload_selector_dji").text(LANG_JSON_DATA[langset]['address_input_data_label']);
     $("tab_menu_upload_selector_address").text(LANG_JSON_DATA[langset]['address_input_data_label']);            
+    
+    $( "#upload_tabs" ).tabs();
 
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);                

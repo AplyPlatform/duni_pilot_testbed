@@ -28,14 +28,13 @@
 			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">
 			            </div>
 			            
-			            
-									<ul class="nav nav-tabs" role="tablist">
-										  <li role="presentation" class="active"><a aria-controls="dji_upload_filed" role="tab" data-toggle="tab" href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a></li>
-										  <li role="presentation"><a aria-controls="address_location_field" role="tab" data-toggle="tab" href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a></li>
-									</ul>
-			            
-			            <div class="tab-content">				            										       			            												
-										<div role="tabpanel" class="tab-pane active" id="dji_upload_filed">
+			            <div id="upload_tabs">
+										<ul>
+											  <li><a href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a></li>
+											  <li><a href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a></li>
+										</ul>
+				            				            
+										<div id="dji_upload_filed">
 											<br>
 											<div>
 												<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
@@ -54,13 +53,13 @@
 											</div>
 										</div>
 										
-										<div role="tabpanel" class="tab-pane" id="address_location_field">
+										<div id="address_location_field">
 				            	<br>
 			              	<label for="address_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="address_input_data_label">촬영지 주소</label>
 			              	<input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
 			              	<button class="btn btn-info" type="button" id="btnForAddressCheck">확인</button>
 				            </div>
-									</div>										   									
+									</div>
 								  								  
 								  <div class="text-center">
 								  	<br>
