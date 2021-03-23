@@ -4540,7 +4540,7 @@ function uploadFlightList(isUpdate) {
     	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
     }
     else {
-    	if (address_lat < 0) {    			
+    	if (address_flat < 0) {    			
     			showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
     			return;
     	}
