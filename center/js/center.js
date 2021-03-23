@@ -2962,10 +2962,7 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
     var vVectorLayer = new ol.layer.Vector({
         source: vSource,
         zIndex: 10000,
-        style: new ol.style.Style({
-            fill: new ol.style.Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
-            }),
+        style: new ol.style.Style({            
             stroke: new ol.style.Stroke({
                 color: '#ff0000',
                 width: 2
@@ -3156,8 +3153,8 @@ function appendFlightListTable(target, item) {
     var youtube_data_id = item.youtube_data_id;
     var curIndex = tableCount;
     
-    var flat = (isSet(item.flat) ? item.flat * 1 : -1);
-		var flng = (isSet(item.flng) ? item.flng * 1 : -1);
+    var flat = (isSet(item.flat) ? item.flat * 1 : -999);
+		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
@@ -3180,7 +3177,7 @@ function appendFlightListTable(target, item) {
     		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + curIndex + "'></div>";
     }
 
-    if (flat > 0) {
+    if (flat != -999) {
         appendRow = appendRow + "<div class='col-sm' id='map_" + curIndex + "' style='height:200px;'></div>";
     }
 
@@ -3242,7 +3239,7 @@ function appendFlightListTable(target, item) {
     });
 
     var retSource = null;
-    if (flat > 0) {
+    if (flat != -999) {
         retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
 
@@ -3253,13 +3250,13 @@ function appendFlightListTable(target, item) {
         setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorForHistory);
     }
     else {
-        if (flat > 0) {
+        if (flat != -999) {
             var dpoint = ol.proj.fromLonLat([flng, flat]);
             drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);
         }
     }
 
-    if (flat > 0) {
+    if (flat != -999) {
         moveFlightHistoryMap(flat, flng);
     }
 
@@ -4333,27 +4330,6 @@ function mapInit() {
         },
         projection: current_view.getProjection()
     });
-
-		/*
-    var accuracyFeature = new ol.Feature();
-    geolocation.on('change:accuracyGeometry', function () {
-        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-    });
-
-    var positionFeature = new ol.Feature();
-    positionFeature.setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 6,
-            fill: new ol.style.Fill({
-                color: '#3399CC'
-            }),
-            stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2
-            })
-        })
-    }));
-    */
 
     pointSource = new ol.source.Vector({});
     pointSource.on('tileloadend', function () {

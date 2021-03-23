@@ -348,8 +348,7 @@
 
 
 
-	var tableCount = 0;
-	var pos_icon_image = './center/imgs/position4.png';
+	var tableCount = 0;	
 	var duni_logo = '/duni_logo.png';
 
 	function isSet(value) {
@@ -372,21 +371,7 @@
 	    label + "_" + language,
 	    {"event_category": category, "event_label": label}
 	  );
-	}
-
-	function styleFunction() {
-	  return [
-	    new ol.style.Style(
-	    	{
-		      image: new ol.style.Icon(({
-		      	opacity: 0.77,
-		        crossOrigin: 'anonymous',
-		        scale: 1.5,
-		        src: pos_icon_image
-		      	}))
-	    	})
-	  ];
-	}
+	}	
 
 	function createNewIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
@@ -396,8 +381,6 @@
 						maddress : item.address,
 						mhasYoutube : item.hasYoutube
 	      });
-
-	  pos_icon.setStyle(styleFunction());
 
 	  return pos_icon;
 	}
@@ -414,21 +397,17 @@
 
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: vSource,
-	      zIndex: 10000,
-	      style: new ol.style.Style({
-	            fill: new ol.style.Fill({
-	              color: 'rgba(255, 255, 255, 0.2)'
-	            }),
-	            stroke: new ol.style.Stroke({
-	              color: '#ff0000',
-	              width: 2
-	            }),
+	      zIndex: 77,
+	      style: new ol.style.Style({	    
+	      			stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 2
+            	}),        
 	            image: new ol.style.Circle({
-	              radius: 7,
-	              fill: new ol.style.Fill({
-	                color: '#ff0000'
-	              })
-	            })
+					            radius: 7,
+					            fill: new ol.style.Fill({ color: '#ff333377' }),
+					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+		                })
 	          })
 	    });
 
@@ -691,8 +670,7 @@
 	          cname: item.name,
 	          cindex : item.cid
 	      });
-
-	  pos_icon.setStyle(styleFunction());
+	  
 	  return pos_icon;
 	}
 
@@ -896,10 +874,10 @@
 		var curIndex = tableCount;								
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 	  
-	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -1);
-		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -1);	  
+	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
 
-	  if (flat > 0) {
+	  if (flat != -999) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
 	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
 	  }
@@ -915,7 +893,7 @@
 						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
-	  if (flat > 0) {
+	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
 
@@ -935,7 +913,7 @@
 		}
 
 		var retSource = null;
-		if (flat > 0) {
+		if (flat != -999) {
 	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));
 	  }
 
@@ -950,7 +928,7 @@
 	  	setEmptyVideo(curIndex);
 	  }
 
-	  if (flat > 0) {
+	  if (flat != -999) {
       moveFlightHistoryMap(flat, flng);
     }
 
