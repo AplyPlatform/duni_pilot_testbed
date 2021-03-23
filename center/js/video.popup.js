@@ -1,4 +1,4 @@
-/*
+Ôªø/*
     GitHub URL: https://github.com/gucastiliao/video-popup-js
 */
 
@@ -95,9 +95,9 @@
 						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_title_click_'
 							+ name + '\', \'CONTENT\', \''
 							+ langset + '\'); href="/center/main.html?page_action=' + (isPublic == true ? 'public' : '') + 'recordlist_detail&record_name='
-							+ encodeURIComponent(name) + '">' + (langset == "KR" ? "ªÛºº∫∏±‚" : "Detailed View") + '</a>';
+							+ encodeURIComponent(name) + '">' + (langset == 'KR' ? 'ÏÉÅÏÑ∏Î≥¥Í∏∞' : 'Detailed View') + '</a>';
 						
-						htmlString = htmlString + '</div><hr size=1 width=100% color=#333333>';
+						htmlString = htmlString + '</div><hr size=1 width=100% color=white>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
