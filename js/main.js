@@ -407,7 +407,7 @@
 
 	  var c_view = new ol.View({
 	      center: dpoint,
-	      zoom: 16
+	      zoom: 10
 	    });
 
 	  var vSource = new ol.source.Vector();
@@ -442,7 +442,7 @@
 	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
 	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
 	        // "no photos at this zoom level" tiles
-	        maxZoom: 10
+	        maxZoom: 19
 	    })
 		});
 
