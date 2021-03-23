@@ -2724,203 +2724,204 @@ function showDataWithName(target, name) {
     $("#btnForUpdateTitle").hide();
 
     ajaxRequest(jdata, function (r) {
-        if (r.result != "success") {
+
+    		if (r.result != "success") {
             showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+            hideLoader();
+            return;
+        }                
+        
+        var fdata = r.data;
+
+        var n_title = name;
+        if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
+            n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
+            if ("owner_email" in fdata) {
+                n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / " + fdata.owner_email;
+            }
         }
         else {
-            var fdata = r.data;
-
-            var n_title = name;
-            if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
-                n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'];
-                if ("owner_email" in fdata) {
-                    n_title = name + " : " + LANG_JSON_DATA[langset]['shared_record_data_msg'] + " / " + fdata.owner_email;
-                }
-            }
-            else {
-                if ((target == "public") && "owner_email" in fdata) {
-                    n_title = name + " / " + fdata.owner_email;
-                }
-            }
-
-            setRecordTitle(n_title);
-
-            moviePlayerVisible = false;
-
-            if ("memo" in fdata) {
-                $("#memoTextarea").val(fdata.memo);
-                if (target == "public") {
-                    $("#memoTextarea").prop("disabled", true);
-                }
-            }
-
-            if ((target == "private") && ("sharedList" in fdata)) {
-                $("#btnForPublic").show();
-
-                var sharedList = fdata.sharedList;
-                var link_text = "";
-                var user_text = "";
-                sharedList.some(function (item, index, array) {
-                    var premail = item.email;
-                    if (item.email == "public@duni.io") {
-                        premail = LANG_JSON_DATA[langset]['all_member_msg'];
-                        $("#btnForPublic").hide();
-                    }
-
-                    if (item.type == "user") {
-                        user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
-                    }
-                });
-
-                $("#shared_user").html(user_text);
-                $("#shared_link").html(link_text);
-
-                sharedList.some(function (item, index, array) {
-                    var premail = item.email;
-                    if (item.email == "public@duni.io") {
-                        premail = LANG_JSON_DATA[langset]['all_member_msg'];
-                    }
-
-                    $("#user_share_" + index).click(function () {
-                        showAskDialog(
-                            LANG_JSON_DATA[langset]['modal_title'],
-                            premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
-                            LANG_JSON_DATA[langset]['stop_share_label'],
-                            false,
-                            function () { stopShareFlightData(index, name, item.target); },
-                            function () {}
-                        );
-                    });
-                });
-            }
-
-            $("#btnForUpdateTitle").click(function () {
-            		GATAGM('btnForUpdateTitle', 'CONTENT', langset);
-
-            		if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
-		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
-		                return;
-		            }
-
-						    setRecordTitleName();
-				    });
-
-            $("#btnForDelete").click(function () {
-                GATAGM('btnForPublic', 'CONTENT', langset);
-
-		            if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
-		                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
-		                return;
-		            }
-
-						    showAskDialog(
-						        LANG_JSON_DATA[langset]['modal_title'],
-						        fdata.name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
-						        LANG_JSON_DATA[langset]['msg_remove'],
-						        false,
-						        function () { deleteFlightData(name, -1); },
-                    function () {}
-						    );
-            });
-
-            $("#btnForPublic").click(function () {
-                GATAGM('btnForPublic', 'CONTENT', langset);
-                showAskDialog(
-                    LANG_JSON_DATA[langset]['modal_title'],
-                    LANG_JSON_DATA[langset]['msg_sure_for_public'],
-                    LANG_JSON_DATA[langset]['modal_confirm_btn'],
-                    false,
-                    function (email) {
-                        makeShareFlightData(fdata.name, "public");
-                    },
-                    function () {}
-                );
-            });
-
-            $("#btnForSharing").click(function () {
-                GATAGM('btnForSharing', 'CONTENT', langset);
-                showAskDialog(
-                    LANG_JSON_DATA[langset]['modal_title'],
-                    LANG_JSON_DATA[langset]['msg_input_member_email'],
-                    LANG_JSON_DATA[langset]['modal_confirm_btn'],
-                    true,
-                    function (email) {
-                        makeShareFlightData(fdata.name, email);
-                    },
-                    function () {}
-                );
-            });
-
-            $("#flightMemoBtn").click(function () {
-                GATAGM('flightMemoBtn', 'CONTENT', langset);
-                updateFlightMemoWithValue(name, $("#memoTextarea").val());
-            });
-
-            if ("youtube_data_id" in fdata) {
-                if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
-                    setYoutubePlayer(fdata.youtube_data_id);
-                }
-                else {
-                    setYoutubePlayer("");
-                }
-
-                hideMovieDataSet();
-            }
-            else {
-                $("#youTubePlayer").hide();
-            }
-
-            if (moviePlayerVisible == true) {
-                hideMovieDataSet();
-            }
-            else {
-                showMovieDataSet();
-            }
-
-            if (target == "public") {
-                $("#modifyBtnForMovieData").hide();
-                $("#btnForSharing").hide();
-                $("#btnForPublic").hide();
-                $("#btnForSetYoutubeID").hide();
-                $("#flightMemoBtn").hide();
-    						$("#btnForUpdateTitle").hide();
-    						$("#btnForDelete").hide();
-    						$("#recordDataSet").hide();
-                hideMovieDataSet();
-            }
-            else {
-                if (target == "private") {
-                	if(("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata)) {
-                    $("#btnForSharing").show();
-                  }
-
-                  $("#btnForDelete").show();
-                  $("#btnForUpdateTitle").show();
-
-                  if (!isSet(fdata.flat)) {
-                    $("#recordDataSet").show();
-                	}
-                }
-            }
-
-            var exist_data = setFlightRecordDataToView(target, fdata.data, false);
-
-            if (!isSet(fdata.cada) && fdata.cada == null) {
-                if (exist_data) {
-                    var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-                    drawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);
-                }
-                else {
-                		$("#altitude_graph_area").hide();
-                		$("#map_area").hide();
-                }
-            }
-            else {
-                setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
+            if ((target == "public") && "owner_email" in fdata) {
+                n_title = name + " / " + fdata.owner_email;
             }
         }
 
-        hideLoader();
+        setRecordTitle(n_title);
+
+        moviePlayerVisible = false;
+
+        if ("memo" in fdata) {
+            $("#memoTextarea").val(fdata.memo);
+            if (target == "public") {
+                $("#memoTextarea").prop("disabled", true);
+            }
+        }
+
+        if ((target == "private") && ("sharedList" in fdata)) {
+            $("#btnForPublic").show();
+
+            var sharedList = fdata.sharedList;
+            var link_text = "";
+            var user_text = "";
+            sharedList.some(function (item, index, array) {
+                var premail = item.email;
+                if (item.email == "public@duni.io") {
+                    premail = LANG_JSON_DATA[langset]['all_member_msg'];
+                    $("#btnForPublic").hide();
+                }
+
+                if (item.type == "user") {
+                    user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + LANG_JSON_DATA[langset]['stop_share_label'] + "</a><hr size=1 color=#eeeeee width=100%></div>");
+                }
+            });
+
+            $("#shared_user").html(user_text);
+            $("#shared_link").html(link_text);
+
+            sharedList.some(function (item, index, array) {
+                var premail = item.email;
+                if (item.email == "public@duni.io") {
+                    premail = LANG_JSON_DATA[langset]['all_member_msg'];
+                }
+
+                $("#user_share_" + index).click(function () {
+                    showAskDialog(
+                        LANG_JSON_DATA[langset]['modal_title'],
+                        premail + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+                        LANG_JSON_DATA[langset]['stop_share_label'],
+                        false,
+                        function () { stopShareFlightData(index, name, item.target); },
+                        function () {}
+                    );
+                });
+            });
+        }
+
+        $("#btnForUpdateTitle").click(function () {
+        		GATAGM('btnForUpdateTitle', 'CONTENT', langset);
+
+        		if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
+                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
+                return;
+            }
+
+				    setRecordTitleName();
+		    });
+
+        $("#btnForDelete").click(function () {
+            GATAGM('btnForPublic', 'CONTENT', langset);
+
+            if ("sharedList" in fdata && isSet(fdata.sharedList) && fdata.sharedList.length > 0) {
+                showAlert(LANG_JSON_DATA[langset]['msg_stop_share_before_remove']);
+                return;
+            }
+
+				    showAskDialog(
+				        LANG_JSON_DATA[langset]['modal_title'],
+				        fdata.name + " : " + LANG_JSON_DATA[langset]['msg_are_you_sure'],
+				        LANG_JSON_DATA[langset]['msg_remove'],
+				        false,
+				        function () { deleteFlightData(name, -1); },
+                function () {}
+				    );
+        });
+
+        $("#btnForPublic").click(function () {
+            GATAGM('btnForPublic', 'CONTENT', langset);
+            showAskDialog(
+                LANG_JSON_DATA[langset]['modal_title'],
+                LANG_JSON_DATA[langset]['msg_sure_for_public'],
+                LANG_JSON_DATA[langset]['modal_confirm_btn'],
+                false,
+                function (email) {
+                    makeShareFlightData(fdata.name, "public");
+                },
+                function () {}
+            );
+        });
+
+        $("#btnForSharing").click(function () {
+            GATAGM('btnForSharing', 'CONTENT', langset);
+            showAskDialog(
+                LANG_JSON_DATA[langset]['modal_title'],
+                LANG_JSON_DATA[langset]['msg_input_member_email'],
+                LANG_JSON_DATA[langset]['modal_confirm_btn'],
+                true,
+                function (email) {
+                    makeShareFlightData(fdata.name, email);
+                },
+                function () {}
+            );
+        });
+
+        $("#flightMemoBtn").click(function () {
+            GATAGM('flightMemoBtn', 'CONTENT', langset);
+            updateFlightMemoWithValue(name, $("#memoTextarea").val());
+        });
+
+        if ("youtube_data_id" in fdata) {
+            if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
+                setYoutubePlayer(fdata.youtube_data_id);
+            }
+            else {
+                setYoutubePlayer("");
+            }
+
+            hideMovieDataSet();
+        }
+        else {
+            $("#youTubePlayer").hide();
+        }
+
+        if (moviePlayerVisible == true) {
+            hideMovieDataSet();
+        }
+        else {
+            showMovieDataSet();
+        }
+
+        if (target == "public") {
+            $("#modifyBtnForMovieData").hide();
+            $("#btnForSharing").hide();
+            $("#btnForPublic").hide();
+            $("#btnForSetYoutubeID").hide();
+            $("#flightMemoBtn").hide();
+						$("#btnForUpdateTitle").hide();
+						$("#btnForDelete").hide();
+						$("#recordDataSet").hide();
+            hideMovieDataSet();
+        }
+        else {
+            if (target == "private") {
+            	if(("isowner" in fdata && fdata.isowner == true) || !("isowner" in fdata)) {
+                $("#btnForSharing").show();
+              }
+
+              $("#btnForDelete").show();
+              $("#btnForUpdateTitle").show();
+
+              if (!isSet(fdata.flat)) {
+                $("#recordDataSet").show();
+            	}
+            }
+        }
+
+        var exist_data = setFlightRecordDataToView(target, fdata.data, false);
+				if (exist_data) {
+					if (!isSet(fdata.cada) && fdata.cada == null) {
+              var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+            	rawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);                                
+          }
+          else {
+              setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
+          }	            	                            		              
+				}
+				else {
+					$("#altitude_graph_area").hide();
+          $("#map_area").hide();
+				}            
+				
+				hideLoader();
 
     }, function (request, status, error) {
         hideLoader();
