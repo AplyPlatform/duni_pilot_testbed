@@ -2908,12 +2908,12 @@ function showDataWithName(target, name) {
 
         var exist_data = setFlightRecordDataToView(target, fdata.data, false);
 				if (exist_data) {
-					if (!isSet(fdata.cada) && fdata.cada == null) {
-              var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-            	rawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);                                
+					if (isSet(fdata.cada)) {
+							setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);              
           }
           else {
-              setAddressAndCada("#map_address", fdata.address, fdata.cada, pointSource);
+              var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+            	rawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);
           }	            	                            		              
 				}
 				else {
