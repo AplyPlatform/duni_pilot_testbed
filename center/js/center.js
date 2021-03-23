@@ -644,7 +644,8 @@ function checkAddress(address) {
         return;
     }
     
-    var jdata = {"action": "gps_by_address", "address" : address};
+    var userid = getCookie("dev_user_id");    
+    var jdata = {"clientid" : userid, "action": "gps_by_address", "address" : address};
 		
 		ajaxRequest(jdata, function (r) {
 	    	if(r.result == "success") {
@@ -658,6 +659,11 @@ function checkAddress(address) {
 		     	address_flat = r.data.lat;	
 		     	address_flng = r.data.lng;
 		     	showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+	    	}
+	    	else {
+	    		address_flat = -1;	
+		     	address_flng = -1;
+		  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	    	}
 	  	},
 	  	function(request,status,error) {
