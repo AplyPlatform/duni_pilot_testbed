@@ -4525,7 +4525,12 @@ function uploadFlightList(isUpdate) {
 
 		var youtube_data = $("#youtube_url_data").val();
     var files = document.getElementById('flight_record_file').files;
-    if (bDJIFileUpload == true && files.length > 0) {
+    if (bDJIFileUpload == true) {    	
+    	if (files.length <= 0) {
+    		showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
+    		return;
+    	}
+    	
     	if (isSet(youtube_data)) {
     		askIsSyncData();
     		return;
