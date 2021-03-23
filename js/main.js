@@ -442,7 +442,7 @@
 	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
 	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
 	        // "no photos at this zoom level" tiles
-	        maxZoom: 16
+	        maxZoom: 10
 	    })
 		});
 
