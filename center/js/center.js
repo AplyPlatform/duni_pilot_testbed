@@ -2903,10 +2903,10 @@ function showDataWithName(target, name) {
                 }
             }
 
-            setFlightRecordDataToView(target, fdata.data, false);
+            var exist_data = setFlightRecordDataToView(target, fdata.data, false);
 
             if (!isSet(fdata.cada) && fdata.cada == null) {
-                if (isSet(fdata.flat)) {
+                if (exist_data) {
                     var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
                     drawCadastral("#map_address", name, dpoint[0], dpoint[1], pointSource);
                 }
@@ -3698,7 +3698,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
         }
         else {
         		//위치 데이터가 없음.
-            return;
+            return false;
         }
     }
 
@@ -3756,6 +3756,8 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
 
     var item = chartLocData[0];
     moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    
+    return true;
 }
 
 var oldScatterdatasetIndex = -1;
