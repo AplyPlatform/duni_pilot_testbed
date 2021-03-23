@@ -49,8 +49,6 @@ var bFilterOn;
 
 var pos_icon_image = './imgs/position4.png';
 
-var isDUNIFileType = false;
-
 var arrayData = [];
 var posIcons = [];
 var chartTData = [];
@@ -81,6 +79,8 @@ var use3DMap = true;
 
 var player = []; //youtube players
 
+var address_flat = -1, address_flng = -1;
+var bDJIFileUpload = true;
 
 var c_container;
 var c_content;
@@ -605,34 +605,63 @@ function flightrecordUploadInit() {
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
 
-    $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);
-    $("#duni_radio_label").text(LANG_JSON_DATA[langset]['msg_duni_file_upload']);
-
-    $('input[name="recordTypeRadio"]').change(function() {
-	    // 모든 radio를 순회한다.
-	    $('input[name="recordTypeRadio"]').each(function() {
-	        var id = $(this).attr('id');
-    			var checked = $(this).prop('checked');
-
-    			if (checked) {
-    				if (id == "dji_file_opt") {
-    					isDUNIFileType = false;
-    				}
-    				else {
-    					isDUNIFileType = true;
-    				}
-    				return;
-    			}
-	    });
-		});
-
+    $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);    
+    $("btnForAddressCheck").text(LANG_JSON_DATA[langset]['btnForAddressCheck']);    
+    $("address_input_data_label").text(LANG_JSON_DATA[langset]['address_input_data_label']);
+    
+    $("tab_menu_upload_selector_dji").text(LANG_JSON_DATA[langset]['address_input_data_label']);
+    $("tab_menu_upload_selector_address").text(LANG_JSON_DATA[langset]['address_input_data_label']);            
 
     $('#btnForUploadFlightList').click(function () {
-        GATAGM('btnForUploadFlightList', 'CONTENT', langset);
-        uploadFlightList(false);
+        GATAGM('btnForUploadFlightList', 'CONTENT', langset);                
+        uploadFlightList(false);        
+    });
+        
+    $('#btnForAddressCheck').click(function () {
+        GATAGM('btnForAddressCheck', 'CONTENT', langset);
+        checkAddress($("#address_input_data").val());
     });
 
     hideLoader();
+}
+
+function setUpload(bWhich) {
+		if (bWhich == true) {
+			bDJIFileUpload = true;
+			return;
+		}
+		
+		bDJIFileUpload = false;
+}
+
+function checkAddress(address) {		
+    if (isSet(address) == false) {
+    		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+    		address_flat = -1;	
+	     	address_flng = -1;
+        return;
+    }
+    
+    var jdata = {"action": "gps_by_address", "address" : address};
+		
+		ajaxRequest(jdata, function (r) {
+	    	if(r.result == "success") {
+		      if (r.data == null) {
+		      	address_flat = -1;	
+		     		address_flng = -1;
+		      	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+		        return;
+		      }
+	
+		     	address_flat = r.data.lat;	
+		     	address_flng = r.data.lng;
+	    	}
+	  	},
+	  	function(request,status,error) {
+	  		address_flat = -1;	
+	     	address_flng = -1;
+	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	  });			
 }
 
 function setMonFilter() {
@@ -4473,20 +4502,12 @@ function askIsSyncData() {
         LANG_JSON_DATA[langset]['modal_yes_btn'],
         false,
         function () {
-        		showLoader();
-
-			    	if (isDUNIFileType == false)
-			       	getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);
-			      else
-			       	getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDUNIFlightListCallback);
+        		showLoader();			    	
+			      getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);			      
         },
         function () {
-        		showLoader();
-
-			    	if (isDUNIFileType == false)
-			       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);
-			      else
-			       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDUNIFlightListCallback);
+        		showLoader();			    	
+			      getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);			      
         }
     );
 }
@@ -4497,34 +4518,32 @@ function uploadFlightList(isUpdate) {
 		if (mname == "") {
 			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
 			return;
-		}
+		}				
 
 		var youtube_data = $("#youtube_url_data").val();
-
     var files = document.getElementById('flight_record_file').files;
-    if (files.length > 0) {
-
+    if (bDJIFileUpload == true && files.length > 0) {
     	if (isSet(youtube_data)) {
     		askIsSyncData();
     		return;
     	}
 
-    	showLoader();
-
-    	if (isDUNIFileType == false)
-       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);
-      else
-       	getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDUNIFlightListCallback);
-
+    	showLoader();    	
+      getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);      
       return;
     }
-
+		
     if (isUpdate == true || youtube_data == "") {
     	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
     }
     else {
+    	if (address_lat < 0) {    			
+    			showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+    			return;
+    	}
+    	
     	youtube_data = massageYotubeUrl(youtube_data);
-    	saveYoutubeUrl(mname, youtube_data, function(bSuccess) {
+    	saveYoutubeUrl(mname, youtube_data, address_flat, address_flng, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         		location.href = cur_controller + "?page_action=recordlist";
@@ -4549,44 +4568,6 @@ function getBase64(file, mname, youtube_data, isUpdate, isSyncData, callback) {
     };
 }
 
-function uploadDUNIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, base64file) {
-    var userid = getCookie("dev_user_id");
-
-    youtube_data = massageYotubeUrl(youtube_data);
-
-    var jdata = { "action": "position", "daction": "duni_file_upload",
-    	"clientid": userid, "name": mname,
-    	"youtube_data_id": youtube_data,
-    	"update" : isUpdate,
-    	"sync" : isSyncData,
-    	"recordfile": base64file
-    };
-
-    ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            $('#btnForUploadFlightList').hide(1500);
-            $('#uploadFileform').hide(1500);
-            GATAGM('duni_file_upload_success', 'CONTENT', langset);
-            alert(LANG_JSON_DATA[langset]['msg_success']);
-            location.href = cur_controller + "?page_action=recordlist";
-        }
-        else {
-            if (r.reason == "same data is exist") {
-            		GATAGM('duni_file_upload_failed_same_data_exist', 'CONTENT', langset);
-                showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
-            }
-            else {
-            	GATAGM('duni_file_upload_failed', 'CONTENT', langset);
-            	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
-            }
-
-            hideLoader();
-        }
-    }, function (request, status, error) {
-        hideLoader();
-        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-    });
-}
 
 function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, base64file) {
     var userid = getCookie("dev_user_id");
@@ -4848,10 +4829,15 @@ function deleteDromiData(name, index) {
     });
 }
 
-function saveYoutubeUrl(rname, data_id, callback) {
+function saveYoutubeUrl(rname, data_id, flat, flng, callback) {
 
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": data_id, "clientid": userid, "name": rname };
+    
+    if (flat > 0) {
+    		jdata["flat"] = flat;
+    		jdata["flng"] = flng;
+    }
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4948,7 +4934,7 @@ function setYoutubeID() {
 
     if (fi_data_url.indexOf("youtube") >= 0) {
         setYoutubePlayer(fi_data_url);
-        saveYoutubeUrl(cur_flightrecord_name, fi_data_url, function(bSuccess) {
+        saveYoutubeUrl(cur_flightrecord_name, fi_data_url, -1, -1, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         	}

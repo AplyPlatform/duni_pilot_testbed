@@ -24,14 +24,39 @@
 	            		</div>
 	            		
 	            		<div>
-			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
-			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">                    
-			            </div>			            			            
-	            			            			           			            												
-									<div>
-										<br>
-										<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
-										<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>	
+			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 URL</label>
+			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">
+			            </div>
+			            
+			            
+									<div class="btn-group btn-group-justified" data-toggle="buttons">
+										  <a class="btn btn-secondary active" data-toggle="tab" href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a>
+										  <a class="btn btn-secondary" data-toggle="tab" href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a>
+									</div>
+			            
+			            <div class="tab-content">
+				            <div class="tab-pane fade show" id="address_location_field">
+				            	<br>
+			              	<label for="address_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="address_input_data_label">촬영지 주소</label>
+			              	<input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
+			              	<button class="btn btn-info" type="button" id="btnForAddressCheck">확인</button>
+				            </div>
+										       			            												
+										<div class="tab-pane fade show active" id="dji_upload_filed">
+											<br>
+											<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default">(<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">비행기록 파일 얻는 방법 (클릭)</a>)</span>
+											<div class="collapse" id="collapseRecordFileParams">
+												<br>
+												<hr size=1>
+					          		<p><b>안드로이드</b></p>
+												<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
+												<br>
+												<p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>
+												<p>- <a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
+												<p>- <a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
+												<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
+											</div>
+										</div>
 									</div>
 										   
 									<div>
@@ -40,81 +65,13 @@
 								  								  
 								  <div class="text-center">
 								  	<br>
-								  	<button class="btn btn-primary" type="button" id="btnForUploadFlightList">업로드</button>							  
+								  	<button class="btn btn-primary" type="button" id="btnForUploadFlightList">업로드</button>
 								  </div>
 								</div>
 							</form>
             </div>
 
-        </div>
-        <div class="card-body">
-        		<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">비행기록 파일 얻는 방법 (클릭)</a><br>
-        		<a href="#" id="duni_flight_record_format_label" class="text-xs font-weight-bold text-info text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetDUNIFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseDUNIRecordFileParams" aria-expanded="false" aria-controls="collapseDUNIRecordFileParams">DUNI 비행기록 파일 포맷 (클릭)</a>
-        		
-						<div class="collapse" id="collapseRecordFileParams">
-							<br>
-							<hr size=1>
-          		<p><b>안드로이드</b></p>
-							<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
-							<br>
-							<p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>
-							<p>- <a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
-							<p>- <a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
-							<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
-						</div>												
-						<div class="collapse" id="collapseDUNIRecordFileParams">
-							<br>
-							<hr size=1>
-<pre>
-[
-{
-"lat" : 123.123, // Latitude
-"lng" : 37.11, // Longitude
-"alt" : 5.52, // Altitude
-"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
-"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
-"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"speed" : 2.1, // Speed (Optional)
-"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
-"actparam" : 0, // Parameter for Action ex) 1 (Optional)
-"dtimestamp" : 1569903583000, // timestamp
-"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
-},
-
-{
-"lat" : 123.123, // Latitude
-"lng" : 37.11, // Longitude
-"alt" : 5.52, // Altitude
-"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
-"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
-"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"speed" : 2.1, // Speed (Optional)
-"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
-"actparam" : 0, // Parameter for Action ex) 1 (Optional)
-"dtimestamp" : 1569903583000, // timestamp
-"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
-},
-
-{
-"lat" : 123.123, // Latitude
-"lng" : 37.11, // Longitude
-"alt" : 5.52, // Altitude
-"dsec" : 0, //Time After starting video recording. (Millisecond , Optional)
-"yaw" : 20, // The yaw value of the aircraft, where 0 corresponds to a True North heading. Yawing clockwise will increase yaw value. (Optional)
-"pitch" : -2, // The pitch value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"roll" : 12, // The roll value of the aircraft: forward is positive, backward is negative. Units are in degrees. (Optional)
-"speed" : 2.1, // Speed (Optional)
-"act"	: 0, // Action - ex) START_RECORD:1, STOP_RECORD:2 (Optional)
-"actparam" : 0, // Parameter for Action ex) 1 (Optional)
-"dtimestamp" : 1569903583000, // timestamp
-"etc" : { "battery" : 12 } // Battery gage (%) (Optional)
-}
-]
-</pre>
-						</div>
-        </div>
+        </div>        
       </div>
    </div>	 
 </div>
