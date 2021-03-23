@@ -918,6 +918,7 @@ function dromiListInit() {
 function flightHistoryMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
 
+		c_container.style.visibility = "visible"; 
   	var overlay = new ol.Overlay({
 		  element: c_container,
 		  autoPan: true,

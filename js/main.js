@@ -524,6 +524,7 @@
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
 
+		container.style.visibility = "visible"; 
 		var overlay = new ol.Overlay({
 		  element: container,
 		  autoPan: true,
