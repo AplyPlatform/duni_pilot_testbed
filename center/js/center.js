@@ -655,6 +655,7 @@ function checkAddress(address) {
 	
 		     	address_flat = r.data.lat;	
 		     	address_flng = r.data.lng;
+		     	showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 	    	}
 	  	},
 	  	function(request,status,error) {

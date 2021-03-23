@@ -30,8 +30,8 @@
 			            
 			            
 									<div class="btn-group btn-group-justified" data-toggle="buttons">
-										  <a class="btn btn-secondary active" data-toggle="tab" href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a>
-										  <a class="btn btn-secondary" data-toggle="tab" href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a>
+										  <a class="btn btn-outline-secondary active" data-toggle="tab" href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a>
+										  <a class="btn btn-outline-secondary" data-toggle="tab" href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a>
 									</div>
 			            
 			            <div class="tab-content">
@@ -44,6 +44,9 @@
 										       			            												
 										<div class="tab-pane fade show active" id="dji_upload_filed">
 											<br>
+											<div>
+												<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+											</div>
 											<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default">(<a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">비행기록 파일 얻는 방법 (클릭)</a>)</span>
 											<div class="collapse" id="collapseRecordFileParams">
 												<br>
@@ -57,11 +60,7 @@
 												<p>- <a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
 											</div>
 										</div>
-									</div>
-										   
-									<div>
-										<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
-									</div>
+									</div>										   									
 								  								  
 								  <div class="text-center">
 								  	<br>
