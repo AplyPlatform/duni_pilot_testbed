@@ -72,7 +72,7 @@
             })
         }
 
-        function mountIframe(langset, name, owner) {
+        function mountIframe(isPublic, langset, name, owner) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
@@ -90,9 +90,11 @@
 						
 						htmlString = htmlString + '</div><div class="col text-right">';						
 						
+						
+						
 						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_title_click_'
 							+ name + '\', \'CONTENT\', \''
-							+ langset + '\'); href="/center/main.html?page_action=publicrecordlist_detail&record_name='
+							+ langset + '\'); href="/center/main.html?page_action=' + (isPublic == true ? 'public' : '') + 'recordlist_detail&record_name='
 							+ encodeURIComponent(name) + '">' + (langset == "KR" ? "상세보기" : "Detailed View") + '</a>';
 						
 						htmlString = htmlString + '</div><hr size=1 width=100% color=#333333>';
@@ -114,9 +116,10 @@
             var videoIframe = mountEmbedLink(videoUrl);
             var videoName = $(this).attr("video-name");
             var videoOwner = $(this).attr("video-owner");
+            var isPublic = $(this).attr("video-ispublic");
             var langset = $(this).attr("video-lang");
 
-            $("body").append(mountIframe(langset, videoName, videoOwner));
+            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {

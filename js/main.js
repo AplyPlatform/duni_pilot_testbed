@@ -924,7 +924,7 @@
 
 	  if (isSet(youtube_url)) {
 	  	var vid = getYoutubeQueryVariable(youtube_url);			
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langSet + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langset + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
 	  $('#dataTable-Flight_list').append(appendRow);

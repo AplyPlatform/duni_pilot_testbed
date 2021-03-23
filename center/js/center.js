@@ -3197,7 +3197,7 @@ function appendFlightListTable(target, item) {
 
     if (isSet(youtube_data_id)) {
 	  	var vid = getYoutubeQueryVariable(youtube_data_id);
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langSet + "' video-owner='" + owner_email + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-ispublic=" + (target == "public" : "true" : "false") + " video-lang='" + langset + "' video-owner='" + owner_email + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
     $('#dataTable-Flight_list').append(appendRow);
