@@ -92,7 +92,7 @@
 						
 						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_title_click_'
 							+ name + '\', \'CONTENT\', \''
-							+ langset + '\'); href="/center/main.html?page_action=publicrecordlist_detail&record_name='
+							+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
 							+ encodeURIComponent(name) + '">' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>';
 						
 						htmlString = htmlString + '</div><hr size=1 width=100% color=#white>';
