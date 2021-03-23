@@ -4859,6 +4859,9 @@ function saveYoutubeUrl(rname, data_id, flat, flng, callback) {
         if (r.result == "success") {
         	if (callback) callback(true);
         }
+        else {
+        	if (callback) callback(false);
+        }
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
