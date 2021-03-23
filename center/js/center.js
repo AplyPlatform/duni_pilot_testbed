@@ -3147,8 +3147,7 @@ function appendFlightListTable(target, item) {
     var name = item.name;
     var dtimestamp = item.dtime;
     var data = item.data;
-    var flat = item.flat * 1;
-    var flng = item.flng * 1;
+    
     var address = item.address;
     var cada = item.cada;
     var memo = item.memo;
@@ -3156,6 +3155,9 @@ function appendFlightListTable(target, item) {
     var sharedList = item.sharedList;
     var youtube_data_id = item.youtube_data_id;
     var curIndex = tableCount;
+    
+    var flat = (isSet(item.flat) ? item.flat * 1 : -1);
+		var flng = (isSet(item.flng) ? item.flng * 1 : -1);
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
@@ -3178,7 +3180,7 @@ function appendFlightListTable(target, item) {
     		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + curIndex + "'></div>";
     }
 
-    if (isSet(flat)) {
+    if (flat > 0) {
         appendRow = appendRow + "<div class='col-sm' id='map_" + curIndex + "' style='height:200px;'></div>";
     }
 
@@ -3240,7 +3242,7 @@ function appendFlightListTable(target, item) {
     });
 
     var retSource = null;
-    if (isSet(flat)) {
+    if (flat > 0) {
         retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
 
@@ -3251,13 +3253,13 @@ function appendFlightListTable(target, item) {
         setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorForHistory);
     }
     else {
-        if (isSet(flat)) {
+        if (flat > 0) {
             var dpoint = ol.proj.fromLonLat([flng, flat]);
             drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);
         }
     }
 
-    if (isSet(flat)) {
+    if (flat > 0) {
         moveFlightHistoryMap(flat, flng);
     }
 

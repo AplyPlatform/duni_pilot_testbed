@@ -889,14 +889,15 @@
 	function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
-		var data = item.data;
-		var flat = item.flat * 1;
-		var flng = item.flng * 1;
+		var data = item.data;		
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
-		var curIndex = tableCount;
+		var curIndex = tableCount;								
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
+	  
+	  var flat = (isSet(item.flat) ? item.flat * 1 : -1);
+		var flng = (isSet(item.flng) ? item.flng * 1 : -1);	  
 
 	  if (isSet(flat)) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
