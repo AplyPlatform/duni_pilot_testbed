@@ -9,7 +9,7 @@
         }
 
         var settings = $.extend({
-            autoplay: false,
+            autoplay: true,
             showControls: true,
             controlsColor: null,
             loopVideo: false,
@@ -72,17 +72,29 @@
             })
         }
 
-        function mountIframe() {
+        function mountIframe(name, owner) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
-
+		
+						var htmlString = '<hr size=1 width=100% color=#333333>';
+						if(name) {
+							htmlString = '<font color="white"><b>' + name + '</b></font>';
+						}
+						
+						if(owner) {
+							htmlString = htmlString + ' / <font color="white"><b>' + owner + '</b></font>';
+						}
+						
+						htmlString = htmlString + '<hr size=1 width=100% color=#333333>';
+						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
                         		'<span class="videopopupjs__close"></span>'+
-                            iframeElement+                            
+                            iframeElement + 
+                            htmlString +
                         '</div>'+
                     '</div>';
         }
@@ -93,8 +105,10 @@
             
             var videoUrl = $(this).attr("video-url");
             var videoIframe = mountEmbedLink(videoUrl);
+            var videoName = $(this).attr("video-name");
+            var videoOwner = $(this).attr("video-owner");
 
-            $("body").append(mountIframe());
+            $("body").append(mountIframe(videoName, videoOwner));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {
