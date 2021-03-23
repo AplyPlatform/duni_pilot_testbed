@@ -3147,8 +3147,8 @@ function appendFlightListTable(target, item) {
     var name = item.name;
     var dtimestamp = item.dtime;
     var data = item.data;
-    var flat = item.flat;
-    var flng = item.flng;
+    var flat = item.flat * 1;
+    var flng = item.flng * 1;
     var address = item.address;
     var cada = item.cada;
     var memo = item.memo;
@@ -3258,14 +3258,14 @@ function appendFlightListTable(target, item) {
     }
 
     if (isSet(flat)) {
-        moveFlightHistoryMap(flat * 1, flng * 1);
+        moveFlightHistoryMap(flat, flng);
     }
 
     tableCount++;
 }
 
 function moveFlightHistoryMap(lat, lng) {
-    var npos = ol.proj.fromLonLat([lng * 1, lat * 1]);
+    var npos = ol.proj.fromLonLat([lng, lat]);
     flightHistoryView.setCenter(npos);
 }
 
