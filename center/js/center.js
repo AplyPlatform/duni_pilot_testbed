@@ -79,7 +79,7 @@ var use3DMap = true;
 
 var player = []; //youtube players
 
-var address_flat = -1, address_flng = -1;
+var address_flat = -999, address_flng = -999;
 var bDJIFileUpload = true;
 
 var c_container;
@@ -411,6 +411,7 @@ function summaryInit() {
 }
 
 var isShowToken = false;
+
 function centerInit() {
     document.title = LANG_JSON_DATA[langset]['page_center_title'];
 
@@ -583,7 +584,7 @@ function designInit() {
     });
 }
 
-
+var oldAddressVal = "";
 
 function flightrecordUploadInit() {
 
@@ -623,6 +624,17 @@ function flightrecordUploadInit() {
         GATAGM('btnForAddressCheck', 'CONTENT', langset);
         checkAddress($("#address_input_data").val());
     });
+    
+    $("#address_input_data").on("change keyup paste", function() {
+		    var currentVal = $(this).val();
+		    if(currentVal == oldAddressVal) {
+		        return;
+		    }
+		 
+		    oldAddressVal = currentVal;
+		    address_flat = -999;
+		    address_flng = -999;
+		});
 
     hideLoader();
 }
@@ -639,8 +651,8 @@ function setUpload(bWhich) {
 function checkAddress(address) {		
     if (isSet(address) == false) {
     		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-    		address_flat = -1;	
-	     	address_flng = -1;
+    		address_flat = -999;	
+	     	address_flng = -999;
         return;
     }
     
@@ -650,8 +662,8 @@ function checkAddress(address) {
 		ajaxRequest(jdata, function (r) {
 	    	if(r.result == "success") {
 		      if (r.data == null) {
-		      	address_flat = -1;	
-		     		address_flng = -1;
+		      	address_flat = -999;	
+		     		address_flng = -999;
 		      	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 		        return;
 		      }
@@ -661,14 +673,14 @@ function checkAddress(address) {
 		     	showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 	    	}
 	    	else {
-	    		address_flat = -1;	
-		     	address_flng = -1;
+	    		address_flat = -999;	
+		     	address_flng = -999;
 		  		showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
 	    	}
 	  	},
 	  	function(request,status,error) {
-	  		address_flat = -1;	
-	     	address_flng = -1;
+	  		address_flat = -999;	
+	     	address_flng = -999;
 	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	  });			
 }
@@ -4507,7 +4519,7 @@ function uploadFlightList(isUpdate) {
     	showAlert(LANG_JSON_DATA[langset]['msg_select_any_file']);
     }
     else {
-    	if (address_flat < 0) {    			
+    	if (address_flat == -999) {    			
     			showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
     			return;
     	}
