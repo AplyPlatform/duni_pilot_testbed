@@ -663,7 +663,7 @@ function checkAddress(address) {
 	    	else {
 	    		address_flat = -1;	
 		     	address_flng = -1;
-		  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		  		showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
 	    	}
 	  	},
 	  	function(request,status,error) {
