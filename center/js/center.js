@@ -149,14 +149,9 @@ function setViewMode() {
 	$('#view_mode_selector').off('click');
 
 	if(viewmode == "") viewmode = "pilot";
-
+	
 	if(viewmode == "pilot") {
-		cur_controller = "/center/main.html";
-
-		c_container = document.getElementById('popup');
-		c_content = document.getElementById('popup-content');
-		c_closer = document.getElementById('popup-closer');
-
+		cur_controller = "/center/main.html";		
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
@@ -929,7 +924,11 @@ function dromiListInit() {
 
 function flightHistoryMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
-
+		
+		c_container = document.getElementById('popup');
+		c_content = document.getElementById('popup-content');
+		c_closer = document.getElementById('popup-closer');
+		
 		c_container.style.visibility = "visible"; 
   	var overlay = new ol.Overlay({
 		  element: c_container,
