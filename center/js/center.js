@@ -1195,37 +1195,6 @@ function getAllRecordCount() {
     });
 }
 
-function setScrollEvent() {
-	$(document).scroll(function (e) {
-        var scrollAmount = $(window).scrollTop();
-        var documentHeight = $('body').height();
-        var viewPortHeight = $(window).height();
-
-        var a = viewPortHeight + scrollAmount;
-        var b = documentHeight - a;
-        var scrollHeight = window.innerHeight / 2;
-				var scrolltop = $(window).scrollTop() + scrollHeight;
-				checkAutoPlay(scrolltop);
-	});
-}
-
-function checkAutoPlay(scrollCenter) {
-		for(var i=0;i<tableCount;i++) {
-			var divName = "flight-list-" + i;
-			var videoTop = $("#" + divName).offset().top;
-			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
-
-			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] && player[i].getPlayerState() != 1)
-					player[i].playVideo();
-			}
-			else {
-				if (player[i] && player[i].getPlayerState() == 1)
-					player[i].stopVideo();
-			}
-		}
-}
-
 function setBadgeView(fdata) {
     if (isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
         var pluginid = fdata.pluginid;
@@ -2590,9 +2559,7 @@ function setFlightlistHistory(target, data) {
     data.forEach(function (item) {
         appendFlightListTable(target, item);
         flightRecArray.push(item);
-    });
-
-    setScrollEvent();
+    });    
 }
 
 function getRecordTitle() {

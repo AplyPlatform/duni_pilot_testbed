@@ -990,40 +990,7 @@
 	  }, function(request,status,error) {
 	    hideLoader();
 	  });
-	}
-
-	function setScrollEvent() {
-		$(document).scroll(function (e) {
-	        var scrollAmount = $(window).scrollTop();
-	        var documentHeight = $('body').height();
-	        var viewPortHeight = $(window).height();
-
-	        var a = viewPortHeight + scrollAmount;
-	        var b = documentHeight - a;
-	        var scrollHeight = window.innerHeight / 2;
-					var scrolltop = $(window).scrollTop() + scrollHeight;
-					checkAutoPlay(scrolltop);
-		});
-	}
-
-	function checkAutoPlay(scrollCenter) {
-		for(var i=0;i<tableCount;i++) {
-			var divName = "flight-list-" + i;
-			var videoTop = $("#" + divName).offset().top;
-			var videoBottom =  $("#" + divName).offset().top + $("#" + divName).height();
-
-			if(videoTop < scrollCenter && videoBottom > scrollCenter) {
-				if (player[i] && typeof player[i] === 'object'
-						&& typeof player[i].getPlayerState !== 'undefined'
-						&& player[i].getPlayerState() != 1) player[i].playVideo();
-			}
-			else {
-				if (player[i] && typeof player[i] === 'object'
-						&& typeof player[i].getPlayerState !== 'undefined'
-						&& player[i].getPlayerState() == 1) player[i].stopVideo();
-			}
-		}
-	}
+	}	
 
 	function initYoutubeAPI() {
 		var tag = document.createElement('script');
@@ -1047,7 +1014,6 @@ $(function(){
 	goToTop();
 	loaderPage();
 	flightHistoryMapInit();
-	initYoutubeAPI();
-	setScrollEvent();
+	initYoutubeAPI();	
 	getCompanyList();
 });
