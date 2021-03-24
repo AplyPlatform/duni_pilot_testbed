@@ -4999,7 +4999,7 @@ function setYoutubePlayer(d_id) {
 }
 
 function onYouTubeIframeAPIReady() {
-		if (viemode != "pilot") return;
+		if (viewmode != "pilot") return; //todo
 		
 		if (page_action == "recordlist" || page_action == "publicrecordlist" || page_action == "center") {
     	getFlightList(current_target);
