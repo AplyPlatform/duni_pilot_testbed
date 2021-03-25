@@ -815,7 +815,7 @@ function flightDetailInit(target) {
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
-        showDataWithName(target, decodeURI(record_name));
+        showDataWithName(target, decodeURIComponent(record_name));
     }
 
     $("#recordDataSet").hide(); //비행기록 업로드 버튼
