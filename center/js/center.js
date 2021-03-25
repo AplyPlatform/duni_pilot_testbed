@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright 2020 APLY Inc. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -815,14 +815,14 @@ function flightDetailInit(target) {
 
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
-        showDataWithName(target, decodeURIComponent(record_name));
+        showDataWithName(target, decodeURIComponent(unescape(record_name)));
     }
 
-    $("#recordDataSet").hide(); //\uBE44\uD589\uAE30\uB85D \uC5C5\uB85C\uB4DC \uBC84\uD2BC
+    $("#recordDataSet").hide(); 
 
 }
 
-function flightrecordListInit(target) { //\uBE44\uD589\uAE30\uB85D \uBAA9\uB85D
+function flightrecordListInit(target) {
 
     if (target == "public") {
         document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
