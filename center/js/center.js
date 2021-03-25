@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright 2020 APLY Inc. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -818,11 +818,11 @@ function flightDetailInit(target) {
         showDataWithName(target, decodeURIComponent(record_name));
     }
 
-    $("#recordDataSet").hide(); //비행기록 업로드 버튼
+    $("#recordDataSet").hide(); //\uBE44\uD589\uAE30\uB85D \uC5C5\uB85C\uB4DC \uBC84\uD2BC
 
 }
 
-function flightrecordListInit(target) { //비행기록 목록
+function flightrecordListInit(target) { //\uBE44\uD589\uAE30\uB85D \uBAA9\uB85D
 
     if (target == "public") {
         document.title = LANG_JSON_DATA[langset]['page_flight_rec_public_view_title'];
@@ -1139,7 +1139,7 @@ function getCompanyInfo(title, cid) {
 	      }
 
 	     	if (r.data.is_playground == true) {
-	     			title = "<드론비행/체험장> " + title;
+	     			title = "<\uB4DC\uB860\uBE44\uD589/\uCCB4\uD5D8\uC7A5> " + title;
 	     	}
 
 	      if (r.data.partner == true) {
@@ -1158,11 +1158,11 @@ function getCompanyInfo(title, cid) {
 	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
 
 	      if (r.data.spe_edu == true) {
-	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
+	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>\uC804\uBB38\uAD50\uC721\uAE30\uAD00</b></td>";
 				}
 
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>\uD648\uD398\uC774\uC9C0</a></td>";
 	      }
 
 	      title = title + "</tr></table>";
@@ -1348,7 +1348,7 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
     }
 
     $("#f_member_count_label").text(mcount);
-    $("#b_count_label").text("생성한 배지수 : " + bcount);
+    $("#b_count_label").text("\uC0DD\uC131\uD55C \uBC30\uC9C0\uC218 : " + bcount);
 
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -2319,7 +2319,7 @@ function appendMissionList(data) {
     if (data == null) return;
     if (data.length == 0) return;
 
-		data.sort(function(a, b) { // 내림차순
+		data.sort(function(a, b) { // \uB0B4\uB9BC\uCC28\uC21C
 			var regtime_a = convert2data(a.regtime);
 			var regtime_b = convert2data(b.regtime);
     	return regtime_b.getTime() - regtime_a.getTime();
@@ -2563,7 +2563,7 @@ function setFlightlistHistory(target, data) {
     if (data == null || data.length == 0)
         return;
 
-    data.sort(function(a, b) { // 내림차순
+    data.sort(function(a, b) { // \uB0B4\uB9BC\uCC28\uC21C
     	return b.dtimestamp - a.dtimestamp;
 		});
 
@@ -3478,10 +3478,10 @@ function setUploadData() {
         GATAGM('uploadBtn', 'CONTENT', langset);
 
         if (cur_flightrecord_name == "") {
-            var mname = prompt("데이터셋의 이름을 입력해 주세요.", "");
+            var mname = prompt("\uB370\uC774\uD130\uC14B\uC758 \uC774\uB984\uC744 \uC785\uB825\uD574 \uC8FC\uC138\uC694.", "");
 
             if (mname == null) {
-                showAlert("데이터셋의 이름을 잘못 입력하셨습니다.");
+                showAlert("\uB370\uC774\uD130\uC14B\uC758 \uC774\uB984\uC744 \uC798\uBABB \uC785\uB825\uD558\uC168\uC2B5\uB2C8\uB2E4.");
                 return;
             }
 
@@ -3591,13 +3591,13 @@ function drawScatterGraph() {
     var dataSet = {
         datasets: [
             {
-                label: '온도',
+                label: '\uC628\uB3C4',
                 borderColor: '#f00',
                 backgroundColor: '#f66',
                 data: chartTData
             },
             {
-                label: '습도',
+                label: '\uC2B5\uB3C4',
                 borderColor: '#00f',
                 backgroundColor: '#66f',
                 data: chartHData
@@ -3669,7 +3669,7 @@ function isNeedSkip(lat, lng, alt) {
     var ddl2 = Math.abs(lng - oldLng);
     var ddl3 = Math.abs(alt - oldAlt);
 
-    if (ddl1 > 0.001 || ddl2 > 0.002 || ddl3 > 3) { //임의 필터
+    if (ddl1 > 0.001 || ddl2 > 0.002 || ddl3 > 3) { //\uC784\uC758 \uD544\uD130
         return true;
     }
 
@@ -3683,7 +3683,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
             cdata = chartLocData;
         }
         else {
-        		//위치 데이터가 없음.
+        		//\uC704\uCE58 \uB370\uC774\uD130\uAC00 \uC5C6\uC74C.
             return false;
         }
     }
@@ -5010,18 +5010,18 @@ function onYouTubeIframeAPIReady() {
         width: '1000',
         height: '400',
         videoId: youtube_data_id,
-        playerVars: { rel: 0 },//추천영상 안보여주게 설정
+        playerVars: { rel: 0 },//\uCD94\uCC9C\uC601\uC0C1 \uC548\uBCF4\uC5EC\uC8FC\uAC8C \uC124\uC815
         events: {
-            'onReady': onPlayerReady, //로딩할때 이벤트 실행
-            'onStateChange': onPlayerStateChange //플레이어 상태 변화시 이벤트실행
+            'onReady': onPlayerReady, //\uB85C\uB529\uD560\uB54C \uC774\uBCA4\uD2B8 \uC2E4\uD589
+            'onStateChange': onPlayerStateChange //\uD50C\uB808\uC774\uC5B4 \uC0C1\uD0DC \uBCC0\uD654\uC2DC \uC774\uBCA4\uD2B8\uC2E4\uD589
         }
-    });//youTubePlayer1셋팅
+    });//youTubePlayer1\uC14B\uD305
 }
 
 var movieProcess = false;
 
 function onPlayerReady(event) {
-    event.target.playVideo();//자동재생
+    event.target.playVideo();//\uC790\uB3D9\uC7AC\uC0DD
 
     var lastTime = -1;
     var interval = 1000;
@@ -5238,7 +5238,7 @@ function deleteFlightDataForDromis(index) {
     ajaxRequest(jdata, function (r) {
         hideLoader();
         if (r.result != "success") {
-            showAlert("삭제 실패!");
+            showAlert("\uC0AD\uC81C \uC2E4\uD328!");
         }
         else {
             removeTableRow("flight-list-" + index);
@@ -5264,7 +5264,7 @@ function getFlightListForDromi() {
         hideLoader();
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert("존재하는 데이터가 없습니다.");
+                showAlert("\uC874\uC7AC\uD558\uB294 \uB370\uC774\uD130\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.");
                 return;
             }
 
@@ -5286,7 +5286,7 @@ function getDromiList() {
         hideLoader();
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert("존재하는 데이터가 없습니다.");
+                showAlert("\uC874\uC7AC\uD558\uB294 \uB370\uC774\uD130\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.");
                 return;
             }
 
@@ -5352,7 +5352,7 @@ function uploadData(name, mname) {
         hideLoader();
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert("존재하는 데이터가 없습니다.");
+                showAlert("\uC874\uC7AC\uD558\uB294 \uB370\uC774\uD130\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.");
                 return;
             }
 
