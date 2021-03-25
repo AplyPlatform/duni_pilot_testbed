@@ -789,14 +789,7 @@ function flightDetailInit(target) {
     $('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
 
     $("#btnForLink").hide();
-    $("#btnForSharing").hide();
-
-		// ------------[
-		$("#uploadVideoToYoutubeButton").click(function () {
-        GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-        showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
-		});
-		// ]-----------
+    $("#btnForSharing").hide();		
 
     $('#btnForFilter').click(function () {
         GATAGM('btnForFilter', 'CONTENT', langset);

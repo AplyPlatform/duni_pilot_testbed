@@ -16,14 +16,14 @@ var googleApiClientReady = function () {
         apiIsReady = true;
     });
 
-    //setUploadBtn();
+    setUploadBtn();
 };
 
 function setUploadBtn() {
     $("#uploadVideoToYoutubeButton").click(function () {
-        GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-        showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
-        return;
+        //GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
+        //showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
+        //return;
 
         if (apiIsReady == false) {
             showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
