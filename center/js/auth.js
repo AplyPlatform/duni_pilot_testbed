@@ -14,31 +14,8 @@ var googleApiClientReady = function () {
 
     gapi.auth.init(function () {
         apiIsReady = true;        
-    });    
-    
-    setUploadBtn();
+    });            
 };
-
-function setUploadBtn() {
-    $("#uploadVideoToYoutubeButton").click(function () {
-        //GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-        //showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
-        //return;
-
-        if (apiIsReady == false) {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-        }
-        else {
-            if (authSucceed == true) {
-                var uploadVideo = new UploadVideo();
-                uploadVideo.ready(gapi.auth.getToken().access_token);
-            }
-            else {
-                tryAuth();
-            }
-        }
-    });
-}
 
 function tryAuth() {
     window.setTimeout(checkAuth, 1);
