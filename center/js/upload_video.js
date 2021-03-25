@@ -60,6 +60,8 @@ var UploadVideo = function () {
     this.uploadStartTime = 0;
     
     this.firstInit = false;
+    
+    $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
 
 
@@ -81,8 +83,7 @@ UploadVideo.prototype.ready = function (accessToken) {
                 $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
             }
         }.bind(this)
-    });
-    $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
+    });    
 };
 
 /**
