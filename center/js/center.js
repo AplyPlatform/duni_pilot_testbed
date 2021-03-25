@@ -814,7 +814,7 @@ function flightDetailInit(target) {
 
     $("#recordDataSet").hide();
             
-    if (authSucceed == false) {
+    if (authSucceed == true) {
     	uploadVideo = new UploadVideo();
 			uploadVideo.ready(gapi.auth.getToken().access_token);                        
 		}
