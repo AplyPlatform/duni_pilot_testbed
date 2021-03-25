@@ -171,6 +171,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
         	if (this.firstInit == false) {            
             this.ready(gapi.auth.getToken().access_token);
             this.firstInit = true;
+            return;
           }
         }
         else {
