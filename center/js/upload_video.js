@@ -59,6 +59,7 @@ var UploadVideo = function () {
 
     this.uploadStartTime = 0;        
     
+    $('#uploadVideoToYoutubeButton').off('click');
     $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
 
