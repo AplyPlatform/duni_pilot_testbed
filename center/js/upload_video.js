@@ -58,6 +58,8 @@ var UploadVideo = function () {
     this.videoId = '';
 
     this.uploadStartTime = 0;
+    
+    this.firstInit = false;
 };
 
 
@@ -157,10 +159,27 @@ UploadVideo.prototype.uploadFile = function (file) {
 };
 
 UploadVideo.prototype.handleUploadClicked = function () {
-
 		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
+		
+		if (apiIsReady == false) {
+        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        return;
+    }
+    else {
+        if (authSucceed == true) {
+        	if (this.firstInit == false) {            
+            this.ready(gapi.auth.getToken().access_token);
+            this.firstInit = true;
+          }
+        }
+        else {
+            tryAuth();
+            return;
+        }
+    }
+		
     if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
-        showAlert("영상 파일을 선택해 주세요");
+        showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
         return;
     }
 

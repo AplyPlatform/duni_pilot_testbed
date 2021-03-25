@@ -743,6 +743,7 @@ function monitorInit() {
     hideLoader();
 }
 
+var uploadVideo;
 
 function flightDetailInit(target) {
 
@@ -812,25 +813,8 @@ function flightDetailInit(target) {
     }
 
     $("#recordDataSet").hide();
-    	
-    $("#uploadVideoToYoutubeButton").click(function () {
-        //GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
-        //showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
-        //return;
-
-        if (apiIsReady == false) {
-            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-        }
-        else {
-            if (authSucceed == true) {
-                var uploadVideo = new UploadVideo();
-                uploadVideo.ready(gapi.auth.getToken().access_token);
-            }
-            else {
-                tryAuth();
-            }
-        }
-    });	
+    
+    uploadVideo = new UploadVideo();    	    
 }
 
 function flightrecordListInit(target) {
