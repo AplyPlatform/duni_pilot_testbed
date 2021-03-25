@@ -1,4 +1,4 @@
-/*kalmanjs, Wouter Bulten, MIT, https://github.com/wouterbulten/kalmanjs */
+﻿/*kalmanjs, Wouter Bulten, MIT, https://github.com/wouterbulten/kalmanjs */
 var KalmanFilter = (function () {
   'use strict';
 
