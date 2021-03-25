@@ -57,11 +57,7 @@ var UploadVideo = function () {
      */
     this.videoId = '';
 
-    this.uploadStartTime = 0;
-    
-    this.firstInit = false;
-    
-    $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
+    this.uploadStartTime = 0;        
 };
 
 
@@ -83,7 +79,9 @@ UploadVideo.prototype.ready = function (accessToken) {
                 $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
             }
         }.bind(this)
-    });    
+    });
+    
+    $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
 
 /**
@@ -167,14 +165,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
         return;
     }
     else {
-        if (authSucceed == true) {
-        	if (this.firstInit == false) {            
-            this.ready(gapi.auth.getToken().access_token);
-            this.firstInit = true;
-            return;
-          }
-        }
-        else {
+        if (authSucceed == false) {        
             tryAuth();
             return;
         }

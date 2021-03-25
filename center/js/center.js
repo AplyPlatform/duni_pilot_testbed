@@ -813,8 +813,11 @@ function flightDetailInit(target) {
     }
 
     $("#recordDataSet").hide();
-    
-    uploadVideo = new UploadVideo();    	    
+            
+    if (authSucceed == false) {
+    	uploadVideo = new UploadVideo();
+			uploadVideo.ready(gapi.auth.getToken().access_token);                        
+		}
 }
 
 function flightrecordListInit(target) {
