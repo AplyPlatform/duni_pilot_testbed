@@ -13,9 +13,9 @@ var authSucceed = false;
 var googleApiClientReady = function () {
 
     gapi.auth.init(function () {
-        apiIsReady = true;
-    });
-
+        apiIsReady = true;        
+    });    
+    
     setUploadBtn();
 };
 
