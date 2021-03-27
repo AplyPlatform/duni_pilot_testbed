@@ -5471,6 +5471,8 @@ function getColorPerAlt3d(alt) {
 }
 
 function getColorPerAlt(alt) {
+		if(alt < 0) alt = 0;
+	
     var icon_color = Math.floor(alt * 1.2);
 
     var g = 40 + icon_color;
