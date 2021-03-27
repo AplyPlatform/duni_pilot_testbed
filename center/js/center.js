@@ -2756,21 +2756,21 @@ function showDataWithName(target, name) {
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
 	        if (target == "private") {
 	            $("#tagTextarea").val(fdata.tag_values);
+	            var input = document.querySelector('input[name=tagTextarea]');
+							new Tagify(input);
 	        }                
 	        else {
 	        		$("#tagTextarea").hide();	        									
 				    	var tagArray = fdata.tag_values.split(',');
 				    	var appendRow = "";
-				    	tagArray.forEach(function(item) { 
-				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(item) + "><span class='badge badge-light'>" + item + "</span></a> ";
+				    	tagArray.forEach(function(tagItem) { 
+				    		var tg = JSON.parse(tagItem);
+				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 				    	});					    
 				    	
 				    	$("#tagArrayarea").html(appendRow);
 	        }
-	      }
-        
-        var input = document.querySelector('input[name=tagTextarea]');
-				new Tagify(input);
+	      }                
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
@@ -3213,8 +3213,9 @@ function appendFlightListTable(target, item) {
     
     if (isSet(tag_values) && tag_values != "") {
     	var tagArray = tag_values.split(',');
-    	tagArray.forEach(function(item) { 
-    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(item) + "><span class='badge badge-light'>" + item + "</span></a> ";
+    	tagArray.forEach(function(tagItem) { 
+    		var tg = JSON.parse(tagItem);
+    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
     	});
     }
     
