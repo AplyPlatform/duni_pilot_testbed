@@ -4561,11 +4561,11 @@ function askIsSyncData(files, mname, tag_values, youtube_data, isUpdate, uploadD
         false,
         function () {
         		showLoader();			    	
-			      getBase64(files, mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);			      
+			      getBase64(files, mname, tag_values, youtube_data, isUpdate, true, uploadDJIFlightListCallback);
         },
         function () {
         		showLoader();			    	
-			      getBase64(files, mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);			      
+			      getBase64(files, mname, tag_values, youtube_data, isUpdate, false, uploadDJIFlightListCallback);			      
         }
     );
 }
