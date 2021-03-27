@@ -2760,11 +2760,12 @@ function showDataWithName(target, name) {
 							new Tagify(input);
 	        }                
 	        else {
-	        		$("#tagTextarea").hide();	        									
+	        		$("#tagTextarea").hide();	        								
+	        		var targetList = (target == "public" ? "public" : "");	
 				    	var tagArray = JSON.parse(fdata.tag_values);
 				    	var appendRow = "";
 				    	tagArray.forEach(function(tg) {
-				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 				    	});					    
 				    	
 				    	$("#tagArrayarea").html(appendRow);
@@ -3211,9 +3212,10 @@ function appendFlightListTable(target, item) {
     appendRow = appendRow + "<div class='row'><div class='col-sm'>";
     
     if (isSet(tag_values) && tag_values != "") {
+    	var targetList = (target == "public" ? "public" : "");
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {     		
-    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
     	});
     }
     
