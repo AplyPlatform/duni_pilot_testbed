@@ -2753,7 +2753,7 @@ function showDataWithName(target, name) {
             $("#memoTextarea").val(fdata.memo);            
         }
         
-        if ("tag_values" in fdata && isSet(fdata.tag_values) {
+        if ("tag_values" in fdata && isSet(fdata.tag_values)) {
 	        if (target == "private") {
 	            $("#tagTextarea").val(fdata.tag_values);
 	        }                
