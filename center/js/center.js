@@ -24,7 +24,7 @@ var main2dMap;
 
 var mainMap2DposSource;
 var mainMap2DpointSource;
-
+var mainMap2DVectorSource;
 var mainMap2DlineSource;
 
 var flightRecArray;
@@ -69,6 +69,19 @@ var bDJIFileUpload = true; //dji file or input address
 var popup2DMapContainer;
 var popup2DMapContent;
 var popup2DMapCloser;
+
+var kf_lat;
+var kf_lng;
+var kf_alt;
+var kf_yaw;
+var kf_pitch;
+var kf_roll;
+
+var isFirst = true;
+
+var currentMonitorObjects;
+var currentMonitorIndex = 0;
+var currentMonitorOwner = "private";
 
 $(function () {
 		var lang = getCookie("language");
@@ -1790,20 +1803,6 @@ function appendDataToDesignTable(lonLat) {
 }
 
 
-var kf_lat;
-var kf_lng;
-var kf_alt;
-var kf_yaw;
-var kf_pitch;
-var kf_roll;
-
-var isFirst = true;
-
-var currentMonitorObjects;
-var currentMonitorIndex = 0;
-var currentMonitorOwner = "private";
-
-
 function startMon() {
     if (bMonStarted == true) {
         bMonStarted = false;
@@ -1832,9 +1831,9 @@ function startMon() {
 
 
 function first3DcameraMove(owner, fobject) {
-    if (!isSet(viewer)) return;
+    if (!isSet(v3DMapViewer)) return;
 
-    var camera = viewer.camera;
+    var camera = v3DMapViewer.camera;
 
     var item = fobject[0];
 
@@ -1999,7 +1998,7 @@ function processMon(owner, output) {
         isFirst = false;
         selectMonitorIndex(owner, 0);
 
-        if (!isSet(viewer))
+        if (!isSet(v3DMapViewer))
             nexttour(owner, fobject);
         else
             first3DcameraMove(owner, fobject);
@@ -2887,9 +2886,9 @@ function showDataWithName(target, name) {
 }
 
 function moveToStartPoint3D(lng, lat, alt) {
-		if (isSet(viewer) == false) return;
+		if (isSet(v3DMapViewer) == false) return;
 
-		var camera = viewer.camera;
+		var camera = v3DMapViewer.camera;
 		camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
@@ -3723,9 +3722,9 @@ function logOut() {
 function computeCirclularFlight(start) {
     var property = new Cesium.SampledPositionProperty();
 
-    if (!isSet(viewer)) return null;
+    if (!isSet(v3DMapViewer)) return null;
 
-    viewer.entities.removeAll();
+    v3DMapViewer.entities.removeAll();
 
     var i = 0;
     arrayFlightRecordData.forEach(function (item) {
@@ -3744,7 +3743,7 @@ function computeCirclularFlight(start) {
         var icon_color = getColorPerAlt3d(item.alt);
 
         //Also create a point for each sample we generate.
-        viewer.entities.add({
+        v3DMapViewer.entities.add({
             position: position,
             point: {
                 pixelSize: 1,
@@ -3761,13 +3760,11 @@ function computeCirclularFlight(start) {
 
 var fixedFrameTransform;
 var planePrimitives;
-var viewer;
-var c_center;
+var v3DMapViewer;
+var v3DMapCate;
 var c3ddataSource;
-var posentity;
-var scene3d;
-var controller3d;
-var mainMapVectorSource;
+var p3DMapEntity;
+var s3DMapScene;
 
 function getColor(colorName, alpha) {
     var color = Cesium.Color[colorName.toUpperCase()];
@@ -3780,15 +3777,15 @@ function draw3dMap() {
     var position = computeCirclularFlight(start);
     if (!isSet(position)) return;
 
-    posentity.position = position;
-    posentity.orientation = new Cesium.VelocityOrientationProperty(position);
+    p3DMapEntity.position = position;
+    p3DMapEntity.orientation = new Cesium.VelocityOrientationProperty(position);
 }
 
 function remove3dObjects() {
     if (planePrimitives != null && planePrimitives.length > 0) {
         planePrimitives.forEach(function (owner) {
             owner.forEach(function (pr) {
-                scene3d.primitives.remove(pr);
+                s3DMapScene.primitives.remove(pr);
             });
         });
     }
@@ -3804,7 +3801,7 @@ function addObjectTo3DMap(index, owner, kind) {
         planePrimitives[owner] = [];
     }
 
-    var camera = viewer.camera;
+    var camera = v3DMapViewer.camera;
 
     var position = Cesium.Cartesian3.fromDegrees(
         126.5610038, 33.3834381, 3000
@@ -3823,7 +3820,7 @@ function addObjectTo3DMap(index, owner, kind) {
     }
 
     var hpRoll = new Cesium.HeadingPitchRoll();
-    var planePrimitive = scene3d.primitives.add(
+    var planePrimitive = s3DMapScene.primitives.add(
         Cesium.Model.fromGltf({
             url: glbUrl,
             color: getColor(gColor, 1.0),
@@ -3846,14 +3843,12 @@ function addObjectTo3DMap(index, owner, kind) {
             multiplier: 0.5,
             loop: Cesium.ModelAnimationLoop.REPEAT,
         });
-
-        // Zoom to model
-        var r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
-        controller3d.minimumZoomDistance = r * 0.5;
+        
+        var r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);                        
         Cesium.Matrix4.multiplyByPoint(
             model.modelMatrix,
             model.boundingSphere.center,
-            c_center
+            v3DMapCate
         );
         var heading = Cesium.Math.toRadians(230.0);
         var pitch = Cesium.Math.toRadians(-20.0);
@@ -3861,7 +3856,7 @@ function addObjectTo3DMap(index, owner, kind) {
         hpRange.heading = heading;
         hpRange.pitch = pitch;
         hpRange.range = r * 50.0;
-        camera.lookAt(c_center, hpRange);
+        camera.lookAt(v3DMapCate, hpRange);
     });
 
     planePrimitives[owner].push(planePrimitive);
@@ -3877,7 +3872,7 @@ function map3dInit() {
 
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
-    viewer = new Cesium.Viewer("main3dMap", {
+    v3DMapViewer = new Cesium.Viewer("main3dMap", {
         infoBox: false, //Disable InfoBox widget
         selectionIndicator: false, //Disable selection indicator
         shouldAnimate: false, // Enable animations
@@ -3887,7 +3882,7 @@ function map3dInit() {
         clock: false,
         fullscreenButton: true,
         geocoder: false,
-        scene3DOnly: true,
+        s3DMapSceneOnly: true,
         homeButton: false,
         navigationHelpButton: true,
         navigationInstructionsInitiallyVisible: false,
@@ -3896,8 +3891,8 @@ function map3dInit() {
         terrainProvider: Cesium.createWorldTerrain(),
     });
 
-    viewer.scene.globe.enableLighting = false;
-    viewer.scene.globe.depthTestAgainstTerrain = true;
+    v3DMapViewer.scene.globe.enableLighting = false;
+    v3DMapViewer.scene.globe.depthTestAgainstTerrain = true;
     Cesium.Math.setRandomNumberSeed(3);
 
     fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
@@ -3905,12 +3900,12 @@ function map3dInit() {
         "west"
     );
 
-    scene3d = viewer.scene;
+    s3DMapScene = v3DMapViewer.scene;
 
-    const osmBuildings = scene3d.primitives.add(Cesium.createOsmBuildings());
+    const osmBuildings = s3DMapScene.primitives.add(Cesium.createOsmBuildings());
 
     //Actually create the entity
-    posentity = viewer.entities.add({
+    p3DMapEntity = v3DMapViewer.entities.add({
         path: {
             resolution: 1,
             material: new Cesium.PolylineGlowMaterialProperty({
@@ -3922,11 +3917,11 @@ function map3dInit() {
     });
 
     c3ddataSource = new Cesium.GeoJsonDataSource();
-    viewer.dataSources.add(c3ddataSource);
+    v3DMapViewer.dataSources.add(c3ddataSource);
 
-    viewer.trackedEntity = undefined;
-    viewer.zoomTo(
-        viewer.entities,
+    v3DMapViewer.trackedEntity = undefined;
+    v3DMapViewer.zoomTo(
+        v3DMapViewer.entities,
         new Cesium.HeadingPitchRange(
             Cesium.Math.toRadians(-90),
             Cesium.Math.toRadians(-15),
@@ -3934,8 +3929,8 @@ function map3dInit() {
         )
     );
 
-    c_center = new Cesium.Cartesian3();
-    controller = scene3d.screenSpaceCameraController;
+    v3DMapCate = new Cesium.Cartesian3();
+    controller = s3DMapScene.screenSpaceCameraController;
     planePrimitives = {};
 }
 
@@ -3999,7 +3994,7 @@ function remove2dObjects() {
     if (arrayCurrentMainMap2DObjectPos != null) {
         arrayCurrentMainMap2DObjectPos.forEach(function (owner) {
             owner.forEach(function (cur_pos) {
-                mainMapVectorSource.removeFeature(cur_pos);
+                mainMap2DVectorSource.removeFeature(cur_pos);
             });
         });
     }
@@ -4008,7 +4003,7 @@ function remove2dObjects() {
 }
 
 function addObjectTo2dMap(index, owner, kind) {
-    if (!isSet(mainMapVectorSource)) return;
+    if (!isSet(mainMap2DVectorSource)) return;
 
     if (!isSet(arrayCurrentMainMap2DObjectPos)) {
         arrayCurrentMainMap2DObjectPos = [];
@@ -4047,7 +4042,7 @@ function addObjectTo2dMap(index, owner, kind) {
     arrayCurrentMainMap2DObjectPos[owner].push(current_pos);
     arrayCurrentMainMap2DObjectPosImage[owner].push(current_pos_image);
 
-    mainMapVectorSource.addFeature(current_pos);
+    mainMap2DVectorSource.addFeature(current_pos);
 }
 
 function map2dInit() {
@@ -4116,10 +4111,10 @@ function map2dInit() {
 
     scaleLineControl.setUnits("metric");
 
-		mainMapVectorSource = new ol.source.Vector();
+		mainMap2DVectorSource = new ol.source.Vector();
 
     var vectorLayer = new ol.layer.Vector({
-        source: mainMapVectorSource,
+        source: mainMap2DVectorSource,
         zIndex: 10000
     });
 
