@@ -2757,9 +2757,7 @@ function showDataWithName(target, name) {
         
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
 	        if (target == "private") {
-	            $("#tagTextarea").val(fdata.tag_values);
-	            var input = document.querySelector('input[name=tagTextarea]');
-							new Tagify(input);
+	            $("#tagTextarea").val(fdata.tag_values);	            
 	        }                
 	        else {
 	        		$("#tagTextarea").hide();	        								
@@ -2773,6 +2771,11 @@ function showDataWithName(target, name) {
 				    	$("#tagArrayarea").html(appendRow);
 	        }
 	      }                
+	      
+	      if (target == "private") {
+		      var input = document.querySelector('input[name=tagTextarea]');
+					new Tagify(input);
+				}
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
