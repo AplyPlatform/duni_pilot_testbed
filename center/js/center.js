@@ -3332,7 +3332,7 @@ function updateFlightTagWithValue(name, tag_value) {
         showAlert(LANG_JSON_DATA[langset]['msg_fill_tag']);
         return;
     }
-    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": name, "tag_value": tag_value };
+    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": name, "tag_values": tag_value };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
