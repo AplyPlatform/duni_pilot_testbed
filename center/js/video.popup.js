@@ -95,7 +95,7 @@
 						htmlString = htmlString + '</div><div class="col text-right">';																								
 						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
 							+ name + '\', \'CONTENT\', \''
-							+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == true ? 'public' : '') + 'recordlist_detail&record_name='
+							+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == "true" ? 'public' : '') + 'recordlist_detail&record_name='
 							+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
 																		
 						htmlString = htmlString + '</div><hr size=1 width=100% color=white></div>';
