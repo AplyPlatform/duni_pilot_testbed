@@ -4553,7 +4553,7 @@ function nexttour(owner, fobject) {
     }, 2500);
 }
 
-function askIsSyncData() {
+function askIsSyncData(files, mname, tag_values, youtube_data, isUpdate, uploadDJIFlightListCallback) {
     showAskDialog(
         LANG_JSON_DATA[langset]['modal_title'],
         LANG_JSON_DATA[langset]['msg_is_sync_data'],
@@ -4561,11 +4561,11 @@ function askIsSyncData() {
         false,
         function () {
         		showLoader();			    	
-			      getBase64(files[0], mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);			      
+			      getBase64(files, mname, youtube_data, isUpdate, true, uploadDJIFlightListCallback);			      
         },
         function () {
         		showLoader();			    	
-			      getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);			      
+			      getBase64(files, mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);			      
         }
     );
 }
@@ -4589,7 +4589,7 @@ function uploadFlightList(isUpdate) {
     	}
     	
     	if (isSet(youtube_data)) {
-    		askIsSyncData();
+    		askIsSyncData(files[0], mname, tag_values, youtube_data, isUpdate, uploadDJIFlightListCallback);
     		return;
     	}
 
