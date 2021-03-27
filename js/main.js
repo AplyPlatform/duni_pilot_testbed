@@ -903,7 +903,7 @@
 	  	appendRow = appendRow + "<br><br>";    	
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {
-    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
     	});
     }
 
