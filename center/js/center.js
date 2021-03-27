@@ -817,10 +817,7 @@ function flightDetailInit(target) {
     });
 		
 		$("#recordDataSet").hide();
-		
-		var input = document.querySelector('input[name=tagTextarea]');
-		new Tagify(input);
-				
+								
     uploadVideo = new UploadVideo();
     if (authSucceed == true) {    	
 			uploadVideo.ready(gapi.auth.getToken().access_token);                        
@@ -2753,6 +2750,9 @@ function showDataWithName(target, name) {
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
             $("#tagTextarea").val(fdata.tag_values);
         }                
+        
+        var input = document.querySelector('input[name=tagTextarea]');
+				new Tagify(input);
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
