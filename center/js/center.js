@@ -82,6 +82,8 @@ var player = []; //youtube players
 var address_flat = -999, address_flng = -999;
 var bDJIFileUpload = true;
 
+var tagTextarea;
+
 var c_container;
 var c_content;
 var c_closer;
@@ -630,9 +632,15 @@ function flightrecordUploadInit() {
 		    address_flat = -999;
 		    address_flng = -999;
 		});
-
-
-		new Taggier('tagTextarea');
+		
+		tagTextarea = tagger(document.querySelector('[name="tags"]'), {
+      allow_duplicates: false,
+      allow_spaces: true,
+      add_on_blur: true,
+      tag_limit: 50,
+      completion: {list: ['drone', 'flight', 'sky']}
+  	});
+  	
     hideLoader();
 }
 
@@ -816,7 +824,13 @@ function flightDetailInit(target) {
         showDataWithName(target, decodeURIComponent(unescape(record_name)));
     }
     
-    new Taggier('tagTextarea');
+    tagTextarea = tagger(document.querySelector('[name="tags"]'), {
+      allow_duplicates: false,
+      allow_spaces: true,
+      add_on_blur: true,
+      tag_limit: 50,
+      completion: {list: ['drone', 'flight', 'sky']}
+  	});
 
     $("#recordDataSet").hide();
     uploadVideo = new UploadVideo();              
