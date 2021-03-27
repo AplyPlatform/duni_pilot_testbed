@@ -82,8 +82,6 @@ var player = []; //youtube players
 var address_flat = -999, address_flng = -999;
 var bDJIFileUpload = true;
 
-var tagTextarea;
-
 var c_container;
 var c_content;
 var c_closer;
@@ -624,6 +622,9 @@ function flightrecordUploadInit() {
         checkAddress($("#address_input_data").val());
     });
     
+    var input = document.querySelector('input[name=tagTextarea]');
+		new Tagify(input);
+    
     $("#address_input_data").on("change keyup paste", function() {
 		    var currentVal = $(this).val();
 		    if(currentVal == oldAddressVal) {
@@ -633,15 +634,7 @@ function flightrecordUploadInit() {
 		    oldAddressVal = currentVal;
 		    address_flat = -999;
 		    address_flng = -999;
-		});
-		
-		tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
-      allow_duplicates: false,
-      allow_spaces: true,
-      add_on_blur: true,
-      tag_limit: 50,
-      completion: {list: ['drone', 'flight', 'sky']}
-  	});
+		});				
   	
     hideLoader();
 }
@@ -822,18 +815,21 @@ function flightDetailInit(target) {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
         uploadFlightList(true);
     });
-
-    var record_name = getQueryVariable("record_name");
-    if (record_name != null && record_name != "") {
-        showDataWithName(target, decodeURIComponent(unescape(record_name)));
-    }        
-
-    $("#recordDataSet").hide();
-    uploadVideo = new UploadVideo();              
-    
+		
+		$("#recordDataSet").hide();
+		
+		var input = document.querySelector('input[name=tagTextarea]');
+		new Tagify(input);
+				
+    uploadVideo = new UploadVideo();
     if (authSucceed == true) {    	
 			uploadVideo.ready(gapi.auth.getToken().access_token);                        
 		}
+		
+    var record_name = getQueryVariable("record_name");
+    if (record_name != null && record_name != "") {
+        showDataWithName(target, decodeURIComponent(unescape(record_name)));
+    }            
 }
 
 function flightrecordListInit(target) {
@@ -2756,15 +2752,7 @@ function showDataWithName(target, name) {
         
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
             $("#tagTextarea").val(fdata.tag_values);
-        }
-        
-        tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
-		      allow_duplicates: false,
-		      allow_spaces: true,
-		      add_on_blur: true,
-		      tag_limit: 50,
-		      completion: {list: ['drone', 'flight', 'sky']}
-		  	});
+        }                
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
