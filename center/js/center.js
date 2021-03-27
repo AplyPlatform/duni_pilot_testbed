@@ -2761,10 +2761,9 @@ function showDataWithName(target, name) {
 	        }                
 	        else {
 	        		$("#tagTextarea").hide();	        									
-				    	var tagArray = fdata.tag_values.split(',');
+				    	var tagArray = fdata.tag_values;
 				    	var appendRow = "";
-				    	tagArray.forEach(function(tagItem) { 
-				    		var tg = JSON.parse(tagItem);
+				    	tagArray.forEach(function(tg) {
 				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 				    	});					    
 				    	
@@ -3211,10 +3210,8 @@ function appendFlightListTable(target, item) {
     
     appendRow = appendRow + "<div class='row'><div class='col-sm'>";
     
-    if (isSet(tag_values) && tag_values != "") {
-    	var tagArray = tag_values.split(',');
-    	tagArray.forEach(function(tagItem) { 
-    		var tg = JSON.parse(tagItem);
+    if (isSet(tag_values) && tag_values != "") {    	
+    	tag_values.forEach(function(tg) {     		
     		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
     	});
     }
