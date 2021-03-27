@@ -602,6 +602,8 @@ function flightrecordUploadInit() {
     $("#name_label").text(LANG_JSON_DATA[langset]['name_label']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     $("#input_memo_label").text(LANG_JSON_DATA[langset]['input_memo_label']);
+    
+    $("#input_tag_label").text(LANG_JSON_DATA[langset]['input_tag_label']);
 
     $("#dji_radio_label").text(LANG_JSON_DATA[langset]['msg_dji_file_upload']);    
     $("#btnForAddressCheck").text(LANG_JSON_DATA[langset]['btnForAddressCheck']);    
@@ -775,6 +777,8 @@ function flightDetailInit(target) {
     $("#uploadVideoToYoutubeButton").text(LANG_JSON_DATA[langset]['uploadVideoToYoutubeButton']);
     $("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
     $("#flightTagBtn").text(LANG_JSON_DATA[langset]['msg_modify_tag']);
+    
+    $("#input_tag_label").text(LANG_JSON_DATA[langset]['input_tag_label']);
     
     $("#altitude_label_top").text(LANG_JSON_DATA[langset]['altitude_label']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
