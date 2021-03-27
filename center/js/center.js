@@ -633,7 +633,7 @@ function flightrecordUploadInit() {
 		    address_flng = -999;
 		});
 		
-		tagTextarea = tagger(document.querySelector('[name="tags"]'), {
+		tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
       allow_duplicates: false,
       allow_spaces: true,
       add_on_blur: true,
@@ -824,7 +824,7 @@ function flightDetailInit(target) {
         showDataWithName(target, decodeURIComponent(unescape(record_name)));
     }
     
-    tagTextarea = tagger(document.querySelector('[name="tags"]'), {
+    tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
       allow_duplicates: false,
       allow_spaces: true,
       add_on_blur: true,
