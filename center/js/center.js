@@ -2517,7 +2517,9 @@ function getFlightList(target) {
         var targetId = decodeURIComponent(getQueryVariable("user_email"));
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
-        }
+        	
+        	setRecordTitle(targetId + " : " + LANG_JSON_DATA[langset]['open_record_label']);
+        }                
     }
     
     var keyword = decodeURIComponent(getQueryVariable("keyword"));
