@@ -2261,12 +2261,12 @@ function appendMissionList(data) {
 
     data.forEach(function (item, index, array) {
         var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
-            + "<a href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+            + "<a href='" + cur_controller + "?page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
             + item['name']
             + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
             + item['regtime']
             + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
-            + "<a class='btn btn-warning text-xs' href='" + cur_controller + "?page_action=design&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
+            + "<a class='btn btn-warning text-xs' href='" + cur_controller + "?page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + LANG_JSON_DATA[langset]['msg_modify'] + "</a>&nbsp;"
             + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
             + LANG_JSON_DATA[langset]['msg_remove'] + "</button></div></div></div></div>";
         $('#dataTable-missions').append(appendRow);
