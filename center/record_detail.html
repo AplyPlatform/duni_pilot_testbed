@@ -171,9 +171,18 @@
     <div class="card shadow mb-4">
     		<div class="card-body">
     			<div class="row">
+    				<div class="col-sm">
+    					<div class='form-group'>
+								<label for="tagTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_tag_label">태그</label>
+								<input type="text" class='form-control' id='tagTextarea' name='tagTextarea' placeholder=""/>
+								<div class="input-group-append">									
+	                <button class="btn btn-primary" type="button" id="flightTagBtn">태그수정</button>
+              	</div>																	
+							</div>
+    				</div>
 	    			<div class="col-sm">
 							<div class='form-group'>
-								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모 입력</label>
+								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모</label>
 								<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
 								<div class="text-right">
 									<button class='btn btn-primary' type='button' id="flightMemoBtn">메모수정</button>

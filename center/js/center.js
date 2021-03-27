@@ -631,6 +631,8 @@ function flightrecordUploadInit() {
 		    address_flng = -999;
 		});
 
+
+		new Taggier('tagTextarea');
     hideLoader();
 }
 
@@ -764,6 +766,8 @@ function flightDetailInit(target) {
     $("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
     $("#uploadVideoToYoutubeButton").text(LANG_JSON_DATA[langset]['uploadVideoToYoutubeButton']);
     $("#flightMemoBtn").text(LANG_JSON_DATA[langset]['msg_modify_memo']);
+    $("#flightTagBtn").text(LANG_JSON_DATA[langset]['msg_modify_tag']);
+    
     $("#altitude_label_top").text(LANG_JSON_DATA[langset]['altitude_label']);
     $("#youtube_url_label").text(LANG_JSON_DATA[langset]['youtube_url_label']);
     $("#btnForSetYoutubeID").text(LANG_JSON_DATA[langset]['msg_apply']);
@@ -811,10 +815,12 @@ function flightDetailInit(target) {
     if (record_name != null && record_name != "") {
         showDataWithName(target, decodeURIComponent(unescape(record_name)));
     }
+    
+    new Taggier('tagTextarea');
 
     $("#recordDataSet").hide();
-    uploadVideo = new UploadVideo();
-          
+    uploadVideo = new UploadVideo();              
+    
     if (authSucceed == true) {    	
 			uploadVideo.ready(gapi.auth.getToken().access_token);                        
 		}
@@ -2734,11 +2740,12 @@ function showDataWithName(target, name) {
 
         moviePlayerVisible = false;
 
-        if ("memo" in fdata) {
-            $("#memoTextarea").val(fdata.memo);
-            if (target == "public") {
-                $("#memoTextarea").prop("disabled", true);
-            }
+        if ("memo" in fdata && isSet(fdata.memo)) {
+            $("#memoTextarea").val(fdata.memo);            
+        }
+        
+        if ("tag_values" in fdata && isSet(fdata.tag_values)) {
+            $("#memoTextarea").val(fdata.tag_values);
         }
 
         if ((target == "private") && ("sharedList" in fdata)) {
@@ -2842,6 +2849,13 @@ function showDataWithName(target, name) {
             GATAGM('flightMemoBtn', 'CONTENT', langset);
             updateFlightMemoWithValue(name, $("#memoTextarea").val());
         });
+        
+        
+        
+        $("#flightTagBtn").click(function () {
+            GATAGM('flightTagBtn', 'CONTENT', langset);
+            updateFlightTagWithValue(name, $("#tagTextarea").val());
+        });
 
         if ("youtube_data_id" in fdata) {
             if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
@@ -2873,6 +2887,9 @@ function showDataWithName(target, name) {
 						$("#btnForUpdateTitle").hide();
 						$("#btnForDelete").hide();
 						$("#recordDataSet").hide();
+						$("#flightTagBtn").hide();
+						$("#tagTextarea").prop("disabled",true);						
+            $("#memoTextarea").prop("disabled", true);            
             hideMovieDataSet();
         }
         else {
@@ -3278,6 +3295,30 @@ function updateFlightMemoWithValue(name, memo) {
         return;
     }
     var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": name, "memo": memo };
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        hideLoader();
+        if (r.result != "success") {
+            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        }
+        else {
+            showAlert(LANG_JSON_DATA[langset]['msg_success']);
+        }
+    }, function (request, status, error) {
+        hideLoader();
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
+}
+
+function updateFlightTagWithValue(name, tag_value) {
+		var userid = getCookie("dev_user_id");
+
+    if (!isSet(tag_value)) {
+        showAlert(LANG_JSON_DATA[langset]['msg_fill_tag']);
+        return;
+    }
+    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": name, "tag_value": tag_value };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
