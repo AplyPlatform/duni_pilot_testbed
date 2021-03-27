@@ -2745,7 +2745,7 @@ function showDataWithName(target, name) {
         }
         
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
-            $("#memoTextarea").val(fdata.tag_values);
+            $("#tagTextarea").val(fdata.tag_values);
         }
 
         if ((target == "private") && ("sharedList" in fdata)) {
@@ -4534,6 +4534,8 @@ function uploadFlightList(isUpdate) {
 			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
 			return;
 		}				
+		
+		var tag_values = $("#tagTextarea").val();
 
 		var youtube_data = $("#youtube_url_data").val();
     var files = document.getElementById('flight_record_file').files;
@@ -4549,7 +4551,7 @@ function uploadFlightList(isUpdate) {
     	}
 
     	showLoader();    	
-      getBase64(files[0], mname, youtube_data, isUpdate, false, uploadDJIFlightListCallback);      
+      getBase64(files[0], mname, tag_values, youtube_data, isUpdate, false, uploadDJIFlightListCallback);      
       return;
     }
 		
@@ -4563,7 +4565,7 @@ function uploadFlightList(isUpdate) {
     	}
     	
     	youtube_data = massageYotubeUrl(youtube_data);
-    	saveYoutubeUrl(mname, youtube_data, address_flat, address_flng, function(bSuccess) {
+    	saveYoutubeUrl(mname, tag_values, youtube_data, address_flat, address_flng, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         		location.href = cur_controller + "?page_action=recordlist";
@@ -4575,12 +4577,12 @@ function uploadFlightList(isUpdate) {
     }
 }
 
-function getBase64(file, mname, youtube_data, isUpdate, isSyncData, callback) {
+function getBase64(file, mname, tag_values, youtube_data, isUpdate, isSyncData, callback) {
     var reader = new FileReader();
 
     reader.readAsDataURL(file);
     reader.onload = function () {
-        callback(mname, youtube_data, isUpdate, isSyncData, reader.result);
+        callback(mname, tag_values, youtube_data, isUpdate, isSyncData, reader.result);
     };
     reader.onerror = function (error) {
         hideLoader();
@@ -4589,7 +4591,7 @@ function getBase64(file, mname, youtube_data, isUpdate, isSyncData, callback) {
 }
 
 
-function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, base64file) {
+function uploadDJIFlightListCallback(mname, tag_values, youtube_data, isUpdate, isSyncData, base64file) {
     var userid = getCookie("dev_user_id");
 
     youtube_data = massageYotubeUrl(youtube_data);
@@ -4599,6 +4601,7 @@ function uploadDJIFlightListCallback(mname, youtube_data, isUpdate, isSyncData, 
     	"youtube_data_id": youtube_data,
     	"update" : isUpdate,
     	"sync" : isSyncData,
+    	"tag_values" : tag_values,
     	"recordfile": base64file };
 
     ajaxRequest(jdata, function (r) {
@@ -4849,10 +4852,10 @@ function deleteDromiData(name, index) {
     });
 }
 
-function saveYoutubeUrl(rname, data_id, flat, flng, callback) {
+function saveYoutubeUrl(rname, tag_values, data_id, flat, flng, callback) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": data_id, "clientid": userid, "name": rname };
+    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": data_id, "clientid": userid, "name": rname, "tag_values" : tag_values };
     
     if (flat > 0) {
     		jdata["flat"] = flat;
@@ -4954,10 +4957,12 @@ function setYoutubeID() {
     moviePlayerVisible = false;
 
     var fi_data_url = massageYotubeUrl(data_id);
+    
+    var tag_values = $("#tagTextarea").val();
 
     if (fi_data_url.indexOf("youtube") >= 0) {
         setYoutubePlayer(fi_data_url);
-        saveYoutubeUrl(cur_flightrecord_name, fi_data_url, -1, -1, function(bSuccess) {
+        saveYoutubeUrl(cur_flightrecord_name, tag_values, fi_data_url, -1, -1, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         	}
