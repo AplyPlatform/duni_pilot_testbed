@@ -822,15 +822,7 @@ function flightDetailInit(target) {
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
         showDataWithName(target, decodeURIComponent(unescape(record_name)));
-    }
-    
-    tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
-      allow_duplicates: false,
-      allow_spaces: true,
-      add_on_blur: true,
-      tag_limit: 50,
-      completion: {list: ['drone', 'flight', 'sky']}
-  	});
+    }        
 
     $("#recordDataSet").hide();
     uploadVideo = new UploadVideo();              
@@ -2761,6 +2753,14 @@ function showDataWithName(target, name) {
         if ("tag_values" in fdata && isSet(fdata.tag_values)) {
             $("#tagTextarea").val(fdata.tag_values);
         }
+        
+        tagTextarea = tagger(document.querySelector('[name="tagTextarea"]'), {
+		      allow_duplicates: false,
+		      allow_spaces: true,
+		      add_on_blur: true,
+		      tag_limit: 50,
+		      completion: {list: ['drone', 'flight', 'sky']}
+		  	});
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
