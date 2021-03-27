@@ -2519,6 +2519,12 @@ function getFlightList(target) {
         	jdata['owner_email'] = targetId;
         }
     }
+    
+    var keyword = decodeURIComponent(getQueryVariable("keyword"));
+    if (isSet(keyword) && keyword != "") {
+    		jdata['daction'] = "find_record";
+    		jdata['keyword'] = keyword;
+    }
 
     if (isSet(hasMore)) {
         jdata["morekey"] = hasMore;
@@ -2747,9 +2753,21 @@ function showDataWithName(target, name) {
             $("#memoTextarea").val(fdata.memo);            
         }
         
-        if ("tag_values" in fdata && isSet(fdata.tag_values)) {
-            $("#tagTextarea").val(fdata.tag_values);
-        }                
+        if ("tag_values" in fdata && isSet(fdata.tag_values) {
+	        if (target == "private") {
+	            $("#tagTextarea").val(fdata.tag_values);
+	        }                
+	        else {
+	        		$("#tagTextarea").hide();	        									
+				    	var tagArray = fdata.tag_values.split(',');
+				    	var appendRow = "";
+				    	tagArray.forEach(function(item) { 
+				    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(item) + "><span class='badge badge-light'>" + item + "</span></a> ";
+				    	});					    
+				    	
+				    	$("#tagArrayarea").html(appendRow);
+	        }
+	      }
         
         var input = document.querySelector('input[name=tagTextarea]');
 				new Tagify(input);
@@ -3152,6 +3170,7 @@ function appendFlightListTable(target, item) {
     var sharedList = item.sharedList;
     var youtube_data_id = item.youtube_data_id;
     var curIndex = tableCount;
+    var tag_values = item.tag_values;
     
     var flat = (isSet(item.flat) ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
@@ -3188,8 +3207,20 @@ function appendFlightListTable(target, item) {
     }
 
     appendRow = appendRow + "</textarea>";
-    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //form-group col-sm
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
+    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div></div>"; //form-group col-sm
+    
+    appendRow = appendRow + "<div class='row'><div class='col-sm'>";
+    
+    if (isSet(tag_values) && tag_values != "") {
+    	var tagArray = tag_values.split(',');
+    	tagArray.forEach(function(item) { 
+    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=" + target + "recordlist&keyword=" + encodeURIComponent(item) + "><span class='badge badge-light'>" + item + "</span></a> ";
+    	});
+    }
+    
+    appendRow = appendRow + "</div></div>";
+    
+    appendRow = appendRow + "<div class='row'><div class='col-sm'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
         + "<div class='row'><div class='col-sm text-right'>"
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
@@ -5049,7 +5080,7 @@ function setYoutubePlayer(d_id) {
 }
 
 function onYouTubeIframeAPIReady() {
-		if (viewmode != "pilot") return; //todo
+		if (viewmode != "pilot") return;
 		
 		if (page_action == "recordlist" || page_action == "publicrecordlist" || page_action == "center") {
     	getFlightList(current_target);
