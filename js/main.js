@@ -872,7 +872,8 @@
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
-		var curIndex = tableCount;								
+		var curIndex = tableCount;
+		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 	  
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
@@ -897,6 +898,14 @@
 	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
+	  
+	  if (isSet(tag_values) && tag_values != "") {
+	  	appendRow = appendRow + "<br><br>";    	
+    	var tag_array = JSON.parse(tag_values);
+    	tag_array.forEach(function(tg) {
+    		appendRow = appendRow + "<a href=" + cur_controller + "?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    	});
+    }
 
 	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
 

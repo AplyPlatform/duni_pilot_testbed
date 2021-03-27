@@ -2518,7 +2518,7 @@ function getFlightList(target) {
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
         	
-        	setRecordTitle(targetId + " : " + LANG_JSON_DATA[langset]['open_record_label']);
+        	$('#page_about_title').text(targetId + " : " + LANG_JSON_DATA[langset]['open_record_label']);        	
         }                
     }
     
