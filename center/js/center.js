@@ -3568,7 +3568,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     var arrayMapPosIcons = [];    
     arrayFlightRecordData = [];
     chartAltitudeLineData = [];
-    var lineData;
+    var lineData = [];
 
 		var rlng, rlat;
     cdata.forEach(function (item, i, arr) {
