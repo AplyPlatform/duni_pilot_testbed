@@ -13,7 +13,7 @@ limitations under the License.
 
 var LANG_JSON_DATA = {
     "KR": {
-    		"modal_yes_btn": "네",
+    	"modal_yes_btn": "네",
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
         "side_menu_dashboard": "Dashboard",
@@ -29,6 +29,7 @@ var LANG_JSON_DATA = {
         "side_menu_lab": "Lab",
         "side_menu_dev": "Developer",
         "side_menu_links": "관련사이트",
+        "side_menu_links_duni": "드론 서비스 매칭 플랫폼",
         "side_menu_links_comm": "DUNI 커뮤니티",
         "side_menu_links_blog": "DUNI 블로그",
         "side_menu_links_apis": "DUNI Open APIs",
@@ -228,6 +229,7 @@ var LANG_JSON_DATA = {
         "side_menu_lab": "Lab",
         "side_menu_dev": "Developer",
         "side_menu_links": "Links",
+        "side_menu_links_duni": "Drone Service Matching Platform",
         "side_menu_links_comm": "DUNI Community",
         "side_menu_links_blog": "DUNI Blog",
         "side_menu_links_apis": "DUNI Open APIs",
