@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
   .gtco-cover {height: 600px; height: inherit !important; padding: 3em 0;}
 }
 
-.gtco-cover .display-t, .gtco-cover .display-tc {height: 700px; display: table; width: 100%;}
+.gtco-cover .display-t, .gtco-cover .display-tc {width: 100%;}
 
 @media screen and (max-width: 768px) {
   .gtco-cover .display-t, .gtco-cover .display-tc {height: 600px; height: inherit !important; padding: 3em 0;}
@@ -585,7 +585,7 @@ form label {font-weight: normal !important;}
 
 #gtco-header .display-tc h1,
 #gtco-counter .display-tc h1,
-.gtco-cover .display-tc h1 {margin-bottom: 0px; font-size: 59px; line-height: 1.5;}
+.gtco-cover .display-tc h1 {margin-bottom: 0px; font-size:4em; font-weight:600; line-height: 1.5;}
 
 @media screen and (max-width: 768px) {
   #gtco-header .display-tc h1,
