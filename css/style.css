@@ -220,15 +220,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
   position: relative;
 }
 
-.gtco-cover {
-  height:700px;
-  background-size: cover;
-  background-position: center 150px;
-  background-repeat: no-repeat;
-  position: relative;
-  float: left;
-  width: 100%;
-}
+.gtco-cover {padding:3em 0; background-size: cover; background-position: center 150px; background-repeat: no-repeat; position: relative; float: left; width: 100%;}
 .gtco-cover.gtco-inner h1 {margin-bottom: 0 !important;}
 .gtco-cover a {color: #000;}
 .gtco-cover a:hover {color: white;}
@@ -242,35 +234,27 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
   background: rgba(29, 43, 83, 0.89);
 }
 .gtco-cover > .gtco-container {position: relative; z-index: 10;}
-
-@media screen and (max-width: 768px) {
-  .gtco-cover {height: 600px; height: inherit !important; padding: 3em 0;}
-}
-
 .gtco-cover .display-t, .gtco-cover .display-tc {width: 100%;}
 
 @media screen and (max-width: 768px) {
   .gtco-cover .display-t, .gtco-cover .display-tc {height: 600px; height: inherit !important; padding: 3em 0;}
 }
 
-.gtco-cover.gtco-cover-sm {height: 600px;}
+.gtco-cover.gtco-cover-sm { }
+.gtco-cover.gtco-cover-xs { }
 
 @media screen and (max-width: 768px) {
-  .gtco-cover.gtco-cover-sm {height: 400px; height: inherit !important;}
+  .gtco-cover.gtco-cover-sm {height: inherit !important;}
 }
 
 .gtco-cover.gtco-cover-sm .display-t, .gtco-cover.gtco-cover-sm .display-tc {height: 600px; display: table; width: 100%;}
 
 @media screen and (max-width: 768px) {
   .gtco-cover.gtco-cover-sm .display-t,
-  .gtco-cover.gtco-cover-sm .display-tc {
-    height: 400px;
-    height: inherit !important;
-    padding: 3em 0;
-  }
+  .gtco-cover.gtco-cover-sm .display-tc {height: inherit !important; padding: 3em 0;}
 }
 
-.gtco-cover.gtco-cover-xs {height: 500px;}
+
 
 @media screen and (max-width: 768px) {
   .gtco-cover.gtco-cover-xs {height: inherit !important; padding: 3em 0;}
@@ -555,7 +539,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
 form label {font-weight: normal !important;}
 
 #gtco-header {
-  background: url('../images/title_img_2.jpg') no-repeat center;
+  background: url('../images/title_img_2.jpg') no-repeat center top;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -563,7 +547,7 @@ form label {font-weight: normal !important;}
   -o-background-size: cover;
 }
 #gtco-header p {color: #d3f1ed; font-size: 20px; margin-bottom: 40px !important;}
-#gtco-header h1 {font-size: 50px; line-height: 1.2 !important; margin-bottom: 30px !important; color: #d3f1ed; font-weight: 100;}
+#gtco-header h1 {font-size:50px; line-height: 1.2 !important; margin-bottom:50px !important; color:#2e3192; font-weight:600;}
 
 @media screen and (max-width: 768px) {
   #gtco-header h1 {line-height: 1.2 !important;}
@@ -571,7 +555,7 @@ form label {font-weight: normal !important;}
 
 #gtco-header h1.no-margin {margin-bottom: 0 !important;}
 #gtco-header .copy {margin-top: 0; padding:0 15px;}
-#gtco-header .header-img {margin:30px 0;}
+#gtco-header .header-img {margin:0 0 30px 0;}
 
 #gtco-header .display-tc,
 #gtco-counter .display-tc,
@@ -803,11 +787,7 @@ form label {font-weight: normal !important;}
 
 
 .btn {
-    display: inline-block; margin-bottom:4px;
-    font-weight: 600;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
+    display: inline-block; margin-bottom:10px; font-weight: 600;  text-align: center; white-space: nowrap;  vertical-align: middle;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
@@ -830,6 +810,8 @@ form label {font-weight: normal !important;}
   -moz-box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1);
 }
+
+.btn-block {display: block; width: 100%;}
 
 .btn-outline-brand {
     color: #505cfd;
