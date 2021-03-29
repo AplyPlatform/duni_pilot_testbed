@@ -276,7 +276,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
   .gtco-cover.gtco-cover-xs {height: inherit !important; padding: 3em 0;}
 }
 
-.gtco-cover.gtco-cover-xs .display-t, .gtco-cover.gtco-cover-xs .display-tc {height: 500px; display: table;  width: 100%;}
+.gtco-cover.gtco-cover-xs .display-t, .gtco-cover.gtco-cover-xs .display-tc {width: 100%;}
 
 @media screen and (max-width: 768px) {
   .gtco-cover.gtco-cover-xs .display-t,
@@ -555,7 +555,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
 form label {font-weight: normal !important;}
 
 #gtco-header {
-  background: url('../images/title_img_2.jpg') no-repeat scroll;
+  background: url('../images/title_img_2.jpg') no-repeat center;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -570,8 +570,8 @@ form label {font-weight: normal !important;}
 }
 
 #gtco-header h1.no-margin {margin-bottom: 0 !important;}
-#gtco-header .copy {margin-top: 0em; padding:0 15px;}
-#gtco-header .header-img {margin-bottom: 30px;}
+#gtco-header .copy {margin-top: 0; padding:0 15px;}
+#gtco-header .header-img {margin:30px 0;}
 
 #gtco-header .display-tc,
 #gtco-counter .display-tc,
@@ -585,7 +585,7 @@ form label {font-weight: normal !important;}
 
 #gtco-header .display-tc h1,
 #gtco-counter .display-tc h1,
-.gtco-cover .display-tc h1 {margin-bottom: 0px; font-size:4em; font-weight:600; line-height: 1.5;}
+.gtco-cover .display-tc h1 {margin-bottom: 0px; font-size:3.5em; font-weight:600; line-height: 1.5;}
 
 @media screen and (max-width: 768px) {
   #gtco-header .display-tc h1,
