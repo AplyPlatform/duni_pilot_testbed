@@ -20,17 +20,18 @@
 	<meta name="author" content="aply.biz"/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.png"/>
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-  <!-- Facebook and Twitter integration -->
+	
+  	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content="DUNI PILOT CENTER"/>
 	<meta property="og:image" content="https://pilot.duni.io/duni_title.png"/>
 	<meta property="og:url" content="https://pilot.duni.io"/>
 	<meta property="og:site_name" content="DUNI PILOT CENTER"/>
 	<meta property="og:description" content="DUNI PILOT - Drones Come True"/>
 	<meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="796696970892-p16dtq9oq2oks814lu661hreampk6kjn.apps.googleusercontent.com">
+  	<meta name="google-signin-client_id" content="796696970892-p16dtq9oq2oks814lu661hreampk6kjn.apps.googleusercontent.com">
 
 	<link href="./center/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
 
 	<!-- Animate.css -->
@@ -65,31 +66,32 @@ for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".
 MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
 mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
 	</head>
+
 	<body>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=570867566598427&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+  			var js, fjs = d.getElementsByTagName(s)[0];
+  			if (d.getElementById(id)) return;
+  			js = d.createElement(s); js.id = id;
+  			js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=570867566598427&autoLogAppEvents=1';
+  			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+	
 
+			window.fbAsyncInit = function() {
+  				FB.init({
+    				appId            : '570867566598427',
+    				autoLogAppEvents : true,
+    				xfbml            : true,
+    				version          : 'v2.11'
+  				});
 
-window.fbAsyncInit = function() {
-  FB.init({
-    appId            : '570867566598427',
-    autoLogAppEvents : true,
-    xfbml            : true,
-    version          : 'v2.11'
-  });
-
-  document.getElementById('facebookLoginBtn').addEventListener('click', function() {
-		FB.login(facebookSignInCallback);
-	}, false);
-};
-</script>
+  		document.getElementById('facebookLoginBtn').addEventListener('click', function() {
+			FB.login(facebookSignInCallback);
+				}, false);
+			};
+		</script>
 
 	<div class="gtco-loader"></div>
 
@@ -104,8 +106,6 @@ window.fbAsyncInit = function() {
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
-							<li><a href="index_en.html">HOME</a></li>
-							<li><a href="https://developer.duni.io/"  target="_blank">DEVELOPERS</a></li>
 							<li><a href="index.html"  target="_self">KOREAN</a></li>
 						</ul>
 					</div>
@@ -128,33 +128,29 @@ window.fbAsyncInit = function() {
 										<div>
 											<h1 style="font-weight:400;">Welcome to<br>DUNI PILOT CENTER</h1>
 										</div>
-										<div>
-											<div class="col-sm-6">
-												<a id="googleLoginBtn" class="btn btn-circle btn-outline-brand btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
-														<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Continue with Google
-													</a>
-											</div>
-											<div class="col-sm-6">
-												<a id="facebookLoginBtn" class="btn btn-circle btn-outline-brand btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
-													<i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Continue with Facebook
+										<div class="row text-center">
+											<div class="col-md-12">
+												<a id="naverLoginBtn" class="m-t-10 col-md-3 btn btn-circle btn-outline-brand" style="font-weight:400;">
+													<span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Naver 아이디로 사용하기
+												</a>
+												<a id="kakaoLoginBtn" class="m-t-10 col-md-3 btn btn-circle btn-outline-brand" style="font-weight:400;">
+													<span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Kakao 아이디로 사용하기
 												</a>
 											</div>
-											<div class="col-sm-6">
-												<a id="appleLoginBtn" class="btn btn-circle btn-outline-brand btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
-													<span style="color:#000000; font-weight:bold;">A</span>&nbsp;&nbsp;Continue with Apple
+										</div>
+										<div class="row text-center">
+											<div class="col-md-12">
+												<a id="googleLoginBtn" class="m-t-10 col-md-3 btn btn-circle btn-outline-brand" style="font-weight:400;">
+														<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 아이디로 사용하기
 												</a>
-											</div>
-											<div class="col-sm-6">
-												<a id="naverLoginBtn" class="btn btn-circle btn-outline-brand btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
-													<span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Continue with Naver
+												<a id="facebookLoginBtn" class="m-t-10 col-md-3 btn btn-circle btn-outline-brand" style="font-weight:400;">
+													<i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Facebook 아이디로 사용하기
 												</a>
-											</div>
-											<div class="col-sm-6">
-												<a id="kakaoLoginBtn" class="btn btn-circle btn-outline-brand btn-user btn-block" style="letter-spacing:.025rem; font-weight:400;">
-													<span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Continue with Kakao
+												<a id="appleLoginBtn" class="m-t-10 col-md-3 btn btn-circle btn-outline-brand" style="font-weight:400;">
+													<span style="color:#000; font-weight:bold;">A</span>&nbsp;&nbsp;Apple 아이디로 사용하기
 												</a>
-											</div>
-						        </div>
+											</div>											
+						        		</div>
 									</div>
 								</div>
 							</div>
@@ -178,40 +174,42 @@ window.fbAsyncInit = function() {
 		<div class="gtco-services gtco-section">
 			<div class="gtco-container">
 				<div class="row row-pb-sm">
-						<div class="gtco-heading text-center">							
-							<p>Public flight records in DUNI PILOT CENTER and Drone companies</p>
-						</div>
+					<div class="gtco-heading text-center">							
+						<p>Public flight records in DUNI PILOT CENTER and Drone companies</p>
+					</div>
+				</div>
 
-						<div class="row row-pb-sm">
-							<div class="service-wrap">
-								<div class="service">																		
-									<div class="text-left">
-											<table border=0 cellspacing=0 cellpadding=2><tr><td>
-													<img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record 
-											</td><td>
-													<input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked>
-											</td></tr></table>
-										
-											<table border=0 cellspacing=0 cellpadding=2><tr><td>
-													<img src="./images/company_pos.png" width="30px" height="30px">드론기업(드론전문교육기관 포함)
-											</td><td>
-													<input type="checkbox" name="chkCompany" id="chkCompany" checked>
-											</td></tr></table>
-									</div>
-									
-									<br>																		
-									<div id="historyMap" style="width:100%;height:600px"></div>
-								</div>
-							</div>														
-						</div>
-
-						<div class="row row-pb-sm">
-							<div class="service-wrap" id="dataTable-Flight_list"></div>							
-							<div class="service-wrap">
-							<div class="service">
-								<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicrecordlist" id="more_label">More</a>
+				<div class="row row-pb-sm">
+					<div class="service-wrap">
+						<div class="service">																		
+							<div class="text-left">
+								<table border=0 cellspacing=0 cellpadding=2>
+									<tr>
+										<td><img src="./images/f_record_pos.png" width="30px" height="30px">Flight Record</td>
+										<td><input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked></td>
+									</tr>
+								</table>
+								<table border=0 cellspacing=0 cellpadding=2>
+									<tr>
+										<td><img src="./images/company_pos.png" width="30px" height="30px">드론기업(드론전문교육기관 포함)</td>
+										<td><input type="checkbox" name="chkCompany" id="chkCompany" checked></td>
+									</tr>
+								</table>
 							</div>
-						</div>						
+								
+							<br>																		
+							<div id="historyMap" style="width:100%;height:600px"></div>
+						</div>
+					</div>														
+				</div>
+
+				<div class="row row-pb-sm">
+					<div class="service-wrap" id="dataTable-Flight_list"></div>							
+					<div class="service-wrap">
+						<div class="service">
+							<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicrecordlist" id="more_label">More</a>
+						</div>
+					</div>						
 				</div>
 			</div>
 		</div>
@@ -264,41 +262,41 @@ window.fbAsyncInit = function() {
 	</div>
 
 	<!-- Logout Modal-->
-  <div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="askModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="askModalLabel">Ready to Leave?</h5>
-        </div>
-        <div class="modal-body">
-        	<span id="askModalContent">Select "Logout" below if you are ready to end your current session.</span>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal" id="askModalCancelButton">Cancel</button>
-          <button class="btn btn-primary" type="button" id="askModalOKButton">OK</button>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="askModalLabel" aria-hidden="true">
+    	<div class="modal-dialog" role="document">
+     		<div class="modal-content">
+        		<div class="modal-header">
+          			<h5 class="modal-title" id="askModalLabel">Ready to Leave?</h5>
+        		</div>
+        		<div class="modal-body">
+        			<span id="askModalContent">Select "Logout" below if you are ready to end your current session.</span>
+        		</div>
+        		<div class="modal-footer">
+          			<button class="btn btn-secondary" type="button" data-dismiss="modal" id="askModalCancelButton">Cancel</button>
+          			<button class="btn btn-primary" type="button" id="askModalOKButton">OK</button>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
 
-  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-title">Notification</h5>
-        </div>
-        <div class="modal-body" id="errorModalLabel"></div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    	<div class="modal-dialog" role="document">
+			<div class="modal-content">
+        		<div class="modal-header">
+          			<h5 class="modal-title" id="modal-title">Notification</h5>
+        		</div>
+        		<div class="modal-body" id="errorModalLabel"></div>
+        		<div class="modal-footer">
+          			<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
+        		</div>
+      		</div>
+    	</div>
+  	</div>
 
 	<div id="popup" class="ol-popup">
-    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    <div id="popup-content"></div>
-  </div>
+    	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    	<div id="popup-content"></div>
+  	</div>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
