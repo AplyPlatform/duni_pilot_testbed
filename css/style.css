@@ -201,7 +201,7 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
 }
 
 @media screen and (max-width: 480px) {
-  #gtco-header .btn {display: block; width: 100%;  }
+  #gtco-header .btn {display: block; width: 100%;}
 }
 
 #gtco-header,
@@ -235,38 +235,10 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
 }
 .gtco-cover > .gtco-container {position: relative; z-index: 10;}
 .gtco-cover .display-t, .gtco-cover .display-tc {width: 100%;}
-
-@media screen and (max-width: 768px) {
-  .gtco-cover .display-t, .gtco-cover .display-tc {height: 600px; height: inherit !important; padding: 3em 0;}
-}
-
 .gtco-cover.gtco-cover-sm { }
 .gtco-cover.gtco-cover-xs { }
-
-@media screen and (max-width: 768px) {
-  .gtco-cover.gtco-cover-sm {height: inherit !important;}
-}
-
-.gtco-cover.gtco-cover-sm .display-t, .gtco-cover.gtco-cover-sm .display-tc {height: 600px; display: table; width: 100%;}
-
-@media screen and (max-width: 768px) {
-  .gtco-cover.gtco-cover-sm .display-t,
-  .gtco-cover.gtco-cover-sm .display-tc {height: inherit !important; padding: 3em 0;}
-}
-
-
-
-@media screen and (max-width: 768px) {
-  .gtco-cover.gtco-cover-xs {height: inherit !important; padding: 3em 0;}
-}
-
+.gtco-cover.gtco-cover-sm .display-t, .gtco-cover.gtco-cover-sm .display-tc {width: 100%;}
 .gtco-cover.gtco-cover-xs .display-t, .gtco-cover.gtco-cover-xs .display-tc {width: 100%;}
-
-@media screen and (max-width: 768px) {
-  .gtco-cover.gtco-cover-xs .display-t,
-  .gtco-cover.gtco-cover-xs .display-tc {padding: 3em 0; height: inherit !important;}
-}
-
 .gtco-client {float: left; width: 100%; padding: 3em 0; background: #f6f6f6;}
 .gtco-client .client img {margin-top: 10px; display: -moz-inline-stack; display: inline-block; zoom: 1; *display: inline;}
 .gtco-services {padding: 7em 0;}
