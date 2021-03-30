@@ -274,7 +274,7 @@ var LANG_JSON_DATA = {
         "btnForSharing": "Share",
 				"btnForOpening": "Open",
         "btnForLink": "Creating a new link",
-        "privacy_link_label": "Privacy policy",
+        "privacy_link_label": "Privacy policy(KR)",
         "btnForBadge_make": "Generate badge code",
         "btnForBadge_del": "Delete badge",
         "btnForRegistMission": "Mission Register",
