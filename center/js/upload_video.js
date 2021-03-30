@@ -161,7 +161,7 @@ UploadVideo.prototype.uploadFile = function (file) {
 UploadVideo.prototype.handleUploadClicked = function () {
 		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
 		
-		if (0){
+		if (1){
 				showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
 				return;
 		}
