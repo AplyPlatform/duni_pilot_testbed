@@ -20,6 +20,8 @@ var signinCallback = function (result){
 };
 */
 
+let upload_not_allow = false;
+
 var STATUS_POLLING_INTERVAL_MILLIS = 60 * 1000; // One minute.
 
 
@@ -161,7 +163,7 @@ UploadVideo.prototype.uploadFile = function (file) {
 UploadVideo.prototype.handleUploadClicked = function () {
 		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
 		
-		if (1){
+		if (upload_not_allow){
 				showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
 				return;
 		}
