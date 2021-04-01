@@ -20,7 +20,7 @@ var signinCallback = function (result){
 };
 */
 
-let upload_not_allow = false;
+let upload_not_allow = true;
 
 var STATUS_POLLING_INTERVAL_MILLIS = 60 * 1000; // One minute.
 
