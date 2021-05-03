@@ -4894,8 +4894,18 @@ function requestAddress() {
 		var userid = getCookie("dev_user_id");    
     var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps"};
     
-    jdata["lat"] = $("#lat").val();
-    jdata["lng"] = $("#lng").val();
+    var latxlng = $("#latxlng").val();
+    var gpsar;
+    if (latxlng != "") {
+    	gpsar = latxlng.split(",");
+    	jdata["lat"] = gpsar[0];
+    	jdata["lng"] = gpsar[1];
+    }
+    else {
+    	jdata["lat"] = $("#lat").val();
+    	jdata["lng"] = $("#lng").val();
+    }
+    
 
 		showLoader();
   	ajaxRequest(jdata, function (r) {
