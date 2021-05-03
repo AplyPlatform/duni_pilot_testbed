@@ -385,7 +385,7 @@ function initPilotCenter() {
 
 
 function utilInit() {
-	
+		hideLoader();
 }
 
 function summaryInit() {
