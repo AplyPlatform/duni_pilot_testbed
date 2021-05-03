@@ -371,10 +371,21 @@ function initPilotCenter() {
         });
         $("#record_menu").addClass("active");
     }
+    else if (page_action == "util") {
+        $("#main_contents").load("util.html", function () {
+            utilInit();
+        });
+        $("#record_menu").addClass("active");
+    }
     else {
     		showAlert(LANG_JSON_DATA[langset]['msg_error']);
     		centerPageInit();
     }
+}
+
+
+function utilInit() {
+	
 }
 
 function summaryInit() {
@@ -4876,6 +4887,31 @@ function getQueryVariable(variable) {
             return decodeURIComponent(pair[1]);
         }
     }
+}
+
+
+function requestAddress() {
+		var userid = getCookie("dev_user_id");    
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps"};
+    
+    jdata["lat"] = $("#lat").val();
+    jdata["lng"] = $("#lng").val();
+
+		showLoader();
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	    	
+				$("#address").val(r.address);
+				hideLoader();
+	    }
+	    else {
+	    	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });
 }
 
 function GATAGM(label, category, language) {
