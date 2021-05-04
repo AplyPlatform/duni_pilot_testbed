@@ -152,7 +152,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
-			location.href = "center/main_dev.html?page_action=center";
+			location.href = "/center/main_dev.html?page_action=center";
 		});
 	}
 	else {
@@ -160,7 +160,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
-			location.href = "center/main.html?page_action=center";
+			location.href = "/center/main.html?page_action=center";
 		});
 	}
 }
