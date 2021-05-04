@@ -659,6 +659,8 @@ function checkAddress(address) {
 	
 		     	address_flat = r.data.lat;	
 		     	address_flng = r.data.lng;
+		     	
+		     	$("#address_result").val(r.data.address);
 		     	showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 	    	}
 	    	else {
