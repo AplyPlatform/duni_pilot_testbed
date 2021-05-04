@@ -621,6 +621,8 @@ function flightrecordUploadInit() {
     });
     
     //판매국가는 우선 한국만!
+    $("#priceinputarea").hide();
+    
     if (langset != "KR") {
     	$("#sale_select").hide();
     }
