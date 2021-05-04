@@ -114,9 +114,9 @@ $(function () {
 
 function goIndex(doAction) {
   if (langset == "KR" || langset == "")
-    location.href="/index.html?action=" + doAction;
+    location.href="index.html?action=" + doAction;
   else
-  	location.href="/index_en.html?action=" + doAction;
+  	location.href="index_en.html?action=" + doAction;
 }
 
 function setCurrentViewMode() {
@@ -152,7 +152,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU', langset);
-			location.href = "/center/main_dev.html?page_action=center";
+			location.href = "center/main_dev.html?page_action=center";
 		});
 	}
 	else {
@@ -160,7 +160,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU', langset);
-			location.href = "/center/main.html?page_action=center";
+			location.href = "center/main.html?page_action=center";
 		});
 	}
 }
@@ -385,6 +385,14 @@ function initPilotCenter() {
 
 
 function utilInit() {
+	
+	
+		$("#latxlng").keypress(function (e) {
+        if (e.which == 13){
+                   requestAddress();  // 실행할 이벤트
+        }
+    });
+    
 		hideLoader();
 }
 
