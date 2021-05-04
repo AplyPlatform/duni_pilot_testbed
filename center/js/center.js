@@ -4307,7 +4307,28 @@ function uploadFlightList(isUpdate) {
     	}
     	
     	youtube_data = massageYotubeUrl(youtube_data);
-    	saveYoutubeUrl(mname, tag_values, youtube_data, address_flat, address_flng, function(bSuccess) {
+    	
+    	var price = 0;
+	   	if (langset == "KR") {
+	   		if (youtube_data == "") {
+						showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
+						hideLoader();
+						return;
+				}
+					
+	    	var checked = $("#salecheck").is(":checked");
+				if(checked) {
+					var t_p = $("#price_input_data").val();
+					if (t_p == "") {
+						showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
+						hideLoader();
+						return;
+					}
+					
+					price = t_p * 1;
+				}
+	    }
+    	saveYoutubeUrl(mname, tag_values, youtube_data, price, address_flat, address_flng, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         		location.href = cur_controller + "?page_action=recordlist";
@@ -4559,14 +4580,18 @@ function setMoveActionFromMap(index, item) {
     setSliderPos(index);
 }
 
-function saveYoutubeUrl(rname, tag_values, data_id, flat, flng, callback) {
+function saveYoutubeUrl(rname, tag_values, data_id, price, flat, flng, callback) {
 
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": data_id, "clientid": userid, "name": rname, "tag_values" : tag_values };
     
-    if (flat > 0) {
+    if (flat != -999) {
     		jdata["flat"] = flat;
     		jdata["flng"] = flng;
+    }
+    
+    if (price > 0) {
+    		jdata["price"] = price;
     }
 
     showLoader();
@@ -4669,7 +4694,7 @@ function setYoutubeID() {
 
     if (fi_data_url.indexOf("youtube") >= 0) {
         setYoutubePlayer(fi_data_url);
-        saveYoutubeUrl(cur_flightrecord_name, tag_values, fi_data_url, -1, -1, function(bSuccess) {
+        saveYoutubeUrl(cur_flightrecord_name, tag_values, fi_data_url, -1, -999, -999, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         	}
