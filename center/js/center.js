@@ -621,7 +621,7 @@ function flightrecordUploadInit() {
     });
     
     //판매국가는 우선 한국만!
-    if (langset != "KO") {
+    if (langset != "KR") {
     	$("#sale_select").hide();
     }
     
@@ -4337,7 +4337,7 @@ function uploadDJIFlightListCallback(mname, tag_values, youtube_data, isUpdate, 
    	youtube_data = massageYotubeUrl(youtube_data);
    	
    	var price = 0;
-   	if (langset == "KO") {
+   	if (langset == "KR") {
    		if (youtube_data == "") {
 					showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
 					return;
