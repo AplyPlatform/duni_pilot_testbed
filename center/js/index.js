@@ -214,7 +214,7 @@ function googleinit() {
         var gauth = gapi.auth2.init();
 
         var options = new gapi.auth2.SigninOptionsBuilder();
-        options.setPrompt('select_account consent');
+        options.setPrompt('consent');
         //gauth.signIn(options);
 
         gauth.attachClickHandler(document.getElementById('googleLoginBtn'), options,
