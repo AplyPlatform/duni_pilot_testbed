@@ -83,6 +83,13 @@ var currentMonitorObjects;
 var currentMonitorIndex = 0;
 var currentMonitorOwner = "private";
 
+
+// 유튜브 약관 준수 - 동시에 2개 이상의 영상이 재생되면 안된다!
+var players = [];
+var playingIndex = null;
+var stopIndex = null;
+var playIndex = null;
+
 $(function () {
 		var lang = getCookie("language");
     if (isSet(lang))
@@ -3270,6 +3277,7 @@ function moveFlightHistoryMap(lat, lng) {
     flightRecords2DMapView.setCenter(npos);
 }
 
+
 function setYoutubeVideo(index, youtube_url) {
 		if (isSet(youtube_url) == false) {				
 				return;
@@ -3277,7 +3285,7 @@ function setYoutubeVideo(index, youtube_url) {
 
 		var vid = getYoutubeQueryVariable(youtube_url);		
 
-		new YT.Player("youTubePlayer_" + index, {
+		players[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
       videoId: vid,
@@ -4820,7 +4828,27 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-
+		for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를      
+        var state = players[i].getPlayerState(); 
+ 
+        // 초기 화면에서 재생 된 경우
+        if ( state === YT.PlayerState.PLAYING && playingIndex === null ) { 
+        	playingIndex = i;  
+        	// 다른 플레이어가 재생 중에 그 선수 이외가 재생 된 경우
+        } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) { 
+        	stopIndex = playingIndex;
+          playIndex = i;
+        } 
+    }    
+            
+    // 재생 중이던 플레이어를 일시 중지
+    if ( stopIndex !== null ) { players[stopIndex].pauseVideo();
+    	stopIndex = null;
+    }  
+        
+		if ( playIndex !== null ) { playingIndex = playIndex ;
+		   playIndex = null;
+		}
 }
 
 function processSeek(curTime) {
