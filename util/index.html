@@ -1,0 +1,233 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130136264-12"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-130136264-12');
+	</script>
+
+	<title>GPS 좌표 <-> 주소 변환 서비스 - DUNI 파일럿 센터</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content="GPS좌표<->주소 변환 기능을 제공합니다 - DUNI"/>
+	<meta name="keywords" content="주소,좌표,변환,변경,검색,Drone,DUNI,PILOT,드론,세계일주,꿈,비행"/>
+	<meta name="author" content="aply.biz"/>
+	<link rel="shortcut icon" type="image/x-icon" href="https://pilot.duni.io/favicon.png"/>
+	<link rel="apple-touch-icon" href="https://pilot.duni.io/apple-touch-icon.png"/>
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="GPS좌표<->주소 변환 서비스 - DUNI"/>
+	<meta property="og:image" content="https://pilot.duni.io/duni_title.png"/>
+	<meta property="og:url" content="https://pilot.duni.io/util"/>
+	<meta property="og:site_name" content="GPS 2 ADDRESS"/>
+	<meta property="og:description" content="GPS좌표<->주소 변환 기능을 제공합니다 - DUNI"/>
+	
+	<link href="../center/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
+
+		<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+	
+	<script src='https://www.google.com/recaptcha/api.js?render=6LehUpwUAAAAAKTVpbrZ2ciN3_opkJaKOKK11qY6'></script>
+
+	<script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
+0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".split(" ");e.get_group=function(){function a(c){b[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));e.push([d,call2])}}for(var b={},d=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<f.length;c++)a(f[c]);return b};a._i.push([b,d,g])};a.__SV=1.2;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
+mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
+	
+	</head>
+	
+	<body>
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.5&appId=570867566598427&autoLogAppEvents=1';
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+
+	<div id="loading">
+		<div class="loader"></div>
+	</div>
+	
+
+	<div id="page">
+		
+	<nav class="gtco-nav" role="navigation">
+			<div class="gtco-container">
+
+				<div class="row">
+					<div class="col-sm-2 col-xs-12">
+						<div id="gtco-logo"><a href="../index.html"><img src="../duni_logo.png" alt="DUNI 파일럿 센터" style="height:24px;"></a></div>
+					</div>
+					
+				</div>
+
+			</div>
+		</nav>
+
+	<header id="gtco-header" class="gtco-cover" role="banner">
+			<div class="gtco-container">
+						
+					<div class="row">
+						<div class="col-md-12 text-center">
+									  <h1>GPS좌표 <-> 주소 변환</h1> <span class="badge badge-danger">서비스</span>
+						</div>
+					</div>
+							
+			</div>
+		</header>
+		
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-12">
+					<hr color="white">
+				</div>
+			</div>
+		</div>
+
+		<div class="gtco-service">
+		  <div class="gtco-container">
+		        <div class="row">
+		          <div class="col-md-4">
+		          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
+		          </div>
+		          <div class="col-md-4">
+		          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
+		          </div>
+		          <div class="col-md-4">
+		          	<a class="btn btn-warning btn-lg" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-8">
+			          <input name="address" id="address" type="text" class="form-control" value="" placeholder="주소">
+		        	</div>
+		        	<div class="col-md-4">
+		        		<a class="btn btn-info btn-lg" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
+		        	</div>
+		        </div>
+		    </div>
+		  </div>
+		</div>
+
+		
+		<div class="gtco-container">
+			<div class="row">
+				<div class="col-md-12">					
+					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<ins class="adsbygoogle"
+					     style="display:block; text-align:center;"
+					     data-ad-layout="in-article"
+					     data-ad-format="fluid"
+					     data-ad-client="ca-pub-8189520766812080"
+					     data-ad-slot="5556376914"></ins>
+					<script>
+					     (adsbygoogle = window.adsbygoogle || []).push({});
+					</script>	
+				</div>
+			</div>
+		</div>
+				
+		<div class="gtco-client">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="col-md-12">	
+						<div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-action="like" data-size="small" data-show-faces="true"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- END .gtco-services -->
+	
+	
+		<footer id="gtco-footer" class="gtco-section" role="contentinfo">
+			<div class="gtco-container">
+				<div class="row row-pb-md">
+					<div class="col-md-8 col-md-offset-2 gtco-cta text-center">
+						<p><a href="../index.html" class="btn btn-white btn-outline">DUNI 파일럿 센터 방문하기</a></p>
+					</div>
+				</div>
+				<div class="row row-pb-md">
+					<div class="col-md-4 gtco-widget gtco-footer-paragraph">
+						<h3>GPS 좌표 <-> 주소 변환 서비스</h3>
+						<p>Drone, Everywhere.</p>
+					</div>
+					<div class="col-md-4 gtco-footer-link">
+						<div class="row">
+							<div class="col-md-6">
+								<ul class="gtco-list-link">
+									<li><a href="https://pilot.duni.io">DUNI 파일럿 센터</a></li>
+									<li><a href="https://blog.naver.com/duniplatform?utm_source=duni_pilot_util_homepage&utm_medium=link&utm_campaign=not_campaign">블로그</a></li>
+									<li><a href="https://www.facebook.com/groups/dunipilot">페이스북</a></li>
+									<li><a href="mailto:duni@aply.biz">duni at aply.biz</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="gtco-copyright">
+				<div class="gtco-container">
+					<div class="row">
+						<div class="col-md-6 text-left">
+							<p><small>&copy; <script>var cYear=(new Date()).getFullYear();document.write(cYear);</script> <a href="https://aply.biz" target="_new">APLY Inc.</a></small></p>
+						</div>
+						<div class="col-md-6 text-right">
+							<a href="../privacy.html" target=_new>Privacy</a> &nbsp; <a href="../service.html" target=_new>Terms of Use</a> &nbsp;
+							<small>powered by <a href="http://aply.biz/" target="_blank">APLY Inc.</a></small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	
+		
+		<div class="modal fade" id="errorModal">
+	    	<div class="modal-dialog modal-sm">
+	      		<div class="modal-content">
+	        		<div class="modal-header">
+	          			<h5 class="modal-title" id="modal-title">Notification</h5>
+	        		</div>
+	        		<div class="modal-body" id="errorModalLabel"></div>
+	        		<div class="modal-footer">
+	          			<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
+	        		</div>
+	      		</div>
+	    	</div>
+		</div>
+
+	</div>
+	  
+  
+  <!-- jQuery -->
+	<script src="../js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="../js/bootstrap.min.js"></script>
+	
+	
+	<script src="../center/js/lang.js"></script>
+  
+  <script src="./js/util.js"></script>
+
+</body>
+</html>
