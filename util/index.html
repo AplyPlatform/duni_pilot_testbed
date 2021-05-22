@@ -112,50 +112,53 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		
 		<div class="gtco-services">
 		  <div class="gtco-container">
-		        <div class="row row-pb-sm">
-		          <div class="col-md-4">
-		          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
-		          </div>
-		          <div class="col-md-4">
-		          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
-		          </div>
-		          <div class="col-md-4">
-		          	<a class="btn btn-warning btn-lg" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
-		          </div>
-		        </div>
-		        <div class="row row-pb-sm">
-		          <div class="col-md-8">
-			          <input name="address" id="address" type="text" class="form-control" value="" placeholder="주소">
-		        	</div>
-		        	<div class="col-md-4">
-		        		<a class="btn btn-info btn-lg" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
-		        	</div>
-		        </div>
+		  			<div class="service-wrap">
+		        		<div class="service">
+					        <div class="row row-pb-sm">
+					          <div class="col-md-4">
+					          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
+					          </div>
+					          <div class="col-md-4">
+					          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
+					          </div>
+					          <div class="col-md-4 text-left">
+					          	<a class="btn btn-warning btn-lg" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
+					          </div>
+					        </div>
+					        <div class="row row-pb-sm">
+					          <div class="col-md-8">
+						          <input name="address" id="address" type="text" class="form-control" value="" placeholder="주소">
+					        	</div>
+					        	<div class="col-md-4 text-left">
+					        		<a class="btn btn-info btn-lg" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
+					        	</div>
+					        </div>
+					      </div>
+					  </div>
 		    		
-				    <div class="row row-pb-sm">
-		        	<div class="service-wrap" id="dataTable-Flight_list">
-		        	</div>
-		        </div>
+	        	<div class="service-wrap" id="dataTable-Flight_list">
+	        	</div>
+	        	
+	        	<div class="service-wrap">
+	        		<div class="service">
+	        			<div class="row row-pb-sm">
+				        	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+									<!-- 주소<->좌표 변환 서비스 페이지 -->
+									<ins class="adsbygoogle"
+									     style="display:block"
+									     data-ad-client="ca-pub-8189520766812080"
+									     data-ad-slot="9271388509"
+									     data-ad-format="auto"
+									     data-full-width-responsive="true"></ins>
+									<script>
+									     (adsbygoogle = window.adsbygoogle || []).push({});
+									</script>	
+								</div>
+							</div>
+						</div>
 		  </div>		
 		</div>
 		
-		<div class="gtco-container">
-			<div class="row">
-				<div class="col-md-12">					
-					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- 주소<->좌표 변환 서비스 페이지 -->
-					<ins class="adsbygoogle"
-					     style="display:block"
-					     data-ad-client="ca-pub-8189520766812080"
-					     data-ad-slot="9271388509"
-					     data-ad-format="auto"
-					     data-full-width-responsive="true"></ins>
-					<script>
-					     (adsbygoogle = window.adsbygoogle || []).push({});
-					</script>	
-				</div>
-			</div>
-		</div>
 				
 		<div class="gtco-client">
 			<div class="gtco-container">

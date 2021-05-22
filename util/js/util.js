@@ -498,6 +498,8 @@ function requestAddress() {
 		    if(r.result == "success") {
 					$("#address").val(r.data.address);
 					
+					oldAddressVal = r.data.address;
+					
 					if (isSet(r.data.data)) {
 						flightRecArray = r.data.data;
 	      		setFlightlistHistory();
@@ -544,6 +546,9 @@ function requestGPS(address) {
 		
 						$("#lat").val(r.data.lat);
 	  				$("#lng").val(r.data.lng);
+	  				
+	  				oldLatVal = r.data.lat;
+						oldLngVal = r.data.lng;
 			     	
 			     	if (isSet(r.data.data)) {
 							flightRecArray = r.data.data;
