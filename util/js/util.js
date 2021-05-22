@@ -515,6 +515,7 @@ function requestAddress() {
 		  }, 
 		  function(request,status,error) {
 		    hideLoader();
+		    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 		  }
 		);
 		
@@ -538,6 +539,7 @@ function requestGPS(address) {
     
     showLoader();
 		setCaptcha(jdata, function (r) {
+				hideLoader();
 	    	if(r.result == "success") {
 			      if (r.data == null) {
 			      	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
@@ -564,6 +566,7 @@ function requestGPS(address) {
 	    	}
 	  	},
 	  	function(request,status,error) {
+					hideLoader();
 	  			showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	  	}
 	  );
