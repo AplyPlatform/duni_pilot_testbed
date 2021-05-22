@@ -510,6 +510,15 @@ h1, h2, h3, h4, h5, h6, figure {color: #000; font-weight: 400; margin: 0 0 20px 
 
 form label {font-weight: normal !important;}
 
+#gtco-header2 {
+  background: url('../images/title_img_3.jpg') no-repeat center top;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
 #gtco-header {
   background: url('../images/title_img_2.jpg') no-repeat center top;
   background-color: black;
