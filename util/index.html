@@ -93,49 +93,50 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 			</div>
 		</nav>
 
-		<header id="gtco-header" class="gtco-cover" role="banner">
+		<header id="gtco-header2" class="gtco-cover" role="banner">
 			<div class="gtco-container">
-						
-					<div class="row">
-						<div class="col-md-12 text-center">
-									  <h1>GPS 좌표 <-> 주소</h1> <span class="badge badge-danger">변환 서비스</span>
-						</div>
-					</div>
-							
-			</div>
-		</header>
-		
-		<div class="gtco-services">
-			
-		</div>
-		
-		<div class="gtco-services">
-		  <div class="gtco-container">
-		  			<div class="service-wrap">
-		        		<div class="service">
-					        <div class="row row-pb-sm">
+
+								<div class="row">
+									<div class="col-md-12 text-center">
+											<h1 style="color:white">GPS 좌표 <-> 주소</h1><span class="badge badge-danger">변환 서비스</span>
+									</div>
+								</div>
+								
+								<div class="row">
+									<br><br><br><br>
+								</div>
+								
+								<div class="service-wrap">
+									<div class="row">
 					          <div class="col-md-4">
-					          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
+					          	<input name="lat" id="lat" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="위도 : 예) 37.1234" required="">
 					          </div>
 					          <div class="col-md-4">
-					          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
+					          	<input name="lng" id="lng" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="경도 : 예) 127.1234" required="">
 					          </div>
 					          <div class="col-md-4 text-left">
 					          	<a class="btn btn-warning btn-lg" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
 					          </div>
 					        </div>
-					        <div class="row row-pb-sm">
+					        
+					        <div class="row">
 					          <div class="col-md-8">
-						          <input name="address" id="address" type="text" class="form-control" value="" placeholder="주소">
+						          <input name="address" id="address" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="주소">
 					        	</div>
 					        	<div class="col-md-4 text-left">
 					        		<a class="btn btn-info btn-lg" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
 					        	</div>
 					        </div>
-					      </div>
-					  </div>
-		    		
+								</div>				        
+				      
+			</div>
+		</header>
+		
+		
+		<div class="gtco-services gtco-section">
+		  <div class="gtco-container">
 	        	<div class="service-wrap" id="dataTable-Flight_list">
+	        			
 	        	</div>
 	        	
 	        	<div class="service-wrap">

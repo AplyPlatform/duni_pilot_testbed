@@ -454,15 +454,15 @@ function appendFlightListTable(item) {
 
 function setNoFlightlistHistory() {
 		$('#dataTable-Flight_list').empty();
-		$('#dataTable-Flight_list').append("<hr>");
 		
-		$('#dataTable-Flight_list').append("<h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요? - <a href='https://duni.io' target='_new'>촬영요청하기</a></h4>");
+		let msg = "<div class='service'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-lg' role='button' href='https://duni.io' target='_new'>드론촬영 요청</a></div>";
+		$('#dataTable-Flight_list').append(msg);
 }
 
 function setFlightlistHistory() {
 		$('#dataTable-Flight_list').empty();
 		
-		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new'>촬영요청하기</a></h4></div>");
+		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new'>드론촬영 요청하기</a></h4></div>");
 		
 		$('#dataTable-Flight_list').append("<hr>");
 		
