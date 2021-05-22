@@ -581,7 +581,7 @@ function GATAGM(label, category, value, language) {
         'event', label + "_" + language, {
         'event_category': category,
         'event_label': label,
-        'etc', : value
+        'etc' : value
     }
     );
 
