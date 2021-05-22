@@ -452,18 +452,17 @@ function appendFlightListTable(item) {
 	}
 
 
-function setNoFlightlistHistory() {
+function setNoFlightlistHistory(latlng) {
 		$('#dataTable-Flight_list').empty();
-		
-		let msg = "<div class='service'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-lg' role='button' href='https://duni.io' target='_new'>드론촬영 요청</a></div>";
+		//TODO
+		let msg = "<div class='service'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-lg' role='button' href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>";
 		$('#dataTable-Flight_list').append(msg);
 }
 
-function setFlightlistHistory() {
+function setFlightlistHistory(latlng) {
 		$('#dataTable-Flight_list').empty();
 		
-		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new'>드론촬영 요청하기</a></h4></div>");
-		
+		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_2\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청하기</a></h4></div>");
 		$('#dataTable-Flight_list').append("<hr>");
 		
 	  flightRecArray.forEach(function(item) {
@@ -504,10 +503,10 @@ function requestAddress() {
 					
 					if (isSet(r.data.data)) {
 						flightRecArray = r.data.data;
-	      		setFlightlistHistory();
+	      		setFlightlistHistory(oldLatVal + "," + oldLngVal);
 					}
 					else {
-						setNoFlightlistHistory();
+						setNoFlightlistHistory(oldLatVal + "," + oldLngVal);
 						showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 					}
 		    }
@@ -558,10 +557,10 @@ function requestGPS(address) {
 			     	
 			     	if (isSet(r.data.data)) {
 							flightRecArray = r.data.data;
-	      			setFlightlistHistory();
+	      			setFlightlistHistory(oldLatVal + "," + oldLngVal);
 						}
 						else {
-							setNoFlightlistHistory();
+							setNoFlightlistHistory(oldLatVal + "," + oldLngVal);
 							showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 						}
 	    	}
