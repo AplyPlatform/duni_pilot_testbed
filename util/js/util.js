@@ -116,7 +116,8 @@ function utilInit() {
         		requestAddress();  //
         }
     });
-        
+    
+    initYoutubeAPI();
 		hideLoader();
 }
 
@@ -185,6 +186,295 @@ function setCaptcha(jdata, successHandler, failHandler) {
 }
 
 
+function getYoutubeQueryVariable(query) {
+  var varfirst = query.split('?');
+  var vars = varfirst[1].split('&');
+  for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=');
+      if (decodeURIComponent(pair[0]) == "v") {
+          return decodeURIComponent(pair[1]);
+      }
+  }
+
+  return "";
+}
+
+var players = [];
+function setEmptyVideo(index) {
+	//$("#youTubePlayer_" + index).show();
+	//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
+	players[index] = new YT.Player("youTubePlayer_" + index, {
+    height: '200',
+    width: '100%',
+    videoId: "q2PzFbh6HBE",
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function setYoutubeVideo(index, youtube_url) {
+	var vid = getYoutubeQueryVariable(youtube_url);
+
+	players[index] = new YT.Player("youTubePlayer_" + index, {
+    height: '200',
+    width: '100%',
+    videoId: vid,
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(event) {
+	event.target.stopVideo();
+}
+
+var playingIndex = null;
+var stopIndex = null;
+var playIndex = null;
+
+function onPlayerStateChange(event) {
+	for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를      
+      var state = players[i].getPlayerState(); 
+
+      // 초기 화면에서 재생 된 경우
+      if ( state === YT.PlayerState.PLAYING && playingIndex === null ) { 
+      	playingIndex = i;  
+      	// 다른 플레이어가 재생 중에 그 선수 이외가 재생 된 경우
+      } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) { 
+      	stopIndex = playingIndex;
+        playIndex = i;
+      } 
+  }    
+          
+  // 재생 중이던 플레이어를 일시 중지
+  if ( stopIndex !== null ) { players[stopIndex].pauseVideo();
+  	stopIndex = null;
+  }  
+      
+	if ( playIndex !== null ) { playingIndex = playIndex ;
+	   playIndex = null;
+	}
+}
+
+var flightRecArray = [];
+var tableCount = 0;
+
+function createNewIconFor2DMap(i, item) {
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+	          mindex : i,
+						maddress : item.address,
+						mhasYoutube : item.hasYoutube
+	      });
+
+	  return pos_icon;
+	}
+
+function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
+		var dpoint = ol.proj.fromLonLat([flng, flat]);
+
+	  var c_view = new ol.View({
+	      center: dpoint,
+	      zoom: 10
+	    });
+
+	  var vSource = new ol.source.Vector();
+
+	  var vVectorLayer = new ol.layer.Vector({
+	      source: vSource,
+	      zIndex: 77,
+	      style: new ol.style.Style({	    
+	      			stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 2
+            	}),        
+	            image: new ol.style.Circle({
+					            radius: 7,
+					            fill: new ol.style.Fill({ color: '#ff333377' }),
+					            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+		                })
+	          })
+	    });
+
+    var bingLayer = new ol.layer.Tile({
+	    visible: true,
+	    preload: Infinity,
+	    source: new ol.source.BingMaps({
+	        // We need a key to get the layer from the provider.
+	        // Sign in with Bing Maps and you will get your key (for free)
+	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
+	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
+	        // "no photos at this zoom level" tiles
+	        maxZoom: 19
+	    })
+		});
+
+	  var vMap = new ol.Map({
+	      target: 'map_' + index,
+	      layers: [
+	          bingLayer, vVectorLayer
+	          //vVectorLayer
+	      ],
+	      // Improve user experience by loading tiles while animating. Will make
+	      // animations stutter on mobile or slow devices.
+	      loadTilesWhileAnimating: true,
+	      view: c_view
+	    });
+
+	  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address, hasYoutube : hasYoutube});
+	  vSource.addFeature(icon);
+	  
+	  return vSource;
+}
+
+function setAddressAndCada(address_id, address, cada, wsource) {
+		var _features = [];
+		var _addressText = "";
+
+	  for(var idx=0; idx< cada.length; idx++) {
+	    try{
+	      var geojson_Feature = cada[idx];
+	      var geojsonObject = geojson_Feature.geometry;
+
+	      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
+	      for(var i=0; i< features.length; i++) {
+	        try{
+	          var feature = features[i];
+	          feature["id_"] = geojson_Feature.id;
+	          feature["properties"] = {};
+	          for (var key in geojson_Feature.properties) {
+	            try{
+	              var value = geojson_Feature.properties[key];
+
+	              if (_addressText == "" && key == "addr") {
+	              	_addressText = value;
+	              }
+
+	              feature.values_[key] = value;
+	              feature.properties[key] = value;
+	            }catch (e){
+	            }
+	          }
+	          _features.push(feature)
+	        }catch (e){
+	        }
+	      }
+	    }catch (e){
+	    }
+	  }
+
+	  wsource.addFeatures(_features);
+
+	  if (isSet($(address_id)))
+	  	$(address_id).text(address);
+}
+	
+function appendFlightListTable(item) {
+		var name = item.name;
+		var dtimestamp = item.dtime;
+		var data = item.data;		
+		var address = item.address;
+		var cada = item.cada;
+		var youtube_url = item.youtube_data_id;
+		var curIndex = tableCount;
+		var tag_values = item.tag_values;
+	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
+	  
+	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
+
+	  if (flat != -999) {
+	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
+	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
+	  }
+	  else {
+	  	appendRow = appendRow + "<div class='col-md-8'>";//row
+	  }
+
+	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row
+	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
+		appendRow = appendRow
+						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
+						+ name + "\", \"CONTENT\", \""
+						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
+
+	  if (flat != -999) {
+	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
+	  }
+	  
+	  if (isSet(tag_values) && tag_values != "") {
+	  	appendRow = appendRow + "<br><br>";    	
+    	var tag_array = JSON.parse(tag_values);
+    	tag_array.forEach(function(tg) {
+    		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    	});
+    }
+
+	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
+
+	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
+
+	  if (isSet(youtube_url)) {
+	  	var vid = getYoutubeQueryVariable(youtube_url);			
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langset + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+	  }
+
+	  $('#dataTable-Flight_list').append(appendRow);
+
+		if (isSet(youtube_url)) {
+			//$("#video-pop-" + curIndex).videoPopup();
+		}
+
+		var retSource = null;
+		if (flat != -999) {
+	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));
+	  }
+
+	  if (isSet(retSource) && isSet(address) && address != "") {
+	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
+	  }
+
+	  if (isSet(youtube_url)) {
+	  	setYoutubeVideo(curIndex, youtube_url);
+	  }
+	  else {
+	  	setEmptyVideo(curIndex);
+	  }
+
+	  tableCount++;
+	}
+
+
+function setNoFlightlistHistory() {
+		$('#dataTable-Flight_list').empty();
+		$('#dataTable-Flight_list').append("<hr>");
+		
+		$('#dataTable-Flight_list').append("<h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요? - <a href='https://duni.io' target='_new'>촬영요청하기</a></h4>");
+}
+
+function setFlightlistHistory() {
+		$('#dataTable-Flight_list').empty();
+		
+		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new'>촬영요청하기</a></h4></div>");
+		
+		$('#dataTable-Flight_list').append("<hr>");
+		
+	  flightRecArray.forEach(function(item) {
+	    appendFlightListTable(item);
+	  });
+}
+
+var oldAddressVal = "";
+var oldLatVal = -999;
+var oldLngVal = -999;
+
 function requestAddress() {
     GATAGM("public_address_by_gps", "service", langset);
     var jdata = {"action" : "public_address_by_gps", "daction" : "public_address_by_gps"};
@@ -196,12 +486,26 @@ function requestAddress() {
 	    	return;
     }
 
+		//같은 값으로 조회 시도
+		if (oldLatVal == jdata["lat"] && oldLngVal == jdata["lng"]) return;
+		
+		oldLatVal = jdata["lat"];
+		oldLngVal = jdata["lng"];
+
 		showLoader();
 		setCaptcha(jdata, function (r) {
 		    hideLoader();
 		    if(r.result == "success") {
-					$("#address").val(r.address);
-					showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+					$("#address").val(r.data.address);
+					
+					if (isSet(r.data.data)) {
+						flightRecArray = r.data.data;
+	      		setFlightlistHistory();
+					}
+					else {
+						setNoFlightlistHistory();
+						showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+					}
 		    }
 		    else {
 		    	showAlert("좌표를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
@@ -225,6 +529,11 @@ function requestGPS(address) {
 	    	return;
     }
     
+    //같은 값으로 조회 시도
+		if (oldAddressVal == jdata["address"]) return;
+		
+		oldAddressVal = jdata["address"];
+    
     showLoader();
 		setCaptcha(jdata, function (r) {
 	    	if(r.result == "success") {
@@ -236,7 +545,14 @@ function requestGPS(address) {
 						$("#lat").val(r.data.lat);
 	  				$("#lng").val(r.data.lng);
 			     	
-			     	showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+			     	if (isSet(r.data.data)) {
+							flightRecArray = r.data.data;
+	      			setFlightlistHistory();
+						}
+						else {
+							setNoFlightlistHistory();
+							showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+						}
 	    	}
 	    	else {
 		  			showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
@@ -247,8 +563,6 @@ function requestGPS(address) {
 	  	}
 	  );
 }
-
-
 
 function GATAGM(label, category, language) {
     gtag(
@@ -262,4 +576,11 @@ function GATAGM(label, category, language) {
         label + "_" + language,
         { "event_category": category, "event_label": label }
     );
+}
+
+function initYoutubeAPI() {
+		var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
