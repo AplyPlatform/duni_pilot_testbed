@@ -400,8 +400,8 @@ function appendFlightListTable(item) {
 	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
-						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
-						+ name + "\", \"CONTENT\", \""
+						+ "<a onclick='GATAGM(\"util_flight_list_public_title_click\", \"CONTENT\", \"" 
+						+ name + "\", \""
 						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
@@ -476,7 +476,7 @@ var oldLatVal = -999;
 var oldLngVal = -999;
 
 function requestAddress() {
-    GATAGM("public_address_by_gps", "service", langset);
+    
     var jdata = {"action" : "public_address_by_gps", "daction" : "public_address_by_gps"};
   	jdata["lat"] = $("#lat").val();
   	jdata["lng"] = $("#lng").val();
@@ -491,6 +491,8 @@ function requestAddress() {
 		
 		oldLatVal = jdata["lat"];
 		oldLngVal = jdata["lng"];
+		
+		GATAGM("public_address_by_gps", "SERVICE", oldLatVal + "," + oldLngVal, langset);
 
 		showLoader();
 		setCaptcha(jdata, function (r) {
@@ -523,7 +525,7 @@ function requestAddress() {
 
 
 function requestGPS(address) {
-		GATAGM("public_gps_by_address", "service", langset);
+		
 		var jdata = {"action" : "public_gps_by_address", "daction" : "public_gps_by_address"};
   	jdata["address"] = $("#address").val();
     
@@ -536,6 +538,8 @@ function requestGPS(address) {
 		if (oldAddressVal == jdata["address"]) return;
 		
 		oldAddressVal = jdata["address"];
+		
+		GATAGM("public_gps_by_address", "SERVICE", oldAddressVal, langset);
     
     showLoader();
 		setCaptcha(jdata, function (r) {
@@ -572,17 +576,18 @@ function requestGPS(address) {
 	  );
 }
 
-function GATAGM(label, category, language) {
+function GATAGM(label, category, value, language) {
     gtag(
         'event', label + "_" + language, {
         'event_category': category,
-        'event_label': label
+        'event_label': label,
+        'etc', : value
     }
     );
 
     mixpanel.track(
         label + "_" + language,
-        { "event_category": category, "event_label": label }
+        { "event_category": category, "event_label": label, "etc" : value }
     );
 }
 
