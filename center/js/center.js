@@ -634,6 +634,7 @@ function genPlanByAddress(address) {
 		ajaxRequest(jdata, function (r) {
 	    	if(r.result == "success") {
 		      if (r.data == null) {
+		      	hideLoader();
 		      	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 		        return;
 		      }
@@ -668,7 +669,6 @@ function genPlanByGPS(lat, lng) {
     
     showLoader();
   	ajaxRequest(jdata, function (r) {
-	    hideLoader();
 	    if(r.result == "success") {
 	    	
 				$("#gen_address").val(r.address);
@@ -686,7 +686,6 @@ function genPlanByGPS(lat, lng) {
 
 
 function genPlan(lat, lng) {
-	
 		var data = 
 			[
 				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
@@ -715,6 +714,9 @@ function genPlan(lat, lng) {
 		moveToStartPoint3D(lng, lat, 600);
 		draw3DMap();
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
+    
+    var dpoint = ol.proj.fromLonLat([lng, lat]);
+    rawCadastral(null, null, dpoint[0], dpoint[1], null);
 }
 
 function flightrecordUploadInit() {
@@ -3126,6 +3128,13 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
 }
 
 function updateCadaData(record_name, address, cada_data) {
+		if (isSet(record_name) == false 
+			|| isSet(address) == false 
+			|| isSet(cada_data) == false) {
+				hideLoader();
+				return;
+		}
+		
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "set_cada", "clientid": userid, "cada": cada_data, "address": address, "name": record_name };
 
@@ -3138,12 +3147,14 @@ function updateCadaData(record_name, address, cada_data) {
 }
 
 function drawCadastral(disp_id, name, x, y, vSource) {
+		if (isSet(x) == false || isSet(y) == false) return;
+		
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "cada", "clientid": userid, "x": x, "y": y };
 
     ajaxRequest(jdata, function (r) {
-    	  hideLoader();
         if (r == null || r.data == null || r.data.response.status !== "OK") {
+        	hideLoader();
         	return;
         }
 
@@ -3183,12 +3194,8 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         }
 
         setAddressAndCada(disp_id, _addressText, _features, vSource);
-        if (vVectorForHistory) {
-            setAddressAndCada(disp_id, _addressText, _features, vVectorForHistory);
-        }
-
+        setAddressAndCada(disp_id, _addressText, _features, vVectorForHistory);
         updateCadaData(name, _addressText, response.result.featureCollection.features);
-
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -3199,17 +3206,11 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
-    //var curText = getFlightRecordTitle();
-    var _features = new Array();
-    var _addressText = "";
-
-
     if (isSet(c3ddataSource)) {
         Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
             var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
             return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
         }
-
 
         cada[0]['crs'] = {
             type: 'name',
@@ -3225,7 +3226,15 @@ function setAddressAndCada(address_id, address, cada, wsource) {
             clampToGround: true
         });
     }
-
+    
+    if (isSet($(address_id)))
+        $(address_id).text(address);
+        
+    if (isSet(wsource) == false) return;
+    
+		var _features = new Array();
+    var _addressText = "";
+    
     for (var idx = 0; idx < cada.length; idx++) {
         try {
             var geojson_Feature = cada[idx];
@@ -3258,11 +3267,8 @@ function setAddressAndCada(address_id, address, cada, wsource) {
         }
     }
 
-
     wsource.addFeatures(_features);
 
-    if (isSet($(address_id)))
-        $(address_id).text(address);
 }
 
 function appendFlightRecordTable(target, item) {
