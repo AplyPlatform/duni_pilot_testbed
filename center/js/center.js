@@ -706,14 +706,14 @@ function genPlan(lat, lng) {
 		
 		designDataArray = data;
 		
-		designDataArray.forEach(function(item) {
-			var dt = {"lat" : item.lat, "lng" : item.lng, "alt" : item.alt + 200};
+		designDataArray.forEach(function(item,index,d) {
+			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
 			arrayFlightRecordData.push(dt);
 		});
 		
-		moveToStartPoint3D(data[0].lng, data[0].lat, 500);
+		moveToStartPoint3D(lng, lat, 600);
 		draw3dMap();
-		move3DmapIcon("private", 0, data[0].lat, data[0].lng, 500, 0, 0, 0);
+    moveToPositionOnMap("private", 0, lat, lng, item.alt, 0, 0, 0);
 }
 
 function flightrecordUploadInit() {
@@ -3645,7 +3645,7 @@ function registMission(mname, mspeed) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
 				    alert(mname + " (" + mspeed + "m/s) : " + LANG_JSON_DATA[langset]['msg_success']);
-				    location.href = cur_controller + "?page_action=list";
+				    location.href = cur_controller + "?page_action=missionlist";
         }
         else {
             showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
