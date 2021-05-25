@@ -22,11 +22,18 @@
           			<h6 class="m-0 font-weight-bold text-primary" id="page_about_title">주소로 비행계획 만들기</h6>
         		</div>
     				<div class="card-body">
-                <input type="text" class="form-control" placeholder="Address" id="genAddress">
-                
-                <button class="btn btn-primary" type="button" id="btnForGenMissionByAddress">
-                      만들기
-                </button>
+    					<div class="row">
+	    						<div class="col-auto">
+                		<input type="text" class="form-control" placeholder="Address" id="genAddress">
+                	</div>
+              </div>
+             	<div class="row">
+	    						<div class="col-auto">
+		                <button class="btn btn-primary" type="button" id="btnForGenMissionByAddress">
+		                      만들기
+		                </button>
+		              </div>
+		          </div>
             </div>
     </div>
   </div>
@@ -37,12 +44,14 @@
           			<h6 class="m-0 font-weight-bold text-primary" id="page_about_title">경도, 위도(GPS 좌표)로 비행계획 만들기</h6>
         		</div>
             <div class="card-body">
-    						<div class="col-auto">
-					          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
-					      </div>
-					      <div class="col-auto">
-					          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
-					      </div>
+            		<div class="row">
+	    						<div class="col mr-2">
+						          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
+						      </div>
+						      <div class="col mr-2">
+						          	<input name="lng" id="lng" type="text" class="form-control" value="" placeholder="경도 : 예) 127.1234" required="">
+						      </div>
+						    </div>
                 <div class="row">
                 	<div class="col-auto">
                       <button class="btn btn-primary" type="button" id="btnForGenMissionByGPS">
@@ -66,7 +75,9 @@
 						</div>
 						
 						<div class="card-body">
+							<div class="col-auto">
                 <button type="button" class="btn btn-primary" id="btnForRegistMission">저장하기</button>
+              </div>
             </div>
     </div>
   </div>
