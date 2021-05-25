@@ -314,6 +314,17 @@ function initPilotCenter() {
         });
         $("#mission_menu").addClass("active");
     }
+    else if (page_action == "missiongen") {
+        $("#main_contents").load("mission_gen.html", function () {
+            map2dInit();
+            selectMonitorIndex("private", 0);
+            addObjectTo2dMap(0, "private", "drone");
+            map3dInit();
+            addObjectTo3DMap(0, "private", "drone");
+            missionGenInit();
+        });
+        $("#mission_menu").addClass("active");
+    }
     else if (page_action == "missionlist") {
         $("#main_contents").load("mission_list.html", function () {
             missionListInit();
@@ -584,6 +595,12 @@ function designInit() {
 }
 
 var oldAddressVal = "";
+
+
+function missionGenInit() {
+	
+}
+
 
 function flightrecordUploadInit() {
 
