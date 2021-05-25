@@ -598,7 +598,7 @@ var oldAddressVal = "";
 
 
 function missionGenInit() {
-		hideLoader();
+		designDataArray = [];
 		
 		$('#btnForGenMissionByAddress').click(function () {
         GATAGM('btnForGenMissionByAddress', 'CONTENT', langset);
@@ -611,6 +611,14 @@ function missionGenInit() {
         
         genPlanByGPS($('#lat').val(), $('#lng').val());
     });
+    
+    var posLayer = new ol.layer.Vector({
+	      source: mainMap2DposSource
+	  });
+	
+	  main2dMap.addLayer(posLayer);
+    
+    hideLoader();
 }
 
 function genPlanByAddress(address) {
@@ -618,6 +626,10 @@ function genPlanByAddress(address) {
     		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
         return;
     }
+    
+    if (oldAddressVal == address) return;
+    
+    oldAddressVal = address;
     
     var userid = getCookie("dev_user_id");    
     var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
@@ -648,6 +660,11 @@ function genPlanByGPS(lat, lng) {
 			showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
 			return;
 		}
+		
+		if (address_flat == lat && address_flng == lng) return;
+		
+		address_flat = lat;
+		address_flng = lng;
 		
 		var userid = getCookie("dev_user_id");    
     var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
