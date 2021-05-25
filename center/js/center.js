@@ -712,6 +712,7 @@ function genPlan(lat, lng) {
 		});
 		
 		draw3dMap();
+		first3DcameraMove(data[0]);
 }
 
 function flightrecordUploadInit() {
@@ -2005,12 +2006,10 @@ function startMon() {
 }
 
 
-function first3DcameraMove(owner, fobject) {
+function first3DcameraMove(item) {
     if (!isSet(v3DMapViewer)) return;
 
     var camera = v3DMapViewer.camera;
-
-    var item = fobject[0];
 
     camera.flyTo({
         destination: Cesium.Cartesian3.fromDegrees(
@@ -2035,15 +2034,6 @@ function first3DcameraMove(owner, fobject) {
             }, 2500);
         },
     });
-
-    fobject.forEach(function (d, index) {
-        moveToPositionOnMap(owner, index, d.lat * 1, d.lng * 1, d.alt, d.yaw, d.roll, d.pitch);
-    });
-
-    setTimeout(function () {
-        if (bMonStarted == false) return;
-        nextMon();
-    }, 1000);
 }
 
 function processMon(owner, output) {
@@ -2175,8 +2165,17 @@ function processMon(owner, output) {
 
         if (!isSet(v3DMapViewer))
             nexttour(owner, fobject);
-        else
-            first3DcameraMove(owner, fobject);
+        else {
+            first3DcameraMove(fobject[0]);
+            fobject.forEach(function (d, index) {
+				        moveToPositionOnMap(owner, index, d.lat * 1, d.lng * 1, d.alt, d.yaw, d.roll, d.pitch);
+				    });
+				
+				    setTimeout(function () {
+				        if (bMonStarted == false) return;
+				        nextMon();
+				    }, 1000);
+        }
     }
     else nexttour(owner, fobject);
 
