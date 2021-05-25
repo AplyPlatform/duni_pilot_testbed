@@ -608,7 +608,7 @@ function missionGenInit() {
     $('#btnForGenMissionByGPS').click(function () {
         GATAGM('btnForGenMissionByGPS', 'CONTENT', langset);
         
-        genPlanByGPS($('#lat').val(), $('#lng').val());
+        genPlanByGPS($('#lat').val() * 1, $('#lng').val() * 1);
     });
     
     $('#btnForRegistMission').off('click');
@@ -643,7 +643,7 @@ function genPlanByAddress(address) {
 					$('#lat').val(r.data.lat);
 					$('#lng').val(r.data.lng);
 					
-		     	genPlan(r.data.lat, r.data.lng);
+		     	genPlan(r.data.lat * 1, r.data.lng * 1);
 	    	}
 	    	else {		  		
 	    		showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
