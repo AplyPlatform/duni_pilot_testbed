@@ -713,7 +713,7 @@ function genPlan(lat, lng) {
 		
 		moveToStartPoint3D(lng, lat, 600);
 		draw3dMap();
-    moveToPositionOnMap("private", 0, lat, lng, item.alt, 0, 0, 0);
+    moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
 }
 
 function flightrecordUploadInit() {
