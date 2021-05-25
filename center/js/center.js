@@ -612,6 +612,12 @@ function missionGenInit() {
         genPlanByGPS($('#lat').val(), $('#lng').val());
     });
     
+    $('#btnForRegistMission').off('click');
+    $('#btnForRegistMission').click(function () {
+        GATAGM('btnForRegistMission', 'CONTENT', langset);
+        askMissionNameForDesignRegister();
+    });
+    
     var posLayer = new ol.layer.Vector({
 	      source: mainMap2DposSource
 	  });
@@ -690,9 +696,29 @@ function genPlanByGPS(lat, lng) {
 
 function genPlan(lat, lng) {
 	
-	
+		var data = 
+			[
+				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
+				{"alt" : 2, "speed" : 1.2, "act" : 5, "actparam" : "89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
+				{"alt" : 2, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 2, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
+				{"alt" : 30, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 30m까지 업
+				{"alt" : 30, "speed" : 1.2, "act" : 5, "actparam" : "0", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
+				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, -90
+				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng} // ROTATE_AIRCRAFT, 정북
+			];
+		
+		designDataArray = data;
+		
+		designDataArray.forEach(function(item) {
+			var dt = {"lat" : item.lat, "lng" : item.lng, "alt" : item.alt + 200};
+			arrayFlightRecordData.push(dt);
+		});
+		
+		draw3dMap();
 }
-
 
 function flightrecordUploadInit() {
 
