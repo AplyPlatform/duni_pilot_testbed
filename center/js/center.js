@@ -316,9 +316,8 @@ function initPilotCenter() {
     }
     else if (page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
-            map2dInit();
+            
             selectMonitorIndex("private", 0);
-            addObjectTo2dMap(0, "private", "drone");
             map3dInit();
             addObjectTo3DMap(0, "private", "drone");
             missionGenInit();
@@ -617,12 +616,6 @@ function missionGenInit() {
         GATAGM('btnForRegistMission', 'CONTENT', langset);
         askMissionNameForDesignRegister();
     });
-    
-    var posLayer = new ol.layer.Vector({
-	      source: mainMap2DposSource
-	  });
-	
-	  main2dMap.addLayer(posLayer);
     
     hideLoader();
 }
