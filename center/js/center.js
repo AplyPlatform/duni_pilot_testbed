@@ -631,6 +631,7 @@ function genPlanByAddress(address) {
     var userid = getCookie("dev_user_id");    
     var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
 		
+		showLoader();
 		ajaxRequest(jdata, function (r) {
 	    	if(r.result == "success") {
 		      if (r.data == null) {
