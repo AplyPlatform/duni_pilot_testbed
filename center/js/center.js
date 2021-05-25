@@ -711,9 +711,9 @@ function genPlan(lat, lng) {
 			arrayFlightRecordData.push(dt);
 		});
 		
+		moveToStartPoint3D(data[0].lng, data[0].lat, 500);
 		draw3dMap();
-		move3DmapIcon("private", 0, data[0].lat, data[0].lng, 300, 0, 0, 0);
-		first3DcameraMove({"lat": data[0].lat, "lng" : data[0].lng, "alt" : 300});
+		move3DmapIcon("private", 0, data[0].lat, data[0].lng, 500, 0, 0, 0);
 }
 
 function flightrecordUploadInit() {
