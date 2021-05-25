@@ -284,7 +284,7 @@ function centerPageInit() {
 	}
 
   $("#main_contents").load(loadPage, function () {      
-      flightRecords2dMapInit();
+      flightRecords2DMapInit();
       centerInit();
   });
 
@@ -307,19 +307,17 @@ function initPilotCenter() {
     }
     else if (page_action == "missiondesign") {
         $("#main_contents").load("mission_design.html", function () {
-            map2dInit();
+            map2DInit();
             selectMonitorIndex("private", 0);
-            addObjectTo2dMap(0, "private", "drone");
+            addObjectTo2DMap(0, "private", "drone");
             designInit();
         });
         $("#mission_menu").addClass("active");
     }
     else if (page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
-            
             selectMonitorIndex("private", 0);
-            map3dInit();
-            addObjectTo3DMap(0, "private", "drone");
+            map3DInit();
             missionGenInit();
         });
         $("#mission_menu").addClass("active");
@@ -332,8 +330,8 @@ function initPilotCenter() {
     }
     else if (page_action == "monitor") {
         $("#main_contents").load("monitor.html", function () {
-            map2dInit();
-            map3dInit();
+            map2DInit();
+            map3DInit();
             monitorInit();
         });
         $("#monitor_menu").addClass("active");
@@ -346,7 +344,7 @@ function initPilotCenter() {
     }
     else if (page_action == "recordlist") {
         $("#main_contents").load("record_list.html", function () {            
-            flightRecords2dMapInit();
+            flightRecords2DMapInit();
             flightrecordListInit("private");
         });
         $("#record_menu").addClass("active");
@@ -354,18 +352,18 @@ function initPilotCenter() {
     else if (page_action == "publicrecordlist") {
         $("#main_contents").load("record_list.html", function () {            
             selectMonitorIndex("private", 0);
-            addObjectTo2dMap(0, "private", "drone");
-            flightRecords2dMapInit();
+            addObjectTo2DMap(0, "private", "drone");
+            flightRecords2DMapInit();
             flightrecordListInit("public");
         });
         $("#record_menu").addClass("active");
     }
     else if (page_action == "publicrecordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
-            map2dInit();
+            map2DInit();
             selectMonitorIndex("private", 0);
-            addObjectTo2dMap(0, "private", "drone");
-            map3dInit();
+            addObjectTo2DMap(0, "private", "drone");
+            map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("public");
         });
@@ -373,10 +371,10 @@ function initPilotCenter() {
     }
     else if (page_action == "recordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
-            map2dInit();
+            map2DInit();
             selectMonitorIndex("private", 0);
-            addObjectTo2dMap(0, "private", "drone");
-            map3dInit();
+            addObjectTo2DMap(0, "private", "drone");
+            map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("private");
         });
@@ -706,13 +704,16 @@ function genPlan(lat, lng) {
 		
 		designDataArray = data;
 		
+		if (!("private" in planePrimitives) || planePrimitives["private"].length <= 0)
+			addObjectTo3DMapWithGPS(0, "private", "drone", lat, lng, 3000);
+		
 		designDataArray.forEach(function(item,index,d) {
 			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
 			arrayFlightRecordData.push(dt);
 		});
 		
 		moveToStartPoint3D(lng, lat, 600);
-		draw3dMap();
+		draw3DMap();
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
 }
 
@@ -1058,7 +1059,7 @@ function missionListInit() {
     getMissionList(); 
 }
 
-function flightRecords2dMapInit() {
+function flightRecords2DMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
 		
 		popup2DMapContainer = document.getElementById('popup');
@@ -2145,7 +2146,7 @@ function processMon(owner, output) {
             }
 
             addObjectTo3DMap((index + 1), owner, kind);
-            addObjectTo2dMap((index + 1), owner, kind);
+            addObjectTo2DMap((index + 1), owner, kind);
         });
 
 
@@ -3811,7 +3812,7 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
 
     drawLineGraph();
 
-    draw3dMap();
+    draw3DMap();
 
     var item = arrayFlightRecordData[0];
     moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
@@ -3947,7 +3948,7 @@ function getColor(colorName, alpha) {
     return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
-function draw3dMap() {
+function draw3DMap() {
     var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
 
     var position = computeCirclularFlight(start);
@@ -3967,7 +3968,7 @@ function remove3dObjects() {
     }
 }
 
-function addObjectTo3DMap(index, owner, kind) {
+function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
 
     if (!isSet(planePrimitives)) {
         return;
@@ -3980,7 +3981,7 @@ function addObjectTo3DMap(index, owner, kind) {
     var camera = v3DMapViewer.camera;
 
     var position = Cesium.Cartesian3.fromDegrees(
-        126.5610038, 33.3834381, 3000
+        lng, lat, alt
     );
 
     var glbUrl, gColor, gColor;
@@ -4039,7 +4040,11 @@ function addObjectTo3DMap(index, owner, kind) {
 
 }
 
-function map3dInit() {
+function addObjectTo3DMap(index, owner, kind) {
+    addObjectTo3DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038, 3000);
+}
+
+function map3DInit() {
   	if(use3DMap == false) {
 	    $("#main3dMap").hide();//for the license
 	    $("#map3dViewer").text(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing']);
@@ -4178,7 +4183,7 @@ function remove2dObjects() {
     arrayCurrentMainMap2DObjectPosImage = null;
 }
 
-function addObjectTo2dMap(index, owner, kind) {
+function addObjectTo2DMap(index, owner, kind) {
     if (!isSet(mainMap2DVectorSource)) return;
 
     if (!isSet(arrayCurrentMainMap2DObjectPos)) {
@@ -4221,7 +4226,7 @@ function addObjectTo2dMap(index, owner, kind) {
     mainMap2DVectorSource.addFeature(current_pos);
 }
 
-function map2dInit() {
+function map2DInit() {
 
     var styles = [
         'Road',
