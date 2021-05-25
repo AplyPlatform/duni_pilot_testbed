@@ -717,7 +717,7 @@ function genPlan(lat, lng) {
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
-    rawCadastral(null, null, dpoint[0], dpoint[1], null);
+    drawCadastral(null, null, dpoint[0], dpoint[1], null);
 }
 
 function flightrecordUploadInit() {
@@ -3048,7 +3048,7 @@ function showDataWithName(target, name) {
           }
           else {
               var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-            	rawCadastral("#map_address", name, dpoint[0], dpoint[1], mainMap2DpointSource);
+            	drawCadastral("#map_address", name, dpoint[0], dpoint[1], mainMap2DpointSource);
           }	            	                            		              
 				}
 				else {
