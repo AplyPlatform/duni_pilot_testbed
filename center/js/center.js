@@ -599,6 +599,81 @@ var oldAddressVal = "";
 
 function missionGenInit() {
 		hideLoader();
+		
+		$('#btnForGenMissionByAddress').click(function () {
+        GATAGM('btnForGenMissionByAddress', 'CONTENT', langset);
+        
+        genPlanByAddress($('#gen_address').val());
+    });
+        
+    $('#btnForGenMissionByGPS').click(function () {
+        GATAGM('btnForGenMissionByGPS', 'CONTENT', langset);
+        
+        genPlanByGPS($('#lat').val(), $('#lng').val());
+    });
+}
+
+function genPlanByAddress(address) {
+		if (isSet(address) == false) {
+    		showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+        return;
+    }
+    
+    var userid = getCookie("dev_user_id");    
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
+		
+		ajaxRequest(jdata, function (r) {
+	    	if(r.result == "success") {
+		      if (r.data == null) {
+		      	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+		        return;
+		      }
+	
+					$('#lat').val(r.data.lat);
+					$('#lng').val(r.data.lng);
+					
+		     	genPlan(r.data.lat, r.data.lng);
+	    	}
+	    	else {		  		
+	    		showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
+	    	}
+	  	},
+	  	function(request,status,error) {
+	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	  });
+}
+
+function genPlanByGPS(lat, lng) {
+		if (isSet(lat) == false || isSet(lng) == false) {
+			showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+			return;
+		}
+		
+		var userid = getCookie("dev_user_id");    
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
+    
+    showLoader();
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	    	
+				$("#gen_address").val(r.address);
+				
+				genPlan(lat, lng);
+	    }
+	    else {
+	    	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });
+}
+
+
+function genPlan(lat, lng) {
+	
+	
 }
 
 
