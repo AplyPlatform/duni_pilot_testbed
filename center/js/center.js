@@ -316,8 +316,6 @@ function initPilotCenter() {
     }
     else if (page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
-            selectMonitorIndex("private", 0);
-            map3DInit();
             missionGenInit();
         });
         $("#mission_menu").addClass("active");
@@ -693,15 +691,19 @@ function genPlan(lat, lng) {
 				{"alt" : 2, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
 				{"alt" : 2, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
 				{"alt" : 2, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
-				{"alt" : 30, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 30m까지 업
-				{"alt" : 30, "speed" : 1.2, "act" : 5, "actparam" : "0", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
-				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, -90
-				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 40, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 40m까지 업
+				{"alt" : 40, "speed" : 1.2, "act" : 5, "actparam" : "0", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 41, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // stay // 고도 41m까지 업
+				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "-180", "lat" : lat, "lng" : lng}, // stay // 고도 40m까지 업
+				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
 				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도
 				{"alt" : 2, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
 			];
 		
+		selectMonitorIndex("private", 0);
+    map3DInit();
+            
 		designDataArray = data;
 		
 		if (!("private" in planePrimitives) || planePrimitives["private"].length <= 0)
@@ -713,7 +715,7 @@ function genPlan(lat, lng) {
 		});
 		
 		moveToStartPoint3D(lng, lat, 600);
-		draw3DMap();
+		draw3DMap();//todo
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
