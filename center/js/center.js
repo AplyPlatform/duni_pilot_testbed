@@ -316,6 +316,10 @@ function initPilotCenter() {
     }
     else if (page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
+	        	selectMonitorIndex("private", 0);
+	    			map3DInit();
+	    			map2DInit();
+	    			addObjectTo2DMap(0, "private", "drone");
             missionGenInit();
         });
         $("#mission_menu").addClass("active");
@@ -701,8 +705,7 @@ function genPlan(lat, lng) {
 				{"alt" : 2, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
 			];
 		
-		selectMonitorIndex("private", 0);
-    map3DInit();
+		
             
 		designDataArray = data;
 		
@@ -715,7 +718,7 @@ function genPlan(lat, lng) {
 		});
 		
 		moveToStartPoint3D(lng, lat, 600);
-		draw3DMap();//todo
+		draw3DMap();
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
@@ -4313,6 +4316,8 @@ function map2DInit() {
 
     // update the HTML page when the position changes.
     geolocation.on('change', function () {
+    		if (!$('#accuracy')) return;
+    		
         $('#accuracy').text(geolocation.getAccuracy() + ' [m]');
         $('#altitude').text(geolocation.getAltitude() + ' [m]');
         $('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
@@ -4326,7 +4331,8 @@ function map2DInit() {
     // handle geolocation error.
     geolocation.on('error', function (error) {
         var info = $('#monitor');
-        info.text(error.message);
+        if (info)
+        	info.text(error.message);
     });
 
     if (isSet($('#track'))) {
