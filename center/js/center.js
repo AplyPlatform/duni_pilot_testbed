@@ -707,7 +707,8 @@ function genPlan(lat, lng) {
 				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
 				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, -90
 				{"alt" : 30, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
-				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng} // ROTATE_AIRCRAFT, 정북
+				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도
+				{"alt" : 2, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
 			];
 		
 		designDataArray = data;
