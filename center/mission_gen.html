@@ -18,24 +18,25 @@
   <!-- Map -->
   <div class="col-lg-6 mb-4">
     <div class="card shadow mb-4">
+    				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          			<h6 class="m-0 font-weight-bold text-primary" id="page_about_title">주소로 비행계획 만들기</h6>
+        		</div>
     				<div class="card-body">
-    						<label for="genAddress" class="text-xs font-weight-bold text-default text-uppercase mb-1">주소로 비행계획 만들기</label>
-                <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Address" id="genAddress">
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" id="btnForGenMissionByAddress">
-                            만들기
-                        </button>
-                      </span>
-                </div>
+                <input type="text" class="form-control" placeholder="Address" id="genAddress">
+                
+                <button class="btn btn-primary" type="button" id="btnForGenMissionByAddress">
+                      만들기
+                </button>
             </div>
     </div>
   </div>
   
   <div class="col-lg-6 mb-4">
     <div class="card shadow mb-4">
+    				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          			<h6 class="m-0 font-weight-bold text-primary" id="page_about_title">경도, 위도(GPS 좌표)로 비행계획 만들기</h6>
+        		</div>
             <div class="card-body">
-    						<label for="lat" class="text-xs font-weight-bold text-default text-uppercase mb-1">경도, 위도로 비행계획 만들기</label>
     						<div class="col-auto">
 					          	<input name="lat" id="lat" type="text" class="form-control" value="" placeholder="위도 : 예) 37.1234" required="">
 					      </div>
@@ -50,8 +51,12 @@
                   </div>
                 </div>
             </div>
-            
-          	<div class="card-body h-400">
+    </div>
+  </div>
+  
+  <div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+    				<div class="card-body h-400">
 		        	<div class="col-auto">
 		        		<div id="mainMap" class="map"></div>
 		        	</div>

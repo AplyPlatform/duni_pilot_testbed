@@ -598,7 +598,7 @@ var oldAddressVal = "";
 
 
 function missionGenInit() {
-	
+		hideLoader();
 }
 
 
