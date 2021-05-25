@@ -690,7 +690,7 @@ function genPlan(lat, lng) {
 		var data = 
 			[
 				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
-				{"alt" : 2, "speed" : 1.2, "act" : 5, "actparam" : "89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
+				{"alt" : 2, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
 				{"alt" : 2, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
 				{"alt" : 2, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
 				{"alt" : 30, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 30m까지 업
