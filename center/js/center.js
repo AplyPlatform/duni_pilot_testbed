@@ -4380,7 +4380,7 @@ function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     	arrayCurrentMainMap2DObjectPosImage[owner][index].setRotation(yaw);
     }
 
-    if (owner == currentMonitorOwner && currentMonitorIndex == index)
+    if (isSet(currentMainMap2DView) && owner == currentMonitorOwner && currentMonitorIndex == index)
         currentMainMap2DView.setCenter(location);
 }
 
