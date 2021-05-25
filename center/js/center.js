@@ -722,7 +722,7 @@ function genPlan(lat, lng) {
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
-    drawCadastral(null, null, dpoint[0], dpoint[1], null);
+    drawCadastral(null, null, dpoint[0], dpoint[1], mainMap2DpointSource);
 }
 
 function flightrecordUploadInit() {
