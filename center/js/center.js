@@ -3049,7 +3049,29 @@ function showDataWithName(target, name) {
         var exist_data = setFlightRecordDataToView(target, fdata.data, false);
 				if (exist_data) {
 					if (isSet(fdata.cada)) {
-							setAddressAndCada("#map_address", fdata.address, fdata.cada, mainMap2DpointSource);              
+							setAddress("#map_address", fdata.address);
+							if (mainMap2DpointSource) wsource.addFeatures(fdata.cada);
+			        if (vVectorForHistory) vVectorForHistory.addFeatures(fdata.cada);
+			        if (isSet(c3ddataSource)) {
+					        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
+					            var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
+					            return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
+					        }
+					
+					        cada[0]['crs'] = {
+					            type: 'name',
+					            properties: {
+					                'name': 'customProj'
+					            }
+					        };
+					
+					        // Load
+					        c3ddataSource.load(fdata.cada[0], {
+					            stroke: Cesium.Color.RED,
+					            strokeWidth: 2,
+					            clampToGround: true
+					        });
+					    }
           }
           else {
               var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
@@ -3198,9 +3220,31 @@ function drawCadastral(disp_id, name, x, y, vSource) {
             } catch (e) {
             }
         }
+        
+        if (wsource) wsource.addFeatures(_features);
+        if (vVectorForHistory) vVectorForHistory.addFeatures(_features);
+        if (isSet(c3ddataSource)) {
+		        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
+		            var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
+		            return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
+		        }
+		
+		        cada[0]['crs'] = {
+		            type: 'name',
+		            properties: {
+		                'name': 'customProj'
+		            }
+		        };
+		
+		        // Load
+		        c3ddataSource.load(cada[0], {
+		            stroke: Cesium.Color.RED,
+		            strokeWidth: 2,
+		            clampToGround: true
+		        });
+		    }
 
-        setAddressAndCada(disp_id, _addressText, _features, vSource);
-        setAddressAndCada(disp_id, _addressText, _features, vVectorForHistory);
+        setAddress(disp_id, _addressText);
         updateCadaData(name, _addressText, response.result.featureCollection.features);
     }, function (request, status, error) {
         hideLoader();
@@ -3211,70 +3255,10 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 
 
 
-function setAddressAndCada(address_id, address, cada, wsource) {
-    if (isSet(c3ddataSource)) {
-        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
-            var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
-            return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
-        }
-
-        cada[0]['crs'] = {
-            type: 'name',
-            properties: {
-                'name': 'customProj'
-            }
-        };
-
-        // Load
-        c3ddataSource.load(cada[0], {
-            stroke: Cesium.Color.RED,
-            strokeWidth: 2,
-            clampToGround: true
-        });
-    }
-    
+function setAddress(address_id, address) {
     if (isSet($(address_id)))
         $(address_id).text(address);
         
-    if (isSet(wsource) == false) return;
-    
-		var _features = new Array();
-    var _addressText = "";
-    
-    for (var idx = 0; idx < cada.length; idx++) {
-        try {
-            var geojson_Feature = cada[idx];
-            var geojsonObject = geojson_Feature.geometry;
-
-            var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
-            for (var i = 0; i < features.length; i++) {
-                try {
-                    var feature = features[i];
-                    feature["id_"] = geojson_Feature.id;
-                    feature["properties"] = {};
-                    for (var key in geojson_Feature.properties) {
-                        try {
-                            var value = geojson_Feature.properties[key];
-
-                            if (_addressText == "" && key == "addr") {
-                                _addressText = value;
-                            }
-
-                            feature.values_[key] = value;
-                            feature.properties[key] = value;
-                        } catch (e) {
-                        }
-                    }
-                    _features.push(feature)
-                } catch (e) {
-                }
-            }
-        } catch (e) {
-        }
-    }
-
-    wsource.addFeatures(_features);
-
 }
 
 function appendFlightRecordTable(target, item) {
@@ -3397,8 +3381,29 @@ function appendFlightRecordTable(target, item) {
     setYoutubeVideo(curIndex, youtube_data_id);
 
     if (isSet(retSource) && isSet(address) && address != "") {
-        setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
-        setAddressAndCada("#map_address_" + curIndex, address, cada, vVectorForHistory);
+        setAddress("#map_address_" + curIndex, address, cada, retSource);
+        if (retSource) wsource.addFeatures(cada);
+        if (vVectorForHistory) vVectorForHistory.addFeatures(cada);
+        if (isSet(c3ddataSource)) {
+		        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
+		            var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
+		            return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
+		        }
+		
+		        cada[0]['crs'] = {
+		            type: 'name',
+		            properties: {
+		                'name': 'customProj'
+		            }
+		        };
+		
+		        // Load
+		        c3ddataSource.load(cada[0], {
+		            stroke: Cesium.Color.RED,
+		            strokeWidth: 2,
+		            clampToGround: true
+		        });
+		    }
     }
     else {
         if (flat != -999) {
