@@ -51,7 +51,7 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="../css/style.css">
 	
-	<script src='https://www.google.com/recaptcha/api.js?render=6LehUpwUAAAAAKTVpbrZ2ciN3_opkJaKOKK11qY6'></script>
+	<script src='https://www.google.com/recaptcha/api.js?render=6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7'></script>
 
 	<script>(function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
 0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
@@ -135,6 +135,12 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		
 		<div class="gtco-services gtco-section">
 		  <div class="gtco-container">
+		  			<div class="service-wrap" id="historyMapArea">
+		  				<div class="service">
+		  					<div id="historyMap" style="width:100%;height:300px"></div>
+		  				</div>
+	        	</div>
+	        	
 	        	<div class="service-wrap" id="dataTable-Flight_list">
 	        			
 	        	</div>
@@ -212,8 +218,16 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				</div>
 			</div>
 		</footer>
-	
 		
+		<div id="popup" class="ol-popup">
+    	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    	<div id="popup-content"></div>
+  	</div>
+	
+		<div class="gototop js-top">
+			<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+		</div>
+	
 		<div class="modal fade" id="errorModal">
 	    	<div class="modal-dialog modal-sm">
 	      		<div class="modal-content">

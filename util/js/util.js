@@ -18,9 +18,37 @@ $(function () {
     if (isSet(lang))
         langset = lang;
 
+		goToTop();
 		utilInit();
+		flightHistoryMapInit();
+		getCompanyList();
 });
 
+var goToTop = function() {
+
+		$('.js-gotop').on('click', function(event){
+
+			event.preventDefault();
+
+			$('html, body').animate({
+				scrollTop: $('html').offset().top
+			}, 500, 'easeInOutExpo');
+
+			return false;
+		});
+
+		$(window).scroll(function(){
+
+			var $win = $(window);
+			if ($win.scrollTop() > 200) {
+				$('.js-top').addClass('active');
+			} else {
+				$('.js-top').removeClass('active');
+			}
+
+		});
+
+	};
 
 function setCookie(cName, cValue, cDay) {
     var date = new Date();
@@ -116,7 +144,7 @@ function utilInit() {
         		requestAddress();  //
         }
     });
-    
+
     initYoutubeAPI();
 		hideLoader();
 }
@@ -179,7 +207,7 @@ function setCaptcha(jdata, successHandler, failHandler) {
             .then(function (token) {
  								jdata['captcha_token'] = token;
 						  	ajaxRequest(jdata, successHandler, failHandler);
-                
+
             });
   });
 
@@ -237,28 +265,360 @@ var stopIndex = null;
 var playIndex = null;
 
 function onPlayerStateChange(event) {
-	for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를      
-      var state = players[i].getPlayerState(); 
+	for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를
+      var state = players[i].getPlayerState();
 
       // 초기 화면에서 재생 된 경우
-      if ( state === YT.PlayerState.PLAYING && playingIndex === null ) { 
-      	playingIndex = i;  
+      if ( state === YT.PlayerState.PLAYING && playingIndex === null ) {
+      	playingIndex = i;
       	// 다른 플레이어가 재생 중에 그 선수 이외가 재생 된 경우
-      } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) { 
+      } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) {
       	stopIndex = playingIndex;
         playIndex = i;
-      } 
-  }    
-          
+      }
+  }
+
   // 재생 중이던 플레이어를 일시 중지
   if ( stopIndex !== null ) { players[stopIndex].pauseVideo();
   	stopIndex = null;
-  }  
-      
+  }
+
 	if ( playIndex !== null ) { playingIndex = playIndex ;
 	   playIndex = null;
 	}
 }
+
+	var flightHistorySource;
+	var flightCompanySource;
+	var flightHistoryView;
+	var mainMap2DpointSource;
+	var mainMap2DCadaSource;
+
+	var vVectorLayerForCompany;
+	var vVectorLayerForHistory;
+
+	var flightRecArray = [];
+	var companyArray = [];
+
+	var container = document.getElementById('popup');
+	var content = document.getElementById('popup-content');
+	var closer = document.getElementById('popup-closer');
+
+	function flightHistoryMapInit() {
+		var dpoint = ol.proj.fromLonLat([0, 0]);
+
+		container.style.visibility = "visible";
+		var overlay = new ol.Overlay({
+		  element: container,
+		  autoPan: true,
+		  autoPanAnimation: {
+		    duration: 250,
+		  },
+		});
+
+		closer.onclick = function () {
+		  overlay.setPosition(undefined);
+		  closer.blur();
+		  return false;
+		};
+
+	  flightHistoryView = new ol.View({
+	      center: dpoint,
+	      zoom: 14
+	    });
+
+	  flightCompanySource = new ol.source.Vector();
+		var clusterCompanySource = new ol.source.Cluster({
+			  distance: 40,
+			  source: flightCompanySource,
+			  geometryFunction: function(feature) {
+	        var geom = feature.getGeometry();
+	    		return geom.getType() == 'Point' ? geom : null;
+	    	},
+			});
+
+		var styleCacheForCompany = {};
+	  vVectorLayerForCompany = new ol.layer.Vector({
+	      source: clusterCompanySource,
+	      zIndex: 99,
+	      style:  function (feature) {
+	        	if (!feature) return;
+
+				    var size = feature.get('features').length;
+				    var radius;
+				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var style = styleCacheForCompany[size];
+				    if (!style) {
+				    		style = [new ol.style.Style({
+	                image: new ol.style.Circle({
+				            radius: radius,
+				            fill: new ol.style.Fill({ color: '#779977dd' }),
+				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+									})
+	              })];
+
+								if (size > 1) {
+									style[0].setText(new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+									}));
+								}
+
+	          		styleCacheForCompany[size] = style
+				    }
+				    return style;
+				  },
+	    });
+
+	  flightHistorySource = new ol.source.Vector();
+	  var clusterSource = new ol.source.Cluster({
+			  distance: 40,
+			  source: flightHistorySource,
+			  geometryFunction: function(feature) {
+	        var geom = feature.getGeometry();
+	    		return geom.getType() == 'Point' ? geom : null;
+	    	},
+			});
+
+		var styleCache = {};
+	  vVectorLayerForHistory = new ol.layer.Vector({
+	      source: clusterSource,
+	      zIndex: 100,
+	      style:  function (feature) {
+	        	if (!feature) return;
+
+				    var size = feature.get('features').length;
+				    var radius;
+				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var style = styleCache[size];
+				    if (!style) {
+				       	style = [new ol.style.Style({
+		                image: new ol.style.Circle({
+						            radius: radius,
+						            fill: new ol.style.Fill({ color: '#964383dd' }),
+						            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+	                		})
+	              })];
+
+								if (size > 1) {
+									style[0].setText(new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+									}));
+								}
+
+	          		styleCache[size] = style
+				    }
+				    return style;
+				  },
+	    });
+
+	  var bingLayer = new ol.layer.Tile({
+	    visible: true,
+	    preload: Infinity,
+	    source: new ol.source.BingMaps({
+	        // We need a key to get the layer from the provider.
+	        // Sign in with Bing Maps and you will get your key (for free)
+	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
+	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
+	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
+	        // "no photos at this zoom level" tiles
+	        maxZoom: 19
+	    })
+		});
+
+		mainMap2DpointSource = new ol.source.Vector({});
+
+		var pointLayer = new ol.layer.Vector({
+        source: mainMap2DpointSource
+    });
+
+    mainMap2DCadaSource = new ol.source.Vector({});
+
+		var cadaLayer = new ol.layer.Vector({
+        source: mainMap2DCadaSource,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 2
+            })
+        })
+    });
+
+	  var vMap = new ol.Map({
+	      target: 'historyMap',
+	      layers: [
+	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer
+	      ],
+				overlays: [overlay],
+	      // Improve user experience by loading tiles while animating. Will make
+	      // animations stutter on mobile or slow devices.
+	      loadTilesWhileAnimating: true,
+	      view: flightHistoryView
+	    });
+
+	  vMap.on('click', function(evt) {
+	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
+	        	processMapClick(vMap, evt, feature, overlay);
+			});
+
+		$("#historyMapArea").hide();
+	}
+
+	function createNewCompanyIconFor2DMap(i, item) {
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+	          cname: item.name,
+	          cindex : item.cid
+	      });
+
+	  return pos_icon;
+	}
+
+	function getCompanyList() {
+		flightCompanySource.clear();
+
+	  var jdata = {"action": "public_company_list"};
+
+		showLoader();
+  	ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	      if (r.data == null || r.data.length == 0) {
+					hideLoader();
+	        return;
+	      }
+
+	      companyArray = r.data;
+
+	      companyArray.forEach(function(item, index, arr) {
+	      	var icon = createNewCompanyIconFor2DMap(index, item);
+					flightCompanySource.addFeature(icon);
+	  		});
+
+				hideLoader();
+	    }
+	    else {
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });
+	}
+
+	function getCompanyInfo(title, cid) {
+	  var jdata = {"action": "public_company_detail", "cid" : cid};
+
+		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
+
+  	ajaxRequest(jdata, function (r) {
+	    if(r.result == "success") {
+	      if (r.data == null) {
+	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
+	        return;
+	      }
+
+	     	if (r.data.is_playground == true) {
+	     			title = "<드론비행/체험장> " + title;
+	     	}
+
+	      if (r.data.partner == true) {
+	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+	      }
+	      else {
+	      		title = "<b>" + title + "</b>";
+	      }
+
+	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
+
+	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
+	      	title = title + ('<br>' + r.data.phone_num_2);
+
+	      title = title + '</p>';
+	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
+
+	      if (r.data.spe_edu == true) {
+	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
+				}
+
+	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
+	      }
+
+	      title = title + "</tr></table>";
+
+	      content.innerHTML = title;
+	    }
+	  },
+	  	function(request,status,error) {
+	  		content.innerHTML = title + "<p>Failed to get more info.</p>";
+	  });
+	}
+
+
+	function processMapClick(map, evt, feature, overlay) {
+		if (!isCluster(feature)) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
+
+  	var features = feature.get('features');
+  	var count = features.length;
+		if (count <= 0 || count >= 2) {
+			map.getView().animate({
+			  zoom: map.getView().getZoom() + 1,
+			  duration: 250
+			})
+			return;
+		}
+
+    var ii = features[0].get('mindex');
+    if (!isSet(ii)) {
+    	ii = features[0].get('cindex');
+    	if (!isSet(ii)) return;
+
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);
+
+    	var title = features[0].get('cname');
+			var coordinate = evt.coordinate;
+
+			if (count > 1)
+				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
+			else
+				title = '<p>' + title + '</p>';
+
+		  overlay.setPosition(coordinate);
+    	getCompanyInfo(title, ii);
+    	return;
+    }
+
+    GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
+
+    var hasYoutube = features[0].get('mhasYoutube');
+
+  	if (hasYoutube)
+  		$("#video-pop-" + ii).click();
+	}
+
+	function isCluster(feature) {
+	  if (!feature || !feature.get('features')) {
+	  	return false;
+	  }
+
+	  return feature.get('features').length >= 1;
+	}
+
+	function moveFlightHistoryMapAndCada(lat, lng, cada) {
+		var npos = ol.proj.fromLonLat([lng, lat]);
+		flightHistoryView.setCenter(npos);
+		addNewIconFor2DMap(npos, mainMap2DpointSource);
+		setAddressAndCada(null, null, cada, mainMap2DCadaSource);
+	}
 
 var flightRecArray = [];
 var tableCount = 0;
@@ -273,7 +633,30 @@ function createNewIconFor2DMap(i, item) {
 	      });
 
 	  return pos_icon;
-	}
+}
+
+
+function addNewIconFor2DMap(npos, vsource) { //todo
+		var iconStyle = new ol.style.Style({
+		  image: new ol.style.Icon({
+		    src: '../images/pin.png',
+		    anchor: [0.5, 46],
+		    anchorXUnits: 'fraction',
+		    anchorYUnits: 'pixels',
+		    scale: 0.2
+		  }),
+		});
+
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(npos)
+	  });
+
+	  pos_icon.setStyle(iconStyle);
+
+	  vsource.addFeature(pos_icon);
+}
+
+
 
 function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		var dpoint = ol.proj.fromLonLat([flng, flat]);
@@ -288,11 +671,11 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: vSource,
 	      zIndex: 77,
-	      style: new ol.style.Style({	    
+	      style: new ol.style.Style({
 	      			stroke: new ol.style.Stroke({
                 color: '#ff0000',
                 width: 2
-            	}),        
+            	}),
 	            image: new ol.style.Circle({
 					            radius: 7,
 					            fill: new ol.style.Fill({ color: '#ff333377' }),
@@ -329,9 +712,10 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 
 	  var icon = createNewIconFor2DMap(index, {lat:flat, lng:flng, alt:0, address: address, hasYoutube : hasYoutube});
 	  vSource.addFeature(icon);
-	  
+
 	  return vSource;
 }
+
 
 function setAddressAndCada(address_id, address, cada, wsource) {
 		var _features = [];
@@ -369,25 +753,26 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 	    }
 	  }
 
+
 	  wsource.addFeatures(_features);
 
-	  if (isSet($(address_id)))
+	  if (address_id != null && isSet($(address_id)))
 	  	$(address_id).text(address);
 }
-	
+
 function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
-		var data = item.data;		
+		var data = item.data;
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
 		var curIndex = tableCount;
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
-	  
+
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
-		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);
 
 	  if (flat != -999) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
@@ -400,7 +785,7 @@ function appendFlightListTable(item) {
 	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
-						+ "<a onclick='GATAGM(\"util_flight_list_public_title_click\", \"CONTENT\", \"" 
+						+ "<a onclick='GATAGM(\"util_flight_list_public_title_click\", \"CONTENT\", \""
 						+ name + "\", \""
 						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
@@ -408,9 +793,9 @@ function appendFlightListTable(item) {
 	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
-	  
+
 	  if (isSet(tag_values) && tag_values != "") {
-	  	appendRow = appendRow + "<br><br>";    	
+	  	appendRow = appendRow + "<br><br>";
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {
     		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
@@ -422,7 +807,7 @@ function appendFlightListTable(item) {
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
 
 	  if (isSet(youtube_url)) {
-	  	var vid = getYoutubeQueryVariable(youtube_url);			
+	  	var vid = getYoutubeQueryVariable(youtube_url);
 			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langset + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
@@ -454,17 +839,17 @@ function appendFlightListTable(item) {
 
 function setNoFlightlistHistory(latlng) {
 		$('#dataTable-Flight_list').empty();
-		//TODO
+
 		let msg = "<div class='service'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-lg' role='button' href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>";
 		$('#dataTable-Flight_list').append(msg);
 }
 
 function setFlightlistHistory(latlng) {
 		$('#dataTable-Flight_list').empty();
-		
+
 		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_2\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청하기</a></h4></div>");
 		$('#dataTable-Flight_list').append("<hr>");
-		
+
 	  flightRecArray.forEach(function(item) {
 	    appendFlightListTable(item);
 	  });
@@ -475,11 +860,12 @@ var oldLatVal = -999;
 var oldLngVal = -999;
 
 function requestAddress() {
-    
+
     var jdata = {"action" : "public_address_by_gps", "daction" : "public_address_by_gps"};
-  	jdata["lat"] = $("#lat").val();
-  	jdata["lng"] = $("#lng").val();
-    
+  	jdata["lat"] = $("#lat").val() * 1;
+  	jdata["lng"] = $("#lng").val() * 1;
+
+
     if (isSet(jdata["lat"]) == false || isSet(jdata["lng"]) == false) {
 	    	showAlert("좌표를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 	    	return;
@@ -487,10 +873,14 @@ function requestAddress() {
 
 		//같은 값으로 조회 시도
 		if (oldLatVal == jdata["lat"] && oldLngVal == jdata["lng"]) return;
-		
+
 		oldLatVal = jdata["lat"];
 		oldLngVal = jdata["lng"];
-		
+
+  	var npos = ol.proj.fromLonLat([oldLngVal, oldLatVal]);
+  	jdata["x"] = npos[0];
+  	jdata["y"] = npos[1];
+
 		GATAGM("public_address_by_gps", "SERVICE", oldLatVal + "," + oldLngVal, langset);
 
 		showLoader();
@@ -498,14 +888,18 @@ function requestAddress() {
 		    hideLoader();
 		    if(r.result == "success") {
 					$("#address").val(r.data.address);
-					
+
 					oldAddressVal = r.data.address;
-					
+
 					if (isSet(r.data.data)) {
+						$("#historyMapArea").hide();
 						flightRecArray = r.data.data;
 	      		setFlightlistHistory(oldLatVal + "," + oldLngVal);
 					}
 					else {
+						$("#historyMapArea").show();
+						moveFlightHistoryMapAndCada(oldLatVal, oldLngVal, r.data.cada.response.result.featureCollection.features);
+
 						setNoFlightlistHistory(oldLatVal + "," + oldLngVal);
 						showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 					}
@@ -513,33 +907,33 @@ function requestAddress() {
 		    else {
 		    	showAlert("좌표를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 		    }
-		  }, 
+		  },
 		  function(request,status,error) {
 		    hideLoader();
 		    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 		  }
 		);
-		
+
 }
 
 
 function requestGPS(address) {
-		
+
 		var jdata = {"action" : "public_gps_by_address", "daction" : "public_gps_by_address"};
   	jdata["address"] = $("#address").val();
-    
+
     if (isSet(jdata["address"]) == false) {
 	    	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 	    	return;
     }
-    
+
     //같은 값으로 조회 시도
 		if (oldAddressVal == jdata["address"]) return;
-		
+
 		oldAddressVal = jdata["address"];
-		
+
 		GATAGM("public_gps_by_address", "SERVICE", oldAddressVal, langset);
-    
+
     showLoader();
 		setCaptcha(jdata, function (r) {
 				hideLoader();
@@ -548,21 +942,11 @@ function requestGPS(address) {
 			      	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 			        return;
 			      }
-		
+
 						$("#lat").val(r.data.lat);
 	  				$("#lng").val(r.data.lng);
-	  				
-	  				oldLatVal = r.data.lat;
-						oldLngVal = r.data.lng;
-			     	
-			     	if (isSet(r.data.data)) {
-							flightRecArray = r.data.data;
-	      			setFlightlistHistory(oldLatVal + "," + oldLngVal);
-						}
-						else {
-							setNoFlightlistHistory(oldLatVal + "," + oldLngVal);
-							showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
-						}
+
+			     	requestAddress();
 	    	}
 	    	else {
 		  			showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
