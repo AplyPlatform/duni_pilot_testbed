@@ -3164,14 +3164,47 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         	hideLoader();
         	return;
         }
+
+				var response = r.data.response;
+        var _features = new Array();
+        var _addressText = "";
+
+        for (var idx = 0; idx < response.result.featureCollection.features.length; idx++) {
+            try {
+                var geojson_Feature = response.result.featureCollection.features[idx];
+                var geojsonObject = geojson_Feature.geometry;
+                var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
+                for (var i = 0; i < features.length; i++) {
+                    try {
+                        var feature = features[i];
+                        feature["id_"] = geojson_Feature.id;
+                        feature["properties"] = {};
+                        for (var key in geojson_Feature.properties) {
+                            try {
+                                var value = geojson_Feature.properties[key];
+
+                                if (_addressText == "" && key == "addr") {
+                                    _addressText = value;
+                                }
+
+                                feature.values_[key] = value;
+                                feature.properties[key] = value;
+                            } catch (e) {
+                            }
+                        }
+                        _features.push(feature)
+                    } catch (e) {
+                    }
+                }
+            } catch (e) {
+            }
+        }
         
         setAddressAndCada(disp_id, _addressText, response.result.featureCollection.features, vSource);
         setAddressAndCada(disp_id, _addressText, response.result.featureCollection.features, vVectorForHistory);
         
         if (isSet(name))
         	updateCadaData(name, _addressText, response.result.featureCollection.features);
-        
-        hideLoader();
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
