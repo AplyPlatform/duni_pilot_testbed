@@ -708,16 +708,11 @@ function genPlan(lat, lng) {
             
 		designDataArray = data;
 		
-		if (!("private" in planePrimitives) || planePrimitives["private"].length <= 0)
-			addObjectTo3DMapWithGPS(0, "private", "drone", lat, lng, 3000);
-		
 		designDataArray.forEach(function(item,index,d) {
 			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
 			arrayFlightRecordData.push(dt);
 		});
 		
-		moveToStartPoint3D(lng, lat, 600);
-		draw3DMap();
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
