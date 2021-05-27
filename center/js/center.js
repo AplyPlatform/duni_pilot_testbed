@@ -317,7 +317,6 @@ function initPilotCenter() {
     else if (page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
 	        	selectMonitorIndex("private", 0);
-	    			map3DInit();
 	    			map2DInit();
 	    			addObjectTo2DMap(0, "private", "drone");
             missionGenInit();
