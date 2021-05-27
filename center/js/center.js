@@ -723,6 +723,7 @@ function genPlan(lat, lng) {
     
     var dpoint = ol.proj.fromLonLat([lng, lat]);
     drawCadastral(null, null, dpoint[0], dpoint[1], mainMap2DpointSource);
+    
 }
 
 function flightrecordUploadInit() {
@@ -3199,8 +3200,8 @@ function drawCadastral(disp_id, name, x, y, vSource) {
             }
         }
         
-        setAddressAndCada(disp_id, _addressText, _features, vSource);
-        setAddressAndCada(disp_id, _addressText, _features, vVectorForHistory);
+        setAddressAndCada(disp_id, _addressText, response.result.featureCollection.features, vSource);
+        setAddressAndCada(disp_id, _addressText, response.result.featureCollection.features, vVectorForHistory);
         
         if (isSet(name))
         	updateCadaData(name, _addressText, response.result.featureCollection.features);
