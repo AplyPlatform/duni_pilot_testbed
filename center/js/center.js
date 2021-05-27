@@ -646,11 +646,13 @@ function genPlanByAddress(address) {
 					
 		     	genPlan(r.data.lat * 1, r.data.lng * 1);
 	    	}
-	    	else {		  		
+	    	else {		  	
+	    		hideLoader();	
 	    		showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
 	    	}
 	  	},
 	  	function(request,status,error) {
+	  		hideLoader();
 	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	  });
 }
