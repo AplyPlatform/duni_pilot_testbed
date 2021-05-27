@@ -581,7 +581,7 @@ form label {font-weight: normal !important;}
 #gtco-counter .icon i {height: 70px;}
 #gtco-counter .icon i:before {color: #cccccc; display: block; text-align: center; margin-left: 3px;}
 
-.gtco-section {padding: 7em 0; clear: both; position: relative;}
+.gtco-section {padding: 1em 0; clear: both; position: relative;}
 
 @media screen and (max-width: 768px) {
   .gtco-section {padding: 3em 0;}

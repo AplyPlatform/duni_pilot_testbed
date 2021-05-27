@@ -301,14 +301,15 @@ function onPlayerStateChange(event) {
 	var companyArray = [];
 
 	var container = document.getElementById('popup');
-	var content = document.getElementById('popup-content');
+	var overlayBoxcontent = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
+	var overlayBox;
 
 	function flightHistoryMapInit() {
 		var dpoint = ol.proj.fromLonLat([0, 0]);
 
 		container.style.visibility = "visible";
-		var overlay = new ol.Overlay({
+		overlayBox = new ol.Overlay({
 		  element: container,
 		  autoPan: true,
 		  autoPanAnimation: {
@@ -317,7 +318,7 @@ function onPlayerStateChange(event) {
 		});
 
 		closer.onclick = function () {
-		  overlay.setPosition(undefined);
+		  overlayBox.setPosition(undefined);
 		  closer.blur();
 		  return false;
 		};
@@ -452,7 +453,7 @@ function onPlayerStateChange(event) {
 	      layers: [
 	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer
 	      ],
-				overlays: [overlay],
+				overlays: [overlayBox],
 	      // Improve user experience by loading tiles while animating. Will make
 	      // animations stutter on mobile or slow devices.
 	      loadTilesWhileAnimating: true,
@@ -461,7 +462,7 @@ function onPlayerStateChange(event) {
 
 	  vMap.on('click', function(evt) {
 	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(vMap, evt, feature, overlay);
+	        	processMapClick(vMap, evt, feature);
 			});
 
 		$("#historyMapArea").hide();
@@ -511,12 +512,12 @@ function onPlayerStateChange(event) {
 	function getCompanyInfo(title, cid) {
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
 
-		content.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
+		overlayBoxcontent.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
 
   	ajaxRequest(jdata, function (r) {
 	    if(r.result == "success") {
 	      if (r.data == null) {
-	      	content.innerHTML = title + "<p>Failed to get more info.</p>";
+	      	overlayBoxcontent.innerHTML = title + "<p>Failed to get more info.</p>";
 	        return;
 	      }
 
@@ -549,16 +550,16 @@ function onPlayerStateChange(event) {
 
 	      title = title + "</tr></table>";
 
-	      content.innerHTML = title;
+	      overlayBoxcontent.innerHTML = title;
 	    }
 	  },
 	  	function(request,status,error) {
-	  		content.innerHTML = title + "<p>Failed to get more info.</p>";
+	  		overlayBoxcontent.innerHTML = title + "<p>Failed to get more info.</p>";
 	  });
 	}
 
 
-	function processMapClick(map, evt, feature, overlay) {
+	function processMapClick(map, evt, feature) {
 		if (!isCluster(feature)) {
 			map.getView().animate({
 			  zoom: map.getView().getZoom() + 1,
@@ -592,11 +593,12 @@ function onPlayerStateChange(event) {
 			else
 				title = '<p>' + title + '</p>';
 
-		  overlay.setPosition(coordinate);
+		  overlayBox.setPosition(coordinate);
+		  container.style.opacity = 1;
     	getCompanyInfo(title, ii);
     	return;
     }
-
+    
     GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
 
     var hasYoutube = features[0].get('mhasYoutube');
@@ -615,6 +617,12 @@ function onPlayerStateChange(event) {
 
 	function moveFlightHistoryMapAndCada(lat, lng, cada) {
 		var npos = ol.proj.fromLonLat([lng, lat]);
+		
+		container.style.opacity = 0.8;
+		var latlng = lat + "_" + lng;
+		overlayBoxcontent.innerHTML = "<div><h4>이 지역을 드론으로 촬영한<br>영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>";
+		overlayBox.setPosition(npos);
+		
 		flightHistoryView.setCenter(npos);
 		addNewIconFor2DMap(npos, mainMap2DpointSource);
 		setAddressAndCada(null, null, cada, mainMap2DCadaSource);
@@ -837,14 +845,6 @@ function appendFlightListTable(item) {
 	  tableCount++;
 	}
 
-
-function setNoFlightlistHistory(latlng) {
-		$('#dataTable-Flight_list').empty();
-
-		let msg = "<div class='service'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-lg' role='button' href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>";
-		$('#dataTable-Flight_list').append(msg);
-}
-
 function setFlightlistHistory(latlng) {
 		$('#dataTable-Flight_list').empty();
 
@@ -900,8 +900,6 @@ function requestAddress() {
 					else {
 						$("#historyMapArea").show();
 						moveFlightHistoryMapAndCada(oldLatVal, oldLngVal, r.data.cada.response.result.featureCollection.features);
-
-						setNoFlightlistHistory(oldLatVal + "," + oldLngVal);
 						showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
 					}
 		    }
