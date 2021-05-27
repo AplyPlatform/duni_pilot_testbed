@@ -3205,6 +3205,8 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         
         if (isSet(name))
         	updateCadaData(name, _addressText, response.result.featureCollection.features);
+        	
+        hideLoader();
     }, function (request, status, error) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
