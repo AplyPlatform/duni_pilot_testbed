@@ -175,7 +175,7 @@ function getQueryVariable(variable) {
 function setCaptcha(jdata, successHandler, failHandler) {
 
 	grecaptcha.ready(function () {
-        grecaptcha.execute('6LehUpwUAAAAAKTVpbrZ2ciN3_opkJaKOKK11qY6', { action: 'action_name' })
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', { action: 'action_name' })
             .then(function (token) {
  								jdata['captcha_token'] = token;
 						  	ajaxRequest(jdata, successHandler, failHandler);
