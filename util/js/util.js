@@ -622,6 +622,7 @@ function onPlayerStateChange(event) {
 
 var flightRecArray = [];
 var tableCount = 0;
+var duni_logo = '/duni_logo.png';
 
 function createNewIconFor2DMap(i, item) {
 		var pos_icon = new ol.Feature({
