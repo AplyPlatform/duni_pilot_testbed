@@ -3382,7 +3382,7 @@ function appendFlightRecordTable(target, item) {
 
     if (isSet(retSource) && isSet(address) && address != "") {
         setAddress("#map_address_" + curIndex, address, cada, retSource);
-        if (retSource) wsource.addFeatures(cada);
+        if (retSource) retSource.addFeatures(cada);
         if (vVectorForHistory) vVectorForHistory.addFeatures(cada);
         if (isSet(c3ddataSource)) {
 		        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
