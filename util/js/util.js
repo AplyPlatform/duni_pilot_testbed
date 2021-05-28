@@ -627,13 +627,14 @@ function onPlayerStateChange(event) {
 		container.style.opacity = 0.8;
 		var latlng = lat + "_" + lng;
 		overlayBoxcontent.innerHTML = "<div><h4>이 지역을 드론으로 촬영한<br>영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io/index.php?page=rental' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>";	
-		//overlayBox.setPosition(npos);
+		
 		flightHistoryView.setCenter(npos);
 		addNewIconFor2DMap(npos, mainMap2DpointSource);
 		if (isSet(cada))
 			setAddressAndCada(null, null, cada.response.result.featureCollection.features, mainMap2DCadaSource);
 			
-		alert("10");
+		overlayBox.setPosition(npos);
+		alert("11");
 	}
 
 var flightRecArray = [];
