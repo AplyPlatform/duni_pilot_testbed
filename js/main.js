@@ -414,7 +414,7 @@
     var bingLayer = new ol.layer.Tile({
 	    visible: true,
 	    preload: Infinity,
-	    source: new ol.source.BingMaps({
+	    source: new ol.source.OSM({
 	        // We need a key to get the layer from the provider.
 	        // Sign in with Bing Maps and you will get your key (for free)
 	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
@@ -635,18 +635,20 @@
 	  var bingLayer = new ol.layer.Tile({
 	    visible: true,
 	    preload: Infinity,
-	    source: new ol.source.BingMaps({
-	        // We need a key to get the layer from the provider.
-	        // Sign in with Bing Maps and you will get your key (for free)
-	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-	        imagerySet: 'Road', // or 'Road', 'AerialWithLabels', etc.
-	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
-	        // "no photos at this zoom level" tiles
-	        maxZoom: 19
-	    })
+        source: new ol.source.OSM()
+		});
+		
+		var overviewMapControl = new ol.control.OverviewMap({
+		  layers: [
+		    new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    }) ],
 		});
 
 	  var vMap = new ol.Map({
+	  		controls: ol.control.defaults().extend([
+            overviewMapControl
+        ]),
 	      target: 'historyMap',
 	      layers: [
 	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
@@ -828,11 +830,11 @@
     return "";
 	}
 
-	var player = [];
+	var players = [];
 	function setEmptyVideo(index) {
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
-		player[index] = new YT.Player("youTubePlayer_" + index, {
+		players[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
       videoId: "q2PzFbh6HBE",
@@ -846,7 +848,7 @@
 	function setYoutubeVideo(index, youtube_url) {
 		var vid = getYoutubeQueryVariable(youtube_url);
 
-		player[index] = new YT.Player("youTubePlayer_" + index, {
+		players[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
       videoId: vid,
@@ -861,8 +863,32 @@
   	event.target.stopVideo();
   }
 
+	var playingIndex = null;
+	var stopIndex = null;
+	var playIndex = null;
+	
   function onPlayerStateChange(event) {
-
+		for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를      
+        var state = players[i].getPlayerState(); 
+ 
+        // 초기 화면에서 재생 된 경우
+        if ( state === YT.PlayerState.PLAYING && playingIndex === null ) { 
+        	playingIndex = i;  
+        	// 다른 플레이어가 재생 중에 그 선수 이외가 재생 된 경우
+        } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) { 
+        	stopIndex = playingIndex;
+          playIndex = i;
+        } 
+    }    
+            
+    // 재생 중이던 플레이어를 일시 중지
+    if ( stopIndex !== null ) { players[stopIndex].pauseVideo();
+    	stopIndex = null;
+    }  
+        
+		if ( playIndex !== null ) { playingIndex = playIndex ;
+		   playIndex = null;
+		}
   }
 
 	function appendFlightListTable(item) {

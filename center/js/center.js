@@ -1179,18 +1179,21 @@ function flightRecords2DMapInit() {
     var bingLayer = new ol.layer.Tile({
         visible: true,
         preload: Infinity,
-        source: new ol.source.BingMaps({
-            // We need a key to get the layer from the provider.
-            // Sign in with Bing Maps and you will get your key (for free)
-            key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-            imagerySet: 'Road', // or 'Road', 'AerialWithLabels', etc.
-            // use maxZoom 19 to see stretched tiles instead of the Bing Maps
-            // "no photos at this zoom level" tiles
-            maxZoom: 19
-        })
+        source: new ol.source.OSM()
     });
+    
+    var overviewMapControl = new ol.control.OverviewMap({
+		  layers: [
+		    new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    }) ],
+		});
+		
 
     var vMap = new ol.Map({
+    		controls: ol.control.defaults().extend([
+            overviewMapControl
+        ]),
         target: 'historyMap',
         layers: [
             bingLayer, vVectorLayerForHistory, vVectorLayerForCompany
@@ -4358,11 +4361,20 @@ function map2DInit() {
     maplayers[1].setVisible(true); //Aerial
     maplayers[3].setVisible(true); //pointLayer
     maplayers[4].setVisible(true); //vectorLayer
+    
+  	
+  	var overviewMapControl = new ol.control.OverviewMap({
+		  layers: [
+		    new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    }) ],
+		});
+		
 
     main2dMap = new ol.Map({
         target: 'mainMap',
         controls: ol.control.defaults().extend([
-            scaleLineControl
+            scaleLineControl, overviewMapControl
         ]),
         layers: maplayers,
         // Improve user experience by loading tiles while animating. Will make

@@ -24,7 +24,7 @@ $(function () {
 
     $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
     $("#droneplay_email").attr("placeholder", LANG_JSON_DATA[langset]['email_label']);
-    $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);    
+    $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);
 
     $("#register_label").text(LANG_JSON_DATA[langset]['register_label']);
     $("#privacy_link_label").text(LANG_JSON_DATA[langset]['privacy_link_label']);
@@ -51,10 +51,10 @@ function onAgree() {
 
 function showPrivacyButton() {
 	  GATAGM('privacy_link_label', 'CONTENT', langset);
-	  	  
+
 	  $.get("/privacy_" + langset + "_raw.html", function(html_string){
       showAlert(html_string);
-   	});	  	      
+   	});
 }
 
 function goHomeButton(btnName) {
