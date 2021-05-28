@@ -1187,6 +1187,7 @@ function flightRecords2DMapInit() {
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
 		    }) ],
+		  collapsed : false
 		});
 		
 
@@ -4368,6 +4369,7 @@ function map2DInit() {
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
 		    }) ],
+		  collapsed : false
 		});
 		
 

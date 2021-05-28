@@ -643,6 +643,7 @@
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
 		    }) ],
+		  collapsed : false
 		});
 
 	  var vMap = new ol.Map({

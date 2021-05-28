@@ -425,6 +425,14 @@ function onPlayerStateChange(event) {
 	    preload: Infinity,
 	    source: new ol.source.OSM()
 		});
+		
+		var overviewMapControl = new ol.control.OverviewMap({
+		  layers: [
+		    new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    }) ],
+		  collapsed : false
+		});
 
 		mainMap2DpointSource = new ol.source.Vector({});
 
@@ -445,6 +453,9 @@ function onPlayerStateChange(event) {
     });
 
 	  var vMap = new ol.Map({
+	  		controls: ol.control.defaults().extend([
+            overviewMapControl
+        ]),
 	      target: 'historyMap',
 	      layers: [
 	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer
