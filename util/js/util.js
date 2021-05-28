@@ -145,9 +145,11 @@ function utilInit() {
     });
 
 		goToTop();
+		$("#historyMapArea").show();
 		flightHistoryMapInit();
 		getCompanyList();
     initYoutubeAPI();
+    $("#historyMapArea").hide();
 		hideLoader();
 }
 
@@ -619,10 +621,10 @@ function onPlayerStateChange(event) {
 
 	function moveFlightHistoryMapAndCada(lat, lng, cada) {
 		$("#historyMapArea").show();
-		var npos = ol.proj.fromLonLat([lng, lat]);
-		
 		alert("7");
 		return;
+		
+		var npos = ol.proj.fromLonLat([lng, lat]);
 		
 		/*
 		container.style.opacity = 0.8;
