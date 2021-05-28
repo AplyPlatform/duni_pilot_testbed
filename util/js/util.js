@@ -621,6 +621,9 @@ function onPlayerStateChange(event) {
 		$("#historyMapArea").show();
 		var npos = ol.proj.fromLonLat([lng, lat]);
 		
+		alert("7");
+		return;
+		
 		/*
 		container.style.opacity = 0.8;
 		var latlng = lat + "_" + lng;
@@ -631,8 +634,7 @@ function onPlayerStateChange(event) {
 		flightHistoryView.setCenter(npos);
 		addNewIconFor2DMap(npos, mainMap2DpointSource);
 		
-		alert("7");
-		return;
+		
 
 		if (isSet(cada))
 			setAddressAndCada(null, null, cada.response.result.featureCollection.features, mainMap2DCadaSource);
