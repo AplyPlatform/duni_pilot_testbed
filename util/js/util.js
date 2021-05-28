@@ -423,15 +423,7 @@ function onPlayerStateChange(event) {
 	  var bingLayer = new ol.layer.Tile({
 	    visible: true,
 	    preload: Infinity,
-	    source: new ol.source.BingMaps({
-	        // We need a key to get the layer from the provider.
-	        // Sign in with Bing Maps and you will get your key (for free)
-	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
-	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
-	        // "no photos at this zoom level" tiles
-	        maxZoom: 19
-	    })
+	    source: new ol.source.OSM()
 		});
 
 		mainMap2DpointSource = new ol.source.Vector({});
