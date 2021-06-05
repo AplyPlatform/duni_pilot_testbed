@@ -242,6 +242,7 @@ MediaUploader.prototype.onContentUploadError_ = function(e) {
  * @param {object} e XHR event
  */
 MediaUploader.prototype.onUploadError_ = function(e) {
+	$('#uploadVideoToYoutubeButton').attr('disabled', false);
   this.onError(e.target.response); // TODO - Retries for initial upload
 };
 

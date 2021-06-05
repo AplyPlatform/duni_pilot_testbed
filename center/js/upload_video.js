@@ -38,7 +38,7 @@ var UploadVideo = function () {
      * @type Array.<string>
      * @default ['google-cors-upload']
      */
-    this.tags = ['youtube-cors-upload'];
+    this.tags = ['flight-record'];
 
     /**
      * The numeric YouTube
@@ -61,6 +61,9 @@ var UploadVideo = function () {
 
     this.uploadStartTime = 0;        
     
+    
+    this.onUploadCompleteCallback = null;
+    
     $('#uploadVideoToYoutubeButton').off('click');
     $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
@@ -70,6 +73,7 @@ UploadVideo.prototype.ready = function (accessToken) {
     this.accessToken = accessToken;
     this.gapi = gapi;
     this.authenticated = true;
+    /*
     this.gapi.client.request({
         path: '/youtube/v3/channels',
         params: {
@@ -84,7 +88,8 @@ UploadVideo.prototype.ready = function (accessToken) {
                 $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
             }
         }.bind(this)
-    });        
+    });
+    */        
 };
 
 /**
@@ -93,11 +98,12 @@ UploadVideo.prototype.ready = function (accessToken) {
  * @method uploadFile
  * @param {object} file File object corresponding to the video to upload.
  */
-UploadVideo.prototype.uploadFile = function (file) {
+UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
+		
     var metadata = {
         snippet: {
-            title: $('#movieTitle').val(),
-            description: $('#movieDescription').text(),
+            title: fname,
+            description: fdesc,
             tags: this.tags,
             categoryId: this.categoryId
         },
@@ -122,7 +128,7 @@ UploadVideo.prototype.uploadFile = function (file) {
                 var errorResponse = JSON.parse(data);
                 message = errorResponse.error.message;
             } finally {
-                showAlert("오류가 발생했습니다. 잠시후 다시 시도해 주세요. (" + message + ")");
+                showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + "\n" + message);
             }
         }.bind(this),
         onProgress: function (data) {
@@ -132,7 +138,7 @@ UploadVideo.prototype.uploadFile = function (file) {
             // The times are in millis, so we need to divide by 1000 to get seconds.
             var bytesPerSecond = bytesUploaded / ((currentTime - this.uploadStartTime) / 1000);
             var estimatedSecondsRemaining = (totalBytes - bytesUploaded) / bytesPerSecond;
-            var percentageComplete = (bytesUploaded * 100) / totalBytes;
+            var percentageComplete = Math.round((bytesUploaded * 100) / totalBytes);
 
             $('#upload-progress').attr({
                 value: bytesUploaded,
@@ -140,19 +146,17 @@ UploadVideo.prototype.uploadFile = function (file) {
             });
 
             $('#percent-transferred').text(percentageComplete);
-            $('#bytes-transferred').text(bytesUploaded);
-            $('#total-bytes').text(totalBytes);
+            $('#bytes-transferred').text(Math.round(bytesUploaded/1024));
+            $('#total-bytes').text(Math.round(totalBytes/1024));
 
             $('.during-upload').show();
         }.bind(this),
         onComplete: function (data) {
             var uploadResponse = JSON.parse(data);
             this.videoId = uploadResponse.id;
-            saveYoutubeUrl("https://youtube.com/watch?v=" + this.videoId);
-            setYoutubePlayerPureID(this.videoId);
-            hideMovieDataSet();
-            $('#uploadVideoToYoutubeButton').attr('disabled', false);
-            this.pollForVideoStatus();
+            if (this.onUploadCompleteCallback)
+            	this.onUploadCompleteCallback(this.videoId);
+            //this.pollForVideoStatus();
         }.bind(this)
     });
     // This won't correspond to the *exact* start of the upload, but it should be close enough.
@@ -183,10 +187,42 @@ UploadVideo.prototype.handleUploadClicked = function () {
         showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
         return;
     }
+		
+		var mmemo = $("#memoTextarea").val();
+    if (mmemo == "") {
+			showAlert(LANG_JSON_DATA[langset]['msg_fill_memo']);
+			return;
+		}
 
-    $('#uploadVideoToYoutubeButton').attr('disabled', true);
-    this.uploadFile($('#movieFile').get(0).files[0]);
+		if ($('#record_name_field').val() == "") {
+			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
+			return;
+		}
+		
+		let tag_values = $("#tagTextarea").val();
+		
+		if (tag_values != "") {
+			var tagArray = JSON.parse(tag_values);
+			var curTags = [];
+			tagArray.forEach(function(tg) {
+				curTags.push(tg.value);
+			});	
+			
+			this.tags = curTags;
+		}
+		
+		$('#uploadVideoToYoutubeButton').attr('disabled', true);
+		
+		var fname = $('#record_name_field').val();
+		var fdesc = $('#memoTextarea').val();
+    this.uploadFile($('#movieFile').get(0).files[0], fname, fdesc);
 };
+
+UploadVideo.prototype.uploadVideoAction = function () {
+
+		
+
+}
 
 UploadVideo.prototype.pollForVideoStatus = function () {
     this.gapi.client.request({

@@ -142,17 +142,16 @@ function requestRegister() {
                         showConfirmDialog();
                     }
                     else {
-                        if (r.reason.indexOf("socialid is already exists") >= 0) {
-                            showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
-                            $("#show_2").show();
-                            GATAGM('EmailIsExistOnRegister', 'CONTENT', langset);
-                            hideLoader();
-                            return;
+                    		hideLoader();
+                    		$("#show_2").show();
+                    		
+                        if (r.result_code == 3 && r.reason.indexOf("socialid") >= 0) {
+	                            showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
+	                            GATAGM('EmailIsExistOnRegister', 'CONTENT', langset);  
+	                            return;
                         }
 
                         showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-                        $("#show_2").show();
-                        hideLoader();
                     }
                 },
                     function (request, status, error) {

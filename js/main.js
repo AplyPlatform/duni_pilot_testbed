@@ -839,6 +839,7 @@
       height: '200',
       width: '100%',
       videoId: "q2PzFbh6HBE",
+      host: 'https://www.youtube.com',
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
@@ -869,7 +870,8 @@
 	var playIndex = null;
 	
   function onPlayerStateChange(event) {
-		for ( var i = 0 ; i < players.length ; i ++ ) { // 각 플레이어의 상태를      
+		for ( var i = 0 ; i < players.length ; i ++ ) { //
+				if(typeof players[i].getPlayerState === 'undefined') continue;
         var state = players[i].getPlayerState(); 
  
         // 초기 화면에서 재생 된 경우

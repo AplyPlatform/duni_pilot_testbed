@@ -48,7 +48,7 @@
           	<div id="movieDataSet">
           		<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
               <div class="input-group">
-                    <input type="text" class="form-control" placeholder="YOUTUBE Full URL" id="youtube_url_data">
+                    <input type="text" class="form-control" placeholder="Youtube Full URL ex)https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
                     <span class="input-group-append">
                       <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
                     </span>
@@ -60,41 +60,44 @@
 				        <img id="channel-thumbnail" width="50">
 				        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
 				      </div>
+				      
+				      <div class="row">
+							      	<div class="col">
+								        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="privacy_for_moviedata_label">영상 공개수준</label>
+								        <select id="privacy-status" class="form-control">
+								          <option value="public" id="option_public_label">공개</option>
+								          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+								          <option value="private" id="option_private_label">비공개</option>
+								        </select>
+				      				</div>
 
-				      <div>
-				        <label for="title" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="title_for_moviedata_label">영상 제목</label>
-				        <input id="movieTitle" class="form-control" type="text" value="비행기록 1">
-				      </div>
-				      <div>
-				        <label for="description" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">영상 설명</label>
-				        <textarea class="form-control" id="movieDescription">비행기록 1</textarea>
-				      </div>
-				      <div>
-				        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="privacy_for_moviedata_label">영상 공개수준</label>
-				        <select id="privacy-status" class="form-control">
-				          <option value="public" id="option_public_label">공개</option>
-				          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-				          <option value="private" id="option_private_label">비공개</option>
-				        </select>
-				      </div>
+											<div class="col">
+												<label for="movieFile" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
+									      <div class="input-group">
+									        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+									        <span class="input-group-append">
+									        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
+									        </span>
+									      </div>
+									    </div>
+							</div>
 
-				      <div class="input-group">
-				        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
-				        <span class="input-group-append">
-				        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
-				        </span>
-				      </div>
-
-				      <div class="during-upload">
-				        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% done (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> bytes)</p>
-				        <progress id="upload-progress" max="1" value="0"></progress>
-				      </div>
-
-				      <div class="post-upload">
-				        <ul id="post-upload-status"></ul>
-				        <div id="player"></div>
-				      </div>
-				      <p id="disclaimer" class="text-xs font-weight-bold text-default text-uppercase mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+				      <div class="row">
+											<div class="col-6">
+									      <div class="post-upload">
+									        <ul id="post-upload-status"></ul>
+									        <div id="player"></div>
+									      </div>
+											</div>
+											
+									    <div class="col-6">
+									    	<div class="during-upload">
+									        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>
+									        <progress id="upload-progress" max="1" value="0"></progress>
+									      </div>
+								      	<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+							    		</div>
+							</div>
          		</div>
 
        			<div id="altitude_graph_area">

@@ -21,21 +21,91 @@
             			<div>
 			              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
 	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">
+	            			
+	            			<hr color="#eee">
 	            		</div>
 	            		
-	            		<div>
-			              	<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 URL</label>
-			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
-			            </div>			            			            
+	            		<div class="row">
+	            				<div class="col-3">
+				            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT', langset);" checked>
+	  											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
+	  									</div>
+				            	<div class="col-3">
+				            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT', langset);">
+	  											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
+	  									</div>
+  								</div>
+	            		
+	            		<div id="set_youtube_address_view">
+			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="Youtube Full URL ex)https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
+			            </div>			        
+			            							        			
+						    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
+						
+							      <div>
+							        <label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">영상 설명</label>
+							        <textarea class="form-control" id="memoTextarea" name="memoTextarea" placeholder="ex) flight-record 1"></textarea>
+							      </div>
+							      
+							      <div class="row">
+							      	<div class="col">
+								        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="privacy_for_moviedata_label">영상 공개수준</label>
+								        <select id="privacy-status" class="form-control">
+								          <option value="public" id="option_public_label">공개</option>
+								          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+								          <option value="private" id="option_private_label">비공개</option>
+								        </select>
+								      </div>
+								      <div class="col">
+								      	<label for="movieFile" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
+								      	<div class="input-group">
+									        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+									        <span class="input-group-append">
+									        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
+									        </span>
+									      </div>
+								      </div>
+							      </div>
+					
+										<div class="row">
+											<div class="col-6">
+									      <div class="post-upload">
+									        <ul id="post-upload-status"></ul>
+									        <div id="player"></div>
+									      </div>
+											</div>
+											
+									    <div class="col-6">
+									    	<div class="during-upload">
+									        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>
+									        <progress id="upload-progress" max="1" value="0"></progress>
+									      </div>
+								      	<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+							    		</div>
+							    	</div>
+							    </div>
 			            
 			            <div id="upload_tabs">
-										<ul>
-											  <li><a href="#dji_upload_filed" id="tab_menu_upload_selector_dji" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);">비행기록 업로드</a></li>
-											  <li><a href="#address_location_field" id="tab_menu_upload_selector_address" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">주소 입력</a></li>
-										</ul>
-				            				            
-										<div id="dji_upload_filed">
-											<br>
+			            	
+			            	<hr color="#eee">
+			            	<div class="row">
+				            	<div class="col-6">
+				            		<span id="label_must_select_record_or_address" class="text-xs font-weight-bold text-default mb-1">비행기록 업로드</span>
+				            	</div>
+				            </div>
+			            	<div class="row">
+				            	<div class="col-3">
+				            			<input type="radio" name="record_kind" value="dji_upload_filed" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT', langset);setUpload(true);" checked>
+	  											<label id="tab_menu_upload_selector_dji" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_dji">비행기록 업로드</label>
+	  									</div>
+	  									<div class="col-3">
+				            			<input type="radio" name="record_kind" value="address_location_field" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT', langset);setUpload(false);">
+	  											<label id="tab_menu_upload_selector_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_address">주소 입력</label>
+	  									</div>
+  									</div>
+									          
+										<div id="dji_upload_filed" style="backgroud-color:#eeeeee;">
+											
 											<div>
 												<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
 											</div>
@@ -54,16 +124,13 @@
 										</div>
 										
 										<div id="address_location_field">
-				            	<br>
 			              	<label for="address_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="address_input_data_label">촬영지 주소</label>			              				              				              	
 			              	<div class="input-group">				              	
 					              <input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
 					              <div class="input-group-append">
 					                <button class="btn btn-info" type="button" id="btnForAddressCheck">주소확인</button>
 					              </div>
-					              
 					            </div>
-					            <hr color="#eee">
 					            <span id="address_result"></span>			              	
 				            </div>
 									</div>

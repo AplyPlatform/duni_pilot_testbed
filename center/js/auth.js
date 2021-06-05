@@ -40,8 +40,15 @@ function handleAuthResult(authResult) {
         // Authorization was successful. Hide authorization prompts and show
         // content that should be visible after authorization succeeds.
         authSucceed = true;
-        var uploadVideo = new UploadVideo();
-        uploadVideo.ready(gapi.auth.getToken().access_token);
+        
+        if (uploadVideo) {
+        	uploadVideo.ready(gapi.auth.getToken().access_token);
+        	setTimeout(uploadVideo.handleUploadClicked.bind(uploadVideo), 5);
+        }
+        else {
+        	$('#uploadVideoToYoutubeButton').attr('disabled', false);
+        	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        }
 
     } else {
         // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
