@@ -59,16 +59,17 @@ var UploadVideo = function () {
      */
     this.videoId = '';
 
-    this.uploadStartTime = 0;     
+    this.uploadStartTime = 0;    
+    this.accessToken = ''; 
     this.onUploadCompleteCallback = null;
 };
 
 
 UploadVideo.prototype.ready = function () {
-		let accessToken = getCookie("user_google_auth_token");
-		if (accessToken === "undefined" || accessToken === null || accessToken == "") return;
+		let accessTokenT = getCookie("user_google_auth_token");
+		if (accessTokenT === "undefined" || accessTokenT === null || accessTokenT == "") return;
 		
-    this.accessToken = accessToken;
+    this.accessToken = accessTokenT;
     this.gapi = gapi;     
 };
 
@@ -148,33 +149,37 @@ UploadVideo.prototype.handleUploadClicked = function () {
 		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
 		
 		if (upload_not_allow){
+				hideLoader();
 				showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
 				return;
 		}
 		
 		if (apiIsReady == false) {
+				hideLoader();
         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         return;
     }
-    else {
-        if (authSucceed == false) {        
-            tryAuth();
-            return;
-        }
+ 
+    if (accessToken == '') {
+    		tryAuth();
+        return;
     }
 		
     if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
+    		hideLoader();
         showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
         return;
     }
 		
 		var mmemo = $("#memoTextarea").val();
     if (mmemo == "") {
+    	hideLoader();
 			showAlert(LANG_JSON_DATA[langset]['msg_fill_memo']);
 			return;
 		}
 
 		if ($('#record_name_field').val() == "") {
+			hideLoader();
 			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
 			return;
 		}
