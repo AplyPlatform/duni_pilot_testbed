@@ -847,12 +847,51 @@ function flightrecordUploadInit() {
     };
     
     uploadVideo.ready();
+    
+    if (window.File && window.FileList && window.FileReader) {
+			initUploadArea();
+		}
   	setUpload(true);
   	
   	$("#set_youtube_address_view").hide();
     $("#set_youtube_upload_view").show();
     hideLoader();
 }
+
+function initUploadArea() {
+		
+		$('#filedrag').on('drop', function (e){
+         $(this).css('border', '');
+         e.preventDefault();
+         var files = e.originalEvent.dataTransfer.files;
+         handleFileUpload(files);
+    });
+    
+		$('#droparea').on('dragenter', function (e) 
+		{
+		   e.stopPropagation();
+		   e.preventDefault();
+		   $(this).css('border', '2px dotted #0B85A1');
+		});
+
+		$('#droparea').on('dragleave', function (e) 
+		{
+		    e.stopPropagation();
+		    e.preventDefault();
+		    $(this).css('border', '');
+		});
+}
+
+function handleFileUpload(files)
+{
+		if(files.length > 1){
+			//showAlert()//TODO
+    	return;
+    }
+    
+    $("#movieFile").val(files[0]);
+}
+
 
 function uploadCheckBeforeUploadFlightList() {
 		

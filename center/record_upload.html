@@ -58,25 +58,22 @@
 								      </div>
 								      <div class="col">
 								      	<label for="movieFile" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
-								      	<div class="input-group">
-									        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+								      	
+								      	<div id="filedrag">drag and drop
+									      	
+										    	<input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
+										      
+									      </div>
+									      
+									      <div class="during-upload row">
+									        <div class="col"><p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p></div>
+									        <div class="col"><progress id="upload-progress" max="1" value="0"></progress></div>
 									      </div>
 								      </div>
 							      </div>
 					
 										<div class="row">
-											<div class="col-6">
-									      <div class="post-upload">
-									        <ul id="post-upload-status"></ul>
-									        <div id="player"></div>
-									      </div>
-											</div>
-											
-									    <div class="col-6">
-									    	<div class="during-upload row">
-									        <div class="col"><p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p></div>
-									        <div class="col"><progress id="upload-progress" max="1" value="0"></progress></div>
-									      </div>
+											<div class="col-12">
 								      	<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
 							    		</div>
 							    	</div>
