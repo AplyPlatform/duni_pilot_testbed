@@ -167,7 +167,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
 		
     if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
     		hideLoader();
-        showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
+        showAlert(LANG_JSON_DATA[langset]['msg_select_video_file']);
         return;
     }
 		
