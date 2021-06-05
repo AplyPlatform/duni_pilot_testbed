@@ -893,7 +893,7 @@ function uploadCheckBeforeUploadFlightList() {
     	showLoader();
 
     	uploadParams = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : false, isSyncData : false, price : price};  	
-      uploadVideo.handleUploadClicked.bind(uploadVideo);
+      uploadVideo.handleUploadClicked();
       return;
     }
 	
@@ -903,7 +903,7 @@ function uploadCheckBeforeUploadFlightList() {
   	}
   	
   	uploadParams = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: address_flat, flng : address_flng};
-  	uploadVideo.handleUploadClicked.bind(uploadVideo); 
+  	uploadVideo.handleUploadClicked(); 
 }
 
 function setUpload(bWhich) {
@@ -1099,7 +1099,7 @@ function flightDetailInit(target) {
     };   	
 		
 		uploadVideo.ready();
-    //todo //$('#uploadVideoToYoutubeButton').on("click", uploadVideo.handleUploadClicked.bind(uploadVideo));
+    $('#uploadVideoToYoutubeButton').on("click", uploadVideo.handleUploadClicked.bind(uploadVideo));
 		
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
