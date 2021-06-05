@@ -41,11 +41,13 @@ function handleAuthResult(authResult) {
         // content that should be visible after authorization succeeds.
         authSucceed = true;
         
+        setCookie("user_google_auth_token", gapi.auth.getToken().access_token);
+        
         if (uploadVideo) {
-        	uploadVideo.ready(gapi.auth.getToken().access_token);
-        	setTimeout(uploadVideo.handleUploadClicked.bind(uploadVideo), 5);
+        	uploadVideo.ready();
         }
         else {
+        	setCookie("user_google_auth_token", "", -1);
         	$('#uploadVideoToYoutubeButton').attr('disabled', false);
         	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
         }

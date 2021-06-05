@@ -90,6 +90,9 @@ var playingIndex = null;
 var stopIndex = null;
 var playIndex = null;
 
+
+var uploadParams = {};
+
 $(function () {
 		var lang = getCookie("language");
     if (isSet(lang))
@@ -765,7 +768,7 @@ function flightrecordUploadInit() {
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
         
-        uploadFlightList(false);        
+        uploadCheckBeforeUploadFlightList();
     });
         
     $('#btnForAddressCheck').click(function () {
@@ -823,17 +826,85 @@ function flightrecordUploadInit() {
     	$("input:radio[name='media_upload_kind']:radio[value='tab_menu_set_youtube_address']").prop('checked', true);
       $("#set_youtube_address_view").show();
     	$("#set_youtube_upload_view").hide();
-    	showAlert(LANG_JSON_DATA[langset]['msg_video_upload_success']);
+    	
+    	uploadParams['youtube_data'] = "https://youtube.com/watch?v=" + vid;
+    	
+    	if (bDJIFileUpload == true) {
+    		askIsSyncData(uploadParams, uploadDJIFlightListCallback);
+    		return;
+    	}
+    	
+    	saveYoutubeUrl(uploadParams, function(bSuccess) {
+      	if (bSuccess == true) {
+      		showAlert(LANG_JSON_DATA[langset]['msg_success']);
+  				location.href = cur_controller + "?page_action=recordlist";
+      	}
+      	else {
+      		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+      	}
+    	});
     };
-    if (authSucceed == true) {    	
-			uploadVideo.ready(gapi.auth.getToken().access_token);                        
-		}
-		
+    
+    uploadVideo.ready();
   	setUpload(true);
   	
   	$("#set_youtube_address_view").hide();
     $("#set_youtube_upload_view").show();
     hideLoader();
+}
+
+function uploadCheckBeforeUploadFlightList() {
+		
+		var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
+		if (cVal == "tab_menu_set_youtube_address") {
+      uploadFlightList(false);
+      return;
+    }
+    
+  	var mname = $("#record_name_field").val();
+		if (mname == "") {
+			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
+			return;
+		}
+	
+		var price = 0;
+   	if (langset == "KR") {
+    	let tchecked = $("#salecheck").is(":checked");
+			if(tchecked) {
+				var t_p = $("#price_input_data").val();
+				if (t_p == "") {
+					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
+					return;
+				}
+				
+				price = t_p * 1;
+			}
+    }
+    
+    var mmemo = $("#memoTextarea").val();
+		var tag_values = $("#tagTextarea").val();
+		
+    var files = document.getElementById('flight_record_file').files;
+    if (bDJIFileUpload == true) { //비행기록 업로드 	
+    	if (files.length <= 0) {
+    		showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
+    		return;
+    	}
+    	
+    	showLoader();
+
+    	uploadParams = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : false, isSyncData : false, price : price};  	
+      uploadVideo.handleUploadClicked.bind(uploadVideo);
+      return;
+    }
+	
+  	if (address_flat == -999) {    	// 주소 기반		
+  			showAlert(LANG_JSON_DATA[langset]['msg_input_corrent_address']);
+  			return;
+  	}
+  	
+  	uploadParams = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: address_flat, flng = address_flng}
+  	uploadVideo.handleUploadClicked.bind(uploadVideo); 
 }
 
 function setUpload(bWhich) {
@@ -1026,10 +1097,10 @@ function flightDetailInit(target) {
       hideMovieDataSet();
       setYoutubePlayerPureID(vid);
 			showAlert(LANG_JSON_DATA[langset]['msg_youtube_uploaded']);
-    };
-    if (authSucceed == true) {    	
-			uploadVideo.ready(gapi.auth.getToken().access_token);                        
-		}
+    };   	
+		
+		uploadVideo.ready();
+    //todo //$('#uploadVideoToYoutubeButton').on("click", uploadVideo.handleUploadClicked.bind(uploadVideo));
 		
     var record_name = getQueryVariable("record_name");
     if (record_name != null && record_name != "") {
@@ -3942,6 +4013,7 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
+        setCookie("user_google_auth_token", "", -1);
 
         goIndex("logout");
     }, function (request, status, error) {
@@ -3956,6 +4028,7 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
+        setCookie("user_google_auth_token", "", -1);
 
     		goIndex("logout");
     });
@@ -4499,8 +4572,7 @@ function uploadFlightList(isUpdate) {
 		if (mname == "") {
 			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
 			return;
-		}				
-		
+		}
 		
 		var mmemo = $("#memoTextarea").val();
     
@@ -4508,6 +4580,9 @@ function uploadFlightList(isUpdate) {
 
 		var youtube_data = $("#youtube_url_data").val();
     var files = document.getElementById('flight_record_file').files;
+    
+    var params = {};
+    
     if (bDJIFileUpload == true) {    	
     	if (files.length <= 0) {
     		showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
@@ -4521,7 +4596,8 @@ function uploadFlightList(isUpdate) {
     	}
 
     	showLoader();  
-    	var params = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};  	
+    	
+    	params = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};  	
       getBase64(params, uploadDJIFlightListCallback);      
       return;
     }
@@ -4557,7 +4633,10 @@ function uploadFlightList(isUpdate) {
 					price = t_p * 1;
 				}
 	    }
-    	saveYoutubeUrl(mname, mmemo, tag_values, youtube_data, price, address_flat, address_flng, function(bSuccess) {
+	    
+	    params = {mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, flat: address_flat, flng: address_flng}; 
+	    
+    	saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         		location.href = cur_controller + "?page_action=recordlist";
@@ -4589,34 +4668,12 @@ function uploadDJIFlightListCallback(params) {
     let userid = getCookie("dev_user_id");
    	
    	var youtube_data = massageYotubeUrl(params.youtube_data);
-   	
-   	var price = 0;
-   	if (langset == "KR") {
-   		if (youtube_data == "") {
-					showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
-					hideLoader();
-					return;
-			}
-				
-    	var checked = $("#salecheck").is(":checked");
-			if(checked) {
-				var t_p = $("#price_input_data").val();
-				if (t_p == "") {
-					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-					hideLoader();
-					return;
-				}
-				
-				price = t_p * 1;
-			}
-    }
-
     var jdata = { "action": "position", "daction": "convert",
     	"clientid": userid, "name": params.mname,
     	"youtube_data_id": youtube_data,
     	"update" : params.isUpdate,
     	"sync" : params.isSyncData,
-    	"price" : price,
+    	"price" : params.price,
     	"tag_values" : params.tag_values,
     	"memo" : params.mmemo,
     	"recordfile": params.base64file };
@@ -4812,10 +4869,10 @@ function setMoveActionFromMap(index, item) {
     setSliderPos(index);
 }
 
-function saveYoutubeUrl(rname, mmemo, tag_values, data_id, price, flat, flng, callback) {
-
+function saveYoutubeUrl(params, callback) {
+	
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": data_id, "clientid": userid, "name": rname, "tag_values" : tag_values, "memo" : mmemo };
+    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": params.mname, "tag_values" : params.tag_values, "memo" : params.mmemo };
     
     if (flat != -999) {
     		jdata["flat"] = flat;
@@ -4920,7 +4977,7 @@ function setYoutubeID() {
 
     moviePlayerVisible = false;
 
-    var fi_data_url = massageYotubeUrl(data_id);
+    var youtube_data = massageYotubeUrl(data_id);
     
     var mmemo = $("#memoTextarea").val();
     
@@ -4928,7 +4985,14 @@ function setYoutubeID() {
 
     if (fi_data_url.indexOf("youtube") >= 0) {
         setYoutubePlayer(fi_data_url);
-        saveYoutubeUrl(cur_flightrecord_name, mmemo, tag_values, fi_data_url, -1, -999, -999, function(bSuccess) {
+        
+        var params = {mname: cur_flightrecord_name, 
+        							mmemo : mmemo, 
+        							tag_values : tag_values, 
+        							youtube_data : youtube_data, 
+        							price : -1, flat : -999, flng : -999};
+        
+        saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         	}

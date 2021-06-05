@@ -59,37 +59,17 @@ var UploadVideo = function () {
      */
     this.videoId = '';
 
-    this.uploadStartTime = 0;        
-    
-    
+    this.uploadStartTime = 0;     
     this.onUploadCompleteCallback = null;
-    
-    $('#uploadVideoToYoutubeButton').off('click');
-    $('#uploadVideoToYoutubeButton').on("click", this.handleUploadClicked.bind(this));
 };
 
 
-UploadVideo.prototype.ready = function (accessToken) {
+UploadVideo.prototype.ready = function () {
+		let accessToken = getCookie("user_google_auth_token");
+		if (accessToken === "undefined" || accessToken === null || accessToken == "") return;
+		
     this.accessToken = accessToken;
-    this.gapi = gapi;
-    this.authenticated = true;
-    /*
-    this.gapi.client.request({
-        path: '/youtube/v3/channels',
-        params: {
-            part: 'snippet',
-            mine: true
-        },
-        callback: function (response) {
-            if (response.error) {
-                console.log(response.error.message);
-            } else {
-                $('#channel-name').text(response.items[0].snippet.title);
-                $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
-            }
-        }.bind(this)
-    });
-    */        
+    this.gapi = gapi;     
 };
 
 /**
