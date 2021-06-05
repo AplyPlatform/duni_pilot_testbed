@@ -160,7 +160,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
         return;
     }
  
-    if (accessToken == '') {
+    if (this.accessToken == '') {
     		tryAuth();
         return;
     }
