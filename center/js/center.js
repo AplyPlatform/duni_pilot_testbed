@@ -740,7 +740,6 @@ function flightrecordUploadInit() {
 		$("#option_public_label").text(LANG_JSON_DATA[langset]['option_public_label']);
 		$("#option_unlisted_label").text(LANG_JSON_DATA[langset]['option_unlisted_label']);
 		$("#option_private_label").text(LANG_JSON_DATA[langset]['option_private_label']);
-		$("#uploadVideoToYoutubeButton").text(LANG_JSON_DATA[langset]['uploadVideoToYoutubeButton']);
 
     $('#dji_flight_record_get_label').text(LANG_JSON_DATA[langset]['dji_flight_record_get_label']);
     $('#duni_flight_record_format_label').text(LANG_JSON_DATA[langset]['duni_flight_record_format_label']);
