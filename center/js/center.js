@@ -4688,7 +4688,7 @@ function uploadDJIFlightListCallback(params) {
             location.href = cur_controller + "?page_action=recordlist";
         }
         else {
-            if (r.reason == "same data is exist") {
+            if (r.result_code == 3)
             		GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
             }
@@ -4957,7 +4957,7 @@ function setFlightRecordTitleName() {
 					location.href = cur_controller + "?page_action=recordlist_detail&record_name=" + encodeURIComponent(target_name);
         }
         else {
-        	if (r.reason.indexOf("already") >= 0)
+        	if (r.result_code == 3)
         		showAlert(LANG_JSON_DATA[langset]['msg_name_is_already_exist']);
         	else
         		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -4975,8 +4975,6 @@ function setYoutubeID() {
         showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
         return;
     }
-
-    moviePlayerVisible = false;
 
     var youtube_data = massageYotubeUrl(data_id);
     
