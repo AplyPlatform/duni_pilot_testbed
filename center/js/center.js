@@ -4873,13 +4873,13 @@ function saveYoutubeUrl(params, callback) {
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": params.mname, "tag_values" : params.tag_values, "memo" : params.mmemo };
     
-    if (flat != -999) {
-    		jdata["flat"] = flat;
-    		jdata["flng"] = flng;
+    if (params.flat != -999) {
+    		jdata["flat"] = params.flat;
+    		jdata["flng"] = params.flng;
     }
     
-    if (price > 0) {
-    		jdata["price"] = price;
+    if (params.price > 0) {
+    		jdata["price"] = params.price;
     }
 
     showLoader();
