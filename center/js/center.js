@@ -894,7 +894,7 @@ function uploadCheckBeforeUploadFlightList() {
     	
     	showLoader();
 
-    	uploadParams = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : false, isSyncData : false, price : price};  	
+    	uploadParams = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price};  	
       uploadVideo.handleUploadClicked();
       return;
     }
