@@ -4688,7 +4688,7 @@ function uploadDJIFlightListCallback(params) {
             location.href = cur_controller + "?page_action=recordlist";
         }
         else {
-            if (r.result_code == 3)
+            if (r.result_code == 3) {
             		GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
             }
