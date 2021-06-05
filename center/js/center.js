@@ -828,6 +828,8 @@ function flightrecordUploadInit() {
     	
     	uploadParams['youtube_data'] = "https://youtube.com/watch?v=" + vid;
     	
+    	hideLoader();
+    	
     	if (bDJIFileUpload == true) {
     		askIsSyncData(uploadParams, uploadDJIFlightListCallback);
     		return;
@@ -902,6 +904,7 @@ function uploadCheckBeforeUploadFlightList() {
   			return;
   	}
   	
+  	showLoader();
   	uploadParams = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: address_flat, flng : address_flng};
   	uploadVideo.handleUploadClicked(); 
 }
