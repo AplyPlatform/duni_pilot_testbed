@@ -876,7 +876,7 @@ function uploadCheckBeforeUploadFlightList() {
     	let tchecked = $("#salecheck").is(":checked");
 			if(tchecked) {
 				var t_p = $("#price_input_data").val();
-				if (t_p == "") {
+				if (t_p == "" || t_p == "원" || t_p == "0") {
 					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
 					return;
 				}
