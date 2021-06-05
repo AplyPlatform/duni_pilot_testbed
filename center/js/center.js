@@ -4985,8 +4985,8 @@ function setYoutubeID() {
     
     var tag_values = $("#tagTextarea").val();
 
-    if (fi_data_url.indexOf("youtube") >= 0) {
-        setYoutubePlayer(fi_data_url);
+    if (youtube_data.indexOf("youtube") >= 0) {
+        setYoutubePlayer(youtube_data);
         
         var params = {mname: cur_flightrecord_name, 
         							mmemo : mmemo, 
