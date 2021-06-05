@@ -1096,9 +1096,8 @@ function flightDetailInit(target) {
     uploadVideo = new UploadVideo();
     uploadVideo.onUploadCompleteCallback = function (vid) {
     	$('#youtube_url_data').val("https://youtube.com/watch?v=" + vid);
-      hideMovieDataSet();
       setYoutubePlayerPureID(vid);
-			showAlert(LANG_JSON_DATA[langset]['msg_youtube_uploaded']);
+			setYoutubeID();
     };   	
 		
 		uploadVideo.ready();
@@ -4996,6 +4995,7 @@ function setYoutubeID() {
         
         saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
+        		hideMovieDataSet();
         		showAlert(LANG_JSON_DATA[langset]['msg_success']);
         	}
         	else {
@@ -5006,13 +5006,6 @@ function setYoutubeID() {
     else {
         showAlert(LANG_JSON_DATA[langset]['msg_wrong_youtube_url_input']);
         setYoutubePlayer("");
-    }
-
-    if (moviePlayerVisible == true) {
-        hideMovieDataSet();
-    }
-    else {
-        showMovieDataSet();
     }
 }
 
