@@ -4587,6 +4587,28 @@ function uploadFlightList(isUpdate) {
     
     var params = {};
     
+    var price = 0;
+    
+   	if (isUpdate == false && langset == "KR") {
+    	var checked = $("#salecheck").is(":checked");
+			if(checked) {
+				var t_p = $("#price_input_data").val();
+				if (t_p == "") {
+					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
+					hideLoader();
+					return;
+				}
+				
+				if (youtube_data == "") {
+					showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
+					hideLoader();
+					return;
+				}
+				
+				price = t_p * 1;
+			}
+    }
+    
     if (bDJIFileUpload == true) {    	
     	if (files.length <= 0) {
     		showAlert(LANG_JSON_DATA[langset]['msg_select_file']);
@@ -4594,14 +4616,14 @@ function uploadFlightList(isUpdate) {
     	}
     	
     	if (isSet(youtube_data)) {
-    		var params = {file: files[0], mname : mname, mmemo : mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate};
+    		var params = {file: files[0], mname : mname, mmemo : mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate};
     		askIsSyncData(params, uploadDJIFlightListCallback);
     		return;
     	}
 
     	showLoader();  
     	
-    	params = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};  	
+    	params = {file : files[0], mname : mname, mmemo: mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};  	
       getBase64(params, uploadDJIFlightListCallback);      
       return;
     }
@@ -4616,29 +4638,8 @@ function uploadFlightList(isUpdate) {
     	}
     	
     	youtube_data = massageYotubeUrl(youtube_data);
-    	
-    	var price = 0;
-	   	if (langset == "KR") {
-	   		if (youtube_data == "") {
-						showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
-						hideLoader();
-						return;
-				}
-					
-	    	var checked = $("#salecheck").is(":checked");
-				if(checked) {
-					var t_p = $("#price_input_data").val();
-					if (t_p == "") {
-						showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-						hideLoader();
-						return;
-					}
-					
-					price = t_p * 1;
-				}
-	    }
 	    
-	    params = {mname : mname, mmemo: mmemo, tag_values : tag_values, youtube_data : youtube_data, flat: address_flat, flng: address_flng}; 
+	    params = {mname : mname, mmemo: mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, flat: address_flat, flng: address_flng}; 
 	    
     	saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
