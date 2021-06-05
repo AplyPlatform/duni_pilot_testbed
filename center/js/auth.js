@@ -48,7 +48,6 @@ function handleAuthResult(authResult) {
         	uploadVideo.handleUploadClicked();
         }
         else {
-        	//setCookie("user_google_auth_token", "", -1);
         	$('#uploadVideoToYoutubeButton').attr('disabled', false);
         	hideLoader();
         	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
