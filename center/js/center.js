@@ -902,7 +902,7 @@ function uploadCheckBeforeUploadFlightList() {
   			return;
   	}
   	
-  	uploadParams = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: address_flat, flng = address_flng}
+  	uploadParams = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: address_flat, flng : address_flng};
   	uploadVideo.handleUploadClicked.bind(uploadVideo); 
 }
 
