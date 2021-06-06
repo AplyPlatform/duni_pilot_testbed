@@ -4696,6 +4696,10 @@ function uploadDJIFlightListCallback(params) {
             		GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT', langset);
                 showAlert(LANG_JSON_DATA[langset]['msg_error_same_record_exist']);
             }
+            else if (r.result_code == 2) {
+            		GATAGM('dji_file_upload_analyze_failed', 'CONTENT', langset);
+                showAlert(LANG_JSON_DATA[langset]['msg_select_another_file']);
+            }
             else {
             	GATAGM('dji_file_upload_failed', 'CONTENT', langset);
             	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + " (" + r.reason + ")");
