@@ -769,6 +769,13 @@ function flightrecordUploadInit() {
         
         uploadCheckBeforeUploadFlightList();
     });
+    
+    $("#address_input_data").keypress(function (e) {
+        if (e.which == 13){
+        	GATAGM('enterForAddressCheck', 'CONTENT', langset);
+        	checkAddress($("#address_input_data").val());
+        }
+    });
         
     $('#btnForAddressCheck').click(function () {
         GATAGM('btnForAddressCheck', 'CONTENT', langset);
