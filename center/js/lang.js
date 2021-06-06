@@ -156,7 +156,7 @@ var LANG_JSON_DATA = {
         "label_set_youtube_url": "Youtube URL 입력",
         "label_upload_movie": "영상 업로드",
         "tab_menu_upload_selector_dji": "비행기록 업로드",
-        "tab_menu_upload_selector_address": "상세 주소 입력",
+        "tab_menu_upload_selector_address": "촬영지 주소 입력",
         "more_label": "더보기 ...",
         "latitude_label": "위도",
         "longitude_label": "경도",
