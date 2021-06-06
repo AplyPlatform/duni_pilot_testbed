@@ -764,7 +764,7 @@ function flightrecordUploadInit() {
     
     $("#label_must_select_record_or_address").text(LANG_JSON_DATA[langset]['label_must_select_record_or_address']);
     
-    $("#disclaimer").text(LANG_JSON_DATA[langset]['youtubeTOS']);
+    $("#disclaimer").html(LANG_JSON_DATA[langset]['youtubeTOS']);
     
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
@@ -1087,6 +1087,8 @@ function flightDetailInit(target) {
     $('#roll_label').text(LANG_JSON_DATA[langset]['roll_label']);
     $('#pitch_label').text(LANG_JSON_DATA[langset]['pitch_label']);
     $('#yaw_label').text(LANG_JSON_DATA[langset]['yaw_label']);
+    
+    $("#disclaimer").html(LANG_JSON_DATA[langset]['youtubeTOS']);
 
     $("#btnForLink").hide();
     $("#btnForSharing").hide();		
