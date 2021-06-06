@@ -760,9 +760,7 @@ function flightrecordUploadInit() {
     $("#tab_menu_upload_selector_address").text(LANG_JSON_DATA[langset]['tab_menu_upload_selector_address']); 
     
     $("#tab_menu_set_youtube_address").text(LANG_JSON_DATA[langset]['label_set_youtube_url']);    
-    $("#tab_menu_set_youtube_upload").text(LANG_JSON_DATA[langset]['label_upload_movie']);       
-    
-    $("#label_must_select_record_or_address").text(LANG_JSON_DATA[langset]['label_must_select_record_or_address']);
+    $("#tab_menu_set_youtube_upload").text(LANG_JSON_DATA[langset]['label_upload_movie']);
     
     $("#disclaimer").html(LANG_JSON_DATA[langset]['youtubeTOS']);
     
