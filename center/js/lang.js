@@ -214,6 +214,7 @@ var LANG_JSON_DATA = {
             + "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
             + "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
             + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
+        "youtubeTOS" : "동영상을 업로드함으로써 귀하는 콘텐츠에 대한 모든 권리를 소유하고 있거나 콘텐츠를 YouTube에 공개 할 수 있도록 소유자로부터 권한을 받았으며 그렇지 않으면 http://www.youtube.com/t/terms에 있는 YouTube 서비스 약관을 준수 함을 증명합니다.",
     },
 
 
@@ -424,5 +425,7 @@ var LANG_JSON_DATA = {
             + "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
             + "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
             + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
+            
+         "youtubeTOS" : "By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at http://www.youtube.com/t/terms",
     }
 };

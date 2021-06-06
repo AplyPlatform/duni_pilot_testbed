@@ -764,6 +764,8 @@ function flightrecordUploadInit() {
     
     $("#label_must_select_record_or_address").text(LANG_JSON_DATA[langset]['label_must_select_record_or_address']);
     
+    $("#disclaimer").text(LANG_JSON_DATA[langset]['youtubeTOS']);
+    
     $('#btnForUploadFlightList').click(function () {
         GATAGM('btnForUploadFlightList', 'CONTENT', langset);
         
@@ -940,10 +942,12 @@ function checkAddress(address) {
         return;
     }
     
+    showLoader();
     var userid = getCookie("dev_user_id");    
     var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
 		
 		ajaxRequest(jdata, function (r) {
+				hideLoader();
 	    	if(r.result == "success") {
 		      if (r.data == null) {
 		      	address_flat = -999;	
@@ -965,6 +969,7 @@ function checkAddress(address) {
 	    	}
 	  	},
 	  	function(request,status,error) {
+	  		hideLoader();
 	  		address_flat = -999;	
 	     	address_flng = -999;
 	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
