@@ -104,7 +104,8 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
 			clearInterval(interval_timer);
-			showDialog("인증번호 입력시간이 만료되었습니다.", location.href);
+            showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+            location.href=location.href;
         }
     }, 1000);
 }
@@ -133,11 +134,11 @@ function verifyPhoneNo(){
                         showAlert(LANG_JSON_DATA[langset]['msg_verification_code_sent']);
                         phone_verified = false;
                         // 인증하기 텍스트 -> 재전송
-                        $('btn_verify_code').val("재전송");
+                        $('#btn_verify_code').val("재전송");
                         var duration = 60 * 3;
                         var display = $('#remaining_time');
                         startTimer(duration, display);
-                        $('droneplay_phonenumber').prop( "disabled", true );
+                        $('#droneplay_phonenumber').prop( "disabled", true );
                         $("#code_verification_input").show();
                         return;
                     }
@@ -163,7 +164,52 @@ function verifyPhoneNo(){
 }
 
 function verifyCode(){
-    
+    let verification_code = $('#verification_code').val();
+		if(verification_code == ""){
+			showAlert(LANG_JSON_DATA[langset]['msg_code_empty']);
+			return;
+		} 
+		grecaptcha.ready(function() {
+			grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+				var jdata = {
+                    "action" : "member2", 
+                    "daction" : "check_verifycode", 
+                    "phone_number" : $('#droneplay_phonenumber').val(), 
+                    "verify_code" : verification_code, 
+                    "g_token" : token};
+				ajaxRequest(jdata,
+					function(data){
+						let result = data.result_code;
+						if(result === 0){
+							$('#verification_code').val("");
+							$("#code_verification_input").hide();			
+							showAlert(LANG_JSON_DATA[langset]['msg_phone_verified']);
+							clearInterval(interval_timer);
+							// disable phone number input
+							phone_verified = true;
+							// $(form_id).find('input[name="form_phone"]').prop( "disabled", true );
+							// $(form_id + "_verify_phone").val("재인증");
+							return;
+						}
+						else if(result === 2){
+							showAlert(LANG_JSON_DATA[langset]['msg_wrong_verification_code']);
+							return;
+						}
+						else if(result === 4){
+							showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+							return;
+						}
+						else {
+                            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+						return;
+						}
+					},
+					function (err, stat, error) {
+						showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+					}
+				);
+			});
+		});
 }
 
 function requestRegister() {
@@ -201,7 +247,12 @@ function requestRegister() {
                     return;
                 }
 
-
+                if(phone_verified === false){
+                    GATAGM('PhoneNotVerified', 'CONTENT', langset);
+                    showAlert(LANG_JSON_DATA[langset]['msg_phone_not_verified']);
+                    hideLoader();
+                    return;
+                }
                 var data = {
                     "action": "member",
                     "daction": "register",

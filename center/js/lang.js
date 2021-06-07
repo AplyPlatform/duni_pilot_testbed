@@ -91,7 +91,9 @@ var LANG_JSON_DATA = {
         "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다. 다시 입력해주세요.",
         "msg_wrong_verification_code" : "인증번호가 일치하지 않습니다. 다시 입력해주세요.",
         "msg_phone_verified" : "인증되었습니다",
-        "msg_phone_verification_timeout" : "인증시간이 초과되었습니다. 다시 시도해주세요.",
+        "msg_phone_verification_timeout" : "인증번호 입력시간이 만료되었습니다. 다시 시도해주세요.",
+        "msg_code_empty" : "인증번호를 입력해주세요.",
+        "msg_phone_not_verified" : "전화번호인증은 필수입니다. 인증해주세요.",
         // 전화번호인증 end
         "msg_is_sync_data" : "영상의 길이와 비행기록의 길이가 일치하나요?",
         "msg_youtube_uploaded" : "수정을 반영하려면 \"적용\" 버튼을 클릭해 주세요.",
@@ -304,6 +306,8 @@ var LANG_JSON_DATA = {
         "msg_wrong_verification_code" : "Incorrect verification code. Please try again.",
         "msg_phone_verified" : "Phone number verified.",
         "msg_phone_verification_timeout" : "Input timeout. Please try again.",
+        "msg_code_empty" : "Please fill out the verification code.",
+        "msg_phone_not_verified" : "Phone number must be verified.",
         // 전화번호인증 end        
         "msg_is_sync_data" : "Is the length of the video the same as the flight record?",
         "msg_youtube_uploaded" : "Click the \"Apply\" button to modify the content.",
