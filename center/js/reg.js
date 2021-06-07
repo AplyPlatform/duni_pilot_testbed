@@ -12,6 +12,7 @@ limitations under the License.
 */
 
 var langset = "KR";
+var phone_verified = false;
 
 $(function () {
     showLoader();
@@ -87,6 +88,82 @@ function ajaxRequest(data, callback, errorcallback) {
             errorcallback(request, status, error);
         }
     });
+}
+
+// 인증기간 타이머 혜지프로
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    interval_timer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+			clearInterval(interval_timer);
+			showDialog("인증번호 입력시간이 만료되었습니다.", location.href);
+        }
+    }, 1000);
+}
+
+// 전화번호 인증
+function verifyPhoneNo(){
+    // check if phone number starts with 01 and is total of 11 digits
+    let phone_number = $('#droneplay_phonenumber').val();
+    if((phone_number.length != 11) || phone_number.substring(0,2) !== '01'){
+        showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
+        return;
+    }
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+            // send phone verification
+            var jdata = {
+                "action": "member2", 
+                "daction" : "validate_phonenumber", 
+                "phone_number" : phone_number, 
+                "g_token": token
+            };
+            ajaxRequest(jdata, 
+                function (data){
+                    let result = data.result_code;
+                    if(result === 0){ //정상응답
+                        showAlert(LANG_JSON_DATA[langset]['msg_verification_code_sent']);
+                        phone_verified = false;
+                        // 인증하기 텍스트 -> 재전송
+                        $('btn_verify_code').val("재전송");
+                        var duration = 60 * 3;
+                        var display = $('#remaining_time');
+                        startTimer(duration, display);
+                        $('droneplay_phonenumber').prop( "disabled", true );
+                        $("#code_verification_input").show();
+                        return;
+                    }
+                    else if (result === 2) {
+                        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
+                        return;
+                    }
+                    else if (result === 3) {
+                        showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
+                        return;
+                    }
+                    else {
+                        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                        return;
+                    }
+                },
+                function (err, stat, error) {
+                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                }
+            );
+        });
+    });
+}
+
+function verifyCode(){
+    
 }
 
 function requestRegister() {

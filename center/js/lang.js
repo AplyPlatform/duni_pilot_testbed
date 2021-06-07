@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 var LANG_JSON_DATA = {
-    "KR": {
+        "KR": {
     	"modal_yes_btn": "네",
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
@@ -85,6 +85,14 @@ var LANG_JSON_DATA = {
         "btnForAddressCheck": "주소확인",
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
         "center_example_title": "사용예시",
+        // 전화번호 인증
+        "msg_phone_already_exists" : "이미 사용중인 전화번호입니다. 다른 번호를 입력해주세요.",
+        "msg_verification_code_sent" : "인증번호가 전송되었습니다.",
+        "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다. 다시 입력해주세요.",
+        "msg_wrong_verification_code" : "인증번호가 일치하지 않습니다. 다시 입력해주세요.",
+        "msg_phone_verified" : "인증되었습니다",
+        "msg_phone_verification_timeout" : "인증시간이 초과되었습니다. 다시 시도해주세요.",
+        // 전화번호인증 end
         "msg_is_sync_data" : "영상의 길이와 비행기록의 길이가 일치하나요?",
         "msg_youtube_uploaded" : "수정을 반영하려면 \"적용\" 버튼을 클릭해 주세요.",
         "msg_do_login" : "로그인이 필요한 서비스 입니다.",
@@ -288,7 +296,15 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "Filter off",
         "btnForAddressCheck": "Check address",
         "center_about_title": "About ...",
-        "center_example_title": "Example",        
+        "center_example_title": "Example",
+        // 전화번호 인증
+        "msg_phone_already_exists" : "Phone number already registered. Please try a different number",
+        "msg_verification_code_sent" : "Verification code sent.",
+        "msg_wrong_phone_format" : "Phone number does not exist. Please check your number.",
+        "msg_wrong_verification_code" : "Incorrect verification code. Please try again.",
+        "msg_phone_verified" : "Phone number verified.",
+        "msg_phone_verification_timeout" : "Input timeout. Please try again.",
+        // 전화번호인증 end        
         "msg_is_sync_data" : "Is the length of the video the same as the flight record?",
         "msg_youtube_uploaded" : "Click the \"Apply\" button to modify the content.",
         "msg_do_login" : "This service requires Sign-In.",
