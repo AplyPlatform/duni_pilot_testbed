@@ -115,7 +115,7 @@ function verifyPhoneNo(){
     // check if phone number starts with 01 and is total of 11 digits
     let phone_number = $('#droneplay_phonenumber').val();
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01'){
-        showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
+        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
         return;
     }
     grecaptcha.ready(function() {
