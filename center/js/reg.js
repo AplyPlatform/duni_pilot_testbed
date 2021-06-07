@@ -134,11 +134,11 @@ function verifyPhoneNo(){
                         showAlert(LANG_JSON_DATA[langset]['msg_verification_code_sent']);
                         phone_verified = false;
                         // 인증하기 텍스트 -> 재전송
-                        $('#btn_verify_code').val("재전송");
+                        $('#btn_verify_code').text("재전송");
                         var duration = 60 * 3;
                         var display = $('#remaining_time');
                         startTimer(duration, display);
-                        $('#droneplay_phonenumber').prop( "disabled", true );
+                        //$('#droneplay_phonenumber').prop( "disabled", true );
                         $("#code_verification_input").show();
                         return;
                     }
@@ -187,8 +187,8 @@ function verifyCode(){
 							clearInterval(interval_timer);
 							// disable phone number input
 							phone_verified = true;
-							// $(form_id).find('input[name="form_phone"]').prop( "disabled", true );
-							// $(form_id + "_verify_phone").val("재인증");
+							// $('#droneplay_phonenumber').prop( "disabled", true );
+							// $('btn_check_code').text("재인증");
 							return;
 						}
 						else if(result === 2){
