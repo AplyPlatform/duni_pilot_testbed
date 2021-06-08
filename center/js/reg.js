@@ -108,7 +108,7 @@ function startTimer(duration, display) {
         if (--timer < 0) {
 			clearInterval(interval_timer);
             showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
-            location.href=location.href;
+            //location.href=location.href;
         }
     }, 1000);
 }
@@ -340,6 +340,12 @@ function showAlert(msg) {
 
     $('#errorModalLabel').html(msg);
     $('#errorModal').modal('show');
+    if(msg == LANG_JSON_DATA[langset]['msg_phone_verification_timeout']){
+        $('#modal-confirm-btn').off('click');
+        $('#modal-confirm-btn').click(function () {
+            location.href=location.href;
+        });
+    }
 }
 
 
