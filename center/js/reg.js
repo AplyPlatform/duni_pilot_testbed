@@ -39,7 +39,7 @@ $(function () {
 
     $("#show_2").hide();
     hideLoader();
-    
+
     $('#droneplay_phonenumber').keypress(validateNumber);
     $('#verification_code').keypress(validateNumber);
 
@@ -146,18 +146,16 @@ function verifyPhoneNo(){
                         $("#code_verification_input").show();
                         return;
                     }
-                    else if (result === 2) {
+                    if (result === 2) {
                         showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
                         return;
                     }
-                    else if (result === 3) {
+                    if (result === 3) {
                         showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
                         return;
                     }
-                    else {
-                        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-                        return;
-                    }
+                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                    return;
                 },
                 function (err, stat, error) {
                     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -195,18 +193,16 @@ function verifyCode(){
 							// $('btn_check_code').text("재인증");
 							return;
 						}
-						else if(result === 2){
+						if(result === 2){
 							showAlert(LANG_JSON_DATA[langset]['msg_wrong_verification_code']);
 							return;
 						}
-						else if(result === 4){
+						if(result === 4){
 							showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
 							return;
 						}
-						else {
-                            showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 						return;
-						}
 					},
 					function (err, stat, error) {
 						showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
