@@ -102,10 +102,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	                	</div>
 	                  <div class="card-body">
 												<div class="col-lg-6 mb-4">
-													<input name="droneplay_auth_code" id="droneplay_auth_code" type="hidden" value=""><br>
+                          <input type="hidden" id="auth_code" name="auth_code">
 	                        <input name="droneplay_name" id="droneplay_name" type="text" class="form-control" value="" placeholder="이름" required=""><br>
 	                        <input name="droneplay_email" id="droneplay_email" type="email" class="form-control" value="" placeholder="이메일" required=""><br>
-	                        <input name="droneplay_phonenumber" id="droneplay_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">
+                          <input name="droneplay_phonenumber" id="droneplay_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">
+                          <a class="btn btn-primary btn-lg active" role="button" onClick="verifyPhoneNo()" id="btn_verify_code">인증번호 전송</a>
+                          <div id="code_verification_input" style="display:none">
+														<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: right">
+														<label id="remaining_time" style="color:red"></label>
+														<div style="overflow: hidden; padding-right: .5em;">
+															<a class="btn btn-primary btn-lg active" role="button" onClick="verifyCode()" id="btn_check_code">인증하기</a>
+														 </div>
+													</div>
 												</div>
 	                  </div>
 	                  <div class="card-body">

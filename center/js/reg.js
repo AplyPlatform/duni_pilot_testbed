@@ -12,6 +12,8 @@ limitations under the License.
 */
 
 var langset = "KR";
+// 인증여부 혜지프로
+var phone_verified = false;
 
 $(function () {
     showLoader();
@@ -38,6 +40,10 @@ $(function () {
 
     $("#show_2").hide();
     hideLoader();
+
+    // 전화번호 & 인증번호 입력제한 혜지프로
+    $('#droneplay_phonenumber').keypress(validateNumber);
+    $('#verification_code').keypress(validateNumber);
 
 });
 
@@ -89,6 +95,123 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
+// 인증기간 타이머 혜지프로
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    interval_timer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+			clearInterval(interval_timer);
+            showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+        }
+    }, 1000);
+}
+
+// 전화번호 인증 혜지프로
+function verifyPhoneNo(){
+    
+    // check if phone number starts with 01 and is total of 11 digits
+    let phone_number = $('#droneplay_phonenumber').val();
+    if((phone_number.length != 11) || phone_number.substring(0,2) !== '01'){
+        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
+        return;
+    }
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+            // send phone verification
+            var jdata = {
+                "action": "member2", 
+                "daction" : "validate_phonenumber", 
+                "phone_number" : phone_number, 
+                "g_token": token
+            };
+            ajaxRequest(jdata, 
+                function (data){
+                    let result = data.result_code;
+                    if(result === 0){ //정상응답
+                        showAlert(LANG_JSON_DATA[langset]['msg_verification_code_sent']);
+                        phone_verified = false;
+                        // 인증하기 텍스트 -> 재전송
+                        $('#btn_verify_code').text("재전송");
+                        var duration = 60 * 3;
+                        var display = $('#remaining_time');
+                        startTimer(duration, display);
+                        //$('#droneplay_phonenumber').prop( "disabled", true );
+                        $("#code_verification_input").show();
+                        return;
+                    }
+                    if (result === 2) {
+                        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
+                        return;
+                    }
+                    if (result === 3) {
+                        showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
+                        return;
+                    }
+                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                },
+                function (err, stat, error) {
+                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                }
+            );
+        });
+    });
+}
+
+function verifyCode(){
+    let verification_code = $('#verification_code').val();
+		if(verification_code == ""){
+			showAlert(LANG_JSON_DATA[langset]['msg_code_empty']);
+			return;
+		} 
+		grecaptcha.ready(function() {
+			grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+				var jdata = {
+                    "action" : "member", 
+                    "daction" : "check_verifycode", 
+                    "phone_number" : $('#droneplay_phonenumber').val(), 
+                    "verify_code" : verification_code, 
+                    "g_token" : token};
+				ajaxRequest(jdata,
+					function(data){
+						let result = data.result_code;
+						if(result === 0){
+							$('#verification_code').val("");
+							$("#code_verification_input").hide();			
+							showAlert(LANG_JSON_DATA[langset]['msg_phone_verified']);
+							clearInterval(interval_timer);
+							// disable phone number input
+                            phone_verified = true;
+                            $('#auth_code').val(data.auth_code);
+							// $('#droneplay_phonenumber').prop( "disabled", true );
+							// $('btn_check_code').text("재인증");
+							return;
+						}
+						if(result === 2){
+							showAlert(LANG_JSON_DATA[langset]['msg_wrong_verification_code']);
+							return;
+						}
+						if(result === 4){
+							showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+							return;
+						}
+                        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+					},
+					function (err, stat, error) {
+						showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+					}
+				);
+			});
+		});
+}
+
 function requestRegister() {
     GATAGM('RegisterBtnClickOnRegister', 'CONTENT', langset);
 
@@ -124,13 +247,19 @@ function requestRegister() {
                     return;
                 }
 
-
+                // 전화번호 인증여부 체크 혜지프로
+                if(phone_verified === false){
+                    GATAGM('PhoneNotVerified', 'CONTENT', langset);
+                    showAlert(LANG_JSON_DATA[langset]['msg_phone_not_verified']);
+                    hideLoader();
+                    return;
+                }
                 var data = {
                     "action": "member",
                     "daction": "register",
                     "name": droneplay_name,
                     "socialid": droneplay_email,
-                    "phone_number": droneplay_phonenumber,
+                    "auth_code": $('#auth_code').val(),
                     "sns_kind": sns_kind,
                     "sns_token": sns_token
                 };
@@ -163,6 +292,17 @@ function requestRegister() {
                     });
             });
     });
+}
+
+function validateNumber(event) {
+    var key = window.event ? event.keyCode : event.which;
+    if (event.keyCode === 8 || event.keyCode === 46) {
+        return true;
+    } else if ( key < 48 || key > 57 ) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function showConfirmDialog() {
@@ -201,6 +341,12 @@ function showAlert(msg) {
 
     $('#errorModalLabel').html(msg);
     $('#errorModal').modal('show');
+    if(msg == LANG_JSON_DATA[langset]['msg_phone_verification_timeout']){
+        $('#modal-confirm-btn').off('click');
+        $('#modal-confirm-btn').click(function () {
+            location.href=location.href;
+        });
+    }
 }
 
 
