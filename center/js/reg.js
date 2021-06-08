@@ -127,7 +127,7 @@ function verifyPhoneNo(){
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
             // send phone verification
             var jdata = {
-                "action": "member", 
+                "action": "member2", 
                 "daction" : "validate_phonenumber", 
                 "phone_number" : phone_number, 
                 "g_token": token
