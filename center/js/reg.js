@@ -12,6 +12,7 @@ limitations under the License.
 */
 
 var langset = "KR";
+// 인증여부 혜지프로
 var phone_verified = false;
 
 $(function () {
@@ -40,6 +41,7 @@ $(function () {
     $("#show_2").hide();
     hideLoader();
 
+    // 전화번호 & 인증번호 입력제한 혜지프로
     $('#droneplay_phonenumber').keypress(validateNumber);
     $('#verification_code').keypress(validateNumber);
 
@@ -108,12 +110,11 @@ function startTimer(duration, display) {
         if (--timer < 0) {
 			clearInterval(interval_timer);
             showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
-            //location.href=location.href;
         }
     }, 1000);
 }
 
-// 전화번호 인증
+// 전화번호 인증 혜지프로
 function verifyPhoneNo(){
     
     // check if phone number starts with 01 and is total of 11 digits
@@ -126,7 +127,7 @@ function verifyPhoneNo(){
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
             // send phone verification
             var jdata = {
-                "action": "member2", 
+                "action": "member", 
                 "daction" : "validate_phonenumber", 
                 "phone_number" : phone_number, 
                 "g_token": token
@@ -155,7 +156,6 @@ function verifyPhoneNo(){
                         return;
                     }
                     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-                    return;
                 },
                 function (err, stat, error) {
                     showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -174,7 +174,7 @@ function verifyCode(){
 		grecaptcha.ready(function() {
 			grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
 				var jdata = {
-                    "action" : "member2", 
+                    "action" : "member", 
                     "daction" : "check_verifycode", 
                     "phone_number" : $('#droneplay_phonenumber').val(), 
                     "verify_code" : verification_code, 
@@ -188,7 +188,8 @@ function verifyCode(){
 							showAlert(LANG_JSON_DATA[langset]['msg_phone_verified']);
 							clearInterval(interval_timer);
 							// disable phone number input
-							phone_verified = true;
+                            phone_verified = true;
+                            $('#auth_code').val(data.auth_code);
 							// $('#droneplay_phonenumber').prop( "disabled", true );
 							// $('btn_check_code').text("재인증");
 							return;
@@ -202,7 +203,6 @@ function verifyCode(){
 							return;
 						}
                         showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-						return;
 					},
 					function (err, stat, error) {
 						showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
@@ -247,6 +247,7 @@ function requestRegister() {
                     return;
                 }
 
+                // 전화번호 인증여부 체크 혜지프로
                 if(phone_verified === false){
                     GATAGM('PhoneNotVerified', 'CONTENT', langset);
                     showAlert(LANG_JSON_DATA[langset]['msg_phone_not_verified']);
