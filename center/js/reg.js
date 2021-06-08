@@ -139,7 +139,7 @@ function verifyPhoneNo(){
                         phone_verified = false;
                         // 인증하기 텍스트 -> 재전송
                         $('#btn_verify_code').text("재전송");
-                        var duration = 60 * 3;
+                        var duration = 15;
                         var display = $('#remaining_time');
                         startTimer(duration, display);
                         //$('#droneplay_phonenumber').prop( "disabled", true );
