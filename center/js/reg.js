@@ -259,6 +259,7 @@ function requestRegister() {
                     "daction": "register",
                     "name": droneplay_name,
                     "socialid": droneplay_email,
+                    "phone_number" : droneplay_phonenumber,
                     "auth_code": $('#auth_code').val(),
                     "sns_kind": sns_kind,
                     "sns_token": sns_token
