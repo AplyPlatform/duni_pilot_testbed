@@ -144,6 +144,8 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
     });
     // This won't correspond to the *exact* start of the upload, but it should be close enough.
     this.uploadStartTime = Date.now();
+    
+    showLoader();
     uploader.upload();
 };
 
