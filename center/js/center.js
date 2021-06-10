@@ -2795,7 +2795,7 @@ function setFlightlistFullHistory() {
 
 function getFullFlightRecords() {
 		var userid = getCookie("dev_user_id");
-	  var jdata = {"action": "position", "daction" : "download", "list" : true, "public" : true, clientid": userid};
+	  var jdata = {"action": "position", "daction" : "download", "list" : true, "public" : true, "clientid": userid};
 
 	  showLoader();
 	  ajaxRequest(jdata, function (r) {
