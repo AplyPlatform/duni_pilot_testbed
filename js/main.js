@@ -999,7 +999,7 @@
 	
 	function setFlightlistFullHistory() {
 		flightRecFullArray.forEach(function(item, index, arra) {
-	    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : (isSet(item.youtube_data_id) == true ? : true : false) });
+	    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : (isSet(item.youtube_data_id) == true ? true : false) });
 	    if (isSet(flightHistorySource)) {
 	        flightHistorySource.addFeature(icon);
 	    }
