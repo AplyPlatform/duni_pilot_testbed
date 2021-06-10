@@ -124,7 +124,7 @@ function verifyPhoneNo(){
         return;
     }
     grecaptcha.ready(function() {
-        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7;=ㅐㅕ', {action: 'action_name'}).then(function(token) {
             // send phone verification
             var jdata = {
                 "action": "member", 
@@ -172,7 +172,7 @@ function verifyCode(){
 			return;
 		} 
 		grecaptcha.ready(function() {
-			grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+			grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRㅏY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
 				var jdata = {
                     "action" : "member", 
                     "daction" : "check_verifycode", 
