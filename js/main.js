@@ -379,8 +379,7 @@
 	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
 	          mindex : i,
 						maddress : item.address,
-						mhasYoutube : item.hasYoutube,
-						myoutube_url: item.youtube_data_id,
+						mhasYoutube : item.hasYoutube
 						mname : item.name
 	      });
 
@@ -1000,7 +999,7 @@
 	
 	function setFlightlistFullHistory() {
 		flightRecFullArray.forEach(function(item, index, arra) {
-	    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : item.hasYoutube, youtube_data_id: item.youtube_data_id});
+	    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : (isSet(item.youtube_data_id) == true ? : true : false) });
 	    if (isSet(flightHistorySource)) {
 	        flightHistorySource.addFeature(icon);
 	    }
