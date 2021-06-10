@@ -108,7 +108,7 @@ function naverinit() {
     var naverLogin = new naver.LoginWithNaverId(
         {
             clientId: "wSvRwDA6qt1OWrvVY542",
-            callbackUrl: "https://pilot.duni.io/center/navercallback.html",
+            callbackUrl: window.location.origin + "/center/navercallback.html",
             isPopup: false
         }
     );
@@ -178,7 +178,7 @@ function appleinit() {
 	AppleID.auth.init({
             clientId : 'biz.aply.dunipilot.signin',
             scope : 'name email',
-            redirectURI: 'https://pilot.duni.io',
+            redirectURI: window.location.origin,
             nonce : '123423',
             usePopup : true
         });
