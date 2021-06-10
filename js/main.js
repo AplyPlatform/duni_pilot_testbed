@@ -1117,6 +1117,6 @@ $(function(){
 	goToTop();
 	loaderPage();
 	flightHistoryMapInit();
-	initYoutubeAPI();	
 	getCompanyList();
+	initYoutubeAPI();
 });
