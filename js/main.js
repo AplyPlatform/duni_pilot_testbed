@@ -379,7 +379,7 @@
 	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
 	          mindex : i,
 						maddress : item.address,
-						mhasYoutube : item.hasYoutube
+						mhasYoutube : item.hasYoutube,
 						mname : item.name
 	      });
 
