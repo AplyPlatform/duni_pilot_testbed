@@ -127,7 +127,7 @@ function verifyPhoneNo(){
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
             // send phone verification
             var jdata = {
-                "action": "member", 
+                "action": "member2", 
                 "daction" : "validate_phonenumber", 
                 "phone_number" : phone_number, 
                 "g_token": token
@@ -225,8 +225,6 @@ function requestRegister() {
                 var sns_token = getCookie("temp_sns_token");
                 var sns_kind = getCookie("dev_kind");
                 var droneplay_phonenumber = $('#droneplay_phonenumber').val();
-                // 임시 인증번호
-                var auth_code = $('#auth_code').val();
 
                 if (droneplay_name == null || droneplay_name == "") {
                     GATAGM('NameIsEmptyOnRegister', 'CONTENT', langset);
