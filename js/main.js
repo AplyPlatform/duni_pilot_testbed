@@ -1104,6 +1104,7 @@
 
 	function onYouTubeIframeAPIReady() {
 	  getFlightSomeList();
+	  getFlightList();
   }
 
 $(function(){
