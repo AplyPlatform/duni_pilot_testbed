@@ -1103,7 +1103,8 @@
 	}
 
 	function onYouTubeIframeAPIReady() {
-	  
+	  	getFlightSomeList();
+			getFlightList();
   }
 
 $(function(){
@@ -1119,6 +1120,4 @@ $(function(){
 	flightHistoryMapInit();
 	initYoutubeAPI();	
 	getCompanyList();
-	getFlightSomeList();
-	getFlightList();
 });
