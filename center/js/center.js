@@ -1408,7 +1408,11 @@ function processMapClick(map, evt, feature, overlay) {
 
 function getFlightRecordInfo(name) {
 		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid, "public" : true };
+    var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid };
+    
+    if (current_target == "public") {
+	  	jdata["public"] = true;
+	  }
 
 		showLoader();
 
@@ -2797,8 +2801,13 @@ function setFlightlistFullHistory() {
 
 function getFullFlightRecords() {
 		var userid = getCookie("dev_user_id");
-	  var jdata = {"action": "position", "daction" : "download", "list" : true, "public" : true, "clientid": userid};
-
+	  var jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};
+	  
+	  if (current_target == "public") {
+	  	jdata["list"] = true;
+	  	jdata["public"] = true;
+	  }
+	 
 	  showLoader();
 	  ajaxRequest(jdata, function (r) {
 	    hideLoader();
