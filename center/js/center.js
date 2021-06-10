@@ -3599,7 +3599,7 @@ function appendFlightRecordTable(target, item) {
     });
 
     var retSource = null;
-    if (curIndex == 0 && flat != -999) {
+    if (flat != -999) {
         retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
 
@@ -3616,7 +3616,7 @@ function appendFlightRecordTable(target, item) {
         }
     }
 
-    if (flat != -999) {
+    if (nAppendListCount < 2 && flat != -999) {
         moveFlightHistoryMap(flat, flng);
     }
 
