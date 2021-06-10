@@ -28,6 +28,7 @@ var mainMap2DVectorSource;
 var mainMap2DlineSource;
 
 var flightRecArray;
+var flightRecFullArray;
 var designDataArray;
 
 var flightRecords2DMapView;
@@ -1400,13 +1401,41 @@ function processMapClick(map, evt, feature, overlay) {
     var hasYoutube = features[0].get('mhasYoutube');
 
   	if (hasYoutube) {
-  		$("#video-pop-" + ii).click();
-  	}
-  	else {
-  		var scrollTarget = "flight-list-" + ii;
-			location.href = "#" + scrollTarget;
+  		var name = features[0].get('mname');
+			getFlightRecordInfo(name);
   	}
 }
+
+function getFlightRecordInfo(name) {
+		var userid = getCookie("dev_user_id");
+    var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid, "public" : true };
+
+		showLoader();
+
+  	ajaxRequest(jdata, function (r) {
+	    if(r.result == "success") {
+	    	hideLoader();
+	    	
+	      if (r.data == null) {
+	      	showAlert(LANG_JSON_DATA[langset]['msg_no_data']);	
+	        return;
+	      }
+	      
+		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);			
+				$("#video-pop-view").attr("video-lang", langset);
+				$("#video-pop-view").attr("video-name", name);
+				$("#video-pop-view").attr("video-address", r.data.address);
+				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
+				$("#video-pop-view").videoPopup();
+				$("#video-pop-view").click();
+	    }
+	  },
+	  	function(request,status,error) {
+	  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	  		hideLoader();
+	  });
+}
+
 
 function getCompanyInfo(title, cid) {
 	  var jdata = {"action": "public_company_detail", "cid" : cid};
@@ -2753,7 +2782,49 @@ function searchFlightRecord(target, keyword) {
     });
 }
 
+function setFlightlistFullHistory() {
+	flightRecFullArray.forEach(function(item, index, arra) {
+		if (isSet(item.flat) == false || item.flat == -999) return;
+		let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
+    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : hasYoutube });
+    if (isSet(vVectorForHistory)) {
+        vVectorForHistory.addFeature(icon);
+    }
+  });
+}
 
+function getFullFlightRecords() {
+		var userid = getCookie("dev_user_id");
+	  var jdata = {"action": "position", "daction" : "download", "list" : true, "public" : true, clientid": userid};
+
+	  showLoader();
+	  ajaxRequest(jdata, function (r) {
+	    hideLoader();
+	    if(r.result == "success") {
+	      if (r.data == null || r.data.length == 0) {
+	        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+					hideLoader();
+	        return;
+	      }
+
+				flightRecFullArray = r.data;
+	      setFlightlistFullHistory();
+				hideLoader();
+	    }
+	    else {
+	    	if (r.reason == "no data") {
+	    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+	    	}
+	    	else {
+		    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		    }
+
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });
+	}
 
 function getFlightRecords(target) {
     var userid = getCookie("dev_user_id");
@@ -3261,10 +3332,6 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
     var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
     vSource.addFeature(icon);
 
-    if (isSet(vVectorForHistory)) {
-        vVectorForHistory.addFeature(icon);
-    }
-
     return vSource;
 }
 
@@ -3486,17 +3553,7 @@ function appendFlightRecordTable(target, item) {
         + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
         + "</div></div></div></div>"; //row, card-body, card
 
-    if (isSet(youtube_data_id)) {
-	  	var vid = getYoutubeQueryVariable(youtube_data_id);
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-ispublic=" + (target == "public" ? "true" : "false") + " video-lang='" + langset + "' video-owner='" + owner_email + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
-	  }
-
     $('#dataTable-Flight_list').append(appendRow);
-
-    if (isSet(youtube_data_id)) {
-			$("#video-pop-" + curIndex).videoPopup();
-	  }
-
     $("#owner_email_" + curIndex).hide();
 
     if (target == "public") {
@@ -5135,6 +5192,7 @@ function onYouTubeIframeAPIReady() {
 		if (viewmode != "pilot") return;
 		
 		if (page_action == "recordlist" || page_action == "publicrecordlist" || page_action == "center") {
+			getFullFlightRecords(current_target);
     	getFlightRecords(current_target);
     	return;
     }

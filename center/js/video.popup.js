@@ -72,7 +72,7 @@
             })
         }
 
-        function mountIframe(isPublic, langset, name, owner) {
+        function mountIframe(isPublic, langset, name, owner, videoAddress) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
@@ -83,6 +83,10 @@
 						
 						if(name) {
 							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font>';
+						}
+						
+						if (videoAddress) {
+							htmlString = htmlString + '<br><font size=1 color="#eeeeff">' + videoAddress + '</font>';
 						}
 						
 						if(owner) {							
@@ -116,11 +120,12 @@
             var videoUrl = $(this).attr("video-url");
             var videoIframe = mountEmbedLink(videoUrl);
             var videoName = $(this).attr("video-name");
+            var videoAddress = $(this).attr("video-address");
             var videoOwner = $(this).attr("video-owner");
             var isPublic = $(this).attr("video-ispublic");
             var langset = $(this).attr("video-lang");
 
-            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner));
+            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner, videoAddress));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {
