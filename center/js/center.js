@@ -2060,7 +2060,9 @@ function createNewIconFor2DMap(i, color, item) {
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i,
-        mhasYoutube : hasYoutube
+        mhasYoutube : hasYoutube,
+        mname: item.name,
+        maddress : item.address
     });
 
     return pos_icon;
@@ -3588,7 +3590,7 @@ function appendFlightRecordTable(target, item) {
     });
 
     var retSource = null;
-    if (flat != -999) {
+    if (curIndex == 0 && flat != -999) {
         retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
 
