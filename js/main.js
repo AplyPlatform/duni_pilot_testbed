@@ -499,6 +499,8 @@
 	var flightRecFullArray = [];
 	var companyArray = [];
 	
+	var searchKeyword = "";
+	
 
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
@@ -1224,6 +1226,10 @@
 	function requestSearch() {
 			if($("#searchKeyword").val() == "") return;
 			
+			if (searchKeyword == $("#searchKeyword").val()) return;
+			
+			searchKeyword = $("#searchKeyword").val();
+			
 			var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
 			
 		  showLoader();
@@ -1282,6 +1288,7 @@
 				if($("#searchKeyword").val() == "") {
 					$("#defaultListView").show();
 					$("#searchListView").hide();
+					searchKeyword = "";
 				}
 				else {
 					$("#defaultListView").hide();
