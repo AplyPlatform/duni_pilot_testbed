@@ -862,10 +862,10 @@
 	}
 
 	var players = [];
-	function setEmptyVideo(index) {
+	function setEmptyVideo(index, name) {
 		//$("#youTubePlayer_" + index).show();
 		//$("#youTubePlayerIframe_" + index).attr('src', "https://youtube.com/embed/q2PzFbh6HBE");
-		players[index] = new YT.Player("youTubePlayer_" + index, {
+		players[index] = new YT.Player(name, {
       height: '200',
       width: '100%',
       videoId: "q2PzFbh6HBE",
@@ -877,10 +877,10 @@
     });
 	}
 
-	function setYoutubeVideo(index, youtube_url) {
+	function setYoutubeVideo(index, name, youtube_url) {
 		var vid = getYoutubeQueryVariable(youtube_url);
 
-		players[index] = new YT.Player("youTubePlayer_" + index, {
+		players[index] = new YT.Player(name, {
       height: '200',
       width: '100%',
       videoId: vid,
@@ -946,7 +946,7 @@
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }
 
-	  appendRow = appendRow + "<div id='youTubePlayer_" + curIndex + "'></div>";//row
+	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
@@ -981,10 +981,10 @@
 	  }
 
 	  if (isSet(youtube_url)) {
-	  	setYoutubeVideo(curIndex, youtube_url);
+	  	setYoutubeVideo(video_index, "youTubePlayer_" + video_index, youtube_url);
 	  }
 	  else {
-	  	setEmptyVideo(curIndex);
+	  	setEmptyVideo(video_index, "youTubePlayer_" + video_index);
 	  }
 
 	  if (tableCount == 0 && flat != -999) {
@@ -992,6 +992,7 @@
     }
 
 	  tableCount++;
+	  video_index++;
 	}
 	
 	
@@ -1092,7 +1093,222 @@
 	  }, function(request,status,error) {
 	    hideLoader();
 	  });
-	}	
+	}
+	
+	var hasMore = "";
+	var flightSearhArray;
+	var tableSearchCount = 0;
+	var video_index = 0;
+	
+	function appendFlightSearchTable(item) {
+		var name = item.name;
+		var dtimestamp = item.dtime;
+		var data = item.data;		
+		var address = item.address;
+		var cada = item.cada;
+		var youtube_url = item.youtube_data_id;
+		var curIndex = tableSearchCount;
+		var tag_values = item.tag_values;
+	  var appendRow = "<div class='service' id='flight-search-" + curIndex + "' name='flight-search-" + curIndex + "'><div class='row'>";
+	  
+	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
+
+	  if (flat != -999) {
+	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
+	  	appendRow = appendRow + "</div><div class='col-md-4'>";//row
+	  }
+	  else {
+	  	appendRow = appendRow + "<div class='col-md-8'>";//row
+	  }
+
+	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
+	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
+		appendRow = appendRow
+						+ "<a onclick='GATAGM(\"flight_search_public_title_click_"
+						+ name + "\", \"CONTENT\", \""
+						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
+
+	  if (flat != -999) {
+	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
+	  }
+	  
+	  if (isSet(tag_values) && tag_values != "") {
+	  	appendRow = appendRow + "<br><br>";    	
+    	var tag_array = JSON.parse(tag_values);
+    	tag_array.forEach(function(tg) {
+    		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    	});
+    }
+
+	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
+
+	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
+	  $('#dataTable-Search_list').append(appendRow);
+
+		var retSource = null;
+		if (flat != -999) {
+	  	retSource = makeForFlightListMap(curIndex, flat, flng, address, (isSet(youtube_url) ? true : false));
+	  }
+
+	  if (isSet(retSource) && isSet(address) && address != "") {
+	  	setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
+	  }
+
+	  if (isSet(youtube_url)) {
+	  	setYoutubeVideo(video_index, "youTubePlayer_" + video_index, youtube_url);
+	  }
+	  else {
+	  	setEmptyVideo(video_index, "youTubePlayer_" + video_index);
+	  }
+
+	  tableSearchCount++;
+	  video_index++;
+	}
+	
+	function setFlightSearchArray() {
+		flightSearhArray.forEach(function(item) {
+	    appendFlightSearchTable(item);
+	  });
+	}
+	
+	function getFlightSearchMore() {
+    if($("#searchKeyword").val() == "") return;
+			
+		var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
+		
+		if (isSet(hasMore)) {
+      jdata["morekey"] = hasMore;
+  	}
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {
+            if (r.data == null || r.data.length == 0) {
+                showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+                hideLoader();
+                return;
+            }
+
+            if (r.morekey) {
+                hasMore = r.morekey;
+                $('#btnForLoadSearchList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+                $('#btnForLoadSearchList').show();
+            }
+            else {
+                hasMore = null;
+                $('#btnForLoadSearchList').hide(1500);
+            }
+
+						flightSearhArray = r.data;
+            setFlightSearchArray();
+            hideLoader();
+        }
+        else {
+            if (r.reason == "no data") {
+                showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+            }
+            else {
+                showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+            }
+
+            hideLoader();
+        }
+    }, function (request, status, error) {
+        hideLoader();
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
+	}
+	
+	function requestSearch() {
+			if($("#searchKeyword").val() == "") return;
+			
+			var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
+			
+			if (isSet(hasMore)) {
+        jdata["morekey"] = hasMore;
+    	}
+
+		  showLoader();
+		  ajaxRequest(jdata, function (r) {
+		    hideLoader();
+		    if(r.result == "success") {
+		      if (r.data == null || r.data.length == 0) {
+		        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+						hideLoader();
+						
+						$("#searchListView").hide();
+						$("#defaultListView").show();
+		        return;
+		      }
+		      
+		      
+					$("#searchListView").show();
+					$("#defaultListView").hide();
+					
+		      if (r.morekey) {
+              hasMore = r.morekey;
+              $('#btnForLoadSearchList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+              $('#btnForLoadSearchList').show();
+          }
+          else {
+              hasMore = null;
+              $('#btnForLoadSearchList').hide(1500);
+          }
+	
+					tableSearchCount = 0;
+					flightSearhArray = r.data;
+					$('#dataTable-Search_list').empty();
+		      setFlightSearchArray();
+					hideLoader();
+		    }
+		    else {
+		    	$("#searchListView").hide();
+		    	
+		    	if (r.reason == "no data") {
+		    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+		    	}
+		    	else {
+			    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+			    }
+	
+					hideLoader();
+		    }
+		  }, function(request,status,error) {
+		    hideLoader();
+		  });
+	}
+
+	function initSearchForm() {
+		$("#searchListView").hide();
+		$("#searchKeyword").on("change keyup paste", function() {
+				if($("#searchKeyword").val() == "") {
+					$("#defaultListView").show();
+					$("#searchListView").hide();
+				}
+				else {
+					$("#defaultListView").hide();
+				}
+    });
+
+		$("#searchKeyword").keypress(function(e) {
+        if (e.which == 13){
+        		GATAGM('btnSearchEnter', 'CONTENT', langset);
+        		requestSearch();  //
+        }
+    });
+        
+    $("#btnSearchMovie").click(function (e) {
+    		GATAGM('btnSearchMovie', 'CONTENT', langset);
+        requestSearch();  //
+    });
+    
+    $('#btnForLoadSearchList').click(function () {
+        GATAGM('btnForLoadSearchList', 'CONTENT', langset);
+        getFlightSearchMore();
+    });
+	}
 
 	function initYoutubeAPI() {
 		var tag = document.createElement('script');
@@ -1104,6 +1320,7 @@
 	function onYouTubeIframeAPIReady() {
 	  	getFlightSomeList();
 			getFlightList();
+			initSearchForm();
   }
 
 $(function(){
