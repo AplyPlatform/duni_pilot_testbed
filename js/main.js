@@ -1226,10 +1226,6 @@
 			
 			var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
 			
-			if (isSet(hasMore)) {
-        jdata["morekey"] = hasMore;
-    	}
-
 		  showLoader();
 		  ajaxRequest(jdata, function (r) {
 		    hideLoader();
