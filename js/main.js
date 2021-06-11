@@ -1282,7 +1282,7 @@
 
 	function initSearchForm() {
 		$("#searchListView").hide();
-		$("#searchKeyword").on("change keyup paste", function() {
+		$("#searchKeyword").on("keyup paste", function() {
 				if($("#searchKeyword").val() == "") {
 					$("#defaultListView").show();
 					$("#searchListView").hide();
