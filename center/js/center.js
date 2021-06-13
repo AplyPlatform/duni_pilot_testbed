@@ -768,7 +768,7 @@ function flightrecordUploadInit() {
 
     $("#tab_menu_set_youtube_address").text(LANG_JSON_DATA[langset]['label_set_youtube_url']);
     $("#tab_menu_set_youtube_upload").text(LANG_JSON_DATA[langset]['label_upload_movie']);
-   	
+
     $("#flighttime_input_data_label").text(LANG_JSON_DATA[langset]['flighttime_input_data_label']);
 
     $("#disclaimer").html(LANG_JSON_DATA[langset]['youtubeTOS']);
