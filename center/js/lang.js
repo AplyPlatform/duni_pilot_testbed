@@ -12,8 +12,8 @@ limitations under the License.
 */
 
 var LANG_JSON_DATA = {
-        "KR": {
-    	"modal_yes_btn": "네",
+	"KR": {
+    		"modal_yes_btn": "네",
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
         "side_menu_dashboard": "Dashboard",
@@ -40,6 +40,7 @@ var LANG_JSON_DATA = {
         "title_company_chkbox": "드론기업(드론전문교육기관포함)",
         "title_history_chkbox": "비행영상",        
         "modifyBtnForMovieData": "영상정보 수정",
+        "flighttime_input_data_label": "촬영일시",
         "option_public_label": "공개",
         "option_unlisted_label": "일부공개(링크가 있는 사용자만 영상을 볼수 있음)",
         "option_private_label": "비공개",
@@ -254,6 +255,7 @@ var LANG_JSON_DATA = {
         "title_company_chkbox": "Drone Company(Including Drone Education Institution)",
         "title_history_chkbox": "Flight Record",        
         "modifyBtnForMovieData": "Modify Video info.",
+        "flighttime_input_data_label": "Date/Time",
         "option_public_label": "public",
         "option_unlisted_label": "unlisted",
         "option_private_label": "private",
