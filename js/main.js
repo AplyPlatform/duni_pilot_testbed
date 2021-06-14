@@ -937,6 +937,8 @@
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 	  
+	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), false);
+	  
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
 
@@ -968,7 +970,7 @@
     	});
     }
 
-	  appendRow = appendRow + "<br><small>" + dtimestamp + "</small>";
+	  appendRow = appendRow + "<br><small>" + LANG_JSON_DATA[langset]['registered_datetime_label'] + " " + dtimestamp + "</small>";
 
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
 	  $('#dataTable-Flight_list').append(appendRow);
@@ -1280,6 +1282,33 @@
 		  }, function(request,status,error) {
 		    hideLoader();
 		  });
+	}
+
+
+	function makeDateTimeFormat(d, isGMT) {
+		if(isGMT == false)
+			d.setHours(d.getHours() + 9);
+			
+  	var curr_day = d.getDate();
+		curr_day = curr_day < 10 ? "0" + curr_day : curr_day;
+		var curr_month = d.getMonth();
+		curr_month++;
+
+		curr_month = curr_month < 10 ? "0" + curr_month : curr_month;
+
+		var curr_year = d.getFullYear();
+		
+		
+		var curr_hour = d.getHours();
+		curr_hour = curr_hour < 10 ? "0" + curr_hour : curr_hour;
+
+		var curr_min = d.getMinutes();
+		curr_min = curr_min < 10 ? "0" + curr_min : curr_min;
+
+		var curr_sec = d.getSeconds();
+		curr_sec = curr_sec < 10 ? "0" + curr_sec : curr_sec;
+		
+		return curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
 	}
 
 	function initSearchForm() {
