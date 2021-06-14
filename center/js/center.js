@@ -867,7 +867,7 @@ function flightrecordUploadInit() {
   	setUpload(true);
 
   	var d = new Date();
-  	let retDateTime = makeDateTimeFormat(d, false);
+  	let retDateTime = makeDateTimeFormat(d, true);
 
 		$("#flighttime_input_data").val(retDateTime);
 
@@ -3595,7 +3595,7 @@ function appendFlightRecordTable(target, target_key, item) {
     var flat = (isSet(item.flat) ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
 		
-		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), false);
+		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";

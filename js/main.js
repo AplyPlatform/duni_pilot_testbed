@@ -937,7 +937,7 @@
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
 	  
-	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), false);
+	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 	  
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
@@ -1115,7 +1115,7 @@
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-search-" + curIndex + "' name='flight-search-" + curIndex + "'><div class='row'>";
 	  
-	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), false);
+	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 	  
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
