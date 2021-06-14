@@ -257,7 +257,7 @@ var LANG_JSON_DATA = {
         "title_history_chkbox": "Flight Record",        
         "modifyBtnForMovieData": "Modify Video info.",
         "flighttime_input_data_label": "Recorded Date/Time",
-        "registered_datetime_label": "Registerd Date/Time",
+        "registered_datetime_label": "Registered Date/Time",
         "option_public_label": "public",
         "option_unlisted_label": "unlisted",
         "option_private_label": "private",
