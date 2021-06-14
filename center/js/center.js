@@ -867,6 +867,19 @@ function flightrecordUploadInit() {
   	setUpload(true);
 
   	var d = new Date();
+  	let retDateTime = makeDateTimeFormat(d, false);
+
+		$("#flighttime_input_data").val(retDateTime);
+
+  	$("#set_youtube_address_view").hide();
+    $("#set_youtube_upload_view").show();
+    hideLoader();
+}
+
+function makeDateTimeFormat(d, isGMT) {
+		if(isGMT == false)
+			d.setHours(d.getHours() + 9);
+			
   	var curr_day = d.getDate();
 		curr_day = curr_day < 10 ? "0" + curr_day : curr_day;
 		var curr_month = d.getMonth();
@@ -875,7 +888,8 @@ function flightrecordUploadInit() {
 		curr_month = curr_month < 10 ? "0" + curr_month : curr_month;
 
 		var curr_year = d.getFullYear();
-
+		
+		
 		var curr_hour = d.getHours();
 		curr_hour = curr_hour < 10 ? "0" + curr_hour : curr_hour;
 
@@ -884,15 +898,9 @@ function flightrecordUploadInit() {
 
 		var curr_sec = d.getSeconds();
 		curr_sec = curr_sec < 10 ? "0" + curr_sec : curr_sec;
-
-		$("#flighttime_input_data").val(curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec);
-
-  	$("#set_youtube_address_view").hide();
-    $("#set_youtube_upload_view").show();
-    hideLoader();
+		
+		return curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
 }
-
-
 
 function uploadCheckBeforeUploadFlightList() {
 
@@ -3572,7 +3580,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
 function appendFlightRecordTable(target, target_key, item) {
     var name = item.name;
-    var dtimestamp = item.dtime;
+    var dtimestamp = item.dtimestamp;
     var data = item.data;
 
     var address = item.address;
@@ -3586,6 +3594,8 @@ function appendFlightRecordTable(target, target_key, item) {
 
     var flat = (isSet(item.flat) ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
+		
+		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), false);
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
@@ -3612,14 +3622,18 @@ function appendFlightRecordTable(target, target_key, item) {
         appendRow = appendRow + "<div class='col-sm' id='map_" + curIndex + "' style='height:200px;'></div>";
     }
 
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a><div class='form-group'><textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='3'>";
+
+    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-left'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span></div><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a></div></div>";
+
+		appendRow = appendRow + "<div class='row'><div class='col-10 text-right'><br><textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='1'>"
 
     if (isSet(memo)) {
         appendRow = appendRow + memo;
     }
 
-    appendRow = appendRow + "</textarea>";
-    appendRow = appendRow + "<button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div></div>"; //form-group col-sm
+    appendRow = appendRow + "</textarea></div><div class='col-2 text-right'>";
+    appendRow = appendRow + "<br><button class='btn btn-primary text-xs' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_modify_memo'] + "</button></div></div>"; //col-sm row
+
 
     appendRow = appendRow + "<div class='row'><div class='col-sm'>";
 
@@ -3632,18 +3646,33 @@ function appendFlightRecordTable(target, target_key, item) {
     }
 
     appendRow = appendRow + "</div></div>";
+    appendRow = appendRow + "<div class='row'>";
+    
+    
+    if (isSet(item.starttime)) {
+    	appendRow = appendRow + "<div class='col-sm text-left'><span class='text-xs mb-1' id='recorded_datetime_label_" + curIndex + "'></span> <span class='text-xs mb-1'>" 
+    							+ makeDateTimeFormat(new Date(item.starttime), true) 
+    							+ "</span></div>";
+    }
+    
+    appendRow = appendRow + "<div class='col-sm text-right'><span class='text-xs mb-1' id='registered_datetime_label_" + curIndex + "'></span> <span class='text-xs mb-1'>" + dtimestamp + "</span>";
+    appendRow = appendRow + "</div></div><div class='row'><div class='col-sm text-right'>"
+        + "<h6><span class='badge badge-secondary' style='cursor: pointer' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</span></h6>"
 
-    appendRow = appendRow + "<div class='row'><div class='col-sm'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><span class='text-xs font-weight-bold mb-1'>" + dtimestamp + "</span></div></div>"
-        + "<div class='row'><div class='col-sm text-right'>"
-        + "<button class='btn btn-secondary text-xs' type='button' id='btnForRemoveFlightData_" + curIndex + "'>" + LANG_JSON_DATA[langset]['msg_remove'] + "</button>"
-        + "</div></div></div></div>"; //row, card-body, card
+        + "</div></div></div></div>"; //col, row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
     $("#owner_email_" + curIndex).hide();
+    
+    if ($("#recorded_datetime_label_" + curIndex).length > 0) {
+    		$("#recorded_datetime_label_" + curIndex).text(LANG_JSON_DATA[langset]['flighttime_input_data_label']);
+    }
+    
+    $("#registered_datetime_label_" + curIndex).text(LANG_JSON_DATA[langset]['registered_datetime_label']);
 
     if (target == "public") {
         if (isSet(owner_email)) {
-            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a> | ";
+            var oemail = "<a href='" + cur_controller + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
@@ -4848,7 +4877,7 @@ function uploadFlightList(isUpdate) {
 		    	showAlert(LANG_JSON_DATA[langset]['msg_wrong_input'] + " : 촬영일시");
     			return;
     	}
-			
+
     	// var uTime = new Date();
     	// uTime.setTime(fTime);
 			// uTime.setHours(uTime.getHours() - 9);
