@@ -72,7 +72,7 @@
             })
         }
 
-        function mountIframe(isPublic, langset, name, owner, videoAddress) {
+        function mountIframe(isPublic, langset, name, owner, videoAddress, isOuter) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
@@ -89,20 +89,22 @@
 							htmlString = htmlString + '<br><font size=1 color="#eeeeff">' + videoAddress + '</font>';
 						}
 						
-						if(owner) {							
-							htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
-							+ owner + '\', \'CONTENT\', \''
-							+ langset + '\');" href="/center/main.html?page_action=publicrecordlist&user_email='
-							+ owner + '"><font color=cyan>' + owner + '</font></a>';														
-						}						
+						if (isOuter == false)						
+							if(owner) {
+								htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
+								+ owner + '\', \'CONTENT\', \''
+								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist&user_email='
+								+ owner + '"><font color=cyan>' + owner + '</font></a></div>';
+							}						
 						
-						htmlString = htmlString + '</div><div class="col text-right">';																								
-						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
-							+ name + '\', \'CONTENT\', \''
-							+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == "true" ? 'public' : '') + 'recordlist_detail&record_name='
-							+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
-																		
-						htmlString = htmlString + '</div><hr size=1 width=100% color=white></div>';
+							htmlString = htmlString + '<div class="col text-right">';
+							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
+								+ name + '\', \'CONTENT\', \''
+								+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == "true" ? 'public' : '') + 'recordlist_detail&record_name='
+								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';
+						}
+						
+						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
@@ -124,8 +126,13 @@
             var videoOwner = $(this).attr("video-owner");
             var isPublic = $(this).attr("video-ispublic");
             var langset = $(this).attr("video-lang");
+            
+            var isOuter = false;
+            if (outer !== undefined && outer == "true") {
+            	isOuter = true;
+            }
 
-            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner, videoAddress));
+            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner, videoAddress, isOuter));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {

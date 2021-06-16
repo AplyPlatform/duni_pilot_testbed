@@ -1119,6 +1119,8 @@
 	  
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
+		
+		var isOuter = isSet(item.outer) ? item.outer : false;
 
 	  if (flat != -999) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
@@ -1127,21 +1129,32 @@
 	  else {
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }
-
-	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
+		
+	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row	  	  
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
-		appendRow = appendRow
-						+ "<a onclick='GATAGM(\"flight_search_public_title_click_"
-						+ name + "\", \"CONTENT\", \""
-						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
-						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
+	  
+	  
+	  if (isOuter == false) {
+			appendRow = appendRow
+							+ "<a onclick='GATAGM(\"flight_search_public_title_click_"
+							+ name + "\", \"CONTENT\", \""
+							+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
+		}
+						
+		appendRow = appendRow	+ name;
+		
+		if (isOuter == false) {
+			appendRow = appendRow + "</a>";
+		}
 
+		appendRow = appendRow + "<hr size=1 color=#eeeeee>";
+		
 	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
 	  
 	  if (isSet(tag_values) && tag_values != "") {
-	  	appendRow = appendRow + "<br><br>";    	
+	  	appendRow = appendRow + "<br><br>";
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {
     		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";

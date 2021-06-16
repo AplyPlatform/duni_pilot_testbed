@@ -3346,19 +3346,20 @@ function showDataWithName(target, target_key, name) {
         }
 
         var exist_data = setFlightRecordDataToView(target, fdata.data, false);
-				if (exist_data) {
-					if (isSet(fdata.cada)) {
-							setAddressAndCada("#map_address", fdata.address, fdata.cada, mainMap2DpointSource);
-          }
-          else {
-              var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
-            	drawCadastral("#map_address", name, dpoint[0], dpoint[1], mainMap2DpointSource);
-          }
-				}
-				else {
+				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
+          
+    			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
+				
+				if (isSet(fdata.cada)) {
+						setAddressAndCada("#map_address", fdata.address, fdata.cada, mainMap2DpointSource);
+        }
+        else {
+            var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+          	drawCadastral("#map_address", name, dpoint[0], dpoint[1], mainMap2DpointSource);
+        }
 
 				hideLoader();
 

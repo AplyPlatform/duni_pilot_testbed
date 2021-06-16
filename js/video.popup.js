@@ -72,7 +72,7 @@
             })
         }
 
-        function mountIframe(langset, name) {
+        function mountIframe(langset, name, isOuter) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
@@ -82,16 +82,17 @@
 						var htmlString = '<div class="row"><div class="col text-left">';
 						
 						if(name) {
-							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font>';
+							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font></div>';
 						}
 																		
-						htmlString = htmlString + '</div><div class="col text-right">';
-						htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
-							+ name + '\', \'CONTENT\', \''
-							+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
-							+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
+						if(isOuter == false) {							
+							htmlString = htmlString + '<div class="col text-right"><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
+								+ name + '\', \'CONTENT\', \''
+								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
+								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';							
+						}
 						
-						htmlString = htmlString + '</div><hr size=1 width=100% color=white></div>';
+						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
@@ -110,8 +111,13 @@
             var videoIframe = mountEmbedLink(videoUrl);
             var videoName = $(this).attr("video-name");            
             var langset = $(this).attr("video-lang");
+            var outer = $(this).attr("video-is-outer");
+            var isOuter = false;
+            if (outer !== undefined && outer == "true") {
+            	isOuter = true;
+            }
 
-            $("body").append(mountIframe(langset, videoName));
+            $("body").append(mountIframe(langset, videoName, isOuter));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {
