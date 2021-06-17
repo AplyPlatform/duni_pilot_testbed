@@ -1206,7 +1206,7 @@ function flightrecordListInit(target) {
 
 function flightrecordsListSummaryInit(target) {
 
-    document.title = GET_STRING_CONTENT('page_flight_rec_view_title'];
+    document.title = GET_STRING_CONTENT('page_flight_rec_view_title');
     $('#page_about_title').text(GET_STRING_CONTENT('page_flight_rec_view_title'));
     $('#page_about_content').text(GET_STRING_CONTENT('record_list_about_content'));
 

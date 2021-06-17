@@ -89,7 +89,7 @@
 							htmlString = htmlString + '<br><font size=1 color="#eeeeff">' + videoAddress + '</font>';
 						}
 						
-						if (isOuter == false)						
+						if (isOuter == false) {
 							if(owner) {
 								htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
 								+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
