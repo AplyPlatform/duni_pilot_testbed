@@ -60,7 +60,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         </button>
 		<!-- Page Heading -->
         <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        	<a onclick="GATAGM('side_menu_top_title', 'MEMU', langset);" class="nav-link" href="main.html?page_action=center">
+        	<a onclick="GATAGM('side_menu_top_title', 'MEMU');" class="nav-link" href="main.html?page_action=center">
         		<img src="imgs/duni_logo.png" style="width:100px;"> <sup>beta</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="h5 mb-0 text-gray-800" id="head_title">파일럿 센터의 파일럿 뷰</h1>
 	      	</a>
         </div>
@@ -68,18 +68,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
 			<div class="nav-item">
-            	<a onclick="GATAGM('view_mode_selector', 'MEMU', langset);" class="nav-link text-gray-800" href="#" id="view_mode_selector">Lab & Developer로 바꾸기</a>
+            	<a onclick="GATAGM('view_mode_selector', 'MEMU');" class="nav-link text-gray-800" href="#" id="view_mode_selector">Lab & Developer로 바꾸기</a>
           	</div>
           	<div class="topbar-divider d-none d-sm-block"></div>
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-            	<a onclick="GATAGM('userinfo', 'MEMU', langset);" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            	<a onclick="GATAGM('userinfo', 'MEMU');" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               		<img class="img-profile rounded-circle" width="60px" height="60px" id="profile_image">
                 	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               	</a>
               	<!-- Dropdown - User Information -->
               	<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            		<a onclick="GATAGM('email', 'MEMU', langset);" class="dropdown-item" href="#">
+            		<a onclick="GATAGM('email', 'MEMU');" class="dropdown-item" href="#">
                   		<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   		<span id=email_field></span>
                 	</a>
@@ -107,7 +107,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
       <!-- Nav Item - Dashboard -->
       <li id="dashboard_menu" class="nav-item">
-        <a onclick="GATAGM('side_menu_dashboard', 'MEMU', langset);" class="nav-link" href="main.html?page_action=center">
+        <a onclick="GATAGM('side_menu_dashboard', 'MEMU');" class="nav-link" href="main.html?page_action=center">
           <i class="fas fa-fw fa-globe"></i>
           <span id="side_menu_dashboard">Dashboard</span></a>
       </li>
@@ -118,15 +118,15 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li id="record_menu" class="nav-item">
-        <a onclick="GATAGM('side_menu_flight_record', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a onclick="GATAGM('side_menu_flight_record', 'MEMU');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-history"></i>
           <span id="side_menu_flight_record">비행기록</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=recordupload" id="side_menu_flight_record_upload">기록 업로드</a>
-            <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=recordlist" id="side_menu_flight_record_list">내 기록 보기</a>
-						<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU', langset);" class="collapse-item" href="main.html?page_action=publicrecordlist" id="side_menu_flight_record_public_list">공개 기록 보기</a>
+            <a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU');" class="collapse-item" href="main.html?page_action=recordupload" id="side_menu_flight_record_upload">기록 업로드</a>
+            <a onclick="GATAGM('side_menu_flight_record_list', 'MEMU');" class="collapse-item" href="main.html?page_action=recordlist" id="side_menu_flight_record_list">내 기록 보기</a>
+						<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="collapse-item" href="main.html?page_action=publicrecordlist" id="side_menu_flight_record_public_list">공개 기록 보기</a>
           </div>
         </div>
       </li>
@@ -136,15 +136,15 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a onclick="GATAGM('side_menu_links', 'MEMU', langset);" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
+        <a onclick="GATAGM('side_menu_links', 'MEMU');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEtc" aria-expanded="true" aria-controls="collapseEtc">
           <i class="fas fa-fw fa-hashtag"></i>
           <span id="side_menu_links">관련 사이트</span>
         </a>
         <div id="collapseEtc" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          	<a onclick="GATAGM('side_menu_links_duni', 'MEMU', langset);" class="collapse-item" href="https://duni.io" target="_blank" id="side_menu_links_duni">드론 서비스 매칭 플랫폼</a>
-            <a onclick="GATAGM('side_menu_links_comm', 'MEMU', langset);" class="collapse-item" href="https://www.facebook.com/groups/dunipilot" target="_blank" id="side_menu_links_comm">커뮤니티</a>
-            <a onclick="GATAGM('side_menu_links_blog', 'MEMU', langset);" class="collapse-item" href="https://blog.duni.io" target="_blank" id="side_menu_links_blog">블로그</a>
+          	<a onclick="GATAGM('side_menu_links_duni', 'MEMU');" class="collapse-item" href="https://duni.io" target="_blank" id="side_menu_links_duni">드론 서비스 매칭 플랫폼</a>
+            <a onclick="GATAGM('side_menu_links_comm', 'MEMU');" class="collapse-item" href="https://www.facebook.com/groups/dunipilot" target="_blank" id="side_menu_links_comm">커뮤니티</a>
+            <a onclick="GATAGM('side_menu_links_blog', 'MEMU');" class="collapse-item" href="https://blog.duni.io" target="_blank" id="side_menu_links_blog">블로그</a>
           </div>
         </div>
       </li>
@@ -154,7 +154,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle" onclick="GATAGM('sideBarToggle', 'MEMU', langset);"></button>
+        <button class="rounded-circle border-0" id="sidebarToggle" onclick="GATAGM('sideBarToggle', 'MEMU');"></button>
       </div>
 
       <!-- Nav Item - Tables -->
