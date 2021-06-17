@@ -163,7 +163,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU');
-			location.href = "/center/main_dev.html?g_str_page_action=center";
+			location.href = "/center/main_dev.html?page_action=center";
 		});
 	}
 	else {
@@ -171,7 +171,7 @@ function setViewMode() {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU');
-			location.href = "/center/main.html?g_str_page_action=center";
+			location.href = "/center/main.html?page_action=center";
 		});
 	}
 }
@@ -851,7 +851,7 @@ function flightrecordUploadInit() {
     	saveYoutubeUrl(g_params_for_upload_flight_rec, function(bSuccess) {
       	if (bSuccess == true) {
       		showAlert(GET_STRING_CONTENT('msg_success'));
-  				location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=recordlist";
+  				location.href = g_str_cur_controller_for_viewmode + "?page_action=recordlist";
       	}
       	else {
       		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -2685,12 +2685,12 @@ function appendMissionList(data) {
 
     data.forEach(function (item, index, array) {
         var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
-            + "<a href='" + g_str_cur_controller_for_viewmode + "?g_str_page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+            + "<a href='" + g_str_cur_controller_for_viewmode + "?page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
             + item['name']
             + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
             + item['regtime']
             + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
-            + "<a class='btn btn-warning text-xs' href='" + g_str_cur_controller_for_viewmode + "?g_str_page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + GET_STRING_CONTENT('msg_modify') + "</a>&nbsp;"
+            + "<a class='btn btn-warning text-xs' href='" + g_str_cur_controller_for_viewmode + "?page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' role='button'>" + GET_STRING_CONTENT('msg_modify') + "</a>&nbsp;"
             + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
             + GET_STRING_CONTENT('msg_remove') + "</button></div></div></div></div>";
         $('#dataTable-missions').append(appendRow);
@@ -3169,7 +3169,7 @@ function showDataWithName(target, target_key, name) {
 				    	var tagArray = JSON.parse(fdata.tag_values);
 				    	var appendRow = "";
 				    	tagArray.forEach(function(tg) {
-				    		appendRow = appendRow + "<a href=" + g_str_cur_controller_for_viewmode + "?g_str_page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+				    		appendRow = appendRow + "<a href=" + g_str_cur_controller_for_viewmode + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 				    	});
 
 				    	$("#tagArrayarea").html(appendRow);
@@ -3598,11 +3598,11 @@ function appendFlightRecordTable(target, target_key, item) {
     if (target == "public") {
         appendRow = appendRow
             + "<a onclick='GATAGM(\"flight_list_public_title_click_"
-            + name + "\", \"CONTENT\");' href='" + g_str_cur_controller_for_viewmode + "?target_key=" + target_key + "&g_str_page_action=publicrecordlist_detail&record_name="
+            + name + "\", \"CONTENT\");' href='" + g_str_cur_controller_for_viewmode + "?target_key=" + target_key + "&page_action=publicrecordlist_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
     else {
-        appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\");' href='" + g_str_cur_controller_for_viewmode + "?target_key=" + target_key + "&g_str_page_action=recordlist_detail&record_name="
+        appendRow = appendRow + "<a onclick='GATAGM(\"flight_list_title_click_" + name + "\", \"CONTENT\");' href='" + g_str_cur_controller_for_viewmode + "?target_key=" + target_key + "&page_action=recordlist_detail&record_name="
             + encodeURIComponent(name) + "'>" + name + "</a>";
     }
 
@@ -3635,7 +3635,7 @@ function appendFlightRecordTable(target, target_key, item) {
     	var targetList = (target == "public" ? "public" : "");
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {
-    		appendRow = appendRow + "<a href=" + g_str_cur_controller_for_viewmode + "?g_str_page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+    		appendRow = appendRow + "<a href=" + g_str_cur_controller_for_viewmode + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
     	});
     }
 
@@ -3660,7 +3660,7 @@ function appendFlightRecordTable(target, target_key, item) {
 
     if (target == "public") {
         if (isSet(owner_email)) {
-            var oemail = "<a href='" + g_str_cur_controller_for_viewmode + "?g_str_page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
+            var oemail = "<a href='" + g_str_cur_controller_for_viewmode + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
@@ -3846,7 +3846,7 @@ function deleteFlightData(name, index) {
             	removeTableRow("flight-list-" + index);
             else {
             	alert(GET_STRING_CONTENT('msg_success'));
-            	location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=recordlist";
+            	location.href = g_str_cur_controller_for_viewmode + "?page_action=recordlist";
             }
         }
     }, function (request, status, error) {
@@ -3959,7 +3959,7 @@ function registMission(mname, mspeed) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
 				    alert(mname + " (" + mspeed + "m/s) : " + GET_STRING_CONTENT('msg_success'));
-				    location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=missionlist";
+				    location.href = g_str_cur_controller_for_viewmode + "?page_action=missionlist";
         }
         else {
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -4878,7 +4878,7 @@ function uploadFlightList(isUpdate) {
     	saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
         		showAlert(GET_STRING_CONTENT('msg_success'));
-        		location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=recordlist";
+        		location.href = g_str_cur_controller_for_viewmode + "?page_action=recordlist";
         	}
         	else {
         		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -4923,7 +4923,7 @@ function uploadDJIFlightListCallback(params) {
             $('#uploadFileform').hide(1500);
             GATAGM('dji_file_upload_success', 'CONTENT');
             alert(GET_STRING_CONTENT('msg_success'));
-            location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=recordlist";
+            location.href = g_str_cur_controller_for_viewmode + "?page_action=recordlist";
         }
         else {
             if (r.result_code == 3) {
@@ -5196,7 +5196,7 @@ function setFlightRecordTitleName() {
         if (r.result == "success") {
 					showAlert(GET_STRING_CONTENT('msg_success'));
 					g_str_cur_flight_record_name = target_name;
-					location.href = g_str_cur_controller_for_viewmode + "?g_str_page_action=recordlist_detail&record_name=" + encodeURIComponent(target_name);
+					location.href = g_str_cur_controller_for_viewmode + "?page_action=recordlist_detail&record_name=" + encodeURIComponent(target_name);
         }
         else {
         	if (r.result_code == 3)
