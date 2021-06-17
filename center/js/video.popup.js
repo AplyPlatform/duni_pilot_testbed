@@ -124,6 +124,7 @@
             var videoOwner = $(this).attr("video-owner");
             var isPublic = $(this).attr("video-ispublic");
             var langset = $(this).attr("video-lang");
+            var outer = $(this).attr("video-outer");
             
             var isOuter = false;
             if (outer !== undefined && outer == "true") {

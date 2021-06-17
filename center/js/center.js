@@ -3301,7 +3301,7 @@ function showDataWithName(target, target_key, name) {
             hideMovieDataSet();
         }
         else {
-            $("#g_youtube_player_for_detail_view").hide();
+            $("#youTubePlayer").hide();
         }
 
         if (g_b_video_view_visible_state == true) {
@@ -3609,7 +3609,7 @@ function appendFlightRecordTable(target, target_key, item) {
     appendRow = appendRow + "</div></div><div class='row'>";//row
 
     if(isSet(youtube_data_id)) {
-    		appendRow = appendRow + "<div class='col-sm' id='g_youtube_player_for_detail_view_" + curIndex + "'></div>";
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + curIndex + "'></div>";
     }
 
     if (flat != -999) {
@@ -3727,7 +3727,7 @@ function setYoutubeVideo(index, youtube_url) {
 
 		var vid = getYoutubeQueryVariable(youtube_url);
 
-		g_array_youtube_players[index] = new YT.Player("g_youtube_player_for_detail_view_" + index, {
+		g_array_youtube_players[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
       width: '100%',
       videoId: vid,
@@ -5316,7 +5316,7 @@ function onYouTubeIframeAPIReady() {
     	return;
     }
 
-    g_youtube_player_for_detail_view = new YT.Player('g_youtube_player_for_detail_view', {
+    g_youtube_player_for_detail_view = new YT.Player('youTubePlayer', {
         width: '1000',
         height: '400',
         videoId: g_str_youtube_data_id_for_detail_view,
@@ -5326,7 +5326,7 @@ function onYouTubeIframeAPIReady() {
             'onReady': onPlayerReady, //\uB85C\uB529\uD560\uB54C \uC774\uBCA4\uD2B8 \uC2E4\uD589
             'onStateChange': onPlayerStateChange //\uD50C\uB808\uC774\uC5B4 \uC0C1\uD0DC \uBCC0\uD654\uC2DC \uC774\uBCA4\uD2B8\uC2E4\uD589
         }
-    });//g_youtube_player_for_detail_view1\uC14B\uD305
+    });//youTubePlayer1\uC14B\uD305
 }
 
 var movieProcess = false;
@@ -5404,7 +5404,7 @@ function processSeek(curTime) {
 function movieSeekTo(where) {
     movieProcess = true;
 
-    if (g_youtube_player_for_detail_view != null && $('#g_youtube_player_for_detail_view').is(":visible") == true) {
+    if (g_youtube_player_for_detail_view != null && $('#youTubePlayer').is(":visible") == true) {
         g_youtube_player_for_detail_view.seekTo(where, true);
     }
 }
