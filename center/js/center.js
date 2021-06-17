@@ -300,7 +300,7 @@ function initPilotCenter() {
     setLogoutBtn();
     showLoader();
 
-    g_str_page_action = getQueryVariable("g_str_page_action");
+    g_str_page_action = getQueryVariable("page_action");
 
     if (!isSet(g_str_page_action)) {
     		g_str_page_action = "center";
