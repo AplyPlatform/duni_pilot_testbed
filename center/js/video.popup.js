@@ -92,15 +92,13 @@
 						if (isOuter == false)						
 							if(owner) {
 								htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
-								+ owner + '\', \'CONTENT\', \''
-								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist&user_email='
+								+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
 								+ owner + '"><font color=cyan>' + owner + '</font></a></div>';
 							}						
 						
 							htmlString = htmlString + '<div class="col text-right">';
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
-								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href="/center/main.html?page_action=' + (isPublic == "true" ? 'public' : '') + 'recordlist_detail&record_name='
+								+ name + '\', \'CONTENT\');" href="/center/main.html?page_action=' + (isPublic == "true" ? 'public' : '') + 'recordlist_detail&record_name='
 								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';
 						}
 						

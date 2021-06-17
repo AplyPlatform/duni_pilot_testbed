@@ -732,7 +732,7 @@ function genPlan(lat, lng) {
 
 function flightrecordUploadInit() {
 
-    document.title = GET_STRING_CONTENT('page_flight_rec_upload_title'];
+    document.title = GET_STRING_CONTENT('page_flight_rec_upload_title');
     $("#head_title").text(document.title);
 
     $('#page_about_title').text(GET_STRING_CONTENT('page_flight_rec_upload_title'));
