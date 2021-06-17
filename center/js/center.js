@@ -1148,7 +1148,7 @@ function flightDetailInit(target) {
     uploadVideo = new UploadVideo();
     uploadVideo.onUploadCompleteCallback = function (vid) {
     	$('#youtube_url_data').val("https://youtube.com/watch?v=" + vid);
-      setg_youtube_player_for_detail_viewPureID(vid);
+      setYoutubePlayerForDetaileViewPureID(vid);
 			setYoutubeID();
     };
 
@@ -3292,10 +3292,10 @@ function showDataWithName(target, target_key, name) {
 
         if ("youtube_data_id" in fdata) {
             if (fdata.youtube_data_id.indexOf("youtube") >= 0) {
-                setg_youtube_player_for_detail_view(fdata.youtube_data_id);
+                setYoutubePlayerForDetaileView(fdata.youtube_data_id);
             }
             else {
-                setg_youtube_player_for_detail_view("");
+                setYoutubePlayerForDetaileView("");
             }
 
             hideMovieDataSet();
@@ -5225,7 +5225,7 @@ function setYoutubeID() {
     var tag_values = $("#tagTextarea").val();
 
     if (youtube_data.indexOf("youtube") >= 0) {
-        setg_youtube_player_for_detail_view(youtube_data);
+        setYoutubePlayerForDetaileView(youtube_data);
 
         var params = {mname: g_str_cur_flight_record_name,
         							mmemo : mmemo,
@@ -5245,19 +5245,19 @@ function setYoutubeID() {
     }
     else {
         showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
-        setg_youtube_player_for_detail_view("");
+        setYoutubePlayerForDetaileView("");
     }
 }
 
-function setg_youtube_player_for_detail_viewPureID(data_id) {
+function setYoutubePlayerForDetaileViewPureID(data_id) {
     if (!isSet(data_id) || data_id == "-") {
-        $("#g_youtube_player_for_detail_view").hide();
+        $("#youTubePlayer").hide();
         g_b_video_view_visible_state = false;
         return;
     }
     else {
         $("#youtube_url_data").val("https://youtube.com/watch?v=" + data_id);
-        $("#g_youtube_player_for_detail_view").show();
+        $("#youTubePlayer").show();
         g_b_video_view_visible_state = true;
     }
 
@@ -5275,15 +5275,15 @@ function setg_youtube_player_for_detail_viewPureID(data_id) {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function setg_youtube_player_for_detail_view(d_id) {
+function setYoutubePlayerForDetaileView(d_id) {
     if (!isSet(d_id) || d_id == "-") {
-        $("#g_youtube_player_for_detail_view").hide();
+        $("#youTubePlayer").hide();
 
         g_b_video_view_visible_state = false;
         return;
     }
     else {
-        $("#g_youtube_player_for_detail_view").show();
+        $("#youTubePlayer").show();
         g_b_video_view_visible_state = true;
     }
 
