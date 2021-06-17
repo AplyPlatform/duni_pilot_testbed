@@ -13,6 +13,10 @@ limitations under the License.
 
 var g_str_page_action = "center";
 var g_str_current_target = "private";
+var g_str_cur_lang = "KR";
+var g_str_cur_viewmode = "pilot"; // or "developer"
+
+var g_str_cur_controller_for_viewmode;
 
 var g_b_monitor_started;
 
@@ -53,11 +57,6 @@ var g_youtube_player_for_detail_view = null;
 var g_str_youtube_data_id_for_detail_view;
 
 var g_str_cur_flight_record_name = "";
-
-var g_str_cur_lang = "KR";
-
-var g_str_cur_viewmode = "pilot"; // or "developer"
-var g_str_cur_controller_for_viewmode;
 
 var g_b_is_token_visible = false;
 
@@ -1496,8 +1495,10 @@ function getFlightRecordInfo(name) {
 	      }
 
 		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
-				$("#video-pop-view").attr("video-lang");
+				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
 				$("#video-pop-view").attr("video-name", name);
+				$("#video-pop-view").attr("video-outer", r.data.outer);
+				$("#video-pop-view").attr("video-ispublic", g_str_current_target == "public" ? true : false );
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
 				$("#video-pop-view").videoPopup();
