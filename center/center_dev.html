@@ -4,37 +4,48 @@
     <div class="card shadow">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">DUNI 파일럿 센터의 Lab & Developer를 소개합니다.</h6>
+          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">DUNI 파일럿 센터의 Lab을 소개합니다.</h6>
         </div>
         <!-- Card Body js 파일 lang-->
         <div class="card-body" id="page_about_content"></div>
     </div>
   </div>
 
-	<div class="col-lg-6 mb-4">
-    	<div class="card shadow mb-4">
-        	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          		<h6 class="m-0 font-weight-bold text-primary" id="dev_token_title">개발자 토큰</h6>
-          	</div>
-        	<div class="card-body">					
-          		<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-          		<input name="droneplaytoken_view_section" id="droneplaytoken_view_section" type="text" class="form-control bg-light border-0 small" value="" onclick="GATAGM('token_section', 'MEMU');">
-          		<span id="show_token">보기</span>          
-        	</div>
-    	</div>
-    	<div class="card shadow mb-4">
-        	<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          		<h6 class="m-0 font-weight-bold text-primary">DUNI Code</h6>
-          	</div>
-        	<div class="card-body">
-        		<a href="https://github.com/AplyPlatform/du_developer_codes" target="_blank"><button class='btn btn-primary' type='button'>View on GitHub</button></a><br /><br />
-          		경로설명<br />
-          		/api/web : Open API를 활용하는 웹 기반의 예제 코드<br />
-          		/api/android : Open API를 활용하는 안드로이드 기반의 예제 코드
-        
-        	</div>
-    	</div>
-	</div>
+  <div class="col-lg-6 mb-4">
+    <div class="card shadow mb-4">
+    		<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="open_company_label">드론 기업 정보</h6>
+        </div>
+
+        <div class="card-body">										        		        
+					<table border="0" cellspacing="0" cellpadding="2" width="100%"><tr>
+						<td align="right" width="30px">
+								<img src="/images/f_record_pos.png" width="30px" height="30px">
+						</td><td align="left">
+								<span id="title_history_chkbox">비행기록</span>
+								<input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked>
+						</td><td align="right" width="30px">
+								<img src="/images/company_pos.png" width="30px" height="30px"></span>
+						</td><td align="left">
+								<span id="title_company_chkbox">드론기업(드론전문교육기관 포함)</span>
+								<input type="checkbox" name="chkCompany" id="chkCompany" checked>
+						</td>
+					</tr></table>						
+					<br>
+					<div id="historyMap" style="width:100%;height:400px"></div>
+        </div>
+    	   
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="open_record_label">공개 비행기록</h6>
+        </div>
+
+        <div class="card-body">
+					<div id="dataTable-Flight_list"></div>
+					<div class="text-right"><a onclick="GATAGM('more_label', 'MEMU');" class="collapse-item" href="main.html?page_action=publicrecordlist" id="more_label">더보기</a></div>
+        </div>
+       	
+    </div>
+  </div>
 
 	<div class="col-lg-6 mb-4">
     	<div class="card shadow mb-4">
