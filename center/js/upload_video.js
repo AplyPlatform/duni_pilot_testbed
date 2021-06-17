@@ -111,7 +111,7 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
             } finally {
             	hideLoader();
         			//$('#uploadVideoToYoutubeButton').attr('disabled', false);
-              showAlert(LANG_JSON_DATA[langset]['msg_error_sorry'] + "\n" + message);
+              showAlert(GET_STRING_CONTENT('msg_error_sorry') + "\n" + message);
             }
         }.bind(this),
         onProgress: function (data) {
@@ -150,17 +150,17 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
 };
 
 UploadVideo.prototype.handleUploadClicked = function () {
-		GATAGM('uploadVideoToYoutubeButton', 'CONTENT', langset);
+		GATAGM('uploadVideoToYoutubeButton', 'CONTENT');
 		
 		if (upload_not_allow){
 				hideLoader();
-				showAlert(LANG_JSON_DATA[langset]['msg_sorry_now_on_preparing_youtube']);
+				showAlert(GET_STRING_CONTENT('msg_sorry_now_on_preparing_youtube'));
 				return;
 		}
 		
 		if (apiIsReady == false) {
 				hideLoader();
-        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
         return;
     }
  
@@ -171,20 +171,20 @@ UploadVideo.prototype.handleUploadClicked = function () {
 		
     if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
     		hideLoader();
-        showAlert(LANG_JSON_DATA[langset]['msg_select_video_file']);
+        showAlert(GET_STRING_CONTENT('msg_select_video_file'));
         return;
     }
 		
 		var mmemo = $("#memoTextarea").val();
     if (mmemo == "") {
     	hideLoader();
-			showAlert(LANG_JSON_DATA[langset]['msg_fill_memo']);
+			showAlert(GET_STRING_CONTENT('msg_fill_memo'));
 			return;
 		}
 
 		if ($('#record_name_field').val() == "") {
 			hideLoader();
-			showAlert(LANG_JSON_DATA[langset]['msg_input_record_name']);
+			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
 			return;
 		}
 		

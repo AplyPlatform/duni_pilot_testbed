@@ -11,31 +11,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var langset = "KR";
+var g_str_cur_lang = "KR";
 // 인증여부 혜지프로
-var phone_verified = false;
+var g_b_phonnumber_verified = false;
 
 $(function () {
     showLoader();
     $("#show_1").show();
 
-    langset = getCookie("language");
+    g_str_cur_lang = getCookie("language");
 
     $("#droneplay_name").val(getCookie("temp_name"));
     $("#droneplay_email").val(getCookie("temp_email"));
 
-    $("#droneplay_name").attr("placeholder", LANG_JSON_DATA[langset]['name_label']);
-    $("#droneplay_email").attr("placeholder", LANG_JSON_DATA[langset]['email_label']);
-    $("#droneplay_phonenumber").attr("placeholder", LANG_JSON_DATA[langset]['phone_label']);
+    $("#droneplay_name").attr("placeholder", GET_STRING_CONTENT('name_label'));
+    $("#droneplay_email").attr("placeholder", GET_STRING_CONTENT('email_label'));
+    $("#droneplay_phonenumber").attr("placeholder", GET_STRING_CONTENT('phone_label'));
 
-    $("#register_label").text(LANG_JSON_DATA[langset]['register_label']);
-    $("#privacy_link_label").text(LANG_JSON_DATA[langset]['privacy_link_label']);
-    $("#fill_info_label").text(LANG_JSON_DATA[langset]['fill_info_label']);
-    $("#register_explain_label").text(LANG_JSON_DATA[langset]['register_explain_label']);
-    $("#btnAgree").text(LANG_JSON_DATA[langset]['msg_agree']);
-    $("#btnRegisterToMember").text(LANG_JSON_DATA[langset]['msg_register']);
-    $("#btnBack1").text(LANG_JSON_DATA[langset]['msg_back']);
-    $("#btnBack2").text(LANG_JSON_DATA[langset]['msg_back']);
+    $("#register_label").text(GET_STRING_CONTENT('register_label'));
+    $("#privacy_link_label").text(GET_STRING_CONTENT('privacy_link_label'));
+    $("#fill_info_label").text(GET_STRING_CONTENT('fill_info_label'));
+    $("#register_explain_label").text(GET_STRING_CONTENT('register_explain_label'));
+    $("#btnAgree").text(GET_STRING_CONTENT('msg_agree'));
+    $("#btnRegisterToMember").text(GET_STRING_CONTENT('msg_register'));
+    $("#btnBack1").text(GET_STRING_CONTENT('msg_back'));
+    $("#btnBack2").text(GET_STRING_CONTENT('msg_back'));
 
 
     $("#show_2").hide();
@@ -48,7 +48,7 @@ $(function () {
 });
 
 function onAgree() {
-    GATAGM('AgreeBtnClickOnRegister', 'CONTENT', langset);
+    GATAGM('AgreeBtnClickOnRegister', 'CONTENT');
     showLoader();
     $("#show_2").show();
     $("#show_1").hide();
@@ -56,20 +56,20 @@ function onAgree() {
 }
 
 function showPrivacyButton() {
-	  GATAGM('privacy_link_label', 'CONTENT', langset);
+	  GATAGM('privacy_link_label', 'CONTENT');
 
-	  $.get("/privacy_" + langset + "_raw.html", function(html_string){
+	  $.get("/privacy_" + g_str_cur_lang + "_raw.html", function(html_string){
       showAlert(html_string);
    	});
 }
 
 function goHomeButton(btnName) {
-    GATAGM(btnName, 'CONTENT', langset);
+    GATAGM(btnName, 'CONTENT');
     goHome();
 }
 
 function goHome() {
-    if (langset == "KR")
+    if (g_str_cur_lang == "KR")
         location.href = "/index.html?fromapp=" + getCookie("isFromApp");
     else
         location.href = "/index_en.html?fromapp=" + getCookie("isFromApp");
@@ -109,7 +109,7 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
 			clearInterval(interval_timer);
-            showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+            showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
         }
     }, 1000);
 }
@@ -120,7 +120,7 @@ function verifyPhoneNo(){
     // check if phone number starts with 01 and is total of 11 digits
     let phone_number = $('#droneplay_phonenumber').val();
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01'){
-        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
+        showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
         return;
     }
     grecaptcha.ready(function() {
@@ -136,8 +136,8 @@ function verifyPhoneNo(){
                 function (data){
                     let result = data.result_code;
                     if(result === 0){ //정상응답
-                        showAlert(LANG_JSON_DATA[langset]['msg_verification_code_sent']);
-                        phone_verified = false;
+                        showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
+                        g_b_phonnumber_verified = false;
                         // 인증하기 텍스트 -> 재전송
                         $('#btn_verify_code').text("재전송");
                         var duration = 60 * 3;
@@ -148,17 +148,17 @@ function verifyPhoneNo(){
                         return;
                     }
                     if (result === 2) {
-                        showAlert(LANG_JSON_DATA[langset]['msg_wrong_phone_format']);
+                        showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
                         return;
                     }
                     if (result === 3) {
-                        showAlert(LANG_JSON_DATA[langset]['msg_phone_already_exists']);
+                        showAlert(GET_STRING_CONTENT('msg_phone_already_exists'));
                         return;
                     }
-                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                 },
                 function (err, stat, error) {
-                    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                 }
             );
         });
@@ -168,7 +168,7 @@ function verifyPhoneNo(){
 function verifyCode(){
     let verification_code = $('#verification_code').val();
 		if(verification_code == ""){
-			showAlert(LANG_JSON_DATA[langset]['msg_code_empty']);
+			showAlert(GET_STRING_CONTENT('msg_code_empty'));
 			return;
 		} 
 		grecaptcha.ready(function() {
@@ -185,27 +185,27 @@ function verifyCode(){
 						if(result === 0){
 							$('#verification_code').val("");
 							$("#code_verification_input").hide();			
-							showAlert(LANG_JSON_DATA[langset]['msg_phone_verified']);
+							showAlert(GET_STRING_CONTENT('msg_phone_verified'));
 							clearInterval(interval_timer);
 							// disable phone number input
-                            phone_verified = true;
+                            g_b_phonnumber_verified = true;
                             $('#auth_code').val(data.auth_code);
 							// $('#droneplay_phonenumber').prop( "disabled", true );
 							// $('btn_check_code').text("재인증");
 							return;
 						}
 						if(result === 2){
-							showAlert(LANG_JSON_DATA[langset]['msg_wrong_verification_code']);
+							showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));
 							return;
 						}
 						if(result === 4){
-							showAlert(LANG_JSON_DATA[langset]['msg_phone_verification_timeout']);
+							showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
 							return;
 						}
-                        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 					},
 					function (err, stat, error) {
-						showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+						showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 					}
 				);
 			});
@@ -213,7 +213,7 @@ function verifyCode(){
 }
 
 function requestRegister() {
-    GATAGM('RegisterBtnClickOnRegister', 'CONTENT', langset);
+    GATAGM('RegisterBtnClickOnRegister', 'CONTENT');
 
     showLoader();
 
@@ -227,30 +227,30 @@ function requestRegister() {
                 var droneplay_phonenumber = $('#droneplay_phonenumber').val();
 
                 if (droneplay_name == null || droneplay_name == "") {
-                    GATAGM('NameIsEmptyOnRegister', 'CONTENT', langset);
-                    showAlert(LANG_JSON_DATA[langset]['msg_input_name']);
+                    GATAGM('NameIsEmptyOnRegister', 'CONTENT');
+                    showAlert(GET_STRING_CONTENT('msg_input_name'));
                     hideLoader();
                     return;
                 }
 
                 if (droneplay_email == null || droneplay_email == "") {
-                    GATAGM('EmailIsEmptyOnRegister', 'CONTENT', langset);
-                    showAlert(LANG_JSON_DATA[langset]['msg_input_email']);
+                    GATAGM('EmailIsEmptyOnRegister', 'CONTENT');
+                    showAlert(GET_STRING_CONTENT('msg_input_email'));
                     hideLoader();
                     return;
                 }
 
                 if (droneplay_phonenumber == null || droneplay_phonenumber == "") {
-                    GATAGM('PhoneIsEmptyOnRegister', 'CONTENT', langset);
-                    showAlert(LANG_JSON_DATA[langset]['msg_input_phone']);
+                    GATAGM('PhoneIsEmptyOnRegister', 'CONTENT');
+                    showAlert(GET_STRING_CONTENT('msg_input_phone'));
                     hideLoader();
                     return;
                 }
 
                 // 전화번호 인증여부 체크 혜지프로
-                if(phone_verified === false){
-                    GATAGM('PhoneNotVerified', 'CONTENT', langset);
-                    showAlert(LANG_JSON_DATA[langset]['msg_phone_not_verified']);
+                if(g_b_phonnumber_verified === false){
+                    GATAGM('PhoneNotVerified', 'CONTENT');
+                    showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
                     hideLoader();
                     return;
                 }
@@ -276,17 +276,17 @@ function requestRegister() {
                     		$("#show_2").show();
                     		
                         if (r.result_code == 3 && r.reason.indexOf("socialid") >= 0) {
-	                            showAlert(LANG_JSON_DATA[langset]['msg_email_is_already_exist']);
-	                            GATAGM('EmailIsExistOnRegister', 'CONTENT', langset);  
+	                            showAlert(GET_STRING_CONTENT('msg_email_is_already_exist'));
+	                            GATAGM('EmailIsExistOnRegister', 'CONTENT');  
 	                            return;
                         }
 
-                        showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
+                        showAlert(GET_STRING_CONTENT('msg_wrong_input'));
                     }
                 },
                     function (request, status, error) {
 
-                        GATAGM('ErroOnRegister_' + error, 'CONTENT', langset);
+                        GATAGM('ErroOnRegister_' + error, 'CONTENT');
                         showAlert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                         //
                         hideLoader();
@@ -307,9 +307,9 @@ function validateNumber(event) {
 }
 
 function showConfirmDialog() {
-    $('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title']);
-    $('#askModalContent').text(LANG_JSON_DATA[langset]['msg_register_success']);
-    $('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+    $('#askModalLabel').text(GET_STRING_CONTENT('modal_title'));
+    $('#askModalContent').text(GET_STRING_CONTENT('msg_register_success'));
+    $('#askModalOKButton').text(GET_STRING_CONTENT('modal_confirm_btn'));
     $('#askModalCancelButton').hide();
 
     $('#askModalOKButton').off('click');
@@ -337,12 +337,12 @@ function getCookie(cName) {
 }
 
 function showAlert(msg) {
-    $('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
-    $('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+    $('#modal-title').text(GET_STRING_CONTENT('modal_title'));
+    $('#modal-confirm-btn').text(GET_STRING_CONTENT('modal_confirm_btn'));
 
     $('#errorModalLabel').html(msg);
     $('#errorModal').modal('show');
-    if(msg == LANG_JSON_DATA[langset]['msg_phone_verification_timeout']){
+    if(msg == GET_STRING_CONTENT('msg_phone_verification_timeout')){
         $('#modal-confirm-btn').off('click');
         $('#modal-confirm-btn').click(function () {
             location.href=location.href;
@@ -359,16 +359,20 @@ function hideLoader() {
     $("#loading").fadeOut(800);
 }
 
-function GATAGM(label, category, language) {
+function GATAGM(label, category) {
     gtag(
-        'event', label + "_" + language, {
+        'event', label + "_" + g_str_cur_lang, {
         'event_category': category,
         'event_label': label
     }
     );
 
     mixpanel.track(
-        label + "_" + language,
+        label + "_" + g_str_cur_lang,
         { "event_category": category, "event_label": label }
     );
+}
+
+function GET_STRING_CONTENT(table_index_str) {	
+		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
 }

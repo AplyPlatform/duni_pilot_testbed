@@ -50,7 +50,7 @@ function handleAuthResult(authResult) {
         else {
         	$('#uploadVideoToYoutubeButton').attr('disabled', false);
         	hideLoader();
-        	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
         }
 
     } else {
