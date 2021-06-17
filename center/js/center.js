@@ -1498,7 +1498,7 @@ function getFlightRecordInfo(name) {
 				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
 				$("#video-pop-view").attr("video-name", name);
 				$("#video-pop-view").attr("video-outer", r.data.outer);
-				$("#video-pop-view").attr("video-ispublic", g_str_current_target == "public" ? true : false );
+				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
 				$("#video-pop-view").videoPopup();
