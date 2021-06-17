@@ -50,7 +50,7 @@ var g_array_altitude_data_for_chart = [];
 var g_i_appended_data_count = 0;
 
 var g_youtube_player_for_detail_view = null;
-var g_i_youtube_data_id_for_detail_view;
+var g_str_youtube_data_id_for_detail_view;
 
 var g_str_cur_flight_record_name = "";
 
@@ -5269,7 +5269,7 @@ function setYoutubePlayerForDetaileViewPureID(data_id) {
 
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/player_api";
-    g_i_youtube_data_id_for_detail_view = data_id;
+    g_str_youtube_data_id_for_detail_view = data_id;
 
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -5301,7 +5301,7 @@ function setYoutubePlayerForDetaileView(d_id) {
 
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/player_api";
-    g_i_youtube_data_id_for_detail_view = data_id;
+    g_str_youtube_data_id_for_detail_view = data_id;
 
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -5319,7 +5319,7 @@ function onYouTubeIframeAPIReady() {
     g_youtube_player_for_detail_view = new YT.Player('g_youtube_player_for_detail_view', {
         width: '1000',
         height: '400',
-        videoId: g_i_youtube_data_id_for_detail_view,
+        videoId: g_str_youtube_data_id_for_detail_view,
         host: 'https://www.youtube.com',
         playerVars: { rel: 0 },//\uCD94\uCC9C\uC601\uC0C1 \uC548\uBCF4\uC5EC\uC8FC\uAC8C \uC124\uC815
         events: {
