@@ -571,15 +571,15 @@
 				    		style = [new ol.style.Style({
 	                image: new ol.style.Circle({
 				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#779977dd' }),
-				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+				            fill: new ol.style.Fill({ color: '#FFF' }),
+				            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
 									})
 	              })];
 
 								if (size > 1) {
 									style[0].setText(new ol.style.Text({
 					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  fill: new ol.style.Fill({ color: '#000' }),
 					                  scale: 1.5
 									}));
 								}
@@ -615,15 +615,15 @@
 				       	style = [new ol.style.Style({
 		                image: new ol.style.Circle({
 						            radius: radius,
-						            fill: new ol.style.Fill({ color: '#964383dd' }),
-						            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+						            fill: new ol.style.Fill({ color: '#FFF' }),
+						            stroke: new ol.style.Stroke({ color: '#fb5b58', width: 2 })
 	                		})
 	              })];
 
 								if (size > 1) {
 									style[0].setText(new ol.style.Text({
 					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  fill: new ol.style.Fill({ color: '#000' }),
 					                  scale: 1.5
 									}));
 								}
