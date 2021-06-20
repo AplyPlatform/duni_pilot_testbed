@@ -13,7 +13,7 @@ limitations under the License.
 
 var LANG_JSON_DATA = {
 	"KR": {
-    		"modal_yes_btn": "네",
+    	"modal_yes_btn": "네",
         "modal_confirm_btn": "확인",
         "modal_title": "알림",
         "side_menu_dashboard": "Dashboard",
@@ -22,7 +22,7 @@ var LANG_JSON_DATA = {
         "side_menu_flight_plan_list": "비행계획 목록",
         "side_menu_flight_plan_mon": "드론위치 보기",
         "side_menu_flight_record": "비행영상 기록",
-        "side_menu_flight_record_upload": "기록 업로드/판매",
+        "side_menu_flight_record_upload": "비행영상 기록 업로드/판매",
         "side_menu_flight_record_list": "내 기록 보기",
         "side_menu_flight_record_public_list": "공개 기록 보기",
         "side_menu_qa": "문의하기",
@@ -55,7 +55,7 @@ var LANG_JSON_DATA = {
         "shared_record_data_msg": "공유받은 데이터입니다.",
         "map_kind_label": "지도 종류",
         "go_index_direct_label": "바로가기",
-        "mode_developer_label": "Lab & Developer로 바꾸기",
+        "mode_developer_label": "Lab으로 바꾸기",
         "mode_pilot_label": "파일럿뷰로 바꾸기",
         "phone_label": "전화번호",
         "email_label": "이메일",
@@ -166,6 +166,7 @@ var LANG_JSON_DATA = {
         "tab_menu_upload_selector_address" : "촬영지 주소 입력",
         "open_record_label": "공개 비행영상 기록",
         "label_set_youtube_url": "Youtube URL 입력",
+        "label_set_no_video" : "영상 없음",
         "label_upload_movie": "영상 업로드",
         "tab_menu_upload_selector_dji": "비행기록 업로드",
         "tab_menu_upload_selector_address": "촬영지 주소 입력",
@@ -209,12 +210,11 @@ var LANG_JSON_DATA = {
         "upload_about_content": "내 비행기록을 업로드하세요.",
         "design_about_content": "설계한 비행계획은 DUNI 앱과 DJI 제품의 드론에서 사용할 수 있습니다.",
         "head_pilot_title": "파일럿 센터 for Pilot",
-        "head_developer_title": "파일럿 센터 for Lab & Developer",
+        "head_developer_title": "파일럿 센터 for Lab",
         "center_about_pilot_title": "파일럿 뷰를 소개합니다.",
-        "center_about_developer_title": "Lab & Developer를 소개합니다.",
+        "center_about_developer_title": "Lab을 소개합니다.",
         "center_about_pilot_content": "드론의 비행기록을 업로드하여 영상과 함께 확인할 수 있습니다.",
-        "center_about_developer_content": "DUNI Lab은 드론의 비행계획을 쉽게 디자인할 수 있습니다.<br>" +
-            "DUNI Developer는 Drone SW Platform으로서 드론 소프트웨어 개발자가 쉽고 마음 편히 사용할 수 있는 Open API를 제공합니다. ",
+        "center_about_developer_content": "DUNI Lab에서 드론의 비행계획을 쉽게 디자인 해 보세요.",
         "dev_token_title": "개발자 토큰 발급",
         "collapseRecordFileParams": "<br><hr size=1><p><b>안드로이드</b></p>"
             + "<p>- 내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>"
@@ -229,7 +229,7 @@ var LANG_JSON_DATA = {
 
 
     "EN": {
-    		"modal_yes_btn": "Yes",
+    	"modal_yes_btn": "Yes",
         "modal_confirm_btn": "Confirm",
         "modal_title": "Notification",
         "side_menu_dashboard": "Dashboard",
@@ -287,7 +287,7 @@ var LANG_JSON_DATA = {
         "stop_share_label": "Stop sharing",
         "badge_code_label": "Badge code",
         "btnForSharing": "Share",
-				"btnForOpening": "Open",
+		"btnForOpening": "Open",
         "btnForLink": "Creating a new link",
         "privacy_link_label": "Privacy policy(KR)",
         "btnForBadge_make": "Generate badge code",
@@ -383,6 +383,7 @@ var LANG_JSON_DATA = {
         "more_label": "More ...",
         "open_record_label": "Flight records",
         "label_set_youtube_url": "Enter Youtube URL",
+        "label_set_no_video": "No video",
         "label_upload_movie": "Upload video file",
         "tab_menu_upload_selector_dji": "Upload flight-record",
         "tab_menu_upload_selector_address": "Detailed address",
@@ -425,9 +426,9 @@ var LANG_JSON_DATA = {
         "upload_about_content": "Upload your flight record.",
         "design_about_content": "You can easily design the drone's flight mission",
         "head_pilot_title": "Pilot Center for Pilot",
-        "head_developer_title": "Pilot Center for Lab & Developer",
+        "head_developer_title": "Pilot Center for Lab",
         "center_about_pilot_title": "About Pilot View",
-        "center_about_developer_title": "About Lab & Developer",
+        "center_about_developer_title": "About Lab",
         "center_about_pilot_content": "This is where you can easily design the drone's flight mission and check flight records and the situation." +
             "The flight mission you designed can be used in DUNI app and in the drone of DJI product. DUNI app is currently under development and Android/iOS version will be distributed soon.<br>" +
             "Upload the Drone's video to Youtube site or set Youtube URL with the video to see detailed flight records. ('Flight record' > 'Upload record' Menu)",
