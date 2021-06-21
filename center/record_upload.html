@@ -117,13 +117,14 @@
 											<div class="row">
 												<div class="col">			              				              				              	
 					              	<div class="input-group">
-										<input type="text" id="postcode" placeholder="우편번호">
-										<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-										<input type="text" id="road_address" placeholder="도로명주소">
-										<input type="text" id="jibun_address" placeholder="지번주소">
+										<input type="text" id="postcode" type="text" class="form-control" placeholder="우편번호">
+										<div class="input-group-append">
+							                <button class="btn btn-info" type="button" id="btnForAddressCheck" onclick="execDaumPostcode()">우편번호 찾기</button>
+							              </div>
+										<input type="text" id="road_address" type="text" class="form-control" placeholder="도로명주소">
+										<input type="text" id="jibun_address" type="text" class="form-control" placeholder="지번주소">
 										<span id="guide" style="color:#999;display:none"></span>
-										<input type="text" id="detail_address" placeholder="상세주소">
-										<input type="text" id="extra_address" placeholder="참고항목">				              	
+										<input type="text" id="detail_address" type="text" class="form-control" placeholder="상세주소">			              	
 							              <input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
 							              <div class="input-group-append">
 							                <button class="btn btn-info" type="button" id="btnForAddressCheck">주소확인</button>
