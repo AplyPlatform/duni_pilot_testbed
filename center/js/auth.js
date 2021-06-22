@@ -42,10 +42,10 @@ function handleAuthResult(authResult) {
         setCookie("user_google_auth_token", gapi.auth.getToken().access_token);
         hideLoader();
         
-        if (uploadVideo) {
+        if (g_component_upload_youtube_video) {
         	showLoader();
-        	uploadVideo.ready();
-        	uploadVideo.handleUploadClicked();
+        	g_component_upload_youtube_video.ready();
+        	g_component_upload_youtube_video.handleUploadClicked();
         }
         else {
         	$('#uploadVideoToYoutubeButton').attr('disabled', false);
