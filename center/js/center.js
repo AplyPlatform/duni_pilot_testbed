@@ -4178,7 +4178,7 @@ function ajaxRequest(data, callback, errorcallback) {
             request.setRequestHeader("droneplay-token", getCookie('user_token'));
         },
         success: function (r) {
-        		if (r.result != "success" && (("reason" in r) && r.reason.indexOf("invalid token") >= 0)) {
+        		if (r.result != "success" && r.result_code == 1)) {
         			alert(GET_STRING_CONTENT('msg_login_another_device_sorry'));
         			logOut();
         			return;

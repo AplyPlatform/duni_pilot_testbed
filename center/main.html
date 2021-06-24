@@ -2,9 +2,7 @@
 <html lang="ko">
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130136264-12"></script>
-  <!-- Daum postcode service-->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130136264-12"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
@@ -28,9 +26,9 @@
   <title>DUNI 파일럿 센터</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/2f3e7be7a3.js" crossorigin="anonymous"></script>
 
   <!-- Custom styles for this template-->
   <link href="./css/jquery-ui.min.css" rel="stylesheet">
@@ -110,7 +108,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <!-- Nav Item - Dashboard -->
       <li id="dashboard_menu" class="nav-item">
         <a onclick="GATAGM('side_menu_dashboard', 'MEMU');" class="nav-link" href="main.html?page_action=center">
-          <i class="fas fa-fw fa-globe"></i>
+          <i class="fas fa-tachometer-alt"></i>
           <span id="side_menu_dashboard">Dashboard</span></a>
       </li>
 
@@ -132,10 +130,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       </li>
        -->
       <li id="record_menu" class="nav-item">
-      	<a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU');" class="nav-link" href="main.html?page_action=recordupload" id="side_menu_flight_record_upload"><i class="fa-solid fa-upload"></i> 비행영상기록 업로드/판매</a>
-      	<a onclick="GATAGM('side_menu_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=recordlist" id="side_menu_flight_record_list"><i class="fa-solid fa-clapperboard-play"></i> 내 기록 보기</a>
-		<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist" id="side_menu_flight_record_public_list"><i class="fa-solid fa-globe"></i> 공개 기록 보기</a>
-	 </li>
+      	<a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU');" class="nav-link" href="main.html?page_action=recordupload">
+      		<i class="fas fa-file-upload"></i>
+      		<span id="side_menu_flight_record_upload">비행영상기록 업로드/판매</span>
+      	</a>
+      	<a onclick="GATAGM('side_menu_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=recordlist">
+      		<i class="fas fa-file-archive"></i>
+      		<span id="side_menu_flight_record_list">내 기록 보기</span>
+      	</a>
+		<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist">
+			<i class="fas fa-globe"></i>
+			<span id="side_menu_flight_record_public_list">공개 기록 보기</span></a>
+	  </li>
 
 	  <!-- Divider -->
       <hr class="sidebar-divider">
