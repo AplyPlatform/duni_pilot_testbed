@@ -84,6 +84,8 @@ var g_str_cur_monitor_object_owner = "private";
 
 var g_component_upload_youtube_video;
 
+var g_b_is_youtube_seek = false;
+
 // 유튜브 약관 준수 - 동시에 2개 이상의 영상이 재생되면 안된다!
 var g_array_youtube_players = [];
 var g_i_youtube_player_index = null;
@@ -1208,8 +1210,15 @@ function flightrecordListInit(target) {
     $("#date_label").text(GET_STRING_CONTENT('date_label'));
     $("#manage_label").text(GET_STRING_CONTENT('manage_label'));
 
-    $("#search_key").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
+    $("#search_key").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));				
 
+		$("#search_key").keypress(function(e) {
+        if (e.which == 13){
+        		GATAGM('enterForSearchFlightRecord', 'CONTENT');
+        		searchFlightRecord(target, $("#search_key").val());
+        }
+    });
+		
     $("#btnForSearchFlightRecord").click(function () {
         GATAGM('btnForSearchFlightRecord', 'CONTENT');
         searchFlightRecord(target, $("#search_key").val());
@@ -5370,8 +5379,6 @@ function onYouTubeIframeAPIReady() {
     });//youTubePlayer1\uC14B\uD305
 }
 
-var movieProcess = false;
-
 function onPlayerReady(event) {
     event.target.playVideo();//\uC790\uB3D9\uC7AC\uC0DD
 
@@ -5421,9 +5428,10 @@ function onPlayerStateChange(event) {
 		}
 }
 
+
 function processSeek(curTime) {
-    if (movieProcess == true) {
-        movieProcess = false;
+    if (g_b_is_youtube_seek == true) {
+        g_b_is_youtube_seek = false;
         return;
     }
 
@@ -5443,7 +5451,7 @@ function processSeek(curTime) {
 }
 
 function movieSeekTo(where) {
-    movieProcess = true;
+    g_b_is_youtube_seek = true;
 
     if (g_youtube_player_for_detail_view != null && $('#youTubePlayer').is(":visible") == true) {
         g_youtube_player_for_detail_view.seekTo(where, true);
