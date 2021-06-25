@@ -1229,7 +1229,7 @@ function flightrecordListInit(target) {
         getFlightRecords(target);
     });
 
-    $('#btnForLoadFlightList').hide();
+    $('#loadMoreArea').hide();
 
     g_str_current_target = target;
     initYoutubeAPIForFlightList();
@@ -1262,7 +1262,7 @@ function flightrecordsListSummaryInit(target) {
         getFlightRecords(target);
     });
 
-    $('#btnForLoadFlightList').hide();
+    $('#loadMoreArea').hide();
 
     g_str_current_target = target;
     initYoutubeAPIForFlightList();
@@ -2865,10 +2865,11 @@ function searchFlightRecord(target, keyword) {
             if (r.morekey) {
                 g_more_key_for_data = r.morekey;
                 $('#btnForLoadFlightList').text(GET_STRING_CONTENT('msg_load_more'));
+                $('#loadMoreArea').show();
             }
             else {
-                g_more_key_for_data = null;
-                $('#btnForLoadFlightList').hide(1500);
+                g_more_key_for_data = null;                
+                $('#loadMoreArea').hide(1500);
             }
 
             $('#historyMap').show();
@@ -2984,11 +2985,11 @@ function getFlightRecords(target) {
             if (r.morekey) {
                 g_more_key_for_data = r.morekey;
                 $('#btnForLoadFlightList').text(GET_STRING_CONTENT('msg_load_more'));
-                $('#btnForLoadFlightList').show();
+                $('#loadMoreArea').show();
             }
             else {
                 g_more_key_for_data = null;
-                $('#btnForLoadFlightList').hide(1500);
+                $('#loadMoreArea').hide(1500);
             }
 
             $('#historyMap').show();
