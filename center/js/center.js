@@ -930,6 +930,7 @@ function embedCompassInit() {
 		
 		$("#input_direct_file").click(function() {
 			$(this).attr("value", "");
+			$("#input_direct_file").val("")
 		});
     
     $("#file_upload_img").hide();
