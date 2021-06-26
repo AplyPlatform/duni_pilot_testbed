@@ -912,10 +912,6 @@ function embedCompassInit() {
     hideLoader();
 }
 
-var uploadFilesForCompass = [];
-var hasMovieFileInFile = false;
-var hasRecordFileInFile = false;
-
 var recordFileForCompass = null;
 var videoFileForCompass = null;
 
@@ -925,47 +921,46 @@ function fileDropCheck(files) {
 		return;	
 	}
 	
-	if (files.length == 2 && uploadFilesForCompass.length > 0) {
-		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return;	
+	if (files.length == 2) {
+		if (isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
+			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+			return;	
+		}
 	}
-		
-	var beforeSize = uploadFilesForCompass.length;
+	
+	var isAdded = false;
 	for(var i = 0; i < files.length; i++) {
 		var file = files[i];
 												
 		if (isRecordFile(file.name)) {
-			if (hasRecordFileInFile == true) {
+			if (isSet(recordFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
-			else {
-				hasRecordFileInFile = true;
+			else {				
 				console.log(file);
-				uploadFilesForCompass.push(file);		
+				recordFileForCompass = file;
 				let idx = uploadFilesForCompass.length - 1;
-				preview(file, idx);				
+				preview(file, "record");
+				isAdded = true;
 			}
 		}
 		
 		if (isMovieFile(file.name)) {
-			if (hasMovieFileInFile == true) {
+			if (isSet(videoFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
-			else {
-				hasMovieFileInFile = true;
+			else {				
 				console.log(file);
-				uploadFilesForCompass.push(file);		
-				let idx = uploadFilesForCompass.length - 1;
-				preview(file, idx);
+				videoFileForCompass = file;				
+				preview(file, "video");
+				isAdded = true;
 			}
 		}				
 	}
 	
-	if (beforeSize == uploadFilesForCompass.length) {
-		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-	}
+	if (isAdded == false) showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));	
 }
 
 function isRecordFile(filename) {
@@ -998,16 +993,7 @@ function compareIgnoreCase(str1, str2) {
 	return str1.toUpperCase() === str2.toUpperCase();	
 }
 
-function uploadCheckBeforeCompassEmbed() {					
-	for(var i=0;i < uploadFilesForCompass.length; i++) {		
-		if (isRecordFile(uploadFilesForCompass[i].name)) {
-			recordFileForCompass = uploadFilesForCompass[i];
-		}
-		else {		
-			videoFileForCompass = uploadFilesForCompass[i];
-		}
-	}
-	
+function uploadCheckBeforeCompassEmbed() {								
 	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;
@@ -1061,7 +1047,7 @@ function embedRequest(filename, tempExt) {
         	showAlert("변환 요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(" + getCookie("user_email") + ")로 영상파일의 다운로드 경로를 알려 드립니다.");        	
         	$('#btnForUploadFlightList').prop('disabled', true);
         }
-        else showAlert("failed - " + r.reason);
+        else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
     }, function (request, status, error) {
         
     });
@@ -1120,17 +1106,13 @@ function preview(file, idx) {
 	file.target = $div;							
 				
 	$("#file_data_remover_" + idx).on("click", function(e) {				
-		$("#file_thumb_" + idx).remove();
-		let fileInfo = uploadFilesForCompass[idx];
-		
-		if (isRecordFile(fileInfo.name)) {
-			hasRecordFileInFile = false;
+		$("#file_thumb_" + idx).remove();		
+		if (isRecordFile(file.name)) {
+			recordFileForCompass = null;
 		}
 		else {
-			hasMovieFileInFile = false;
-		}
-		
-		uploadFilesForCompass = uploadFilesForCompass.splice(idx, 1);
+			videoFileForCompass = null
+		}				
 	});				
 }
 
