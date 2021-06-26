@@ -979,7 +979,7 @@ function fileDropCheck(files) {
 				console.log(file);
 				uploadFilesForCompass.push(file);		
 				let idx = uploadFilesForCompass.length - 1;
-				preview(files[0], idx);				
+				preview(file, idx);				
 			}
 		}
 		
@@ -993,7 +993,7 @@ function fileDropCheck(files) {
 				console.log(file);
 				uploadFilesForCompass.push(file);		
 				let idx = uploadFilesForCompass.length - 1;
-				preview(files[0], idx);
+				preview(file, idx);
 			}
 		}				
 	}
