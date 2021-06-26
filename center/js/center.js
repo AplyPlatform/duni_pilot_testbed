@@ -1144,8 +1144,8 @@ function preview(file, idx) {
 	reader.onload = (function(f, idx) {
 		return function(e) {
 			var $div = $('<div class="thumb">'
-				+ iconArea + " " + file.name + "<br>"
-				'<progress value="0" max="100" ></progress> \
+				+ iconArea + ' ' + file.name + 
+				'<br><progress value="0" max="100" ></progress> \
 				<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div> \
 				</div>');
 			$("#thumbnails").append($div);
