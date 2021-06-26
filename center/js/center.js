@@ -128,6 +128,11 @@ $(function () {
     setViewMode();
     setCommonText();
     initPilotCenter();
+    
+    //사이드바 기본 접기    
+    $("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");		  
+	  $('.sidebar .collapse').collapse('hide');		      
 });
 
 function goIndex(doAction) {
