@@ -1146,11 +1146,9 @@ function preview(file, idx) {
 	
 	reader.onload = (function(f, idx) {
 		return function(e) {
-			var $div = $('<div class="thumb">'
-				+ iconArea + ' ' + file.name + 
-				'<br><progress value="0" max="100" ></progress> \
-				<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div> \
-				</div>');
+			var $div = $('<div class="thumb"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px">'			
+				+ '<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div></td><td>'
+				+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" ></progress></td></tr></table></div>');
 			$("#thumbnails").append($div);
 			f.target = $div;
 		};
