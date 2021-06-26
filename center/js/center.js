@@ -1043,7 +1043,7 @@ function embedRequest(filename, tempExt) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
-        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received" + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
+        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
         	$('#btnForUploadFlightList').prop('disabled', true);
         }
         else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);

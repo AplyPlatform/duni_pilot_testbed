@@ -102,7 +102,7 @@ var LANG_JSON_DATA = {
         // 전화번호인증 end
         "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
         "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",
-        "msg_select_one_video_one_record" : "드론영상 1개와 비행기록파일 1개만 선택해 주세요.",
+        "msg_select_one_video_one_record" : "드론영상 1개와 비행기록파일 1개만 업로드 할 수 있습니다.",
         "msg_is_sync_data" : "영상의 길이와 비행기록의 길이가 일치하나요?",
         "msg_youtube_uploaded" : "수정을 반영하려면 \"적용\" 버튼을 클릭해 주세요.",
         "msg_do_login" : "로그인이 필요한 서비스 입니다.",
