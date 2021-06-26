@@ -1033,7 +1033,6 @@ function compareIgnoreCase(str1, str2) {
 	return str1.toUpperCase() === str2.toUpperCase();	
 }
 
-
 function uploadCheckBeforeCompassEmbed() {					
 	for(var i=0;i < uploadFilesForCompass.length; i++) {		
 		if (isRecordFile(uploadFilesForCompass[i].name)) {
@@ -1045,12 +1044,12 @@ function uploadCheckBeforeCompassEmbed() {
 	}
 	
 	var params = {file : recordFile};
-	getBase64(params, function(ret) {
-		requestUploadForCompass(ret.base64file, getFileExtension(videoFile.name));	
+	getBase64(params, function(ret) {		
+		requestUploadForCompass(ret.base64file, getFileExtension(videoFile.name), recordFile.target.find("progress"));	
 	});		
 }
 
-function requestUploadForCompass(base64Recordfile, tempExt) {
+function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 		var userid = getCookie("dev_user_id");
     var jdata = {
     	"action": "position",
@@ -1065,6 +1064,8 @@ function requestUploadForCompass(base64Recordfile, tempExt) {
     		alert("error! : " + r.reason);
     		return;
     	}
+    	
+    	progressBar.val(100);
     	
     	runNextSequence( function () {
 					videoFileUpload(videoFile, r.filename, r.extension, r.signedurl);
@@ -1087,7 +1088,7 @@ function embedRequest(filename, tempExt) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
-        	alert("success !!");
+        	alert("변환 요청이 접수 되었습니다. 가입시 등록한 이메일을 확인해 주세요.");
         }
         else alert("failed - " + r.reason);
     }, function (request, status, error) {
