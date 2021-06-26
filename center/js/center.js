@@ -1148,7 +1148,7 @@ function preview(file, idx) {
 	
 	var $div = $('<div id="file_thumb_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'			
 		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span></td><td class="text-left">'
-		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:3px;"></progress></td></tr></table></div>');
+		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></td></tr></table></div>');
 	$("#thumbnails").append($div);
 	file.target = $div;							
 				
