@@ -896,9 +896,11 @@ function embedCompassInit() {
 			dropArea.css('background-color', '#E3F2FC');
 		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
 			dropArea.css('background-color', '#FFFFFF');
+			$("#file_upload_img").hide();
 		}).on("dragover", function(e) {
 			e.stopPropagation();
 			e.preventDefault();
+			$("#file_upload_img").show();
 			dropArea.css('background-color', '#E3F2FC');
 		}).on('drop', function(e) {
 			e.preventDefault();			
@@ -910,6 +912,7 @@ function embedCompassInit() {
 				uploadCheckBeforeCompassEmbed();	
 		});				
     
+    $("#file_upload_img").hide();
     hideLoader();
 }
 
