@@ -901,6 +901,11 @@ function embedCompassInit() {
 		}).on("dragover", function(e) {
 			e.stopPropagation();
 			e.preventDefault();						
+			
+			if ($("#file_upload_img").is(':visible') == false){
+				dropArea.css('background-color', '#E3F2FC');
+				$("#file_upload_img").show();
+			}
 		}).on('drop', function(e) {			
 			e.preventDefault();			
 			dropArea.css('background-color', '#FFFFFF');
