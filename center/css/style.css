@@ -9820,4 +9820,17 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 .btn .btn-icon-left {margin-right: 4px;}
 .btn .btn-icon-right {margin-left: 4px;}
 
+.upload-btn-wrapper {
+			position: relative;
+			overflow: hidden;
+			display: inline-block;
+}
+		
+.upload-btn-wrapper input[type=file] {
+			font-size: 100px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+}
 

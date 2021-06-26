@@ -921,6 +921,10 @@ function embedCompassInit() {
 		$("#btnForUploadFlightList").on("click", function(e) {		
 				uploadCheckBeforeCompassEmbed();	
 		});				
+		
+		$("#input_direct_file").bind('change', function() {
+			fileDropCheck(this.files);
+		});
     
     $("#file_upload_img").hide();
     hideLoader();
