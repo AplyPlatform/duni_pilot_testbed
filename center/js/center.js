@@ -927,6 +927,22 @@ function embedCompassInit() {
 		$("#btnForUploadFlightList").on("click", function(e) {		
 				uploadCheckBeforeCompassEmbed();	
 		});
+		
+		$("#thumbnails").on("click", ".close", function(e) {
+			var $target = $(e.target);
+			var idx = $target.attr('data-idx');	
+			$target.parent().remove();
+			let fileInfo = uploadFilesForCompass[idx];
+			
+			if (isRecordFile(fileInfo.name)) {
+				hasRecordFileInFile = false;
+			}
+			else {
+				hasMovieFileInFile = false;
+			}
+			
+			uploadFilesForCompass = uploadFilesForCompass.splice(idx, 1);
+		});
     
     hideLoader();
 }
@@ -1117,29 +1133,13 @@ function setProgress(per) {
 		$progressBar.val(per);
 }
 
-$("#thumbnails").on("click", ".close", function(e) {
-	var $target = $(e.target);
-	var idx = $target.attr('data-idx');	
-	$target.parent().remove();
-	let fileInfo = uploadFilesForCompass[idx];
-	
-	if (isRecordFile(fileInfo.name)) {
-		hasRecordFileInFile = false;
-	}
-	else {
-		hasMovieFileInFile = false;
-	}
-	
-	uploadFilesForCompass = uploadFilesForCompass.splice(idx, 1);
-});
-
 function preview(file, idx) {
 	var reader = new FileReader();
 	reader.onload = (function(f, idx) {
 		return function(e) {
 			var $div = $('<div class="thumb"> \
 				<progress value="0" max="100" ></progress> \
-				<div class="close" data-idx="' + idx + '">X</div> \
+				<span style="cursor:pointer" class="close" data-idx="' + idx + '"><b>X</b></span> \
 				<img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \
 				</div>');
 			$("#thumbnails").append($div);
