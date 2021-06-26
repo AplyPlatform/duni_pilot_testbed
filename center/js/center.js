@@ -1136,15 +1136,15 @@ function setProgress(per) {
 function preview(file, idx) {
 	var reader = new FileReader();
 	
-	var iconArea = '"<i class="fas fa-map-marker-alt"></i>';
+	var iconArea = '<i class="fas fa-map-marker-alt"></i>';
 	if(isMovieFile(file.name)) {
-		iconArea = '"<i class="fas fa-video"></i>';
+		iconArea = '<i class="fas fa-video"></i>';
 	}
 	
 	reader.onload = (function(f, idx) {
 		return function(e) {
 			var $div = $('<div class="thumb">'
-				+ iconArea +
+				+ iconArea + " " + file.name + "<br>"
 				'<progress value="0" max="100" ></progress> \
 				<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div> \
 				</div>');
