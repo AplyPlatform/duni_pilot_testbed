@@ -928,7 +928,7 @@ function embedCompassInit() {
 				uploadCheckBeforeCompassEmbed();	
 		});
 		
-		$("#thumbnails").on("click", ".close", function(e) {
+		$("#thumbnails").on("click", ".file_data_remover", function(e) {
 			var $target = $(e.target);
 			var idx = $target.attr('data-idx');	
 			$target.parent().remove();
@@ -1139,7 +1139,7 @@ function preview(file, idx) {
 		return function(e) {
 			var $div = $('<div class="thumb"> \
 				<progress value="0" max="100" ></progress> \
-				<span style="cursor:pointer" class="close" data-idx="' + idx + '"><b>X</b></span> \
+				<span style="cursor:pointer" class="file_data_remover" data-idx="' + idx + '"><b>X</b></span> \
 				<img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \
 				</div>');
 			$("#thumbnails").append($div);
