@@ -1028,7 +1028,7 @@ function uploadCheckBeforeCompassEmbed() {
 	}
 	
 	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
-		alert("드론영상 1개와 비행기록파일 1개를 선택해 주세요.");
+		showAlert("드론영상 1개와 비행기록파일 1개를 선택해 주세요.");
 		return;
 	}
 	
@@ -1050,7 +1050,7 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 
     ajaxRequest(jdata, function (r) {
     	if(r.result != "success") {
-    		alert("error! : " + r.reason);
+    		showAlert("error! : " + r.reason);
     		return;
     	}
     	
@@ -1077,9 +1077,9 @@ function embedRequest(filename, tempExt) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
-        	alert("변환 요청이 접수 되었습니다. 가입시 등록한 이메일을 확인해 주세요.");
+        	showAlert("변환 요청이 접수 되었습니다. 가입시 등록한 이메일을 확인해 주세요.");
         }
-        else alert("failed - " + r.reason);
+        else showAlert("failed - " + r.reason);
     }, function (request, status, error) {
         
     });
