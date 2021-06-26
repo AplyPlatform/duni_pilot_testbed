@@ -895,16 +895,16 @@ function embedCompassInit() {
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
 			dropArea.css('background-color', '#E3F2FC');
 		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
+			$("#file_upload_img").show();
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 		}).on("dragover", function(e) {
 			e.stopPropagation();
-			e.preventDefault();
-			$("#file_upload_img").show();
-			dropArea.css('background-color', '#E3F2FC');
-		}).on('drop', function(e) {
+			e.preventDefault();						
+		}).on('drop', function(e) {			
 			e.preventDefault();			
 			dropArea.css('background-color', '#FFFFFF');
+			$("#file_upload_img").hide();
 			fileDropCheck(e.originalEvent.dataTransfer.files);
 		});
 		
