@@ -926,23 +926,7 @@ function embedCompassInit() {
 		
 		$("#btnForUploadFlightList").on("click", function(e) {		
 				uploadCheckBeforeCompassEmbed();	
-		});
-		
-		$("#thumbnails").on("click", ".file_data_remover", function(e) {
-			var $target = $(e.target);
-			var idx = $target.attr('filedataidx');	
-			$target.parent().remove();
-			let fileInfo = uploadFilesForCompass[idx];
-			
-			if (isRecordFile(fileInfo.name)) {
-				hasRecordFileInFile = false;
-			}
-			else {
-				hasMovieFileInFile = false;
-			}
-			
-			uploadFilesForCompass = uploadFilesForCompass.splice(idx, 1);
-		});
+		});				
     
     hideLoader();
 }
@@ -1137,24 +1121,29 @@ function setProgress(per) {
 }
 
 function preview(file, idx) {
-	var reader = new FileReader();
-	
 	var iconArea = '<i class="fas fa-map-marker-alt"></i>';
 	if(isMovieFile(file.name)) {
 		iconArea = '<i class="fas fa-video"></i>';
 	}
 	
-	reader.onload = (function(f, idx) {
-		return function(e) {
-			var $div = $('<div class="thumb"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px">'			
-				+ '<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div></td><td>'
-				+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" ></progress></td></tr></table></div>');
-			$("#thumbnails").append($div);
-			f.target = $div;
-		};
-	})(file, idx);
-	
-	reader.readAsDataURL(file);
+	var $div = $('<div id="file_thumb_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px">'			
+		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span></td><td>'
+		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" ></progress></td></tr></table></div>');
+	$("#thumbnails").append($div);							
+				
+	$("#file_data_remover_" + idx).on("click", function(e) {				
+		$("#file_thumb_" + idx).remove();
+		let fileInfo = uploadFilesForCompass[idx];
+		
+		if (isRecordFile(fileInfo.name)) {
+			hasRecordFileInFile = false;
+		}
+		else {
+			hasMovieFileInFile = false;
+		}
+		
+		uploadFilesForCompass = uploadFilesForCompass.splice(idx, 1);
+	});				
 }
 
 
