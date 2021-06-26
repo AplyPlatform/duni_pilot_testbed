@@ -935,8 +935,8 @@ var uploadFilesForCompass = [];
 var hasMovieFileInFile = false;
 var hasRecordFileInFile = false;
 
-var recordFile;
-var videoFile;
+var recordFileForCompass = null;
+var videoFileForCompass = null;
 
 function fileDropCheck(files) {
 	if (files.length > 2) {
@@ -1020,16 +1020,21 @@ function compareIgnoreCase(str1, str2) {
 function uploadCheckBeforeCompassEmbed() {					
 	for(var i=0;i < uploadFilesForCompass.length; i++) {		
 		if (isRecordFile(uploadFilesForCompass[i].name)) {
-			recordFile = uploadFilesForCompass[i];
+			recordFileForCompass = uploadFilesForCompass[i];
 		}
 		else {		
-			videoFile = uploadFilesForCompass[i];
+			videoFileForCompass = uploadFilesForCompass[i];
 		}
 	}
 	
-	var params = {file : recordFile};
+	if (!isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
+		alert("드론영상 1개와 비행기록파일 1개를 선택해 주세요.");
+		return;
+	}
+	
+	var params = {file : recordFileForCompass};
 	getBase64(params, function(ret) {		
-		requestUploadForCompass(ret.base64file, getFileExtension(videoFile.name), recordFile.target.find("progress"));	
+		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForCompass.name), recordFileForCompass.target.find("progress"));	
 	});		
 }
 
@@ -1052,7 +1057,7 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     	progressBar.val(100);
     	
     	runNextSequence( function () {
-					videoFileUpload(videoFile, r.filename, r.extension, r.signedurl);
+					videoFileUpload(videoFileForCompass, r.filename, r.extension, r.signedurl);
 			} );    	    		    		    	        
     }, function (request, status, error) {
         
