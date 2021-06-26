@@ -998,6 +998,8 @@ function uploadCheckBeforeCompassEmbed() {
 		return;
 	}
 	
+	$('#btnForUploadFlightList').prop('disabled', true);
+	
 	var params = {file : recordFileForCompass};
 	getBase64(params, function(ret) {		
 		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForCompass.name), recordFileForCompass.target.find("progress"));	
@@ -1016,7 +1018,8 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 
     ajaxRequest(jdata, function (r) {
     	if(r.result != "success") {
-    		showAlert("error! : " + r.reason);
+    		$('#btnForUploadFlightList').prop('disabled', false);
+    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
     		return;
     	}
     	
@@ -1026,7 +1029,8 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 					videoFileUpload(videoFileForCompass, r.filename, r.extension, r.signedurl);
 			} );    	    		    		    	        
     }, function (request, status, error) {
-        
+      $('#btnForUploadFlightList').prop('disabled', false);
+      showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
     });
 }
 
@@ -1044,11 +1048,20 @@ function embedRequest(filename, tempExt) {
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
         	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
-        	$('#btnForUploadFlightList').prop('disabled', true);
+        	$('#btnForUploadFlightList').prop('disabled', false);
+        	
+        	$("#file_thumb_video").remove();
+        	$("#file_thumb_record").remove();
+					recordFileForCompass = null;					
+					videoFileForCompass = null;					
         }
-        else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
+        else {
+        	$('#btnForUploadFlightList').prop('disabled', false);
+        	showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
+        }
     }, function (request, status, error) {
-        
+        $('#btnForUploadFlightList').prop('disabled', false);
+        showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
     });
 }
 
@@ -1110,7 +1123,7 @@ function preview(file, idx) {
 			recordFileForCompass = null;
 		}
 		else {
-			videoFileForCompass = null
+			videoFileForCompass = null;
 		}				
 	});				
 }
