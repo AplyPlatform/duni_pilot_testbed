@@ -1027,7 +1027,7 @@ function uploadCheckBeforeCompassEmbed() {
 		}
 	}
 	
-	if (!isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
+	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
 		alert("드론영상 1개와 비행기록파일 1개를 선택해 주세요.");
 		return;
 	}
