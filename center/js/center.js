@@ -939,8 +939,7 @@ function fileDropCheck(files) {
 			}
 			else {				
 				console.log(file);
-				recordFileForCompass = file;
-				let idx = uploadFilesForCompass.length - 1;
+				recordFileForCompass = file;				
 				preview(file, "record");
 				isAdded = true;
 			}
