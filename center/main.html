@@ -97,7 +97,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-sidebar-pilot sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-sidebar-pilot sidebar sidebar-dark accordion" aria-expanded="false" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <li class="nav-item"></li>
@@ -138,10 +138,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       		<i class="fas fa-file-archive"></i>
       		<span id="side_menu_flight_record_list">내 기록 보기</span>
       	</a>
-		<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist">
-			<i class="fas fa-globe"></i>
-			<span id="side_menu_flight_record_public_list">공개 기록 보기</span></a>
-	  </li>
+				<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist">
+					<i class="fas fa-globe"></i>
+					<span id="side_menu_flight_record_public_list">공개 기록 보기</span>
+				</a>
+			</li>
 
 	  <!-- Divider -->
       <hr class="sidebar-divider">
