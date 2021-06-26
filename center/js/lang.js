@@ -100,6 +100,8 @@ var LANG_JSON_DATA = {
         "msg_code_empty" : "인증번호를 입력해주세요.",
         "msg_phone_not_verified" : "전화번호인증은 필수입니다. 인증해주세요.",
         // 전화번호인증 end
+        "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
+        "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",
         "msg_select_one_video_one_record" : "드론영상 1개와 비행기록파일 1개만 선택해 주세요.",
         "msg_is_sync_data" : "영상의 길이와 비행기록의 길이가 일치하나요?",
         "msg_youtube_uploaded" : "수정을 반영하려면 \"적용\" 버튼을 클릭해 주세요.",
@@ -320,6 +322,8 @@ var LANG_JSON_DATA = {
         "msg_code_empty" : "Please fill out the verification code.",
         "msg_phone_not_verified" : "Phone number must be verified.",
         // 전화번호인증 end        
+        "msg_pre_embed_compass_request_received" : "Your request has been received. When the processing is complete, the download path of the video file will be notified to the e-mail(",
+        "msg_post_embed_compass_request_received" : ") registered at the time of registration.",
         "msg_select_one_video_one_record" : "Drop only 1 drone video and 1 flight log file.",
         "msg_is_sync_data" : "Is the length of the video the same as the flight record?",
         "msg_youtube_uploaded" : "Click the \"Apply\" button to modify the content.",

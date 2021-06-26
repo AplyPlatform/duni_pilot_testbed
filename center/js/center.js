@@ -1044,7 +1044,7 @@ function embedRequest(filename, tempExt) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
-        	showAlert("변환 요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(" + getCookie("user_email") + ")로 영상파일의 다운로드 경로를 알려 드립니다.");        	
+        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received" + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
         	$('#btnForUploadFlightList').prop('disabled', true);
         }
         else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
