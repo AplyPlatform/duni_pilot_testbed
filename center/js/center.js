@@ -318,45 +318,38 @@ function initPilotCenter() {
     else if (g_str_page_action == "missiondesign") {
         $("#main_contents").load("mission_design.html", function () {
             designInit();
-        });
-        $("#mission_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
             missionGenInit();
-        });
-        $("#mission_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "missionlist") {
         $("#main_contents").load("mission_list.html", function () {
             missionListInit();
-        });
-        $("#mission_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "monitor") {
         $("#main_contents").load("monitor.html", function () {
             monitorInit();
-        });
-        $("#monitor_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "recordupload") {
         $("#main_contents").load("record_upload.html", function () {
             flightrecordUploadInit();
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "embedcompass") {
         $("#main_contents").load("embed_compass.html", function () {
             embedCompassInit();
-        });
-        $("#mission_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "recordlist") {
         $("#main_contents").load("record_list.html", function () {
             flightRecords2DMapInit();
             flightrecordListInit("private");
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "publicrecordlist") {
         $("#main_contents").load("record_list.html", function () {
@@ -364,8 +357,7 @@ function initPilotCenter() {
             addObjectTo2DMap(0, "private", "drone");
             flightRecords2DMapInit();
             flightrecordListInit("public");
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "publicrecordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
@@ -375,8 +367,7 @@ function initPilotCenter() {
             map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("public");
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "recordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
@@ -386,27 +377,23 @@ function initPilotCenter() {
             map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("private");
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "summary_list") {
         $("#main_contents").load("record_list_summary.html", function () {
            flightRecords2DMapInit();
            flightrecordsListSummaryInit("private");
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "summary") {
         $("#main_contents").load("summary.html", function () {
             summaryInit();
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else if (g_str_page_action == "util") {
         $("#main_contents").load("util.html", function () {
             utilInit();
-        });
-        $("#record_menu").addClass("active");
+        });        
     }
     else {
     		showAlert(GET_STRING_CONTENT('msg_error'));
