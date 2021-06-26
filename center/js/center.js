@@ -194,6 +194,8 @@ function setCommonText() {
     	$('#side_menu_flight_plan_design').text(GET_STRING_CONTENT('side_menu_flight_plan_design'));
     	$('#side_menu_flight_plan_list').text(GET_STRING_CONTENT('side_menu_flight_plan_list'));
     	$('#side_menu_flight_plan_mon').text(GET_STRING_CONTENT('side_menu_flight_plan_mon'));
+    	$('#side_menu_compass_embed').text(GET_STRING_CONTENT('side_menu_flight_record_embed_compass'));
+    	
     	$('#top_menu_token').text(GET_STRING_CONTENT('top_menu_token'));
 			$("#view_mode_selector").text(GET_STRING_CONTENT('mode_pilot_label'));
 			$("#droneplaytoken_view").val(getCookie("dev_token"));
@@ -203,12 +205,12 @@ function setCommonText() {
     }
 
     $('#menu_left_top_title_label').text(GET_STRING_CONTENT('menu_left_top_title_label'));
-
+		
     $('#side_menu_dashboard').text(GET_STRING_CONTENT('side_menu_dashboard'));
     $('#side_menu_flight_record').text(GET_STRING_CONTENT('side_menu_flight_record'));
     $('#side_menu_flight_record_upload').text(GET_STRING_CONTENT('side_menu_flight_record_upload'));
     $('#side_menu_flight_record_list').text(GET_STRING_CONTENT('side_menu_flight_record_list'));
-    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));
+    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));    
 
     $('#side_menu_qa').text(GET_STRING_CONTENT('side_menu_qa'));
     $('#side_menu_links').text(GET_STRING_CONTENT('side_menu_links'));
@@ -879,37 +881,16 @@ function flightrecordUploadInit() {
 }
 
 function embedCompassInit() {
-		document.title = GET_STRING_CONTENT('page_flight_rec_upload_title');
+		document.title = GET_STRING_CONTENT('side_menu_flight_record_embed_compass');
     $("#head_title").text(document.title);
 
-    $('#page_about_title').text(GET_STRING_CONTENT('page_flight_rec_upload_title'));
-    $('#page_about_content').text(GET_STRING_CONTENT('upload_about_content'));
+    $('#page_about_title').text(GET_STRING_CONTENT('req_compass_embed_lable'));
+    $('#page_about_content').text(GET_STRING_CONTENT('req_compass_embed_lable'));
 
-    $('#btnForUploadFlightList').text(GET_STRING_CONTENT('msg_upload'));
-
-		$("#desc_for_moviedata_label").text(GET_STRING_CONTENT('input_memo_label'));
-		$("#privacy_for_moviedata_label").text(GET_STRING_CONTENT('privacy_for_moviedata_label'));
-		$("#option_public_label").text(GET_STRING_CONTENT('option_public_label'));
-		$("#option_unlisted_label").text(GET_STRING_CONTENT('option_unlisted_label'));
-		$("#option_private_label").text(GET_STRING_CONTENT('option_private_label'));
-
-    $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
+    $('#btnForUploadFlightList').text(GET_STRING_CONTENT('req_compass_embed_lable'));
     
-    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
-
-    $("#record_name_field").attr("placeholder", GET_STRING_CONTENT('msg_input_record_name'));
-    $("#name_label").text(GET_STRING_CONTENT('name_label'));
-    $("#youtube_url_label").text(GET_STRING_CONTENT('youtube_url_label'));
-    $("#input_memo_label").text(GET_STRING_CONTENT('input_memo_label'));
-
-    $("#input_tag_label").text(GET_STRING_CONTENT('input_tag_label'));
-
-    $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));    
-    
-    $("#tab_menu_set_youtube_address").text(GET_STRING_CONTENT('label_set_youtube_url'));
-    $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));        
-    
-    
+    $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
+            
 		let dropArea = $("#dropArea");						
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
 			$(this).addClass('drag-over');
@@ -940,12 +921,12 @@ var videoFileForCompass = null;
 
 function fileDropCheck(files) {
 	if (files.length > 2) {
-		alert("드론영상 1개와 비행기록파일 1개만 선택해 주세요.");
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;	
 	}
 	
 	if (files.length == 2 && uploadFilesForCompass.length > 0) {
-		alert("드론영상 1개와 비행기록파일 1개만 선택이 가능합니다.");
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;	
 	}
 		
@@ -955,7 +936,7 @@ function fileDropCheck(files) {
 												
 		if (isRecordFile(file.name)) {
 			if (hasRecordFileInFile == true) {
-				alert("비행기록파일은 1개만 선택해 주세요.");
+				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
 			else {
@@ -969,7 +950,7 @@ function fileDropCheck(files) {
 		
 		if (isMovieFile(file.name)) {
 			if (hasMovieFileInFile == true) {
-				alert("드론영상은 1개만 선택해 주세요.");
+				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
 			else {
@@ -983,7 +964,7 @@ function fileDropCheck(files) {
 	}
 	
 	if (beforeSize == uploadFilesForCompass.length) {
-		alert("영상 파일 또는 DJI 비행기록 파일만 선택 가능합니다");		
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 	}
 }
 
@@ -1028,7 +1009,7 @@ function uploadCheckBeforeCompassEmbed() {
 	}
 	
 	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
-		showAlert("드론영상 1개와 비행기록파일 1개를 선택해 주세요.");
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;
 	}
 	
