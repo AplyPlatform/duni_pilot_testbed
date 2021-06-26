@@ -929,6 +929,8 @@ function embedCompassInit() {
 		});
     
     $("#file_upload_img").hide();
+    $('#btnForUploadFlightList').hide();
+    $('#selectFileArea').show();
     hideLoader();
 }
 
@@ -979,7 +981,12 @@ function fileDropCheck(files) {
 		}				
 	}
 	
-	if (isAdded == false) showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));	
+	if (isAdded == false) showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+	
+	if (isSet(videoFileForCompass) && isSet(recordFileForCompass)) {
+		$('#selectFileArea').hide();
+		$('#btnForUploadFlightList').show();
+	}
 }
 
 function isRecordFile(filename) {
@@ -1077,7 +1084,10 @@ function embedRequest(filename, tempExt) {
         	$("#file_thumb_video").remove();
         	$("#file_thumb_record").remove();
 					recordFileForCompass = null;					
-					videoFileForCompass = null;										
+					videoFileForCompass = null;
+					
+					$('#selectFileArea').show();
+					$('#btnForUploadFlightList').hide();
         }
         else {
         	$('#btnForUploadFlightList').prop('disabled', false);
