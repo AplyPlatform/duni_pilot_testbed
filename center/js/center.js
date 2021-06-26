@@ -927,6 +927,10 @@ function embedCompassInit() {
 		$("#input_direct_file").bind('change', function() {
 			fileDropCheck(this.files);
 		});
+		
+		$("#input_direct_file").click(function() {
+			$(this).attr("value", "");
+		});
     
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
