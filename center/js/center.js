@@ -1018,9 +1018,7 @@ function compareIgnoreCase(str1, str2) {
 }
 
 
-function uploadCheckBeforeCompassEmbed() {	
-	uploadStatus.total = uploadFilesForCompass.length;
-			
+function uploadCheckBeforeCompassEmbed() {					
 	for(var i=0;i < uploadFilesForCompass.length; i++) {		
 		if (isRecordFile(uploadFilesForCompass.name)) {
 			recordFile = uploadFilesForCompass[i];
@@ -1071,7 +1069,10 @@ function embedRequest(filename, tempExt) {
     };
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") alert("success !!");
+        if (r.result == "success") {
+        	setProgress(100); //전체 프로그레스바 진행
+        	alert("success !!");
+        }
         else alert("failed - " + r.reason);
     }, function (request, status, error) {
         
@@ -1096,9 +1097,8 @@ function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
 	
 			return xhr;
 		},
-		success : function(ret) {
-			uploadStatus.count++;
-			setProgress(uploadStatus.count / uploadStatus.total * 100); //전체 프로그레스바 진행
+		success : function(ret) {			
+			setProgress(50); //전체 프로그레스바 진행
 										
 			runNextSequence( function () {
 					embedRequest(tempName, tempExt);
