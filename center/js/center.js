@@ -1137,7 +1137,7 @@ function preview(file, idx) {
 	var reader = new FileReader();
 	
 	var iconArea = '"<i class="fas fa-map-marker-alt"></i>';
-	if(isVideoFile(file.name)) {
+	if(isMovieFile(file.name)) {
 		iconArea = '"<i class="fas fa-video"></i>';
 	}
 	
