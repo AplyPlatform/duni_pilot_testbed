@@ -1139,7 +1139,7 @@ function preview(file, idx) {
 		return function(e) {
 			var $div = $('<div class="thumb"> \
 				<progress value="0" max="100" ></progress> \
-				<span style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '"><b>X</b></span> \
+				<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div> \
 				<img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \
 				</div>');
 			$("#thumbnails").append($div);
