@@ -893,15 +893,16 @@ function embedCompassInit() {
             
 		let dropArea = $("#dropArea");						
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
-			$(this).addClass('drag-over');
+			dropArea.css('background-color', '#E3F2FC');
 		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
-			$(this).removeClass('drag-over');
+			dropArea.css('background-color', '#FFFFFF');
 		}).on("dragover", function(e) {
 			e.stopPropagation();
 			e.preventDefault();
+			dropArea.css('background-color', '#E3F2FC');
 		}).on('drop', function(e) {
-			e.preventDefault();
-			$(this).removeClass('drag-over');	
+			e.preventDefault();			
+			dropArea.css('background-color', '#FFFFFF');
 			fileDropCheck(e.originalEvent.dataTransfer.files);
 		});
 		
