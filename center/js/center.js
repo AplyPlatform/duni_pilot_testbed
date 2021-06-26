@@ -895,6 +895,8 @@ function embedCompassInit() {
     $('#btnForUploadFlightList').text(GET_STRING_CONTENT('req_compass_embed_lable'));
     
     $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
+    
+    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
             
 		let dropArea = $("#dropArea");						
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄

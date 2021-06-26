@@ -9824,6 +9824,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 			position: relative;
 			overflow: hidden;
 			display: inline-block;
+			width: 100%;
 }
 		
 .upload-btn-wrapper input[type=file] {
