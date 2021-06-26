@@ -1159,7 +1159,10 @@ function preview(file, idx) {
 		}
 		else {
 			videoFileForCompass = null;
-		}				
+		}
+		
+		$('#selectFileArea').show();
+		$('#btnForUploadFlightList').hide();
 	});				
 }
 
