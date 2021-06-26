@@ -998,6 +998,7 @@ function uploadCheckBeforeCompassEmbed() {
 		return;
 	}
 	
+	showLoader();
 	$('#btnForUploadFlightList').prop('disabled', true);
 	
 	var params = {file : recordFileForCompass};
@@ -1019,7 +1020,8 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     ajaxRequest(jdata, function (r) {
     	if(r.result != "success") {
     		$('#btnForUploadFlightList').prop('disabled', false);
-    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
+    		hideLoader();
+    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);    		
     		return;
     	}
     	
@@ -1030,6 +1032,7 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 			} );    	    		    		    	        
     }, function (request, status, error) {
       $('#btnForUploadFlightList').prop('disabled', false);
+      hideLoader();
       showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
     });
 }
@@ -1045,6 +1048,7 @@ function embedRequest(filename, tempExt) {
     };
 
     ajaxRequest(jdata, function (r) {
+    		hideLoader();
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
         	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
@@ -1053,13 +1057,14 @@ function embedRequest(filename, tempExt) {
         	$("#file_thumb_video").remove();
         	$("#file_thumb_record").remove();
 					recordFileForCompass = null;					
-					videoFileForCompass = null;					
+					videoFileForCompass = null;										
         }
         else {
         	$('#btnForUploadFlightList').prop('disabled', false);
         	showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
         }
     }, function (request, status, error) {
+    		hideLoader();
         $('#btnForUploadFlightList').prop('disabled', false);
         showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
     });
