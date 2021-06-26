@@ -1096,7 +1096,9 @@ function embedRequest(filename, tempExt) {
 }
 
 
-function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {						
+function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
+	var $selfProgress = videoFile.target.find("progress");
+
 	$.ajax({
 		url: tempUrl,
 		data : videoFile,
