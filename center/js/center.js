@@ -1036,7 +1036,7 @@ function compareIgnoreCase(str1, str2) {
 
 function uploadCheckBeforeCompassEmbed() {					
 	for(var i=0;i < uploadFilesForCompass.length; i++) {		
-		if (isRecordFile(uploadFilesForCompass.name)) {
+		if (isRecordFile(uploadFilesForCompass[i].name)) {
 			recordFile = uploadFilesForCompass[i];
 		}
 		else {		
@@ -1135,12 +1135,18 @@ function setProgress(per) {
 
 function preview(file, idx) {
 	var reader = new FileReader();
+	
+	var iconArea = '"<i class="fas fa-map-marker-alt"></i>';
+	if(isVideoFile(file.name)) {
+		iconArea = '"<i class="fas fa-video"></i>';
+	}
+	
 	reader.onload = (function(f, idx) {
 		return function(e) {
-			var $div = $('<div class="thumb"> \
-				<progress value="0" max="100" ></progress> \
+			var $div = $('<div class="thumb">'
+				+ iconArea +
+				'<progress value="0" max="100" ></progress> \
 				<div style="cursor:pointer" class="file_data_remover" filedataidx="' + idx + '">X</div> \
-				<img src="' + e.target.result + '" title="' + escape(f.name) + '"/> \
 				</div>');
 			$("#thumbnails").append($div);
 			f.target = $div;
