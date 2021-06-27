@@ -42,7 +42,7 @@ var LANG_JSON_DATA = {
         "title_history_chkbox": "비행영상",        
         "modifyBtnForMovieData": "영상정보 수정",
         "req_compass_embed_lable": "나침반 삽입 요청",
-        "label_compass_file_drop_area" : "이곳에 드론의 영상과 DJI비행기록 파일을 올려주세요.",
+        "label_compass_file_drop_area" : "이곳에 드론의 영상과 DJI 비행기록 파일을 올려주세요.",
         "flighttime_input_data_label": "촬영시각",
         "registered_datetime_label" : "등록시각",
         "option_public_label": "공개",
