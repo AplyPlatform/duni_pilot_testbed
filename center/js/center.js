@@ -747,8 +747,7 @@ function flightrecordUploadInit() {
 		$("#option_private_label").text(GET_STRING_CONTENT('option_private_label'));
 
     $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
-    $('#duni_flight_record_format_label').text(GET_STRING_CONTENT('duni_flight_record_format_label'));
-    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
+    $('#duni_flight_record_format_label').text(GET_STRING_CONTENT('duni_flight_record_format_label'));    
 
     $("#record_name_field").attr("placeholder", GET_STRING_CONTENT('msg_input_record_name'));
     $("#name_label").text(GET_STRING_CONTENT('name_label'));
@@ -758,6 +757,7 @@ function flightrecordUploadInit() {
     $("#input_tag_label").text(GET_STRING_CONTENT('input_tag_label'));
 
     $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
+    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
     $("#btnForAddressCheck").text(GET_STRING_CONTENT('btnForAddressCheck'));
 
     $("#tab_menu_upload_selector_dji").text(GET_STRING_CONTENT('tab_menu_upload_selector_dji'));
@@ -893,6 +893,10 @@ function embedCompassInit() {
     $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
     
     $('#label_for_colorpicker').text(GET_STRING_CONTENT('label_for_colorpicker'));
+    
+    $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
+    $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
+    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
             
 		let dropArea = $("#dropArea");						
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
@@ -924,7 +928,12 @@ function embedCompassInit() {
 			$("#input_direct_file").val("")
 		});
 		
-		$("#colorPicker").spectrum();
+		$("#colorPicker").spectrum({
+		  type: "color",
+		  showInput: true,
+		  showInitial: true,
+		  showAlpha: false
+		});
     
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
