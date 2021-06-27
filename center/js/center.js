@@ -92,7 +92,7 @@ var g_params_for_upload_flight_rec = {};
 
 var g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD", "STOP_RECORD", "ROTATE_AIRCRAFT", "GIMBAL_PITCH", "NONE", "CAMERA_ZOOM", "CAMERA_FOCUS"];
 
-var g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };		
+var g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
 
 
 $(function () {
@@ -122,11 +122,11 @@ $(function () {
     setViewMode();
     setCommonText();
     initPilotCenter();
-    
-    //사이드바 기본 접기    
+
+    //사이드바 기본 접기
     $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");		  
-	  $('.sidebar .collapse').collapse('hide');		      
+    $(".sidebar").toggleClass("toggled");
+	  $('.sidebar .collapse').collapse('hide');
 });
 
 function goIndex(doAction) {
@@ -164,7 +164,7 @@ function setViewMode() {
 
 	if(g_str_cur_viewmode == "") g_str_cur_viewmode = "pilot";
 
-	if(g_str_cur_viewmode == "pilot") {				
+	if(g_str_cur_viewmode == "pilot") {
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "developer", 1);
 			GATAGM('view_mode_selector_developer', 'MEMU');
@@ -172,7 +172,7 @@ function setViewMode() {
 		});
 	}
 	else {
-		
+
 		$('#view_mode_selector').click(function(){
 			setCookie("viewmode", "pilot", 1);
 			GATAGM('view_mode_selector_pilot', 'MEMU');
@@ -194,7 +194,7 @@ function setCommonText() {
     	$('#side_menu_flight_plan_list').text(GET_STRING_CONTENT('side_menu_flight_plan_list'));
     	$('#side_menu_flight_plan_mon').text(GET_STRING_CONTENT('side_menu_flight_plan_mon'));
     	$('#side_menu_compass_embed').text(GET_STRING_CONTENT('side_menu_flight_record_embed_compass'));
-    	
+
     	$('#top_menu_token').text(GET_STRING_CONTENT('top_menu_token'));
 			$("#view_mode_selector").text(GET_STRING_CONTENT('mode_pilot_label'));
 			$("#droneplaytoken_view").val(getCookie("dev_token"));
@@ -204,12 +204,12 @@ function setCommonText() {
     }
 
     $('#menu_left_top_title_label').text(GET_STRING_CONTENT('menu_left_top_title_label'));
-		
+
     $('#side_menu_dashboard').text(GET_STRING_CONTENT('side_menu_dashboard'));
     $('#side_menu_flight_record').text(GET_STRING_CONTENT('side_menu_flight_record'));
     $('#side_menu_flight_record_upload').text(GET_STRING_CONTENT('side_menu_flight_record_upload'));
     $('#side_menu_flight_record_list').text(GET_STRING_CONTENT('side_menu_flight_record_list'));
-    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));    
+    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));
 
     $('#side_menu_qa').text(GET_STRING_CONTENT('side_menu_qa'));
     $('#side_menu_links').text(GET_STRING_CONTENT('side_menu_links'));
@@ -319,38 +319,38 @@ function initPilotCenter() {
     else if (g_str_page_action == "missiondesign") {
         $("#main_contents").load("mission_design.html", function () {
             designInit();
-        });        
+        });
     }
     else if (g_str_page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
             missionGenInit();
-        });        
+        });
     }
     else if (g_str_page_action == "missionlist") {
         $("#main_contents").load("mission_list.html", function () {
             missionListInit();
-        });        
+        });
     }
     else if (g_str_page_action == "monitor") {
         $("#main_contents").load("monitor.html", function () {
             monitorInit();
-        });        
+        });
     }
     else if (g_str_page_action == "recordupload") {
         $("#main_contents").load("record_upload.html", function () {
             flightrecordUploadInit();
-        });        
+        });
     }
     else if (g_str_page_action == "embedcompass") {
         $("#main_contents").load("embed_compass.html", function () {
             embedCompassInit();
-        });        
+        });
     }
     else if (g_str_page_action == "recordlist") {
         $("#main_contents").load("record_list.html", function () {
             flightRecords2DMapInit();
             flightrecordListInit("private");
-        });        
+        });
     }
     else if (g_str_page_action == "publicrecordlist") {
         $("#main_contents").load("record_list.html", function () {
@@ -358,7 +358,7 @@ function initPilotCenter() {
             addObjectTo2DMap(0, "private", "drone");
             flightRecords2DMapInit();
             flightrecordListInit("public");
-        });        
+        });
     }
     else if (g_str_page_action == "publicrecordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
@@ -368,7 +368,7 @@ function initPilotCenter() {
             map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("public");
-        });        
+        });
     }
     else if (g_str_page_action == "recordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
@@ -378,23 +378,23 @@ function initPilotCenter() {
             map3DInit();
             addObjectTo3DMap(0, "private", "drone");
             flightDetailInit("private");
-        });        
+        });
     }
     else if (g_str_page_action == "summary_list") {
         $("#main_contents").load("record_list_summary.html", function () {
            flightRecords2DMapInit();
            flightrecordsListSummaryInit("private");
-        });        
+        });
     }
     else if (g_str_page_action == "summary") {
         $("#main_contents").load("summary.html", function () {
             summaryInit();
-        });        
+        });
     }
     else if (g_str_page_action == "util") {
         $("#main_contents").load("util.html", function () {
             utilInit();
-        });        
+        });
     }
     else {
     		showAlert(GET_STRING_CONTENT('msg_error'));
@@ -747,7 +747,7 @@ function flightrecordUploadInit() {
 		$("#option_private_label").text(GET_STRING_CONTENT('option_private_label'));
 
     $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
-    $('#duni_flight_record_format_label').text(GET_STRING_CONTENT('duni_flight_record_format_label'));    
+    $('#duni_flight_record_format_label').text(GET_STRING_CONTENT('duni_flight_record_format_label'));
 
     $("#record_name_field").attr("placeholder", GET_STRING_CONTENT('msg_input_record_name'));
     $("#name_label").text(GET_STRING_CONTENT('name_label'));
@@ -766,7 +766,7 @@ function flightrecordUploadInit() {
     $("#tab_menu_set_youtube_address").text(GET_STRING_CONTENT('label_set_youtube_url'));
     $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));
     $("#tab_menu_set_no_video").text(GET_STRING_CONTENT('label_set_no_video'));
-    
+
 
     $("#flighttime_input_data_label").text(GET_STRING_CONTENT('flighttime_input_data_label'));
 
@@ -887,54 +887,54 @@ function embedCompassInit() {
     $('#page_about_content').text(GET_STRING_CONTENT('req_compass_embed_lable'));
 
     $('#btnForUploadFlightList').text(GET_STRING_CONTENT('req_compass_embed_lable'));
-    
+
     $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
-    
+
     $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
-    
+
     $('#label_for_colorpicker').text(GET_STRING_CONTENT('label_for_colorpicker'));
-    
+
     $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
     $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
     $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
-            
-		let dropArea = $("#dropArea");						
+
+		let dropArea = $("#dropArea");
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
-		}).on("dragleave", function(e) { //드래그 요소가 나갔을때			
+		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 		}).on("dragover", function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-		}).on('drop', function(e) {			
-			e.preventDefault();			
+		}).on('drop', function(e) {
+			e.preventDefault();
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 			fileDropCheck(e.originalEvent.dataTransfer.files);
 		});
-		
-		$("#btnForUploadFlightList").on("click", function(e) {		
-				uploadCheckBeforeCompassEmbed();	
-		});				
-		
+
+		$("#btnForUploadFlightList").on("click", function(e) {
+				uploadCheckBeforeCompassEmbed();
+		});
+
 		$("#input_direct_file").bind('change', function() {
 			fileDropCheck(this.files);
 		});
-		
+
 		$("#input_direct_file").click(function() {
 			$(this).attr("value", "");
 			$("#input_direct_file").val("")
 		});
-		
+
 		$("#colorPicker").spectrum({
 		  type: "color",
 		  showInput: true,
 		  showInitial: true,
 		  showAlpha: false
 		});
-    
+
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
     $('#selectFileArea').show();
@@ -947,68 +947,68 @@ var videoFileForCompass = null;
 function fileDropCheck(files) {
 	if (files.length > 2) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return;	
+		return;
 	}
-	
+
 	if (files.length == 2) {
 		if (isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
 			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-			return;	
+			return;
 		}
 	}
-	
+
 	var isAdded = false;
 	for(var i = 0; i < files.length; i++) {
 		var file = files[i];
-												
+
 		if (isRecordFile(file.name)) {
 			if (isSet(recordFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
-			else {				
+			else {
 				console.log(file);
-				recordFileForCompass = file;				
+				recordFileForCompass = file;
 				preview(file, "record");
 				isAdded = true;
 			}
 		}
-		
+
 		if (isMovieFile(file.name)) {
 			if (isSet(videoFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return;
 			}
-			else {				
+			else {
 				console.log(file);
-				videoFileForCompass = file;				
+				videoFileForCompass = file;
 				preview(file, "video");
 				isAdded = true;
 			}
-		}				
+		}
 	}
-	
+
 	if (isAdded == false) showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-	
+
 	if (isSet(videoFileForCompass) && isSet(recordFileForCompass)) {
 		$('#selectFileArea').hide();
 		$('#btnForUploadFlightList').show();
 	}
 }
 
-function uploadCheckBeforeCompassEmbed() {								
+function uploadCheckBeforeCompassEmbed() {
 	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;
 	}
-	
+
 	showLoader();
 	$('#btnForUploadFlightList').prop('disabled', true);
-	
+
 	var params = {file : recordFileForCompass};
-	getBase64(params, function(ret) {		
-		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForCompass.name), recordFileForCompass.target.find("progress"));	
-	});		
+	getBase64(params, function(ret) {
+		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForCompass.name), recordFileForCompass.target.find("progress"));
+	});
 }
 
 function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
@@ -1018,22 +1018,22 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     	"daction": "req_upload",
     	"clientid": userid,
     	"extension" : tempExt,
-    	"recordfile" : base64Recordfile    	
+    	"recordfile" : base64Recordfile
     };
 
     ajaxRequest(jdata, function (r) {
     	if(r.result != "success") {
     		$('#btnForUploadFlightList').prop('disabled', false);
     		hideLoader();
-    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);    		
+    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
     		return;
     	}
-    	
+
     	progressBar.val(100);
-    	
+
     	runNextSequence( function () {
 					videoFileUpload(videoFileForCompass, r.filename, r.extension, r.signedurl);
-			} );    	    		    		    	        
+			} );
     }, function (request, status, error) {
       $('#btnForUploadFlightList').prop('disabled', false);
       hideLoader();
@@ -1042,30 +1042,30 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 }
 
 function embedRequest(filename, tempExt) {
-	
+
 		var color = $("#colorPicker").spectrum("get");
 		var userid = getCookie("dev_user_id");
     var jdata = {
     	"action": "position",
     	"daction": "compass_embed",
     	"clientid": userid,
-    	"extension" : tempExt,    	
+    	"extension" : tempExt,
     	"filename" : filename,
-    	"color": color.toRgb() 
+    	"color": color.toRgb()
     };
 
     ajaxRequest(jdata, function (r) {
     		hideLoader();
         if (r.result == "success") {
         	setProgress(100); //전체 프로그레스바 진행
-        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));        	
+        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));
         	$('#btnForUploadFlightList').prop('disabled', false);
-        	
+
         	$("#file_thumb_video").remove();
         	$("#file_thumb_record").remove();
-					recordFileForCompass = null;					
+					recordFileForCompass = null;
 					videoFileForCompass = null;
-					
+
 					$('#selectFileArea').show();
 					$('#btnForUploadFlightList').hide();
         }
@@ -1097,12 +1097,12 @@ function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
 				var percent = e.loaded * 100 / e.total;
 				$selfProgress.val(percent); //개별 파일의 프로그레스바 진행
 			};
-	
+
 			return xhr;
 		},
-		success : function(ret) {			
+		success : function(ret) {
 			setProgress(50); //전체 프로그레스바 진행
-										
+
 			runNextSequence( function () {
 					embedRequest(tempName, tempExt);
 				} );
@@ -1120,25 +1120,25 @@ function preview(file, idx) {
 	if(isMovieFile(file.name)) {
 		iconArea = '<i class="fas fa-video"></i>';
 	}
-	
-	var $div = $('<div id="file_thumb_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'			
+
+	var $div = $('<div id="file_thumb_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
 		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span></td><td class="text-left">'
 		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></td></tr></table></div>');
 	$("#thumbnails").append($div);
-	file.target = $div;							
-				
-	$("#file_data_remover_" + idx).on("click", function(e) {				
-		$("#file_thumb_" + idx).remove();		
+	file.target = $div;
+
+	$("#file_data_remover_" + idx).on("click", function(e) {
+		$("#file_thumb_" + idx).remove();
 		if (isRecordFile(file.name)) {
 			recordFileForCompass = null;
 		}
 		else {
 			videoFileForCompass = null;
 		}
-		
+
 		$('#selectFileArea').show();
 		$('#btnForUploadFlightList').hide();
-	});				
+	});
 }
 
 
@@ -1192,7 +1192,7 @@ function execDaumPostcode(){
         }
     }).open();
 }
-    
+
 
 function monitorInit() {
 		map2DInit();
@@ -1359,7 +1359,7 @@ function flightrecordListInit(target) {
     $("#date_label").text(GET_STRING_CONTENT('date_label'));
     $("#manage_label").text(GET_STRING_CONTENT('manage_label'));
 
-    $("#search_key").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));				
+    $("#search_key").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
 
 		$("#search_key").keypress(function(e) {
         if (e.which == 13){
@@ -1367,7 +1367,7 @@ function flightrecordListInit(target) {
         		searchFlightRecord(target, $("#search_key").val());
         }
     });
-		
+
     $("#btnForSearchFlightRecord").click(function () {
         GATAGM('btnForSearchFlightRecord', 'CONTENT');
         searchFlightRecord(target, $("#search_key").val());
@@ -2649,8 +2649,13 @@ function askToken() {
     var useremail = getCookie("user_email");
     var usertoken = getCookie("user_token");
     var userid = getCookie("dev_user_id");
-    if (isSet(useremail) == false || isSet(userid) == false || isSet(usertoken) == false)
-        return false;
+    if (isSet(useremail) == false || isSet(userid) == false || isSet(usertoken) == false) {
+				let page_action = getQueryVariable("page_action");
+				if (page_action != "") {
+					setCookie("last_action", page_action, 1);
+        	return false;
+				}
+		}
 
     $("#email_field").text(useremail);
 
@@ -3007,7 +3012,7 @@ function searchFlightRecord(target, keyword) {
                 $('#loadMoreArea').show();
             }
             else {
-                g_more_key_for_data = null;                
+                g_more_key_for_data = null;
                 $('#loadMoreArea').hide(1500);
             }
 
@@ -3518,10 +3523,10 @@ function showDataWithName(target, target_key, name) {
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
-          
+
     			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
-				
+
 				if (isSet(fdata.cada)) {
 						setAddressAndCada("#map_address", fdata.address, fdata.cada, g_vector_2D_mainmap_for_cada);
         }
@@ -3764,7 +3769,7 @@ function appendFlightRecordTable(target, target_key, item) {
 
     var flat = (isSet(item.flat) ? item.flat * 1 : -999);
 		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
-		
+
 		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
@@ -3815,14 +3820,14 @@ function appendFlightRecordTable(target, target_key, item) {
 
     appendRow = appendRow + "</div></div>";
     appendRow = appendRow + "<div class='row'>";
-    
-    
+
+
     if (isSet(item.starttime)) {
-    	appendRow = appendRow + "<div class='col-sm text-left'><span class='text-xs mb-1'>" + GET_STRING_CONTENT('flighttime_input_data_label') + "</span> <span class='text-xs mb-1'>" 
-    							+ makeDateTimeFormat(new Date(item.starttime), true) 
+    	appendRow = appendRow + "<div class='col-sm text-left'><span class='text-xs mb-1'>" + GET_STRING_CONTENT('flighttime_input_data_label') + "</span> <span class='text-xs mb-1'>"
+    							+ makeDateTimeFormat(new Date(item.starttime), true)
     							+ "</span></div>";
     }
-    
+
     appendRow = appendRow + "<div class='col-sm text-right'><span class='text-xs mb-1'>" + GET_STRING_CONTENT('registered_datetime_label') + "</span> <span class='text-xs mb-1'>" + dtimestamp + "</span>";
     appendRow = appendRow + "</div></div><div class='row'><div class='col-sm text-right'>"
         + "<h6><span class='badge badge-secondary' style='cursor: pointer' id='btnForRemoveFlightData_" + curIndex + "'>" + GET_STRING_CONTENT('msg_remove') + "</span></h6>"
@@ -4901,7 +4906,7 @@ function uploadFlightList(isUpdate) {
 
 		var youtube_data = $("#youtube_url_data").val();
     var files = document.getElementById('flight_record_file').files;
-    
+
     var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
 		if (cVal == "tab_menu_set_no_video") {
       youtube_data = "";
@@ -5369,24 +5374,24 @@ function setYoutubePlayerForDetaileView(d_id) {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function onYouTubeIframeAPIReady() {		
+function onYouTubeIframeAPIReady() {
 		if (g_str_cur_viewmode == "pilot" &&
-				(g_str_page_action == "recordlist" 
-				|| g_str_page_action == "publicrecordlist" 
-				|| g_str_page_action == "center" 
+				(g_str_page_action == "recordlist"
+				|| g_str_page_action == "publicrecordlist"
+				|| g_str_page_action == "center"
 				|| g_str_page_action == "summary_list")) {
 			getFullFlightRecords(g_str_current_target);
     	getFlightRecords(g_str_current_target);
     	return;
     }
-    
+
     if (g_str_cur_viewmode != "pilot"
     		&& g_str_page_action == "center" ) {
     	getFullFlightRecords(g_str_current_target);
     	getFlightRecords(g_str_current_target);
     	return;
     }
-    
+
     if (g_str_cur_viewmode != "pilot") return;
 
     g_youtube_player_for_detail_view = new YT.Player('youTubePlayer', {
@@ -5529,7 +5534,7 @@ function getCompanyList() {
 	  });
 }
 
-function addChartItem(i, item) {    
+function addChartItem(i, item) {
     g_array_flight_rec.push(item);
     g_array_altitude_data_for_chart.push({ x: i, y: item.alt });
 }
