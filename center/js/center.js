@@ -1040,7 +1040,7 @@ function embedRequest(filename, tempExt) {
     	"clientid": userid,
     	"extension" : tempExt,    	
     	"filename" : filename,
-    	"color": color
+    	"color": color.toRgb() 
     };
 
     ajaxRequest(jdata, function (r) {
