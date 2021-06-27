@@ -921,6 +921,8 @@ function embedCompassInit() {
 			$(this).attr("value", "");
 			$("#input_direct_file").val("")
 		});
+		
+		$("#colorPicker").spectrum();
     
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
@@ -1029,13 +1031,16 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 }
 
 function embedRequest(filename, tempExt) {
+	
+		var color = $("#colorPicker").spectrum("get");
 		var userid = getCookie("dev_user_id");
     var jdata = {
     	"action": "position",
     	"daction": "compass_embed",
     	"clientid": userid,
     	"extension" : tempExt,    	
-    	"filename" : filename
+    	"filename" : filename,
+    	"color": color
     };
 
     ajaxRequest(jdata, function (r) {
