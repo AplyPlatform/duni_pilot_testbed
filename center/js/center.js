@@ -155,6 +155,13 @@ function setCurrentViewMode() {
 	else {
 		g_str_cur_viewmode = "pilot";
 	}
+	
+	let from = getQueryVariable("from");
+	if (from == "ios") {
+		$("#sideTopBar").hide();
+		$("#accordionSidebar").hide();
+		$("#footerArea").hide();
+	}
 }
 
 function setViewMode() {
