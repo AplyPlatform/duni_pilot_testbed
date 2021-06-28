@@ -156,6 +156,8 @@ function setCurrentViewMode() {
 		g_str_cur_viewmode = "pilot";
 	}
 	
+	/* 앱에서 접속하면 상단, 사이드, 하단의 메뉴와 푸터 감추기 */
+	// --[
 	let from = getCookie("user_from");
 	if (from == "app") {
 		$("#sideTopBar").hide();
@@ -164,6 +166,7 @@ function setCurrentViewMode() {
 		if ($("#titleSection").length)
 			$("#titleSection").hide();
 	}
+	// ]--
 }
 
 function setViewMode() {
@@ -1305,6 +1308,8 @@ function flightDetailInit(target) {
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
+    
+    $('#no_record_data_view_label').text(GET_STRING_CONTENT('no_record_data_view_label'));
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
 
@@ -3532,8 +3537,12 @@ function showDataWithName(target, target_key, name) {
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
+          $("#no_record_data_view").show();
 
     			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
+				}
+				else {
+					$("#no_record_data_view").hide();
 				}
 
 				if (isSet(fdata.cada)) {
