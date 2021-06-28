@@ -204,8 +204,7 @@ function setCommonText() {
     	$('#side_menu_flight_plan').text(GET_STRING_CONTENT('side_menu_flight_plan'));
     	$('#side_menu_flight_plan_design').text(GET_STRING_CONTENT('side_menu_flight_plan_design'));
     	$('#side_menu_flight_plan_list').text(GET_STRING_CONTENT('side_menu_flight_plan_list'));
-    	$('#side_menu_flight_plan_mon').text(GET_STRING_CONTENT('side_menu_flight_plan_mon'));
-    	$('#side_menu_compass_embed').text(GET_STRING_CONTENT('side_menu_flight_record_embed_compass'));
+    	$('#side_menu_flight_plan_mon').text(GET_STRING_CONTENT('side_menu_flight_plan_mon'));    	
 
     	$('#top_menu_token').text(GET_STRING_CONTENT('top_menu_token'));
 			$("#view_mode_selector").text(GET_STRING_CONTENT('mode_pilot_label'));
@@ -213,16 +212,16 @@ function setCommonText() {
     }
     else {
     	$("#view_mode_selector").text(GET_STRING_CONTENT('mode_developer_label'));
+    	$('#side_menu_flight_record').text(GET_STRING_CONTENT('side_menu_flight_record'));
+	    $('#side_menu_flight_record_upload').text(GET_STRING_CONTENT('side_menu_flight_record_upload'));
+	    $('#side_menu_flight_record_list').text(GET_STRING_CONTENT('side_menu_flight_record_list'));
+	    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));
+	    $('#side_menu_compass_embed').text(GET_STRING_CONTENT('side_menu_flight_record_embed_compass'));
     }
 
     $('#menu_left_top_title_label').text(GET_STRING_CONTENT('menu_left_top_title_label'));
 
     $('#side_menu_dashboard').text(GET_STRING_CONTENT('side_menu_dashboard'));
-    $('#side_menu_flight_record').text(GET_STRING_CONTENT('side_menu_flight_record'));
-    $('#side_menu_flight_record_upload').text(GET_STRING_CONTENT('side_menu_flight_record_upload'));
-    $('#side_menu_flight_record_list').text(GET_STRING_CONTENT('side_menu_flight_record_list'));
-    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));
-
     $('#side_menu_qa').text(GET_STRING_CONTENT('side_menu_qa'));
     $('#side_menu_links').text(GET_STRING_CONTENT('side_menu_links'));
     $('#side_menu_links_comm').text(GET_STRING_CONTENT('side_menu_links_comm'));
