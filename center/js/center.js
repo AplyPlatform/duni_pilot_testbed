@@ -161,6 +161,8 @@ function setCurrentViewMode() {
 		$("#sideTopBar").hide();
 		$("#accordionSidebar").hide();
 		$("#footerArea").hide();
+		if ($("#titleSection").length)
+			$("#titleSection").hide();
 	}
 }
 
