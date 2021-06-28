@@ -3828,19 +3828,18 @@ function appendFlightRecordTable(target, target_key, item) {
     }
 
     appendRow = appendRow + "</div></div>";
-    appendRow = appendRow + "<div class='row'><div class='col-md-12 text-left'>";
+    appendRow = appendRow + "<div class='row'><div class='col-md-10 text-left'>";
 
 
     if (isSet(item.starttime)) {
     	appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('flighttime_input_data_label') + "</span> <span class='text-xs mb-1'>"
     							+ makeDateTimeFormat(new Date(item.starttime), true)
-    							+ " / </span>";
+    							+ "<br></span>";
     }
 
     appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('registered_datetime_label') + "</span> <span class='text-xs mb-1'>" + dtimestamp + "</span>";
-    appendRow = appendRow + "</div></div><div class='row'><div class='col-sm text-right'>"
+    appendRow = appendRow + "</div><div class='col-md-2 text-right'>"
         + "<h6><span class='badge badge-secondary' style='cursor: pointer' id='btnForRemoveFlightData_" + curIndex + "'>" + GET_STRING_CONTENT('msg_remove') + "</span></h6>"
-
         + "</div></div></div></div>"; //col, row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
