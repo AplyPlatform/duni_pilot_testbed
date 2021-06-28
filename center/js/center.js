@@ -3278,7 +3278,7 @@ function showDataWithName(target, target_key, name) {
         }
 
 				var fdata = r.data;
-        setFlightRecordDataToView(target, name, fdata);
+        setFlightRecordToView(target, name, fdata);
 
 				hideLoader();
 
@@ -3288,7 +3288,7 @@ function showDataWithName(target, target_key, name) {
     });
 }
 
-function setFlightRecordDataToView(target, name, fdata) {				
+function setFlightRecordToView(target, name, fdata) {				
         var n_title = name;
         if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
             n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg');
