@@ -103,7 +103,7 @@ var LANG_JSON_DATA = {
         // 이메일 중복확인
         "msg_email_empty" : "이메일을 입력해주세요",
         "msg_invalid_email" : "올바른 이메일 형식이 아닙니다. 다시 입력해주세요.",
-        "msg_email_alreay_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
+        "msg_email_already_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
         "msg_email_valid" : "사용 가능한 이메일입니다.",
         "msg_email_not_verified" : "이메일 중복확인은 필수입니다. 중복확인을 해주세요.",
         // 이메일 중복확인 end
