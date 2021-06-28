@@ -129,13 +129,13 @@
 								</div>
 								
 								<div class="row">
-    							<div class="col">
+    							<div class="col-md-6">
 										<div class="btn-group btn-group-justified" data-toggle="buttons">
 											  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
 											  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
 										</div>									
     							</div>
-									<div class="col">
+									<div class="col-md-6">
 										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
 	                  <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                  		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
@@ -191,32 +191,29 @@
     <div class="card shadow mb-4">
     		<div class="card-body">
     			<div class="row">
-    				<div class="col-sm">
-    					<div class='form-group'>
-    						<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
-    						<br>
-    						<label for="tagTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_tag_label">태그</label>
-    						<div class='input-group'>
-									<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
-									<div id="tagArrayarea"></div>
-		              <button class="btn btn-primary btn-sm" type="button" id="flightTagBtn">태그수정</button>
-								</div>
-							</div>
+    				<div class="col-md-12"><span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span></div>
+    			</div>
+    			<div class="row">
+    				<div class="col-md-10">    					
+							<label for="tagTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_tag_label">태그</label>    						
+							<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
+							<div id="tagArrayarea"></div>		          
+    				</div>
+    				<div class="col-md-2">
+    					<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
     				</div>
     			</div>
     			<div class="row">
-	    			<div class="col-sm">
-							<div class='form-group'>
-								<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모</label>
-								<input class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
-								<span class="input-group-append">
-									<button class='btn btn-primary btn-sm' type='button' id="flightMemoBtn">메모수정</button>
-								</span>
-							</div>
+    				<div class="col-md-10">							
+							<label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_memo_label">메모</label>
+							<input class='form-control' id='memoTextarea' name='memoTextarea' rows='3'></textarea>
 						</div>
+						<div class="col-md-2">
+									<button class='btn btn-primary btn-sm' type='button' id="flightMemoBtn">메모수정</button>								
+						</div>						
 					</div>
           <div class="row">
-						<div class="col-sm">
+						<div class="col-md-12">
 	            <div class="btn-group" role="group">
 	      		      <button class='btn btn-secondary btn-sm' type='button' id="btnForSharing">공유하기</button>
 	                <button class='btn btn-secondary btn-sm' type='button' id="btnForPublic">공개하기</button>

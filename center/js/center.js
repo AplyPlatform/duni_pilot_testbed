@@ -3277,8 +3277,18 @@ function showDataWithName(target, target_key, name) {
             return;
         }
 
-        var fdata = r.data;
+				var fdata = r.data;
+        setFlightRecordDataToView(target, name, fdata);
 
+				hideLoader();
+
+    }, function (request, status, error) {
+        hideLoader();
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
+}
+
+function setFlightRecordDataToView(target, name, fdata) {				
         var n_title = name;
         if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
             n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg');
@@ -3290,9 +3300,7 @@ function showDataWithName(target, target_key, name) {
             if ((target == "public") && "owner_email" in fdata) {
                 n_title = name + " / " + fdata.owner_email;
             }
-        }
-
-        setFlightRecordTitle(n_title);
+        }        
 
         g_b_video_view_visible_state = false;
 
@@ -3500,13 +3508,6 @@ function showDataWithName(target, target_key, name) {
             var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
           	drawCadastral("#map_address", name, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
         }
-
-				hideLoader();
-
-    }, function (request, status, error) {
-        hideLoader();
-        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-    });
 }
 
 function moveToStartPoint3D(lng, lat, alt) {
