@@ -216,7 +216,7 @@ function verifyCode(){
 // 이메일 인증 혜지프로
 function checkEmail(){
     let email = $('#droneplay_email').val();
-    if(verification_code == ""){
+    if(email == ""){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
     } 
