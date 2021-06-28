@@ -100,6 +100,13 @@ var LANG_JSON_DATA = {
         "msg_code_empty" : "인증번호를 입력해주세요.",
         "msg_phone_not_verified" : "전화번호인증은 필수입니다. 인증해주세요.",
         // 전화번호인증 end
+        // 이메일 중복확인
+        "msg_email_empty" : "이메일을 입력해주세요",
+        "msg_invalid_email" : "올바른 이메일 형식이 아닙니다. 다시 입력해주세요.",
+        "msg_email_alreay_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
+        "msg_email_valid" : "사용 가능한 이메일입니다.",
+        "msg_email_not_verified" : "이메일 중복확인은 필수입니다. 중복확인을 해주세요.",
+        // 이메일 중복확인 end
         "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
         "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",
         "msg_select_one_video_one_record" : "드론영상 1개와 비행기록파일 1개만 업로드 할 수 있습니다.",

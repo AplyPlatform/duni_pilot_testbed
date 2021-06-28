@@ -14,6 +14,7 @@ limitations under the License.
 var g_str_cur_lang = "KR";
 // 인증여부 혜지프로
 var g_b_phonnumber_verified = false;
+var g_b_email_verified = false;
 
 $(function () {
     showLoader();
@@ -212,6 +213,46 @@ function verifyCode(){
 		});
 }
 
+// 이메일 인증 혜지프로
+function checkEmail(){
+    let email = $('#droneplay_email').val();
+    if(verification_code == ""){
+        showAlert(GET_STRING_CONTENT('msg_email_empty'));
+        return;
+    } 
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+            var jdata = {
+                "action" : "member", 
+                "daction" : "validate_email", 
+                "email" : $('#droneplay_email').val(),
+                "g_token" : token};
+            ajaxRequest(jdata,
+                function(data){
+                    let result = data.result_code;
+                    if(result === 0){		
+                        g_b_email_verified = true;
+                        showAlert(GET_STRING_CONTENT('msg_email_valid'));
+                        return;
+                    }
+                    if(result === 2){
+                        showAlert(GET_STRING_CONTENT('msg_email_invalid'));
+                        return;
+                    }
+                    if(result === 3){
+                        showAlert(GET_STRING_CONTENT('msg_email_already_exists'));
+                        return;
+                    }
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+                },
+                function (err, stat, error) {
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+                }
+            );
+        });
+    });
+}
+
 function requestRegister() {
     GATAGM('RegisterBtnClickOnRegister', 'CONTENT');
 
@@ -251,6 +292,13 @@ function requestRegister() {
                 if(g_b_phonnumber_verified === false){
                     GATAGM('PhoneNotVerified', 'CONTENT');
                     showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
+                    hideLoader();
+                    return;
+                }
+
+                if(g_b_email_verified === false){
+                    GATAGM('EmailNotVerified', 'CONTENT');
+                    showAlert(GET_STRING_CONTENT('msg_email_not_verified'));
                     hideLoader();
                     return;
                 }
