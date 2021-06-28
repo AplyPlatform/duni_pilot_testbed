@@ -156,8 +156,8 @@ function setCurrentViewMode() {
 		g_str_cur_viewmode = "pilot";
 	}
 	
-	let from = getQueryVariable("from");
-	if (from == "ios") {
+	let from = getCookie("user_from");
+	if (from == "app") {
 		$("#sideTopBar").hide();
 		$("#accordionSidebar").hide();
 		$("#footerArea").hide();
@@ -4328,6 +4328,7 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
+        setCookie("user_from", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
         goIndex("logout");
@@ -4343,6 +4344,7 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
+        setCookie("user_from", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
     		goIndex("logout");
