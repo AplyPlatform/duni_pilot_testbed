@@ -230,16 +230,16 @@ function checkEmail(){
             ajaxRequest(jdata,
                 function(data){
                     let result = data.result_code;
-                    if(result_code === 0){		
+                    if(result === 0){		
                         g_b_email_verified = true;
                         showAlert(GET_STRING_CONTENT('msg_email_valid'));
                         return;
                     }
-                    if(result_code === 2){
+                    if(result === 2){
                         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
                         return;
                     }
-                    if(result_code === 3){
+                    if(result === 3){
                         showAlert(GET_STRING_CONTENT('msg_email_already_exists'));
                         return;
                     }
