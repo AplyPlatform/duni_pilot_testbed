@@ -788,7 +788,7 @@ function flightrecordUploadInit() {
 
     $('#btnForAddressCheck').click(function () {
         GATAGM('btnForAddressCheck', 'CONTENT');
-        execDaumPostcode($("#address_input_data").val());
+        execDaumPostcode($("#postcode").val());
     });
 
     //판매국가는 우선 한국만!
