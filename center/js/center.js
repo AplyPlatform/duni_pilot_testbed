@@ -3211,7 +3211,7 @@ function makeShareFlightData(name, user_email) {
                     }
 
                     if (item.type == "user") {
-                        user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + GET_STRING_CONTENT('stop_share_label') + "</a><hr size=1 color=#eeeeee width=100%></div>");
+                        user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + GET_STRING_CONTENT('stop_share_label') + "</a><hr size=1 color=#efefef width=100%></div>");
                     }
                 });
 
@@ -3344,7 +3344,7 @@ function setFlightRecordToView(target, name, fdata) {
                 }
 
                 if (item.type == "user") {
-                    user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + GET_STRING_CONTENT('stop_share_label') + "</a><hr size=1 color=#eeeeee width=100%></div>");
+                    user_text += ("<div id='shareid_" + index + "'> " + premail + " : <a href='#' id='user_share_" + index + "'>" + GET_STRING_CONTENT('stop_share_label') + "</a><hr size=1 color=#efefef width=100%></div>");
                 }
             });
 
@@ -3763,19 +3763,37 @@ function appendFlightRecordTable(target, target_key, item) {
     }
 
 
-    appendRow = appendRow + "</div><div class='row'><div class='col-sm text-left'><span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span></div><div class='col-sm text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a></div></div>";
+    appendRow = appendRow + "</div><div class='row'><div class='col-md-12 text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a>";
+    
+    if (target == "public")
+    	appendRow = appendRow + " / <span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><br>";
+    
+    appendRow = appendRow + "<hr size='1' color='#efefef'></div></div>";
 
-		appendRow = appendRow + "<div class='row'><div class='col-md-10 text-right'><br><textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='1'>"
+		appendRow = appendRow + "<div class='row'>";
+		
+		if (target == "public")
+			appendRow = appendRow + "<div class='col-md-12 text-right'>";
+		else
+			appendRow = appendRow + "<div class='col-md-10 text-right'>";
+			
+			
+		appendRow = appendRow + "<textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='4'>"
 
     if (isSet(memo)) {
         appendRow = appendRow + memo;
     }
 
-    appendRow = appendRow + "</textarea></div><div class='col-md-2 text-right'>";
-    appendRow = appendRow + "<br><button class='btn btn-primary text-xs btn-block' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + GET_STRING_CONTENT('msg_modify_memo') + "</button></div></div>"; //col-sm row
+    appendRow = appendRow + "</textarea></div>";
+    
+    if (target == "private") {
+    	appendRow = appendRow + "<div class='col-md-2'>";
+    	appendRow = appendRow + "<button class='btn btn-primary text-xs btn-block' type='button' id='btnForUpdateMemo_" + curIndex + "'>" + GET_STRING_CONTENT('msg_modify_memo') + "</button></div>";
+    }
+        	
+    appendRow = appendRow + "</div>"; //row
 
-
-    appendRow = appendRow + "<div class='row'><div class='col-sm'>";
+    appendRow = appendRow + "<div class='row'><div class='col-md-12'>";
 
     if (isSet(tag_values) && tag_values != "") {
     	var targetList = (target == "public" ? "public" : "");
@@ -3786,8 +3804,12 @@ function appendFlightRecordTable(target, target_key, item) {
     }
 
     appendRow = appendRow + "</div></div>";
-    appendRow = appendRow + "<div class='row'><div class='col-md-10 text-left'>";
-
+    appendRow = appendRow + "<div class='row'>";
+    
+    if (target == "private")
+    	appendRow = appendRow + "<div class='col-md-10 text-left'>";
+		else    	
+			appendRow = appendRow + "<div class='col-md-12 text-left'>";
 
     if (isSet(item.starttime)) {
     	appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('flighttime_input_data_label') + "</span> <span class='text-xs mb-1'>"
@@ -3796,9 +3818,15 @@ function appendFlightRecordTable(target, target_key, item) {
     }
 
     appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('registered_datetime_label') + "</span> <span class='text-xs mb-1'>" + dtimestamp + "</span>";
-    appendRow = appendRow + "</div><div class='col-md-2 text-right'>"
+    appendRow = appendRow + "</div>";
+    
+    if (target == "private") {
+    	appendRow = appendRow + "<div class='col-md-2 text-right'>"
         + "<h6><span class='badge badge-secondary' style='cursor: pointer' id='btnForRemoveFlightData_" + curIndex + "'>" + GET_STRING_CONTENT('msg_remove') + "</span></h6>"
-        + "</div></div></div></div>"; //col, row, card-body, card
+        + "</div>"; //col
+    }
+        
+    appendRow = appendRow + "</div></div></div>"; //row, card-body, card
 
     $('#dataTable-Flight_list').append(appendRow);
     $("#owner_email_" + curIndex).hide();
@@ -3810,9 +3838,7 @@ function appendFlightRecordTable(target, target_key, item) {
             $("#owner_email_" + curIndex).html(oemail);
         }
 
-        $("#memoTextarea_" + curIndex).prop('disabled', true);
-        $("#btnForUpdateMemo_" + curIndex).hide();
-        $("#btnForRemoveFlightData_" + curIndex).hide();
+        $("#memoTextarea_" + curIndex).prop('disabled', true);        
     }
     else {
         $('#btnForRemoveFlightData_' + curIndex).click(function () {
