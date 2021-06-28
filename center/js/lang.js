@@ -87,7 +87,7 @@ var LANG_JSON_DATA = {
         "btnStopMon": "모니터링 중지",
         "btnForFilter": "필터적용",
         "btnForFilter_rel": "필터해제",
-        "btnForAddressCheck": "우편번호 찾기",
+        "btnForAddressCheck": "상세주소 입력",
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
         "center_example_title": "사용예시",
         // 전화번호 인증
@@ -319,7 +319,7 @@ var LANG_JSON_DATA = {
         "btnStopMon": "Stop monitoring",
         "btnForFilter": "Filter on",
         "btnForFilter_rel": "Filter off",
-        "btnForAddressCheck": "Check address",
+        "btnForAddressCheck": "Enter detail address",
         "center_about_title": "About ...",
         "center_example_title": "Example",
         // 전화번호 인증
