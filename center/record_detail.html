@@ -62,7 +62,7 @@
 				      </div>
 
 				      <div class="row">
-							      	<div class="col">
+							      	<div class="col-md-6">
 								        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
 								        <select id="privacy-status" class="form-control">
 								          <option value="public" id="option_public_label">공개</option>
@@ -71,7 +71,7 @@
 								        </select>
 				      				</div>
 
-											<div class="col">
+											<div class="col-md-6">
 												<label for="movieFile" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
 									      <div class="input-group">
 									        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
@@ -83,14 +83,14 @@
 							</div>
 
 				      <div class="row">
-											<div class="col-6">
+											<div class="col-md-6">
 									      <div class="post-upload">
 									        <ul id="post-upload-status"></ul>
 									        <div id="player"></div>
 									      </div>
 											</div>
 
-									    <div class="col-6">
+									    <div class="col-md-6">
 									    	<div class="during-upload">
 									        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>
 									        <progress id="upload-progress" max="1" value="0"></progress>
@@ -129,13 +129,13 @@
 								</div>
 								
 								<div class="row">
-    							<div class="col-md-6">
+    							<div class="col">
 										<div class="btn-group btn-group-justified" data-toggle="buttons">
 											  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
 											  <a class="btn btn-secondary" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
 										</div>									
     							</div>
-									<div class="col-md-6">
+									<div class="col">
 										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
 	                  <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                  		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
