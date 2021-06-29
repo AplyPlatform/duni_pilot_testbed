@@ -31,6 +31,7 @@ $(function () {
 
     $("#register_label").text(GET_STRING_CONTENT('register_label'));
     $("#privacy_link_label").text(GET_STRING_CONTENT('privacy_link_label'));
+    $("#tos_link_label").text(GET_STRING_CONTENT('tos_link_label'));
     $("#fill_info_label").text(GET_STRING_CONTENT('fill_info_label'));
     $("#register_explain_label").text(GET_STRING_CONTENT('register_explain_label'));
     $("#btnAgree").text(GET_STRING_CONTENT('msg_agree'));
@@ -60,6 +61,14 @@ function showPrivacyButton() {
 	  GATAGM('privacy_link_label', 'CONTENT');
 
 	  $.get("/privacy_" + g_str_cur_lang + "_raw.html", function(html_string){
+      showAlert(html_string);
+   	});
+}
+
+function showTOSButton() {
+	  GATAGM('tos_link_label', 'CONTENT');
+
+	  $.get("/service_" + g_str_cur_lang + "_raw.html", function(html_string){
       showAlert(html_string);
    	});
 }

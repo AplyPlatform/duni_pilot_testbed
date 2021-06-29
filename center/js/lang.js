@@ -73,7 +73,8 @@ var LANG_JSON_DATA = {
         "qa_label": "최근 게시물",
         "stop_share_label": "공유해제",
         "badge_code_label": "배지 코드",
-        "privacy_link_label": "개인정보취급방침 보기",
+        "privacy_link_label": "개인정보취급방침",
+        "tos_link_label": "사용자서비스약관",
         "btnForBadge_make": "배지 생성하기",
         "btnForBadge_del": "배지 삭제하기",
         "btnForSharing": "공유하기",
@@ -98,7 +99,7 @@ var LANG_JSON_DATA = {
         "msg_phone_verified" : "인증되었습니다",
         "msg_phone_verification_timeout" : "인증번호 입력시간이 만료되었습니다. 다시 시도해주세요.",
         "msg_code_empty" : "인증번호를 입력해주세요.",
-        "msg_phone_not_verified" : "전화번호인증은 필수입니다. 인증해주세요.",
+        "msg_phone_not_verified" : "전화번호를 인증해 주세요.",
         // 전화번호인증 end
         // 이메일 중복확인
         "msg_email_empty" : "이메일을 입력해주세요",
@@ -309,6 +310,7 @@ var LANG_JSON_DATA = {
 		"btnForOpening": "Open",
         "btnForLink": "Creating a new link",
         "privacy_link_label": "Privacy policy(KR)",
+        "tos_link_label": "Terms Of Service(KR)",
         "btnForBadge_make": "Generate badge code",
         "btnForBadge_del": "Delete badge",
         "btnForRegistMission": "Mission Register",
