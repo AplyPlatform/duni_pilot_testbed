@@ -711,21 +711,40 @@ function genPlanByGPS(lat, lng) {
 function genPlan(lat, lng) {
 		var data =
 			[
-				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
-				{"alt" : 2, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
-				{"alt" : 2, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
-				{"alt" : 2, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
+				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
+				{"alt" : 10, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
+				{"alt" : 10, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 10, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
 				{"alt" : 40, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 40m까지 업
-				{"alt" : 40, "speed" : 1.2, "act" : 5, "actparam" : "0", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
+				{"alt" : 40, "speed" : 1.2, "act" : 5, "actparam" : "-45", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
 				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 41, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // stay // 고도 41m까지 업
-				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "-180", "lat" : lat, "lng" : lng}, // stay // 고도 40m까지 업
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180				
 				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
-				{"alt" : 2, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도
-				{"alt" : 2, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
+				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 10m 고도
+				{"alt" : 10, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
 			];
-
-
 
 		g_array_design_data = data;
 
