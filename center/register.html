@@ -114,7 +114,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
                           		<input name="droneplay_email" id="droneplay_email" type="email" class="form-control" value="" placeholder="이메일" required="">
                           	</div>
                           	<div class="col-md-3">
-                          		<a class="btn btn-primary btn-sm btn-block" role="button" onClick="checkEmail()" id="btn_check_email">중복확인</a>
+                          		<button class="btn btn-primary btn-sm btn-block" role="button" onClick="checkEmail()" id="btn_check_email">중복확인</button>
                           	</div>
                           </div>
                           
@@ -123,22 +123,23 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
                           <div class="row">
 	                        	<div class="col-md-9">
                           		<input name="droneplay_phonenumber" id="droneplay_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">
-                          		
-                          		<div id="code_verification_input" class="row" style="display:none">
-                          			<div class="col-md-9">
-																	<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: right">
-																	<label id="remaining_time" style="color:red"></label>																	
+                          		<hr size=1 color=#fefefe>
+                          		<div id="code_verification_input" class="row" style="display:none">                          			
+                          			<div class="col-md-4">
+																	<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: right">																	
 																</div>
-																<div class="col-md-3">
+																<div class="col-md-4">
+                          				<label id="remaining_time" style="color:red"></label>																	
+                          			</div>
+																<div class="col-md-4">
 																	<div style="overflow: hidden; padding-right: .5em;">
-																		<a class="btn btn-primary btn-sm" role="button" onClick="verifyCode()" id="btn_check_code">인증하기</a>
+																		<button class="btn btn-info btn-sm btn-block" role="button" onClick="verifyCode()" id="btn_check_code">인증하기</button>
 																 	</div>
 																</div>
-															</div>
-																																													
+															</div>																																													
                           	</div>
                           	<div class="col-md-3">
-                          		<a class="btn btn-primary btn-sm btn-block" role="button" onClick="verifyPhoneNo()" id="btn_verify_code">인증번호 전송</a>
+                          		<button class="btn btn-primary btn-sm btn-block" role="button" onClick="verifyPhoneNo()" id="btn_verify_code">인증번호 전송</button>
                           	</div>
                           </div>                          
 												</div>
@@ -146,7 +147,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	                  <div class="card-body">
 	                  	<div class="row">
 	                        	<div class="col-md-12">
-	                    				<a class="btn btn-primary btn-sm btn-block" role="button" onClick="requestRegister()" id="btnRegisterToMember">가입하기</a>
+	                    				<button class="btn btn-primary btn-sm btn-block" role="button" onClick="requestRegister()" id="btnRegisterToMember">가입하기</button>
 	                    			</div>
 	                    </div>
 	                  </div>
@@ -172,7 +173,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>&copy; <script>var cYear=(new Date()).getFullYear();document.write(cYear);</script> APLY Inc.</span>
+            <span>&copy; <script>var cYear=(new Date()).getFullYear();document.write(cYear);</script> <a href="https://aply.biz" target=_new>APLY Inc.</a></span>
           </div>
         </div>
       </footer>
