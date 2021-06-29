@@ -931,20 +931,24 @@ function embedCompassInit() {
 			e.preventDefault();
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
+			
+			GATAGM('fileDropForCompassEmbed', 'CONTENT');
 			fileDropCheck(e.originalEvent.dataTransfer.files);
 		});
 
 		$("#btnForUploadFlightList").on("click", function(e) {
+				GATAGM('btnCompassEmbed', 'CONTENT');
 				uploadCheckBeforeCompassEmbed();
 		});
 
-		$("#input_direct_file").bind('change', function() {
+		$("#input_direct_file").bind('change', function() {			
+			GATAGM('fileInputForCompassEmbed', 'CONTENT');
 			fileDropCheck(this.files);
 		});
 
-		$("#input_direct_file").click(function() {
+		$("#input_direct_file").click(function() {			
 			$(this).attr("value", "");
-			$("#input_direct_file").val("")
+			$("#input_direct_file").val("");
 		});
 
 		$("#colorPicker").spectrum({
@@ -1019,7 +1023,7 @@ function uploadCheckBeforeCompassEmbed() {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;
 	}
-
+	
 	showLoader();
 	$('#btnForUploadFlightList').prop('disabled', true);
 
