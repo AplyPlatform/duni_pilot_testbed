@@ -222,7 +222,7 @@ var LANG_JSON_DATA = {
         "mission_about_content": "내가 설계한 비행계획을 검색해보세요.",
         "record_list_about_content": "내 비행기록을 선택해서 영상과 맵으로 확인해 보세요.",
         "record_public_list_about_content": "다른 회원들의 비행기록을 확인해 보세요.",
-        "register_explain_label": "'사용사서비스약관' 및 '개인정보취급방침'의 내용에 동의하시면 아래 '동의합니다' 버튼을 클릭해 주세요.",
+        "register_explain_label": "아래의 '사용자서비스약관' 및 '개인정보취급방침'의 내용에 동의하시면 '동의합니다' 버튼을 클릭해 주세요.",
         "monitor_about_content": "DUNI 앱을 활용하여 현재 드론의 위치를 실시간으로 모니터링할 수 있습니다.",
         "upload_about_content": "내 비행기록을 업로드하세요.",
         "design_about_content": "설계한 비행계획은 DUNI 앱과 DJI 제품의 드론에서 사용할 수 있습니다.",
