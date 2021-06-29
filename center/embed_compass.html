@@ -16,8 +16,7 @@
 	<div class="col-xl-6 col-md-6 mb-4">
       <div class="card shadow py-2">      	
         <div class="card-body">
-            <div class="col-auto">
-															
+            <div class="col-auto">															
 							<div id="dropArea" style="border:1px solid #03b0c0; height:300px; padding:14px" class="text-center">
 								<span id="label_compass_file_drop_area">이곳에 드론의 영상과 DJI비행기록 파일을 올려주세요.</span>
 								<div id="thumbnails"></div>
@@ -30,13 +29,35 @@
 							</div>																					
 							
 							<div class="text-center">
-								<div class="form-group">
-									<label id="label_for_colorpicker" for="colorPicker" class="text-xs font-weight-bold text-default text-uppercase mb-1">나침반 색상</label>
-									<input type='text' id='colorPicker' name="colorPicker" class="form-control" value='red'/>
+								<hr size=1 color="#fefefe">
+								<div class="row">
+									<div class="form-group col-md-4">										
+											<label id="label_for_colorpicker" for="colorPicker" class="text-xs font-weight-bold text-default text-uppercase mb-1">나침반 색상</label>
+											<input type='text' id='colorPicker' name="colorPicker" class="form-control" value='red'/>
+									</div>
+									<div class="form-group col-md-8">
+										<div class="row">
+											<div class="col-md-4 text-right">
+								      	<label for="compass_pos_sel" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="compass_pos_sel_label">나침반 위치</label>
+								      </div>
+								      <div class="col-md-8">
+									      <select id="compass_pos_sel" name="compass_pos_sel" class="form-control">
+									        <option value=0 selected id="compass_pos_sel_option_0">좌측위</option>
+									        <option value=1 id="compass_pos_sel_option_1">좌측아래</option>
+									        <option value=2 id="compass_pos_sel_option_2">우측위</option>
+									        <option value=3 id="compass_pos_sel_option_3">우측아래</option>
+									      </select>									    
+									    </div>
+									  </div>
+									</div>
 								</div>
-								<progress id="progressBarForUpload" value="0" max="100" style="width:100%;height:5px"></progress>
-							 	<br>
-							 	<button class="btn btn-primary btn-block" type="button" id="btnForUploadFlightList">업로드</button>
+								<div class="row">
+									<div class="col-md-12">
+										<progress id="progressBarForUpload" value="0" max="100" style="width:100%;height:5px"></progress>
+										<br>
+							 			<button class="btn btn-primary btn-block" type="button" id="btnForUploadFlightList">업로드</button>
+									</div>
+								</div>							 	
 							</div>								  								  			            							
             </div>
 

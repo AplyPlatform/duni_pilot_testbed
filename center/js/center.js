@@ -909,6 +909,13 @@ function embedCompassInit() {
     $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
     $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
     $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
+    
+    
+    $('#compass_pos_sel_label').text(GET_STRING_CONTENT('compass_pos_sel_label'));
+    $('#compass_pos_sel_option_0').text(GET_STRING_CONTENT('compass_pos_sel_option_0_label'));
+    $('#compass_pos_sel_option_1').text(GET_STRING_CONTENT('compass_pos_sel_option_1_label'));
+    $('#compass_pos_sel_option_2').text(GET_STRING_CONTENT('compass_pos_sel_option_2_label'));
+    $('#compass_pos_sel_option_3').text(GET_STRING_CONTENT('compass_pos_sel_option_3_label'));
 
 		let dropArea = $("#dropArea");
 		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
@@ -943,8 +950,7 @@ function embedCompassInit() {
 		$("#colorPicker").spectrum({
 		  type: "color",
 		  showInput: true,
-		  showInitial: true,
-		  showAlpha: false
+		  showInitial: true		  
 		});
 
     $("#file_upload_img").hide();
@@ -1056,6 +1062,8 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
 function embedRequest(filename, tempExt) {
 
 		var color = $("#colorPicker").spectrum("get");
+		var compass_position = $("#compass_pos_sel").children("option:selected").val();
+				
 		var userid = getCookie("dev_user_id");
     var jdata = {
     	"action": "position",
@@ -1063,7 +1071,8 @@ function embedRequest(filename, tempExt) {
     	"clientid": userid,
     	"extension" : tempExt,
     	"filename" : filename,
-    	"color": color.toRgb()
+    	"color": color.toRgb(),
+    	"pos" : compass_position
     };
 
     ajaxRequest(jdata, function (r) {
