@@ -573,6 +573,7 @@
 		                image: new ol.style.Icon({										    
 										    size: [30, 30],										    
 										    src: '/images/company_pos.png',
+										    scale: 0.4
 										  })
 		              })];
 				    		}
@@ -625,6 +626,7 @@
 		                image: new ol.style.Icon({										    
 										    size: [30, 30],										    
 										    src: '/images/f_record_pos.png',
+										    scale: 0.4
 										  })
 		              })];
 				    		}
