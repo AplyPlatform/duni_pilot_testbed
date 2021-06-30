@@ -245,7 +245,7 @@ function checkEmail(){
         return;
     } 
     console.log(!isEmail(email) || email.length > 100);
-    if(!isEmail(email) || email.length > 100){
+    if(!isEmail(email)){
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
         return;
     }
