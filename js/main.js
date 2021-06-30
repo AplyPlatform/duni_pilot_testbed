@@ -621,19 +621,10 @@
 				    var style = styleCache[size];
 				    if (!style) {
 				       	if (size == 1) {
-				       		style = [new ol.style.Style({
-		                image: new ol.style.Circle({
-					            radius: radius,
-					            fill: new ol.style.Fill({ color: '#FFF' }),
-					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
-			                }),
+				       		style = [new ol.style.Style({		                
 			            	text: new ol.style.Text({
 						                  text: '\uf04b',
-													    font: '900 18px "FontAwesome 5 Free"',
-													    textBaseline: 'Bottom',
-													    fill: new ol.style.Fill({
-													      color: 'black',
-													    })
+													    font: '900 18px "FontAwesome 5 Free"'
 											})	
 		              })];				    			
 				    		}
