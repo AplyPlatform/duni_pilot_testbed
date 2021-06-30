@@ -623,7 +623,7 @@
 				       	if (size == 1) {
 				       		style = [new ol.style.Style({		                
 			            	text: new ol.style.Text({
-						                  text: '\uf04b',
+						                  text: '\uf167',
 													    font: '900 18px "FontAwesome 5 Free"'
 											})	
 		              })];				    			
