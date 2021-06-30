@@ -628,8 +628,8 @@
 					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
 			                }),
 			            	text: new ol.style.Text({
-						                  text: '\uf041',
-													    font: 'normal 18px FontAwesome',
+						                  text: '\uf04b',
+													    font: '900 18px "FontAwesome 5 Free"',
 													    textBaseline: 'Bottom',
 													    fill: new ol.style.Fill({
 													      color: 'black',
