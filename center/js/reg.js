@@ -244,7 +244,7 @@ function checkEmail(){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
     } 
-    if(!checkEmail(email) || email.length > 100){
+    if(!isEmail(email) || email.length > 100){
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
         return;
     }
