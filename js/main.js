@@ -573,8 +573,8 @@
 		                image: new ol.style.Icon({
 										    anchor: [0.5, 46],
 										    size: [30, 30],
-										    anchorXUnits: 'fraction',
-										    anchorYUnits: 'pixels',
+										    crossOrigin: 'anonymous',
+		            				opacity: 0.85,
 										    src: '/images/company_pos.png',
 										  })
 		              })];
@@ -628,8 +628,8 @@
 		                image: new ol.style.Icon({
 										    anchor: [0.5, 46],
 										    size: [30, 30],
-										    anchorXUnits: 'fraction',
-										    anchorYUnits: 'pixels',
+										    crossOrigin: 'anonymous',
+		            				opacity: 0.85,
 										    src: '/images/f_record_pos.png',
 										  })
 		              })];
