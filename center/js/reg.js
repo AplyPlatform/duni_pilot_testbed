@@ -223,12 +223,21 @@ function verifyCode(){
 }
 
 // 이메일 인증 혜지프로
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
+
 function checkEmail(){
     let email = $('#droneplay_email').val();
     if(email == ""){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
     } 
+    if(!checkEmail(email) || email.length > 100){
+        showAlert(GET_STRING_CONTENT('msg_email_invalid'));
+        return;
+    }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
             var jdata = {

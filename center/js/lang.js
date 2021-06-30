@@ -103,7 +103,7 @@ var LANG_JSON_DATA = {
         // 전화번호인증 end
         // 이메일 중복확인
         "msg_email_empty" : "이메일을 입력해주세요",
-        "msg_invalid_email" : "올바른 이메일 형식이 아닙니다. 다시 입력해주세요.",
+        "msg_invalid_email" : "올바른 이메일 형식이 아닙니다. 이메일은 100자 이내여야합니다.",
         "msg_email_already_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
         "msg_email_valid" : "사용 가능한 이메일입니다.",
         "msg_email_not_verified" : "이메일 중복확인은 필수입니다. 중복확인을 해주세요.",
@@ -333,7 +333,14 @@ var LANG_JSON_DATA = {
         "msg_phone_verification_timeout" : "Input timeout. Please try again.",
         "msg_code_empty" : "Please fill out the verification code.",
         "msg_phone_not_verified" : "Phone number must be verified.",
-        // 전화번호인증 end        
+        // 전화번호인증 end
+        // 이메일 중복확인
+        "msg_email_empty" : "Please enter your email address.",
+        "msg_invalid_email" : "Incorrect email address format. Please try again.",
+        "msg_email_already_exists" : "Email already exists. Try a different address.",
+        "msg_email_valid" : "Valid email.",
+        "msg_email_not_verified" : "You must validate your email address.",
+        // 이메일 중복확인 end        
         "msg_pre_embed_compass_request_received" : "Your request has been received. When the processing is complete, the download path of the video file will be notified to the e-mail(",
         "msg_post_embed_compass_request_received" : ") registered at the time of registration.",
         "msg_select_one_video_one_record" : "Drop only 1 drone video and 1 flight log file.",
