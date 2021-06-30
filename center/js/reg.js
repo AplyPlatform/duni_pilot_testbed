@@ -234,13 +234,12 @@ function verifyCode(){
 
 // 이메일 인증 혜지프로
 function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
     return regex.test(email);
 }
 
 function checkEmail(){
     let email = $('#droneplay_email').val();
-    console.log(isEmail(email));
     if(email == ""){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
