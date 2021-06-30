@@ -571,10 +571,8 @@
 				    		if (size == 1) {
 				    			style = [new ol.style.Style({
 		                image: new ol.style.Icon({
-										    anchor: [0.5, 46],
-										    size: [30, 30],
-										    crossOrigin: 'anonymous',
-		            				opacity: 0.85,
+										    anchor: [0.5, 15],
+										    size: [30, 30],										    
 										    src: '/images/company_pos.png',
 										  })
 		              })];
@@ -626,10 +624,8 @@
 				       	if (size == 1) {
 				    			style = [new ol.style.Style({
 		                image: new ol.style.Icon({
-										    anchor: [0.5, 46],
-										    size: [30, 30],
-										    crossOrigin: 'anonymous',
-		            				opacity: 0.85,
+										    anchor: [0.5, 15],
+										    size: [30, 30],										    
 										    src: '/images/f_record_pos.png',
 										  })
 		              })];
