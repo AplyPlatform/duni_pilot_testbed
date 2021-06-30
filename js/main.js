@@ -567,23 +567,35 @@
 				    var radius;
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 				    var style = styleCacheForCompany[size];
-				    if (!style) {
-				    		style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#FFF' }),
-				            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
-		                }),
-		              text: new ol.style.Text({
-					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#000' }),
-					                  scale: 1.5
-										})
-
-	              })];
+				    if (!style) {				    	
+				    		if (size == 1) {
+				    			style = [new ol.style.Style({
+		                image: new Icon({
+										    anchor: [0.5, 46],
+										    anchorXUnits: 'fraction',
+										    anchorYUnits: 'pixels',
+										    src: '/images/company_pos.png',
+										  })
+		              })];
+				    		}
+				    		else {				    							    		
+					    		style = [new ol.style.Style({
+		                image: new ol.style.Circle({
+					            radius: radius,
+					            fill: new ol.style.Fill({ color: '#FFF' }),
+					            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
+			                }),
+			            	text: new ol.style.Text({
+						                  text: size.toString(),
+						                  fill: new ol.style.Fill({ color: '#000' }),
+						                  scale: 1.5
+											})	
+		              })];
+		            }
 
 	          		styleCacheForCompany[size] = style
 				    }
+				    
 				    return style;
 				  },
 	    });
@@ -610,18 +622,30 @@
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 				    var style = styleCache[size];
 				    if (!style) {
-				       	style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#FFF' }),
-				            stroke: new ol.style.Stroke({ color: '#fb5b58', width: 2 })
-		                }),
-		              text: new ol.style.Text({
-					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#000' }),
-					                  scale: 1.5
-									})
-	              })];
+				       	if (size == 1) {
+				    			style = [new ol.style.Style({
+		                image: new Icon({
+										    anchor: [0.5, 46],
+										    anchorXUnits: 'fraction',
+										    anchorYUnits: 'pixels',
+										    src: '/images/f_record_pos.png',
+										  })
+		              })];
+				    		}
+				    		else {				    							    		
+					    		style = [new ol.style.Style({
+		                image: new ol.style.Circle({
+					            radius: radius,
+					            fill: new ol.style.Fill({ color: '#FFF' }),
+					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
+			                }),
+			            	text: new ol.style.Text({
+						                  text: size.toString(),
+						                  fill: new ol.style.Fill({ color: '#000' }),
+						                  scale: 1.5
+											})	
+		              })];
+		            }
 
 	          		styleCache[size] = style
 				    }
