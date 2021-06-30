@@ -624,7 +624,7 @@
 				       		style = [new ol.style.Style({		                
 			            	text: new ol.style.Text({
 						                  text: '\uf167',
-													    font: 'normal 18px FontAwesome'
+													    font: '900 20px "Font Awesome 5 Free'
 											})	
 		              })];				    			
 				    		}
