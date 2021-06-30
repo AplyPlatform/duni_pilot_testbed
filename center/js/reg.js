@@ -244,7 +244,8 @@ function checkEmail(){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
     } 
-    console.log(!isEmail(email) || email.length > 100);
+    console.log(email);
+    console.log(isEmail(email));
     if(!isEmail(email)){
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
         return;
