@@ -621,16 +621,21 @@
 				    var style = styleCache[size];
 				    if (!style) {
 				       	if (size == 1) {
-				    			style = [new ol.style.Style({
-		                text: new ol.style.Text({
-									    text: '\uf167',
-									    font: 'normal 18px FontAwesome',
-									    textBaseline: 'Bottom',
-									    fill: new ol.style.Fill({
-									      color: '#777777',
-									    })
-									  })
-		              })];
+				       		style = [new ol.style.Style({
+		                image: new ol.style.Circle({
+					            radius: radius,
+					            fill: new ol.style.Fill({ color: '#FFF' }),
+					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
+			                }),
+			            	text: new ol.style.Text({
+						                  text: '\uf167',
+													    font: 'normal 18px FontAwesome',
+													    textBaseline: 'Bottom',
+													    fill: new ol.style.Fill({
+													      color: '#777777',
+													    })
+											})	
+		              })];				    			
 				    		}
 				    		else {				    							    		
 					    		style = [new ol.style.Style({
