@@ -240,11 +240,13 @@ function isEmail(email) {
 
 function checkEmail(){
     let email = $('#droneplay_email').val();
-    if(email == ""){
-        showAlert(GET_STRING_CONTENT('msg_email_empty'));
-        return;
-    } 
-    else if(!isEmail(email)){
+    // if(email == ""){
+    //     showAlert(GET_STRING_CONTENT('msg_email_empty'));
+    //     return;
+    // } 
+    console.log(isEmail(email));
+    console.log(email.length >100);
+    if(!isEmail(email) > email.length > 100){
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
         return;
     }
