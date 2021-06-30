@@ -638,7 +638,7 @@
 		                image: new ol.style.Circle({
 					            radius: radius,
 					            fill: new ol.style.Fill({ color: '#FFF' }),
-					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
+					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
 					            opacity : 0.7,
 			                }),
 			            	text: new ol.style.Text({
