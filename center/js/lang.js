@@ -94,8 +94,8 @@ var LANG_JSON_DATA = {
         // 전화번호 인증
         "msg_phone_already_exists" : "이미 사용중인 전화번호입니다. 다른 번호를 입력해주세요.",
         "msg_verification_code_sent" : "인증번호가 전송되었습니다.",
-        "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다. 다시 입력해주세요.",
-        "msg_wrong_verification_code" : "인증번호가 일치하지 않습니다. 다시 입력해주세요.",
+        "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다.",
+        "msg_wrong_verification_code" : "인증번호가 일치하지 않습니다.",
         "msg_phone_verified" : "인증되었습니다",
         "msg_phone_verification_timeout" : "인증번호 입력시간이 만료되었습니다. 다시 시도해주세요.",
         "msg_code_empty" : "인증번호를 입력해주세요.",
@@ -103,10 +103,10 @@ var LANG_JSON_DATA = {
         // 전화번호인증 end
         // 이메일 중복확인
         "msg_email_empty" : "이메일을 입력해주세요",
-        "msg_email_invalid" : "올바른 이메일 형식이 아닙니다. 이메일은 100자 이내여야합니다.",
+        "msg_email_invalid" : "올바른 이메일 형식이 아닙니다.",
         "msg_email_already_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
         "msg_email_valid" : "사용 가능한 이메일입니다.",
-        "msg_email_not_verified" : "이메일 중복확인은 필수입니다. 중복확인을 해주세요.",
+        "msg_email_not_verified" : "이메일 중복확인을 해주세요.",
         // 이메일 중복확인 end
         "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
         "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",

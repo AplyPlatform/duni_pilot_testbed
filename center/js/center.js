@@ -1530,7 +1530,7 @@ function flightRecords2DMapInit() {
 		var styleCache = {};
     g_layer_2D_map_for_flight_rec = new ol.layer.Vector({
         source: clusterSource,
-        zIndex: 1000,
+        zIndex: 100,
         style: function (feature) {
         	if (!feature) return;
 
