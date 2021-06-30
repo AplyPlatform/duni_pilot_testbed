@@ -624,7 +624,11 @@
 				       		style = [new ol.style.Style({		                
 			            	text: new ol.style.Text({
 						                  text: '\uf167',
-													    font: '900 20px "Font Awesome 5 Free'
+													    font: '900 20px "Font Awesome 5 Free',
+													    textBaseline: 'bottom',
+													    font: '400 16px "Font Awesome 5 Pro"',
+										          fill: new ol.style.Fill({ color: '#2196F3' }),
+										          stroke: new ol.style.Stroke({ color: 'black', width: 1 })
 											})	
 		              })];				    			
 				    		}
