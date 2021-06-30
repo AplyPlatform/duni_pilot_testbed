@@ -572,7 +572,8 @@
 				    			style = [new ol.style.Style({
 		                image: new ol.style.Icon({										    										    
 										    src: '/images/company_pos.png',
-										    scale: 0.3
+										    scale: 0.3,
+										    stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
 										  })
 		              })];
 				    		}
@@ -621,15 +622,12 @@
 				    var style = styleCache[size];
 				    if (!style) {
 				       	if (size == 1) {
-				       		style = [new ol.style.Style({		                
-			            	text: new ol.style.Text({
-						                  text: '\uf167',
-													    font: '900 20px "Font Awesome 5 Free',
-													    textBaseline: 'bottom',
-													    font: '400 16px "Font Awesome 5 Pro"',
-										          fill: new ol.style.Fill({ color: '#2196F3' }),
-										          stroke: new ol.style.Stroke({ color: 'black', width: 1 })
-											})	
+				       		style = [new ol.style.Style({
+		                image: new ol.style.Icon({										    										    
+										    src: '/images/company_pos.png',
+										    scale: 0.3,
+										    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 })
+										  })
 		              })];				    			
 				    		}
 				    		else {				    							    		
