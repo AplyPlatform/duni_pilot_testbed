@@ -570,7 +570,7 @@
 				    if (!style) {				    	
 				    		if (size == 1) {
 				    			style = [new ol.style.Style({
-		                image: new Icon({
+		                image: new ol.style.Icon({
 										    anchor: [0.5, 46],
 										    anchorXUnits: 'fraction',
 										    anchorYUnits: 'pixels',
@@ -624,7 +624,7 @@
 				    if (!style) {
 				       	if (size == 1) {
 				    			style = [new ol.style.Style({
-		                image: new Icon({
+		                image: new ol.style.Icon({
 										    anchor: [0.5, 46],
 										    anchorXUnits: 'fraction',
 										    anchorYUnits: 'pixels',
