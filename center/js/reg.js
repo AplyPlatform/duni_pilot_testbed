@@ -243,10 +243,7 @@ function checkEmail(){
     if(email == ""){
         showAlert(GET_STRING_CONTENT('msg_email_empty'));
         return;
-    } 
-    console.log(isEmail(email));
-    console.log(email.length >100);
-    console.log(isEmail(email) || email.length > 100);
+    }
     if(!isEmail(email) || email.length > 100){
         console.log("here!");
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
