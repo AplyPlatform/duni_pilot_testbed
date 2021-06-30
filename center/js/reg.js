@@ -125,6 +125,16 @@ function startTimer(duration, display) {
 }
 
 // 전화번호 인증 혜지프로
+function validateNumber(event) {
+    var key = window.event ? event.keyCode : event.which;
+    if (event.keyCode === 8 || event.keyCode === 46) {
+        return true;
+    } else if ( key < 48 || key > 57 ) {
+        return false;
+    } else {
+        return true;
+    }
+}
 function verifyPhoneNo(){
     
     // check if phone number starts with 01 and is total of 11 digits
