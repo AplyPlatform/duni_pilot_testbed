@@ -2288,11 +2288,11 @@ function initSyncSliderForFlightRecord(target, name) {
 		
 		        curVal = parseInt(curVal);
 		        
-		        $('#sync_sliderText').val(curVal + GET_STRING_CONTENT("label_second"));
+		        $('#sync_sliderText').text(curVal + GET_STRING_CONTENT("label_second"));
 		        $('#goFlightRecItemIndex').val(curVal);
 
          		updateFlightRecordDsec(target, curVal);
-         		showAlert(GET_STRING_CONTENT("msg_sync_updated"));
+         		showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
         }
     });
 
@@ -2311,11 +2311,11 @@ function initSyncSliderForFlightRecord(target, name) {
         }
         else {
         	$("#sync_slider").slider('value', curVal);
-        	$('#sync_sliderText').val(curVal + GET_STRING_CONTENT("label_second"));
+        	$('#sync_sliderText').text(curVal + GET_STRING_CONTENT("label_second"));
         }
         
         updateFlightRecordDsec(target, curVal);
-        showAlert(GET_STRING_CONTENT("msg_sync_updated"));
+        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
     });
     
     $('#goFlightRecSaveBtn').click(function () {
