@@ -1558,32 +1558,32 @@ function flightRecords2DMapInit() {
 			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 			    var style = styleCache[size];
 			    if (!style) {
-			       if (size == 1) {
-				       		style = [new ol.style.Style({
-		                image: new ol.style.Icon({										    										    
-										    src: '/images/f_record_pos.png',
-										    scale: 0.3,
-										    opacity : 0.7,
-										    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-										    fill: new ol.style.Fill({ color: '#fff' }),
-										  })
-		              })];				    			
-				    		}
-				    		else {				    							    		
-					    		style = [new ol.style.Style({
-		                image: new ol.style.Circle({
-					            radius: radius,
-					            fill: new ol.style.Fill({ color: '#495057' }),
-					            stroke: new ol.style.Stroke({ color: '#666666', width: 2 }),
-					            opacity : 0.7,
-			                }),
-			            	text: new ol.style.Text({
-						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#fff' }),
-						                  scale: 1.5
-											})	
-		              })];
-		            }
+		       		if (size == 1) {
+			       		style = [new ol.style.Style({
+	                image: new ol.style.Icon({										    										    
+									    src: '/images/f_record_pos.png',
+									    scale: 0.3,
+									    opacity : 0.7,
+									    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
+									    fill: new ol.style.Fill({ color: '#fff' }),
+									  })
+	              })];				    			
+			    		}
+			    		else {				    							    		
+				    		style = [new ol.style.Style({
+	                image: new ol.style.Circle({
+				            radius: radius,
+				            fill: new ol.style.Fill({ color: '#495057' }),
+				            stroke: new ol.style.Stroke({ color: '#666666', width: 2 }),
+				            opacity : 0.7,
+		                }),
+		            	text: new ol.style.Text({
+					                  text: size.toString(),
+					                  fill: new ol.style.Fill({ color: '#fff' }),
+					                  scale: 1.5
+										})	
+	              })];
+	            }
 
 							styleCache[size] = style
 			    }
