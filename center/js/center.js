@@ -1340,7 +1340,7 @@ function flightDetailInit(target) {
 		
     if (record_name != null && record_name != "") {
         showDataWithName(target, target_key, decodeURIComponent(unescape(record_name)));
-        initSyncSliderForFlightRecord(decodeURIComponent(unescape(record_name)));
+        initSyncSliderForFlightRecord(target, decodeURIComponent(unescape(record_name)));
     }        
 }
 
