@@ -2267,7 +2267,7 @@ function setRollStatus(roll) {
     $('#rollText').text(roll);
 }
 
-function initSyncSliderForFlightRecord() {
+function initSyncSliderForFlightRecord(target) {
 
     $('#sync_slider').slider({
         min: -100,
@@ -2292,7 +2292,7 @@ function initSyncSliderForFlightRecord() {
 		        
 		        $('#goFlightRecItemIndex').val(curVal);
 
-         		updateFlightRecordDsec(curVal);
+         		updateFlightRecordDsec(target, curVal);
         }
     });
 
@@ -2314,7 +2314,7 @@ function initSyncSliderForFlightRecord() {
         	$("#sync_slider").slider('value', curVal);
         }
         
-        updateFlightRecordDsec(curVal);   
+        updateFlightRecordDsec(target, curVal);   
     });
     
     $('#goFlightRecSaveBtn').click(function () {
@@ -2345,7 +2345,7 @@ function updateFlightRecordDetail() {
     });
 }
 
-function updateFlightRecordDsec(dsec) {
+function updateFlightRecordDsec(target, dsec) {
 	if (g_array_flight_rec.length <= 0) {
     return;
 	}
