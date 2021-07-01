@@ -3658,12 +3658,11 @@ function setFlightRecordToView(target, name, fdata) {
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
-          $("#no_record_data_view").show();
-
-					g_cur_str_flight_rec_fid = fdata.fid;
+          $("#no_record_data_view").show();					
     			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
 				else {
+					g_cur_str_flight_rec_fid = fdata.fid;
 					$("#no_record_data_view").hide();
 				}
 
