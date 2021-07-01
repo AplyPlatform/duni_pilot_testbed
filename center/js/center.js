@@ -1297,7 +1297,7 @@ function flightDetailInit(target) {
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
     
-    $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label'));
+    $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label') + " (" + GET_STRING_CONTENT('label_second') + ")");
             
     $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));    
     
