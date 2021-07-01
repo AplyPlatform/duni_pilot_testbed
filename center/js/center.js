@@ -1301,6 +1301,8 @@ function flightDetailInit(target) {
             
     $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));    
     
+    $('#sync_explain_label').html(GET_STRING_CONTENT('sync_explain_label'));
+    
     $('#no_record_data_view_label').text(GET_STRING_CONTENT('no_record_data_view_label'));
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
