@@ -151,48 +151,39 @@
 						
 						<div class="card-body" id="map_area">																						
 								<div class="row">
-										<div class="col">
+										<div class="col-md-4">
 											<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
 										</div>
-								</div>
-								<div class="row no-gutters align-items-center">
-										<div class="col mr-2">											
-											<span class="input-group">
-                      	<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
-                    	</span>
-                      
-                    </div>
-                    <div class="col mr-2">
-                      <div class="row">
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
-                      </div>
-                      <div class="row">
-                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
-                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
-                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
-											</div>
-                    </div>
-                </div>
-                
-                <div class="row no-gutters align-items-center">
-              			<div class="col-md-12">
-              				<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 기록 싱크 조절</span>
-              			</div>
-								</div>
+										<div class="col-md-8">											
+	                      <div class="row">
+	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
+	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
+	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
+	                      </div>
+	                      <div class="row">
+	                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
+	                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
+	                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
+												</div>	                    
+										</div>
+								</div>								                                
 								<div class="row no-gutters align-items-center">                		
-		                <div class="col-md-6">
-											<div id="sync_slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sync_sliderText">0</span>
+		                <div class="col-md-4 text-left">
+											<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
 										</div>								
-										<div class="col-md-6">
-			                	<div class="form-group">			                		
-			                		<div class="input-group">
-													  <input type="text" value="0" id="goFlightRecItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">														  
-													  <span class="input-group-append">
-													  		<button class="btn btn-primary btn-sm" type="button" id="goFlightRecSaveBtn">Save</button>
-													  </span>
-													</div>																												
+										<div class="col-md-8">			                				                		
+												<div class="row">
+													<div class="col-md-12">
+														<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-8">
+														<input type="text" value="0" id="goFlightRecItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
+													</div>
+													<div class="col-md-4">													 
+														<button class='btn btn-primary btn-sm btn-block text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="goFlightRecSaveBtn">간격 저장</button>
+													</div>
 												</div>
 										</div>
 								</div>                

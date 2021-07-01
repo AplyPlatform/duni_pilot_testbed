@@ -1296,10 +1296,10 @@ function flightDetailInit(target) {
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
-        
-    $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label'));
-    $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));
     
+    $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label'));
+            
+    $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));    
     
     $('#no_record_data_view_label').text(GET_STRING_CONTENT('no_record_data_view_label'));
 
@@ -1335,12 +1335,31 @@ function flightDetailInit(target) {
 		g_component_upload_youtube_video.ready();
     $('#uploadVideoToYoutubeButton').on("click", g_component_upload_youtube_video.handleUploadClicked.bind(g_component_upload_youtube_video));
 
-    var record_name = getQueryVariable("record_name");
-    var target_key = getQueryVariable("target_key");		
+    let record_name = getQueryVariable("record_name");
+    let target_key = getQueryVariable("target_key");		
 		
     if (record_name != null && record_name != "") {
-        showDataWithName(target, target_key, decodeURIComponent(unescape(record_name)));
-        initSyncSliderForFlightRecord(target, decodeURIComponent(unescape(record_name)));
+    		let rname = decodeURIComponent(unescape(record_name));
+        showDataWithName(target, target_key, rname);
+        $('#goFlightRecItemIndex').on("change paste", function () {
+		        GATAGM('goFlightRecItemIndexChange', 'CONTENT');
+		
+		        let curVal = $('#goFlightRecItemIndex').val();
+		        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
+		            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
+		            return;
+		        }
+		
+		        curVal = parseInt(curVal);        
+		        
+		        updateFlightRecordDsec(target, curVal);
+		        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
+		    });
+		    
+		    $('#goFlightRecSaveBtn').click(function () {
+		        GATAGM('goFlightRecSaveBtn', 'CONTENT');                
+		        updateFlightRecordDetail(rname);
+		    });
     }        
 }
 
@@ -2263,65 +2282,6 @@ function setRollStatus(roll) {
 
     roll = roll.toFixed(3);
     $('#rollText').text(roll);
-}
-
-function initSyncSliderForFlightRecord(target, name) {
-
-    $('#sync_slider').slider({
-        min: -100,
-        max: 100,
-        value: 0,
-        step: 1,
-        slide: function (event, ui) {
-
-            GATAGM('flight_record_slider', 'CONTENT');
-
-            if (g_array_flight_rec.length <= 0) {
-                return;
-            }
-            
-            let curVal = ui.value;
-		        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
-		            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
-		            return;
-		        }
-		
-		        curVal = parseInt(curVal);
-		        
-		        $('#sync_sliderText').text(curVal + GET_STRING_CONTENT("label_second"));
-		        $('#goFlightRecItemIndex').val(curVal);
-
-         		updateFlightRecordDsec(target, curVal);
-         		showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
-        }
-    });
-
-    $('#goFlightRecItemIndex').on("change paste", function () {
-        GATAGM('goFlightRecItemIndexChange', 'CONTENT');
-
-        let curVal = $('#goFlightRecItemIndex').val();
-        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
-            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
-            return;
-        }
-
-        curVal = parseInt(curVal);
-
-        if (curVal < -100 || curVal > 100) {
-        }
-        else {
-        	$("#sync_slider").slider('value', curVal);
-        	$('#sync_sliderText').text(curVal + GET_STRING_CONTENT("label_second"));
-        }
-        
-        updateFlightRecordDsec(target, curVal);
-        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
-    });
-    
-    $('#goFlightRecSaveBtn').click(function () {
-        GATAGM('goFlightRecSaveBtn', 'CONTENT');                
-        updateFlightRecordDetail(name);
-    });
 }
 
 function updateFlightRecordDetail(name) {
