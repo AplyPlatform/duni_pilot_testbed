@@ -149,12 +149,17 @@
 								</div>								
 						</div>
 						
-						<div class="card-body" id="map_area">																						
+						<div class="card-body" id="map_area">
 								<div class="row">
-										<div class="col-md-4">
+										<div class="col-md-12">
+											<hr size="1" color="#fefefe">
+										</div>
+								</div>
+								<div class="row">
+										<div class="col-md-6">
 											<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
 										</div>
-										<div class="col-md-8">											
+										<div class="col-md-6">											
 	                      <div class="row">
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
@@ -166,12 +171,14 @@
 	                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
 												</div>	                    
 										</div>
-								</div>								                                
-								<div class="row no-gutters align-items-center">                		
-		                <div class="col-md-4 text-left">
-											<button class='btn btn-primary text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
-										</div>								
-										<div class="col-md-8">			                				                		
+								</div>
+								<div class="row">
+										<div class="col-md-12">
+											<hr size="1" color="#fefefe">
+										</div>
+								</div>
+								<div class="row no-gutters align-items-center">                				                
+										<div class="col-md-6">			                				                		
 												<div class="row">
 													<div class="col-md-12">
 														<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
@@ -186,11 +193,20 @@
 													</div>
 												</div>
 										</div>
-								</div>                
+										
+										<div class="col-md-6 text-left">
+											<button class='btn btn-info text-xs font-weight-bold text-default text-uppercase mb-1' type='button' id="btnForFilter">필터 적용</button>
+										</div>
+								</div>               
+								<div class="row">
+										<div class="col-md-12">
+											<hr size="1" color="#fefefe">
+										</div>
+								</div> 
                 <div class="row no-gutters align-items-center">
                 	<br>
-									<span id="position_info"> ... </span>
-		              <span id="monitor"></span>
+									<span id="position_info" class="text-xs font-weight-bold text-default text-uppercase mb-1"> ... </span>
+		              <span id="monitor" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
                 </div>
 						</div>
     </div>
