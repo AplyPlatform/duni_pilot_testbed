@@ -589,7 +589,7 @@
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#fff' }),
+						                  fill: new ol.style.Fill({ color: '#000' }),
 						                  scale: 1.5
 											})	
 		              })];
@@ -630,8 +630,8 @@
 										    src: '/images/f_record_pos.png',
 										    scale: 0.3,
 										    opacity : 0.7,
+										    fill: new ol.style.Fill({ color: '#FFF' }),
 										    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-										    fill: new ol.style.Fill({ color: '#fff' }),
 										  })
 		              })];				    			
 				    		}
@@ -639,13 +639,13 @@
 					    		style = [new ol.style.Style({
 		                image: new ol.style.Circle({
 					            radius: radius,
-					            fill: new ol.style.Fill({ color: '#FB5B58' }),
-					            stroke: new ol.style.Stroke({ color: '#fff', width: 2 }),
+					            fill: new ol.style.Fill({ color: '#FFF' }),
+					            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
 					            opacity : 0.7,
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#fff' }),
+						                  fill: new ol.style.Fill({ color: '#000' }),
 						                  scale: 1.5
 											})	
 		              })];
