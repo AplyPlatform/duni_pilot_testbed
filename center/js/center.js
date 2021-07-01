@@ -1296,8 +1296,7 @@ function flightDetailInit(target) {
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
-    
-    $('#goFlightRecItemBtn').text(GET_STRING_CONTENT('go_flight_rec_btn'));
+        
     $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label'));
     $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));
     
@@ -1337,12 +1336,11 @@ function flightDetailInit(target) {
     $('#uploadVideoToYoutubeButton').on("click", g_component_upload_youtube_video.handleUploadClicked.bind(g_component_upload_youtube_video));
 
     var record_name = getQueryVariable("record_name");
-    var target_key = getQueryVariable("target_key");
-
-		initSyncSliderForFlightRecord();
+    var target_key = getQueryVariable("target_key");		
 		
     if (record_name != null && record_name != "") {
         showDataWithName(target, target_key, decodeURIComponent(unescape(record_name)));
+        initSyncSliderForFlightRecord(decodeURIComponent(unescape(record_name)));
     }        
 }
 
@@ -2267,7 +2265,7 @@ function setRollStatus(roll) {
     $('#rollText').text(roll);
 }
 
-function initSyncSliderForFlightRecord(target) {
+function initSyncSliderForFlightRecord(target, name) {
 
     $('#sync_slider').slider({
         min: -100,
@@ -2290,15 +2288,17 @@ function initSyncSliderForFlightRecord(target) {
 		
 		        curVal = parseInt(curVal);
 		        
+		        $('#sync_sliderText').val(curVal + GET_STRING_CONTENT("label_second"));
 		        $('#goFlightRecItemIndex').val(curVal);
 
          		updateFlightRecordDsec(target, curVal);
+         		showAlert(GET_STRING_CONTENT("msg_sync_updated"));
         }
     });
 
-    $('#goFlightRecItemBtn').click(function () {
+    $('#goFlightRecItemIndex').on("change paste", (function () {
 
-        GATAGM('goFlightRecItemBtn', 'CONTENT');
+        GATAGM('goFlightRecItemIndexChange', 'CONTENT');
 
         let curVal = $('#goFlightRecItemIndex').val();
         if (!isSet(curVal) || $.isNumeric(curVal) == false) {
@@ -2312,19 +2312,20 @@ function initSyncSliderForFlightRecord(target) {
         }
         else {
         	$("#sync_slider").slider('value', curVal);
+        	$('#sync_sliderText').val(curVal + GET_STRING_CONTENT("label_second"));
         }
         
-        updateFlightRecordDsec(target, curVal);   
+        updateFlightRecordDsec(target, curVal);
+        showAlert(GET_STRING_CONTENT("msg_sync_updated"));
     });
     
     $('#goFlightRecSaveBtn').click(function () {
-
         GATAGM('goFlightRecSaveBtn', 'CONTENT');                
-        updateFlightRecordDetail();
+        updateFlightRecordDetail(name);
     });
 }
 
-function updateFlightRecordDetail() {
+function updateFlightRecordDetail(name) {
 	var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "set_record", "name": name, "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
 
