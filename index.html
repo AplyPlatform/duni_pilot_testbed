@@ -236,14 +236,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		<div class="gtco-services gtco-section">
 			<div class="gtco-container">
 			
-				<h1 class="text-center">드론 영상 및 기업 찾기</h1>
+				<h1 class="text-center">드론 영상 및 기업 보기</h1>
 				<div class="row row-pb-sm">
-	          		<div class="col-sm-10">
-		          		<input name="searchKeyword" id="searchKeyword" type="text" class="form-control" style="background-color:white;" value="" placeholder="키워드">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+	          			<div class="col-xs-9">
+		          			<input name="searchKeyword" id="searchKeyword" type="text" class="form-control" style="background-color:white;" value="" placeholder="키워드">
+	        			</div>
+	        			<div class="col-xs-3 text-left">
+	        				<a class="btn btn-info btn-lg btn-block" role="button" id="btnSearchMovie">영상 검색</a>
+	        			</div>
 	        		</div>
-	        		<div class="col-sm-2 text-right">
-	        			<a class="btn btn-info btn-lg btn-block" role="button" id="btnSearchMovie">영상 검색</a>
-	        		</div>
+	        		<div class="col-md-2"></div>
 	        	</div>
 				
 				<div class="row row-pb-sm" id="searchListView">
@@ -262,14 +266,14 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 								<div class="col-md-6 text-left">
 									<table border=0 cellspacing=0 cellpadding=2>
 										<tr>
-											<td><i class="fab fa-youtube"></i> 공개 드론영상</td>
-											<td><input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked></td>
+											<td style="padding:10px;"><i class="fab fa-youtube"></i> 공개 드론영상</td>
+											<td style="padding:10px;"><input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked></td>
 										</tr>
 									</table>
 									<table border=0 cellspacing=0 cellpadding=2>
 										<tr>
-											<td><i class="fas fa-building"></i> 드론기업(드론전문교육기관 포함)</td>
-											<td><input type="checkbox" name="chkCompany" id="chkCompany" checked></td>
+											<td style="padding:10px;"><i class="fas fa-building"></i> 드론기업(드론전문교육기관 포함)</td>
+											<td style="padding:10px;"><input type="checkbox" name="chkCompany" id="chkCompany" checked></td>
 										</tr>
 									</table>
 								</div>
@@ -278,7 +282,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 								</div>
 							</div>
 							<br>
-							<div id="historyMap" style="width:100%;height:300px"></div>
+							<div id="historyMap" style="width:100%;height:400px"></div>
 						</div>
 					</div>
 
