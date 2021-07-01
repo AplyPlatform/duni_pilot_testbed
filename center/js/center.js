@@ -27,6 +27,8 @@ var g_vector_2D_mainmap_for_design_icon;
 var g_array_design_data;
 var g_array_flight_rec = [];
 
+var g_cur_str_flight_rec_fid;
+
 var g_array_full_flight_rec;
 var g_view_2D_map_for_flight_rec;
 var g_vector_2D_map_for_flight_rec;
@@ -1295,6 +1297,11 @@ function flightDetailInit(target) {
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
     
+    $('#goFlightRecItemBtn').text(GET_STRING_CONTENT('go_flight_rec_btn'));
+    $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label'));
+    $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));
+    
+    
     $('#no_record_data_view_label').text(GET_STRING_CONTENT('no_record_data_view_label'));
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
@@ -1332,9 +1339,11 @@ function flightDetailInit(target) {
     var record_name = getQueryVariable("record_name");
     var target_key = getQueryVariable("target_key");
 
+		initSyncSliderForFlightRecord();
+		
     if (record_name != null && record_name != "") {
         showDataWithName(target, target_key, decodeURIComponent(unescape(record_name)));
-    }
+    }        
 }
 
 
@@ -2256,6 +2265,97 @@ function setRollStatus(roll) {
 
     roll = roll.toFixed(3);
     $('#rollText').text(roll);
+}
+
+function initSyncSliderForFlightRecord() {
+
+    $('#sync_slider').slider({
+        min: -100,
+        max: 100,
+        value: 0,
+        step: 1,
+        slide: function (event, ui) {
+
+            GATAGM('flight_record_slider', 'CONTENT');
+
+            if (g_array_flight_rec.length <= 0) {
+                return;
+            }
+            
+            let curVal = ui.value;
+		        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
+		            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
+		            return;
+		        }
+		
+		        curVal = parseInt(curVal);
+		        
+		        $('#goFlightRecItemIndex').val(curVal);
+
+         		updateFlightRecordDsec(curVal);
+        }
+    });
+
+    $('#goFlightRecItemBtn').click(function () {
+
+        GATAGM('goFlightRecItemBtn', 'CONTENT');
+
+        let curVal = $('#goFlightRecItemIndex').val();
+        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
+            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
+            return;
+        }
+
+        curVal = parseInt(curVal);
+
+        if (curVal < -100 || curVal > 100) {
+        }
+        else {
+        	$("#sync_slider").slider('value', curVal);
+        }
+        
+        updateFlightRecordDsec(curVal);   
+    });
+    
+    $('#goFlightRecSaveBtn').click(function () {
+
+        GATAGM('goFlightRecSaveBtn', 'CONTENT');                
+        updateFlightRecordDetail();
+    });
+}
+
+function updateFlightRecordDetail() {
+	var userid = getCookie("dev_user_id");
+    var jdata = { "action": "position", "daction": "set_record", "name": name, "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
+
+    showLoader();
+    
+    ajaxRequest(jdata, function (r) {
+    		hideLoader();
+        if (r.result == "success") {
+            showAlert(GET_STRING_CONTENT('msg_success'));
+        }
+        else {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        }
+    }, function (request, status, error) {
+
+        monitor(GET_STRING_CONTENT('msg_error_sorry'));
+        hideLoader();
+    });
+}
+
+function updateFlightRecordDsec(dsec) {
+	if (g_array_flight_rec.length <= 0) {
+    return;
+	}
+       
+  for(var i=0;i<g_array_flight_rec.length;i++)
+  {
+  		g_array_flight_rec[i].dsec += dsec;
+  }
+  
+  setFlightRecordDataToView(target, g_array_flight_rec, false); 
 }
 
 function initSliderForDesign(i) {
@@ -3353,7 +3453,7 @@ function showDataWithName(target, target_key, name) {
     });
 }
 
-function setFlightRecordToView(target, name, fdata) {				
+function setFlightRecordToView(target, name, fdata) {								
         var n_title = name;
         if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
             n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg');
@@ -3560,6 +3660,7 @@ function setFlightRecordToView(target, name, fdata) {
           $("#map_area").hide();
           $("#no_record_data_view").show();
 
+					g_cur_str_flight_rec_fid = fdata.fid;
     			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
 				else {
