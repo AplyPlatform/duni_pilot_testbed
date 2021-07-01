@@ -1066,7 +1066,13 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     	if(r.result != "success") {
     		$('#btnForUploadFlightList').prop('disabled', false);
     		hideLoader();
-    		showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
+    		    		
+				if (r.result_code == 2 && r.reason.indexOf("recordfile") >= 0) {
+    			GATAGM('dji_file_upload_analyze_compass_failed', 'CONTENT');
+        	showAlert(GET_STRING_CONTENT('msg_select_another_file'));
+        }
+        else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason); 
+    		
     		return;
     	}
 
