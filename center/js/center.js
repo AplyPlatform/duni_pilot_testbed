@@ -2296,8 +2296,7 @@ function initSyncSliderForFlightRecord(target, name) {
         }
     });
 
-    $('#goFlightRecItemIndex').on("change paste", (function () {
-
+    $('#goFlightRecItemIndex').on("change paste", function () {
         GATAGM('goFlightRecItemIndexChange', 'CONTENT');
 
         let curVal = $('#goFlightRecItemIndex').val();
