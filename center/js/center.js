@@ -1299,7 +1299,8 @@ function flightDetailInit(target) {
     
     $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label') + " (" + GET_STRING_CONTENT('label_second') + ")");
             
-    $('#goFlightRecSaveBtn').text(GET_STRING_CONTENT('update_flight_rec_sync_btn'));    
+    $('#flightRecDsecApplyBtn').text(GET_STRING_CONTENT('apply_flight_rec_sync_btn'));    
+    $('#flightRecDsecSaveBtn').text(GET_STRING_CONTENT('save_flight_rec_sync_btn'));    
     
     $('#sync_explain_label').html(GET_STRING_CONTENT('sync_explain_label'));
     
@@ -1343,23 +1344,24 @@ function flightDetailInit(target) {
     if (record_name != null && record_name != "") {
     		let rname = decodeURIComponent(unescape(record_name));
         showDataWithName(target, target_key, rname);
-        $('#goFlightRecItemIndex').on("change paste", function () {
-		        GATAGM('goFlightRecItemIndexChange', 'CONTENT');
-		
-		        let curVal = $('#goFlightRecItemIndex').val();
+        
+        $('#flightRecDsecApplyBtn').click(function () {
+		        GATAGM('flightRecDsecApplyBtn', 'CONTENT');
+						
+						let curVal = $('#goFlightRecItemIndex').val();
 		        if (!isSet(curVal) || $.isNumeric(curVal) == false) {
 		            showAlert(GET_STRING_CONTENT("msg_wrong_input"));
 		            return;
 		        }
 		
-		        curVal = parseInt(curVal);        
-		        
+		        curVal = parseInt(curVal);        		        
 		        updateFlightRecordDsec(target, curVal);
+		        
 		        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
 		    });
 		    
-		    $('#goFlightRecSaveBtn').click(function () {
-		        GATAGM('goFlightRecSaveBtn', 'CONTENT');                
+		    $('#flightRecDsecSaveBtn').click(function () {
+		        GATAGM('flightRecDsecSaveBtn', 'CONTENT');                		        
 		        updateFlightRecordDetail(rname);
 		    });
     }        
