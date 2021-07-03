@@ -941,6 +941,10 @@ function embedCompassInit() {
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
     $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
     
+    $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
+    $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
+    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
+    
     $("#altitude_label_top").text(GET_STRING_CONTENT('altitude_label'));
     
     $('#compass_pos_sel_label').text(GET_STRING_CONTENT('compass_pos_sel_label'));
