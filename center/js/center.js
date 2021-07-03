@@ -356,6 +356,11 @@ function initPilotCenter() {
     }
     else if (g_str_page_action == "embedcompass") {
         $("#main_contents").load("embed_compass.html", function () {
+        		map2DInit();
+            selectMonitorIndex("private", 0);
+            addObjectTo2DMap(0, "private", "drone");
+            map3DInit();
+            addObjectTo3DMap(0, "private", "drone");
             embedCompassInit();
         });
     }
@@ -931,6 +936,12 @@ function embedCompassInit() {
     $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
     $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
     
+    $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
+    $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
+    $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
+    $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
+    
+    $("#altitude_label_top").text(GET_STRING_CONTENT('altitude_label'));
     
     $('#compass_pos_sel_label').text(GET_STRING_CONTENT('compass_pos_sel_label'));
     $('#compass_pos_sel_option_0').text(GET_STRING_CONTENT('compass_pos_sel_option_0_label'));
@@ -981,6 +992,7 @@ function embedCompassInit() {
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
     $('#selectFileArea').show();
+    $("#mapArea").hide();
     hideLoader();
 }
 
@@ -1079,6 +1091,11 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     	}
 
     	progressBar.val(100);
+    	
+    	if (isSet(r.data)) {
+    		$("#mapArea").show();
+    		setFlightRecordDataToView("private", r.data, false);
+    	}
 
     	runNextSequence( function () {
 					videoFileUpload(videoFileForCompass, r.filename, r.extension, r.signedurl);
@@ -2178,6 +2195,8 @@ function drawLineGraph() {
 }
 
 function setSlider(i) {
+		if ($("#slider").length <= 0) return;
+		
     $("#slider").on("slidestop", function (event, ui) {
         var locdata = g_array_flight_rec[ui.value];
         setMoveActionFromSliderOnStop(ui.value, locdata);
