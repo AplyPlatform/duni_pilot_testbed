@@ -106,6 +106,25 @@
 									<hr size="1" color="#fefefe">
 								</div>
 						</div>
+						
+						<div class="row">
+								<div class="col-md-6">
+									<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+								</div>
+								<div class="col-md-6">											
+                    <div class="row">
+                      <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
+                      <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
+                      <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
+                    </div>
+                    <div class="row">
+                    	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
+                      <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
+                      <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
+										</div>	                    
+								</div>
+						</div>
+						
 						<div class="row">
 								<div class="col-md-12 text-center" id="altitude_graph_area">
 									<canvas id="lineGraph" name="lineGraph"></canvas>

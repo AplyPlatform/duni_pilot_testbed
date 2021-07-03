@@ -997,7 +997,6 @@ function embedCompassInit() {
     if (g_str_cur_lang != "KR") {
     	$("#ad_for_pilot").hide(); //드론 영상으로 수익 창출 광고 감추기 (국내만 대상으로 하기)
     }
-
     
     hideLoader();
 }
