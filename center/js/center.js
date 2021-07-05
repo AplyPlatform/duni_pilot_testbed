@@ -1380,7 +1380,7 @@ function flightDetailInit(target) {
 		            return;
 		        }
 		
-		        curVal = parseInt(curVal);        		        
+		        curVal = parseFloat(curVal);        		        
 		        updateFlightRecordDsec(target, curVal);
 		        
 		        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
