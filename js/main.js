@@ -589,6 +589,7 @@
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
+						                  font: (radius * 2 - 5) + 'px sans-serif',
 						                  fill: new ol.style.Fill({ color: '#000' }),
 						                  scale: 1.5
 											})	
@@ -645,6 +646,7 @@
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
+						                  font: (radius * 2 - 5) + 'px sans-serif',
 						                  fill: new ol.style.Fill({ color: '#000' }),
 						                  scale: 1.5
 											})	
