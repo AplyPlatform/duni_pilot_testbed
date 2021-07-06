@@ -589,7 +589,7 @@
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
-						                  font: radius + '11px Roboto',
+						                  font: radius + 'px Roboto',
 						                  fill: new ol.style.Fill({ color: '#000' })						                  
 											})	
 		              })];
@@ -645,7 +645,7 @@
 			                }),
 			            	text: new ol.style.Text({
 						                  text: size.toString(),
-						                  font: radius + '11px Roboto',
+						                  font: radius + 'px Roboto',
 						                  fill: new ol.style.Fill({ color: '#000' })						                  
 											})	
 		              })];
