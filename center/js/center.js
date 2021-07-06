@@ -1577,7 +1577,7 @@ function flightRecords2DMapInit() {
 					            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
 			                }),
 			            	text: new ol.style.Text({
-			            						font: radius + 'px sans-serif',
+			            						font: radius + '11px Roboto',
 						                  text: size.toString(),
 						                  fill: new ol.style.Fill({ color: '#000' })						                  
 											})	
@@ -1635,7 +1635,7 @@ function flightRecords2DMapInit() {
 		                }),
 		            	text: new ol.style.Text({
 					                  text: size.toString(),
-					                  font: radius + 'px sans-serif',
+					                  font: radius + '11px Roboto',
 					                  fill: new ol.style.Fill({ color: '#000' })					                  
 										})	
 	              })];
