@@ -96,6 +96,7 @@ var g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD
 
 var g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
 
+var g_b_phonnumber_verified = false;
 
 $(function () {
 		var lang = getCookie("language");
@@ -4047,6 +4048,134 @@ function moveFlightHistoryMap(lat, lng) {
     g_view_2D_map_for_flight_rec.setCenter(npos);
 }
 
+function verifyPhoneNo(){
+    
+    // check if phone number starts with 01 and is total of 11 digits
+    let phone_number = $('#user_phonenumber').val();
+    if((phone_number.length != 11) || phone_number.substring(0,2) !== '01') {
+        showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
+        return;
+    }
+    
+    // send phone verification
+    var jdata = {
+        "action": "member", 
+        "daction" : "validate_phonenumber", 
+        "phone_number" : phone_number, 
+        "g_token": token
+    };
+    ajaxRequest(jdata, 
+        function (data){
+            let result = data.result_code;
+            if(result === 0){ //정상응답
+                showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
+                g_b_phonnumber_verified = false;
+                // 인증하기 텍스트 -> 재전송
+                $('#btn_verify_code').text("재전송");
+                var duration = 60 * 3;
+                var display = $('#remaining_time');
+                startTimer(duration, display);
+                //$('#droneplay_phonenumber').prop( "disabled", true );
+                $("#code_verification_input").show();
+                return;
+            }
+            if (result === 2) {
+                showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
+                return;
+            }
+            if (result === 3) {
+                showAlert(GET_STRING_CONTENT('msg_phone_already_exists'));
+                return;
+            }
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        },
+        function (err, stat, error) {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        }
+    );
+});
+
+}
+
+function verifyCode(){
+    let verification_code = $('#verification_code').val();
+		if(verification_code == ""){
+			showAlert(GET_STRING_CONTENT('msg_code_empty'));
+			return;
+		} 
+		
+		var jdata = {
+                "action" : "member", 
+                "daction" : "check_verifycode", 
+                "phone_number" : $('#droneplay_phonenumber').val(), 
+                "verify_code" : verification_code, 
+                "g_token" : token};
+		ajaxRequest(jdata,
+			function(data){
+				let result = data.result_code;
+				if(result === 0){
+					$('#verification_code').val("");
+					$("#code_verification_input").hide();			
+					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+					clearInterval(interval_timer);
+					// disable phone number input
+                        g_b_phonnumber_verified = true;
+                        $('#auth_code').val(data.auth_code);
+					// $('#droneplay_phonenumber').prop( "disabled", true );
+					// $('btn_check_code').text("재인증");
+					return;
+				}
+				if(result === 2){
+					showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));
+					return;
+				}
+				if(result === 4){
+					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+					return;
+				}
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+			},
+			function (err, stat, error) {
+				showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+			}
+		);
+	});
+}
+
+
+
+// 전화번호 인증 혜지프로
+function validateNumber(event) {
+    var key = window.event ? event.keyCode : event.which;
+    if (event.keyCode === 8 || event.keyCode === 46) {
+        return true;
+    } else if ( key < 48 || key > 57 ) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+    
+
+// 인증기간 타이머 혜지프로
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    interval_timer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+			clearInterval(interval_timer);
+            showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+        }
+    }, 1000);
+}    
 
 function setYoutubeVideo(index, youtube_url) {
 		if (isSet(youtube_url) == false) {
