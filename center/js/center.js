@@ -841,7 +841,7 @@ function flightrecordUploadInit() {
             var userid = getCookie("dev_user_id");
 			if(checked){
                 $("#priceinputarea").show();
-                $("validate_phonenumber_area").hide();
+                $("#validate_phonenumber_area").hide();
                 // check if user has verfied phoen number
                 var jdata = {
                     "action": "position",
@@ -850,12 +850,12 @@ function flightrecordUploadInit() {
                 };
                 ajaxRequest(jdata, function(r){
                         if(r.result_code === 0){
-                            $("validate_phonenumber_area").show();
+                            $("#validate_phonenumber_area").show();
                             showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
                             return;
                         }
                         if(r.result_code === 3){
-                            $("validate_phonenumber_area").hide();
+                            $("#validate_phonenumber_area").hide();
                             return;
                         }
                         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
