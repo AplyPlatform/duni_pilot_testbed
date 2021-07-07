@@ -839,10 +839,34 @@ function flightrecordUploadInit() {
     $("#salecheck").click(function(){
 			var checked = $("#salecheck").is(":checked");
 
-			if(checked)
-				$("#priceinputarea").show();
-			else
-				$("#priceinputarea").hide();
+			if(checked){
+                $("#priceinputarea").show();
+                // check if user has verfied phoen number
+                var jdata = {
+                    "action": "position",
+                    "daction": "check_phonenumber_exists",
+                    "clientid": userid
+                };
+                ajaxRequest(jdata, function(r){
+                        if(r.result_code === 3){
+                            showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
+                            $("code_verification_input").show();
+                            return;
+                        }
+                        if(r.result_code ===0){
+                            $("code_verification_input").show();
+                            return;
+                        }
+                        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+                        return
+                    },
+                    function (request, status, error) {
+                        showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
+                    }  
+                );
+
+            }
+			else $("#priceinputarea").hide();
 		});
 
     var input = document.querySelector('input[name=tagTextarea]');
@@ -4049,7 +4073,6 @@ function moveFlightHistoryMap(lat, lng) {
 }
 
 function verifyPhoneNo(){
-    
     // check if phone number starts with 01 and is total of 11 digits
     let phone_number = $('#user_phonenumber').val();
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01') {
@@ -4059,10 +4082,9 @@ function verifyPhoneNo(){
     
     // send phone verification
     var jdata = {
-        "action": "member", 
+        "action": "position", 
         "daction" : "validate_phonenumber", 
-        "phone_number" : phone_number, 
-        "g_token": token
+        "phone_number" : phone_number
     };
     ajaxRequest(jdata, 
         function (data){
@@ -4093,11 +4115,11 @@ function verifyPhoneNo(){
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
         }
     );
-});
 
 }
 
 function verifyCode(){
+    var userid = getCookie("dev_user_id");
     let verification_code = $('#verification_code').val();
 		if(verification_code == ""){
 			showAlert(GET_STRING_CONTENT('msg_code_empty'));
@@ -4105,11 +4127,12 @@ function verifyCode(){
 		} 
 		
 		var jdata = {
-                "action" : "member", 
+                "action" : "position", 
                 "daction" : "check_verifycode", 
                 "phone_number" : $('#droneplay_phonenumber').val(), 
-                "verify_code" : verification_code, 
-                "g_token" : token};
+                "verify_code" : verification_code,
+                "clientid" : userid
+            };
 		ajaxRequest(jdata,
 			function(data){
 				let result = data.result_code;
@@ -4139,7 +4162,6 @@ function verifyCode(){
 				showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 			}
 		);
-	});
 }
 
 

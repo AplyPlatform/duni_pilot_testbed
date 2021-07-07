@@ -97,6 +97,7 @@ var LANG_JSON_DATA = {
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
         "center_example_title": "사용예시",
         // 전화번호 인증
+        "msg_phone_vid_not_verified" : "영상판매를 위해 전화번호 인증은 필요합니다. 전화번호를 인증해 주세요.",
         "msg_phone_already_exists" : "이미 사용중인 전화번호입니다. 다른 번호를 입력해주세요.",
         "msg_verification_code_sent" : "인증번호가 전송되었습니다.",
         "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다.",
@@ -342,6 +343,7 @@ var LANG_JSON_DATA = {
         "center_about_title": "About ...",
         "center_example_title": "Example",
         // 전화번호 인증
+        "msg_phone_vid_not_verified" : "Phone number verification is needed for this option. Please verify your phone number.",
         "msg_phone_already_exists" : "Phone number already registered. Please try a different number",
         "msg_verification_code_sent" : "Verification code sent.",
         "msg_wrong_phone_format" : "Phone number does not exist. Please check your number.",
