@@ -838,7 +838,7 @@ function flightrecordUploadInit() {
 
     $("#salecheck").click(function(){
 			var checked = $("#salecheck").is(":checked");
-
+            var userid = getCookie("dev_user_id");
 			if(checked){
                 $("#priceinputarea").show();
                 // check if user has verfied phoen number
