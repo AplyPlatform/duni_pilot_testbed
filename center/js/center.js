@@ -850,11 +850,11 @@ function flightrecordUploadInit() {
                 ajaxRequest(jdata, function(r){
                         if(r.result_code === 0){
                             showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                            $("code_verification_input").hide();
+                            $("code_verification_input").show();
                             return;
                         }
                         if(r.result_code === 3){
-                            $("code_verification_input").show();
+                            $("code_verification_input").hide();
                             return;
                         }
                         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -4110,6 +4110,7 @@ function verifyPhoneNo(){
                 return;
             }
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+            return;
         },
         function (err, stat, error) {
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
