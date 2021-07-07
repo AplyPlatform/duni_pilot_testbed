@@ -850,11 +850,13 @@ function flightrecordUploadInit() {
                 ajaxRequest(jdata, function(r){
                         if(r.result_code === 0){
                             showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                            $("code_verification_input").show();
+                            $("validate_phonenumber_area").show();
+                            $("verifyPhoneBtn").show();
                             return;
                         }
                         if(r.result_code === 3){
-                            $("code_verification_input").hide();
+                            $("validate_phonenumber_area").hide();
+                            $("verifyPhoneBtn").hide();
                             return;
                         }
                         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
