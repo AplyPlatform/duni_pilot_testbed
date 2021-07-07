@@ -4074,6 +4074,7 @@ function moveFlightHistoryMap(lat, lng) {
 }
 
 function verifyPhoneNo(){
+    var userid = getCookie("dev_user_id");
     // check if phone number starts with 01 and is total of 11 digits
     let phone_number = $('#user_phonenumber').val();
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01') {
@@ -4085,7 +4086,8 @@ function verifyPhoneNo(){
     var jdata = {
         "action": "position", 
         "daction" : "validate_phonenumber", 
-        "phone_number" : phone_number
+        "phone_number" : phone_number,
+        "clientid" : userid
     };
     ajaxRequest(jdata, 
         function (data){
