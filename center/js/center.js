@@ -1285,7 +1285,7 @@ function fileDropCheckRecordUpload(files) {
 			else {
 				console.log(file);
 				recordFileForUploadFile = file;
-				previewForRecordFile(file, "record");
+				previewForRecordFile(file);
 				isAdded = true;
 			}
 		}
@@ -1298,7 +1298,7 @@ function fileDropCheckRecordUpload(files) {
 			else {
 				console.log(file);
 				videoFileForUploadFile = file;
-				previewForRecordFile(file, "video");
+				previewForRecordFile(file);
 				isAdded = true;
 			}
 		}
