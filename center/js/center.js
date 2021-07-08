@@ -852,41 +852,42 @@ function flightrecordUploadInit() {
     }
 
     $("#salecheck").click(function(){
-			var checked = $("#salecheck").is(":checked");
+						var checked = $("#salecheck").is(":checked");
             var userid = getCookie("dev_user_id");
-			if(checked){
-                $("#priceinputarea").show();
-                $("#validate_phonenumber_area").hide();
-                // check if user has verfied phoen number
-                var jdata = {
-                    "action": "position",
-                    "daction": "check_phonenumber_exists",
-                    "clientid": userid
-                };
-                ajaxRequest(jdata, function(r){
-                        if(r.result_code === 0){
-                            $("#validate_phonenumber_area").show();
-                            showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                            g_b_phonenumber_verified = false;
-                            return;
-                        }
-                        if(r.result_code === 3){
-                            $("#validate_phonenumber_area").hide();
-                            return;
-                        }
-                        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-                        return
-                    },
-                    function (request, status, error) {
-                        showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
-                    }  
-                );
-
-            }
-			else{
-                $("#priceinputarea").hide();
-                g_b_phonenumber_verified = true;
-            } 
+			
+						if(checked){
+			                $("#priceinputarea").show();
+			                $("#validate_phonenumber_area").hide();
+			                // check if user has verfied phoen number
+			                var jdata = {
+			                    "action": "position",
+			                    "daction": "check_phonenumber_exists",
+			                    "clientid": userid
+			                };
+			                ajaxRequest(jdata, function(r){
+			                        if(r.result_code === 0){
+			                            $("#validate_phonenumber_area").show();
+			                            showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
+			                            g_b_phonenumber_verified = false;
+			                            return;
+			                        }
+			                        if(r.result_code === 3){
+			                            $("#validate_phonenumber_area").hide();
+			                            return;
+			                        }
+			                        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+			                        return
+			                    },
+			                    function (request, status, error) {
+			                        showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
+			                    }  
+			                );
+			
+			            }
+						else{
+			                $("#priceinputarea").hide();
+			                g_b_phonenumber_verified = true;
+			      }
 		});
 
     var input = document.querySelector('input[name=tagTextarea]');
@@ -5413,7 +5414,7 @@ function uploadFlightList(isUpdate) {
     }
     else if (cVal == "tab_menu_set_youtube_address") {
     		youtube_data = massageYotubeUrl(youtube_data);
-    		if (youtube_data == "") { //todo
+    		if (youtube_data == "") {
 					showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
 					hideLoader();
 					return;
@@ -6069,6 +6070,11 @@ function uploadCheckBeforeUploadFlightList() {
 				var t_p = $("#price_input_data").val();
 				if (t_p == "" || t_p == "원" || t_p == "0") {
 					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
+					return;
+				}
+				
+				if (g_b_phonenumber_verified == false) {
+					showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
 					return;
 				}
 
