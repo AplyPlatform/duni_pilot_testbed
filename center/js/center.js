@@ -5864,67 +5864,64 @@ function addChartItem(i, item) {
 
 function uploadCheckBeforeUploadFlightList() {
 
+		var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
+		if (cVal == "tab_menu_set_youtube_address" || cVal == "tab_menu_set_no_video") {
+      uploadFlightList(false);
+      return;
+    }
 
-    console.log(g_b_phonenumber_verified);
+  	var mname = $("#record_name_field").val();
+		if (mname == "") {
+			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
+			return;
+		}
 
-	// 	var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
-	// 	if (cVal == "tab_menu_set_youtube_address" || cVal == "tab_menu_set_no_video") {
-    //   uploadFlightList(false);
-    //   return;
-    // }
+		var price = 0;
+   	if (g_str_cur_lang == "KR") {
+    	let tchecked = $("#salecheck").is(":checked");
+			if(tchecked) {
+				var t_p = $("#price_input_data").val();
+				if (t_p == "" || t_p == "원" || t_p == "0") {
+					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
+					return;
+				}
 
-  	// var mname = $("#record_name_field").val();
-	// 	if (mname == "") {
-	// 		showAlert(GET_STRING_CONTENT('msg_input_record_name'));
-	// 		return;
-	// 	}
+				price = t_p * 1;
+			}
+    }
 
-	// 	var price = 0;
-   	// if (g_str_cur_lang == "KR") {
-    // 	let tchecked = $("#salecheck").is(":checked");
-	// 		if(tchecked) {
-	// 			var t_p = $("#price_input_data").val();
-	// 			if (t_p == "" || t_p == "원" || t_p == "0") {
-	// 				showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-	// 				return;
-	// 			}
+    var mmemo = $("#memoTextarea").val();
+		var tag_values = $("#tagTextarea").val();
 
-	// 			price = t_p * 1;
-	// 		}
-    // }
+    var files = document.getElementById('flight_record_file').files;
+    if (g_b_fileupload_for_DJI == true) { //비행기록 업로드
+    	if (files.length <= 0) {
+    		showAlert(GET_STRING_CONTENT('msg_select_file'));
+    		return;
+    	}
 
-    // var mmemo = $("#memoTextarea").val();
-	// 	var tag_values = $("#tagTextarea").val();
+    	showLoader();
 
-    // var files = document.getElementById('flight_record_file').files;
-    // if (g_b_fileupload_for_DJI == true) { //비행기록 업로드
-    // 	if (files.length <= 0) {
-    // 		showAlert(GET_STRING_CONTENT('msg_select_file'));
-    // 		return;
-    // 	}
+    	g_params_for_upload_flight_rec = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price};
+      g_component_upload_youtube_video.handleUploadClicked();
+      return;
+    }
 
-    // 	showLoader();
-
-    // 	g_params_for_upload_flight_rec = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price};
-    //   g_component_upload_youtube_video.handleUploadClicked();
-    //   return;
-    // }
-
-  	// if (g_loc_address_flat == -999) {    	// 주소 기반
-  	// 		showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-  	// 		return;
-    //   }
+  	if (g_loc_address_flat == -999) {    	// 주소 기반
+  			showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
+  			return;
+      }
       
-    // // 전화번호 인증여부 체크
-    // if(!g_b_phonenumber_verified){
-    //     showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
-    //     return;
-    // }
+    // 전화번호 인증여부 체크
+    if(!g_b_phonenumber_verified){
+        showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
+        return;
+    }
 
 
-  	// showLoader();
-  	// g_params_for_upload_flight_rec = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: g_loc_address_flat, flng : g_loc_address_flng};
-  	// g_component_upload_youtube_video.handleUploadClicked();
+  	showLoader();
+  	g_params_for_upload_flight_rec = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: g_loc_address_flat, flng : g_loc_address_flng};
+  	g_component_upload_youtube_video.handleUploadClicked();
 }
 
 function setFlightRecordUploadMode(bWhich) {
