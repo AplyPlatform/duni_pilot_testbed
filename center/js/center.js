@@ -972,14 +972,26 @@ function flightrecordUploadInit() {
 			$("#file_upload_img").hide();
 			
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
-			let retSelected = fileDropCheck(e.originalEvent.dataTransfer.files);
+			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
 			if (retSelected) setUploadFileFields();
 		});
 
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForFlightRecord', 'CONTENT');
-			let retSelected = fileDropCheck(this.files);
+			let retSelected = fileDropCheckRecordUpload(this.files);
 			if (retSelected) setUploadFileFields();			
+		});
+		
+		$("#movieFile").bind('change', function() {			
+			GATAGM('changeMovieFileInput', 'CONTENT');
+			videoFileForUploadFile = null;
+			let retSelected = fileDropCheckRecordUpload(this.files);			
+		});
+		
+		$("#flight_record_file").bind('change', function() {			
+			GATAGM('changeRecordFileInput', 'CONTENT');
+			recordFileForUploadFile = null;
+			let retSelected = fileDropCheckRecordUpload(this.files);			
 		});
 
 		$("#input_direct_file").click(function() {			
@@ -992,13 +1004,9 @@ function flightrecordUploadInit() {
     hideLoader();
 }
 
-function setUploadFileFields() {
-		if (isSet(videoFileForCompass) || isSet(recordFileForCompass)) {
-			$('#dropArea').hide();
-			$('#uploadfileform').show();
-		}
-		
-		
+function setUploadFileFields() { //todo		
+		$('#dropArea').hide();
+		$('#uploadfileform').show();		
 }
 
 function embedCompassInit() {
@@ -1053,8 +1061,8 @@ function embedCompassInit() {
 			$("#file_upload_img").hide();
 			
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
-			let retSelected = fileDropCheck(e.originalEvent.dataTransfer.files);
-			if (retSelected == true && (isSet(videoFileForCompass) && isSet(recordFileForCompass))) {
+			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
+			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$('#selectFileArea').hide();
 				$('#btnForUploadFlightList').show();
 			}
@@ -1067,8 +1075,8 @@ function embedCompassInit() {
 
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForCompassEmbed', 'CONTENT');
-			let retSelected = fileDropCheck(this.files);
-			if (retSelected == true && (isSet(videoFileForCompass) && isSet(recordFileForCompass))) {
+			let retSelected = fileDropCheckForCompass(this.files);
+			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$('#selectFileArea').hide();
 				$('#btnForUploadFlightList').show();
 			}
@@ -1097,17 +1105,17 @@ function embedCompassInit() {
     hideLoader();
 }
 
-var recordFileForCompass = null;
-var videoFileForCompass = null;
+var recordFileForUploadFile = null;
+var videoFileForUploadFile = null;
 
-function fileDropCheck(files) {
+function fileDropCheckCompass(files) {
 	if (files.length > 2) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return false;
 	}
 
 	if (files.length == 2) {
-		if (isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
+		if (isSet(recordFileForUploadFile) || isSet(videoFileForUploadFile)) {
 			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 			return false;
 		}
@@ -1118,27 +1126,27 @@ function fileDropCheck(files) {
 		var file = files[i];
 
 		if (isRecordFile(file.name)) {
-			if (isSet(recordFileForCompass)) {
+			if (isSet(recordFileForUploadFile)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return false;
 			}
 			else {
 				console.log(file);
-				recordFileForCompass = file;
-				preview(file, "record");
+				recordFileForUploadFile = file;
+				previewForCompassFile(file, "record");
 				isAdded = true;
 			}
 		}
 
 		if (isMovieFile(file.name)) {
-			if (isSet(videoFileForCompass)) {
+			if (isSet(videoFileForUploadFile)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return false;
 			}
 			else {
 				console.log(file);
-				videoFileForCompass = file;
-				preview(file, "video");
+				videoFileForUploadFile = file;
+				previewForCompassFile(file, "video");
 				isAdded = true;
 			}
 		}
@@ -1152,8 +1160,9 @@ function fileDropCheck(files) {
 	return true;	
 }
 
+
 function uploadCheckBeforeCompassEmbed() {
-	if (!isSet(recordFileForCompass) || !isSet(videoFileForCompass)) {
+	if (!isSet(recordFileForUploadFile) || !isSet(videoFileForUploadFile)) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return;
 	}
@@ -1161,9 +1170,9 @@ function uploadCheckBeforeCompassEmbed() {
 	showLoader();
 	$('#btnForUploadFlightList').prop('disabled', true);
 
-	var params = {file : recordFileForCompass};
+	var params = {file : recordFileForUploadFile};
 	getBase64(params, function(ret) {
-		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForCompass.name), recordFileForCompass.target.find("progress"));
+		requestUploadForCompass(ret.base64file, getFileExtension(videoFileForUploadFile.name), recordFileForUploadFile.target.find("progress"));
 	});
 }
 
@@ -1199,7 +1208,7 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     	}
 
     	runNextSequence( function () {
-					videoFileUpload(videoFileForCompass, r.filename, r.extension, r.signedurl);
+					videoFileUpload(videoFileForUploadFile, r.filename, r.extension, r.signedurl);
 			} );
     }, function (request, status, error) {
       $('#btnForUploadFlightList').prop('disabled', false);
@@ -1233,8 +1242,8 @@ function embedRequest(filename, tempExt) {
 
         	$("#file_thumb_video").remove();
         	$("#file_thumb_record").remove();
-					recordFileForCompass = null;
-					videoFileForCompass = null;
+					recordFileForUploadFile = null;
+					videoFileForUploadFile = null;
 
 					$('#selectFileArea').show();
 					$('#btnForUploadFlightList').hide();
@@ -1250,6 +1259,58 @@ function embedRequest(filename, tempExt) {
     });
 }
 
+
+function fileDropCheckRecordUpload(files) {
+	if (files.length > 2) {
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+		return false;
+	}
+
+	if (files.length == 2) {
+		if (isSet(recordFileForUploadFile) || isSet(videoFileForUploadFile)) {
+			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+			return false;
+		}
+	}
+
+	var isAdded = false;
+	for(var i = 0; i < files.length; i++) {
+		var file = files[i];
+
+		if (isRecordFile(file.name)) {
+			if (isSet(recordFileForUploadFile)) {
+				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+				return false;
+			}
+			else {
+				console.log(file);
+				recordFileForUploadFile = file;
+				previewForRecordFile(file, "record");
+				isAdded = true;
+			}
+		}
+
+		if (isMovieFile(file.name)) {
+			if (isSet(videoFileForUploadFile)) {
+				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+				return false;
+			}
+			else {
+				console.log(file);
+				videoFileForUploadFile = file;
+				previewForRecordFile(file, "video");
+				isAdded = true;
+			}
+		}
+	}
+
+	if (isAdded == false) {
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+		return false;
+	}
+	
+	return true;	
+}
 
 function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
 	var $selfProgress = videoFile.target.find("progress");
@@ -1285,7 +1346,39 @@ function setProgress(per) {
 		$progressBar.val(per);
 }
 
-function preview(file, idx) {
+function previewForRecordFile(file) {
+	var iconArea;
+	var vDiv;
+	if(isMovieFile(file.name)) {
+		$("#videoFileName").empty();
+		iconArea = '<i class="fas fa-video"></i>';
+		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_video"><b>X</b></span></td><td class="text-left">'
+			+ iconArea + ' ' + file.name + '</td></tr></table>');
+		$("#videoFileName").append(vDiv);
+		
+		$("#file_data_remover_video").on("click", function(e) {
+			$("#videoFileName").remove();			
+			videoFileForUploadFile = null;			
+		});		
+	}
+	else {
+		$("#flightRecordFileName").empty();
+		iconArea = '<i class="fas fa-map-marker-alt"></i>';
+		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_record"><b>X</b></span></td><td class="text-left">'
+			+ iconArea + ' ' + file.name + '</td></tr></table>');
+		$("#flightRecordFileName").append(vDiv);
+		
+		$("#file_data_remover_record").on("click", function(e) {
+			$("#flightRecordFileName").remove();			
+			recordFileForUploadFile = null;			
+		});		
+	}		
+}
+
+
+function previewForCompassFile(file, idx) {
 	var iconArea = '<i class="fas fa-map-marker-alt"></i>';
 	if(isMovieFile(file.name)) {
 		iconArea = '<i class="fas fa-video"></i>';
@@ -1296,14 +1389,29 @@ function preview(file, idx) {
 		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></td></tr></table></div>');
 	$("#thumbnails").append($div);
 	file.target = $div;
+	
+	
+	if ($("#videoFileName").length) {
+		let vDiv = $('<div id="file_thumb_video_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_video_' + idx + '"><b>X</b></span></td><td class="text-left">'
+			+ iconArea + ' ' + file.name + '</td></tr></table></div>');
+		$("#videoFileName").append(vDiv);
+	}
+	
+	if ($("#flightRecordFileName").length) {
+		let rDiv = $('<div id="file_thumb_record_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_record_' + idx + '"><b>X</b></span></td><td class="text-left">'
+			+ iconArea + ' ' + file.name + '</td></tr></table></div>');
+		$("#flightRecordFileName").append(rDiv);
+	}
 
 	$("#file_data_remover_" + idx).on("click", function(e) {
 		$("#file_thumb_" + idx).remove();
 		if (isRecordFile(file.name)) {
-			recordFileForCompass = null;
+			recordFileForUploadFile = null;
 		}
 		else {
-			videoFileForCompass = null;
+			videoFileForUploadFile = null;
 		}
 
 		$('#selectFileArea').show();
@@ -1454,7 +1562,9 @@ function flightDetailInit(target) {
     };
 
 		g_component_upload_youtube_video.ready();
-    $('#uploadVideoToYoutubeButton').on("click", g_component_upload_youtube_video.handleUploadClicked.bind(g_component_upload_youtube_video));
+    $('#uploadVideoToYoutubeButton').click(function () {
+    	g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);    	
+    });
 
     let record_name = getQueryVariable("record_name");
     let target_key = getQueryVariable("target_key");		
@@ -5943,18 +6053,17 @@ function uploadCheckBeforeUploadFlightList() {
 
     var mmemo = $("#memoTextarea").val();
 		var tag_values = $("#tagTextarea").val();
-
-    var files = document.getElementById('flight_record_file').files;
+        
     if (g_b_fileupload_for_DJI == true) { //비행기록 업로드
-    	if (files.length <= 0) {
+    	if (isSet(recordFileForUploadFile) == false) {
     		showAlert(GET_STRING_CONTENT('msg_select_file'));
     		return;
     	}
 
     	showLoader();
 
-    	g_params_for_upload_flight_rec = {file : files[0], mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price};
-      g_component_upload_youtube_video.handleUploadClicked();
+    	g_params_for_upload_flight_rec = {file : recordFileForUploadFile, mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price};
+      g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
       return;
     }
 
@@ -5972,7 +6081,7 @@ function uploadCheckBeforeUploadFlightList() {
 
   	showLoader();
   	g_params_for_upload_flight_rec = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: g_loc_address_flat, flng : g_loc_address_flng};
-  	g_component_upload_youtube_video.handleUploadClicked();
+  	g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
 }
 
 function setFlightRecordUploadMode(bWhich) {

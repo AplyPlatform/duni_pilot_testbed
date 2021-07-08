@@ -149,7 +149,7 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
     uploader.upload();
 };
 
-UploadVideo.prototype.handleUploadClicked = function () {
+UploadVideo.prototype.handleUploadClicked = function (curVideoFile) {
 		GATAGM('uploadVideoToYoutubeButton', 'CONTENT');
 		
 		if (upload_not_allow){
@@ -169,7 +169,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
         return;
     }
 		
-    if (!$('#movieFile').get(0).files[0] || $('#movieFile').get(0).files[0] == null) {
+    if (curVideoFile == null) {
     		hideLoader();
         showAlert(GET_STRING_CONTENT('msg_select_video_file'));
         return;
@@ -204,7 +204,7 @@ UploadVideo.prototype.handleUploadClicked = function () {
 		
 		var fname = $('#record_name_field').val();
 		var fdesc = $('#memoTextarea').val();
-    this.uploadFile($('#movieFile').get(0).files[0], fname, fdesc);
+    this.uploadFile(curVideoFile, fname, fdesc);
 };
 
 UploadVideo.prototype.uploadVideoAction = function () {
