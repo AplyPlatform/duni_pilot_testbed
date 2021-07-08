@@ -1369,9 +1369,9 @@ function previewForRecordFile(file) {
 		$("#selectMovieFileArea").css("display","none");
 		$("#videoFileName").empty();
 		iconArea = '<i class="fas fa-video"></i>';
-		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_video"><b>X</b></span></td><td class="text-left">'
-			+ iconArea + ' ' + file.name + '</td></tr></table>');
+		vDiv = $('<div class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_video"><b>X</b></span> '
+			+ iconArea + ' ' + file.name + '</div>');
 		$("#videoFileName").append(vDiv);
 						
 		$("#file_data_remover_video").on("click", function(e) {
@@ -1384,9 +1384,9 @@ function previewForRecordFile(file) {
 		$("#selectDJIFileArea").css("display","none");
 		$("#flightRecordFileName").empty();
 		iconArea = '<i class="fas fa-map-marker-alt"></i>';
-		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_record"><b>X</b></span></td><td class="text-left">'
-			+ iconArea + ' ' + file.name + '</td></tr></table>');
+		vDiv = $('<div class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_record"><b>X</b></span> '
+			+ iconArea + ' ' + file.name + '</div>');
 		$("#flightRecordFileName").append(vDiv);
 		
 		$("#file_data_remover_record").on("click", function(e) {
@@ -1404,27 +1404,12 @@ function previewForCompassFile(file, idx) {
 		iconArea = '<i class="fas fa-video"></i>';
 	}
 
-	var $div = $('<div id="file_thumb_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
-		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span></td><td class="text-left">'
-		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></td></tr></table></div>');
+	var $div = $('<div id="file_thumb_' + idx + ' "class="text-left">'
+		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span> '
+		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></div>');
 	$("#thumbnails").append($div);
 	file.target = $div;
 	
-	
-	if ($("#videoFileName").length) {
-		let vDiv = $('<div id="file_thumb_video_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_video_' + idx + '"><b>X</b></span></td><td class="text-left">'
-			+ iconArea + ' ' + file.name + '</td></tr></table></div>');
-		$("#videoFileName").append(vDiv);
-	}
-	
-	if ($("#flightRecordFileName").length) {
-		let rDiv = $('<div id="file_thumb_record_' + idx + '"><table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_record_' + idx + '"><b>X</b></span></td><td class="text-left">'
-			+ iconArea + ' ' + file.name + '</td></tr></table></div>');
-		$("#flightRecordFileName").append(rDiv);
-	}
-
 	$("#file_data_remover_" + idx).on("click", function(e) {
 		$("#file_thumb_" + idx).remove();
 		if (isRecordFile(file.name)) {
