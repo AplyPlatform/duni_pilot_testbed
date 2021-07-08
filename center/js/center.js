@@ -1567,7 +1567,7 @@ function flightDetailInit(target) {
     });
 
     let record_name = getQueryVariable("record_name");
-    let target_key = getQueryVariable("target_key");		
+    let target_key = getQueryVariable("target_key");
 		
     if (record_name != null && record_name != "") {
     		let rname = decodeURIComponent(unescape(record_name));
@@ -1582,17 +1582,17 @@ function flightDetailInit(target) {
 		            return;
 		        }
 		
-		        curVal = parseFloat(curVal);        		        
+		        curVal = parseFloat(curVal);
 		        updateFlightRecordDsec(target, curVal);
 		        
 		        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
 		    });
 		    
 		    $('#flightRecDsecSaveBtn').click(function () {
-		        GATAGM('flightRecDsecSaveBtn', 'CONTENT');                		        
+		        GATAGM('flightRecDsecSaveBtn', 'CONTENT');
 		        updateFlightRecordDetail(rname);
 		    });
-    }        
+    }
 }
 
 
@@ -5387,9 +5387,7 @@ function uploadFlightList(isUpdate) {
 
 		var tag_values = $("#tagTextarea").val();
 
-		var youtube_data = $("#youtube_url_data").val();
-    var files = document.getElementById('flight_record_file').files;
-
+		var youtube_data = $("#youtube_url_data").val();    
     var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
 		if (cVal == "tab_menu_set_no_video") {
       youtube_data = "";
@@ -5420,20 +5418,20 @@ function uploadFlightList(isUpdate) {
     }
 
     if (g_b_fileupload_for_DJI == true) {
-    	if (files.length <= 0) {
+    	if (isSet(recordFileForUploadFile) == false) {
     		showAlert(GET_STRING_CONTENT('msg_select_file'));
     		return;
     	}
 
     	if (isSet(youtube_data)) {
-    		var params = {file: files[0], mname : mname, mmemo : mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate};
+    		var params = {file: recordFileForUploadFile, mname : mname, mmemo : mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate};
     		askIsSyncData(params, uploadDJIFlightListCallback);
     		return;
     	}
 
     	showLoader();
 
-    	params = {file : files[0], mname : mname, mmemo: mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};
+    	params = {file : recordFileForUploadFile, mname : mname, mmemo: mmemo, price: price, tag_values : tag_values, youtube_data : youtube_data, isUpdate : isUpdate, isSyncData : false};
       getBase64(params, uploadDJIFlightListCallback);
       return;
     }
