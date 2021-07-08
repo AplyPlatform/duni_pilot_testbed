@@ -14,6 +14,7 @@ limitations under the License.
 
 
 var g_b_monitor_started;
+var g_b_phonenumber_verified = true;
 
 var g_cur_2D_mainmap;
 var g_view_cur_2D_mainmap;
@@ -95,8 +96,6 @@ var g_params_for_upload_flight_rec = {};
 var g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD", "STOP_RECORD", "ROTATE_AIRCRAFT", "GIMBAL_PITCH", "NONE", "CAMERA_ZOOM", "CAMERA_FOCUS"];
 
 var g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
-
-var g_b_phonnumber_verified = false;
 
 $(function () {
 		var lang = getCookie("language");
@@ -863,6 +862,7 @@ function flightrecordUploadInit() {
                         if(r.result_code === 0){
                             $("#validate_phonenumber_area").show();
                             showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
+                            g_b_phonnumber_verified = false;
                             return;
                         }
                         if(r.result_code === 3){
@@ -878,7 +878,10 @@ function flightrecordUploadInit() {
                 );
 
             }
-			else $("#priceinputarea").hide();
+			else{
+                $("#priceinputarea").hide();
+                g_b_phonenumber_verified = true;
+            } 
 		});
 
     var input = document.querySelector('input[name=tagTextarea]');
@@ -4105,7 +4108,7 @@ function verifyPhoneNo(){
             let result = data.result_code;
             if(result === 0){ //정상응답
                 showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
-                g_b_phonnumber_verified = false;
+                g_b_phonenumber_verified = false;
                 // 인증하기 텍스트 -> 재전송
                 $('#btn_verify_code').text("재전송");
                 var duration = 60 * 3;
@@ -4157,7 +4160,7 @@ function verifyCode(){
 					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
 					clearInterval(interval_timer);
 					// disable phone number input
-                        g_b_phonnumber_verified = true;
+                        g_b_phonenumber_verified = true;
                         $('#auth_code').val(data.auth_code);
 					// $('#droneplay_phonenumber').prop( "disabled", true );
 					// $('btn_check_code').text("재인증");
@@ -5905,7 +5908,14 @@ function uploadCheckBeforeUploadFlightList() {
   	if (g_loc_address_flat == -999) {    	// 주소 기반
   			showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
   			return;
-  	}
+      }
+      
+    // 전화번호 인증여부 체크
+    if(!g_b_phonenumber_verified){
+        showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
+        return;
+    }
+
 
   	showLoader();
   	g_params_for_upload_flight_rec = {mname : mname, mmemo: mmemo, tag_values : tag_values, isUpdate : false, isSyncData : false, price : price, flat: g_loc_address_flat, flng : g_loc_address_flng};
