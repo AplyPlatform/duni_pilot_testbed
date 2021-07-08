@@ -862,7 +862,7 @@ function flightrecordUploadInit() {
                         if(r.result_code === 0){
                             $("#validate_phonenumber_area").show();
                             showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                            g_b_phonnumber_verified = false;
+                            g_b_phonenumber_verified = false;
                             return;
                         }
                         if(r.result_code === 3){
