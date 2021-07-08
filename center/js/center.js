@@ -809,6 +809,8 @@ function flightrecordUploadInit() {
     $('#btnSelectDJIFiles').text(GET_STRING_CONTENT('label_select_files'));
     $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
     
+    $('#label_flightrec_file_drop_area').html(GET_STRING_CONTENT('msg_drop_flightrecord_file'));
+    
     
     $("#flighttime_input_data_label").text(GET_STRING_CONTENT('flighttime_input_data_label'));
 
