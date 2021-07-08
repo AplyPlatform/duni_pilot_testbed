@@ -1002,6 +1002,16 @@ function flightrecordUploadInit() {
 			$(this).attr("value", "");
 			$("#input_direct_file").val("");
 		});
+		
+		$("#movieFile").click(function() {			
+			$(this).attr("value", "");
+			$("#movieFile").val("");
+		});
+		
+		$("#flight_record_file").click(function() {			
+			$(this).attr("value", "");
+			$("#flight_record_file").val("");
+		});
     
     $("#dropArea").show();
     $("#uploadfileform").hide();
