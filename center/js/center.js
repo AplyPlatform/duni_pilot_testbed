@@ -15,6 +15,7 @@ limitations under the License.
 
 var g_b_monitor_started;
 var g_b_phonenumber_verified = true;
+var g_b_interval_timer;
 
 var g_cur_2D_mainmap;
 var g_view_cur_2D_mainmap;
@@ -4155,15 +4156,15 @@ function verifyCode(){
 			function(data){
 				let result = data.result_code;
 				if(result === 0){
-					$('#verification_code').val("");
-					$("#code_verification_input").hide();			
+                    $('#verification_code').val("");
+                    $('#validate_phonenumber_area').hide();		
 					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-					clearInterval(interval_timer);
+					clearInterval(g_b_interval_timer);
 					// disable phone number input
-                        g_b_phonenumber_verified = true;
-                        $('#auth_code').val(data.auth_code);
+                    g_b_phonenumber_verified = true;
+                    $('#auth_code').val(data.auth_code);
 					// $('#droneplay_phonenumber').prop( "disabled", true );
-					// $('btn_check_code').text("재인증");
+                    // $('btn_check_code').text("재인증");
 					return;
 				}
 				if(result === 2){
@@ -4201,7 +4202,7 @@ function validateNumber(event) {
 // 인증기간 타이머 혜지프로
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
-    interval_timer = setInterval(function () {
+    g_b_interval_timer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -4211,7 +4212,7 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-			clearInterval(interval_timer);
+			clearInterval(g_b_interval_timer);
             showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
             $("#code_verification_input").hide();
         }
