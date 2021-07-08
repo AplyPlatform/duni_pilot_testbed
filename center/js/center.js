@@ -805,7 +805,11 @@ function flightrecordUploadInit() {
     $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));
     $("#tab_menu_set_no_video").text(GET_STRING_CONTENT('label_set_no_video'));
 
-
+		$('#btnSelectMovieFiles').text(GET_STRING_CONTENT('label_select_files'));
+    $('#btnSelectDJIFiles').text(GET_STRING_CONTENT('label_select_files'));
+    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
+    
+    
     $("#flighttime_input_data_label").text(GET_STRING_CONTENT('flighttime_input_data_label'));
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
@@ -979,7 +983,7 @@ function flightrecordUploadInit() {
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(this.files);
-			if (retSelected) setUploadFileFields();			
+			if (retSelected) setUploadFileFields();
 		});
 		
 		$("#movieFile").bind('change', function() {			
@@ -991,7 +995,7 @@ function flightrecordUploadInit() {
 		$("#flight_record_file").bind('change', function() {			
 			GATAGM('changeRecordFileInput', 'CONTENT');
 			recordFileForUploadFile = null;
-			let retSelected = fileDropCheckRecordUpload(this.files);			
+			let retSelected = fileDropCheckRecordUpload(this.files);
 		});
 
 		$("#input_direct_file").click(function() {			
@@ -1005,9 +1009,9 @@ function flightrecordUploadInit() {
     hideLoader();
 }
 
-function setUploadFileFields() { //todo		
+function setUploadFileFields() {	
 		$('#dropArea').hide();
-		$('#uploadfileform').show();		
+		$('#uploadfileform').show();				
 }
 
 function embedCompassInit() {
@@ -1021,8 +1025,8 @@ function embedCompassInit() {
 
     $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
 
-    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
-
+    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));    
+    
     $('#label_for_colorpicker').text(GET_STRING_CONTENT('label_for_colorpicker'));
 
     $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
@@ -1347,23 +1351,27 @@ function setProgress(per) {
 		$progressBar.val(per);
 }
 
-function previewForRecordFile(file) {
+function previewForRecordFile(file) {		
 	var iconArea;
 	var vDiv;
 	if(isMovieFile(file.name)) {
+		$("#selectMovieFileArea").hide();
+		
 		$("#videoFileName").empty();
 		iconArea = '<i class="fas fa-video"></i>';
 		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
 			+ '<span style="cursor:pointer" id="file_data_remover_video"><b>X</b></span></td><td class="text-left">'
 			+ iconArea + ' ' + file.name + '</td></tr></table>');
 		$("#videoFileName").append(vDiv);
-		
+						
 		$("#file_data_remover_video").on("click", function(e) {
 			$("#videoFileName").remove();			
-			videoFileForUploadFile = null;			
+			videoFileForUploadFile = null;
+			$("#selectMovieFileArea").show();
 		});		
 	}
 	else {
+		$("#selectDJIFileArea").hide();
 		$("#flightRecordFileName").empty();
 		iconArea = '<i class="fas fa-map-marker-alt"></i>';
 		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
@@ -1373,7 +1381,8 @@ function previewForRecordFile(file) {
 		
 		$("#file_data_remover_record").on("click", function(e) {
 			$("#flightRecordFileName").remove();			
-			recordFileForUploadFile = null;			
+			recordFileForUploadFile = null;
+			$("#selectDJIFileArea").show();
 		});		
 	}		
 }
