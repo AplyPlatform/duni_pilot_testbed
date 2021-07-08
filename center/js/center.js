@@ -955,7 +955,50 @@ function flightrecordUploadInit() {
 
   	$("#set_youtube_address_view").hide();
     $("#set_youtube_upload_view").show();
+            
+    let dropArea = $("#dropArea");
+		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
+			dropArea.css('background-color', '#E3F2FC');
+			$("#file_upload_img").show();
+		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
+			dropArea.css('background-color', '#FFFFFF');
+			$("#file_upload_img").hide();
+		}).on("dragover", function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+		}).on('drop', function(e) {
+			e.preventDefault();
+			dropArea.css('background-color', '#FFFFFF');
+			$("#file_upload_img").hide();
+			
+			GATAGM('fileDropForFlightRecord', 'CONTENT');
+			let retSelected = fileDropCheck(e.originalEvent.dataTransfer.files);
+			if (retSelected) setUploadFileFields();
+		});
+
+		$("#input_direct_file").bind('change', function() {			
+			GATAGM('fileInputForFlightRecord', 'CONTENT');
+			let retSelected = fileDropCheck(this.files);
+			if (retSelected) setUploadFileFields();			
+		});
+
+		$("#input_direct_file").click(function() {			
+			$(this).attr("value", "");
+			$("#input_direct_file").val("");
+		});
+    
+    $("#dropArea").show();
+    $("#uploadfileform").hide();
     hideLoader();
+}
+
+function setUploadFileFields() {
+		if (isSet(videoFileForCompass) || isSet(recordFileForCompass)) {
+			$('#dropArea').hide();
+			$('#uploadfileform').show();
+		}
+		
+		
 }
 
 function embedCompassInit() {
@@ -1010,7 +1053,11 @@ function embedCompassInit() {
 			$("#file_upload_img").hide();
 			
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
-			fileDropCheck(e.originalEvent.dataTransfer.files);
+			let retSelected = fileDropCheck(e.originalEvent.dataTransfer.files);
+			if (retSelected == true && (isSet(videoFileForCompass) && isSet(recordFileForCompass))) {
+				$('#selectFileArea').hide();
+				$('#btnForUploadFlightList').show();
+			}
 		});
 
 		$("#btnForUploadFlightList").on("click", function(e) {
@@ -1020,7 +1067,11 @@ function embedCompassInit() {
 
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForCompassEmbed', 'CONTENT');
-			fileDropCheck(this.files);
+			let retSelected = fileDropCheck(this.files);
+			if (retSelected == true && (isSet(videoFileForCompass) && isSet(recordFileForCompass))) {
+				$('#selectFileArea').hide();
+				$('#btnForUploadFlightList').show();
+			}
 		});
 
 		$("#input_direct_file").click(function() {			
@@ -1052,13 +1103,13 @@ var videoFileForCompass = null;
 function fileDropCheck(files) {
 	if (files.length > 2) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return;
+		return false;
 	}
 
 	if (files.length == 2) {
 		if (isSet(recordFileForCompass) || isSet(videoFileForCompass)) {
 			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-			return;
+			return false;
 		}
 	}
 
@@ -1069,7 +1120,7 @@ function fileDropCheck(files) {
 		if (isRecordFile(file.name)) {
 			if (isSet(recordFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return;
+				return false;
 			}
 			else {
 				console.log(file);
@@ -1082,7 +1133,7 @@ function fileDropCheck(files) {
 		if (isMovieFile(file.name)) {
 			if (isSet(videoFileForCompass)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return;
+				return false;
 			}
 			else {
 				console.log(file);
@@ -1093,12 +1144,12 @@ function fileDropCheck(files) {
 		}
 	}
 
-	if (isAdded == false) showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-
-	if (isSet(videoFileForCompass) && isSet(recordFileForCompass)) {
-		$('#selectFileArea').hide();
-		$('#btnForUploadFlightList').show();
+	if (isAdded == false) {
+		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
+		return false;
 	}
+	
+	return true;	
 }
 
 function uploadCheckBeforeCompassEmbed() {

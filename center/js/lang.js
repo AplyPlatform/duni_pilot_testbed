@@ -95,9 +95,8 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "필터해제",
         "btnForAddressCheck": "상세주소 입력",
         "center_about_title": "DUNI 파일럿 센터를 소개합니다.",
-        "center_example_title": "사용예시",
-        // 전화번호 인증
-        "msg_phone_vid_not_verified" : "영상판매를 위해 전화번호 인증은 필요합니다. 전화번호를 인증해 주세요.",
+        "center_example_title": "사용예시",        
+        "msg_phone_vid_not_verified" : "영상판매를 진행하시려면 전화번호 인증이 필요합니다. 전화번호를 인증해 주세요.",
         "msg_phone_already_exists" : "이미 사용중인 전화번호입니다. 다른 번호를 입력해주세요.",
         "msg_verification_code_sent" : "인증번호가 전송되었습니다.",
         "msg_wrong_phone_format" : "잘못된 전화번호이거나 전화번호 형식이 올바르지 않습니다.",
@@ -105,15 +104,12 @@ var LANG_JSON_DATA = {
         "msg_phone_verified" : "인증되었습니다",
         "msg_phone_verification_timeout" : "인증번호 입력시간이 만료되었습니다. 다시 시도해주세요.",
         "msg_code_empty" : "인증번호를 입력해주세요.",
-        "msg_phone_not_verified" : "전화번호를 인증해 주세요.",
-        // 전화번호인증 end
-        // 이메일 중복확인
+        "msg_phone_not_verified" : "전화번호를 인증해 주세요.",        
         "msg_email_empty" : "이메일을 입력해주세요",
         "msg_email_invalid" : "올바른 이메일 형식이 아닙니다.",
         "msg_email_already_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
         "msg_email_valid" : "사용 가능한 이메일입니다.",
-        "msg_email_not_verified" : "이메일 중복확인을 해주세요.",
-        // 이메일 중복확인 end
+        "msg_email_not_verified" : "이메일 중복확인을 해주세요.",        
         "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
         "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",
         "msg_select_one_video_one_record" : "드론영상 1개와 비행기록파일 1개만 업로드 할 수 있습니다.",
@@ -341,8 +337,7 @@ var LANG_JSON_DATA = {
         "btnForFilter_rel": "Filter off",
         "btnForAddressCheck": "Enter detail address",
         "center_about_title": "About ...",
-        "center_example_title": "Example",
-        // 전화번호 인증
+        "center_example_title": "Example",        
         "msg_phone_vid_not_verified" : "Phone number verification is needed for this option. Please verify your phone number.",
         "msg_phone_already_exists" : "Phone number already registered. Please try a different number",
         "msg_verification_code_sent" : "Verification code sent.",
@@ -351,15 +346,12 @@ var LANG_JSON_DATA = {
         "msg_phone_verified" : "Phone number verified.",
         "msg_phone_verification_timeout" : "Input timeout. Please try again.",
         "msg_code_empty" : "Please fill out the verification code.",
-        "msg_phone_not_verified" : "Phone number must be verified.",
-        // 전화번호인증 end
-        // 이메일 중복확인
+        "msg_phone_not_verified" : "Phone number must be verified.",        
         "msg_email_empty" : "Please enter your email address.",
         "msg_email_invalid" : "Incorrect email address format. Please try again.",
         "msg_email_already_exists" : "Email already exists. Try a different address.",
         "msg_email_valid" : "Valid email.",
-        "msg_email_not_verified" : "You must validate your email address.",
-        // 이메일 중복확인 end        
+        "msg_email_not_verified" : "You must validate your email address.",        
         "msg_pre_embed_compass_request_received" : "Your request has been received. When the processing is complete, the download path of the video file will be notified to the e-mail(",
         "msg_post_embed_compass_request_received" : ") registered at the time of registration.",
         "msg_select_one_video_one_record" : "Drop only 1 drone video and 1 flight log file.",

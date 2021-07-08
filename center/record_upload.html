@@ -15,13 +15,26 @@
 	<div class="col-xl-6 col-md-6 mb-4">
       <div class="card border-left-primary shadow py-2">      	
         <div class="card-body">
-            <div class="col-auto">
-            	<div id="uploadfileform">
+        			<div style="border:1px solid #03b0c0; height:300px; padding:14px" class="text-center col-auto" id="dropArea">        				
+								<span id="label_flightrec_file_drop_area">
+									1. 이곳에 드론의 영상과 DJI비행기록 파일을 함께 올려주세요.<br>
+									2. 또는 드론의 영상만 올리기.<br>
+									3. 또는 DJI비행기록 파일만 올리기.<br>
+								</span>
+								<div id="thumbnails"></div>
+								<br>
+								<img src="./imgs/file_drop_upload.gif" border=0 id="file_upload_img">
+								<div class="upload-btn-wrapper text-center" id="selectFileArea">
+									<input type="file" id="input_direct_file" value="" multiple>									
+									<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+								</div>
+        			</div>
+        			
+            	<div class="col-auto" id="uploadfileform">
             		<div class="form-group">
             			<div>
 			              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
-	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">
-	            			
+	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">	            			
 	            			<hr color="#eee">
 	            		</div>
 	            		
@@ -46,18 +59,25 @@
 							      
 							      <div class="row">
 							      	
-								      <div class="col-md-6">
-								      			<div>
-												    	<input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
-												    </div>
-											      <div class="during-upload">
-											        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>
-											        
-											        <progress id="upload-progress" max="1" value="0"></progress>
+								      <div class="col-md-8">
+								      			<div class="row">
+								      				<div class="col-md-5">
+								      					<span class="text-xs font-weight-bold text-default mb-1" id="videoFileName"></span>
+								      				</div>
+								      				<div class="col-md-5">
+													    	<div class="upload-btn-wrapper text-center" id="selectFileArea">																
+																	<input type="file" id="movieFile" accept="video/*">
+																	<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+																</div>
+															</div>								
+											      	<div class="col-md-2 during-upload">
+											        	<p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>											        
+											        	<progress id="upload-progress" max="1" value="0"></progress>
+											      	</div>
 											      </div>
 								      </div>
 								      
-								      <div class="col-md-6">
+								      <div class="col-md-4">
 										        <select id="privacy-status" class="form-control">
 										          <option value="public" id="option_public_label">공개</option>
 										          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
@@ -88,11 +108,16 @@
 									          
 										<div id="dji_upload_filed" style="backgroud-color:#eeeeee;">
 											<div class="row">
-												<div class="col-md-6">
-													<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
+												<div class="col-md-4">
+													<span class="text-xs font-weight-bold text-default mb-1" id="flightRecordFileName"></span>
 												</div>
-												
-												<div class="col-md-6">
+												<div class="col-md-4">
+													<div class="upload-btn-wrapper text-center" id="selectFileArea">
+															<input type="file" id="flight_record_file">
+															<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+													</div>													
+												</div>												
+												<div class="col-md-4">
 													<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default"><a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">얻는 방법 (클릭)</a></span>
 												</div>
 											</div>											
@@ -150,18 +175,8 @@
 							  		<br>
 										<label for="salecheck" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">영상 판매하기</label>	
 										<input id="salecheck" type="checkbox">
-										<div id="priceinputarea">
-											<div class="row">
-												<div class="col-md-6">			
-													<label for="price_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">희망가격</label>
-													<input name="price_input_data" type="text" class="form-control" placeholder="원" id="price_input_data">
-												</div>
-												<div class="col-md-6">
-													<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><br></span>
-													<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">업로드 하시면 '<a href="#" data-toggle="modal" data-target="#modal-3">판매 수수료 및 약관</a>'에 동의하시는 것으로 간주됩니다.</span>
-												</div>
-											</div>
-											<div class="row" id="validate_phonenumber_area">											
+										
+										<div class="row" id="validate_phonenumber_area">											
                       							<div class="col-md-9">
                         							<div class="row">
                         								<div class="col-md-12">
@@ -193,17 +208,27 @@
                       								<button class="btn btn-primary btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
                       							</div>
 											</div>
-			            				</div>
+										
+										<div id="priceinputarea">
+											<div class="row">
+												<div class="col-md-6">			
+													<label for="price_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">희망가격</label>
+													<input name="price_input_data" type="text" class="form-control" placeholder="원" id="price_input_data">
+												</div>
+												<div class="col-md-6">
+													<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><br></span>
+													<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">업로드 하시면 '<a href="#" data-toggle="modal" data-target="#modal-3">판매 수수료 및 약관</a>'에 동의하시는 것으로 간주됩니다.</span>
+												</div>
+											</div>											
+			            	</div>
 			            					  
 									  <div class="text-center">
 									  	<br>
 									  	<button class="btn btn-primary btn-block" type="button" id="btnForUploadFlightList">업로드</button>
-									  </div>								  								  			            
+									  </div>
 									</div>
 								</div>
 							</div>
-            </div>
-
         </div>        
       </div>
    </div>	 
