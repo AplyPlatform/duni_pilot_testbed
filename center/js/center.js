@@ -4144,7 +4144,7 @@ function verifyCode(){
 		var jdata = {
                 "action" : "position", 
                 "daction" : "check_verifycode", 
-                "phone_number" : $('#droneplay_phonenumber').val(), 
+                "phone_number" : $('#user_phonenumber').val(), 
                 "verify_code" : verification_code,
                 "clientid" : userid
             };
