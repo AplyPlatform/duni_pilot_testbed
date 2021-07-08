@@ -1126,7 +1126,7 @@ function embedCompassInit() {
 var recordFileForUploadFile = null;
 var videoFileForUploadFile = null;
 
-function fileDropCheckCompass(files) {
+function fileDropCheckForCompass(files) {
 	if (files.length > 2) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 		return false;
