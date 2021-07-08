@@ -1406,7 +1406,7 @@ function previewForCompassFile(file, idx) {
 		iconArea = '<i class="fas fa-video"></i>';
 	}
 
-	var $div = $('<div id="file_thumb_' + idx + ' "class="text-left">'
+	var $div = $('<div id="file_thumb_' + idx + ' class="text-left">'
 		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span> '
 		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></div>');
 	$("#thumbnails").append($div);
