@@ -4213,6 +4213,7 @@ function startTimer(duration, display) {
         if (--timer < 0) {
 			clearInterval(interval_timer);
             showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+            $("#code_verification_input").hide();
         }
     }, 1000);
 }    
