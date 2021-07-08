@@ -1,240 +1,243 @@
 ﻿	<!-- Content Row -->
 	<div class="row" id="titleSection">
-  <div class="col-12 mb-4">
-    <div class="card shadow">
-        <!-- Card Header - Dropdown -->
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">내 비행기록 업로드</h6>
-        </div>
-        <!-- Card Body -->
-        <div class="card-body" id="page_about_content">
-           내 비행기록을 업로드하세요.
-        </div>
-    </div>
-  </div>
-	<div class="col-xl-6 col-md-6 mb-4">
-      <div class="card border-left-primary shadow py-2">      	
-        <div class="card-body">
-        			<div style="border:1px solid #03b0c0; height:300px; padding:14px" class="text-center col-auto" id="dropArea">        				
-								<span id="label_flightrec_file_drop_area">
-									1. 이곳에 드론의 영상과 DJI비행기록 파일을 함께 올려주세요.<br>
-									2. 또는 드론의 영상만 올리기.<br>
-									3. 또는 DJI비행기록 파일만 올리기.<br>
-								</span>
-								<div id="thumbnails"></div>
-								<br>
-								<img src="./imgs/file_drop_upload.gif" border=0 id="file_upload_img">
-								<div class="upload-btn-wrapper text-center" id="selectFileArea">
-									<input type="file" id="input_direct_file" value="" multiple>									
-									<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
-								</div>
-        			</div>
-        			
-            	<div class="col-auto" id="uploadfileform">
-            		<div class="form-group">
-            			<div>
-			              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
-	            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">	            			
-	            			<hr color="#eee">
-	            		</div>
-	            		
-	            		<div class="row">
-	            				<div class="col">
-				            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
-	  											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
-	  											&nbsp;&nbsp;
-				            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
-	  											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
-	  											&nbsp;&nbsp;
-				            			<input type="radio" name="media_upload_kind" value="tab_menu_set_no_video" onclick="GATAGM('tab_menu_set_no_video', 'CONTENT');">
-	  											<label id="tab_menu_set_no_video" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_no_video">영상 없음</label>
-	  									</div>
-  								</div>
-	            		
-	            		<div id="set_youtube_address_view">
-			              	<input name="youtube_url_data" type="text" class="form-control" placeholder="Youtube Full URL ex)https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
-			            </div>			        
-			            							        			
-						    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
-							      
-							      <div class="row">
-							      	
-								      <div class="col-md-8">
-								      			<div class="row">
-								      				<div class="col-md-5">
-								      					<span class="text-xs font-weight-bold text-default mb-1" id="videoFileName"></span>
-								      				</div>
-								      				<div class="col-md-5">
-													    	<div class="upload-btn-wrapper text-center" id="selectFileArea">																
-																	<input type="file" id="movieFile" accept="video/*">
-																	<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+		  <div class="col-12 mb-4">
+		    <div class="card shadow">
+		        <!-- Card Header - Dropdown -->
+		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+		          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">내 비행기록 업로드</h6>
+		        </div>
+		        <!-- Card Body -->
+		        <div class="card-body" id="page_about_content">
+		           내 비행기록을 업로드하세요.
+		        </div>
+		    </div>
+		  </div>
+			<div class="col-xl-6 col-md-6 mb-4">
+				<div class="card border-left-primary shadow py-2">      	
+		        <div class="card-body">
+		        			<div style="border:1px solid #03b0c0; height:300px; padding:14px" class="text-center col-auto" id="dropArea">        				
+										<span id="label_flightrec_file_drop_area">
+											1. 이곳에 드론의 영상과 DJI비행기록 파일을 함께 올려주세요.<br>
+											2. 또는 드론의 영상만 올리기.<br>
+											3. 또는 DJI비행기록 파일만 올리기.<br>
+										</span>
+										<div id="thumbnails"></div>
+										<br>
+										<img src="./imgs/file_drop_upload.gif" border=0 id="file_upload_img">
+										<div class="upload-btn-wrapper text-center" id="selectFileArea">
+											<input type="file" id="input_direct_file" value="" multiple>									
+											<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+										</div>
+		        			</div>
+		        			
+		            	<div id="uploadfileform" class="form-group">            		
+		            			<div class="row">
+			            				<div class="col-md-12">
+							              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
+					            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">	            			
+					            			<hr color="#eee">
+					            		</div>
+					            </div>	            		
+			            		
+			            		<div class="row">
+			            				<div class="col-md-12">
+						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
+			  											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
+			  											&nbsp;&nbsp;
+						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
+			  											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
+			  											&nbsp;&nbsp;
+						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_no_video" onclick="GATAGM('tab_menu_set_no_video', 'CONTENT');">
+			  											<label id="tab_menu_set_no_video" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_no_video">영상 없음</label>
+			  									</div>
+		  								</div>
+			            					            							            							        			
+								    	<div class="row" id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">							      
+										      <div class="col-md-8">
+										      			<div class="row">
+										      				<div class="col-md-4">
+										      					<div class="upload-btn-wrapper text-center" id="selectFileArea">
+																			<input type="file" id="movieFile" accept="video/*">
+																			<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+																		</div>
+										      					
+										      				</div>
+										      				<div class="col-md-8">
+															    	<span class="text-xs font-weight-bold text-default mb-1" id="videoFileName"></span>
+																	</div>																					      	
+													      </div>
+													    	<div class="row">
+													    		<div class="col-md-12 during-upload">
+													        	<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
+													        		<span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
+													        		<progress id="upload-progress" max="1" value="0"></progress>
+													        	</p>
+													      	</div>
+													    	</div>
+										      </div>
+										      
+										      <div class="col-md-4">
+												        <select id="privacy-status" class="form-control">
+												          <option value="public" id="option_public_label">공개</option>
+												          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+												          <option value="private" id="option_private_label">비공개</option>
+												        </select>										      	
+												      	<br>											      
+													      <p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>											      
+										      </div>							      
+									    </div>
+									    
+									    <div class="row" id="set_youtube_address_view">
+			            				<div class="col-md-12">
+					              		<input name="youtube_url_data" type="text" class="form-control" placeholder="Youtube Full URL ex)https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
+					              	</div>
+					            </div>
+					            
+					            <div id="upload_tabs">			            				            				            	
+						            	<div class="row">
+							            	<div class="col-md-12">
+							            			<hr color="#eee">
+							            			<input type="radio" name="record_kind" value="dji_upload_filed" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT');setFlightRecordUploadMode(true);" checked>
+				  											<label id="tab_menu_upload_selector_dji" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_dji">비행기록 업로드</label>
+				  											&nbsp;&nbsp;
+							            			<input type="radio" name="record_kind" value="address_location_field" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT');setFlightRecordUploadMode(false);">
+				  											<label id="tab_menu_upload_selector_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_address">주소 입력</label>
+				  									</div>
+			  									</div>
+												          
+													<div id="dji_upload_filed" style="backgroud-color:#eeeeee;">
+														<div class="row">
+															<div class="col-md-4">
+																<div class="upload-btn-wrapper text-center" id="selectFileArea">
+																		<input type="file" id="flight_record_file">
+																		<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
+																</div>																
+															</div>
+															<div class="col-md-4">
+																<span class="text-xs font-weight-bold text-default mb-1" id="flightRecordFileName"></span>
+															</div>												
+															<div class="col-md-4">
+																<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default"><a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">얻는 방법 (클릭)</a></span>
+															</div>
+														</div>											
+														<div class="row">
+															<div class="col-md-12">
+																<div class="collapse" id="collapseRecordFileParams">
+																	<br>
+																	<hr size=1>
+										          		<p><b>안드로이드</b></p>
+																	<p>-내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
+																	<br>
+																	<p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>
+																	<p>-<a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
+																	<p>-<a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
+																	<p>-<a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
 																</div>
-															</div>								
-											      	<div class="col-md-2 during-upload">
-											        	<p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>											        
-											        	<progress id="upload-progress" max="1" value="0"></progress>
-											      	</div>
-											      </div>
-								      </div>
-								      
-								      <div class="col-md-4">
-										        <select id="privacy-status" class="form-control">
-										          <option value="public" id="option_public_label">공개</option>
-										          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-										          <option value="private" id="option_private_label">비공개</option>
-										        </select>
-										      	
-										      	<br>
-											      
-											      <p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
-											      
-								      </div>
-							      </div>
-							    </div>
-			            
-			            <div id="upload_tabs">
-			            	
-			            	<hr color="#eee">
-			            	
-			            	<div class="row">
-				            	<div class="col">
-				            			<input type="radio" name="record_kind" value="dji_upload_filed" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT');setFlightRecordUploadMode(true);" checked>
-	  											<label id="tab_menu_upload_selector_dji" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_dji">비행기록 업로드</label>
-	  											&nbsp;&nbsp;
-				            			<input type="radio" name="record_kind" value="address_location_field" onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT');setFlightRecordUploadMode(false);">
-	  											<label id="tab_menu_upload_selector_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_upload_selector_address">주소 입력</label>
-	  									</div>
-  									</div>
-									          
-										<div id="dji_upload_filed" style="backgroud-color:#eeeeee;">
-											<div class="row">
-												<div class="col-md-4">
-													<span class="text-xs font-weight-bold text-default mb-1" id="flightRecordFileName"></span>
+															</div>
+														</div>
+													</div>
+																						
+													<div id="address_location_field" class="row">
+																	<div class="col-md-6">			              				              				              	
+							              		   	<div class="input-group">		              	
+									                        	<input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
+									                        	<div class="input-group-append">
+									                          		<button class="btn btn-info" type="button" id="btnForAddressCheck">우편번호 찾기</button>
+									            							</div>
+									            			</div>
+									            			<span id="address_result"></span>
+									          			</div>
+									          			<div class="col-md-6">
+									          				<div class="input-group">	
+								              					<label for="flighttime_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="flighttime_input_data_label">촬영일시</label>&nbsp;	
+								            					<input name="flighttime_input_data" type="text" class="form-control" placeholder="촬영시각" id="flighttime_input_data">
+								            				</div>
+								            			</div>
+													</div>
+										  </div> <!-- upload_tabs -->
+										  								  								  
+										  <div class="row">
+										  	<div class="col-md-12">
+										  		<hr color="#eee">
+									        <label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">메모</label>
+									        <textarea class="form-control" id="memoTextarea" name="memoTextarea" placeholder="ex) 2021-06-08 14:22:33"></textarea>
+									      </div>
+									    </div>
+									      		
+										 	<div class="row">
+										  	<div class="col-md-12">
+													<label for="tagTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_tag_label">태그</label>
+													<input type="text" id='tagTextarea' name='tagTextarea' value='DUNI'/>											
 												</div>
-												<div class="col-md-4">
-													<div class="upload-btn-wrapper text-center" id="selectFileArea">
-															<input type="file" id="flight_record_file">
-															<button class="btn btn-info" type="button" id="btnSelectFiles">파일선택</button>
-													</div>													
-												</div>												
-												<div class="col-md-4">
-													<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default"><a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">얻는 방법 (클릭)</a></span>
-												</div>
-											</div>											
-											<div class="row">
-												<div class="col">
-													<div class="collapse" id="collapseRecordFileParams">
-														<br>
-														<hr size=1>
-							          		<p><b>안드로이드</b></p>
-														<p>-내 파일 > 내장 메모리 > DJI > dji.go.v4 > FlightRecord > FlightRecord_연월일시.txt</p>
-														<br>
-														<p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>
-														<p>-<a href="https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490" target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>
-														<p>-<a href="http://blog.daum.net/dipod/857" target=new>http://blog.daum.net/dipod/857</a></p>
-														<p>-<a href="https://www.youtube.com/watch?v=59pE9N3pXdg" target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>
+					            </div>
+					            
+					            <div id="sale_select">
+									  		<div class="row">
+										  		<div class="col-md-12">
+														<label for="salecheck" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">영상 판매하기</label>	
+														<input id="salecheck" type="checkbox">
 													</div>
 												</div>
-											</div>
-										</div>
-										
-										<div id="address_location_field">
-											<div class="row">
-															<div class="col-md-6">			              				              				              	
-					              		   	<div class="input-group">		              	
-							                        	<input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
-							                        	<div class="input-group-append">
-							                          		<button class="btn btn-info" type="button" id="btnForAddressCheck">우편번호 찾기</button>
-							            							</div>
-							            			</div>
-							            			<span id="address_result"></span>
-							          			</div>
-							          			<div class="col-md-6">
-							          				<div class="input-group">	
-						              					<label for="flighttime_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="flighttime_input_data_label">촬영일시</label>&nbsp;	
-						            					<input name="flighttime_input_data" type="text" class="form-control" placeholder="촬영시각" id="flighttime_input_data">
-						            				</div>
-						            			</div>
-											 	</div>											 
-				            	</div>
-									</div>
-								  
-								  <hr color="#eee">
-								  
-								  <div>
-							        <label for="memoTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="desc_for_moviedata_label">메모</label>
-							        <textarea class="form-control" id="memoTextarea" name="memoTextarea" placeholder="ex) 2021-06-08 14:22:33"></textarea>
-							    </div>
-							      		
-								 	<div>		
-											<label for="tagTextarea" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_tag_label">태그</label>
-											<input type="text" id='tagTextarea' name='tagTextarea' value='DUNI'/>											
-			            </div>
-			            
-			            <div id="sale_select">
-							  		<br>
-										<label for="salecheck" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">영상 판매하기</label>	
-										<input id="salecheck" type="checkbox">
-										
-										<div class="row" id="validate_phonenumber_area">											
-                      							<div class="col-md-9">
-                        							<div class="row">
-                        								<div class="col-md-12">
-                        									<input name="user_phonenumber" id="user_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">                          		
-                        								</div>
-                        							</div>
-                        							<div id="code_verification_input" style="display:none">
-																					<div class="row">
-																						<div class="col-md-12">
-																							<hr size=1 color=#fefefe>
-																						</div>
-																					</div>
-                          								<div class="row">
-                          									<div class="col-md-2">
-	                          									<span id="remaining_time" style="color:red"></span>
-	                          								</div>
-	                          								<div class="col-md-6">
-																							<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: left">																	
-																						</div>																		
-																						<div class="col-md-4">
-																							<div style="overflow: hidden; padding-right: .5em;">
-																								<button class="btn btn-info btn-sm btn-block" role="button" id="btn_check_code">인증하기</button>
+												<div class="row" id="validate_phonenumber_area">											
+		                      							<div class="col-md-9">
+		                        							<div class="row">
+		                        								<div class="col-md-12">
+		                        									<input name="user_phonenumber" id="user_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 +8201012341234" required="">                          		
+		                        								</div>
+		                        							</div>
+		                        							<div id="code_verification_input" style="display:none">
+																							<div class="row">
+																								<div class="col-md-12">
+																									<hr size=1 color=#fefefe>
+																								</div>
 																							</div>
-																						</div>
-																					</div>
-																    	</div>																																																												
-                      							</div>
-                      							<div class="col-md-3" id="verifyPhoneBtn">
-                      								<button class="btn btn-primary btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
-                      							</div>
-											</div>
-										
-										<div id="priceinputarea">
-											<div class="row">
-												<div class="col-md-6">			
-													<label for="price_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">희망가격</label>
-													<input name="price_input_data" type="text" class="form-control" placeholder="원" id="price_input_data">
+		                          								<div class="row">
+		                          									<div class="col-md-2">
+			                          									<span id="remaining_time" style="color:red"></span>
+			                          								</div>
+			                          								<div class="col-md-6">
+																									<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: left">																	
+																								</div>																		
+																								<div class="col-md-4">
+																									<div style="overflow: hidden; padding-right: .5em;">
+																										<button class="btn btn-info btn-sm btn-block" role="button" id="btn_check_code">인증하기</button>
+																									</div>
+																								</div>
+																							</div>
+																		    	</div>																																																												
+		                      							</div>
+		                      							<div class="col-md-3" id="verifyPhoneBtn">
+		                      								<button class="btn btn-primary btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
+		                      							</div>
 												</div>
-												<div class="col-md-6">
-													<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><br></span>
-													<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">업로드 하시면 '<a href="#" data-toggle="modal" data-target="#modal-3">판매 수수료 및 약관</a>'에 동의하시는 것으로 간주됩니다.</span>
+												
+												
+												<div id="priceinputarea" class="row">
+													<div class="col-md-6">			
+														<label for="price_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">희망가격</label>
+														<input name="price_input_data" type="text" class="form-control" placeholder="원" id="price_input_data">
+													</div>
+													<div class="col-md-6">
+														<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><br></span>
+														<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="input_sale_label">업로드 하시면 '<a href="#" data-toggle="modal" data-target="#modal-3">판매 수수료 및 약관</a>'에 동의하시는 것으로 간주됩니다.</span>
+													</div>
 												</div>
-											</div>											
-			            	</div>
-			            					  
-									  <div class="text-center">
-									  	<br>
-									  	<button class="btn btn-primary btn-block" type="button" id="btnForUploadFlightList">업로드</button>
-									  </div>
-									</div>
-								</div>
-							</div>
-        </div>        
-      </div>
-   </div>	 
-</div>
+					            	
+				            		<div class="row">
+												  <div class="col-md-12 text-center">
+												  	<br>
+												  	<button class="btn btn-primary btn-block" type="button" id="btnForUploadFlightList">업로드</button>
+												  </div>
+												</div>
+											</div> <!-- sale_select -->
+										</div>
+									</div> <!-- upload_file_form -->
+		        </div> <!-- card body -->       
+				</div> <!-- card border-left-primary -->
+			</div> <!-- col -->
+	</div><!-- row -->
 
-<div class="modal fade" id="modal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="modal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    			<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
        					<div class="modal-header">
@@ -370,4 +373,4 @@
            			</div>
        			</div>   			
        	</div>
-</div>
+	</div>
