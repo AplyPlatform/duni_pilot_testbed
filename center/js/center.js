@@ -5864,7 +5864,7 @@ function addChartItem(i, item) {
 function uploadCheckBeforeUploadFlightList() {
 
 
-    console.log(g_b_phonnumber_verified);
+    console.log(g_b_phonenumber_verified);
 
 	// 	var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
 	// 	if (cVal == "tab_menu_set_youtube_address" || cVal == "tab_menu_set_no_video") {
