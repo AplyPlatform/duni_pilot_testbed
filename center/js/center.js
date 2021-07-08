@@ -5402,6 +5402,14 @@ function uploadFlightList(isUpdate) {
 		if (cVal == "tab_menu_set_no_video") {
       youtube_data = "";
     }
+    else if (cVal == "tab_menu_set_youtube_address") {
+    		youtube_data = massageYotubeUrl(youtube_data);
+    		if (youtube_data == "") { //todo
+					showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
+					hideLoader();
+					return;
+				}
+    }
 
     var params = {};
 
