@@ -828,6 +828,17 @@ function flightrecordUploadInit() {
         GATAGM('btnForAddressCheck', 'CONTENT');
         checkAddress($("#address_input_data").val());
     });
+    
+    
+    $('#btn_check_code').click(function () {
+        GATAGM('btn_check_code', 'CONTENT');
+        verifyCode();
+    });
+    
+    $('#btn_verify_code').click(function () {
+        GATAGM('btn_verify_code', 'CONTENT');
+        verifyPhoneNo();
+    });
 
     //판매국가는 우선 한국만!
     $("#priceinputarea").hide();
@@ -4089,6 +4100,7 @@ function verifyPhoneNo(){
         "phone_number" : phone_number,
         "clientid" : userid
     };
+        
     ajaxRequest(jdata, 
         function (data){
             let result = data.result_code;
