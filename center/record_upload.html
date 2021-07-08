@@ -63,6 +63,7 @@
 																			<input type="file" id="movieFile" accept="video/*">
 																			<button class="btn btn-info" type="button" id="btnSelectMovieFiles">파일선택</button>
 																		</div>										      					
+																		<div id="videoFileName"></div>
 										      				</div>
 										      				<div class="col-md-6 during-upload">
 										      					<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
@@ -80,13 +81,7 @@
 												        </select>										      													      														      
 										      </div>
 										    </div>
-										    
-										    <div class="row">
-										      <div class="col-md-12 text-left">
-											        <div id="videoFileName"></div>
-													</div>
-												</div>
-										    
+										    										    
 										    <div class="row">
 										      <div class="col-md-12 text-right">
 										      		<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
@@ -119,16 +114,12 @@
 																		<input type="file" id="flight_record_file">
 																		<button class="btn btn-info" type="button" id="btnSelectDJIFiles">파일선택</button>
 																</div>																
+																<div id="flightRecordFileName"></div>
 															</div>																			
 															<div class="col-md-6 text-right">
 																<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default"><a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">얻는 방법 (클릭)</a></span>
 															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12">
-																<div id="flightRecordFileName"></div>
-															</div>								
-														</div>
+														</div>														
 														<div class="row">
 															<div class="col-md-12">
 																<div class="collapse" id="collapseRecordFileParams">

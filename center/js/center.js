@@ -1365,7 +1365,7 @@ function previewForRecordFile(file) {
 	var iconArea;
 	var vDiv;
 	if(isMovieFile(file.name)) {
-		$("#selectMovieFileArea").hide();		
+		$("#selectMovieFileArea").css("display","none");
 		$("#videoFileName").empty();
 		iconArea = '<i class="fas fa-video"></i>';
 		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
@@ -1379,8 +1379,8 @@ function previewForRecordFile(file) {
 			$("#selectMovieFileArea").show();
 		});		
 	}
-	else {
-		$("#selectDJIFileArea").hide();
+	else {		
+		$("#selectDJIFileArea").css("display","none");
 		$("#flightRecordFileName").empty();
 		iconArea = '<i class="fas fa-map-marker-alt"></i>';
 		vDiv = $('<table border=0 cellpadding=0 cellspacing=3 width=100%><tr><td width="20px" class="text-left">'
