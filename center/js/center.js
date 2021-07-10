@@ -1038,7 +1038,8 @@ function flightrecordUploadInit() {
 
 function setUploadFileFields() {	
 		$('#dropArea').hide();
-		$('#uploadfileform').show();				
+		$("#nextStageBtnArea").hide();
+		$('#uploadfileform').show();
 }
 
 function embedCompassInit() {
