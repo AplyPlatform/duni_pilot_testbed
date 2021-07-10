@@ -972,7 +972,7 @@ function flightrecordUploadInit() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
-			$("#selectFileArea").hide();			
+			$("#selectFileArea").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
@@ -1309,7 +1309,7 @@ function fileDropCheckRecordUpload(files) {
 		}
 	}
 
-	var isAdded = 0;
+	var isAdded = false;
 	for(var i = 0; i < files.length; i++) {
 		var file = files[i];
 
@@ -1318,11 +1318,10 @@ function fileDropCheckRecordUpload(files) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return 0;
 			}
-			else {
-				console.log(file);
+			else {				
 				recordFileForUploadFile = file;
 				previewForRecordFile(file);
-				isAdded++;
+				isAdded = true;
 			}
 		}
 
@@ -1331,11 +1330,10 @@ function fileDropCheckRecordUpload(files) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
 				return 0;
 			}
-			else {
-				console.log(file);
+			else {				
 				videoFileForUploadFile = file;
 				previewForRecordFile(file);
-				isAdded++;
+				isAdded = true;
 			}
 		}
 	}
@@ -1345,7 +1343,11 @@ function fileDropCheckRecordUpload(files) {
 		return 0;
 	}
 	
-	return isAdded;	
+	if (isSet(recordFileForUploadFile) && isSet(videoFileForUploadFile)) {
+		return 2;		
+	}
+	
+	return 1;	
 }
 
 function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
