@@ -995,7 +995,7 @@ function flightrecordUploadInit() {
 
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForFlightRecord', 'CONTENT');
-			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
+			let retSelected = fileDropCheckRecordUpload(this.files);
 			if (retSelected) $("#nextStageBtnArea").show();
 			else $("#nextStageBtnArea").hide();
 		});
