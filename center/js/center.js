@@ -1087,8 +1087,8 @@ function embedCompassInit() {
 		.on('drop', function(e) {
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
 			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
-			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {				
-				$('#dropArea').hide();
+			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
+				$("#selectFileArea").hide();
 				$('#btnForUploadFlightList').show();				
 			}
 		});		
