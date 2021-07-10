@@ -983,12 +983,13 @@ function flightrecordUploadInit() {
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
-			if (retSelected) $("#btnNextStage").show();
-			else $("#btnNextStage").hide();
+			if (retSelected) $("#nextStageBtnArea").show();
+			else $("#nextStageBtnArea").hide();
 		});
 	
 		$("#btnNextStage").click(function() {
 			GATAGM('btnNextStage', 'CONTENT');
+			$("#nextStageBtnArea").hide();
 			setUploadFileFields();
 		});
 
@@ -1028,7 +1029,7 @@ function flightrecordUploadInit() {
     $("#dropArea").show();
     $("#uploadfileform").hide();
     $("#file_upload_img").hide();
-    $("#btnNextStage").hide();
+    $("#nextStageBtnArea").hide();
     hideLoader();
 }
 
