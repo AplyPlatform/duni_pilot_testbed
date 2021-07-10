@@ -971,10 +971,12 @@ function flightrecordUploadInit() {
 		.on("dragover dragenter", function() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
+			$("#file_drop_img").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
+			$("#file_drop_img").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
@@ -1071,10 +1073,12 @@ function embedCompassInit() {
 		.on("dragover dragenter", function() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
+			$("#file_drop_img").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
+			$("#file_drop_img").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
