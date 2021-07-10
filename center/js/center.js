@@ -983,7 +983,8 @@ function flightrecordUploadInit() {
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
-			if (retSelected) $("#nextStageBtnArea").show();
+			if (retSelected == 2) setUploadFileFields();
+			else if (retSelected == 1) $("#nextStageBtnArea").show();
 			else $("#nextStageBtnArea").hide();
 		});
 	
@@ -996,7 +997,8 @@ function flightrecordUploadInit() {
 		$("#input_direct_file").bind('change', function() {			
 			GATAGM('fileInputForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(this.files);
-			if (retSelected) $("#nextStageBtnArea").show();
+			if (retSelected == 2) setUploadFileFields();
+			else if (retSelected == 1) $("#nextStageBtnArea").show();
 			else $("#nextStageBtnArea").hide();
 		});
 		
@@ -1297,53 +1299,53 @@ function embedRequest(filename, tempExt) {
 function fileDropCheckRecordUpload(files) {
 	if (files.length > 2) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return false;
+		return 0;
 	}
 
 	if (files.length == 2) {
 		if (isSet(recordFileForUploadFile) || isSet(videoFileForUploadFile)) {
 			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-			return false;
+			return 0;
 		}
 	}
 
-	var isAdded = false;
+	var isAdded = 0;
 	for(var i = 0; i < files.length; i++) {
 		var file = files[i];
 
 		if (isRecordFile(file.name)) {
 			if (isSet(recordFileForUploadFile)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return false;
+				return 0;
 			}
 			else {
 				console.log(file);
 				recordFileForUploadFile = file;
 				previewForRecordFile(file);
-				isAdded = true;
+				isAdded++;
 			}
 		}
 
 		if (isMovieFile(file.name)) {
 			if (isSet(videoFileForUploadFile)) {
 				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return false;
+				return 0;
 			}
 			else {
 				console.log(file);
 				videoFileForUploadFile = file;
 				previewForRecordFile(file);
-				isAdded = true;
+				isAdded++;
 			}
 		}
 	}
 
-	if (isAdded == false) {
+	if (isAdded == 0) {
 		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return false;
+		return 0;
 	}
 	
-	return true;	
+	return isAdded;	
 }
 
 function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
