@@ -972,11 +972,13 @@ function flightrecordUploadInit() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
+			$("#selectFileArea").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 			$("#file_drop_img").show();
+			$("#selectFileArea").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
@@ -1074,18 +1076,20 @@ function embedCompassInit() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
+			$("#selectFileArea").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 			$("#file_drop_img").show();
+			$("#selectFileArea").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
 			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
-			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
-				$('#selectFileArea').hide();
-				$('#btnForUploadFlightList').show();
+			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {				
+				$('#dropArea').hide();
+				$('#btnForUploadFlightList').show();				
 			}
 		});		
 
