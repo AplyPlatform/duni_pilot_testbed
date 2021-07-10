@@ -983,7 +983,13 @@ function flightrecordUploadInit() {
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
-			if (retSelected) setUploadFileFields();
+			if (retSelected) $("#btnNextStage").show();
+			else $("#btnNextStage").hide();
+		});
+	
+		$("#btnNextStage").click(function() {
+			GATAGM('btnNextStage', 'CONTENT');
+			setUploadFileFields();
 		});
 
 		$("#input_direct_file").bind('change', function() {			
