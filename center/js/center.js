@@ -1385,31 +1385,59 @@ function previewForRecordFile(file) {
 		$("#selectMovieFileArea").css("display","none");
 		$("#videoFileName").empty();
 		iconArea = '<i class="fas fa-video" style="color:black"></i>';
+		
 		vDiv = $('<div class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_video"><b>X</b></span> '
+			+ '<span style="cursor:pointer" id="file_data_remover_video1"><b>X</b></span> '
 			+ iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
 		$("#videoFileName").append(vDiv);
+		
+		vDiv = $('<div class="text-left" id="thumbnail_video">'
+			+ '<span style="cursor:pointer" id="file_data_remover_video2"><b>X</b></span> '
+			+ iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');			
+		$("#thumbnails").append(vDiv);
 						
-		$("#file_data_remover_video").on("click", function(e) {
+		$("#file_data_remover_video1").on("click", function(e) {
 			$("#videoFileName").empty();
+			$("#thumbnail_video").remove();
 			videoFileForUploadFile = null;
 			$("#selectMovieFileArea").show();
-		});		
+		});
+		
+		$("#file_data_remover_video2").on("click", function(e) {
+			$("#videoFileName").empty();
+			$("#thumbnail_video").remove();
+			videoFileForUploadFile = null;
+			$("#selectMovieFileArea").show();
+		});
 	}
 	else {		
 		$("#selectDJIFileArea").css("display","none");
 		$("#flightRecordFileName").empty();
 		iconArea = '<i class="fas fa-map-marker-alt" style="color:black"></i>';
 		vDiv = $('<div class="text-left">'
-			+ '<span style="cursor:pointer" id="file_data_remover_record"><b>X</b></span> '
+			+ '<span style="cursor:pointer" id="file_data_remover_record1"><b>X</b></span> '
 			+ iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
 		$("#flightRecordFileName").append(vDiv);
 		
-		$("#file_data_remover_record").on("click", function(e) {
+		
+		vDiv = $('<div class="text-left" id="thumbnail_record">'
+			+ '<span style="cursor:pointer" id="file_data_remover_record2"><b>X</b></span> '
+			+ iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
+		$("#thumbnails").append(vDiv);
+		
+		$("#file_data_remover_record1").on("click", function(e) {
 			$("#flightRecordFileName").empty();
+			$("#thumbnail_record").remove();
 			recordFileForUploadFile = null;
 			$("#selectDJIFileArea").show();
-		});		
+		});
+		
+		$("#file_data_remover_record2").on("click", function(e) {
+			$("#flightRecordFileName").empty();
+			$("#thumbnail_record").remove();
+			recordFileForUploadFile = null;
+			$("#selectDJIFileArea").show();
+		});
 	}		
 }
 
