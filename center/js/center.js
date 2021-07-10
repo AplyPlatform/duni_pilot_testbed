@@ -1028,6 +1028,7 @@ function flightrecordUploadInit() {
     $("#dropArea").show();
     $("#uploadfileform").hide();
     $("#file_upload_img").hide();
+    $("#btnNextStage").hide();
     hideLoader();
 }
 
