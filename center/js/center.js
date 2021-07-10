@@ -972,7 +972,7 @@ function flightrecordUploadInit() {
 			dropArea.css('background-color', '#E3F2FC');
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
-			$("#selectFileArea").hide();
+			$("#selectFileArea").hide();			
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
@@ -1073,8 +1073,7 @@ function embedCompassInit() {
 			e.preventDefault();
 		})
 		.on("dragover dragenter", function() {
-			dropArea.css('background-color', '#E3F2FC');
-			dropArea.css('background-color', '#E3F2FC');
+			dropArea.css('background-color', '#E3F2FC');			
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
 			$("#selectFileArea").hide();
