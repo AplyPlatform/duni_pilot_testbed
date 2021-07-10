@@ -48,7 +48,7 @@
 					            		</div>
 					            </div>
 
-			            		<div class="row">
+			            		<div class="row" id="video_upload_kind_sel">
 			            				<div class="col-md-12">
 						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
 			  											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
@@ -98,7 +98,7 @@
 					            </div>
 
 					            <div id="upload_tabs">
-						            	<div class="row">
+						            	<div class="row" id="dji_file_upload_sel">
 							            	<div class="col-md-12">
 							            			<hr color="#eee">
 							            			<input type="radio" name="record_kind" value="dji_upload_filed" onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT');setFlightRecordUploadMode(true);" checked>
@@ -118,7 +118,7 @@
 																</div>
 																<div id="flightRecordFileName"></div>
 															</div>
-															<div class="col-md-4 text-right">
+															<div class="col-md-4 text-right" id="dji_file_get_howto">
 																<label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> <span class="text-xs font-weight-bold text-default"><a href="#" id="dji_flight_record_get_label" class="text-xs font-weight-bold text-primary text-uppercase mb-1" onclick="GATAGM('btnForHelpToGetFlightList', 'CONTENT', 'KR');" data-toggle="collapse" data-target="#collapseRecordFileParams" aria-expanded="false" aria-controls="collapseRecordFileParams">얻는 방법 (클릭)</a></span>
 															</div>
 														</div>

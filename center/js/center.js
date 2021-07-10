@@ -1403,6 +1403,7 @@ function previewForRecordFile(file) {
 			$("#thumbnail_video").remove();
 			videoFileForUploadFile = null;
 			$("#selectMovieFileArea").show();
+			$("#video_upload_kind_sel").show();
 		});
 		
 		$("#file_data_remover_video2").on("click", function(e) {
@@ -1410,7 +1411,10 @@ function previewForRecordFile(file) {
 			$("#thumbnail_video").remove();
 			videoFileForUploadFile = null;
 			$("#selectMovieFileArea").show();
+			$("#video_upload_kind_sel").show();
 		});
+		
+		$("#video_upload_kind_sel").hide();
 	}
 	else {		
 		$("#selectDJIFileArea").css("display","none");
@@ -1432,6 +1436,8 @@ function previewForRecordFile(file) {
 			$("#thumbnail_record").remove();
 			recordFileForUploadFile = null;
 			$("#selectDJIFileArea").show();
+			$("#dji_file_upload_sel").show();
+			$("#dji_file_get_howto").show();
 		});
 		
 		$("#file_data_remover_record2").on("click", function(e) {
@@ -1439,7 +1445,12 @@ function previewForRecordFile(file) {
 			$("#thumbnail_record").remove();
 			recordFileForUploadFile = null;
 			$("#selectDJIFileArea").show();
+			$("#dji_file_upload_sel").show();
+			$("#dji_file_get_howto").show();
 		});
+		
+		$("#dji_file_upload_sel").hide();
+		$("#dji_file_get_howto").hide();
 	}		
 }
 
