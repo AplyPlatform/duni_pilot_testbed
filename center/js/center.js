@@ -964,20 +964,19 @@ function flightrecordUploadInit() {
     $("#set_youtube_upload_view").show();
             
     let dropArea = $("#dropArea");
-		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
-			dropArea.css('background-color', '#E3F2FC');
-			$("#file_upload_img").show();
-		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
-			dropArea.css('background-color', '#FFFFFF');
-			$("#file_upload_img").hide();
-		}).on("dragover", function(e) {
+		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-		}).on('drop', function(e) {
-			e.preventDefault();
+		})
+		.on("dragover dragenter", function() {
+			dropArea.css('background-color', '#E3F2FC');
+			$("#file_upload_img").show();
+		})
+		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
-			
+		})
+		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
 			if (retSelected) setUploadFileFields();
@@ -1063,28 +1062,28 @@ function embedCompassInit() {
     $('#compass_pos_sel_option_2').text(GET_STRING_CONTENT('compass_pos_sel_option_2_label'));
     $('#compass_pos_sel_option_3').text(GET_STRING_CONTENT('compass_pos_sel_option_3_label'));
 
+
 		let dropArea = $("#dropArea");
-		dropArea.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
-			dropArea.css('background-color', '#E3F2FC');
-			$("#file_upload_img").show();
-		}).on("dragleave", function(e) { //드래그 요소가 나갔을때
-			dropArea.css('background-color', '#FFFFFF');
-			$("#file_upload_img").hide();
-		}).on("dragover", function(e) {
+		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-		}).on('drop', function(e) {
-			e.preventDefault();
+		})
+		.on("dragover dragenter", function() {
+			dropArea.css('background-color', '#E3F2FC');
+			$("#file_upload_img").show();
+		})
+		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
-			
+		})
+		.on('drop', function(e) {
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
 			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
 			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$('#selectFileArea').hide();
 				$('#btnForUploadFlightList').show();
 			}
-		});
+		});		
 
 		$("#btnForUploadFlightList").on("click", function(e) {
 				GATAGM('btnCompassEmbed', 'CONTENT');
