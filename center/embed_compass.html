@@ -18,10 +18,12 @@
         <div class="card-body">
             <div class="col-auto">															
 							<div id="dropArea" style="border:4px solid #03b0c0; border-style: dotted; padding:16px" class="text-center">
-								<span id="label_compass_file_drop_area">이곳에 드론의 영상과 DJI비행기록 파일을 올려주세요.</span>
+								<span id="label_compass_file_drop_area">이곳에 드론의 영상과 DJI비행기록 파일을 올려주세요.</span><br><br>
 								<div id="thumbnails"></div>								
 								<img src="./imgs/file_drop_upload.gif" border="0" id="file_upload_img">
-								<img src="./imgs/drop.png" border="0" width="100px" id="file_drop_img"><br><br><br><br>
+								<span class="text-xs text-default mb-1" id="label_explain_drag">이곳에 파일을 드래그 하세요.</span><br>
+								<img src="./imgs/drop.png" border="0" width="80px" id="file_drop_img"><br><br><br><br><br>
+								<span class="text-xs text-default mb-1" id="label_or_directly">또는, 직접 </span> 
 								<div class="upload-btn-wrapper text-center" id="selectFileArea">
 									<input type="file" id="input_direct_file" value=""/ multiple>									
 									<button class="btn btn-secondary btn-sm" type="button" id="btnSelectFiles">파일선택</button>

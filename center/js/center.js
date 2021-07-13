@@ -793,6 +793,8 @@ function flightrecordUploadInit() {
     $("#input_memo_label").text(GET_STRING_CONTENT('input_memo_label'));
 
     $("#input_tag_label").text(GET_STRING_CONTENT('input_tag_label'));
+    $('#label_explain_drag').text(GET_STRING_CONTENT('label_explain_drag'));
+    $('#label_or_directly').text(GET_STRING_CONTENT('label_or_directly'));
 
     $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
     $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
