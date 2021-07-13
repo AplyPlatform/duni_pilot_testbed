@@ -810,11 +810,15 @@ function flightrecordUploadInit() {
 		$('#btnSelectMovieFiles').text(GET_STRING_CONTENT('label_select_files'));
     $('#btnSelectDJIFiles').text(GET_STRING_CONTENT('label_select_files'));
     $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
+    $('#btnNextStage').text(GET_STRING_CONTENT('btnNextStage'));
+    
     
     $('#label_flightrec_file_drop_area').html(GET_STRING_CONTENT('msg_drop_flightrecord_file'));
     
     
     $("#flighttime_input_data_label").text(GET_STRING_CONTENT('flighttime_input_data_label'));
+    
+    
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
 
@@ -1075,7 +1079,7 @@ function embedCompassInit() {
     
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
-    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
+    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));        
     
     $("#altitude_label_top").text(GET_STRING_CONTENT('altitude_label'));
     
