@@ -1055,7 +1055,10 @@ function embedCompassInit() {
 
     $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
 
-    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));    
+    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
+    
+    $('#label_explain_drag').text(GET_STRING_CONTENT('label_explain_drag'));
+    $('#label_or_directly').text(GET_STRING_CONTENT('label_or_directly'));
     
     $('#label_for_colorpicker').text(GET_STRING_CONTENT('label_for_colorpicker'));
 
