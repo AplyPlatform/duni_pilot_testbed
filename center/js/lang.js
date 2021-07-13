@@ -189,7 +189,7 @@ var LANG_JSON_DATA = {
         "label_set_youtube_url": "Youtube URL 입력",
         "label_set_no_video" : "영상 없음",
         "label_upload_movie": "영상 업로드",
-        "label_select_files": "파일 선택",
+        "label_select_files": "기기에서 파일 선택",
         "tab_menu_upload_selector_dji": "비행기록 업로드",        
         "tab_menu_upload_selector_address": "촬영지 주소 입력",
         "no_record_data_view_label" : "비행기록 파일이 없습니다.",
