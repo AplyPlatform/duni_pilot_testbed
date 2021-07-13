@@ -984,8 +984,8 @@ function flightrecordUploadInit() {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
 			if (retSelected == 2) setUploadFileFields();
-			else if (retSelected == 1) $("#nextStageBtnArea").show();
-			else $("#nextStageBtnArea").hide();
+			else if (retSelected == 1) $("#btnNextStage").attr('disabled', false);
+			else $("#btnNextStage").attr('disabled', true);
 		});
 	
 		$("#btnNextStage").click(function() {
@@ -998,8 +998,8 @@ function flightrecordUploadInit() {
 			GATAGM('fileInputForFlightRecord', 'CONTENT');
 			let retSelected = fileDropCheckRecordUpload(this.files);
 			if (retSelected == 2) setUploadFileFields();
-			else if (retSelected == 1) $("#nextStageBtnArea").show();
-			else $("#nextStageBtnArea").hide();
+			else if (retSelected == 1) $("#btnNextStage").attr('disabled', false);
+			else $("#btnNextStage").attr('disabled', true);
 		});
 		
 		$("#movieFile").bind('change', function() {			
@@ -1032,7 +1032,9 @@ function flightrecordUploadInit() {
     $("#dropArea").show();
     $("#uploadfileform").hide();
     $("#file_upload_img").hide();
-    $("#nextStageBtnArea").hide();
+    $("#nextStageBtnArea").show();
+    $("#btnNextStage").attr('disabled', true);
+    
     hideLoader();
 }
 
