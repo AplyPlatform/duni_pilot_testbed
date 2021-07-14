@@ -512,6 +512,11 @@ function centerInit() {
 }
 
 
+function drawFlightArea() { 
+		setAddressAndCada("#map_address", fdata.address, fdata.cada, g_vector_2D_mainmap_for_cada);
+}
+
+
 function designInit() {
 		map2DInit();
     selectMonitorIndex("private", 0);
@@ -4117,8 +4122,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
     if (isSet(wsource) == false) return;
 
-		var _features = new Array();
-    var _addressText = "";
+		var _features = new Array();    
 
     for (var idx = 0; idx < cada.length; idx++) {
         try {
@@ -4134,11 +4138,6 @@ function setAddressAndCada(address_id, address, cada, wsource) {
                     for (var key in geojson_Feature.properties) {
                         try {
                             var value = geojson_Feature.properties[key];
-
-                            if (_addressText == "" && key == "addr") {
-                                _addressText = value;
-                            }
-
                             feature.values_[key] = value;
                             feature.properties[key] = value;
                         } catch (e) {
