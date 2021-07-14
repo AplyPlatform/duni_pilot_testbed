@@ -3756,13 +3756,16 @@ function setFlightRecordToView(target, name, fdata) {
 	        else {
 	        		$("#tagTextarea").hide();
 	        		var targetList = (target == "public" ? "public" : "");
-				    	var tagArray = JSON.parse(fdata.tag_values);
-				    	var appendRow = "";
-				    	tagArray.forEach(function(tg) {
-				    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
-				    	});
-
-				    	$("#tagArrayarea").html(appendRow);
+	        		try {
+				    		var tagArray = JSON.parse(fdata.tag_values);				    		
+					    	var appendRow = "";
+					    	tagArray.forEach(function(tg) {
+					    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+					    	});
+				    		$("#tagArrayarea").html(appendRow);
+				    	}
+				    	catch(e) {
+				    	}
 	        }
 	      }
 
@@ -4232,10 +4235,14 @@ function appendFlightRecordTable(target, target_key, item) {
 
     if (isSet(tag_values) && tag_values != "") {
     	var targetList = (target == "public" ? "public" : "");
-    	var tag_array = JSON.parse(tag_values);
-    	tag_array.forEach(function(tg) {
-    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
-    	});
+    	try {
+	    	var tag_array = JSON.parse(tag_values);
+	    	tag_array.forEach(function(tg) {
+	    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+	    	});
+	    }
+	    catch(e) {
+	    }
     }
 
     appendRow = appendRow + "</div></div>";
