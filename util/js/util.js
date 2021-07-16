@@ -948,17 +948,20 @@ function setAreaInfo(ainfo) {
 		var areaVec = ai.arrayvec;
 		_area_polyline[index] = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
 		//_area_polyline[index].getGeometry().transform('EPSG:4326', 'EPSG:3857');
+		/*
 		_area_polyline[index].setStyle(new ol.style.Style({
                                      stroke: new ol.style.Style({
                                          color: '#0000FF',
                                          width: 2
                                      })
                                     }));
+                                    */
+    mainMap2DAreaInfoSource.addFeature(_area_polyline[index]); //todo
 		index ++;
 	});		
 	
 	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");			
-  mainMap2DAreaInfoSource.addFeatures(_area_polyline); //todo
+  
 }
 
 function requestGPS(address) {
