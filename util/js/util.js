@@ -622,7 +622,7 @@ function onPlayerStateChange(event) {
 	  return feature.get('features').length >= 1;
 	}
 
-	function moveFlightHistoryMapAndCada(lat, lng, cada) { //todo
+	function moveFlightHistoryMapAndCada(lat, lng, cada) {
 		$("#historyMapArea").show();
 		var npos = ol.proj.fromLonLat([lng, lat]);
 		
@@ -892,16 +892,14 @@ function requestAddress() {
 		oldLatVal = jdata["lat"];
 		oldLngVal = jdata["lng"];
 
-  	var npos = ol.proj.fromLonLat([oldLngVal, oldLatVal]);
-  	jdata["x"] = npos[0];
-  	jdata["y"] = npos[1];
-
 		GATAGM("public_address_by_gps", "SERVICE", oldLatVal + "," + oldLngVal, langset);
 
 		showLoader();
 		setCaptcha(jdata, function (r) {
 		    if(r.result == "success") {
 					$("#address").val(r.data.address);
+					
+					setAreaInfo(r.data.area_info);
 
 					oldAddressVal = r.data.address;
 
@@ -932,6 +930,19 @@ function requestAddress() {
 }
 
 
+function setAreaInfo(ainfo) {	
+	let needApprove = ainfo.needApprove;
+	let area_infos = ainfo.area_infos;
+	let desc = ainfo.desc;
+	
+	var areaString = "";
+	area_infos.forEach(function(ai) {
+		areaString = areaString + ai.name + " / ";
+	});		
+	
+	$("#area_info_text").html("<H3>" + desc + "</H3><br><H5>" + areaString + "</H5>");
+}
+
 function requestGPS(address) {
 
 		var jdata = {"action" : "public_gps_by_address", "daction" : "public_gps_by_address"};
@@ -956,11 +967,37 @@ function requestGPS(address) {
 			      	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 			        return;
 			      }
-
-						$("#lat").val(r.data.lat);
-	  				$("#lng").val(r.data.lng);
-
-			     	requestAddress();
+						
+			     	if(r.result == "success") {
+			     			$("#lat").val(r.data.lat);
+	  						$("#lng").val(r.data.lng);
+	  				
+								$("#address").val(r.data.address);
+								
+								setAreaInfo(r.data.area_info);
+			
+								oldAddressVal = r.data.address;
+			
+								if (isSet(r.data.data)) {									
+									flightRecArray = r.data.data;
+				      		setFlightlistHistory(r.data.lat + "," + r.data.lng);
+								}
+								else {									
+									moveFlightHistoryMapAndCada(r.data.lat, r.data.lng, r.data.cada);
+									showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+								}
+								
+					    	hideLoader();
+					    }
+					    else {
+					    	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+					    	hideLoader();
+					    }
+					  },
+					  function(request,status,error) {
+					    hideLoader();
+					    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+					  }
 	    	}
 	    	else {
 	    			hideLoader();

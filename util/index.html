@@ -109,23 +109,23 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 								
 								<div class="service-wrap">
 									<div class="row">
-					          <div class="col-md-4">
+					          <div class="col-md-5">
 					          	<input name="lat" id="lat" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="위도 : 예) 37.1234" required="">
 					          </div>
-					          <div class="col-md-4">
+					          <div class="col-md-5">
 					          	<input name="lng" id="lng" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="경도 : 예) 127.1234" required="">
 					          </div>
-					          <div class="col-md-4 text-left">
-					          	<a class="btn btn-warning btn-lg" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
+					          <div class="col-md-2 text-left">
+					          	<a class="btn btn-warning btn-lg btn-block" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
 					          </div>
 					        </div>
 					        
 					        <div class="row">
-					          <div class="col-md-8">
+					          <div class="col-md-10">
 						          <input name="address" id="address" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="주소">
 					        	</div>
-					        	<div class="col-md-4 text-left">
-					        		<a class="btn btn-info btn-lg" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
+					        	<div class="col-md-2 text-left">
+					        		<a class="btn btn-info btn-lg btn-block" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
 					        	</div>
 					        </div>
 								</div>				        
@@ -136,6 +136,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		
 		<div class="gtco-services gtco-section">
 		  <div class="gtco-container">
+		  			<div class="service-wrap">
+		  				<div class="service" id="area_info_text">		  					
+		  				</div>
+	        	</div>
+	        	
 		  			<div class="service-wrap" id="historyMapArea">
 		  				<div class="service">
 		  					<div id="historyMap" style="width:100%;height:300px"></div>
