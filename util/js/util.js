@@ -459,8 +459,8 @@ function onPlayerStateChange(event) {
         source: mainMap2DAreaInfoSource,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: '#0000ff',
-                width: 2
+                color: '#0000dd',
+                width: 3
             })
         })
     });
@@ -940,24 +940,12 @@ function setAreaInfo(ainfo) {
 	let area_infos = ainfo.area_infos;
 	let desc = ainfo.desc;
 	
-	var areaString = "";
-	var index =  0;
-	var _area_polyline = new Array();
+	var areaString = "";	
 	area_infos.forEach(function(ai) {
 		areaString = areaString + ai.name + " / ";
 		var areaVec = ai.arrayvec;
-		_area_polyline[index] = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
-		//_area_polyline[index].getGeometry().transform('EPSG:4326', 'EPSG:3857');
-		/*
-		_area_polyline[index].setStyle(new ol.style.Style({
-                                     stroke: new ol.style.Style({
-                                         color: '#0000FF',
-                                         width: 2
-                                     })
-                                    }));
-                                    */
-    mainMap2DAreaInfoSource.addFeature(_area_polyline[index]); //todo
-		index ++;
+		var _area_polyline = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
+    mainMap2DAreaInfoSource.addFeature(_area_polyline);		
 	});		
 	
 	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");			
