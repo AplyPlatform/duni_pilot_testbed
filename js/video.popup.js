@@ -85,7 +85,7 @@
 							htmlString = htmlString + '<div class="col-md-6 text-left"><font color="white"><b>' + name + '</b></font></div>';
 						}
 							
-						htmlString = htmlString + '<div class="col-md-6 text-left">';
+						htmlString = htmlString + '<div class="col-md-6 text-right">';
 																	
 						if(isOuter == false) {							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
@@ -95,11 +95,11 @@
 						}
 						
 						if(prodUrl) {
-							if (isOuter) htmlString = htmlString + "&nbsp;/&nbsp;";							
+							if (isOuter == false) htmlString = htmlString + "&nbsp;/&nbsp;";
 							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + '><font color=green>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
+								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
 						}
 						
 						htmlString = htmlString + '</div>';
