@@ -945,7 +945,7 @@ function setAreaInfo(ainfo) {
 	var _area_polyline = new Array();
 	area_infos.forEach(function(ai) {
 		areaString = areaString + ai.name + " / ";
-		areaVec = ai.arrayvec;
+		var areaVec = ai.arrayvec;
 		_area_polyline[index] = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
 		_area_polyline[index].getGeometry().transform('EPSG:4326', 'EPSG:3857');
 		_area_polyline[index].setStyle(new ol.style.Style({
