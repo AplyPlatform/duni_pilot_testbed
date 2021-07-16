@@ -111,6 +111,14 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
 							<li><a href="index_en.html"  target="_self">ENGLISH</a></li>
+							<div class="sns-btn-offcanvas">
+								<li style="color:#EEE;">로그인이 필요합니다.</li>
+								<li><a id="naverLoginBtn"><span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Naver 계정으로 사용하기</a></li>
+								<li><a id="kakaoLoginBtn"><span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Kakao 계정으로 사용하기</a></li>
+								<li><a id="facebookLoginBtn"><i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Facebook 계정으로 사용하기</a></li>
+								<li><a id="googleLoginBtn"><i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 계정으로 사용하기</a></li>								
+								<li><a id="appleLoginBtn"><span style="color:#EAEAEA; font-weight:bold;">A</span>&nbsp;&nbsp;Apple 계정으로 사용하기</a></li>
+							</div>
 						</ul>
 					</div>
 				</div>
@@ -132,9 +140,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 										<h2>드론 파일럿의 성장을 돕는 플랫폼 - DUNI 파일럿 센터입니다</h2>
 									</div>
 								</div>
-								<!--@if(Mobile::isMobileCheckByAgent())-->test
-								<!--@else-->
-								<div class="row">
+								<div class="row sns-btn">
 									<div class="col-md-3">
 										<a id="naverLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Naver 계정으로 사용하기
@@ -142,18 +148,17 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 										<a id="kakaoLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Kakao 계정으로 사용하기
 										</a>
-										<a id="googleLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
-											<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 계정으로 사용하기
-										</a>
 										<a id="facebookLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Facebook 계정으로 사용하기
+										</a>
+										<a id="googleLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+											<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 계정으로 사용하기
 										</a>
 										<a id="appleLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#000; font-weight:bold;">A</span>&nbsp;&nbsp;Apple 계정으로 사용하기
 										</a>
 									</div>
 								</div>
-								<!--@end-->
 							</div>
 						</div>
 					</div>
