@@ -79,28 +79,28 @@
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<div class="row"><div class="col-md-6 text-left">';
+						var htmlString = '<div class="row">';
 						
 						if(name) {
-							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font></div>';
+							htmlString = htmlString + '<div class="col-md-6 text-left"><font color="white"><b>' + name + '</b></font></div>';
 						}
 							
-						htmlString = htmlString + '<div class="col-md-6 text-right"><div class="row">';
+						htmlString = htmlString + '<table border=0 cellpadding=0 cellspacing=6 width="100%"><tr>';
 																	
 						if(isOuter == false) {							
-							htmlString = htmlString + '<div class="col-md-6 text-right"><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
+							htmlString = htmlString + '<td align=left><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
-								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';							
+								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></td>';
 						}
 						
 						if(prodUrl) {
-							htmlString = htmlString + '<div class="col-md-6 text-right"><a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
+							htmlString = htmlString + '<td align=right><a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a></div>';	
+								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a></td>';	
 						}
 						
-						htmlString = htmlString + '</div></div>';
+						htmlString = htmlString + '</tr></table>';
 						
 						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
