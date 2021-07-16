@@ -203,7 +203,18 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 							</ul>
 						</blockquote>
 					</div>
-
+					<div class="col-md-6 gtco-cta text-left">
+						<h3><a href="./util"><i class="fas fa-map-pin"></i> Convert GPS Location <i class="fas fa-exchange-alt"></i> Address</a></h3>
+						<blockquote class="blockquote">
+							<ul class="list-unstyled">
+								<li><i class="far fa-check-circle"></i> Convert GPS coordinates to addresses and addresses to GPS coordinates.</li>
+								<li><i class="far fa-check-circle"></i> <a href="./util"><i class="fas fa-map-marked-alt"></i> Go to Convert</a></li>
+							</ul>
+						</blockquote>
+					</div>
+				</div>
+				
+				<div class="row">
 					<div class="col-md-6 gtco-cta text-left">
 						<h3><i class="fas fa-boxes"></i> Coming soon</h3>
 						<blockquote class="blockquote">
@@ -216,7 +227,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				</div>
 				
 			</div>
-		</div>
+		</div>		
 		
 		<div class="gtco-products" style="padding:50px 0;">
 			<div class="gtco-container">
@@ -228,11 +239,54 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				</div>
 			</div>
 		</div>
+		
+		<div class="gtco-products">
+			<div class="gtco-container">
+				<div class="row">
+					<div class="gtco-heading text-center">
+						<h2><i class="fas fa-code"></i> Develop Drone Software</h2>
+						<p>Do you have any idea or function you need for better drone activity? Ask for it now.</p>
+						<h3><a href="mailto:duni@aply.biz"><i class="fas fa-envelope-open-text"></i> Contact Us</a></h3>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="gtco-services gtco-section">
 			<div class="gtco-container">
 								
-				<h1 class="text-center">View Drone Videos and Enterprises</h1>
+				<h1 class="text-center">DUNI Map</h1>
+				<div class="row row-pb-sm" id="defaultListView">
+					<div class="service-wrap">
+						<div class="service">																		
+							<div class="text-left">
+								<table border=0 cellspacing=0 cellpadding=2>
+									<tr>
+										<td style="padding:10px;"><img src="images/f_record_pos.png" style="width:30px;" /> Drone Videos</td>
+										<td style="padding:10px;"><input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked></td>
+									</tr>
+								</table>
+								<table border=0 cellspacing=0 cellpadding=2>
+									<tr>
+										<td style="padding:10px;"><img src="images/company_pos.png" style="width:30px;" /> Drone Company</td>
+										<td style="padding:10px;"><input type="checkbox" name="chkCompany" id="chkCompany" checked></td>
+									</tr>
+								</table>
+							</div>
+								
+							<br>																		
+							<div id="historyMap" style="width:100%; height:400px;"></div>
+						</div>
+					</div>												
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="gtco-services gtco-section">
+			<div class="gtco-container">
+								
+				<h1 class="text-center">Search Drone Videos</h1>
 				<div class="row row-pb-sm">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
@@ -255,29 +309,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					</div>
 				</div>
 
-				<div class="row row-pb-sm" id="defaultListView">
-					<div class="service-wrap">
-						<div class="service">																		
-							<div class="text-left">
-								<table border=0 cellspacing=0 cellpadding=2>
-									<tr>
-										<td style="padding:10px;"><img src="images/f_record_pos.png" style="width:30px;" /> Drone Videos</td>
-										<td style="padding:10px;"><input type="checkbox" name="chkFlightHistory" id="chkFlightHistory" checked></td>
-									</tr>
-								</table>
-								<table border=0 cellspacing=0 cellpadding=2>
-									<tr>
-										<td style="padding:10px;"><img src="images/company_pos.png" style="width:30px;" /> Drone Company</td>
-										<td style="padding:10px;"><input type="checkbox" name="chkCompany" id="chkCompany" checked></td>
-									</tr>
-								</table>
-							</div>
-								
-							<br>																		
-							<div id="historyMap" style="width:100%; height:400px;"></div>
-						</div>
-					</div>				
-					
+				<div class="row row-pb-sm" id="defaultListView">					
 					<div class="service-wrap" id="dataTable-Flight_list"></div>							
 					<div class="service-wrap">
 						<div class="service">
@@ -287,31 +319,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				</div>
 			</div>
 		</div>
-		<!-- END .gtco-services -->
-		
-		<div class="gtco-products">
-			<div class="gtco-container">
-				<div class="row">
-					<div class="gtco-heading text-center">
-						<h2>Convert GPS Location <i class="fas fa-exchange-alt"></i> Address</h2>
-						<p>Convert GPS coordinates to addresses and addresses to GPS coordinates.</p>
-						<h3><a href="./util"><i class="fas fa-map-marked-alt"></i> Go to Convert</a></h3>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="gtco-products">
-			<div class="gtco-container">
-				<div class="row">
-					<div class="gtco-heading text-center">
-						<h2>Request/Contact New Features</h2>
-						<p>Do you have any idea or function you need for better drone activity? Ask for it now.</p>
-						<h3><a href="mailto:duni@aply.biz"><i class="fas fa-envelope-open-text"></i> Contact Us</a></h3>
-					</div>
-				</div>
-			</div>
-		</div>		
+		<!-- END .gtco-services -->		
 								
 		<footer id="gtco-footer" class="gtco-section" role="contentinfo">
 			<div class="gtco-container">
