@@ -967,37 +967,26 @@ function requestGPS(address) {
 			      	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
 			        return;
 			      }
+									     	
+	     			$("#lat").val(r.data.lat);
+						$("#lng").val(r.data.lng);
+				
+						$("#address").val(r.data.address);
 						
-			     	if(r.result == "success") {
-			     			$("#lat").val(r.data.lat);
-	  						$("#lng").val(r.data.lng);
-	  				
-								$("#address").val(r.data.address);
-								
-								setAreaInfo(r.data.area_info);
-			
-								oldAddressVal = r.data.address;
-			
-								if (isSet(r.data.data)) {									
-									flightRecArray = r.data.data;
-				      		setFlightlistHistory(r.data.lat + "," + r.data.lng);
-								}
-								else {									
-									moveFlightHistoryMapAndCada(r.data.lat, r.data.lng, r.data.cada);
-									showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
-								}
-								
-					    	hideLoader();
-					    }
-					    else {
-					    	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
-					    	hideLoader();
-					    }
-					  },
-					  function(request,status,error) {
-					    hideLoader();
-					    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
-					  }
+						setAreaInfo(r.data.area_info);
+	
+						oldAddressVal = r.data.address;
+	
+						if (isSet(r.data.data)) {									
+							flightRecArray = r.data.data;
+		      		setFlightlistHistory(r.data.lat + "," + r.data.lng);
+						}
+						else {									
+							moveFlightHistoryMapAndCada(r.data.lat, r.data.lng, r.data.cada);
+							showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+						}
+						
+			    	hideLoader();					    					    					  
 	    	}
 	    	else {
 	    			hideLoader();
