@@ -849,6 +849,7 @@
 			  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);			
 					$("#video-pop-view").attr("video-lang", langset);
 					$("#video-pop-view").attr("video-name", name);
+					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
 					$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
 					$("#video-pop-view").videoPopup();
 					$("#video-pop-view").click();

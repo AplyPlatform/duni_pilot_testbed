@@ -72,25 +72,35 @@
             })
         }
 
-        function mountIframe(langset, name, isOuter) {
+        function mountIframe(langset, name, prodUrl, isOuter) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<div class="row"><div class="col text-left">';
+						var htmlString = '<div class="row"><div class="col-md-6 text-left">';
 						
 						if(name) {
 							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font></div>';
 						}
-																		
+							
+						htmlString = htmlString + '<div class="col-md-6 text-right"><div class="row">';
+																	
 						if(isOuter == false) {							
-							htmlString = htmlString + '<div class="col text-right"><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
+							htmlString = htmlString + '<div class="col-md-6 text-right"><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
 								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';							
 						}
+						
+						if(prodUrl) {
+							htmlString = htmlString + '<div class="col-md-6 text-right"><a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
+								+ name + '\', \'CONTENT\', \''
+								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a></div>';	
+						}
+						
+						htmlString = htmlString + '</div></div>';
 						
 						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
@@ -108,6 +118,7 @@
             event.preventDefault();
             
             var videoUrl = $(this).attr("video-url");
+            var videoProdUrl = $(this).attr("video-prod-url");
             var videoIframe = mountEmbedLink(videoUrl);
             var videoName = $(this).attr("video-name");            
             var langset = $(this).attr("video-lang");
@@ -117,7 +128,7 @@
             	isOuter = true;
             }
 
-            $("body").append(mountIframe(langset, videoName, isOuter));
+            $("body").append(mountIframe(langset, videoName, videoProdUrl, isOuter));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {
