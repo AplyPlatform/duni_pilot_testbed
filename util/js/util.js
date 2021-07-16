@@ -297,6 +297,7 @@ function onPlayerStateChange(event) {
 	var flightHistoryView;
 	var mainMap2DpointSource;
 	var mainMap2DCadaSource;
+	var mainMap2DAreaInfoSource;
 
 	var vVectorLayerForCompany;
 	var vVectorLayerForHistory;
@@ -451,6 +452,18 @@ function onPlayerStateChange(event) {
             })
         })
     });
+    
+    mainMap2DAreaInfoSource = new ol.source.Vector({});
+
+		var areaInfoLayer = new ol.layer.Vector({
+        source: mainMap2DAreaInfoSource,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#0000ff',
+                width: 2
+            })
+        })
+    });
 
 	  var vMap = new ol.Map({
 	  		controls: ol.control.defaults().extend([
@@ -458,7 +471,7 @@ function onPlayerStateChange(event) {
         ]),
 	      target: 'historyMap',
 	      layers: [
-	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer
+	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer, areaInfoLayer
 	      ],
 				overlays: [overlayBox],
 	      // Improve user experience by loading tiles while animating. Will make
@@ -705,15 +718,7 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
     var bingLayer = new ol.layer.Tile({
 	    visible: true,
 	    preload: Infinity,
-	    source: new ol.source.BingMaps({
-	        // We need a key to get the layer from the provider.
-	        // Sign in with Bing Maps and you will get your key (for free)
-	        key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-	        imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
-	        // use maxZoom 19 to see stretched tiles instead of the Bing Maps
-	        // "no photos at this zoom level" tiles
-	        maxZoom: 19
-	    })
+	    source: new ol.source.OSM()
 		});
 
 	  var vMap = new ol.Map({
@@ -930,17 +935,30 @@ function requestAddress() {
 }
 
 
-function setAreaInfo(ainfo) {	
+function setAreaInfo(ainfo) {
 	let needApprove = ainfo.needApprove;
 	let area_infos = ainfo.area_infos;
 	let desc = ainfo.desc;
 	
 	var areaString = "";
+	var index =  0;
+	var _area_polyline = new Array();
 	area_infos.forEach(function(ai) {
 		areaString = areaString + ai.name + " / ";
+		areaVec = ai.arrayvec;
+		_area_polyline[index] = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
+		_area_polyline[index].getGeometry().transform('EPSG:4326', 'EPSG:3857');
+		_area_polyline[index].setStyle(new ol.style.Style({
+                                     stroke: new ol.style.Style({
+                                         color: '#0000FF',
+                                         width: 2
+                                     })
+                                    }));
+		index ++;
 	});		
 	
-	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");
+	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");			
+  mainMap2DAreaInfoSource.addFeatures(_area_polyline); //todo
 }
 
 function requestGPS(address) {
