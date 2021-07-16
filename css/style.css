@@ -83,14 +83,14 @@ body {margin: 0; font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif; font-
   content: "";
 }
 
-a {color: #17B794; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s;}
-a:hover, a:active, a:focus {color: #17B794; outline: none; text-decoration: none;}
+a {color: #45cdba; -webkit-transition: 0.5s; -o-transition: 0.5s; transition: 0.5s;}
+a:hover, a:active, a:focus {color: #45cdba; outline: none; text-decoration: none;}
 p {margin-bottom: 20px;}
 h1, h2, h3, h4, h5, h6, figure {color:#4d4d4d; font-weight: 400; margin: 0 0 20px 0;}
 
-::-webkit-selection {color: #fff; background: #17B794;}
-::-moz-selection {color: #fff; background: #17B794;}
-::selection {color: #fff; background: #17B794;}
+::-webkit-selection {color: #fff; background: #45cdba;}
+::-moz-selection {color: #fff; background: #45cdba;}
+::selection {color: #fff; background: #45cdba;;}
 
 .gtco-container {max-width: 1140px; position: relative; margin: 0 auto; padding-left: 15px; padding-right: 15px;}
 .gtco-nav {position: relative; top: 0; margin: 0; padding: 0; width: 100%; padding: 10px 0; z-index: 1001; background: #fff;}
@@ -100,7 +100,7 @@ h1, h2, h3, h4, h5, h6, figure {color:#4d4d4d; font-weight: 400; margin: 0 0 20p
 }
 
 .gtco-nav #gtco-logo {font-size: 20px; margin: 0; padding: 0; text-transform: uppercase; font-weight: bold;}
-.gtco-nav #gtco-logo em {color: #17B794;}
+.gtco-nav #gtco-logo em {color: #45cdba;;}
 
 @media screen and (max-width: 768px) {
   .gtco-nav .menu-1, .gtco-nav .menu-2 {display: none;  }
@@ -581,10 +581,10 @@ form label {font-weight: normal !important;}
 #gtco-counter .icon i {height: 70px;}
 #gtco-counter .icon i:before {color: #cccccc; display: block; text-align: center; margin-left: 3px;}
 
-.gtco-section {padding: 1em 0; clear: both; position: relative;}
+.gtco-section {padding: 1em; clear: both; position: relative;}
 
 @media screen and (max-width: 768px) {
-  .gtco-section {padding: 3em 0;}
+  .gtco-section {padding: 3em;}
 }
 
 .gtco-section.border-bottom {border-bottom: 1px solid #d9d9d9;}
@@ -831,25 +831,6 @@ form label {font-weight: normal !important;}
   color: #fff;
 }
 
-.btn-info {
-  background: #5bc0de;
-  color: #fff;
-  border: 2px solid #5bc0de;
-}
-.btn-info:hover, .btn-info:focus, .btn-info:active {
-  background: #46b8da !important;
-  border-color: #46b8da !important;
-}
-.btn-info.btn-outline {
-  background: transparent;
-  color: #5bc0de;
-  border: 2px solid #5bc0de;
-}
-.btn-info.btn-outline:hover, .btn-info.btn-outline:focus, .btn-info.btn-outline:active {
-  background: #5bc0de;
-  color: #fff;
-}
-
 .btn-warning {
   background: #f0ad4e;
   color: #fff;
@@ -958,7 +939,7 @@ form label {font-weight: normal !important;}
   box-shadow: none;
   background: transparent;
   border: 2px solid rgba(0, 0, 0, 0.1);
-  height: 54px;
+  height: 46px;
   font-size: 18px;
   font-weight: 300;
 }

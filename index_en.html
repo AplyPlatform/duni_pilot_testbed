@@ -157,7 +157,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		
 		<div class="gtco-services gtco-section">
 			<div class="gtco-container">
-				<br>
+				<br />
 			</div>
 		</div>
 		<div class="gtco-section">
@@ -228,8 +228,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				
 			</div>
 		</div>		
+		<br /><br />
 		
-		<div class="gtco-products" style="padding:50px 0;">
+		<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="gtco-heading text-center">
@@ -240,7 +241,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 			</div>
 		</div>
 		
-		<div class="gtco-products">
+		<div class="gtco-section">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="gtco-heading text-center">
@@ -294,7 +295,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		          			<input name="searchKeyword" id="searchKeyword" type="text" class="form-control" style="background-color:#FFF;" value="" placeholder="Keyword">
 	        			</div>
 	        			<div class="col-xs-4 text-left">
-	        				<a class="btn btn-info btn-lg btn-block" role="button" id="btnSearchMovie">Search Videos</a>
+	        				<a class="btn btn-info" role="button" id="btnSearchMovie">Search</a>
 	        			</div>
 	        		</div>
 	        		<div class="col-md-2"></div>
@@ -309,14 +310,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					</div>
 				</div>
 
-				<div class="row row-pb-sm" id="defaultListView">					
-					<div class="service-wrap" id="dataTable-Flight_list"></div>							
-					<div class="service-wrap">
-						<div class="service">
-							<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicrecordlist" id="more_label">More</a>
-						</div>
-					</div>									
+				<div class="row row-pb-sm" id="defaultListView">
+					<div class="service-wrap" id="dataTable-Flight_list"></div>					
+					<div class="service-wrap text-center">
+						<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicrecordlist" id="more_label" class="btn btn-circle btn-info btn-lg">More</a>
+					</div>
 				</div>
+				
 			</div>
 		</div>
 		<!-- END .gtco-services -->		
