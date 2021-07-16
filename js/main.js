@@ -1281,13 +1281,11 @@
 						hideLoader();
 						
 						$("#searchListView").hide();
-						$("#defaultListView").show();
 		        return;
 		      }
 		      
 		      
 					$("#searchListView").show();
-					$("#defaultListView").hide();
 					
 		      if (r.morekey) {
               hasMore = r.morekey;
