@@ -940,7 +940,7 @@ function setAreaInfo(ainfo) {
 		areaString = areaString + ai.name + " / ";
 	});		
 	
-	$("#area_info_text").html("<H3>" + desc + "</H3><br><H5>" + areaString + "</H5>");
+	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");
 }
 
 function requestGPS(address) {
