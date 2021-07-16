@@ -85,22 +85,24 @@
 							htmlString = htmlString + '<div class="col-md-6 text-left"><font color="white"><b>' + name + '</b></font></div>';
 						}
 							
-						htmlString = htmlString + '<table border=0 cellpadding=0 cellspacing=6 width="100%"><tr>';
+						htmlString = htmlString + '<div class="col-md-6 text-left">';
 																	
 						if(isOuter == false) {							
-							htmlString = htmlString + '<td align=left><a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
+							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
-								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></td>';
+								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
 						}
 						
 						if(prodUrl) {
-							htmlString = htmlString + '<td align=right><a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
+							if (isOuter) htmlString = htmlString + "&nbsp;/&nbsp;";							
+							
+							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a></td>';	
+								+ langset + '\');" href=' + prodUrl + '><font color=green>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
 						}
 						
-						htmlString = htmlString + '</tr></table>';
+						htmlString = htmlString + '</div>';
 						
 						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
