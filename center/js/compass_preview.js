@@ -77,6 +77,13 @@ function setCompassPos(towhere) {
 	}    	
 }
 
+function stopCompassVideo() {
+		if (streaming === true) {
+			streaming = false;
+			compass_video.pause(); compass_video.currentTime = 0;			
+		}
+}
+
 function process() {
     if (streaming === true) {
         cap.read(frame);            

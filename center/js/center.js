@@ -1543,7 +1543,7 @@ function previewForCompassFile(file, idx) {
 		else {
 			videoFileForUploadFile = null;
 			
-			compass_video.pause(); compass_video.currentTime = 0;
+			stopCompassVideo();
 			
 			$("#video_example_area").hide();
 			$("#youtube_example_area").show();
