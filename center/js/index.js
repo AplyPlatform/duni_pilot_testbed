@@ -119,7 +119,8 @@ function naverinit() {
 
     naverLogin.init();
 
-    $("#naverLoginBtn").attr("href", naverLogin.generateAuthorizeUrl());
+    $("#naverLoginBtn1").attr("href", naverLogin.generateAuthorizeUrl());
+    $("#naverLoginBtn2").attr("href", naverLogin.generateAuthorizeUrl());
 }
 
 function kakaoLogin() {
@@ -167,8 +168,14 @@ function kakaoLogin() {
 function kakaoinit() {
 	Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
 
-	if (document.getElementById('kakaoLoginBtn')) {
-		document.getElementById('kakaoLoginBtn').addEventListener('click', function() {
+	if (document.getElementById('kakaoLoginBtn1')) {
+		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
+	  			kakaoLogin();
+		}, false);
+	}
+	
+	if (document.getElementById('kakaoLoginBtn2')) {
+		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
 	  			kakaoLogin();
 		}, false);
 	}
@@ -182,8 +189,15 @@ function appleinit() {
             nonce : '123423',
             usePopup : true
         });
-  if (document.getElementById('appleLoginBtn')) {
-  			const buttonElement = document.getElementById('appleLoginBtn');
+  if (document.getElementById('appleLoginBtn1')) {
+  			const buttonElement = document.getElementById('appleLoginBtn1');
+        buttonElement.addEventListener('click', function() {
+            AppleID.auth.signIn();
+        });
+	}
+	
+	if (document.getElementById('appleLoginBtn2')) {
+  			const buttonElement = document.getElementById('appleLoginBtn2');
         buttonElement.addEventListener('click', function() {
             AppleID.auth.signIn();
         });
@@ -217,7 +231,23 @@ function googleinit() {
         options.setPrompt('select_account consent');
         //gauth.signIn(options);
 
-        gauth.attachClickHandler(document.getElementById('googleLoginBtn'), options,
+        gauth.attachClickHandler(document.getElementById('googleLoginBtn1'), options,
+            function (googleUser) {
+                setCookie("dev_kind", "google", 1);
+
+                var profile = googleUser.getBasicProfile();
+                var token = googleUser.getAuthResponse().id_token;
+
+                var name = profile.getName();
+                var image = profile.getImageUrl();
+                var email = profile.getEmail();
+                formSubmit(token, name, image, email);
+
+            }, function (error) {
+                //alert(JSON.stringify(error, undefined, 2));
+            });
+            
+        gauth.attachClickHandler(document.getElementById('googleLoginBtn2'), options,
             function (googleUser) {
                 setCookie("dev_kind", "google", 1);
 

@@ -90,10 +90,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
     				version          : 'v3.5'
   				});
 
-  		document.getElementById('facebookLoginBtn').addEventListener('click', function() {
-			FB.login(facebookSignInCallback);
-				}, false);
-			};
+  		document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+				FB.login(facebookSignInCallback);
+			}, false);
+			
+			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+				FB.login(facebookSignInCallback);
+			}, false);
 		</script>
 
 	<div id="loading">
@@ -114,11 +117,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 							<li><a href="index.html"  target="_self">KOREAN</a></li>
 							<div class="sns-btn-offcanvas">
 								<li style="color:#EEE;">Sign-in is required.</li>
-								<li><a id="naverLoginBtn"><span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Continue with Naver</a></li>
-								<li><a id="kakaoLoginBtn"><span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Continue with Kakao</a></li>
-								<li><a id="facebookLoginBtn"><i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Continue with Facebook</a></li>
-								<li><a id="googleLoginBtn"><i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Continue with Google</a></li>								
-								<li><a id="appleLoginBtn"><span style="color:#EAEAEA; font-weight:bold;">A</span>&nbsp;&nbsp;Continue with Apple</a></li>
+								<li><a id="naverLoginBtn1"><span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Continue with Naver</a></li>
+								<li><a id="kakaoLoginBtn1"><span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Continue with Kakao</a></li>
+								<li><a id="facebookLoginBtn1"><i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Continue with Facebook</a></li>
+								<li><a id="googleLoginBtn1"><i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Continue with Google</a></li>								
+								<li><a id="appleLoginBtn1"><span style="color:#EAEAEA; font-weight:bold;">A</span>&nbsp;&nbsp;Continue with Apple</a></li>
 							</div>
 						</ul>
 					</div>
@@ -143,15 +146,15 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 								</div>
 								<div class="row sns-btn">
 									<div class="col-md-3">
-										<a id="naverLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+										<a id="naverLoginBtn2" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Continue with Naver</a>
-										<a id="kakaoLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+										<a id="kakaoLoginBtn2" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Continue with Kakao</a>
-										<a id="facebookLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+										<a id="facebookLoginBtn2" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Continue with Facebook</a>
-										<a id="googleLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+										<a id="googleLoginBtn2" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Continue with Google</a>										
-										<a id="appleLoginBtn" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
+										<a id="appleLoginBtn2" class="col-sm-12 btn btn-circle btn-outline-brand btn-block" style="font-weight:400;">
 											<span style="color:#000; font-weight:bold;">A</span>&nbsp;&nbsp;Continue with Apple</a>
 										
 									</div>

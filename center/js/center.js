@@ -1095,6 +1095,10 @@ function embedCompassInit() {
     $('#compass_pos_sel_option_3').text(GET_STRING_CONTENT('compass_pos_sel_option_3_label'));
 
 
+		$('#compass_embed_text_sel_label').text(GET_STRING_CONTENT('compass_embed_text_sel_label'));
+    $('#embed_text_sel_show').val(GET_STRING_CONTENT('embed_text_sel_show_label'));
+    $('#embed_text_sel_hide').val(GET_STRING_CONTENT('embed_text_sel_hide_label'));
+
 		let dropArea = $("#dropArea");
 		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
 			e.stopPropagation();
@@ -1274,6 +1278,8 @@ function embedRequest(filename, tempExt) {
 
 		var color = $("#colorPicker").spectrum("get");
 		var compass_position = $("#compass_pos_sel").children("option:selected").val();
+		
+		var embedText = $("input[name=embed_text_sel]");
 				
 		var userid = getCookie("dev_user_id");
     var jdata = {
@@ -1283,6 +1289,7 @@ function embedRequest(filename, tempExt) {
     	"extension" : tempExt,
     	"filename" : filename,
     	"color": color.toRgb(),
+    	"show_text": embedText,
     	"pos" : compass_position
     };
 
