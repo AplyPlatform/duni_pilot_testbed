@@ -5179,7 +5179,6 @@ function map3DInit() {
     );
 
     v3DMapCate = new Cesium.Cartesian3();
-    controller = s3DMapScene.screenSpaceCameraController;
     planePrimitives = {};
 }
 
