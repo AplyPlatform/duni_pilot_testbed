@@ -6,8 +6,8 @@ var compass_canvas;
 
 var framecount = 0;
 var streaming = false;
-var compass_center_x = 20;
-var compass_center_y = 100;
+var compass_center_x = 25;
+var compass_center_y = 25;
 var compass_center_r = 20;
 var compass_red = 255, compass_green = 0, compass_blue = 0, compass_alpha = 255, compass_text_show = true;
 
@@ -18,10 +18,7 @@ function successCallback() {
 		compass_canvas.style.height = video_height;
 		
 		compass_video.style.width  = video_width;
-		compass_video.style.height = video_height;
-		
-		setCompassColor(255,0,0,1);
-  	setCompassPos(0);
+		compass_video.style.height = video_height;		
 																						
 		compass_video.play();                
     setupCV(compass_video);
