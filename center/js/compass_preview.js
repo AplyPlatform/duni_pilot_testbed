@@ -57,10 +57,10 @@ function setCompassText(how) {
 }
 
 function setCompassColor(r, g, b, a) {
-	red = r;
-	green = g;
-	blue = b;
-	alpha = a * 255;
+	compass_red = r;
+	compass_green = g;
+	compass_blue = b;
+	compass_alpha = a * 255;
 }
 
 function setCompassPos(towhere) {    	
@@ -85,10 +85,10 @@ function setCompassPos(towhere) {
 function process() {
     if (streaming === true) {
         cap.read(frame);            
-        cv.circle(frame, new cv.Point(compass_center_x, compass_center_y), compass_center_r, new cv.Scalar(red, green, blue, alpha), 2);
+        cv.circle(frame, new cv.Point(compass_center_x, compass_center_y), compass_center_r, new cv.Scalar(compass_red, compass_green, compass_blue, compass_alpha), 2);
         
         if (compass_text_show == true) {
-        	cv.putText(frame, "Text", {x: compass_center_x - (compass_center_r / 2) - 2, y: compass_center_y + compass_center_r + 10}, cv.FONT_HERSHEY_SIMPLEX, 0.3, [red, green, blue, 255]);
+        	cv.putText(frame, "Text", {x: compass_center_x - (compass_center_r / 2) - 2, y: compass_center_y + compass_center_r + 10}, cv.FONT_HERSHEY_SIMPLEX, 0.3, [compass_red, compass_green, compass_blue, compass_alpha]);
         }
         
         cv.imshow('output', frame);            
