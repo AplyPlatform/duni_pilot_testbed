@@ -1062,7 +1062,7 @@ function embedCompassInit() {
     $("#head_title").text(document.title);
 
     $('#page_about_title').text(GET_STRING_CONTENT('req_compass_embed_lable'));
-    $('#page_about_content').text(GET_STRING_CONTENT('req_compass_embed_lable'));
+    $('#page_about_content').text(GET_STRING_CONTENT('req_compass_embed_content'));
 
     $('#btnForUploadFlightList').text(GET_STRING_CONTENT('req_compass_embed_lable'));
 
