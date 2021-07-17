@@ -984,12 +984,14 @@ function flightrecordUploadInit() {
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
 			$("#selectFileArea").hide();
+			$("#label_or_directly").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 			$("#file_drop_img").show();
 			$("#selectFileArea").show();
+			$("#label_or_directly").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForFlightRecord', 'CONTENT');
@@ -1109,18 +1111,21 @@ function embedCompassInit() {
 			$("#file_upload_img").show();
 			$("#file_drop_img").hide();
 			$("#selectFileArea").hide();
+			$("#label_or_directly").hide();
 		})
 		.on('dragleave dragend drop', function() {			
 			dropArea.css('background-color', '#FFFFFF');
 			$("#file_upload_img").hide();
 			$("#file_drop_img").show();
 			$("#selectFileArea").show();
+			$("#label_or_directly").show();
 		})
 		.on('drop', function(e) {
 			GATAGM('fileDropForCompassEmbed', 'CONTENT');
 			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
 			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$("#selectFileArea").hide();
+				$("#label_or_directly").hide();
 				$('#btnForUploadFlightList').show();				
 			}
 		});		
@@ -1135,6 +1140,7 @@ function embedCompassInit() {
 			let retSelected = fileDropCheckForCompass(this.files);
 			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$('#selectFileArea').hide();
+				$("#label_or_directly").hide();
 				$('#btnForUploadFlightList').show();
 			}
 		});
@@ -1153,6 +1159,7 @@ function embedCompassInit() {
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
     $('#selectFileArea').show();
+    $("#label_or_directly").show();
     $("#mapArea").hide();
     
     if (g_str_cur_lang != "KR") {
@@ -1305,6 +1312,7 @@ function embedRequest(filename, tempExt) {
 					videoFileForUploadFile = null;
 
 					$('#selectFileArea').show();
+					$("#label_or_directly").show();
 					$('#btnForUploadFlightList').hide();
         }
         else {
@@ -1504,6 +1512,7 @@ function previewForCompassFile(file, idx) {
 		}
 
 		$('#selectFileArea').show();
+		$("#label_or_directly").show();
 		$('#btnForUploadFlightList').hide();
 	});
 }
