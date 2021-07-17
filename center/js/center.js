@@ -1126,6 +1126,8 @@ function embedCompassInit() {
 			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
 				$("#selectFileArea").hide();
 				$("#label_or_directly").hide();
+				$('#file_drop_img').hide();
+				$('#label_explain_drag').hide();
 				$('#btnForUploadFlightList').show();				
 			}
 		});		
@@ -1142,7 +1144,9 @@ function embedCompassInit() {
 				$('#selectFileArea').hide();
 				$("#label_or_directly").hide();
 				$('#btnForUploadFlightList').show();
-			}
+				$('#file_drop_img').hide();
+				$('#label_explain_drag').hide();
+			}			
 		});
 
 		$("#input_direct_file").click(function() {			
@@ -1514,6 +1518,8 @@ function previewForCompassFile(file, idx) {
 		$('#selectFileArea').show();
 		$("#label_or_directly").show();
 		$('#btnForUploadFlightList').hide();
+		$('#file_drop_img').show();
+		$('#label_explain_drag').show();
 	});
 }
 
