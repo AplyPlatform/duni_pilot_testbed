@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 var video_width = 320, video_height = 240;
-var compass_video = document.getElementById("video");
-const compass_canvas = document.getElementById('output');
+var compass_video = document.getElementById("compass_video");
+const compass_canvas = document.getElementById('compass_output');
 
 var framecount = 0;
 var streaming = false;
