@@ -57,9 +57,11 @@
 											<div class="col-md-4 text-right">
 								      	<label for="embed_text_sel" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="compass_embed_text_sel_label">방위문구</label>
 								      </div>
-								      <div class="col-md-8">
-									      <input type="radio" name="embed_text_sel" value=1 class="form-control" checked><span id="embed_text_sel_show" class="text-xs font-weight-bold text-default mb-1"></span>
-									      &nbsp;&nbsp;<input type="radio" name="embed_text_sel" value=0 class="form-control"><span id="embed_text_sel_hide" class="text-xs font-weight-bold text-default mb-1"></span>
+								      <div class="col-md-8">									      
+									      <select id="embed_text_sel" name="embed_text_sel" class="form-control">
+									        <option value=1 selected id="embed_text_sel_show">보이기</option>
+									        <option value=0 id="embed_text_sel_hide">감추기</option>									        
+									      </select>
 									    </div>
 									  </div>
 									</div>

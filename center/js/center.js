@@ -1278,8 +1278,7 @@ function embedRequest(filename, tempExt) {
 
 		var color = $("#colorPicker").spectrum("get");
 		var compass_position = $("#compass_pos_sel").children("option:selected").val();
-		
-		var embedText = $("input[name=embed_text_sel]");
+		var embedText = $("#embed_text_sel").children("option:selected").val();		
 				
 		var userid = getCookie("dev_user_id");
     var jdata = {
