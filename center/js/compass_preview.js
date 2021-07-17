@@ -20,8 +20,8 @@ function successCallback() {
 		compass_video.style.width  = video_width;
 		compass_video.style.height = video_height;
 		
-		setCompassColor(255,0,0,0.8);
-  	setCompassPos(1);
+		setCompassColor(255,0,0,1);
+  	setCompassPos(0);
 																						
 		compass_video.play();                
     setupCV(compass_video);
@@ -58,7 +58,7 @@ function setCompassColor(r, g, b, a) {
 	compass_red = r;
 	compass_green = g;
 	compass_blue = b;
-	compass_alpha = a * 255;
+	compass_alpha = parseInt(a * 255);
 }
 
 function setCompassPos(towhere) {    	
