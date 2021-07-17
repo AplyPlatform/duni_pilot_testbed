@@ -2,7 +2,7 @@
 
 var video_width = 320, video_height = 240;
 var compass_video;
-const compass_canvas;
+var compass_canvas;
 
 var framecount = 0;
 var streaming = false;
