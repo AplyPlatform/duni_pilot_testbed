@@ -5052,14 +5052,14 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         lng, lat, alt
     );
 
-    var glbUrl, gColor, gColor;
-    if (kind == "drone") {
-        glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
+    var glbUrl = "https://pilot.duni.io/center/imgs/drone.glb", 
+    		gColor, gColor, sColor;
+    		
+    if (kind == "drone") {        
         gColor = "YELLOW";
         sColor = "RED";
     }
-    else {
-    		glbUrl = "https://pilot.duni.io/center/imgs/drone.glb";
+    else {    		
     		gColor = "GREEN";
     		sColor = "CYAN";
     }
