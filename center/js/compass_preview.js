@@ -13,9 +13,9 @@ var compass_red = 255, compass_green = 0, compass_blue = 0, compass_alpha = 255,
 
 function successCallback() {    	    		
     compass_video.width = video_width; compass_video.height = video_height;//prevent Opencv.js error.        
-    canvas.width = video_width; canvas.height = video_height;
-    canvas.style.width  = video_width;
-		canvas.style.height = video_height;
+    compass_canvas.width = video_width; compass_canvas.height = video_height;
+    compass_canvas.style.width  = video_width;
+		compass_canvas.style.height = video_height;
 		
 		compass_video.style.width  = video_width;
 		compass_video.style.height = video_height;
