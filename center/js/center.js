@@ -1157,8 +1157,24 @@ function embedCompassInit() {
 		$("#colorPicker").spectrum({
 		  type: "color",
 		  showInput: true,
-		  showInitial: true		  
+		  showInitial: true,
+		  change: function(color) {
+			    setCompassColor(color.r, color.g, color.b, color.a);
+			}		  
 		});
+		
+		$("#compass_pos_sel").change(function() {
+     $("#compass_pos_sel option:selected").each(function() {
+          setCompassPos($(this).val() * 1);
+     });
+		});
+		
+		$("#embed_text_sel").change(function() {
+     $("#embed_text_sel option:selected").each(function() {
+          setCompassText( ($(this).val() * 1) == 1 ? true : false );
+     });
+		});
+
 
     $("#file_upload_img").hide();
     $('#btnForUploadFlightList').hide();
@@ -1170,7 +1186,10 @@ function embedCompassInit() {
     
     if (g_str_cur_lang != "KR") {
     	$("#ad_for_pilot").hide(); //드론 영상으로 수익 창출 광고 감추기 (국내만 대상으로 하기)
-    }        
+    }
+    
+    compass_video = document.getElementById("compass_video");
+		compass_canvas = document.getElementById('compass_output');
 }
 
 function onOpenCvReady() {

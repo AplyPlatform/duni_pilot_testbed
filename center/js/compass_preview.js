@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 var video_width = 320, video_height = 240;
-var compass_video = document.getElementById("compass_video");
-const compass_canvas = document.getElementById('compass_output');
+var compass_video;
+const compass_canvas;
 
 var framecount = 0;
 var streaming = false;
@@ -50,6 +50,10 @@ async function setupCV(video) {
     cv.imshow('output', frame);        
     streaming = true;
     setTimeout(process, 0);        
+}
+
+function setCompassText(how) {
+	compass_text_show = how;
 }
 
 function setCompassColor(r, g, b, a) {
