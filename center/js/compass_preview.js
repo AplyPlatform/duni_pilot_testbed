@@ -45,9 +45,7 @@ async function setupCV(video) {
     if (frame == undefined) {        		
         cap = await new cv.VideoCapture(video);
         frame = await new cv.Mat(video_height, video_width, cv.CV_8UC4);        
-    }                        
-    cap.read(frame);
-    cv.imshow('output', frame);        
+    }
     streaming = true;
     setTimeout(process, 0);        
 }
