@@ -1165,12 +1165,16 @@ function embedCompassInit() {
     $('#selectFileArea').show();
     $("#label_or_directly").show();
     $("#mapArea").hide();
+    $("#youtube_example_area").show();
+    $("#video_example_area").hide();
     
     if (g_str_cur_lang != "KR") {
     	$("#ad_for_pilot").hide(); //드론 영상으로 수익 창출 광고 감추기 (국내만 대상으로 하기)
-    }
-    
-    hideLoader();
+    }        
+}
+
+function onOpenCvReady() {
+		hideLoader();
 }
 
 var recordFileForUploadFile = null;
@@ -1200,7 +1204,7 @@ function fileDropCheckForCompass(files) {
 			}
 			else {
 				console.log(file);
-				recordFileForUploadFile = file;
+				recordFileForUploadFile = file;												
 				previewForCompassFile(file, "record");
 				isAdded = true;
 			}
@@ -1214,6 +1218,11 @@ function fileDropCheckForCompass(files) {
 			else {
 				console.log(file);
 				videoFileForUploadFile = file;
+				playCompassVideo(file);
+				
+				$("#video_example_area").show();
+				$("#youtube_example_area").hide();
+				
 				previewForCompassFile(file, "video");
 				isAdded = true;
 			}
@@ -1513,6 +1522,11 @@ function previewForCompassFile(file, idx) {
 		}
 		else {
 			videoFileForUploadFile = null;
+			
+			compass_video.pause(); compass_video.currentTime = 0;
+			
+			$("#video_example_area").hide();
+			$("#youtube_example_area").show();
 		}
 
 		$('#selectFileArea').show();
