@@ -1159,7 +1159,8 @@ function embedCompassInit() {
 		  showInput: true,
 		  showInitial: true,
 		  change: function(color) {
-			    setCompassColor(color.r, color.g, color.b, color.a);
+		  		let rgb = color.toRgb();
+			    setCompassColor(rgb.r, rgb.g, rgb.b, rgb.a);
 			}		  
 		});
 		
