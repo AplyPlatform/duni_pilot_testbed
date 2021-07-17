@@ -1096,8 +1096,8 @@ function embedCompassInit() {
 
 
 		$('#compass_embed_text_sel_label').text(GET_STRING_CONTENT('compass_embed_text_sel_label'));
-    $('#embed_text_sel_show').val(GET_STRING_CONTENT('embed_text_sel_show_label'));
-    $('#embed_text_sel_hide').val(GET_STRING_CONTENT('embed_text_sel_hide_label'));
+    $('#embed_text_sel_show').text(GET_STRING_CONTENT('embed_text_sel_show_label'));
+    $('#embed_text_sel_hide').text(GET_STRING_CONTENT('embed_text_sel_hide_label'));
 
 		let dropArea = $("#dropArea");
 		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
