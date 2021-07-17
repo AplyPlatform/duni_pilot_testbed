@@ -91,7 +91,7 @@ function process() {
         	cv.putText(frame, "Text", {x: compass_center_x - (compass_center_r / 2) - 2, y: compass_center_y + compass_center_r + 10}, cv.FONT_HERSHEY_SIMPLEX, 0.3, [compass_red, compass_green, compass_blue, compass_alpha]);
         }
         
-        cv.imshow('output', frame);            
+        cv.imshow('compass_output', frame);            
         framecount++;
         
         if (framecount >= 100) {
