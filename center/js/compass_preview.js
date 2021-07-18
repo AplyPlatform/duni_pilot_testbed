@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var video_width = 320, video_height = 150;
+var video_width = 640, video_height = 300;
 var compass_video;
 var compass_canvas;
 
