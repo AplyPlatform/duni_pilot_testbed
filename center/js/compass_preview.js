@@ -20,7 +20,8 @@ function successCallback() {
 		
 		compass_video.style.width  = video_width;
 		compass_video.style.height = video_height;		
-																						
+
+		setCompassPos(0);
 		compass_video.play();                
     setupCV(compass_video);
     streaming = true;		
