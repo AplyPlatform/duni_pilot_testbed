@@ -118,6 +118,8 @@ function process() {
 				for (let i = 0; i < overlay.rows; i++) {
 				    for (let j = 0; j < overlay.cols; j++) {
 				        frame.ucharPtr(compass_r_top + i, compass_r_left + j)[0] = overlay.ucharPtr(i, j)[0];
+				        frame.ucharPtr(compass_r_top + i, compass_r_left + j)[1] = overlay.ucharPtr(i, j)[1];
+				        frame.ucharPtr(compass_r_top + i, compass_r_left + j)[2] = overlay.ucharPtr(i, j)[2];
 				    }
 				}	                                         
                 
