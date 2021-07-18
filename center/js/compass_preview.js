@@ -109,7 +109,7 @@ function process() {
         cap.read(frame);         
         
         let rect = new cv.Rect(compass_r_left, compass_r_top, 40, 60);
-				dst = frame.roi(rect);
+				let dst = frame.roi(rect);
 	      output = drawCompass(dst);
 	      
 	      let overlay = new cv.Mat();			      
