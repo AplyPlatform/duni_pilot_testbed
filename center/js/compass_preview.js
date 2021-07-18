@@ -1,15 +1,16 @@
 ﻿"use strict";
 
-var video_width = 320, video_height = 240;
+var video_width = 320, video_height = 150;
 var compass_video;
 var compass_canvas;
 
 var framecount = 0;
 var streaming = false;
-var compass_center_x = 25;
-var compass_center_y = 25;
-var compass_center_r = 20;
-var compass_red = 255, compass_green = 0, compass_blue = 0, compass_alpha = 255, compass_text_show = true;
+var compass_r_left;
+var compass_r_right;
+var compass_r_top;
+var compass_r_bottom;
+var compass_red = 255, compass_green = 0, compass_blue = 0, compass_alpha = 1, compass_text_show = true;
 
 function successCallback() {    	    		
     compass_video.width = video_width; compass_video.height = video_height;//prevent Opencv.js error.        
@@ -55,26 +56,33 @@ function setCompassColor(r, g, b, a) {
 	compass_red = r;
 	compass_green = g;
 	compass_blue = b;
-	compass_alpha = parseInt(a * 255);
+	compass_alpha = a;
 }
 
-function setCompassPos(towhere) {    	
-	if (towhere == 0) {
-		compass_center_x = 25;
-		compass_center_y = 25;
-	}
-	else if (towhere == 1) {
-		compass_center_x = 25;
-		compass_center_y = video_height - 35;
-	}
-	else if (towhere == 2) {
-		compass_center_x = video_width - 25;
-		compass_center_y = 25;
-	}
-	else if (towhere == 3) {
-		compass_center_x = video_width - 25;
-		compass_center_y = video_height - 35;
-	}    	
+function setCompassPos(pos) {    	
+	compass_r_right = video_width - 5;
+  compass_r_left = compass_r_right - 40;
+  compass_r_top = 5;
+  compass_r_bottom = compass_r_top + 60;
+    
+  if (pos == 0) {
+      compass_r_left = 5;
+      compass_r_right = compass_r_left + 40;
+      compass_r_top = 5;
+      compass_r_bottom = compass_r_top + 60;
+  }
+  else if(pos == 1) {
+      compass_r_left = 5;
+      compass_r_right = compass_r_left + 40;	
+      compass_r_bottom = video_height - 5;
+      compass_r_top = compass_r_bottom - 60;
+  }
+  else if(pos == 3) {
+      compass_r_right = video_width - 5;
+      compass_r_left = compass_r_right - 40;
+      compass_r_bottom = video_height - 5;
+      compass_r_top = compass_r_bottom - 60;	        
+  }    	
 }
 
 function stopCompassVideo() {
@@ -84,19 +92,39 @@ function stopCompassVideo() {
 		}
 }
 
+function drawCompass(frame) {
+		let output = new cv.Mat();
+		frame.copyTo(output);    				
+		cv.circle(output, new cv.Point(20, 20), 20, new cv.Scalar(compass_red, compass_green, compass_blue, 255), 2);
+		
+		if (compass_text_show == true)
+	  	cv.putText(output, "Text", {x: 8, y: 50}, cv.FONT_HERSHEY_SIMPLEX, 0.3, [compass_red, compass_green, compass_blue, 255]);
+	  		  
+	  return output;
+}
+
 function process() {
     if (streaming === true) {
-        cap.read(frame);            
-        cv.circle(frame, new cv.Point(compass_center_x, compass_center_y), compass_center_r, new cv.Scalar(compass_red, compass_green, compass_blue, compass_alpha), 2);
+        cap.read(frame);         
         
-        if (compass_text_show == true) {
-        	cv.putText(frame, "Text", {x: compass_center_x - (compass_center_r / 2) - 2, y: compass_center_y + compass_center_r + 10}, cv.FONT_HERSHEY_SIMPLEX, 0.3, [compass_red, compass_green, compass_blue, compass_alpha]);
-        }
+        let rect = new cv.Rect(compass_r_left, compass_r_top, 40, 60);
+				dst = frame.roi(rect);
+	      output = drawCompass(dst);
+	      
+	      let overlay = new cv.Mat();			      
+	      cv.addWeighted( dst, 1-compass_alpha, output, compass_alpha, 0.0, overlay, -1);
+	      			      
+				for (let i = 0; i < overlay.rows; i++) {
+				    for (let j = 0; j < overlay.cols; j++) {
+				        frame.ucharPtr(compass_r_top + i, compass_r_left + j)[0] = overlay.ucharPtr(i, j)[0];
+				    }
+				}	                                         
         
+        overlay.delete();output.delete();                
         cv.imshow('compass_output', frame);            
         framecount++;
         
-        if (framecount >= 100) {
+        if (framecount >= 200) {
         	framecount = 0;
         	compass_video.pause(); compass_video.currentTime = 0;
         	compass_video.play();
