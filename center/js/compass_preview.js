@@ -110,7 +110,7 @@ function process() {
         
         let rect = new cv.Rect(compass_r_left, compass_r_top, 40, 60);
 				let dst = frame.roi(rect);
-	      output = drawCompass(dst);
+	      let output = drawCompass(dst);
 	      
 	      let overlay = new cv.Mat();			      
 	      cv.addWeighted( dst, 1-compass_alpha, output, compass_alpha, 0.0, overlay, -1);
