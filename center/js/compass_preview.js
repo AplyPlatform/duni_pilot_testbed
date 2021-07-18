@@ -113,16 +113,16 @@ function process() {
 	      let output = drawCompass(dst);
 	      
 	      let overlay = new cv.Mat();			      
-	      cv.addWeighted( dst, 1-compass_alpha, output, compass_alpha, 0.0, overlay, -1);
+	      cv.addWeighted( dst, compass_alpha, output, 1-compass_alpha, 0.0, overlay, -1);
 	      			      
 				for (let i = 0; i < overlay.rows; i++) {
 				    for (let j = 0; j < overlay.cols; j++) {
 				        frame.ucharPtr(compass_r_top + i, compass_r_left + j)[0] = overlay.ucharPtr(i, j)[0];
 				    }
 				}	                                         
-        
-        overlay.delete();output.delete();                
-        cv.imshow('compass_output', frame);            
+                
+        cv.imshow('compass_output', frame);        
+        overlay.delete();output.delete();
         framecount++;
         
         if (framecount >= 200) {
