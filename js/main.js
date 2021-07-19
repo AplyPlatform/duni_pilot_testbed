@@ -833,7 +833,7 @@
 	}
 	
 	function getFlightRecordInfo(name) {
-			var jdata = {"action": "public_record_detail", "name" : name};
+			var jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
 
 			showLoader();
 	

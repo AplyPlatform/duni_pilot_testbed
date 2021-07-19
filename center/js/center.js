@@ -662,7 +662,7 @@ function genPlanByAddress(address) {
     g_str_address_temp_val = address;
 
     var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
 
 		showLoader();
 		ajaxRequest(jdata, function (r) {
@@ -2082,7 +2082,7 @@ function processMapClick(map, evt, feature, overlay) {
 
 function getFlightRecordInfo(name) {
 		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid };
+    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid };
 
     if (g_str_current_target == "public") {
 	  	jdata["public"] = true;
@@ -2657,7 +2657,7 @@ function setRollStatus(roll) {
 
 function updateFlightRecordDetail(name) {
 	var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_record", "name": name, "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
+    var jdata = { "action": "position", "daction": "set_record", "name": encodeURI(name), "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
 
     showLoader();
     
@@ -2739,7 +2739,7 @@ function initSliderForDesign(i) {
 
 function setMissionDataToDesignView(name) {
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "daction": "get_spec", "mname": name, "clientid": userid };
+    var jdata = { "action": "mission", "daction": "get_spec", "mname": encodeURI(name), "clientid": userid };
 
     showLoader();
 
@@ -3450,7 +3450,7 @@ function searchFlightRecord(target, keyword) {
     var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
 
     if (target_key != "") {
-    		jdata["target_email"] = target_key;
+    		jdata["target_email"] = encodeURI(target_key);
     }
 
     g_more_key_for_data = "";
@@ -3552,7 +3552,7 @@ function getFlightRecords(target) {
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
     var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
     if (target_key != "") {
-    		jdata["target_email"] = target_key;
+    		jdata["target_email"] = encodeURI(target_key);
     }
 
     if (target == "public") {
@@ -3651,7 +3651,7 @@ function setFilter(target) {
 function stopShareFlightData(index, name, target_id) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "stop_share", "name": name, "clientid": userid, "target_id": target_id };
+    var jdata = { "action": "position", "daction": "stop_share", "name": encodeURI(name), "clientid": userid, "target_id": target_id };
 
     showLoader();
 
@@ -3682,7 +3682,7 @@ function makeShareFlightData(name, user_email) {
     if (user_email == "public")
         user_email = "public@duni.io";
 
-    var jdata = { "action": "position", "daction": "share", "name": name, "clientid": userid, "target": user_email };
+    var jdata = { "action": "position", "daction": "share", "name": encodeURI(name), "clientid": userid, "target": user_email };
 
     showLoader();
 
@@ -3750,7 +3750,7 @@ function makeShareFlightData(name, user_email) {
 function showDataWithName(target, target_key, name) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": name, "clientid": userid, "target_email" : target_key };
+    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : encodeURI(target_key) };
 
 		if (target == "public") {
         jdata['public'] = true;
@@ -4078,7 +4078,7 @@ function updateCadaData(record_name, address, cada_data) {
 		}
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_cada", "clientid": userid, "cada": cada_data, "address": address, "name": record_name };
+    var jdata = { "action": "position", "daction": "set_cada", "clientid": userid, "cada": cada_data, "address": encodeURI(address), "name": encodeURI(record_name) };
 
     ajaxRequest(jdata, function (r) {
 
@@ -4549,7 +4549,7 @@ function updateFlightMemoWithValue(name, memo) {
         showAlert(GET_STRING_CONTENT('msg_fill_memo'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": name, "memo": memo };
+    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(name), "memo": encodeURI(memo) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4573,7 +4573,7 @@ function updateFlightTagWithValue(name, tag_value) {
         showAlert(GET_STRING_CONTENT('msg_fill_tag'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": name, "tag_values": tag_value };
+    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": encodeURI(name), "tag_values": encodeURI(tag_value) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4601,7 +4601,7 @@ function updateFlightMemo(index) {
         showAlert(GET_STRING_CONTENT('msg_fill_memo'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": item.name, "memo": memo };
+    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(item.name), "memo": encodeURI(memo) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4667,7 +4667,7 @@ function askRemoveMissionItem(name, trname) {
 }
 function removeMissionItem(name, trname) {
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "mname": name, "daction": "delete", "clientid": userid };
+    var jdata = { "action": "mission", "mname": encodeURI(name), "daction": "delete", "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
@@ -4749,7 +4749,7 @@ function registMission(mname, mspeed) {
     }
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "mname": mname, "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
+    var jdata = { "action": "mission", "mname": encodeURI(mname), "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
@@ -5630,13 +5630,13 @@ function uploadDJIFlightListCallback(params) {
 
    	var youtube_data = massageYotubeUrl(params.youtube_data);
     var jdata = { "action": "position", "daction": "convert",
-    	"clientid": userid, "name": params.mname,
+    	"clientid": userid, "name": encodeURI(params.mname),
     	"youtube_data_id": youtube_data,
     	"update" : params.isUpdate,
     	"sync" : params.isSyncData,
     	"price" : params.price,
-    	"tag_values" : params.tag_values,
-    	"memo" : params.mmemo,
+    	"tag_values" : encodeURI(params.tag_values),
+    	"memo" : encodeURI(params.mmemo),
     	"recordfile": params.base64file };
 
     ajaxRequest(jdata, function (r) {
@@ -5823,7 +5823,7 @@ function setMoveActionFromMap(index, item) {
 function saveYoutubeUrl(params, callback) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": params.mname, "tag_values" : params.tag_values, "memo" : params.mmemo, "starttime" : params.startTime };
+    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values" : params.tag_values, "memo" : params.mmemo, "starttime" : params.startTime };
 
     if (params.flat != -999) {
     		jdata["flat"] = params.flat;
@@ -5882,7 +5882,7 @@ function setFlightRecordTitleName() {
     }
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": g_str_cur_flight_record_name };
+    var jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": encodeURI(g_str_cur_flight_record_name) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -6256,7 +6256,7 @@ function checkAddress(address) {
 
     showLoader();
     var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : address};
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
 
 		ajaxRequest(jdata, function (r) {
 				hideLoader();
