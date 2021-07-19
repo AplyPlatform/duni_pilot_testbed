@@ -122,7 +122,7 @@ function checkEmail(){
             var jdata = {
                 "action" : "member", 
                 "daction" : "validate_email", 
-                "email" : encodeURI($('#droneplay_email').val()),
+                "email" : email,
                 "g_token" : token};
             ajaxRequest(jdata,
                 function(data){
@@ -188,7 +188,7 @@ function requestRegister() {
                     "action": "member",
                     "daction": "register",
                     "name": encodeURI(droneplay_name),
-                    "socialid": encodeURI(droneplay_email),
+                    "socialid": droneplay_email,
                     "sns_kind": sns_kind,
                     "sns_token": sns_token
                 };

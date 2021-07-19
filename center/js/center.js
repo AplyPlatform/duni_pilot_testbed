@@ -3450,7 +3450,7 @@ function searchFlightRecord(target, keyword) {
     var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
 
     if (target_key != "") {
-    		jdata["target_email"] = encodeURI(target_key);
+    		jdata["target_email"] = target_key;
     }
 
     g_more_key_for_data = "";
@@ -3552,7 +3552,7 @@ function getFlightRecords(target) {
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
     var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
     if (target_key != "") {
-    		jdata["target_email"] = encodeURI(target_key);
+    		jdata["target_email"] = target_key;
     }
 
     if (target == "public") {
@@ -3750,7 +3750,7 @@ function makeShareFlightData(name, user_email) {
 function showDataWithName(target, target_key, name) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : encodeURI(target_key) };
+    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
 
 		if (target == "public") {
         jdata['public'] = true;
