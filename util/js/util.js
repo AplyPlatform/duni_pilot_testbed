@@ -955,7 +955,7 @@ function setAreaInfo(ainfo) {
 function requestGPS(address) {
 
 		var jdata = {"action" : "public_gps_by_address", "daction" : "public_gps_by_address"};
-  	jdata["address"] = $("#address").val();
+  	jdata["address"] = encodeURI($("#address").val());
 
     if (isSet(jdata["address"]) == false) {
 	    	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
