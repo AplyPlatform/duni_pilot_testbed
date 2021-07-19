@@ -39,8 +39,7 @@ function handleAuthResult(authResult) {
         // Authorization was successful. Hide authorization prompts and show
         // content that should be visible after authorization succeeds.
         
-        setCookie("user_google_auth_token", gapi.auth.getToken().access_token);
-        hideLoader();
+        setCookie("user_google_auth_token", gapi.auth.getToken().access_token);        
         
         if (g_component_upload_youtube_video) {
         	showLoader();
@@ -48,12 +47,13 @@ function handleAuthResult(authResult) {
         	g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
         }
         else {
-        	$('#uploadVideoToYoutubeButton').attr('disabled', false);
         	hideLoader();
+        	$('#uploadVideoToYoutubeButton').attr('disabled', false);        	
         	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
         }
 
     } else {
+    		hideLoader();
         // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
         // client flow. The current function is called when that flow completes.
         $('#login-link').click(function () {
