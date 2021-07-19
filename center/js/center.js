@@ -5514,15 +5514,15 @@ function askIsSyncData(params, callback) {
 }
 
 function uploadFlightList(isUpdate) {
-		var mname = encodeURI($("#record_name_field").val());
+		var mname = $("#record_name_field").val();
 
 		if (mname == "") {
 			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
 			return;
 		}
 
-		var mmemo = encodeURI($("#memoTextarea").val());
-		var tag_values = encodeURI($("#tagTextarea").val());
+		var mmemo = $("#memoTextarea").val();
+		var tag_values = $("#tagTextarea").val();
 
 		var youtube_data = $("#youtube_url_data").val();    
     var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
