@@ -4632,7 +4632,7 @@ function askDeleteFlightData(name, index) {
 function deleteFlightData(name, index) {
 
     var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "delete", "clientid": userid, "name": name };
+    var jdata = { "action": "position", "daction": "delete", "clientid": userid, "name": encodeURI(name) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
