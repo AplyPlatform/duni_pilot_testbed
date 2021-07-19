@@ -5597,7 +5597,7 @@ function uploadFlightList(isUpdate) {
     			return;
     	}
 
-    	startTime = Date.parse(flightTime);
+    	let startTime = Date.parse(flightTime);
     	if (isNaN(startTime)) {
 		    	showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
     			return;
