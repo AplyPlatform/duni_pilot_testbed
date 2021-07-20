@@ -121,11 +121,18 @@ function naverinit() {
 
 		var url = naverLogin.generateAuthorizeUrl();
 		if ($("#naverLoginBtn1").length) {
-    	$("#naverLoginBtn1").attr("href", url);
+    	$("#naverLoginBtn1").click(function(e) {
+    		e.preventDefault();
+    		location.href = url;
+    	});
+    	
     }
     
     if ($("#naverLoginBtn2").length) {
-    	$("#naverLoginBtn2").attr("href", url);
+    	$("#naverLoginBtn2").click(function(e) {
+    		e.preventDefault();
+    		location.href = url;
+    	});
     }
 }
 
