@@ -121,7 +121,7 @@ var LANG_JSON_DATA = {
         "msg_email_already_exists" : "이미 사용중인 이메일입니다. 다른 이메일을 입력해주세요.",
         "msg_email_valid" : "사용 가능한 이메일입니다.",
         "msg_email_not_verified" : "이메일 중복확인을 해주세요.",
-        "msg_you_are_not_partner" : "서비스 신청은 DUNI파트너만 가능 합니다. DUNI 파트너로 가입하시겠습니까?",
+        "msg_you_are_not_partner" : "서비스 신청은 DUNI파트너만 가능 합니다. DUNI 파트너로 가입하시겠습니까?<br>(반드시 지금 사용중인 SNS계정으로 가입해 주세요)",
         "msg_request_is_accepted" : "요청이 접수 되었습니다. DUNI가 연락드리겠습니다.",
         "msg_pre_embed_compass_request_received" : "요청이 접수 되었습니다. 처리가 완료되면 가입시 등록한 이메일(",
         "msg_post_embed_compass_request_received" : ")로 영상파일의 다운로드 경로를 알려 드립니다.",

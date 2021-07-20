@@ -254,7 +254,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelha
     }
 
     $('#askModalLabel').text(atitle);
-    $('#askModalContent').text(acontent);
+    $('#askModalContent').html(acontent);
     $('#askModalOKButton').text(oktitle);
 
 
