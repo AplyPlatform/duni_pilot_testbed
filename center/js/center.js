@@ -231,6 +231,7 @@ function setCommonText() {
     $('#side_menu_links_blog').text(GET_STRING_CONTENT('side_menu_links_blog'));
 
     $('#top_menu_logout').text(GET_STRING_CONTENT('top_menu_logout'));
+    $('#contact_field').text(GET_STRING_CONTENT('top_menu_contact_field'));
 
     $('#askModalCancelButton').text(GET_STRING_CONTENT('msg_cancel'));
 }
