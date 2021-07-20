@@ -1867,7 +1867,8 @@ function getDUNIServiceRequest() {
 					
 					if (d.status == "P") {
 						if (d.requested == true) {
-							htmlString += GET_STRING_CONTENT('msg_accepted');	
+							htmlString += GET_STRING_CONTENT('msg_accepted');							
+							htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
 						}
 						else {
 							htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
