@@ -1781,15 +1781,25 @@ function getDUNIServiceRequest() {
 				let retData = r.data;
 												
 				retData.forEach(function(d, index, arr) {
+					
 					let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td>";
 					
 					if (d.status == "P") {
-						htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
-            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
+						if (d.requested == true) {
+							htmlString += GET_STRING_CONTENT('msg_accepted');	
+						}
+						else {
+							htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
+	            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
+	          }
 					}
-					else {
+					else if (d.status == "C") {
 						htmlString += GET_STRING_CONTENT('msg_completed');	
-					}					
+					}
+					else if (d.status == "R") {
+						htmlString += GET_STRING_CONTENT('msg_on_ready');
+					}
+					
 					
 					htmlString += "</td></tr>";
 					$("#service_request_list_table").append(htmlString);
