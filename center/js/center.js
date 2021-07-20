@@ -1781,7 +1781,7 @@ function getDUNIServiceRequest() {
 				let retData = r.data;
 												
 				retData.forEach(function(d, index, arr) {
-					let htmlString = "<tr><th scope='row'>" + index + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td>";
+					let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td>";
 					
 					if (d.status == "P") {
 						htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
@@ -1792,7 +1792,7 @@ function getDUNIServiceRequest() {
 					}					
 					
 					htmlString += "</td></tr>";
-					$("#service_request_list_table > tbody:last-child'").append(htmlString);
+					$("#service_request_list_table").append(htmlString);
 										
 					$("#partnerServiceRequest_" + index).click(function() {							
 							showAskDialog(
