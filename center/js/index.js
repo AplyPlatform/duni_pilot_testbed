@@ -122,9 +122,11 @@ function naverinit() {
 		var url = naverLogin.generateAuthorizeUrl();
 		if ($("#naverLoginBtn1").length) {
     	$("#naverLoginBtn1").attr("href", url);
+    }
     
     if ($("#naverLoginBtn2").length) {
     	$("#naverLoginBtn2").attr("href", url);
+    }
 }
 
 function kakaoLogin() {
