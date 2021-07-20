@@ -491,7 +491,8 @@ function centerInit() {
     $("#more_label").text(GET_STRING_CONTENT("more_label"));
 
     $("#dev_token_title").text(GET_STRING_CONTENT("dev_token_title"));
-
+		
+		$("#label_duni_service_request_list").text(GET_STRING_CONTENT("label_duni_service_request_list"));
 
     $("#open_company_label").text(GET_STRING_CONTENT("title_for_company_flightlist"));
     $("#title_history_chkbox").text(GET_STRING_CONTENT("title_history_chkbox"));
@@ -510,11 +511,7 @@ function centerInit() {
 	  });
 
     getCompanyList();
-}
-
-
-function drawFlightArea() { 
-		setAddressAndCada("#map_address", fdata.address, fdata.cada, g_vector_2D_mainmap_for_cada);
+    getDUNIServiceRequest();
 }
 
 
@@ -652,127 +649,6 @@ function missionGenInit() {
     hideLoader();
 }
 
-function genPlanByAddress(address) {
-		if (isSet(address) == false) {
-    		showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-        return;
-    }
-
-    if (g_str_address_temp_val == address) return;
-
-    g_str_address_temp_val = address;
-
-    var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
-
-		showLoader();
-		ajaxRequest(jdata, function (r) {
-	    	if(r.result == "success") {
-		      if (r.data == null) {
-		      	hideLoader();
-		      	showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-		        return;
-		      }
-
-					$('#lat').val(r.data.lat);
-					$('#lng').val(r.data.lng);
-
-		     	genPlan(r.data.lat * 1, r.data.lng * 1);
-	    	}
-	    	else {
-	    		hideLoader();
-	    		showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-	    	}
-	  	},
-	  	function(request,status,error) {
-	  		hideLoader();
-	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	  });
-}
-
-function genPlanByGPS(lat, lng) {
-		if (isSet(lat) == false || isSet(lng) == false) {
-			showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-			return;
-		}
-
-		if (g_loc_address_flat == lat && g_loc_address_flng == lng) return;
-
-		g_loc_address_flat = lat;
-		g_loc_address_flng = lng;
-
-		var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
-
-    showLoader();
-  	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-
-				$("#gen_address").val(r.address);
-
-				genPlan(lat, lng);
-	    }
-	    else {
-	    	showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
-}
-
-
-function genPlan(lat, lng) {
-		var data =
-			[
-				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
-				{"alt" : 10, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
-				{"alt" : 10, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
-				{"alt" : 10, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
-				{"alt" : 40, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 40m까지 업
-				{"alt" : 40, "speed" : 1.2, "act" : 5, "actparam" : "-45", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
-				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180				
-				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
-				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 10m 고도
-				{"alt" : 10, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
-			];
-
-		g_array_design_data = data;
-
-		g_array_design_data.forEach(function(item,index,d) {
-			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
-			g_array_flight_rec.push(dt);
-		});
-
-    moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
-
-    var dpoint = ol.proj.fromLonLat([lng, lat]);
-    drawCadastral(null, null, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
-
-}
 
 function flightrecordUploadInit() {
 
@@ -1052,11 +928,6 @@ function flightrecordUploadInit() {
     hideLoader();
 }
 
-function setUploadFileFields() {	
-		$('#dropArea').hide();
-		$("#nextStageBtnArea").hide();
-		$('#uploadfileform').show();
-}
 
 function embedCompassInit() {
 		document.title = GET_STRING_CONTENT('side_menu_flight_record_embed_compass');
@@ -1848,6 +1719,221 @@ function missionListInit() {
     $('#btnForGetMissionList').hide();
     getMissionList();
 }
+
+function requestDUNIServiceRequest(r_id) {
+		GATAGM("DUNIServiceRequest_" + r_id, "CONTENT");
+		
+		var userid = getCookie("dev_user_id");
+    var jdata = { "action": "util", "daction": "duni_service_bet", "clientid": userid, "r_id" : r_id };
+    
+		showLoader();
+
+  	ajaxRequest(jdata, function (r) {
+	    if(r.result == "success") {
+	    	hideLoader();	      
+				showAlert(GET_STRING_CONTENT('msg_request_is_accepted'));
+	    }
+	    else {
+	    	if(r.result_code == 6) {	    		
+	    		showAskDialog(
+                GET_STRING_CONTENT('modal_title'),
+                GET_STRING_CONTENT('msg_you_are_not_partner'),
+                GET_STRING_CONTENT('modal_yes_btn'),
+                false,
+                function () { 
+                	 window.open("https://duni.io/index.php?page=partner", "_new", "width=800px, height=700px" );
+                	 return;
+                },
+                function () {}
+            );
+	    	}
+	    }
+	  },
+	  	function(request,status,error) {
+	  		hideLoader();
+	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+	  });
+}
+
+function getDUNIServiceRequest() {				
+		var userid = getCookie("dev_user_id");
+    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid };
+    
+		showLoader();
+
+  	ajaxRequest(jdata, function (r) {
+	    if(r.result == "success") {
+	    	hideLoader();
+
+	      if (r.data == null || r.data.length == 0) {
+	      	$("#duni_service_request_list").html("No request");
+	        return;
+	      }
+	      
+	      $("#duni_service_request_list").append("<div class='row'><div class='col-md-1'></div><div class='col-md-3'>" + GET_STRING_CONTENT('label_service') + "</div><div class='col-md-5'>" + GET_STRING_CONTENT('label_location') + "</div><div class='col-md-3'>" + GET_STRING_CONTENT('label_status') + "</div></div>");
+				
+				let retData = r.data;
+												
+				retData.forEach(function(d, index, arr) {
+					let htmlString = "<div class='row'><div class='col-md-1'>" + index + "</div><div class='col-md-3'>" + d.kind + "</div><div class='col-md-5'>" + d.title + "</div><div class='col-md-3'>";
+					
+					if (d.status == "P") {
+						htmlString += "<button class='btn btn-primary text-xs' type='button' id='partnerServiceRequest_" + index + "'>";
+            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
+					}
+					else {
+						htmlString += GET_STRING_CONTENT('msg_completed');	
+					}					
+					
+					htmlString += "</div></div>";
+					$("#duni_service_request_list").append(htmlString);
+					
+					$("#partnerServiceRequest_" + index).click(function() {
+							requestDUNIServiceRequest(d.r_id);
+					});
+				});
+				
+	    }
+	  },
+	  	function(request,status,error) {
+	  		$("#duni_service_request_list").html("No request");
+	  		hideLoader();
+	  });
+}
+
+function drawFlightArea() { 
+		setAddressAndCada("#map_address", fdata.address, fdata.cada, g_vector_2D_mainmap_for_cada);
+}
+
+function genPlanByAddress(address) {
+		if (isSet(address) == false) {
+    		showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+        return;
+    }
+
+    if (g_str_address_temp_val == address) return;
+
+    g_str_address_temp_val = address;
+
+    var userid = getCookie("dev_user_id");
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
+
+		showLoader();
+		ajaxRequest(jdata, function (r) {
+	    	if(r.result == "success") {
+		      if (r.data == null) {
+		      	hideLoader();
+		      	showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+		        return;
+		      }
+
+					$('#lat').val(r.data.lat);
+					$('#lng').val(r.data.lng);
+
+		     	genPlan(r.data.lat * 1, r.data.lng * 1);
+	    	}
+	    	else {
+	    		hideLoader();
+	    		showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
+	    	}
+	  	},
+	  	function(request,status,error) {
+	  		hideLoader();
+	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+	  });
+}
+
+function genPlanByGPS(lat, lng) {
+		if (isSet(lat) == false || isSet(lng) == false) {
+			showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+			return;
+		}
+
+		if (g_loc_address_flat == lat && g_loc_address_flng == lng) return;
+
+		g_loc_address_flat = lat;
+		g_loc_address_flng = lng;
+
+		var userid = getCookie("dev_user_id");
+    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
+
+    showLoader();
+  	ajaxRequest(jdata, function (r) {
+	    if(r.result == "success") {
+
+				$("#gen_address").val(r.address);
+
+				genPlan(lat, lng);
+	    }
+	    else {
+	    	showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+				hideLoader();
+	    }
+	  }, function(request,status,error) {
+	    hideLoader();
+	  });
+}
+
+
+function genPlan(lat, lng) {
+		var data =
+			[
+				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
+				{"alt" : 10, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
+				{"alt" : 10, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 10, "speed" : 1.2, "act" : 2, "actparam" : "0", "lat" : lat, "lng" : lng}, // //start_record
+				{"alt" : 40, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // //stay // 고도 40m까지 업
+				{"alt" : 40, "speed" : 1.2, "act" : 5, "actparam" : "-45", "lat" : lat, "lng" : lng}, // gimbal_pitch, 정면
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-15", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-30", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-45", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-60", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-75", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-90", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-105", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-120", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-135", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-150", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-165", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180
+				{"alt" : 40, "speed" : 1.2, "act" : 4, "actparam" : "-180", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 180				
+				{"alt" : 41, "speed" : 1.2, "act" : 4, "actparam" : "0", "lat" : lat, "lng" : lng}, // ROTATE_AIRCRAFT, 정북
+				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 10m 고도
+				{"alt" : 10, "speed" : 1.2, "act" : 3, "actparam" : "0", "lat" : lat, "lng" : lng} // stop_record, 촬영 정지
+			];
+
+		g_array_design_data = data;
+
+		g_array_design_data.forEach(function(item,index,d) {
+			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
+			g_array_flight_rec.push(dt);
+		});
+
+    moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
+
+    var dpoint = ol.proj.fromLonLat([lng, lat]);
+    drawCadastral(null, null, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
+
+}
+
+function setUploadFileFields() {	
+		$('#dropArea').hide();
+		$("#nextStageBtnArea").hide();
+		$('#uploadfileform').show();
+}
+
+
 
 function flightRecords2DMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
