@@ -1794,7 +1794,7 @@ function getDUNIServiceRequest() {
 	          }
 					}
 					else if (d.status == "C") {
-						htmlString += GET_STRING_CONTENT('msg_completed');	
+						htmlString += GET_STRING_CONTENT('msg_closed');	
 					}
 					else if (d.status == "R") {
 						htmlString += GET_STRING_CONTENT('msg_on_ready');
