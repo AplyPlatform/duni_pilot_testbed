@@ -1810,7 +1810,7 @@ function askParnterRequestExt() {
       );
 }
 
-function requestDUNIServiceRequest(r_id) {
+function requestDUNIServiceRequest(r_id, index) {
 		GATAGM("DUNIServiceRequest_" + r_id, "CONTENT");
 		
 		var userid = getCookie("dev_user_id");
@@ -1823,6 +1823,9 @@ function requestDUNIServiceRequest(r_id) {
   		
 	    if(r.result == "success") {	    	
 				showAlert(GET_STRING_CONTENT('msg_request_is_accepted'));
+				
+				$("#request_duni_" + index).empty();
+				$("#request_duni_" + index).text(GET_STRING_CONTENT('msg_accepted'));
 	    }
 	    else {
 	    	if(r.result_code == 6) {
@@ -1860,7 +1863,7 @@ function getDUNIServiceRequest() {
 												
 				retData.forEach(function(d, index, arr) {
 					
-					let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td>";
+					let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td><div id='request_duni_" + index + "'>";
 					
 					if (d.status == "P") {
 						if (d.requested == true) {
@@ -1879,7 +1882,7 @@ function getDUNIServiceRequest() {
 					}
 					
 					
-					htmlString += "</td></tr>";
+					htmlString += "</div></td></tr>";
 					$("#service_request_list_table").append(htmlString);
 										
 					$("#partnerServiceRequest_" + index).click(function(e) {
@@ -1891,7 +1894,7 @@ function getDUNIServiceRequest() {
                 GET_STRING_CONTENT('modal_confirm_btn'),
                 false,
                 function () {                 	 
-                		setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 300);
+                		setTimeout("requestDUNIServiceRequest(" + d.r_id + ", " + index + ")", 300);
                 	},
                 function () {}
             	);
