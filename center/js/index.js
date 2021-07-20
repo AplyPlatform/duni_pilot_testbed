@@ -333,7 +333,8 @@ function showConfirmDialog() {
     $('#askModalCancelButton').hide();
 
     $('#askModalOKButton').off('click');
-    $('#askModalOKButton').click(function () {
+    $('#askModalOKButton').click(function (e) {
+    		e.preventDefault();
         $('#askModal').modal('hide');
         location.href = "/center/register.html";
     });

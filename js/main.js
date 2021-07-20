@@ -5,6 +5,7 @@
 	var mobileMenuOutsideClick = function() {
 
 		$(document).click(function (e) {
+			e.preventDefault();
 	    var container = $("#gtco-offcanvas, .js-gtco-nav-toggle");
 	    if (!container.is(e.target) && container.has(e.target).length === 0) {
 	    	$('.js-gtco-nav-toggle').addClass('');
@@ -15,8 +16,6 @@
     			$('.js-gtco-nav-toggle').removeClass('active');
 
 	    	}
-
-
 	    }
 		});
 
@@ -1369,11 +1368,13 @@
     });
         
     $("#btnSearchMovie").click(function (e) {
+    		e.preventDefault();
     		GATAGM('btnSearchMovie', 'CONTENT', langset);
         requestSearch();  //
     });
     
-    $('#btnForLoadSearchList').click(function () {
+    $('#btnForLoadSearchList').click(function (e) {
+    		e.preventDefault();    		
         GATAGM('btnForLoadSearchList', 'CONTENT', langset);
         getFlightSearchMore();
     });

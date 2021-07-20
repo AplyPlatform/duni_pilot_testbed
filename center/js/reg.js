@@ -241,7 +241,8 @@ function showConfirmDialog() {
     $('#askModalCancelButton').hide();
 
     $('#askModalOKButton').off('click');
-    $('#askModalOKButton').click(function () {
+    $('#askModalOKButton').click(function (e) {
+    		e.preventDefault();
         $('#askModal').modal('hide');
         goHome();
     });
@@ -272,7 +273,8 @@ function showAlert(msg) {
     $('#errorModal').modal('show');
     if(msg == GET_STRING_CONTENT('msg_phone_verification_timeout')){
         $('#modal-confirm-btn').off('click');
-        $('#modal-confirm-btn').click(function () {
+        $('#modal-confirm-btn').click(function (e) {
+        		e.preventDefault();
             location.href=location.href;
         });
     }
