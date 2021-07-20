@@ -1803,7 +1803,7 @@ function askParnterRequestExt() {
           GET_STRING_CONTENT('modal_yes_btn'),
           false,
           function () { 
-          	 window.open("https://duni.io/index.php?page=partner", "_new", "width=800px, height=700px" );
+          	 window.open("https://duni.io/index.php?page=partner");
           	 return;
           },
           function () {}
