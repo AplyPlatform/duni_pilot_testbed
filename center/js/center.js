@@ -505,6 +505,7 @@ function centerInit() {
     $("#dev_token_title").text(GET_STRING_CONTENT("dev_token_title"));
 		
 		$("#label_duni_service_request_list").text(GET_STRING_CONTENT("label_duni_service_request_list"));
+		$("#label_duni_service_request_list_content").text(GET_STRING_CONTENT("label_duni_service_request_list_content"));
 
     $("#open_company_label").text(GET_STRING_CONTENT("title_for_company_flightlist"));
     $("#title_history_chkbox").text(GET_STRING_CONTENT("title_history_chkbox"));
