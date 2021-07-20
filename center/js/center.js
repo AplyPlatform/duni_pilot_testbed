@@ -1720,6 +1720,20 @@ function missionListInit() {
     getMissionList();
 }
 
+function askParnterRequestExt() {
+	showAskDialog(
+          GET_STRING_CONTENT('modal_title'),
+          GET_STRING_CONTENT('msg_you_are_not_partner'),
+          GET_STRING_CONTENT('modal_yes_btn'),
+          false,
+          function () { 
+          	 window.open("https://duni.io/index.php?page=partner", "_new", "width=800px, height=700px" );
+          	 return;
+          },
+          function () {}
+      );
+}
+
 function requestDUNIServiceRequest(r_id) {
 		GATAGM("DUNIServiceRequest_" + r_id, "CONTENT");
 		
@@ -1735,18 +1749,8 @@ function requestDUNIServiceRequest(r_id) {
 				showAlert(GET_STRING_CONTENT('msg_request_is_accepted'));
 	    }
 	    else {
-	    	if(r.result_code == 6) {	    		
-	    		showAskDialog(
-                GET_STRING_CONTENT('modal_title'),
-                GET_STRING_CONTENT('msg_you_are_not_partner'),
-                GET_STRING_CONTENT('modal_yes_btn'),
-                false,
-                function () { 
-                	 window.open("https://duni.io/index.php?page=partner", "_new", "width=800px, height=700px" );
-                	 return;
-                },
-                function () {}
-            );
+	    	if(r.result_code == 6) {
+	    		window.setTimeout("askParnterRequestExt()", 2);	    		
           return;
 	    	}
 	    	
@@ -1773,9 +1777,7 @@ function getDUNIServiceRequest() {
 	      	$("#duni_service_request_list").html("No request");
 	        return;
 	      }
-	      
-	      
-	      
+	      	      	      
 	      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
 	      	      				
 				let retData = r.data;
@@ -1810,10 +1812,8 @@ function getDUNIServiceRequest() {
                 GET_STRING_CONTENT('msg_are_you_sure'),
                 GET_STRING_CONTENT('modal_confirm_btn'),
                 false,
-                function () { 
-                	 
-                	window.setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 1);
-                	
+                function () {                 	 
+                		window.setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 2);
                 	},
                 function () {}
             	);
