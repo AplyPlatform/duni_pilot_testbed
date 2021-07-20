@@ -1826,7 +1826,7 @@ function requestDUNIServiceRequest(r_id) {
 	    }
 	    else {
 	    	if(r.result_code == 6) {
-	    		window.setTimeout("askParnterRequestExt()", 2);	    		
+	    		setTimeout("askParnterRequestExt()", 300);
           return;
 	    	}
 	    	
@@ -1891,7 +1891,7 @@ function getDUNIServiceRequest() {
                 GET_STRING_CONTENT('modal_confirm_btn'),
                 false,
                 function () {                 	 
-                		window.setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 2);
+                		setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 300);
                 	},
                 function () {}
             	);
