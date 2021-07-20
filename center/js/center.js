@@ -1724,13 +1724,14 @@ function requestDUNIServiceRequest(r_id) {
 		GATAGM("DUNIServiceRequest_" + r_id, "CONTENT");
 		
 		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "util", "daction": "duni_service_bet", "clientid": userid, "r_id" : r_id };
+    var jdata = { "action": "util", "daction": "duni_service_bet", "clientid": userid, "r_id" : (r_id * 1) };
     
 		showLoader();
 
   	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	    	hideLoader();	      
+  		hideLoader();
+  		
+	    if(r.result == "success") {	    	
 				showAlert(GET_STRING_CONTENT('msg_request_is_accepted'));
 	    }
 	    else {
@@ -1746,7 +1747,10 @@ function requestDUNIServiceRequest(r_id) {
                 },
                 function () {}
             );
+          return;
 	    	}
+	    	
+	    	showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	    }
 	  },
 	  	function(request,status,error) {
@@ -1770,29 +1774,41 @@ function getDUNIServiceRequest() {
 	        return;
 	      }
 	      
-	      $("#duni_service_request_list").append("<div class='row'><div class='col-md-1'></div><div class='col-md-3'>" + GET_STRING_CONTENT('label_service') + "</div><div class='col-md-5'>" + GET_STRING_CONTENT('label_location') + "</div><div class='col-md-3'>" + GET_STRING_CONTENT('label_status') + "</div></div>");
-				
+	      
+	      
+	      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
+	      	      				
 				let retData = r.data;
 												
 				retData.forEach(function(d, index, arr) {
-					let htmlString = "<div class='row'><div class='col-md-1'>" + index + "</div><div class='col-md-3'>" + d.kind + "</div><div class='col-md-5'>" + d.title + "</div><div class='col-md-3'>";
+					let htmlString = "<tr><th scope='row'>" + index + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td>";
 					
 					if (d.status == "P") {
-						htmlString += "<button class='btn btn-primary text-xs' type='button' id='partnerServiceRequest_" + index + "'>";
+						htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
             htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
 					}
 					else {
 						htmlString += GET_STRING_CONTENT('msg_completed');	
 					}					
 					
-					htmlString += "</div></div>";
-					$("#duni_service_request_list").append(htmlString);
-					
-					$("#partnerServiceRequest_" + index).click(function() {
-							requestDUNIServiceRequest(d.r_id);
-					});
-				});
-				
+					htmlString += "</td></tr>";
+					$("#service_request_list_table > tbody:last-child'").append(htmlString);
+										
+					$("#partnerServiceRequest_" + index).click(function() {							
+							showAskDialog(
+                GET_STRING_CONTENT('modal_title'),
+                GET_STRING_CONTENT('msg_are_you_sure'),
+                GET_STRING_CONTENT('modal_confirm_btn'),
+                false,
+                function () { 
+                	 
+                	window.setTimeout("requestDUNIServiceRequest(" + d.r_id + ")", 1);
+                	
+                	},
+                function () {}
+            	);
+					});										
+				});								
 	    }
 	  },
 	  	function(request,status,error) {
