@@ -1578,6 +1578,9 @@ function flightDetailInit(target) {
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
     $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
     
+    $("#tab_menu_set_youtube_address").text(GET_STRING_CONTENT('label_set_youtube_url'));
+    $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));
+    
     $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label') + " (" + GET_STRING_CONTENT('label_second') + ")");
             
     $('#flightRecDsecApplyBtn').text(GET_STRING_CONTENT('apply_flight_rec_sync_btn'));    

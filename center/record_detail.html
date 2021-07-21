@@ -43,62 +43,66 @@
 				</div>
 
         <div class="card-body" id="videoRecordModifyArea">
-        		<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
-        		<br>
-          	<div id="movieDataSet">
-          		<label for="youtube_url_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="youtube_url_label">유튜브 영상 주소</label>
-              <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Youtube Full URL ex)https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
-                    <span class="input-group-append">
-                      <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
-                    </span>
-              </div>
-
-              <hr size=1 color="#efefef">
-
-            	<div>
-				        <img id="channel-thumbnail" width="50">
-				        <span id="channel-name" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
-				      </div>
-
-				      <div class="row">
-							      	<div class="col-md-6">
-								        <label for="privacy-status" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
+        		<div class="row">
+        			<div class="col-md-12">
+        				<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
+        			</div>
+        		</div>
+          	<div id="movieDataSet">          		
+							<div class="row" id="video_upload_kind_sel">
+	        				<div class="col-md-12">
+		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
+											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
+											&nbsp;&nbsp;
+		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
+											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>										
+									</div>
+							</div>
+	
+				    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
+				    		<div class="row">
+						      <div class="col-md-8">		      					
+										<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
+											<input type="file" id="movieFile" accept="video/*">
+											<button class="btn btn-secondary btn-sm" type="button" id="btnSelectMovieFiles">파일선택</button>
+										</div>
+										
+										<div id="videoFileName"></div>																				
+								        
+								    <button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>								        								    																				
+						      </div>
+						      <div class="col-md-4">
 								        <select id="privacy-status" class="form-control">
 								          <option value="public" id="option_public_label">공개</option>
 								          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-								          <option value="private" id="option_private_label">비공개</option>
+								          <!-- <option value="private" id="option_private_label">비공개</option> -->
 								        </select>
-				      				</div>
-
-											<div class="col-md-6">
-												<label for="movieFile" class="text-xs font-weight-bold text-default text-uppercase mb-1">&nbsp;</label>
-									      <div class="input-group">
-									        <input type="file" class="form-control-file form-control bg-light border-0 small" id="movieFile" accept="video/*">
-									        <span class="input-group-append">
-									        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>
-									        </span>
-									      </div>
-									    </div>
-							</div>
-
-				      <div class="row">
-											<div class="col-md-6">
-									      <div class="post-upload">
-									        <ul id="post-upload-status"></ul>
-									        <div id="player"></div>
-									      </div>
-											</div>
-
-									    <div class="col-md-6">
-									    	<div class="during-upload">
-									        <p class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)</p>
-									        <progress id="upload-progress" max="1" value="0"></progress>
-									      </div>
-								      	<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
-							    		</div>
-							</div>
-         		</div>       			
+						      </div>
+						    </div>
+						    <div class="row">
+						    	<div class="col-md-4 during-upload">
+			      					<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
+						        		<span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
+						        		<progress id="upload-progress" max="1" value="0"></progress>
+						        	</p>
+						    	</div>
+						      <div class="col-md-8 text-right">
+						      		<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
+						      </div>
+						    </div>
+					    </div> <!-- set_youtube_upload_view -->
+	
+					    <div class="row" id="set_youtube_address_view">
+	        				<div class="col-md-12">
+	              		<div class="input-group">
+		                    <input type="text" class="form-control" placeholder="ex) https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
+		                    <span class="input-group-append">
+		                      <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
+		                    </span>
+		              	</div>
+	              	</div>
+	            </div>        	
+        		</div>  <!-- movieDataSet -->        	        		  			
 				</div>
 				
 				<div class="card-body">
