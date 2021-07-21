@@ -1907,9 +1907,9 @@ function getDUNIServiceRequest() {
 }
 
 function startRequestTableAnimation() {
-	$("#service_request_list_table tr").hide();
-		$("#service_request_list_table tr").each(function(index){
-			$(this).delay(index*500).show(1000);			
+	$("#service_request_list_table tr").css('visibility', 'hidden');
+		$("#service_request_list_table tr").each(function(index){			
+			$(this).delay(index*500).show(1000);
 	});
 	
 	setTimeout("startRequestTableAnimation()", 15000);
