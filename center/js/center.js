@@ -1908,13 +1908,13 @@ function getDUNIServiceRequest() {
 
 function startRequestTableAnimation(count) {
 	
-	for(var i=0;i<count;i++){
+	for(var i=0;i<count;i++) {
 			$("#request_duni_" + i).hide();
-	});
+	}
 	
-	for(var i=0;i<count;i++){			
+	for(var i=0;i<count;i++) {
 			$("#request_duni_" + i).delay(i*500).show(1000);
-	});
+	}
 	
 	setTimeout("startRequestTableAnimation(" + count + ")", 15000);
 }
