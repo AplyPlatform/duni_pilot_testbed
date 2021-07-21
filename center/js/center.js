@@ -1913,7 +1913,7 @@ function startRequestTableAnimation(count) {
 	}
 	
 	for(var i=0;i<count;i++) {
-			$("#request_duni_" + i).fadeIn(1000);
+			$("#request_duni_" + i).fadeIn(i * 1000);
 	}
 	
 	setTimeout("startRequestTableAnimation(" + count + ")", 15000);
