@@ -1897,7 +1897,7 @@ function getDUNIServiceRequest() {
 					});										
 				});
 				
-				startRequestTableAnimation();				
+				startRequestTableAnimation(retData.length);				
 	    }
 	  },
 	  	function(request,status,error) {
@@ -1906,13 +1906,17 @@ function getDUNIServiceRequest() {
 	  });
 }
 
-function startRequestTableAnimation() {
-	$("#service_request_list_table tr").css('visibility', 'hidden');
-		$("#service_request_list_table tr").each(function(index){			
-			$(this).delay(index*500).show(1000);
+function startRequestTableAnimation(count) {
+	
+	for(var i=0;i<count;i++){
+			$("#request_duni_" + i).hide();
 	});
 	
-	setTimeout("startRequestTableAnimation()", 15000);
+	for(var i=0;i<count;i++){			
+			$("#request_duni_" + i).delay(i*500).show(1000);
+	});
+	
+	setTimeout("startRequestTableAnimation(" + count + ")", 15000);
 }
 
 function drawFlightArea() { 
