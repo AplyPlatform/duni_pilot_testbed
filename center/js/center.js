@@ -948,16 +948,12 @@ function flightrecordUploadInit() {
 			$("#input_direct_file").val("");
 		});
 		
-		$("#movieFile").click(function(e) {			
-			e.preventDefault();
-			
+		$("#movieFile").click(function() {			
 			$(this).attr("value", "");
 			$("#movieFile").val("");
 		});
 		
-		$("#flight_record_file").click(function(e) {
-			e.preventDefault();
-			
+		$("#flight_record_file").click(function() {
 			$(this).attr("value", "");
 			$("#flight_record_file").val("");
 		});
