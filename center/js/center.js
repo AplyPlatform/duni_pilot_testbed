@@ -4921,8 +4921,16 @@ function deleteFlightData(name, index) {
         		if (index >= 0)
             	removeTableRow("flight-list-" + index);
             else {
-            	alert(GET_STRING_CONTENT('msg_success'));
-            	location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
+            	showAskDialog(
+					        GET_STRING_CONTENT('modal_title'),
+					        GET_STRING_CONTENT('msg_success'),
+					        GET_STRING_CONTENT('modal_confirm_btn'),
+					        false,
+					        function () { 
+					        	location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
+					        },
+					        null					        
+					    );            	            	            	
             }
         }
     }, function (request, status, error) {
@@ -5029,9 +5037,18 @@ function registMission(mname, mspeed) {
     var jdata = { "action": "mission", "mname": encodeURI(mname), "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-				    alert(mname + " (" + mspeed + "m/s) : " + GET_STRING_CONTENT('msg_success'));
-				    location.href = g_array_cur_controller_for_viewmode["developer"] + "?page_action=missionlist";
+        if (r.result == "success") {				    				    				    
+				    showAskDialog(
+					        GET_STRING_CONTENT('modal_title'),
+					        mname + " (" + mspeed + "m/s) : " + GET_STRING_CONTENT('msg_success'),
+					        GET_STRING_CONTENT('modal_confirm_btn'),
+					        false,
+					        function () { 
+					        	location.href = g_array_cur_controller_for_viewmode["developer"] + "?page_action=missionlist";
+					        },
+					        null
+					   );
+				    
         }
         else {
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -5920,8 +5937,18 @@ function uploadDJIFlightListCallback(params) {
             $('#btnForUploadFlightList').hide(1500);
             $('#uploadFileform').hide(1500);
             GATAGM('dji_file_upload_success', 'CONTENT');
-            alert(GET_STRING_CONTENT('msg_success'));
-            location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
+                                    
+            showAskDialog(
+					        GET_STRING_CONTENT('modal_title'),
+					        GET_STRING_CONTENT('msg_success'),
+					        GET_STRING_CONTENT('modal_confirm_btn'),
+					        false,
+					        function () { 
+					        	location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
+					        },
+					        null
+					   );
+            
         }
         else {
             if (r.result_code == 3) {
