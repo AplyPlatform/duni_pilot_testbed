@@ -1922,7 +1922,7 @@ function startRequestTableAnimation(count) {
 	
 	$("#service_request_list_table tr").each(function(index){
 		//$(this).delay(index*500).show(1000);
-		$(this).css({"visibility":"visible", "opacity": 0.0}).delay(i*500).animate({opacity: 1.0},500);
+		$(this).css({"visibility":"visible", "opacity": 0.0}).delay(index * 500).animate({opacity: 1.0},500);
 	});
 	
 	/*
