@@ -1663,7 +1663,7 @@ function flightDetailInit(target) {
     
     $("#movieFile").bind('change', function() {			
 			GATAGM('changeMovieFileInput', 'CONTENT');
-			videoFileForUploadFile = null;
+			videoFileForUploadFile = this.files[0];
 			previewForRecordFile(this.files[0])
 		});
 		
