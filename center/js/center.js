@@ -4160,7 +4160,9 @@ function setFlightRecordToView(target, name, fdata) {
 				        GET_STRING_CONTENT('msg_remove'),
 				        false,
 				        function () {				        	
-				        	deleteFlightData(name, -1); 
+				        	setTimeout(function () { 
+					        		deleteFlightData(name, -1);
+					        }, 800);
 				        },
                 function () {}
 				    );
