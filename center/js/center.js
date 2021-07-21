@@ -5054,7 +5054,7 @@ function registMission(mname, mspeed) {
 					        mname + " (" + mspeed + "m/s) : " + GET_STRING_CONTENT('msg_success'),
 					        GET_STRING_CONTENT('modal_confirm_btn'),
 					        false,
-					        function () { 					        	
+					        function () {					        	
 					        	setTimeout(function () { 
 					        		location.href = g_array_cur_controller_for_viewmode["developer"] + "?page_action=missionlist";
 					        	}, 800);
