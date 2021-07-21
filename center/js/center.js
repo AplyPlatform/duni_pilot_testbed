@@ -1895,13 +1895,24 @@ function getDUNIServiceRequest() {
                 function () {}
             	);
 					});										
-				});								
+				});
+				
+				startRequestTableAnimation();				
 	    }
 	  },
 	  	function(request,status,error) {
 	  		$("#duni_service_request_list").html("No request");
 	  		hideLoader();
 	  });
+}
+
+function startRequestTableAnimation() {
+	$("#service_request_list_table tr").hide();
+		$("#service_request_list_table tr").each(function(index){
+			$(this).delay(index*500).show(1000);			
+	});
+	
+	setTimeout("startRequestTableAnimation()", 15000);
 }
 
 function drawFlightArea() { 
