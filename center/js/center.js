@@ -1907,14 +1907,29 @@ function getDUNIServiceRequest() {
 }
 
 function startRequestTableAnimation(count) {
-	
+	/*
 	for(var i=0;i<count;i++) {
 			$("#request_duni_" + i).fadeOut(0);
+			$("#id").animate({opacity: 0.0}, 200, function(){
+			    $("#"+txtid).css("visibility","hidden");
+			});
 	}
+	*/
 	
+	$("service_request_list_table tr").each(function(index){
+		$(this).css("visibility","hidden");
+	});
+	
+	$("service_request_list_table tr").each(function(index){
+		//$(this).delay(index*500).show(1000);
+		$(this).css({visibility:"visible", opacity: 0.0}).delay(index*500).animate({opacity: 1.0},200);
+	});
+	
+	/*
 	for(var i=0;i<count;i++) {
-			$("#request_duni_" + i).fadeIn(i * 1000);
+			$("#request_duni_" + i).delay(i*500).fadeIn(1000);			
 	}
+	*/
 	
 	setTimeout("startRequestTableAnimation(" + count + ")", 15000);
 }
