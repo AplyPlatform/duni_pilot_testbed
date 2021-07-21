@@ -169,7 +169,7 @@ UploadVideo.prototype.handleUploadClicked = function (curVideoFile) {
         return;
     }
 		
-    if (curVideoFile == null) {
+    if (videoFileForUploadFile == null) {
     		hideLoader();
         showAlert(GET_STRING_CONTENT('msg_select_video_file'));
         return;
@@ -204,7 +204,7 @@ UploadVideo.prototype.handleUploadClicked = function (curVideoFile) {
 		
 		var fname = $('#record_name_field').val();
 		var fdesc = $('#memoTextarea').val();
-    this.uploadFile(curVideoFile, fname, fdesc);
+    this.uploadFile(videoFileForUploadFile, fname, fdesc);
 };
 
 UploadVideo.prototype.uploadVideoAction = function () {
