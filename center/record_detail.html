@@ -61,22 +61,25 @@
 	
 				    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
 				    		<div class="row">
-						      <div class="col-md-8">		      					
+						      <div class="col-md-6">		      					
 										<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
 											<input type="file" id="movieFile" accept="video/*">
 											<button class="btn btn-secondary btn-sm" type="button" id="btnSelectMovieFiles">파일선택</button>
 										</div>
 										
-										<div id="videoFileName"></div>																				
-								        
-								    <button id="uploadVideoToYoutubeButton" class="btn btn-primary" type="button">유튜브에 영상 업로드</button>								        								    																				
+										<div id="videoFileName"></div>								        								    
 						      </div>
-						      <div class="col-md-4">
-								        <select id="privacy-status" class="form-control">
-								          <option value="public" id="option_public_label">공개</option>
-								          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-								          <!-- <option value="private" id="option_private_label">비공개</option> -->
-								        </select>
+						      <div class="col-md-6">
+						      			<div class="input-group">
+									        <select id="privacy-status" class="form-control">
+									          <option value="public" id="option_public_label">공개</option>
+									          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
+									          <!-- <option value="private" id="option_private_label">비공개</option> -->
+									        </select>
+									        <span class="input-group-append">
+									        	<button id="uploadVideoToYoutubeButton" class="btn btn-primary btn-block" type="button">유튜브에 영상 업로드</button>									        
+									        </span>
+									      </div>
 						      </div>
 						    </div>
 						    <div class="row">

@@ -1582,6 +1582,8 @@ function flightDetailInit(target) {
     $("#tab_menu_set_youtube_address").text(GET_STRING_CONTENT('label_set_youtube_url'));
     $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));
     
+    $('#btnSelectMovieFiles').text(GET_STRING_CONTENT('label_select_files'));
+    
     $('#sync_slider_label').text(GET_STRING_CONTENT('sync_slider_label') + " (" + GET_STRING_CONTENT('label_second') + ")");
             
     $('#flightRecDsecApplyBtn').text(GET_STRING_CONTENT('apply_flight_rec_sync_btn'));    
@@ -1661,7 +1663,8 @@ function flightDetailInit(target) {
     
     $("#movieFile").bind('change', function() {			
 			GATAGM('changeMovieFileInput', 'CONTENT');
-			videoFileForUploadFile = this.files[0];			
+			videoFileForUploadFile = null;
+			previewForRecordFile(this.files[0])
 		});
 		
     if (record_name != null && record_name != "") {
