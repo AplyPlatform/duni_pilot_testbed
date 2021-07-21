@@ -50,7 +50,7 @@ var LANG_JSON_DATA = {
         "flighttime_input_data_label": "촬영시각",
         "registered_datetime_label" : "등록시각",
         "option_public_label": "공개",
-        "option_unlisted_label": "일부공개(링크가 있는 사용자만 영상을 볼수 있음)",
+        "option_unlisted_label": "일부공개(링크가 있는 사용자만 볼수 있음)",
         "option_private_label": "비공개",
         "uploadVideoToYoutubeButton": "영상 등록",
         "youtube_url_label": "유튜브 URL",
