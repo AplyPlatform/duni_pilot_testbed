@@ -855,6 +855,7 @@ function flightrecordUploadInit() {
     	$("input:radio[name='media_upload_kind']:radio[value='tab_menu_set_youtube_address']").prop('checked', true);
       $("#set_youtube_address_view").show();
     	$("#set_youtube_upload_view").hide();
+    	$("#videoRecordModifyArea").hide();
 
     	g_params_for_upload_flight_rec['youtube_data'] = "https://youtube.com/watch?v=" + vid;
 
@@ -1594,6 +1595,26 @@ function flightDetailInit(target) {
 
     $("#btnForLink").hide();
     $("#btnForSharing").hide();
+    
+    $("#set_youtube_address_view").hide();
+		$("#set_youtube_upload_view").show();
+
+		$("input[name='media_upload_kind']:radio").change(function () {
+        var cVal = this.value;
+
+        if (cVal == "tab_menu_set_youtube_address") {
+        	$("#set_youtube_address_view").show();
+        	$("#set_youtube_upload_view").hide();
+        }
+        else if (cVal == "tab_menu_set_youtube_upload") {
+        	$("#set_youtube_address_view").hide();
+        	$("#set_youtube_upload_view").show();
+        }
+        else {
+        	$("#set_youtube_address_view").hide();
+        	$("#set_youtube_upload_view").hide();
+        }
+		});
 
 		/*
     $('#btnForFilter').click(function (e) {
@@ -1625,6 +1646,7 @@ function flightDetailInit(target) {
     	$('#youtube_url_data').val("https://youtube.com/watch?v=" + vid);
       setYoutubePlayerForDetaileViewPureID(vid);
 			setYoutubeID();
+			$("#videoRecordModifyArea").hide();
     };
 
 		g_component_upload_youtube_video.ready();
@@ -6180,6 +6202,7 @@ function setYoutubeID() {
         saveYoutubeUrl(params, function(bSuccess) {
         	if (bSuccess == true) {
         		hideMovieDataSet();
+        		$("#videoRecordModifyArea").hide();
         		showAlert(GET_STRING_CONTENT('msg_success'));
         	}
         	else {
