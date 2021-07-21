@@ -4178,6 +4178,7 @@ function setFlightRecordToView(target, name, fdata) {
                 setYoutubePlayerForDetaileView("");
             }
 
+						$("#videoRecordModifyArea").hide();
             hideMovieDataSet();
         }
         else {
