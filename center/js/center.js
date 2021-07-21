@@ -1558,7 +1558,7 @@ function flightDetailInit(target) {
     $("#btnForSetYoutubeID").text(GET_STRING_CONTENT('msg_apply'));
     $("#map_kind_label").text(GET_STRING_CONTENT('map_kind_label'));
     $("#input_memo_label").text(GET_STRING_CONTENT('input_memo_label'));
-    $("#btnForFilter").text(GET_STRING_CONTENT('btnForFilter'));
+    //$("#btnForFilter").text(GET_STRING_CONTENT('btnForFilter'));
     $("#btnForSharing").text(GET_STRING_CONTENT('btnForSharing'));
     $("#btnForPublic").text(GET_STRING_CONTENT('btnForOpening'));
     $("#btnForLink").text(GET_STRING_CONTENT('btnForLink'));
@@ -1592,12 +1592,14 @@ function flightDetailInit(target) {
     $("#btnForLink").hide();
     $("#btnForSharing").hide();
 
+		/*
     $('#btnForFilter').click(function (e) {
     		e.preventDefault();
     		
         GATAGM('btnForFilter', 'CONTENT');
         setFilter();
     });
+    */
 
     $('#btnForSetYoutubeID').click(function (e) {
     		e.preventDefault();
