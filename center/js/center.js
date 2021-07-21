@@ -943,9 +943,7 @@ function flightrecordUploadInit() {
 			let retSelected = fileDropCheckRecordUpload(this.files);
 		});
 
-		$("#input_direct_file").click(function(e) {
-			e.preventDefault();
-			
+		$("#input_direct_file").click(function() {						
 			$(this).attr("value", "");
 			$("#input_direct_file").val("");
 		});
@@ -1066,9 +1064,7 @@ function embedCompassInit() {
 			}			
 		});
 
-		$("#input_direct_file").click(function(e) {
-			e.preventDefault();
-			
+		$("#input_direct_file").click(function() {						
 			$(this).attr("value", "");
 			$("#input_direct_file").val("");
 		});
