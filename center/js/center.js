@@ -1633,6 +1633,11 @@ function flightDetailInit(target) {
 
     let record_name = getQueryVariable("record_name");
     let target_key = getQueryVariable("target_key");
+    
+    $("#movieFile").bind('change', function() {			
+			GATAGM('changeMovieFileInput', 'CONTENT');
+			videoFileForUploadFile = this.files[0];			
+		});
 		
     if (record_name != null && record_name != "") {
     		let rname = decodeURIComponent(unescape(record_name));
