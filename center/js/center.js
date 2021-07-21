@@ -1667,6 +1667,11 @@ function flightDetailInit(target) {
 			previewForRecordFile(this.files[0])
 		});
 		
+		$("#movieFile").click(function() {			
+			$(this).attr("value", "");
+			$("#movieFile").val("");
+		});
+		
     if (record_name != null && record_name != "") {
     		let rname = decodeURIComponent(unescape(record_name));
         showDataWithName(target, target_key, rname);
