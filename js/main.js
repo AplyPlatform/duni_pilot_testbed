@@ -1,4 +1,4 @@
-﻿
+﻿/* Copyright 2021 APLY Inc. All rights reserved. */
 
 	'use strict';
 

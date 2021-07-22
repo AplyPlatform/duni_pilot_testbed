@@ -1,4 +1,6 @@
-﻿	'use strict';
+﻿/* Copyright 2021 APLY Inc. All rights reserved. */
+
+	'use strict';
 
 	var tableCount = 0;	
 	var duni_logo = 'https://pilot.duni.io/duni_logo.png';
