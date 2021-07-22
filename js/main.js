@@ -830,6 +830,7 @@
 		}
 	}
 	
+	var isVideoPopupInit = false; 
 	function getFlightRecordInfo(name) {
 			var jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
 
@@ -849,7 +850,12 @@
 					$("#video-pop-view").attr("video-name", name);
 					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
 					$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
-					$("#video-pop-view").videoPopup();
+					
+					if (isVideoPopupInit == false) {
+						$("#video-pop-view").videoPopup();
+						isVideoPopupInit = true;
+					}
+					
 					$("#video-pop-view").click();
 		    }
 		  },

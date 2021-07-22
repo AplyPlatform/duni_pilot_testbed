@@ -2317,6 +2317,7 @@ function processMapClick(map, evt, feature, overlay) {
   	}
 }
 
+var isVideoPopupInit = false;
 function getFlightRecordInfo(name) {
 		var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid };
@@ -2343,7 +2344,11 @@ function getFlightRecordInfo(name) {
 				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
-				$("#video-pop-view").videoPopup();
+				if (isVideoPopupInit == false) {
+						$("#video-pop-view").videoPopup();
+						isVideoPopupInit = true;
+				}
+				
 				$("#video-pop-view").click();
 	    }
 	  },
