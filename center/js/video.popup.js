@@ -72,7 +72,7 @@
             })
         }
 
-        function mountIframe(isPublic, langset, name, owner, videoAddress, isOuter) {
+        function mountIframe(isPublic, langset, name, prodUrl, owner, videoAddress, isOuter) {
             var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
 
             if(!videoPopup.embedLink) {
@@ -119,6 +119,7 @@
             
             var videoUrl = $(this).attr("video-url");
             var videoIframe = mountEmbedLink(videoUrl);
+            var videoProdUrl = $(this).attr("video-prod-url");
             var videoName = $(this).attr("video-name");
             var videoAddress = $(this).attr("video-address");
             var videoOwner = $(this).attr("video-owner");
@@ -131,7 +132,7 @@
             	isOuter = true;
             }
 
-            $("body").append(mountIframe(isPublic, langset, videoName, videoOwner, videoAddress, isOuter));
+            $("body").append(mountIframe(isPublic, langset, videoName, videoProdUrl, videoOwner, videoAddress, isOuter));
 
             $('.videopopupjs__content').css('max-width', 700);
             if(settings.width) {

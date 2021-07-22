@@ -99,7 +99,7 @@
 							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + '><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
+								+ langset + '\');" href=' + prodUrl + ' target="_new"><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
 						}
 						
 						htmlString = htmlString + '</div>';
@@ -120,8 +120,8 @@
             event.preventDefault();
             
             var videoUrl = $(this).attr("video-url");
-            var videoProdUrl = $(this).attr("video-prod-url");
             var videoIframe = mountEmbedLink(videoUrl);
+            var videoProdUrl = $(this).attr("video-prod-url");            
             var videoName = $(this).attr("video-name");            
             var langset = $(this).attr("video-lang");
             var outer = $(this).attr("video-is-outer");
