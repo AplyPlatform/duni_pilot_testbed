@@ -22,61 +22,61 @@ function checkPartnerApplicationData() {
 
 	if (min_type == "") {
 		showAlert("분야를 선택하세요.");
-		return false;
+		return null;
 	}			
 	fd.append("min_type", min_type);
 	
 	if ($("input:radio[name='p_type']:checked").attr('id') === undefined) {
 		showAlert("사업자 상태를 선택하세요. (개인사업자 또는 법인사업자)");
-		return false;
+		return null;
 	}
 	fd.append("p_type", $("input:radio[name='p_type']:checked").attr('id'));
 	
 	if ($("input:radio[name='p_reg_biz']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 사용사업 등록 여부를 선택하세요.");
-		return false;
+		return null;
 	}	
 	fd.append("p_reg_biz", $("input:radio[name='p_reg_biz']:checked").attr('id'));
 	
 	if ($("input:radio[name='p_reg_mac']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 신고 여부를 선택하세요.");
-		return false;
+		return null;
 	}	
 	fd.append("p_reg_mac", $("input:radio[name='p_reg_mac']:checked").attr('id'));
 	
 	if ($("input:radio[name='p_reg_safe']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 안정성인증서 여부를 선택하세요.");
-		return false;
+		return null;
 	}	
 	fd.append("p_reg_safe", $("input:radio[name='p_reg_safe']:checked").attr('id'));
 	
 	if ($("input:radio[name='p_reg_cert']:checked").attr('id') === undefined) {
 		showAlert("조종자 자격 증명서 여부를 선택하세요.");
-		return false;
+		return null;
 	}	
 	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").attr('id'));
 	
 	if ($("input:radio[name='p_reg_ins']:checked").attr('id') === undefined) {
 		showAlert("보험 가입 여부를 선택하세요.");
-		return false;
+		return null
 	}	
 	fd.append("p_reg_ins", $("input:radio[name='p_reg_ins']:checked").attr('id'));
 	
 	if ($("input[name='form_name']").val() == "") {
 		showAlert("이름 또는 업체명을 입력하세요.");
-		return false;
+		return null;
 	}					
 	fd.append("form_name", $("input[name='form_name']").val());
 	
 	if ($('input[name="postcode"]').val() == "") {
 		showAlert("우편번호를 입력해 주세요.");
-		return false;
+		return null;
 	}
 	fd.append("postcode", $("input[name='postcode']").val());
 	
 	if ($('input[name="detail_address"]').val() == "") {
 		showAlert("상세주소를 입력해 주세요.");
-		return false;
+		return null;
 	}
 	fd.append("detail_address", $("input[name='detail_address']").val());
 		
@@ -85,37 +85,37 @@ function checkPartnerApplicationData() {
 	
 	if ($('input[name="user_phonenumber"]').val() == "") {
 		showAlert("전화번호를 입력하세요.");
-		return false;
+		return null;
 	}
 	
 	fd.append("form_phone", $("input[name='user_phonenumber']").val());
 	
 	if (g_b_phonenumber_verified == false) {
 		showAlert("전화번호 인증을 완료해 주세요.");
-		return false;
+		return null;
 	}
 	
 	if ($("#agree_1").length > 0 && $("#agree_1").is(":checked") == false) {
 		showAlert("이용약관 및 개인정보 처리방침에 동의해주세요.");
-		return false;
+		return null;
 	}
 
 	if ($("#agree_2").length > 0 && $("#agree_2").is(":checked") == false) {
 		showAlert("서비스 매칭을 위한 '개인정보 제3자 제공' 항목에 동의해주세요.");
-		return false;
+		return null;
 	}
 
 	if ($("#agree_3").length > 0 && $("#agree_3").is(":checked") == false) {
 		showAlert("이용약관 및 개인정보 처리방침에 동의해주세요.");
-		return false;
+		return null;
 	}
 
 	if ($("#agree_4").length > 0 && $("#agree_4").is(":checked") == false) {
 		showAlert("서비스 매칭을 위한 '개인정보 제3자 제공' 항목에 동의해주세요.");
-		return false;
+		return null;
 	}
 
-	return true;
+	return fd;
 }
 
 // 상세주소
