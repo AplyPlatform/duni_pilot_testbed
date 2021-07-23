@@ -4,6 +4,7 @@
 
 .video-info-wrap {margin:5px 0; font-family: 'Noto Sans Regular';}
 .video-info1 {text-align:center; padding:10px 0; font-size:14px; color:#FFF; border-bottom:1px solid #EEE;}
+.video-info1-sub {text-align:center; padding:10px 0; font-size:12px; color:#eeeeff; border-bottom:1px solid #EEE;}
 .video-info2 {background-color:#45cdba; color:#FFF; font-size:16px; text-align:center; padding:10px 0;}
 .video-info2 a, .video-info2 a:hover {color:#FFF;text-decoration:none;}
 
