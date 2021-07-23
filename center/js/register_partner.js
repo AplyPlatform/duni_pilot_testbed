@@ -285,4 +285,6 @@ $(function () {
       	showAlert(html_string);
    		});
 	});		  
-});	
+});
+
+//# sourceURL=register_parnter.js
