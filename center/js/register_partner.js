@@ -97,6 +97,8 @@ function checkPartnerApplicationData() {
 	
 	fd.append("form_phone", $("input[name='user_phonenumber']").val());
 	
+	fd.append("form_message", $("input[name='form_message']").val());
+	
 	if (g_b_phonenumber_verified == false) {
 		showAlert("전화번호 인증을 완료해 주세요.");
 		return null;
