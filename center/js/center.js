@@ -762,14 +762,15 @@ function flightrecordUploadInit() {
     		e.preventDefault();
     		
         GATAGM('btn_check_code', 'CONTENT');
-        verifyCode();
+        verifyCode($('#verification_code').val());
     });
     
     $('#btn_verify_code').click(function (e) {
     		e.preventDefault();
     		
         GATAGM('btn_verify_code', 'CONTENT');
-        verifyPhoneNo();
+                
+        verifyPhoneNo($('#user_phonenumber').val());
     });
 
     //판매국가는 우선 한국만!
@@ -4676,10 +4677,9 @@ function moveFlightHistoryMap(lat, lng) {
     g_view_2D_map_for_flight_rec.setCenter(npos);
 }
 
-function verifyPhoneNo(){
+function verifyPhoneNo(phone_number){
     var userid = getCookie("dev_user_id");
-    // check if phone number starts with 01 and is total of 11 digits
-    let phone_number = $('#user_phonenumber').val();
+    // check if phone number starts with 01 and is total of 11 digits    
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01') {
         showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
         return;
@@ -4726,9 +4726,8 @@ function verifyPhoneNo(){
 
 }
 
-function verifyCode(){
-    var userid = getCookie("dev_user_id");
-    let verification_code = $('#verification_code').val();
+function verifyCode(verification_code){
+    var userid = getCookie("dev_user_id");    
 		if(verification_code == ""){
 			showAlert(GET_STRING_CONTENT('msg_code_empty'));
 			return;
@@ -5232,50 +5231,6 @@ var oldScatterpointIndex = -1;
 
 var oldLinedatasetIndex = -1;
 var oldLinepointIndex = -1;
-
-function logOut() {
-		var userid = getCookie("dev_user_id");
-    var jdata = {
-    	"action": "member",
-    	"daction": "logout",
-    	"clientid": userid
-    };
-
-    ajaxRequest(jdata, function (r) {
-        //if (r.result == "success") {}
-        setCookie("dev_user_id", "", -1);
-		    setCookie("user_token", "", -1);
-		    setCookie("dev_token", "", -1);
-		    setCookie("device_kind", "", -1);
-		    setCookie("device_id", "", -1);
-        setCookie("user_email", "", -1);
-        setCookie("image_url", "", -1);
-        setCookie("temp_sns_token", "", -1);
-        setCookie("temp_image_url", "", -1);
-        setCookie("temp_email", "", -1);
-        setCookie("temp_name", "", -1);
-        setCookie("user_from", "", -1);
-        setCookie("user_google_auth_token", "", -1);
-
-        goIndex("logout");
-    }, function (request, status, error) {
-        setCookie("dev_user_id", "", -1);
-        setCookie("user_token", "", -1);
-        setCookie("dev_token", "", -1);
-        setCookie("device_kind", "", -1);
-        setCookie("device_id", "", -1);
-        setCookie("user_email", "", -1);
-        setCookie("image_url", "", -1);
-        setCookie("temp_sns_token", "", -1);
-        setCookie("temp_image_url", "", -1);
-        setCookie("temp_email", "", -1);
-        setCookie("temp_name", "", -1);
-        setCookie("user_from", "", -1);
-        setCookie("user_google_auth_token", "", -1);
-
-    		goIndex("logout");
-    });
-}
 
 
 function computeCirclularFlight(start) {

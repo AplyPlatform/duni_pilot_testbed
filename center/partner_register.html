@@ -20,29 +20,25 @@
         			<form role="form" method="post" id="partner" enctype="multipart/form-data">
                   <div class="row">
                       <div class="col-md-6">
-                          <div class="form-group">
-                              <div class="form-control" style="padding-bottom:.05rem;">
+                          <div class="form-group">                              
                               	<div class="row">
                          						<div class="col">유형 선택</div>
                          						<div class="col"><input type="radio" name="p_type" id="p_type_1" value="개인사업자" checked><label class="lab_check" for="p_type_1"><span class="checkbox"></span>  개인사업자</label></div>
                          						<div class="col"><input type="radio" name="p_type" id="p_type_2" value="법인사업자"><label class="lab_check" for="p_type_2"><span class="checkbox"></span>  법인사업자</label></div>
                          				</div>
-                              </div>
-                              <p class="help-block text-danger"></p>
                           </div>
+                          <hr size="1" color="#fefefe">
                       </div>
                       <div class="col-md-6">
-                          <div class="form-group">
-                              <div class="form-control" style="padding-bottom:.05rem;">
+                          <div class="form-group">                              
                                  <div class="row">
                          						<div class="col">전문 분야 선택</div>
                          						<div class="col"><input type="checkbox" name="min_type_1" id="min_type_1" value="방제"><label class="lab_check" for="min_type_1"><span class="checkbox"></span> 방제</label></div>
                          						<div class="col"><input type="checkbox" name="min_type_2" id="min_type_2" value="촬영"><label class="lab_check" for="min_type_2"><span class="checkbox"></span> 촬영</label></div>
                          						<div class="col"><input type="checkbox" name="min_type_3" id="min_type_3" value="교육"><label class="lab_check" for="min_type_3"><span class="checkbox"></span> 교육</label></div>
-                         				 </div>
-                              </div>
-                              <p class="help-block text-danger"></p>
+                         				 </div>                                                            
                           </div>
+                          <hr size="1" color="#fefefe">
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
@@ -53,9 +49,37 @@
                           </div>
                       </div>
                       <div class="col-md-6">
-                          <div class="form-group">
-                              <input class="form-control" type="text" name="form_phone" id="form_phone" placeholder="전화번호(-없이 입력해주세요)" required="">
-                              <p class="help-block text-danger"></p>
+                          <div class="form-group" id="validate_phonenumber_area">                              
+	                							<div class="col-md-9">
+	                  							<div class="row">
+	                  								<div class="col-md-12">
+	                  									<input name="user_phonenumber" id="user_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 01012341234" required="">
+	                  								</div>
+	                  							</div>
+	                  							<div id="code_verification_input" style="display:none">
+																			<div class="row">
+																				<div class="col-md-12">
+																					<hr size=1 color=#fefefe>
+																				</div>
+																			</div>
+	                    								<div class="row">
+	                    									<div class="col-md-2">
+	                      									<span id="remaining_time" style="color:red"></span>
+	                      								</div>
+	                      								<div class="col-md-6">
+																					<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: left">
+																				</div>
+																				<div class="col-md-4">
+																					<div style="overflow: hidden; padding-right: .5em;">
+																						<button class="btn btn-info btn-sm btn-block" role="button" id="btn_check_code">인증하기</button>
+																					</div>
+																				</div>
+																			</div>
+														    	</div>
+	                							</div>
+	                							<div class="col-md-3" id="verifyPhoneBtn">
+	                								<button class="btn btn-primary btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
+	                							</div>															
                           </div>
                       </div>
                       <div class="col-md-6">
@@ -172,8 +196,7 @@
                   	    	<hr class="m-b-30 m-t-30">
                           <div class="text-center">
                               <input class="btn btn-primary btn-block btn-sm" id="partner_send" type="submit" value="등록하기">
-                          </div>
-                          <input type="hidden" name="form_token" id="form_token">
+                          </div>                          
                           <input type="hidden" name="form_sns_token" id="form_sns_token">
                           <input type="hidden" name="form_sns_kind" id="form_sns_kind">
                           <p class="text-center m-t-30">신청하시면 DUNI가 연락드리겠습니다.</p>
@@ -183,5 +206,6 @@
 				</div>
       </div>
    </div>
-
 </div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/center/js/register_partner.js"></script>

@@ -103,6 +103,7 @@ function ajaxRequest(data, callback, errorcallback) {
 			        setCookie("user_email", "", -1);
 			        setCookie("image_url", "", -1);
 			        setCookie("temp_sns_token", "", -1);
+			        setCookie("dev_sns_token", "", -1);
 			        setCookie("temp_image_url", "", -1);
 			        setCookie("temp_email", "", -1);
 			        setCookie("temp_name", "", -1);
@@ -121,6 +122,52 @@ function ajaxRequest(data, callback, errorcallback) {
             monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             errorcallback(request, status, error);
         }
+    });
+}
+
+function logOut() {
+		var userid = getCookie("dev_user_id");
+    var jdata = {
+    	"action": "member",
+    	"daction": "logout",
+    	"clientid": userid
+    };
+
+    ajaxRequest(jdata, function (r) {
+        //if (r.result == "success") {}
+        setCookie("dev_user_id", "", -1);
+		    setCookie("user_token", "", -1);
+		    setCookie("dev_token", "", -1);
+		    setCookie("device_kind", "", -1);
+		    setCookie("device_id", "", -1);
+        setCookie("user_email", "", -1);
+        setCookie("image_url", "", -1);
+        setCookie("temp_sns_token", "", -1);
+        setCookie("dev_sns_token", "", -1);
+        setCookie("temp_image_url", "", -1);
+        setCookie("temp_email", "", -1);
+        setCookie("temp_name", "", -1);
+        setCookie("user_from", "", -1);
+        setCookie("user_google_auth_token", "", -1);
+
+        goIndex("logout");
+    }, function (request, status, error) {
+        setCookie("dev_user_id", "", -1);
+        setCookie("user_token", "", -1);
+        setCookie("dev_token", "", -1);
+        setCookie("device_kind", "", -1);
+        setCookie("device_id", "", -1);
+        setCookie("user_email", "", -1);
+        setCookie("image_url", "", -1);
+        setCookie("temp_sns_token", "", -1);
+        setCookie("dev_sns_token", "", -1);
+        setCookie("temp_image_url", "", -1);
+        setCookie("temp_email", "", -1);
+        setCookie("temp_name", "", -1);
+        setCookie("user_from", "", -1);
+        setCookie("user_google_auth_token", "", -1);
+
+    		goIndex("logout");
     });
 }
 

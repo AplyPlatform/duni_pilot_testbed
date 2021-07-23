@@ -298,6 +298,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             setCookie("dev_user_id", r.emailid, 1);
+            setCookie("dev_sns_token", token, 1);
             setCookie("user_token", r.token, 1);
             setCookie("user_email", r.socialid, 1);
             setCookie("dev_token", r.dev_token, 1);
