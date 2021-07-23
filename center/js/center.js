@@ -795,9 +795,7 @@ function flightrecordUploadInit() {
     	$("#sale_select").hide();
     }
 
-    $("#salecheck").click(function(e){
-    				e.preventDefault();
-    				
+    $("#salecheck").click(function(e){    				    				
 						var checked = $("#salecheck").is(":checked");
             var userid = getCookie("dev_user_id");
 			
