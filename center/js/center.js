@@ -2365,7 +2365,8 @@ function getFlightRecordInfo(name) {
 
 		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
 				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
-				$("#video-pop-view").attr("video-name", name);
+				$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+				$("#video-pop-view").attr("video-name", name);				
 				$("#video-pop-view").attr("video-outer", r.data.outer);
 				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
@@ -4758,27 +4759,26 @@ function verifyCode(verification_code){
 		ajaxRequest(jdata,
 			function(data){
 				let result = data.result_code;
+				
 				if(result === 0){
-                    $('#verification_code').val("");
-                    $('#validate_phonenumber_area').hide();		
-					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-					clearInterval(g_b_interval_timer);
-					// disable phone number input
-                    g_b_phonenumber_verified = true;
-                    $('#auth_code').val(data.auth_code);
-					// $('#droneplay_phonenumber').prop( "disabled", true );
-                    // $('btn_check_code').text("재인증");
-					return;
+					g_b_phonenumber_verified = true;
+          $('#verification_code').val("");
+          $('#validate_phonenumber_area').hide();
+          $("#code_verification_input").hide();
+					owAlert(GET_STRING_CONTENT('msg_phone_verified'));
+					clearInterval(g_b_interval_timer);					                    
+          $('#auth_code').val(data.auth_code);										
 				}
-				if(result === 2){
-					showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));
-					return;
+				else if(result === 2){
+					showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));					
 				}
-				if(result === 4){
-					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-					return;
+				else if(result === 4){
+					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));					
 				}
-                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+				else {
+					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+				}
+				
 			},
 			function (err, stat, error) {
 				showAlert(GET_STRING_CONTENT('msg_error_sorry'));

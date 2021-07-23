@@ -95,7 +95,8 @@
 								+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
 								+ owner + '"><font color=cyan>' + owner + '</font></a>';
 							}						
-						htmlString = htmlString + '</div>';
+							
+							htmlString = htmlString + '</div>';
 						
 							htmlString = htmlString + '<div class="video-info2">';
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
@@ -108,11 +109,11 @@
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href=' + prodUrl + '>' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';
 						}
-            			else {                            
+            else {                            
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_qa_click_'
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="https://duni.io/index.php?page=contact" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
-                        }
+            }
 						
 						htmlString = htmlString + '</div>';
 						
