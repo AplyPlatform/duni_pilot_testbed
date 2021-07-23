@@ -104,6 +104,8 @@
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="https://duni.io/index.php?page=contact" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
                         }
+                        
+                        htmlString = htmlString + '</div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            

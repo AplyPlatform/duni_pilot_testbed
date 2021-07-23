@@ -86,7 +86,7 @@
 						}
 						
 						if (videoAddress) {
-							htmlString = htmlString + '<div class="video-info1-sub">' + videoAddress + '</div>';
+							htmlString = htmlString + '<div class="video-info1-sub">' + videoAddress ;
 						}
 						
 						if (isOuter == false) {
@@ -99,7 +99,7 @@
 							htmlString = htmlString + '<div class="video-info2">';
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
 								+ name + '\', \'CONTENT\');" href="/center/main.html?page_action=' + (isPublic == "public" ? "public" : '') + 'recordlist_detail&record_name='
-								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>+ "&nbsp;&nbsp;&nbsp;&nbsp;";
+								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>' + "&nbsp;&nbsp;&nbsp;&nbsp;";
 						}
 						
 						if(prodUrl && prodUrl != "") {                  												
