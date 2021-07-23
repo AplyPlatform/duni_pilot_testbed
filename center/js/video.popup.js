@@ -73,20 +73,20 @@
         }
 
         function mountIframe(isPublic, langset, name, prodUrl, owner, videoAddress, isOuter) {
-            var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
+            var iframeElement = '<div class="video-container"><iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe></div>';
 
             if(!videoPopup.embedLink) {
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<div class="row"><div class="col text-left">';
+						var htmlString = '<div class="video-info-wrap">';
 						
 						if(name) {
-							htmlString = htmlString + '<font color="white"><b>' + name + '</b></font>';
+							htmlString = htmlString + '<div class="video-info1">' + name + '</div>';
 						}
 						
 						if (videoAddress) {
-							htmlString = htmlString + '<br><font size=1 color="#eeeeff">' + videoAddress + '</font>';
+							htmlString = htmlString + '<div class="video-info1-sub">' + videoAddress + '</div>';
 						}
 						
 						if (isOuter == false) {
@@ -96,13 +96,12 @@
 								+ owner + '"><font color=cyan>' + owner + '</font></a></div>';
 							}						
 						
-							htmlString = htmlString + '<div class="col text-right">';
+							htmlString = htmlString + '<div class="video-info2">';
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
 								+ name + '\', \'CONTENT\');" href="/center/main.html?page_action=' + (isPublic == "public" ? "public" : '') + 'recordlist_detail&record_name='
-								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a></div>';
+								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a></div>';
 						}
 						
-						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
