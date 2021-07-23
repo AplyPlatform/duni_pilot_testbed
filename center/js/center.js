@@ -4,7 +4,7 @@
 
 var g_b_monitor_started;
 var g_b_phonenumber_verified = false;
-var g_b_interval_timer;
+var g_b_interval_timer = -1;
 
 var g_cur_2D_mainmap;
 var g_view_cur_2D_mainmap;
@@ -4765,17 +4765,20 @@ function verifyCode(verification_code){
           $('#validate_phonenumber_area').hide();
           $("#code_verification_input").hide();
 					owAlert(GET_STRING_CONTENT('msg_phone_verified'));
-					clearInterval(g_b_interval_timer);					                    
+					if (g_b_interval_timer >= 0)
+						clearInterval(g_b_interval_timer);
           $('#auth_code').val(data.auth_code);										
 				}
 				else if(result === 2){
 					showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));					
 				}
 				else if(result === 4){
-					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));					
+					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+					if (g_b_interval_timer >= 0)
+						clearInterval(g_b_interval_timer);
 				}
 				else {
-					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+					showAlert(GET_STRING_CONTENT('msg_error_sorry'));					
 				}
 				
 			},
@@ -4814,7 +4817,8 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-			clearInterval(g_b_interval_timer);
+						clearInterval(g_b_interval_timer);
+						g_b_interval_timer = -1;
             showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
             $("#code_verification_input").hide();
         }

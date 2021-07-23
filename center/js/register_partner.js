@@ -80,8 +80,8 @@ function checkPartnerApplicationData() {
 	}
 	fd.append("detail_address", $("input[name='detail_address']").val());
 		
-	fd.append("sns_token", getCookie("dev_sns_token"));
-	fd.append("sns_kind", getCookie("dev_kind"));
+	fd.append("form_sns_token", getCookie("dev_sns_token"));
+	fd.append("form_sns_kind", getCookie("dev_kind"));
 	
 	if ($('input[name="user_phonenumber"]').val() == "") {
 		showAlert("전화번호를 입력하세요.");
