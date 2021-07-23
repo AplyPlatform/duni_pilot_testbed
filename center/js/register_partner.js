@@ -2,8 +2,9 @@
 
 "use strict";
 
-function checkPartnerApplicationData(form_id) {
-
+function checkPartnerApplicationData() {
+	var fd = new FormData();
+	
 	var min_type = "";
 	if( $("#min_type_1").is(":checked")) {
 		min_type = "방제";
@@ -22,89 +23,94 @@ function checkPartnerApplicationData(form_id) {
 	if (min_type == "") {
 		showAlert("분야를 선택하세요.");
 		return false;
-	}
+	}			
+	fd.append("min_type", min_type);
 	
-	$(form_id).find('input[name="min_type"]').val(min_type);
-	
-	
-	if ($(form_id).find("input:radio[name='p_reg_biz']:checked").attr('id') === undefined) {
-		showAlert("초경량비행장치 사용사업 등록 여부를 선택하세요.");
-		return false;
-	}
-	
-	if ($(form_id).find("input:radio[name='p_reg_mac']:checked").attr('id') === undefined) {
-		showAlert("초경량비행장치 신고 여부를 선택하세요.");
-		return false;
-	}
-	
-	if ($(form_id).find("input:radio[name='p_reg_safe']:checked").attr('id') === undefined) {
-		showAlert("초경량비행장치 안정성인증서 여부를 선택하세요.");
-		return false;
-	}
-	
-	if ($(form_id).find("input:radio[name='p_reg_cert']:checked").attr('id') === undefined) {
-		showAlert("조종자 자격 증명서 여부를 선택하세요.");
-		return false;
-	}
-	
-	if ($(form_id).find("input:radio[name='p_reg_ins']:checked").attr('id') === undefined) {
-		showAlert("보험 가입 여부를 선택하세요.");
-		return false;
-	}
-
-	if ($(form_id).find("input:radio[name='p_type']:checked").attr('id') === undefined) {
+	if ($("input:radio[name='p_type']:checked").attr('id') === undefined) {
 		showAlert("사업자 상태를 선택하세요. (개인사업자 또는 법인사업자)");
 		return false;
 	}
-
-	if ($(form_id).find("input[name='form_name']").val() == "") {
+	fd.append("p_type", $("input:radio[name='p_type']:checked").attr('id'));
+	
+	if ($("input:radio[name='p_reg_biz']:checked").attr('id') === undefined) {
+		showAlert("초경량비행장치 사용사업 등록 여부를 선택하세요.");
+		return false;
+	}	
+	fd.append("p_reg_biz", $("input:radio[name='p_reg_biz']:checked").attr('id'));
+	
+	if ($("input:radio[name='p_reg_mac']:checked").attr('id') === undefined) {
+		showAlert("초경량비행장치 신고 여부를 선택하세요.");
+		return false;
+	}	
+	fd.append("p_reg_mac", $("input:radio[name='p_reg_mac']:checked").attr('id'));
+	
+	if ($("input:radio[name='p_reg_safe']:checked").attr('id') === undefined) {
+		showAlert("초경량비행장치 안정성인증서 여부를 선택하세요.");
+		return false;
+	}	
+	fd.append("p_reg_safe", $("input:radio[name='p_reg_safe']:checked").attr('id'));
+	
+	if ($("input:radio[name='p_reg_cert']:checked").attr('id') === undefined) {
+		showAlert("조종자 자격 증명서 여부를 선택하세요.");
+		return false;
+	}	
+	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").attr('id'));
+	
+	if ($("input:radio[name='p_reg_ins']:checked").attr('id') === undefined) {
+		showAlert("보험 가입 여부를 선택하세요.");
+		return false;
+	}	
+	fd.append("p_reg_ins", $("input:radio[name='p_reg_ins']:checked").attr('id'));
+	
+	if ($("input[name='form_name']").val() == "") {
 		showAlert("이름 또는 업체명을 입력하세요.");
 		return false;
-	}				
+	}					
+	fd.append("form_name", $("input[name='form_name']").val());
 	
-	if ($(form_id).find('input[name="postcode"]').val() == "") {
+	if ($('input[name="postcode"]').val() == "") {
 		showAlert("우편번호를 입력해 주세요.");
 		return false;
 	}
+	fd.append("postcode", $("input[name='postcode']").val());
 	
-	if ($(form_id).find('input[name="detail_address"]').val() == "") {
+	if ($('input[name="detail_address"]').val() == "") {
 		showAlert("상세주소를 입력해 주세요.");
 		return false;
 	}
-	
-	var sns_token = getCookie("dev_sns_token");
-	var sns_kind = getCookie("dev_kind");	
-
-	$(form_id).find('input[name="form_sns_token"]').val(sns_token);
-	$(form_id).find('input[name="form_sns_kind"]').val(sns_kind);
+	fd.append("detail_address", $("input[name='detail_address']").val());
 		
-
-	if ($(form_id).find('input[name="user_phonenumber"]').val() == "") {
+	fd.append("sns_token", getCookie("dev_sns_token"));
+	fd.append("sns_kind", getCookie("dev_kind"));
+	
+	if ($('input[name="user_phonenumber"]').val() == "") {
 		showAlert("전화번호를 입력하세요.");
 		return false;
 	}
+	
+	fd.append("form_phone", $("input[name='user_phonenumber']").val());
 	
 	if (g_b_phonenumber_verified == false) {
 		showAlert("전화번호 인증을 완료해 주세요.");
 		return false;
 	}
 	
-	if ($(form_id).find("#agree_1").length > 0 && $(form_id).find("#agree_1").is(":checked") == false) {
+	if ($("#agree_1").length > 0 && $("#agree_1").is(":checked") == false) {
 		showAlert("이용약관 및 개인정보 처리방침에 동의해주세요.");
 		return false;
 	}
 
-	if ($(form_id).find("#agree_2").length > 0 && $(form_id).find("#agree_2").is(":checked") == false) {
+	if ($("#agree_2").length > 0 && $("#agree_2").is(":checked") == false) {
 		showAlert("서비스 매칭을 위한 '개인정보 제3자 제공' 항목에 동의해주세요.");
 		return false;
 	}
 
-	if ($(form_id).find("#agree_3").length > 0 && $(form_id).find("#agree_3").is(":checked") == false) {
+	if ($("#agree_3").length > 0 && $("#agree_3").is(":checked") == false) {
 		showAlert("이용약관 및 개인정보 처리방침에 동의해주세요.");
 		return false;
 	}
 
-	if ($(form_id).find("#agree_4").length > 0 && $(form_id).find("#agree_4").is(":checked") == false) {
+	if ($("#agree_4").length > 0 && $("#agree_4").is(":checked") == false) {
 		showAlert("서비스 매칭을 위한 '개인정보 제3자 제공' 항목에 동의해주세요.");
 		return false;
 	}
@@ -170,33 +176,23 @@ function execDaumPostcode() {
 	}).open();
 }
 
-function sendApplicationData(form_id)
-{	
-	var ref = $('<input type="hidden" value="https://pilot.duni.io" name="ref">');	
-	$(form_id).append(ref);	
-	ref = $('<input type="hidden" value="' + getCookie("dev_user_id") + '" name="clientid">');
-	$(form_id).append(ref);
-	
-	let phone_num = $(form_id).find("input[name='user_phonenumber']").val()
-	ref = $('<input type="hidden" value="' + phone_num + '" name="form_phone">');
-	$(form_id).append(ref);
-	
-	let email = getCookie("user_email");	
-	if (isSet(email)) {
-		ref = $('<input type="hidden" value="' + email + '" name="form_email">');
-		$(form_id).append(ref);		
-	}
-
-	ref = $('<input type="hidden" value="파트너" name="form_kind">');
-	$(form_id).append(ref);
-	
-	var sed = new FormData($(form_id)[0]);
+function sendApplicationData(fd)
+{		
+	fd.append("form_kind", "파트너");
+	fd.append("ref", "https://pilot.duni.io");
+	fd.append("clientid", getCookie("dev_user_id"));
+	fd.append("form_email", getCookie("user_email"));
+	fd.append( 'fileupload1', $('input[name=fileupload1]')[0].files[0] );
+	fd.append( 'fileupload2', $('input[name=fileupload2]')[0].files[0] );
+	fd.append( 'fileupload3', $('input[name=fileupload3]')[0].files[0] );
+	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
+	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
 				
 	$.ajax({
 		type: "POST",
 		dataType : "json",
 		url: 'https://duni.io/handler/handler.php',
-		data:sed,
+		data: fd,
 		enctype: 'multipart/form-data', // 필수
 		processData: false,
     contentType: false,
@@ -245,12 +241,13 @@ $(function () {
 	$("#partner_send").click(function(e) {
 		e.preventDefault();
 				
-		if (checkPartnerApplicationData("#partner") == false) return;
+		var fd = checkPartnerApplicationData();		
+		if (fd == null) return;
 						
-	  sendApplicationData("#partner");
+	  sendApplicationData(fd);
 	});
 
-	$('[name^=form_phone]').keypress(validateNumber);
+	$('[name^=user_phonenumber]').keypress(validateNumber);
 	
 	$("#findAddressBtn").click(function(e){
 			e.preventDefault();
@@ -291,9 +288,5 @@ $(function () {
 	    $.get("/service_KR_raw.html", function(html_string){
       	showAlert(html_string);
    		});
-	});
-	
-	  
-
-
+	});		  
 });	

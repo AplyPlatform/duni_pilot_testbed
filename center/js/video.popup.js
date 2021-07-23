@@ -89,13 +89,7 @@
 								
 						if (videoAddress) {
 								htmlString = htmlString + videoAddress;
-						}
-						
-						if(owner) {
-							htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
-							+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
-							+ owner + '"><font color="white">' + owner + '</font></a>';
-						}
+						}						
 						
 						htmlString = htmlString + '</div></div>'; //sub1, info1
 						
