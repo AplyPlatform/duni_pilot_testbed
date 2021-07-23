@@ -234,9 +234,9 @@ $(function () {
 	$("#partner_send").click(function(e) {
 		e.preventDefault();
 				
-		if (checkPartnerApplicationData("partner") == false) return;
+		if (checkPartnerApplicationData("#partner") == false) return;
 						
-	  sendApplicationData("partner");
+	  sendApplicationData("#partner");
 	});
 
 	$('[name^=form_phone]').keypress(validateNumber);
