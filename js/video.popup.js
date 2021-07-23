@@ -94,15 +94,16 @@
 								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>'+ "&nbsp;&nbsp;&nbsp;&nbsp;";
 						}
 						
-						if(prodUrl) {
-							if (isOuter == false) htmlString = htmlString + "&nbsp;&nbsp;";
-							
+						if(prodUrl && prodUrl != "") {                  												
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + ' target="_new">' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';	
+								+ langset + '\');" href=' + prodUrl + '>' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';
 						}
-						
-						htmlString = htmlString + '</div>';
+            			else {                            
+							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_qa_click_'
+								+ name + '\', \'CONTENT\', \''
+								+ langset + '\');" href="https://duni.io/index.php?page=contact" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
+                        }
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
