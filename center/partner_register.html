@@ -16,8 +16,8 @@
 	
   <div class="col-lg-6 mb-4">
       <div class="card shadow mb-4">        
-        <div class="card-body">
-        			<form role="form" method="post" id="partner" enctype="multipart/form-data">
+        <div class="card-body">    
+        	<form id="partner">    			
                   <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">                              
@@ -202,7 +202,7 @@
                   	    	<p><input type="checkbox" name="agree_2" id="agree_2" value="제공"><label class="lab_check" for="agree_2"><span class="checkbox"></span> 서비스 매칭을 위해 개인정보 제3자 제공 동의 <span class="required">(필수)</span></label></p>
                   	    	<hr class="m-b-30 m-t-30">
                           <div class="text-center">
-                              <input class="btn btn-primary btn-block btn-sm" id="partner_send" type="submit" value="등록하기">
+                              <button class="btn btn-primary btn-block btn-sm" role="button" id="partner_send">등록하기</button>
                           </div>                          
                           <input type="hidden" name="form_sns_token" id="form_sns_token">
                           <input type="hidden" name="form_sns_kind" id="form_sns_kind">
@@ -210,7 +210,7 @@
                           <p class="text-center m-t-30">신청하시면 DUNI가 연락드리겠습니다.</p>
                       </div>
                   </div>
-              </form>
+						</form>
 				</div>
       </div>
    </div>
