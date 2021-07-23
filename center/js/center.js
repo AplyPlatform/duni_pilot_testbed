@@ -443,6 +443,14 @@ function initPilotCenter() {
     		showAlert(GET_STRING_CONTENT('msg_error'));
     		centerPageInit();
     }
+    
+    //한국, 파트너 아닌 대상만 파트너 가입
+    if (getCookie("user_kind") != "partner" && langset == "KR"){
+    	$("#partner_register_top_menu").show();
+    }
+    else {
+    	$("#partner_register_top_menu").hide();
+    }
 }
 
 
@@ -1853,7 +1861,7 @@ function askParnterRequestExt() {
           GET_STRING_CONTENT('modal_yes_btn'),
           false,
           function () { 
-          	 window.open("https://duni.io/index.php?page=partner");
+          	 location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=partner_register";
           	 return;
           },
           function () {}
