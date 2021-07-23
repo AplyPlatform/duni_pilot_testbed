@@ -95,7 +95,7 @@
 						}
 						
 						if(prodUrl) {
-							if (isOuter == false) htmlString = htmlString + "&nbsp;/&nbsp;";
+							if (isOuter == false) htmlString = htmlString + "&nbsp;&nbsp;";
 							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
@@ -103,8 +103,6 @@
 						}
 						
 						htmlString = htmlString + '</div>';
-						
-						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
