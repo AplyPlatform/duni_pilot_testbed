@@ -73,42 +73,40 @@
         }
 
         function mountIframe(langset, name, prodUrl, isOuter) {
-            var iframeElement = '<iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe>';
+            var iframeElement = '<div class="video-container"><iframe src="'+videoPopup.embedLink+'" allowfullscreen frameborder="0" width="'+settings.width+'"></iframe></div>';
 
             if(!videoPopup.embedLink) {
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<div class="row">';
+						var htmlString = '<div class="video-info-wrap">';
 						
 						if(name) {
-							htmlString = htmlString + '<div class="col-md-6 text-left"><font color="white"><b>' + name + '</b></font></div>';
+							htmlString = htmlString + '<div class="video-info1">' + name + '</div>';
 						}
 							
-						htmlString = htmlString + '<div class="col-md-6 text-right">';
+						htmlString = htmlString + '<div class="video-info2">';
 																	
 						if(isOuter == false) {							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_detail_click_'
 								+ name + '\', \'CONTENT\', \''
 								+ langset + '\');" href="/center/main.html?page_action=publicrecordlist_detail&record_name='
-								+ encodeURIComponent(name) + '"><font color=cyan>' + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</font></a>';
+								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>'+ "&nbsp;&nbsp;&nbsp;&nbsp;";
 						}
 						
 						if(prodUrl) {
-							if (isOuter == false) htmlString = htmlString + "&nbsp;/&nbsp;";
+							if (isOuter == false) htmlString = htmlString + "&nbsp;&nbsp;";
 							
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + ' target="_new"><font color=cyan>' + (langset == 'KR' ? '구매하기' : 'Purchase') + '</font></a>';	
+								+ langset + '\');" href=' + prodUrl + ' target="_new">' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';	
 						}
 						
 						htmlString = htmlString + '</div>';
 						
-						htmlString = htmlString + '<hr size=1 width=100% color=white></div>';
-						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
-                        		'<span class="videopopupjs__close"></span>'+
+                        		'<div class="videopopupjs__close"><i class="fas fa-times-circle"></i></div>'+
                             iframeElement + 
                             htmlString +
                         '</div>'+
