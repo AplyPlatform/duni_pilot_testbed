@@ -79,31 +79,34 @@
                 iframeElement = '<div class="videopopupjs__block--notfound">Video not found</div>';
             }
 		
-						var htmlString = '<div class="video-info-wrap">';
+						var htmlString = '<div class="video-info-wrap"><div class="video-info1">';
 						
 						if(name) {
-							htmlString = htmlString + '<div class="video-info1">' + name + '</div>';
+								htmlString = htmlString + name;
 						}
 						
+						htmlString = htmlString + '<div class="video-info1-sub">';
+								
 						if (videoAddress) {
-							htmlString = htmlString + '<div class="video-info1-sub">' + videoAddress ;
+								htmlString = htmlString + videoAddress;
 						}
 						
-						if (isOuter == false) {
-							if(owner) {
-								htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
-								+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
-								+ owner + '"><font color=cyan>' + owner + '</font></a>';
-							}						
-							
-							htmlString = htmlString + '</div>';
+						htmlString = htmlString + '</div></div>'; //sub1, info1
 						
-							htmlString = htmlString + '<div class="video-info2">';
-							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
-								+ name + '\', \'CONTENT\');" href="/center/main.html?page_action=' + (isPublic == "public" ? "public" : '') + 'recordlist_detail&record_name='
-								+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>' + "&nbsp;&nbsp;&nbsp;&nbsp;";
+						htmlString = htmlString + '<div class="video-info2"><div class="video-info2-sub">';
+								
+						if (isOuter == false) { //내부 db
+									if(owner) {
+										htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
+										+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
+										+ owner + '"><font color=cyan>' + owner + '</font></a>';
+									}						
+																																				
+									htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
+										+ name + '\', \'CONTENT\');" href="/center/main.html?page_action=' + (isPublic == "public" ? "public" : '') + 'recordlist_detail&record_name='
+										+ encodeURIComponent(name) + '">' + '<i class="fas fa-file-alt"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '상세보기' : 'Detailed View') + '</a>' + "&nbsp;&nbsp;&nbsp;&nbsp;";
 						}
-						
+								
 						if(prodUrl && prodUrl != "") {                  												
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
@@ -115,7 +118,7 @@
 								+ langset + '\');" href="https://duni.io/index.php?page=contact" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
             }
 						
-						htmlString = htmlString + '</div>';
+						htmlString = htmlString + '</div></div>';
 						
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
