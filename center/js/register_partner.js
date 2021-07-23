@@ -84,6 +84,11 @@ function checkPartnerApplicationData(form_id) {
 		return false;
 	}
 	
+	if (g_b_phonenumber_verified == false) {
+		showAlert("전화번호 인증을 완료해 주세요.");
+		return false;
+	}
+	
 	if ($(form_id).find("#agree_1").length > 0 && $(form_id).find("#agree_1").is(":checked") == false) {
 		showAlert("이용약관 및 개인정보 처리방침에 동의해주세요.");
 		return false;
