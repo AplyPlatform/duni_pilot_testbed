@@ -5,16 +5,16 @@
 function checkPartnerApplicationData(form_id) {
 
 	var min_type = "";
-	if( $(form_id).find('input[name="min_type_1"]').is(":checked")) {
+	if( $("#min_type_1").is(":checked")) {
 		min_type = "방제";
 	}
 
-	if( $(form_id).find('input[name="min_type_2"]').is(":checked")) {
+	if( $("#min_type_2").is(":checked")) {
 		if (min_type == "") min_type = "촬영";
 		else min_type = min_type + ",촬영";
 	}
 
-	if( $(form_id).find('input[name="min_type_3"]').is(":checked")) {
+	if( $("#min_type_3").is(":checked")) {
 		if (min_type == "") min_type = "교육";
 		else min_type = min_type + ",교육";
 	}
@@ -23,8 +23,7 @@ function checkPartnerApplicationData(form_id) {
 		showAlert("분야를 선택하세요.");
 		return false;
 	}
-
-	$(form_id).find('input[name="form_kind"]').val("파트너");
+	
 	$(form_id).find('input[name="min_type"]').val(min_type);
 	
 	
@@ -183,6 +182,9 @@ function sendApplicationData(form_id)
 		$(form_id).append(ref);		
 	}
 
+	ref = $('<input type="hidden" value="파트너" name="form_kind">');
+	$(form_id).append(ref);
+	
 	var sed = new FormData($(form_id)[0]);
 				
 	$.ajax({
