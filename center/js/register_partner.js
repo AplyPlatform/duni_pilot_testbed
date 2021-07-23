@@ -198,9 +198,7 @@ function sendApplicationData(fd)
     contentType: false,
     cache: false,
 		success: function (data) {			
-			if (data.result == "success") {				
-				
-				$(form_id)[0].reset();				
+			if (data.result == "success") {								
 				
 				var from_page = getCookie("from_page");
 				showAskDialog(
@@ -227,9 +225,7 @@ function sendApplicationData(fd)
 					showAlert(data.message);
 				}
 				else showAlert("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다. (" + data.message + ")");
-			}
-			
-			$(form_id + " input").last().remove();
+			}						
 		},
 		error: function(jqXHR, text, error){			
 			showAlert("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.");
