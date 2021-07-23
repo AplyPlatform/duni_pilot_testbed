@@ -445,7 +445,7 @@ function initPilotCenter() {
     }
     
     //한국, 파트너 아닌 대상만 파트너 가입
-    if (getCookie("user_kind") != "partner" && langset == "KR"){
+    if (getCookie("user_kind") != "partner" && g_str_cur_lang == "KR"){
     	$("#partner_register_top_menu").show();
     }
     else {
