@@ -354,6 +354,11 @@ function initPilotCenter() {
             monitorInit();
         });
     }
+    else if (g_str_page_action == "partner_register") {
+        $("#main_contents").load("partner_register.html", function () {
+            partnerRegisterInit();
+        });
+    }
     else if (g_str_page_action == "recordupload") {
         $("#main_contents").load("record_upload.html", function () {
             flightrecordUploadInit();
@@ -520,6 +525,11 @@ function centerInit() {
     getDUNIServiceRequest();
 }
 
+
+function partnerRegisterInit() {
+	
+	
+}
 
 function designInit() {
 		map2DInit();
