@@ -359,13 +359,13 @@ function initPilotCenter() {
     			showAskDialog(
 			          GET_STRING_CONTENT('modal_title'),
 			          "이미 파트너 신청을 완료 하셨습니다.",
-			          GET_STRING_CONTENT('modal_yes_btn'),
+			          GET_STRING_CONTENT('modal_confirm_btn'),
 			          false,
 			          function () { 
 			          	 history.back();
 			          	 return;
 			          },
-			          function () {}
+			          null
 			      );
     			return;	
     		}
