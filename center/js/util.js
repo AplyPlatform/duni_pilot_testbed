@@ -98,6 +98,7 @@ function ajaxRequest(data, callback, errorcallback) {
         			setCookie("dev_user_id", "", -1);
 					    setCookie("user_token", "", -1);
 					    setCookie("dev_token", "", -1);
+					    setCookie("user_kind", "", -1);
 					    setCookie("device_kind", "", -1);
 					    setCookie("device_id", "", -1);
 			        setCookie("user_email", "", -1);
@@ -138,6 +139,7 @@ function logOut() {
         setCookie("dev_user_id", "", -1);
 		    setCookie("user_token", "", -1);
 		    setCookie("dev_token", "", -1);
+		    setCookie("user_kind", "", -1);
 		    setCookie("device_kind", "", -1);
 		    setCookie("device_id", "", -1);
         setCookie("user_email", "", -1);
@@ -154,6 +156,7 @@ function logOut() {
     }, function (request, status, error) {
         setCookie("dev_user_id", "", -1);
         setCookie("user_token", "", -1);
+        setCookie("user_kind", "", -1);
         setCookie("dev_token", "", -1);
         setCookie("device_kind", "", -1);
         setCookie("device_id", "", -1);

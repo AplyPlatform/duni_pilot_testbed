@@ -172,7 +172,7 @@ function execDaumPostcode() {
 
 function sendApplicationData(form_id)
 {	
-	var ref = $('<input type="hidden" value="' + referrer_site + '" name="ref">');	
+	var ref = $('<input type="hidden" value="https://pilot.duni.io" name="ref">');	
 	$(form_id).append(ref);	
 	ref = $('<input type="hidden" value="' + getCookie("dev_user_id") + '" name="clientid">');
 	$(form_id).append(ref);
@@ -207,12 +207,18 @@ function sendApplicationData(form_id)
 				$(form_id)[0].reset();				
 				
 				var from_page = getCookie("from_page");
-				var targetUrl = null;
-				if (isSet(from_page) && getQueryVariable("page") != from_page) {
-					targetUrl = "/index.php?page=" + from_page;
-				}
-				
-				showAlert("신청이 완료되었습니다. DUNI가 검토 후에 연락드리겠습니다!");
+				showAskDialog(
+					        GET_STRING_CONTENT('modal_title'),
+					        "신청이 완료되었습니다. DUNI가 검토 후에 연락드리겠습니다!",
+					        GET_STRING_CONTENT('modal_confirm_btn'),
+					        false,
+					        function () { 					        	
+					        	setTimeout(function () { 
+					        		location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=center";
+					        	}, 800);
+					        },
+					        null					        
+					    );
 			}
 			else {
 				if (data == null || data.message == null) {

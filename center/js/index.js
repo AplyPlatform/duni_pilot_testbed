@@ -302,6 +302,7 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("user_token", r.token, 1);
             setCookie("user_email", r.socialid, 1);
             setCookie("dev_token", r.dev_token, 1);
+            setCookie("user_kind", r.user_kind, 1);
             setCookie("image_url", temp_image, 1);
 
             let page_action = getCookie("last_action");

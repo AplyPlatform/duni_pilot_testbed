@@ -355,6 +355,21 @@ function initPilotCenter() {
         });
     }
     else if (g_str_page_action == "partner_register") {
+    		if (getCookie("user_kind") == "partner") {
+    			showAskDialog(
+			          GET_STRING_CONTENT('modal_title'),
+			          GET_STRING_CONTENT('이미 파트너 신청을 완료 하셨습니다.'),
+			          GET_STRING_CONTENT('modal_yes_btn'),
+			          false,
+			          function () { 
+			          	 history.back();
+			          	 return;
+			          },
+			          function () {}
+			      );
+    			return;	
+    		}
+    		
         $("#main_contents").load("partner_register.html", function () {
             partnerRegisterInit();
         });
