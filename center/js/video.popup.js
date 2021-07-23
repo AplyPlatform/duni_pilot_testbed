@@ -128,6 +128,8 @@
         $(this).on('click', function (event) {
             event.preventDefault();
             
+            $("body").addClass("videopopup-open");
+            
             var videoUrl = $(this).attr("video-url");
             var videoIframe = mountEmbedLink(videoUrl);
             var videoProdUrl = $(this).attr("video-prod-url");
@@ -156,8 +158,9 @@
                 }, 200);
             }
 
-            $(".videopopupjs, .videopopupjs__close").click(function(){
+            $(".videopopupjs, .videopopupjs__close").click(function(){            		
                 $(".videopopupjs").addClass("videopopupjs--hide").delay(515).queue(function() { $(this).remove(); });
+                $("body").removeClass("videopopup-open");
             });
         });
 

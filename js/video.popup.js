@@ -120,6 +120,8 @@
         $(this).on('click', function (event) {
             event.preventDefault();
             
+            $("body").addClass("videopopup-open");
+            
             var videoUrl = $(this).attr("video-url");
             var videoIframe = mountEmbedLink(videoUrl);
             var videoProdUrl = $(this).attr("video-prod-url");            
@@ -146,6 +148,7 @@
 
             $(".videopopupjs, .videopopupjs__close").click(function(){
                 $(".videopopupjs").addClass("videopopupjs--hide").delay(515).queue(function() { $(this).remove(); });
+                $("body").removeClass("videopopup-open");
             });
         });
 
