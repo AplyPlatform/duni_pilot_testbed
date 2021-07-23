@@ -78,7 +78,14 @@ function checkPartnerApplicationData() {
 		showAlert("상세주소를 입력해 주세요.");
 		return null;
 	}
+	
 	fd.append("detail_address", $("input[name='detail_address']").val());
+	
+	if ($('input[name="address"]').val() == "") {
+		showAlert("주소를 입력해 주세요.");
+		return null;
+	}	
+	fd.append("address", $("input[name='address']").val());
 		
 	fd.append("form_sns_token", getCookie("dev_sns_token"));
 	fd.append("form_sns_kind", getCookie("dev_kind"));
