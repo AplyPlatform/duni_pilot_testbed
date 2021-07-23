@@ -3,7 +3,7 @@
 "use strict";
 
 var g_b_monitor_started;
-var g_b_phonenumber_verified = true;
+var g_b_phonenumber_verified = false;
 var g_b_interval_timer;
 
 var g_cur_2D_mainmap;
