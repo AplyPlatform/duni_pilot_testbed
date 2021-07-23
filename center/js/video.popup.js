@@ -118,7 +118,7 @@
 						
             return '<div class="videopopupjs videopopupjs--animation">'+
                         '<div class="videopopupjs__content">'+                            
-                        		'<span class="videopopupjs__close"></span>'+
+                        		'<div class="videopopupjs__close"><i class="fas fa-times-circle"></i></div>'+
                             iframeElement + 
                             htmlString +
                         '</div>'+
