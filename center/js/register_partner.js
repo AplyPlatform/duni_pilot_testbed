@@ -30,37 +30,37 @@ function checkPartnerApplicationData() {
 		showAlert("사업자 상태를 선택하세요. (개인사업자 또는 법인사업자)");
 		return null;
 	}
-	fd.append("p_type", $("input:radio[name='p_type']:checked").attr('id'));
+	fd.append("p_type", $("input:radio[name='p_type']:checked").val());
 	
 	if ($("input:radio[name='p_reg_biz']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 사용사업 등록 여부를 선택하세요.");
 		return null;
 	}	
-	fd.append("p_reg_biz", $("input:radio[name='p_reg_biz']:checked").attr('id'));
+	fd.append("p_reg_biz", $("input:radio[name='p_reg_biz']:checked").val());
 	
 	if ($("input:radio[name='p_reg_mac']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 신고 여부를 선택하세요.");
 		return null;
 	}	
-	fd.append("p_reg_mac", $("input:radio[name='p_reg_mac']:checked").attr('id'));
+	fd.append("p_reg_mac", $("input:radio[name='p_reg_mac']:checked").val());
 	
 	if ($("input:radio[name='p_reg_safe']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 안정성인증서 여부를 선택하세요.");
 		return null;
 	}	
-	fd.append("p_reg_safe", $("input:radio[name='p_reg_safe']:checked").attr('id'));
+	fd.append("p_reg_safe", $("input:radio[name='p_reg_safe']:checked").val());
 	
 	if ($("input:radio[name='p_reg_cert']:checked").attr('id') === undefined) {
 		showAlert("조종자 자격 증명서 여부를 선택하세요.");
 		return null;
 	}	
-	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").attr('id'));
+	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").val());
 	
 	if ($("input:radio[name='p_reg_ins']:checked").attr('id') === undefined) {
 		showAlert("보험 가입 여부를 선택하세요.");
 		return null
 	}	
-	fd.append("p_reg_ins", $("input:radio[name='p_reg_ins']:checked").attr('id'));
+	fd.append("p_reg_ins", $("input:radio[name='p_reg_ins']:checked").val());
 	
 	if ($("input[name='form_name']").val() == "") {
 		showAlert("이름 또는 업체명을 입력하세요.");
