@@ -4764,7 +4764,7 @@ function verifyCode(verification_code){
           $('#verification_code').val("");
           $('#validate_phonenumber_area').hide();
           $("#code_verification_input").hide();
-					owAlert(GET_STRING_CONTENT('msg_phone_verified'));
+					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
 					if (g_b_interval_timer >= 0)
 						clearInterval(g_b_interval_timer);
           $('#auth_code').val(data.auth_code);										
