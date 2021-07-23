@@ -259,4 +259,28 @@ $(function () {
 	            
 	    verifyPhoneNo($('#user_phonenumber').val());
 	});
+	
+	$('#privacy_policy_view').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('privacy_policy_view', 'CONTENT');
+	            
+	    $.get("/privacy_KR_raw.html", function(html_string){
+      	showAlert(html_string);
+   		});
+	});
+	
+	$('#tos_view').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('tos_view', 'CONTENT');
+	            
+	    $.get("/service_KR_raw.html", function(html_string){
+      	showAlert(html_string);
+   		});
+	});
+	
+	  
+
+
 });	
