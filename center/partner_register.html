@@ -13,7 +13,7 @@
         </div>
     </div>
   </div>
-  <div class="col-xl-6 col-md-6 mb-4">
+  <div class="col-xl-12 col-md-6 mb-4">
       <div class="card shadow mb-2">        
         <div class="card-body">
         			<form role="form" method="post" id="partner" enctype="multipart/form-data">
@@ -47,19 +47,13 @@
                           <div class="form-group">
                               <input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">
                               <input type="hidden" name="min_type" value="모니터링">
-                    	<input type="hidden" name="form_kind" value="파트너">
+                    					<input type="hidden" name="form_kind" value="파트너">
                               <p class="help-block text-danger"></p>
                           </div>
                       </div>
                       <div class="col-lg-6">
                           <div class="form-group">
                               <input class="form-control" type="text" name="form_phone" id="form_phone" placeholder="전화번호(-없이 입력해주세요)" required="">
-                              <p class="help-block text-danger"></p>
-                          </div>
-                      </div>				                                
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <input class="form-control" type="text" name="form_email" id="form_email" placeholder="이메일" required="">
                               <p class="help-block text-danger"></p>
                           </div>
                       </div>
@@ -197,58 +191,4 @@
 				</div>
       </div>
    </div>
-
-   <!-- List -->
-  <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">
-    				<div class="card-body">		            		            	
-									<div class="tab-content nav-tabs-bottom">
-										<div class="tab-pane fade show active mapviewer" id="map2dViewer">
-			            		<div id="mainMap" class="mapviewerIn"></div>
-				            </div>
-				            <div class="tab-pane fade mapviewer" id="map3dViewer">
-				            	<div id="main3dMap" class="mapviewerIn"></div>
-										</div>
-									</div>								
-									
-									<ul class="nav nav-tabs navbar-bottom">
-									 	<li class="nav-item"><a href="#map2dViewer" class="nav-link active" data-toggle="tab" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a></li>
-									  <li class="nav-item"><a href="#map3dViewer" class="nav-link" data-toggle="tab" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a></li>
-									</ul>
-						</div>
-						<div class="card-body">
-								<span id="map_address" class="text-xs font-weight-bold text-primary text-uppercase mb-1"></span>
-						</div>
-						<div class="card-body">
-								<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      		<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																	       <option value="Aerial" id="Aerial_label">Aerial</option>
-																	       <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
-																	       <option value="Road" id="Road_label">Road</option>
-													</select>
-											</div>
-                    </div>
-                    <div class="col mr-2">
-                      <div class="row">
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
-                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="pitch_label">Pitch <span id="pitchText"></span></div>
-                      </div>
-                      <div class="row">
-                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
-                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
-                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
-											</div>
-                    </div>
-                </div>
-						</div>
-
-						<div class="card-body">
-              <span id="monitor"></span>
-						</div>
-    </div>
-  </div>
 </div>
