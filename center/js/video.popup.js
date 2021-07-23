@@ -93,8 +93,9 @@
 							if(owner) {
 								htmlString = htmlString + ' / <a onclick="GATAGM(\'flight_list_map_video_email_click_'
 								+ owner + '\', \'CONTENT\');" href="/center/main.html?page_action=publicrecordlist&user_email='
-								+ owner + '"><font color=cyan>' + owner + '</font></a></div>';
+								+ owner + '"><font color=cyan>' + owner + '</font></a>';
 							}						
+						htmlString = htmlString + '</div>';
 						
 							htmlString = htmlString + '<div class="video-info2">';
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_map_video_detail_click_'
