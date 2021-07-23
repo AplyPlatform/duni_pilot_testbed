@@ -847,9 +847,32 @@
 		      
 			  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);			
 					$("#video-pop-view").attr("video-lang", langset);
-					$("#video-pop-view").attr("video-name", name);
-					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+					$("#video-pop-view").attr("video-name", name);					
 					$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
+					
+					if (r.data.prod_url) {
+						$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+					}
+					else {
+						$("#video-pop-view").attr("video-prod-url", "");
+					}
+					
+					$("#video-pop-view").attr("video-name", name);				
+					
+					if (r.data.owner_email) {
+						$("#video-pop-view").attr("video-owner", r.data.owner_email);
+					}
+					else {
+						$("#video-pop-view").attr("video-owner", "");
+					}
+					
+					if (r.data.outer) {
+						$("#video-pop-view").attr("video-outer", r.data.outer);
+					}
+					else {
+						$("#video-pop-view").attr("video-outer", "");
+					}
+					
 					
 					if (isVideoPopupInit == false) {
 						$("#video-pop-view").videoPopup();

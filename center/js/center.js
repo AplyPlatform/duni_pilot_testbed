@@ -2371,10 +2371,30 @@ function getFlightRecordInfo(name) {
 
 		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
 				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
-				$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+				
+				if (r.data.prod_url) {
+					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+				}
+				else {
+					$("#video-pop-view").attr("video-prod-url", "");
+				}
+				
 				$("#video-pop-view").attr("video-name", name);				
-				$("#video-pop-view").attr("video-owner", r.data.owner_email);
-				$("#video-pop-view").attr("video-outer", r.data.outer);
+				
+				if (r.data.owner_email) {
+					$("#video-pop-view").attr("video-owner", r.data.owner_email);
+				}
+				else {
+					$("#video-pop-view").attr("video-owner", "");
+				}
+				
+				if (r.data.outer) {
+					$("#video-pop-view").attr("video-outer", r.data.outer);
+				}
+				else {
+					$("#video-pop-view").attr("video-outer", "");
+				}
+								
 				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
