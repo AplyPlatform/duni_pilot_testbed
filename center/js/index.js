@@ -1,65 +1,5 @@
 ﻿/* Copyright 2021 APLY Inc. All rights reserved. */
 
-var langset = "KR";
-
-function GATAGM(label, category, language) {
-    gtag(
-        'event', label + "_" + language, {
-        'event_category': category,
-        'event_label': label
-    }
-    );
-
-    mixpanel.track(
-        label + "_" + language,
-        { "event_category": category, "event_label": label }
-    );
-}
-
-function showLoader() {
-    $("#loading").show();
-}
-
-function hideLoader() {
-    $("#loading").fadeOut(800);
-}
-
-function delCoockie(cName) {
-    document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
-}
-
-function setCookie(cName, cValue, cDay) {
-    var date = new Date();
-    date.setTime(date.getTime() + cDay * 60 * 60 * 24 * 1000);
-    document.cookie = cName + '=' + cValue + ';expires=' + date.toUTCString() + ';path=/';
-}
-
-function getCookie(cName) {
-    var value = document.cookie.match('(^|;) ?' + cName + '=([^;]*)(;|$)');
-    return value ? value[2] : null;
-}
-
-function ajaxRequest(data, callback, errorcallback) {
-    $.ajax({
-        url: "https://api.duni.io/v1/",
-        dataType: "json",
-        crossDomain: true,
-        cache: false,
-        data: JSON.stringify(data),
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("droneplay-token", getCookie('user_token'));
-        },
-        success: function (r) {
-            callback(r);
-        },
-        error: function (request, status, error) {
-            monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            errorcallback(request, status, error);
-        }
-    });
-}
 
 function facebookSignInCallback() {
     FB.getLoginStatus(function (response) {
@@ -72,7 +12,7 @@ function facebookSignInCallback() {
                         formSubmit(token, lresponse.name, "https://graph.facebook.com/" + lresponse.id + "/picture?type=normal", lresponse.email);
                     }
                     else {
-                        alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                     }
                 }
             );
@@ -156,13 +96,13 @@ function kakaoLogin() {
 
     				formSubmit(token, name, image, email);
 	        },
-	        fail: function(error) {
-	          alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	        fail: function(error) {	          
+	          showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	        },
 	      })
 	    },
 	    fail: function(err) {
-	      alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	      showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	    },
 	  });
 }
@@ -217,7 +157,7 @@ function appleinit() {
 	//Listen for authorization failures
 	document.addEventListener('AppleIDSignInOnFailure', function (error) {
 	     //handle error.
-	     alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	     showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	});
 }
 
@@ -318,12 +258,12 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             hideLoader();
 
             if (r.reason.indexOf("Error:") >= 0)
-            	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+            	showAlert(GET_STRING_CONTENT('msg_error_sorry'));
             else
             	showConfirmDialog();
         }
     }, function (request, status, error) {
-        showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
         hideLoader();
     });
 
@@ -331,9 +271,9 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
 
 
 function showConfirmDialog() {
-    $('#askModalLabel').text(LANG_JSON_DATA[langset]['modal_title']);
-    $('#askModalContent').text(LANG_JSON_DATA[langset]['msg_you_are_not_member']);
-    $('#askModalOKButton').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
+    $('#askModalLabel').text(GET_STRING_CONTENT('modal_title'));
+    $('#askModalContent').text(GET_STRING_CONTENT('msg_you_are_not_member'));
+    $('#askModalOKButton').text(GET_STRING_CONTENT('modal_confirm_btn'));
     $('#askModalCancelButton').hide();
 
     $('#askModalOKButton').off('click');
@@ -344,40 +284,6 @@ function showConfirmDialog() {
     });
 
     $('#askModal').modal('show');
-}
-
-
-function showAlert(msg) {
-    $('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
-    $('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
-
-    $('#errorModalLabel').text(msg);
-    $('#errorModal').modal('show');
-}
-
-
-function isSet(value) {
-		if ( typeof(value) === 'number' )
-        return true;
-    if (value == "" || value == null || value == "undefined" || value == undefined || value == "null")
-        return false;
-    return true;
-}
-
-function checkLang() {
-    var lang = getCookie("language");
-
-    if (isSet(lang)) {
-        langset = lang;
-    }
-    else {
-        setLang("KR");
-    }
-}
-
-function setLang(lang) {
-    setCookie("language", lang, 1);
-    langset = lang;
 }
 
 $(function () {

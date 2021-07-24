@@ -66,6 +66,21 @@ function runNextSequence(nextfunc) {
 	setTimeout(nextfunc, 500);
 }
 
+function checkLang() {
+    var lang = getCookie("language");
+
+    if (isSet(lang)) {
+        g_str_cur_lang = lang;
+    }
+    else {
+        setLang("KR");
+    }
+}
+
+function setLang(lang) {
+    setCookie("language", lang, 1);
+    g_str_cur_lang = lang;
+}
 
 function isSet(value) {
 		if ( typeof(value) === 'number' )
@@ -265,6 +280,14 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelha
 
     $('#askModal').modal('show');
 
+}
+
+function showAlert(msg) {
+    $('#modal-title').text(GET_STRING_CONTENT('modal_title'));
+    $('#modal-confirm-btn').text(GET_STRING_CONTENT('modal_confirm_btn'));
+
+    $('#errorModalLabel').html(msg);
+    $('#errorModal').modal('show');
 }
 
 function getBase64(params, callback) {

@@ -2411,13 +2411,6 @@ function getCompanyInfo(title, cid) {
 	  });
 }
 
-function showAlert(msg) {
-    $('#modal-title').text(GET_STRING_CONTENT('modal_title'));
-    $('#modal-confirm-btn').text(GET_STRING_CONTENT('modal_confirm_btn'));
-
-    $('#errorModalLabel').html(msg);
-    $('#errorModal').modal('show');
-}
 
 function getAllRecordCount() {
 
