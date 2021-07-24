@@ -285,6 +285,8 @@
 		$('#form_phone').attr("placeholder", GET_STRING_CONTENT('msg_input_phone'));
 		$('#form_email').attr("placeholder", GET_STRING_CONTENT('msg_email_empty'));
 		$('#form_message').attr("placeholder", GET_STRING_CONTENT('fill_message_label'));
+		
+		$('#contact_data_send').text(GET_STRING_CONTENT('msg_qa_send'));		
 						
 		$("#contact_data_send").click(function(e) {
 			e.preventDefault();

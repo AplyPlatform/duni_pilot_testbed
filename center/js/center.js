@@ -220,7 +220,9 @@ function setCommonText() {
     }
     
     $('#contact_us_bottom_label').text(GET_STRING_CONTENT('side_menu_qa'));
-
+    $('#contact_us_bottom_label').attr("href", "/contact" + (g_str_cur_lang == "KR" ? "" : "_EN") + ".html");
+    $('#top_menu_contact').attr("href", "/contact" + (g_str_cur_lang == "KR" ? "" : "_EN") + ".html");
+    
     $('#menu_left_top_title_label').text(GET_STRING_CONTENT('menu_left_top_title_label'));
 
     $('#side_menu_dashboard').text(GET_STRING_CONTENT('side_menu_dashboard'));
