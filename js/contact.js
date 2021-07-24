@@ -327,7 +327,7 @@
 						        false,
 						        function () { 					        	
 						        	setTimeout(function () { 
-						        		location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=center";
+						        		location.href = window.location.origin;
 						        	}, 800);
 						        },
 						        null					        

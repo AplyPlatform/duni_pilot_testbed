@@ -233,61 +233,6 @@ function setCommonText() {
     $('#askModalCancelButton').text(GET_STRING_CONTENT('msg_cancel'));
 }
 
-function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelhandler) {
-
-    if (needInput == true) {
-        $('#askModalInput').show();
-        $('#askModalContent').hide();
-        $('#askModalInput').val("");
-        $("#askModalInput").attr("placeholder", acontent);
-    }
-    else {
-        $('#askModalContent').show();
-        $('#askModalInput').hide();
-    }
-
-    $('#askModalLabel').text(atitle);
-    $('#askModalContent').html(acontent);
-    $('#askModalOKButton').text(oktitle);
-
-
-    if (cancelhandler) {
-      $('#askModalCancelButton').show();
-      $('#askModalCancelButton').off('click');
-      $('#askModalCancelButton').click(function (e) {
-      		e.preventDefault();
-      		
-          cancelhandler();
-      });
-    }
-    else {
-      $('#askModalCancelButton').hide();
-    }
-
-    $('#askModalOKButton').off('click');
-    $('#askModalOKButton').click(function (e) {
-    		e.preventDefault();
-    		
-        $('#askModal').modal('hide');
-        if (needInput == true) {
-            var ret = $('#askModalInput').val();
-
-            if (!isSet(ret)) {
-                showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-                return;
-            }
-
-            okhandler(ret);
-        }
-        else {
-            okhandler();
-        }
-    });
-
-    $('#askModal').modal('show');
-
-}
-
 function setLogoutBtn() {
     $('#btnLogout').click(function (e) {
     		e.preventDefault();
