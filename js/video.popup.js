@@ -102,7 +102,7 @@
             			else {                            
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_qa_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href="https://duni.io/index.php?page=contact" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
+								+ langset + '\');" href="/contact.html" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
                         }
                         
                         htmlString = htmlString + '</div>';
