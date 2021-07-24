@@ -560,15 +560,8 @@ form label {font-weight: normal !important;}
 #gtco-counter .display-tc h1,
 .gtco-cover .display-tc h1 {margin-bottom: 0px; font-size:3.5em; font-weight:600; line-height: 1.5;}
 
-@media screen and (max-width: 767px) {
-  #gtco-header .display-tc h1,
-  #gtco-counter .display-tc h1,
-  .gtco-cover .display-tc h1 {font-size: 34px; line-height: 1.2; margin-bottom: 10px;}
-}
-
-#gtco-header .display-tc h2,
-#gtco-counter .display-tc h2,
-.gtco-cover .display-tc h2 {font-size: 22px; line-height: 1.5; margin-bottom: 30px;}
+#gtco-header .display-tc h2, #gtco-counter .display-tc h2  {font-size: 22px; line-height: 1.5; margin-bottom: 30px;}
+.gtco-cover h2 {font-size:32px; line-height: 1.5; color:#FFF; font-weight:600; padding-top:40px;}
 
 #gtco-counter {text-align: center;}
 #gtco-counter .counter {font-size: 50px; margin-bottom: 10px; color: #17B794; font-weight: 100; display: block;}
@@ -577,6 +570,8 @@ form label {font-weight: normal !important;}
 @media screen and (max-width: 767px) {
   #gtco-counter .feature-center {margin-bottom: 50px;}
   #gtco-header .display-tc h2, #gtco-counter .display-tc h2, .gtco-cover .display-tc h2 {padding:50px 0 0 0;}
+  #gtco-header .display-tc h1, #gtco-counter .display-tc h1 {font-size: 34px; line-height: 1.2; margin-bottom: 10px;}
+  .gtco-cover h2 {font-size:22px;}
 }
 
 #gtco-counter .icon {
