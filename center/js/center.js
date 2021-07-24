@@ -218,6 +218,8 @@ function setCommonText() {
 	    $('#side_menu_flight_record_public_list').text(GET_STRING_CONTENT('side_menu_flight_record_public_list'));
 	    $('#side_menu_compass_embed').text(GET_STRING_CONTENT('side_menu_flight_record_embed_compass'));
     }
+    
+    $('#contact_us_bottom_label').text(GET_STRING_CONTENT('side_menu_qa'));
 
     $('#menu_left_top_title_label').text(GET_STRING_CONTENT('menu_left_top_title_label'));
 
