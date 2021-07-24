@@ -281,7 +281,7 @@ var LANG_JSON_DATA = {
         "side_menu_flight_record_list": "Record List",
         "side_menu_flight_record_public_list": "Public Record list",
         "side_menu_flight_record_embed_compass": "Embed compass",
-        "side_menu_qa": "QnA",
+        "side_menu_qa": "Contact US",
         "side_menu_lab": "Lab",
         "side_menu_dev": "Developer",
         "side_menu_links": "Links",
