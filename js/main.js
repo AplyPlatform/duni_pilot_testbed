@@ -691,7 +691,7 @@
 				}
 
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", g_str_cur_lang);'>홈페이지</a></td>";
 	      }
 
 	      title = title + "</tr></table>";
@@ -728,7 +728,7 @@
     	ii = features[0].get('cindex');
     	if (!isSet(ii)) return;
 
-    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
 
     	var title = features[0].get('cname');
 			var coordinate = evt.coordinate;
@@ -743,7 +743,7 @@
     	return;
     }
 
-    GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
+    GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
 
     var hasYoutube = features[0].get('mhasYoutube');
   		
@@ -764,12 +764,12 @@
 		    	hideLoader();
 		    	
 		      if (r.data == null) {
-		      	showAlert(LANG_JSON_DATA[langset]['msg_no_data']);	
+		      	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);	
 		        return;
 		      }
 		      
 			  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);			
-					$("#video-pop-view").attr("video-lang", langset);
+					$("#video-pop-view").attr("video-lang", g_str_cur_lang);
 					$("#video-pop-view").attr("video-name", name);					
 					$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
 					
@@ -806,7 +806,7 @@
 		    }
 		  },
 		  	function(request,status,error) {
-		  		showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		  		showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
 		  		hideLoader();
 		  });
 	}
@@ -929,7 +929,7 @@
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
 						+ name + "\", \"CONTENT\", \""
-						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ g_str_cur_lang + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (flat != -999) {
@@ -944,7 +944,7 @@
     	});
     }
 
-	  appendRow = appendRow + "<br><small>" + LANG_JSON_DATA[langset]['registered_datetime_label'] + " " + dtimestamp + "</small>";
+	  appendRow = appendRow + "<br><small>" + LANG_JSON_DATA[g_str_cur_lang]['registered_datetime_label'] + " " + dtimestamp + "</small>";
 
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
 	  $('#dataTable-Flight_list').append(appendRow);
@@ -1017,7 +1017,7 @@
 	    hideLoader();
 	    if(r.result == "success") {
 	      if (r.data == null || r.data.length == 0) {
-	        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+	        showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 					hideLoader();
 	        return;
 	      }
@@ -1028,10 +1028,10 @@
 	    }
 	    else {
 	    	if (r.reason == "no data") {
-	    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+	    		showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 	    	}
 	    	else {
-		    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		    	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
 		    }
 
 				hideLoader();
@@ -1049,7 +1049,7 @@
 	    hideLoader();
 	    if(r.result == "success") {
 	      if (r.data == null || r.data.length == 0) {
-	        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+	        showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 					hideLoader();
 	        return;
 	      }
@@ -1060,10 +1060,10 @@
 	    }
 	    else {
 	    	if (r.reason == "no data") {
-	    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+	    		showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 	    	}
 	    	else {
-		    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		    	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
 		    }
 
 				hideLoader();
@@ -1112,7 +1112,7 @@
 			appendRow = appendRow
 							+ "<a onclick='GATAGM(\"flight_search_public_title_click_"
 							+ name + "\", \"CONTENT\", \""
-							+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
+							+ g_str_cur_lang + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
 		}
 						
 		appendRow = appendRow	+ name;
@@ -1135,7 +1135,7 @@
     	});
     }
 
-	  appendRow = appendRow + "<br><small>" + LANG_JSON_DATA[langset]['registered_datetime_label'] + " " + dtimestamp + "</small>";
+	  appendRow = appendRow + "<br><small>" + LANG_JSON_DATA[g_str_cur_lang]['registered_datetime_label'] + " " + dtimestamp + "</small>";
 
 	  appendRow = appendRow + "</div></div></div>"; //col, row, service,
 	  $('#dataTable-Search_list').append(appendRow);
@@ -1179,14 +1179,14 @@
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+                showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
                 hideLoader();
                 return;
             }
 
             if (r.morekey) {
                 hasMore = r.morekey;
-                $('#btnForLoadSearchList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+                $('#btnForLoadSearchList').text(LANG_JSON_DATA[g_str_cur_lang]['msg_load_more']);
                 $('#btnForLoadSearchList').show();
             }
             else {
@@ -1200,10 +1200,10 @@
         }
         else {
             if (r.reason == "no data") {
-                showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+                showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
             }
             else {
-                showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+                showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
             }
 
             hideLoader();
@@ -1228,7 +1228,7 @@
 		    hideLoader();
 		    if(r.result == "success") {
 		      if (r.data == null || r.data.length == 0) {
-		        showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+		        showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 						hideLoader();
 						
 						$("#searchListView").hide();
@@ -1240,7 +1240,7 @@
 					
 		      if (r.morekey) {
               hasMore = r.morekey;
-              $('#btnForLoadSearchList').text(LANG_JSON_DATA[langset]['msg_load_more']);
+              $('#btnForLoadSearchList').text(LANG_JSON_DATA[g_str_cur_lang]['msg_load_more']);
               $('#btnForLoadSearchList').show();
           }
           else {
@@ -1258,10 +1258,10 @@
 		    	$("#searchListView").hide();
 		    	
 		    	if (r.reason == "no data") {
-		    		showAlert(LANG_JSON_DATA[langset]['msg_no_data']);
+		    		showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 		    	}
 		    	else {
-			    	showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+			    	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
 			    }
 	
 					hideLoader();
@@ -1313,20 +1313,20 @@
 
 		$("#searchKeyword").keypress(function(e) {
         if (e.which == 13){
-        		GATAGM('btnSearchEnter', 'CONTENT', langset);
+        		GATAGM('btnSearchEnter', 'CONTENT', g_str_cur_lang);
         		requestSearch();  //
         }
     });
         
     $("#btnSearchMovie").click(function (e) {
     		e.preventDefault();
-    		GATAGM('btnSearchMovie', 'CONTENT', langset);
+    		GATAGM('btnSearchMovie', 'CONTENT', g_str_cur_lang);
         requestSearch();  //
     });
     
     $('#btnForLoadSearchList').click(function (e) {
     		e.preventDefault();    		
-        GATAGM('btnForLoadSearchList', 'CONTENT', langset);
+        GATAGM('btnForLoadSearchList', 'CONTENT', g_str_cur_lang);
         getFlightSearchMore();
     });
 	}
