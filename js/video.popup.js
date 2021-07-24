@@ -97,12 +97,12 @@
 						if(prodUrl && prodUrl != "") {                  												
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_prod_url_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href=' + prodUrl + '>' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';
+								+ langset + '\');" href=' + prodUrl + ' target="_blank">' + '<i class="fas fa-shopping-cart"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '구매하기' : 'Purchase') + '</a>';
 						}
             			else {                            
 							htmlString = htmlString + '<a onclick="GATAGM(\'flight_list_public_map_video_qa_click_'
 								+ name + '\', \'CONTENT\', \''
-								+ langset + '\');" href="/contact.html" target=_black>' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
+								+ langset + '\');" href="/contact.html">' + '<i class="fas fa-comments"></i>' + "&nbsp;&nbsp;" + (langset == 'KR' ? '문의하기' : 'Contact us') + '</a>';
                         }
                         
                         htmlString = htmlString + '</div>';
