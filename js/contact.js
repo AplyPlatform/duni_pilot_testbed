@@ -1,6 +1,6 @@
 ﻿/* Copyright 2021 APLY Inc. All rights reserved. */
 
-"use strict";
+  "use strict";
 
 	var mobileMenuOutsideClick = function() {
 
@@ -280,7 +280,12 @@
 	  );
 	}	
 	
-	function initContact() {
+	function initContact() {		
+		$('#form_name').attr("placeholder", GET_STRING_CONTENT('name_label'));
+		$('#form_phone').attr("placeholder", GET_STRING_CONTENT('msg_input_phone'));
+		$('#form_email').attr("placeholder", GET_STRING_CONTENT('msg_email_empty'));
+		$('#form_message').attr("placeholder", GET_STRING_CONTENT('fill_message_label'));
+						
 		$("#contact_data_send").click(function(e) {
 			e.preventDefault();
 					
@@ -322,7 +327,7 @@
 					var from_page = getCookie("from_page");
 					showAskDialog(
 						        GET_STRING_CONTENT('modal_title'),
-						        "신청이 완료되었습니다. DUNI가 검토 후에 연락드리겠습니다!",
+						        GET_STRING_CONTENT('msg_request_is_accepted'),
 						        GET_STRING_CONTENT('modal_confirm_btn'),
 						        false,
 						        function () { 					        	
@@ -335,16 +340,16 @@
 				}
 				else {
 					if (data == null || data.message == null) {
-						showAlert("죄송합니다, 오류가 발생하였습니다. 다시 시도 부탁드립니다.");
+						showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 					}					
 					else if (data.sendstatus == 9) {
 						showAlert(data.message);
 					}
-					else showAlert("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다. (" + data.message + ")");
+					else showAlert(GET_STRING_CONTENT('msg_error_sorry') +  " (" + data.message + ")");
 				}						
 			},
 			error: function(jqXHR, text, error){			
-				showAlert("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.");
+				showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 			}
 		});
 	}
@@ -353,7 +358,7 @@
 		var fd = new FormData();
 				
 		if ($('#form_name').val() == "") {
-			showAlert("이름을 입력해 주세요.");
+			showAlert(GET_STRING_CONTENT('msg_input_name'));
 			return null;
 		}
 		fd.append("form_name", $("#form_name").val());
@@ -366,13 +371,13 @@
 		}
 		
 		if ($("#form_email").val() == "") {
-			showAlert("이메일을 입력해 주세요.");
+			showAlert(GET_STRING_CONTENT('msg_input_email'));
 			return null;
 		}
 		fd.append("form_email", $("#form_email").val());
 						
 		if ($("#form_message").val() == "") {
-			showAlert("문의사항을 입력해 주세요.");
+			showAlert(GET_STRING_CONTENT('fill_message_label'));
 			return null;
 		}	
 		fd.append("form_message", $("#form_message").val());		
