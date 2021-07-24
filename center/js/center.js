@@ -4817,22 +4817,6 @@ function verifyCode(verification_code){
 }
 
 
-
-// 전화번호 인증 혜지프로
-function validateNumber(event) {
-    var key = window.event ? event.keyCode : event.which;
-    if (event.keyCode === 8 || event.keyCode === 46) {
-        return true;
-    } else if ( key < 48 || key > 57 ) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-    
-
-// 인증기간 타이머 혜지프로
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     g_b_interval_timer = setInterval(function () {
