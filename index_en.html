@@ -73,7 +73,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	<body>
 
 		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
+		<script>
+			
+			(function(d, s, id) {
   			var js, fjs = d.getElementsByTagName(s)[0];
   			if (d.getElementById(id)) return;
   			js = d.createElement(s); js.id = id;
@@ -90,13 +92,14 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
     				version          : 'v3.5'
   				});
 
-  		document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
-				FB.login(facebookSignInCallback);
-			}, false);
-			
-			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
-				FB.login(facebookSignInCallback);
-			}, false);
+		  		document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+						FB.login(facebookSignInCallback);
+					}, false);
+					
+					document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+						FB.login(facebookSignInCallback);
+					}, false);
+			};
 		</script>
 
 	<div id="loading">
