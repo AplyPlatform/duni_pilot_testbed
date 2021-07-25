@@ -133,14 +133,14 @@ function appleinit() {
   			const buttonElement1 = document.getElementById('appleLoginBtn1');
         buttonElement1.addEventListener('click', function() {
             AppleID.auth.signIn();
-        });
+        }, false);
 	}
 	
 	if (document.getElementById('appleLoginBtn2')) {
   			const buttonElement2 = document.getElementById('appleLoginBtn2');
         buttonElement2.addEventListener('click', function() {
             AppleID.auth.signIn();
-        });
+        }, false);
 	}
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
