@@ -485,8 +485,7 @@
 	        	if (!feature) return;
 
 				    var size = feature.get('features').length;
-				    var radius;
-				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+				    var radius = (size == 1 ? 8 : 10 + (size * 0.1));
 				    var style = styleCacheForCompany[size];
 				    if (!style) {				    	
 				    		if (size == 1) {
@@ -715,28 +714,32 @@
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0 || count >= 2) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
+		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {			
+				map.getView().animate({
+				  zoom: map.getView().getZoom() + 1,
+				  duration: 250
+				})
+				return;			
 		}
-
-    var ii = features[0].get('mindex');
+		
+		let coord = evt.coordinate;
+		
+		features.forEach(function(f) {
+			displayMapFeature(f, coord);
+		});    
+	}
+	
+	function displayMapFeature(f, coordinate) {
+		var ii = f.get('mindex');
     if (!isSet(ii)) {
-    	ii = features[0].get('cindex');
+    	ii = f.get('cindex');
     	if (!isSet(ii)) return;
 
     	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
 
-    	var title = features[0].get('cname');
-			var coordinate = evt.coordinate;
-
-			if (count > 1)
-				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
-			else
-				title = '<p>' + title + '</p>';
+    	var title = f.get('cname');			
+			
+			title = '<p>' + title + '</p>';
 
 		  overlay.setPosition(coordinate);
     	getCompanyInfo(title, ii);
@@ -745,10 +748,10 @@
 
     GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
 
-    var hasYoutube = features[0].get('mhasYoutube');
+    var hasYoutube = f.get('mhasYoutube');
   		
 		if (hasYoutube) {
-			var name = features[0].get('mname');
+			var name = f.get('mname');
 			getFlightRecordInfo(name);
 		}
 	}
