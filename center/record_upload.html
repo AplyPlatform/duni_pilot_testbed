@@ -34,6 +34,13 @@
 											</div>											
 										</div>
 		        			</div>
+		        			<div class="row" id="youtube_address_only_area">
+		        				<div class="col-md-12">
+		        					<div class="form-group">
+		        						<a id="label_youtube_address_only" class="text-xs text-default mb-1">영상의 유튜브 주소를 입력하기</a>
+		        					</div>
+		        				</div>
+		        			</div>
 		        			<div class="row" id="nextStageBtnArea">
 		        				<div class="col-md-12">
 		        					<hr size="1" color="#fefefe">
@@ -43,13 +50,16 @@
 		            	<div id="uploadfileform" class="form-group">
 		            			<div class="row">
 			            				<div class="col-md-12">
-							              <label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
-					            			<input name="record_name_field" type="text" class="form-control" id="record_name_field">
+			            					<div class="form-group">
+							              	<label for="record_name_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="name_label">비행기록 이름</label>
+					            				<input name="record_name_field" type="text" class="form-control" id="record_name_field">
+					            			</div>
 					            			<hr color="#eee">
 					            		</div>
 					            </div>
 			            		<div class="row" id="video_upload_kind_sel">
 			            				<div class="col-md-12">
+			            					<div class="form-group">
 						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
 			  											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
 			  											&nbsp;&nbsp;
@@ -58,6 +68,7 @@
 			  											&nbsp;&nbsp;
 						            			<input type="radio" name="media_upload_kind" value="tab_menu_set_no_video" onclick="GATAGM('tab_menu_set_no_video', 'CONTENT');">
 			  											<label id="tab_menu_set_no_video" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_no_video">영상 없음</label>
+			  										</div>
 			  									</div>
 		  								</div>
 
