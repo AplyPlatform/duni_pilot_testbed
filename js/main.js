@@ -745,7 +745,7 @@
 
     	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
     	
-			let title = '<div class="row"><a href="#" id="temp_feature_item_' + index + '"><p>' + (index + 1) + " : " + f.get('cname') + '</p></a></div>';
+			let title = '<div class="row"><a id="temp_feature_item_' + index + '"><p>' + (index + 1) + " : " + f.get('cname') + '</p></a></div>';
 		  overlay.setPosition(coordinate);
 		  
 		  content.innerHTML = content.innerHTML + title;
@@ -764,7 +764,7 @@
 		if (hasYoutube) {
 			var name = f.get('mname');
 						
-			let title = '<div class="row"><a href="#" id="temp_youtube_item_' + index + '"><p>' + (index + 1) + " : " + name + '</p></a></div>';
+			let title = '<div class="row"><a id="temp_youtube_item_' + index + '"><p>' + (index + 1) + " : " + name + '</p></a></div>';
 		  overlay.setPosition(coordinate);
 		  
 		  content.innerHTML = content.innerHTML + title;
