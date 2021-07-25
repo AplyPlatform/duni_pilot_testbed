@@ -2270,43 +2270,94 @@ function processMapClick(map, evt, feature, overlay) {
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0 || count >= 2) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
+		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {			
+				map.getView().animate({
+				  zoom: map.getView().getZoom() + 1,
+				  duration: 250
+				})
+				return;			
 		}
+		
+		let coord = evt.coordinate;
+		
+		if (count > 1) {		
+			content.innerHTML = "";
+			features.forEach(function(f, index, arr) {
+				displayListFeature(f, index, coord, overlay);
+			});    
+		}
+		else {
+			content.innerHTML = "";
+			displayMapFeature(features[0], coord, overlay);
+		}    
+}
 
-    var ii = features[0].get('mindex');
+
+	function displayListFeature(f, index, coordinate, overlay) {
+		var ii = f.get('mindex');
+				
     if (!isSet(ii)) {
-    	ii = features[0].get('cindex');
+    	ii = f.get('cindex');
     	if (!isSet(ii)) return;
 
-    	GATAGM("vMap_cindex_" + ii, "CONTENT");
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
+    	
+			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
+		  overlay.setPosition(coordinate);
+		  
+		  content.innerHTML = content.innerHTML + title;
+		  
+    	//
+    	$('#temp_feature_item_' + index).click(function(e) {
+    		getCompanyInfo(title, ii);
+    	});
+    	return;
+    }
 
-    	var title = features[0].get('cname');
-			var coordinate = evt.coordinate;
+    GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
 
-			if (count > 1)
-				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
-			else
-				title = '<p>' + title + '</p>';
+    var hasYoutube = f.get('mhasYoutube');
+  		
+		if (hasYoutube) {
+			var name = f.get('mname');
+						
+			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
+		  overlay.setPosition(coordinate);
+		  
+		  content.innerHTML = content.innerHTML + title;
+		  
+    	//
+    	$('#temp_youtube_item_' + index).click(function(e) {
+    		getFlightRecordInfo(name);
+    	});			
+		}
+	}
+	
+	function displayMapFeature(f, coordinate, overlay) {
+		var ii = f.get('mindex');
+    if (!isSet(ii)) {
+    	ii = f.get('cindex');
+    	if (!isSet(ii)) return;
 
+    	GATAGM("vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
+
+    	var title = f.get('cname');			
+			
+			title = '<p>' + title + '</p>';			
 		  overlay.setPosition(coordinate);
     	getCompanyInfo(title, ii);
     	return;
     }
 
-    GATAGM("vMap_" + ii, "CONTENT");
+    GATAGM("vMap_" + ii, "CONTENT", g_str_cur_lang);
 
-    var hasYoutube = features[0].get('mhasYoutube');
-
-  	if (hasYoutube) {
-  		var name = features[0].get('mname');
+    var hasYoutube = f.get('mhasYoutube');
+  		
+		if (hasYoutube) {
+			var name = f.get('mname');
 			getFlightRecordInfo(name);
-  	}
-}
+		}
+	}
 
 var isVideoPopupInit = false;
 function getFlightRecordInfo(name) {
