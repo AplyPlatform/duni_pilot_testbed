@@ -2281,13 +2281,13 @@ function processMapClick(map, evt, feature, overlay) {
 		let coord = evt.coordinate;
 		
 		if (count > 1) {		
-			content.innerHTML = "";
+			g_content_2D_map_for_popup.innerHTML = "";
 			features.forEach(function(f, index, arr) {
 				displayListFeature(f, index, coord, overlay);
 			});    
 		}
 		else {
-			content.innerHTML = "";
+			g_content_2D_map_for_popup.innerHTML = "";
 			displayMapFeature(features[0], coord, overlay);
 		}    
 }
@@ -2305,7 +2305,7 @@ function processMapClick(map, evt, feature, overlay) {
 			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
 		  overlay.setPosition(coordinate);
 		  
-		  content.innerHTML = content.innerHTML + title;
+		  g_content_2D_map_for_popup.innerHTML = g_content_2D_map_for_popup.innerHTML + title;
 		  
     	//
     	$('#temp_feature_item_' + index).click(function(e) {
@@ -2324,7 +2324,7 @@ function processMapClick(map, evt, feature, overlay) {
 			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
 		  overlay.setPosition(coordinate);
 		  
-		  content.innerHTML = content.innerHTML + title;
+		  g_content_2D_map_for_popup.innerHTML = g_content_2D_map_for_popup.innerHTML + title;
 		  
     	//
     	$('#temp_youtube_item_' + index).click(function(e) {
