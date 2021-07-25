@@ -748,7 +748,7 @@
 			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
 		  overlay.setPosition(coordinate);
 		  
-		  content.innerHTML = content.innerHTML + title;
+		  $("#popup-content").append(title);
 		  
     	//
     	$('#temp_feature_item_' + index).click(function(e) {
@@ -764,10 +764,10 @@
 		if (hasYoutube) {
 			var name = f.get('mname');
 						
-			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
+			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + index + '"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
 		  overlay.setPosition(coordinate);
-		  
-		  content.innerHTML = content.innerHTML + title;
+		  		  
+		  $("#popup-content").append(title);
 		  
     	//
     	$('#temp_youtube_item_' + index).click(function(e) {

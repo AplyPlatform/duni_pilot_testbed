@@ -2302,13 +2302,13 @@ function processMapClick(map, evt, feature, overlay) {
 
     	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
     	
-			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
-		  overlay.setPosition(coordinate);
-		  
-		  g_content_2D_map_for_popup.innerHTML = g_content_2D_map_for_popup.innerHTML + title;
+    	overlay.setPosition(coordinate);
+    	
+			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';		  		  		  		  
+		  $("#popup-content").append(title);
 		  
     	//
-    	$('#temp_feature_item_' + index).click(function(e) {
+    	$('#temp_feature_item_' + ii).click(function(e) {
     		getCompanyInfo(title, ii);
     	});
     	return;
@@ -2321,13 +2321,12 @@ function processMapClick(map, evt, feature, overlay) {
 		if (hasYoutube) {
 			var name = f.get('mname');
 						
-			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + index + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
-		  overlay.setPosition(coordinate);
-		  
-		  g_content_2D_map_for_popup.innerHTML = g_content_2D_map_for_popup.innerHTML + title;
-		  
+			overlay.setPosition(coordinate);
+			
+			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';		  		  
+		  $("#popup-content").append(title);		  
     	//
-    	$('#temp_youtube_item_' + index).click(function(e) {
+    	$('#temp_youtube_item_' + ii).click(function(e) {
     		getFlightRecordInfo(name);
     	});			
 		}
