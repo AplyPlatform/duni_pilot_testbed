@@ -975,8 +975,15 @@
 	
 	
 	function setFlightlistFullHistory() {
+		var isFirst = true;
 		flightRecFullArray.forEach(function(item, index, arra) {
 			if (isSet(item.flat) == false || item.flat == -999) return;
+			
+			if (isFirst && item.flat != -999) {
+	      moveFlightHistoryMap(item.flat, item.flng);
+	      isFirst = false;
+	    }
+			
 			let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
 	    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : hasYoutube });
 	    if (isSet(flightHistorySource)) {
