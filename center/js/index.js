@@ -50,16 +50,14 @@ function naverinit() {
 
 		var url = naverLogin.generateAuthorizeUrl();
 		if ($("#naverLoginBtn1").length) {
-    	$("#naverLoginBtn1").click(function(e) {
-    		e.preventDefault();
+    	$("#naverLoginBtn1").click(function(e) {    		
     		location.href = url;
     	});
     	
     }
     
     if ($("#naverLoginBtn2").length) {
-    	$("#naverLoginBtn2").click(function(e) {
-    		e.preventDefault();
+    	$("#naverLoginBtn2").click(function(e) {    		
     		location.href = url;
     	});
     }
@@ -132,15 +130,15 @@ function appleinit() {
             usePopup : true
         });
   if (document.getElementById('appleLoginBtn1')) {
-  			const buttonElement = document.getElementById('appleLoginBtn1');
-        buttonElement.addEventListener('click', function() {
+  			const buttonElement1 = document.getElementById('appleLoginBtn1');
+        buttonElement1.addEventListener('click', function() {
             AppleID.auth.signIn();
         });
 	}
 	
 	if (document.getElementById('appleLoginBtn2')) {
-  			const buttonElement = document.getElementById('appleLoginBtn2');
-        buttonElement.addEventListener('click', function() {
+  			const buttonElement2 = document.getElementById('appleLoginBtn2');
+        buttonElement2.addEventListener('click', function() {
             AppleID.auth.signIn();
         });
 	}
