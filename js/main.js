@@ -702,7 +702,7 @@
 	  		content.innerHTML = title + "<p>Failed to get more info.</p>";
 	  });
 	}
-
+		
 	function processMapClick(map, evt, feature, overlay) {
 		if (!isCluster(feature)) {
 			map.getView().animate({
@@ -724,12 +724,59 @@
 		
 		let coord = evt.coordinate;
 		
-		features.forEach(function(f) {
-			displayMapFeature(f, coord);
-		});    
+		if (count > 1) {		
+			content.innerHTML = "";
+			features.forEach(function(f, index, arr) {
+				displayListFeature(f, index, coord, overlay);
+			});    
+		}
+		else {
+			content.innerHTML = "";
+			displayMapFeature(features[0], coord, overlay);
+		}
 	}
 	
-	function displayMapFeature(f, coordinate) {
+	function displayListFeature(f, index, coordinate, overlay) {
+		var ii = f.get('mindex');
+				
+    if (!isSet(ii)) {
+    	ii = f.get('cindex');
+    	if (!isSet(ii)) return;
+
+    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
+    	
+			let title = '<div class="row"><a href="#" id="temp_feature_item_' + index + '"><p>' + (index + 1) + " : " + f.get('cname') + '</p></a></div>';
+		  overlay.setPosition(coordinate);
+		  
+		  content.innerHTML = content.innerHTML + title;
+		  
+    	//
+    	$('#temp_feature_item_' + index).click(function(e) {
+    		getCompanyInfo(title, ii);
+    	});
+    	return;
+    }
+
+    GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
+
+    var hasYoutube = f.get('mhasYoutube');
+  		
+		if (hasYoutube) {
+			var name = f.get('mname');
+						
+			let title = '<div class="row"><a href="#" id="temp_youtube_item_' + index + '"><p>' + (index + 1) + " : " + name + '</p></a></div>';
+		  overlay.setPosition(coordinate);
+		  
+		  content.innerHTML = content.innerHTML + title;
+		  
+    	//
+    	$('#temp_youtube_item_' + index).click(function(e) {
+    		getFlightRecordInfo(name);
+    	});			
+		}
+	}
+	
+	function displayMapFeature(f, coordinate, overlay) {
 		var ii = f.get('mindex');
     if (!isSet(ii)) {
     	ii = f.get('cindex');
@@ -739,8 +786,7 @@
 
     	var title = f.get('cname');			
 			
-			title = '<p>' + title + '</p>';
-
+			title = '<p>' + title + '</p>';			
 		  overlay.setPosition(coordinate);
     	getCompanyInfo(title, ii);
     	return;
