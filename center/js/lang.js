@@ -195,7 +195,7 @@ var LANG_JSON_DATA = {
         "label_status" : "상태",
         "label_location" : "지역",
         "label_for_colorpicker" : "나침반 색상",
-        "label_set_youtube_url": "Youtube URL 입력",
+        "label_set_youtube_url": "유튜브 URL 입력",
         "label_set_no_video" : "영상 없음",
         "label_upload_movie": "영상 업로드",
         "label_select_files": "기기에서 파일 선택",
