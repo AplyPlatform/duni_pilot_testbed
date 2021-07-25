@@ -42,6 +42,13 @@ function isMovieFile(filename) {
 	return false; 			
 }
 
+
+function isEmail(email) {
+    var regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+    return regex.test(email);
+}
+
+
 function validateNumber(event) {
     var key = window.event ? event.keyCode : event.which;
     if (event.keyCode === 8 || event.keyCode === 46) {

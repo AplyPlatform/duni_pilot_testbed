@@ -1,18 +1,8 @@
 ﻿/*
 Copyright 2021 APLY Inc. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-  http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 */
 
-var g_str_cur_lang = "KR";
-// 인증여부 혜지프로
+
 var g_b_email_verified = false;
 
 $(function () {
@@ -76,34 +66,6 @@ function goHome() {
         location.href = "/index.html?fromapp=" + getCookie("isFromApp");
     else
         location.href = "/index_en.html?fromapp=" + getCookie("isFromApp");
-}
-
-function ajaxRequest(data, callback, errorcallback) {
-    $.ajax({
-        url: "https://api.duni.io/v1/",
-        dataType: "json",
-        crossDomain: true,
-        cache: false,
-        data: JSON.stringify(data),
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        success: function (r) {
-            console.log(JSON.stringify(r));
-            callback(r);
-        },
-        error: function (request, status, error) {
-            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            errorcallback(request, status, error);
-        }
-    });
-}
-
-
-
-// 이메일 인증 혜지프로
-function isEmail(email) {
-    var regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-    return regex.test(email);
 }
 
 function checkEmail(){
@@ -223,16 +185,6 @@ function requestRegister() {
     });
 }
 
-function validateNumber(event) {
-    var key = window.event ? event.keyCode : event.which;
-    if (event.keyCode === 8 || event.keyCode === 46) {
-        return true;
-    } else if ( key < 48 || key > 57 ) {
-        return false;
-    } else {
-        return true;
-    }
-}
 
 function showConfirmDialog() {
     $('#askModalLabel').text(GET_STRING_CONTENT('modal_title'));
@@ -250,59 +202,4 @@ function showConfirmDialog() {
     $('#askModal').modal('show');
 }
 
-function delCoockie(cName) {
-    document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/";
-}
 
-function setCookie(cName, cValue, cDay) {
-    var date = new Date();
-    date.setTime(date.getTime() + cDay * 60 * 60 * 24 * 1000);
-    document.cookie = cName + '=' + cValue + ';expires=' + date.toUTCString() + ';path=/';
-}
-
-function getCookie(cName) {
-    var value = document.cookie.match('(^|;) ?' + cName + '=([^;]*)(;|$)');
-    return value ? value[2] : null;
-}
-
-function showAlert(msg) {
-    $('#modal-title').text(GET_STRING_CONTENT('modal_title'));
-    $('#modal-confirm-btn').text(GET_STRING_CONTENT('modal_confirm_btn'));
-
-    $('#errorModalLabel').html(msg);
-    $('#errorModal').modal('show');
-    if(msg == GET_STRING_CONTENT('msg_phone_verification_timeout')){
-        $('#modal-confirm-btn').off('click');
-        $('#modal-confirm-btn').click(function (e) {
-        		e.preventDefault();
-            location.href=location.href;
-        });
-    }
-}
-
-
-function showLoader() {
-    $("#loading").show();
-}
-
-function hideLoader() {
-    $("#loading").fadeOut(800);
-}
-
-function GATAGM(label, category) {
-    gtag(
-        'event', label + "_" + g_str_cur_lang, {
-        'event_category': category,
-        'event_label': label
-    }
-    );
-
-    mixpanel.track(
-        label + "_" + g_str_cur_lang,
-        { "event_category": category, "event_label": label }
-    );
-}
-
-function GET_STRING_CONTENT(table_index_str) {	
-		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
-}

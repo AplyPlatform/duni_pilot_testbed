@@ -107,9 +107,10 @@
   <!-- Custom scripts for all pages-->
   <script src="./js/sb-admin-2.min.js"></script>      
   <script src="./js/lang.js"></script>
+  <script src="./js/util.js"></script>
 	<script src="./js/index.js"></script>	
 	<script>
-		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", "https://pilot.duni.io/center/navercallback.html");
+		var naver_id_login = new naver_id_login("wSvRwDA6qt1OWrvVY542", window.location.origin + "/center/navercallback.html");
 		if (naver_id_login.oauthParams.access_token == "") {
 			alert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 			
