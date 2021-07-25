@@ -2448,8 +2448,8 @@ function setBadgeView(fdata) {
         $("#badge_view").show();
 
         $("#badge_nickname").val(callsign);
-        $('#badge_code_iframe').attr('src', "https://pilot.duni.io/plugin/code.html?code=" + pluginid + "&lang=" + g_str_cur_lang + "&parent_url=" + encodeURIComponent(window.location.href));
-        $('#badge_code').text("<iframe id=\"badge_frame\" src=\"javascript:void(0)\" scrolling=\"no\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\"  aria-hidden=\"false\" tabindex=\"0\" width=\"100%\" height=\"500\"></iframe><script type=\"text/javascript\">document.getElementById(\"badge_frame\").src = \"https://pilot.duni.io/plugin/code.html?code=" + pluginid + "&parent_url=\" + encodeURIComponent(window.location.href) + \"&lang=" + g_str_cur_lang + "\";</script>");
+        $('#badge_code_iframe').attr('src', window.location.origin + "/plugin/code.html?code=" + pluginid + "&lang=" + g_str_cur_lang + "&parent_url=" + encodeURIComponent(window.location.href));
+        $('#badge_code').text("<iframe id=\"badge_frame\" src=\"javascript:void(0)\" scrolling=\"no\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\"  aria-hidden=\"false\" tabindex=\"0\" width=\"100%\" height=\"500\"></iframe><script type=\"text/javascript\">document.getElementById(\"badge_frame\").src = \"" + window.location.origin + "/plugin/code.html?code=" + pluginid + "&parent_url=\" + encodeURIComponent(window.location.href) + \"&lang=" + g_str_cur_lang + "\";</script>");
 
         $('#btnForBadge').off('click');
         $("#btnForBadge").click(function (e) {
@@ -5299,7 +5299,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         lng, lat, alt
     );
 
-    var glbUrl = "https://pilot.duni.io/center/imgs/drone.glb", 
+    var glbUrl = window.location.origin + "/center/imgs/drone.glb", 
     		gColor, gColor, sColor;
     		
     if (kind == "drone") {        
