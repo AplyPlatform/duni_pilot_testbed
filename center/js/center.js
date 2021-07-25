@@ -901,8 +901,8 @@ function flightrecordUploadInit() {
 			GATAGM('label_youtube_address_only', 'CONTENT');
 			$("#nextStageBtnArea").hide();
 			$("#set_youtube_address_view").show();
-      $("#set_youtube_upload_view").hide();
-      $('#tab_menu_set_youtube_address').attr("checked", true);
+      $("#set_youtube_upload_view").hide();      
+      $('input:radio[name=media_upload_kind]:input[value=tab_menu_set_youtube_address]').attr("checked", true);
 			setUploadFileFields();
 		});
 
