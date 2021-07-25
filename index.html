@@ -86,13 +86,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		if (document.getElementById('facebookLoginBtn1')) {
 	  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
 				FB.login(facebookSignInCallback);
-			}, true);
+			}, false);
 		}
 		
 		if (document.getElementById('facebookLoginBtn2')) {
 			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
 				FB.login(facebookSignInCallback);
-			}, true);
+			}, false);
 		}
 	};
 	</script>
