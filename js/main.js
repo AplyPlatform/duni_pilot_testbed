@@ -77,8 +77,7 @@
 				$('body').addClass('overflow offcanvas');
 			}
 			$this.toggleClass('active');
-			//event.preventDefault();
-
+			event.preventDefault();
 		});
 	};
 

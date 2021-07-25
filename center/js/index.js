@@ -48,18 +48,14 @@ function naverinit() {
 
     naverLogin.init();
 
-		var url = naverLogin.generateAuthorizeUrl();
-		if (document.getElementById('naverLoginBtn1')) {        	
-    	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
-	  			location.href = url;
-			});
-    }
-    
-    if (document.getElementById('naverLoginBtn2')) {        	
-    	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
-	  			location.href = url;
-			});
-    }
+		var url = naverLogin.generateAuthorizeUrl();		
+  	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
+  			location.href = url;
+		});
+        
+  	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
+  			location.href = url;
+		});
 }
 
 function kakaoLogin() {
@@ -106,18 +102,15 @@ function kakaoLogin() {
 
 function kakaoinit() {
 	Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
-
-	if (document.getElementById('kakaoLoginBtn1')) {
-		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
-	  			kakaoLogin();
-		});
-	}
+		
+	document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
+	 			kakaoLogin();
+	});
+			
+	document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
+  			kakaoLogin();
+	});
 	
-	if (document.getElementById('kakaoLoginBtn2')) {
-		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
-	  			kakaoLogin();
-		});
-	}
 }
 
 function appleinit() {
@@ -128,19 +121,14 @@ function appleinit() {
             nonce : '123423',
             usePopup : true
         });
-  if (document.getElementById('appleLoginBtn1')) {
-  			const buttonElement1 = document.getElementById('appleLoginBtn1');
-        buttonElement1.addEventListener('click', function() {
-            AppleID.auth.signIn();
-        });
-	}
-	
-	if (document.getElementById('appleLoginBtn2')) {
-  			const buttonElement2 = document.getElementById('appleLoginBtn2');
-        buttonElement2.addEventListener('click', function() {
-            AppleID.auth.signIn();
-        });
-	}
+  	
+  document.getElementById('appleLoginBtn1').addEventListener('click', function() {
+      AppleID.auth.signIn();
+  });
+			
+  document.getElementById('appleLoginBtn2').addEventListener('click', function() {
+      AppleID.auth.signIn();
+  });
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
 			setCookie("dev_kind", "apple", 1);
