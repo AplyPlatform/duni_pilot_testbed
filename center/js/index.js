@@ -52,13 +52,13 @@ function naverinit() {
 		if (document.getElementById('naverLoginBtn1')) {        	
     	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
 	  			location.href = url;
-			}, false);
+			});
     }
     
     if (document.getElementById('naverLoginBtn2')) {        	
     	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
 	  			location.href = url;
-			}, false);
+			});
     }
 }
 
@@ -110,13 +110,13 @@ function kakaoinit() {
 	if (document.getElementById('kakaoLoginBtn1')) {
 		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
 	  			kakaoLogin();
-		}, false);
+		});
 	}
 	
 	if (document.getElementById('kakaoLoginBtn2')) {
 		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
 	  			kakaoLogin();
-		}, false);
+		});
 	}
 }
 
@@ -132,14 +132,14 @@ function appleinit() {
   			const buttonElement1 = document.getElementById('appleLoginBtn1');
         buttonElement1.addEventListener('click', function() {
             AppleID.auth.signIn();
-        }, false);
+        });
 	}
 	
 	if (document.getElementById('appleLoginBtn2')) {
   			const buttonElement2 = document.getElementById('appleLoginBtn2');
         buttonElement2.addEventListener('click', function() {
             AppleID.auth.signIn();
-        }, false);
+        });
 	}
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
