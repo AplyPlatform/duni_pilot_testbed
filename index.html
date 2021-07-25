@@ -75,7 +75,6 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 
-
 	window.fbAsyncInit = function() {
 	  FB.init({
 	    appId            : '570867566598427',
@@ -84,13 +83,17 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	    version          : 'v3.5'
   	});
 
-  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
-			FB.login(facebookSignInCallback);
-		}, true);
+		if (document.getElementById('facebookLoginBtn1')) {
+	  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+				FB.login(facebookSignInCallback);
+			}, true);
+		}
 		
-		document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
-			FB.login(facebookSignInCallback);
-		}, true);
+		if (document.getElementById('facebookLoginBtn2')) {
+			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+				FB.login(facebookSignInCallback);
+			}, true);
+		}
 	};
 	</script>
 
@@ -110,12 +113,12 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						<ul>
 							<li><a href="index_en.html"  target="_self">ENGLISH</a></li>
 							<div class="sns-btn-offcanvas">
-								<li style="color:#EEE;">로그인이 필요합니다.</li>
-								<li><a id="naverLoginBtn1" style="cursor:pointer"><span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Naver 계정으로 사용하기</a></li>
-								<li><a id="kakaoLoginBtn1" style="cursor:pointer"><span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Kakao 계정으로 사용하기</a></li>
-								<li><a id="facebookLoginBtn1" style="cursor:pointer"><i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Facebook 계정으로 사용하기</a></li>
-								<li><a id="googleLoginBtn1" style="cursor:pointer"><i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 계정으로 사용하기</a></li>								
-								<li><a id="appleLoginBtn1" style="cursor:pointer"><span style="color:#EAEAEA; font-weight:bold;">A</span>&nbsp;&nbsp;Apple 계정으로 사용하기</a></li>
+								<li style="color:#EEE;margin-bottom:50px;">로그인이 필요합니다.</li>
+								<li style="margin-bottom:50px;"><a id="naverLoginBtn1" style="cursor:pointer"><span style="color:#28a745; font-weight:bold;">N</span>&nbsp;&nbsp;Naver 계정으로 사용하기</a></li>
+								<li style="margin-bottom:50px;"><a id="kakaoLoginBtn1" style="cursor:pointer"><span style="color:#cccc00; font-weight:bold;">K</span>&nbsp;&nbsp;Kakao 계정으로 사용하기</a></li>
+								<li style="margin-bottom:50px;"><a id="facebookLoginBtn1" style="cursor:pointer"><i class="fab fa-facebook-f" style="color:#007bff; font-weight:600;"></i>&nbsp;&nbsp;Facebook 계정으로 사용하기</a></li>
+								<li style="margin-bottom:50px;"><a id="googleLoginBtn1" style="cursor:pointer"><i class="fab fa-google" style="color:#dc3545; font-weight:600;"></i>&nbsp;&nbsp;Google 계정으로 사용하기</a></li>								
+								<li style="margin-bottom:50px;"><a id="appleLoginBtn1" style="cursor:pointer"><span style="color:#EAEAEA; font-weight:bold;">A</span>&nbsp;&nbsp;Apple 계정으로 사용하기</a></li>
 							</div>
 						</ul>
 					</div>
@@ -158,7 +161,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 		</div>
 		<div class="gtco-section">
 			<div class="gtco-container">
-				<div class="row" style="margin-bottom:50px;">										
+				<div class="row" style="margin-bottom:50px;">
 					<div class="col-md-6 gtco-cta text-left">
 						<h3><a href="/center/main.html?page_action=recordupload"><i class="fas fa-archive"></i> 드론영상과 함께 비행기록 보관/관리</a></h3>
 						<blockquote class="blockquote">

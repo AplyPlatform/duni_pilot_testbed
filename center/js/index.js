@@ -49,17 +49,16 @@ function naverinit() {
     naverLogin.init();
 
 		var url = naverLogin.generateAuthorizeUrl();
-		if ($("#naverLoginBtn1").length) {
-    	$("#naverLoginBtn1").click(function(e) {    		
-    		location.href = url;
-    	});
-    	
+		if (document.getElementById('naverLoginBtn1')) {        	
+    	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
+	  			location.href = url;
+			}, true);
     }
     
-    if ($("#naverLoginBtn2").length) {
-    	$("#naverLoginBtn2").click(function(e) {    		
-    		location.href = url;
-    	});
+    if (document.getElementById('naverLoginBtn2')) {        	
+    	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
+	  			location.href = url;
+			}, true);
     }
 }
 
@@ -111,13 +110,13 @@ function kakaoinit() {
 	if (document.getElementById('kakaoLoginBtn1')) {
 		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
 	  			kakaoLogin();
-		}, false);
+		}, true);
 	}
 	
 	if (document.getElementById('kakaoLoginBtn2')) {
 		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
 	  			kakaoLogin();
-		}, false);
+		}, true);
 	}
 }
 
@@ -133,14 +132,14 @@ function appleinit() {
   			const buttonElement1 = document.getElementById('appleLoginBtn1');
         buttonElement1.addEventListener('click', function() {
             AppleID.auth.signIn();
-        }, false);
+        }, true);
 	}
 	
 	if (document.getElementById('appleLoginBtn2')) {
   			const buttonElement2 = document.getElementById('appleLoginBtn2');
         buttonElement2.addEventListener('click', function() {
             AppleID.auth.signIn();
-        }, false);
+        }, true);
 	}
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
