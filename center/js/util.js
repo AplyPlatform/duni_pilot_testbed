@@ -598,7 +598,7 @@ function flightRecords2DMapInit() {
 		                image: new ol.style.Icon({										    										    
 										    src: '/images/company_pos.png',
 										    scale: 0.3,
-										    opacity : 0.7,										    
+										    opacity : 0.8,										    
 										    fill: new ol.style.Fill({ color: '#FFF' }),
 										    stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 }),
 										  })
@@ -654,7 +654,7 @@ function flightRecords2DMapInit() {
 	                image: new ol.style.Icon({										    										    
 									    src: '/images/f_record_pos.png',
 									    scale: 0.3,
-									    opacity : 0.7,
+									    opacity : 0.8,
 									    fill: new ol.style.Fill({ color: '#FFF' }),
 									    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
 									  })
