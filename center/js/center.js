@@ -4889,7 +4889,6 @@ var fixedFrameTransform;
 var planePrimitives;
 var v3DMapViewer;
 var v3DMapCate;
-var c3ddataSource;
 var p3DMapEntity;
 var s3DMapScene;
 

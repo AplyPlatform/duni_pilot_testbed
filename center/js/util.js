@@ -29,7 +29,7 @@ var g_str_dev_controller_for_viewmode;
 
 var oldLat = 0, oldLng = 0, oldAlt = 0;
 
-
+var c3ddataSource;
 
 // duni map의 기업정보 팝업
 var g_container_2D_map_for_popup;
