@@ -974,7 +974,7 @@ function flightrecordUploadInit() {
     if(test.type === 'text') {
     // hide the native picker and show the fallback
     nativePicker.style.display = 'none';
-    fallbackPicker.style.display = 'block';\
+    fallbackPicker.style.display = 'block';
 
     // populate the days and years dynamically
     // (the months are always the same, therefore hardcoded)
