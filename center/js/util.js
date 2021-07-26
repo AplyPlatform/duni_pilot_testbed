@@ -833,12 +833,7 @@ function displayMapFeature(f, coordinate, overlay) {
 
 var isVideoPopupInit = false;
 function getFlightRecordInfo(name) {
-		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid };
-
-    if (g_str_current_target == "public") {
-	  	jdata["public"] = true;
-	  }
+		var jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
 
 		showLoader();
 

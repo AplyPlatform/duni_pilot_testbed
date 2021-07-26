@@ -763,7 +763,7 @@ $(function(){
 	initYoutubeAPI();
 	
 	$("#chkFlightHistory").change(function(){
-		showHistoryList($("#chkFlightHistory").is(":checked"));
+		showFlightRecordsList($("#chkFlightHistory").is(":checked"));
   });
 
   $("#chkCompany").change(function(){
