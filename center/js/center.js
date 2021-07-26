@@ -20,14 +20,6 @@ var g_array_flight_rec = [];
 
 var g_cur_str_flight_rec_fid;
 
-var g_array_full_flight_rec;
-var g_view_2D_map_for_flight_rec;
-var g_vector_2D_map_for_flight_rec;
-var g_layer_2D_map_for_flight_rec;
-
-var g_vector_2D_map_for_company;
-var g_layer_2D_map_for_company;
-
 var g_layer_2D_map_for_line;
 var g_layer_2D_map_for_icon;
 
@@ -51,9 +43,6 @@ var g_b_is_token_visible = false;
 var g_loc_address_flat = -999, g_loc_address_flng = -999;
 var g_b_fileupload_for_DJI = true; //dji file or input address
 
-var g_container_2D_map_for_popup;
-var g_content_2D_map_for_popup;
-var g_closer_2D_map_for_popup;
 
 var g_loc_kalmanfilter_lat;
 var g_loc_kalmanfilter_lng;
@@ -2075,403 +2064,6 @@ function setUploadFileFields() {
 }
 
 
-
-function flightRecords2DMapInit() {
-    var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
-
-		g_container_2D_map_for_popup = document.getElementById('popup');
-		g_content_2D_map_for_popup = document.getElementById('popup-content');
-		g_closer_2D_map_for_popup = document.getElementById('popup-closer');
-
-		g_container_2D_map_for_popup.style.visibility = "visible";
-  	var overlay = new ol.Overlay({
-		  element: g_container_2D_map_for_popup,
-		  autoPan: true,
-		  autoPanAnimation: {
-		    duration: 250,
-		  },
-		});
-
-		g_closer_2D_map_for_popup.onclick = function () {
-		  overlay.setPosition(undefined);
-		  g_closer_2D_map_for_popup.blur();
-		  return false;
-		};
-
-    g_view_2D_map_for_flight_rec = new ol.View({
-        center: dpoint,
-        zoom: 9
-    });
-
-    g_vector_2D_map_for_company = new ol.source.Vector();
-		var clusterCompanySource = new ol.source.Cluster({
-			  distance: 40,
-			  source: g_vector_2D_map_for_company,
-			  geometryFunction: function(feature) {
-	        var geom = feature.getGeometry();
-	    		return geom.getType() == 'Point' ? geom : null;
-	    	},
-			});
-
-		var styleCacheForCompany = {};
-	  g_layer_2D_map_for_company = new ol.layer.Vector({
-	      source: clusterCompanySource,
-	      zIndex: 99,
-	      style:  function (feature) {
-	        	if (!feature) return;
-
-				    var size = feature.get('features').length;
-				    var radius;
-				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-				    var style = styleCacheForCompany[size];
-				    if (!style) {				    	
-				    		if (size == 1) {
-				    			style = [new ol.style.Style({
-		                image: new ol.style.Icon({										    										    
-										    src: '/images/company_pos.png',
-										    scale: 0.3,
-										    opacity : 0.7,										    
-										    fill: new ol.style.Fill({ color: '#FFF' }),
-										    stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 }),
-										  })
-		              })];
-				    		}
-				    		else {				    							    		
-					    		style = [new ol.style.Style({
-		                image: new ol.style.Circle({
-					            radius: radius,
-					            opacity : 0.7,
-					            fill: new ol.style.Fill({ color: '#FFF' }),
-					            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
-			                }),
-			            	text: new ol.style.Text({
-			            						font: radius + 'px Roboto',
-						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#000' })						                  
-											})	
-		              })];
-		            }
-
-	          		styleCacheForCompany[size] = style
-				    }
-				    return style;
-				  },
-	    });
-
-
-    g_vector_2D_map_for_flight_rec = new ol.source.Vector();
-
-		var clusterSource = new ol.source.Cluster({
-		  distance: 40,
-		  source: g_vector_2D_map_for_flight_rec,
-		  geometryFunction: function(feature) {
-        var geom = feature.getGeometry();
-    		return geom.getType() == 'Point' ? geom : null;
-    	},
-		});
-
-		var styleCache = {};
-    g_layer_2D_map_for_flight_rec = new ol.layer.Vector({
-        source: clusterSource,
-        zIndex: 100,
-        style: function (feature) {
-        	if (!feature) return;
-
-			    var size = feature.get('features').length;
-			    var radius;
-			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-			    var style = styleCache[size];
-			    if (!style) {
-			       	if (size == 1) {
-			       		style = [new ol.style.Style({
-	                image: new ol.style.Icon({										    										    
-									    src: '/images/f_record_pos.png',
-									    scale: 0.3,
-									    opacity : 0.7,
-									    fill: new ol.style.Fill({ color: '#FFF' }),
-									    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-									  })
-	              })];				    			
-			    		}
-			    		else {				    							    		
-				    		style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#FFF' }),
-				            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-				            opacity : 0.7,
-		                }),
-		            	text: new ol.style.Text({
-					                  text: size.toString(),
-					                  font: radius + 'px Roboto',
-					                  fill: new ol.style.Fill({ color: '#000' })					                  
-										})	
-	              })];
-	            }
-
-          		styleCache[size] = style
-			    }
-			    return style;
-			  },
-    });
-
-    var bingLayer = new ol.layer.Tile({
-        visible: true,
-        preload: Infinity,
-        source: new ol.source.OSM()
-    });
-
-    var overviewMapControl = new ol.control.OverviewMap({
-		  layers: [
-		    new ol.layer.Tile({
-		      source: new ol.source.OSM(),
-		    }) ],
-		  collapsed : false
-		});
-
-
-    var vMap = new ol.Map({
-    		controls: ol.control.defaults().extend([
-            overviewMapControl
-        ]),
-        target: 'historyMap',
-        layers: [
-            bingLayer, g_layer_2D_map_for_flight_rec, g_layer_2D_map_for_company
-        ],
-        overlays: [ overlay ],
-        // Improve user experience by loading tiles while animating. Will make
-        // animations stutter on mobile or slow devices.
-        loadTilesWhileAnimating: true,
-        view: g_view_2D_map_for_flight_rec
-    });
-
-		vMap.on('click', function(evt) {
-	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(vMap, evt, feature, overlay);
-		});
-}
-
-function isCluster(feature) {
-	  if (!feature || !feature.get('features')) {
-	        return false;
-	  }
-
-	  return feature.get('features').length >= 1;
-}
-
-function processMapClick(map, evt, feature, overlay) {
-		if (!isCluster(feature)) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
-		}
-
-  	var features = feature.get('features');
-  	var count = features.length;
-		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {			
-				map.getView().animate({
-				  zoom: map.getView().getZoom() + 1,
-				  duration: 250
-				})
-				return;			
-		}
-		
-		let coord = evt.coordinate;
-		
-		if (count > 1) {		
-			g_content_2D_map_for_popup.innerHTML = "";
-			features.forEach(function(f, index, arr) {
-				displayListFeature(f, index, coord, overlay);
-			});    
-		}
-		else {
-			g_content_2D_map_for_popup.innerHTML = "";
-			displayMapFeature(features[0], coord, overlay);
-		}    
-}
-
-
-	function displayListFeature(f, index, coordinate, overlay) {
-		var ii = f.get('mindex');
-				
-    if (!isSet(ii)) {
-    	ii = f.get('cindex');
-    	if (!isSet(ii)) return;
-
-    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
-    	
-    	overlay.setPosition(coordinate);
-    	
-			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';		  		  		  		  
-		  $("#popup-content").append(title);
-		  
-    	//
-    	$('#temp_feature_item_' + ii).click(function(e) {
-    		getCompanyInfo(title, ii);
-    	});
-    	return;
-    }
-
-    GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
-
-    var hasYoutube = f.get('mhasYoutube');
-  		
-		if (hasYoutube) {
-			var name = f.get('mname');
-						
-			overlay.setPosition(coordinate);
-			
-			let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';		  		  
-		  $("#popup-content").append(title);		  
-    	//
-    	$('#temp_youtube_item_' + ii).click(function(e) {
-    		getFlightRecordInfo(name);
-    	});			
-		}
-	}
-	
-	function displayMapFeature(f, coordinate, overlay) {
-		var ii = f.get('mindex');
-    if (!isSet(ii)) {
-    	ii = f.get('cindex');
-    	if (!isSet(ii)) return;
-
-    	GATAGM("vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
-
-    	var title = f.get('cname');			
-			
-			title = '<p>' + title + '</p>';			
-		  overlay.setPosition(coordinate);
-    	getCompanyInfo(title, ii);
-    	return;
-    }
-
-    GATAGM("vMap_" + ii, "CONTENT", g_str_cur_lang);
-
-    var hasYoutube = f.get('mhasYoutube');
-  		
-		if (hasYoutube) {
-			var name = f.get('mname');
-			getFlightRecordInfo(name);
-		}
-	}
-
-var isVideoPopupInit = false;
-function getFlightRecordInfo(name) {
-		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid };
-
-    if (g_str_current_target == "public") {
-	  	jdata["public"] = true;
-	  }
-
-		showLoader();
-
-  	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	    	hideLoader();
-
-	      if (r.data == null) {
-	      	showAlert(GET_STRING_CONTENT('msg_no_data'));
-	        return;
-	      }
-
-		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
-				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
-				
-				if (r.data.prod_url) {
-					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
-				}
-				else {
-					$("#video-pop-view").attr("video-prod-url", "");
-				}
-				
-				$("#video-pop-view").attr("video-name", name);				
-				
-				if (r.data.owner_email) {
-					$("#video-pop-view").attr("video-owner", r.data.owner_email);
-				}
-				else {
-					$("#video-pop-view").attr("video-owner", "");
-				}
-				
-				if (r.data.outer) {
-					$("#video-pop-view").attr("video-outer", r.data.outer);
-				}
-				else {
-					$("#video-pop-view").attr("video-outer", "");
-				}
-								
-				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
-				$("#video-pop-view").attr("video-address", r.data.address);
-				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
-				if (isVideoPopupInit == false) {
-						$("#video-pop-view").videoPopup();
-						isVideoPopupInit = true;
-				}
-				
-				$("#video-pop-view").click();
-	    }
-	  },
-	  	function(request,status,error) {
-	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	  		hideLoader();
-	  });
-}
-
-
-function getCompanyInfo(title, cid) {
-	  var jdata = {"action": "public_company_detail", "cid" : cid};
-
-		g_content_2D_map_for_popup.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
-
-  	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	      if (r.data == null) {
-	      	g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
-	        return;
-	      }
-
-	     	if (r.data.is_playground == true) {
-	     			title = "<\uB4DC\uB860\uBE44\uD589/\uCCB4\uD5D8\uC7A5> " + title;
-	     	}
-
-	      if (r.data.partner == true) {
-	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/duni_logo.png' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
-	      }
-	      else {
-	      		title = "<b>" + title + "</b>";
-	      }
-
-	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
-
-	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
-	      	title = title + ('<br>' + r.data.phone_num_2);
-
-	      title = title + '</p>';
-	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
-
-	      if (r.data.spe_edu == true) {
-	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>\uC804\uBB38\uAD50\uC721\uAE30\uAD00</b></td>";
-				}
-
-	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\");'>\uD648\uD398\uC774\uC9C0</a></td>";
-	      }
-
-	      title = title + "</tr></table>";
-
-	      g_content_2D_map_for_popup.innerHTML = title;
-	    }
-	  },
-	  	function(request,status,error) {
-	  		g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
-	  });
-}
-
-
 function getAllRecordCount() {
 
     var userid = getCookie("dev_user_id");
@@ -3067,27 +2659,9 @@ function setMissionDataToDesignView(name) {
 }
 
 
-function createNewIconFor2DMap(i, color, item) {
 
-		var hasYoutube = false;
-		if (isSet(item.hasYoutube)) {
-    	hasYoutube = item.hasYoutube;
-    }
-
-    var pos_icon = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-        mindex: i,
-        mhasYoutube : hasYoutube,
-        mname: item.name,
-        maddress : item.address
-    });
-
-    return pos_icon;
-}
-
-function addNewIconToDesignMap(i, color, item) {
-    var nIcon = createNewIconFor2DMap(i, color, item);
+function addNewIconToDesignMap(i, item) {
+    var nIcon = createNewIconFor2DMap(i, item);
     g_vector_2D_mainmap_for_design_icon.addFeature(nIcon);
 }
 
@@ -3103,7 +2677,7 @@ function setDesignTable() {
     var coordinates = [];
 
     g_array_design_data.forEach(function (item) {
-        addNewIconToDesignMap(i, "#0000ff", item);
+        addNewIconToDesignMap(i, item);
         coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
         i++;
     });
@@ -3171,7 +2745,7 @@ function appendDataToDesignTable(lonLat) {
     $("#slider").slider('value', index);
 
     setDataToDesignView(index);
-    addNewIconToDesignMap(index, "#0000ff", data);
+    addNewIconToDesignMap(index, data);
 }
 
 
@@ -3806,54 +3380,7 @@ function searchFlightRecord(target, keyword) {
     });
 }
 
-function setFlightlistFullHistory() {
-	g_array_full_flight_rec.forEach(function(item, index, arra) {
-		if (isSet(item.flat) == false || item.flat == -999) return;
-		let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
-    var icon = createNewIconFor2DMap(index, "#aa0000", {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : hasYoutube });
-    if (isSet(g_vector_2D_map_for_flight_rec)) {
-        g_vector_2D_map_for_flight_rec.addFeature(icon);
-    }
-  });
-}
 
-function getFullFlightRecords() {
-		var userid = getCookie("dev_user_id");
-	  var jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};
-
-	  if (g_str_current_target == "public") {
-	  	jdata["list"] = true;
-	  	jdata["public"] = true;
-	  }
-
-	  showLoader();
-	  ajaxRequest(jdata, function (r) {
-	    hideLoader();
-	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {
-	        showAlert(GET_STRING_CONTENT('msg_no_data'));
-					hideLoader();
-	        return;
-	      }
-
-				g_array_full_flight_rec = r.data;
-	      setFlightlistFullHistory();
-				hideLoader();
-	    }
-	    else {
-	    	if (r.reason == "no data") {
-	    		showAlert(GET_STRING_CONTENT('msg_no_data'));
-	    	}
-	    	else {
-		    	showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-		    }
-
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
-	}
 
 function getFlightRecords(target) {
     var userid = getCookie("dev_user_id");
@@ -4392,7 +3919,7 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, "#0000ff", { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
+    var icon = createNewIconFor2DMap(index, { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
     vSource.addFeature(icon);
 
     return vSource;
@@ -4475,70 +4002,6 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
     });
-
-}
-
-
-
-function setAddressAndCada(address_id, address, cada, wsource) {
-
-    if (isSet(c3ddataSource)) {
-        Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
-            var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
-            return Cesium.Cartesian3.fromDegrees(lonlat[0], lonlat[1], 200);
-        }
-
-
-        cada[0]['crs'] = {
-            type: 'name',
-            properties: {
-                'name': 'customProj'
-            }
-        };
-
-        // Load
-        c3ddataSource.load(cada[0], {
-            stroke: Cesium.Color.RED,
-            strokeWidth: 2,
-            clampToGround: true
-        });
-    }
-
-    if ($(address_id).length)
-        $(address_id).text(address);
-
-    if (isSet(wsource) == false) return;
-
-		var _features = new Array();    
-
-    for (var idx = 0; idx < cada.length; idx++) {
-        try {
-            var geojson_Feature = cada[idx];
-            var geojsonObject = geojson_Feature.geometry;
-
-            var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
-            for (var i = 0; i < features.length; i++) {
-                try {
-                    var feature = features[i];
-                    feature["id_"] = geojson_Feature.id;
-                    feature["properties"] = {};
-                    for (var key in geojson_Feature.properties) {
-                        try {
-                            var value = geojson_Feature.properties[key];
-                            feature.values_[key] = value;
-                            feature.properties[key] = value;
-                        } catch (e) {
-                        }
-                    }
-                    _features.push(feature)
-                } catch (e) {
-                }
-            }
-        } catch (e) {
-        }
-    }
-
-    wsource.addFeatures(_features);
 
 }
 
@@ -4717,10 +4180,7 @@ function appendFlightRecordTable(target, target_key, item) {
     g_i_appended_data_count++;
 }
 
-function moveFlightHistoryMap(lat, lng) {
-    var npos = ol.proj.fromLonLat([lng, lat]);
-    g_view_2D_map_for_flight_rec.setCenter(npos);
-}
+
 
 function verifyPhoneNo(phone_number){
     var userid = getCookie("dev_user_id");
@@ -6427,54 +5887,6 @@ function movieSeekTo(where) {
     if (g_youtube_player_for_detail_view != null && $('#youTubePlayer').is(":visible") == true) {
         g_youtube_player_for_detail_view.seekTo(where, true);
     }
-}
-
-function showCompanyList(bshow) {
-		g_layer_2D_map_for_company.setVisible(bshow);
-}
-
-function showFlightRecordsList(bshow) {
-		g_layer_2D_map_for_flight_rec.setVisible(bshow);
-}
-
-function createNewCompanyIconFor2DMap(i, item) {
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-	          cname: item.name,
-	          cindex : item.cid
-	      });
-
-	  return pos_icon;
-}
-
-function getCompanyList() {
-		g_vector_2D_map_for_company.clear();
-
-	  var jdata = {"action": "public_company_list"};
-
-		showLoader();
-  	ajaxRequest(jdata, function (r) {
-	    hideLoader();
-	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {
-					hideLoader();
-	        return;
-	      }
-
-	      var companyArray = r.data;
-	      companyArray.forEach(function(item, index, arr) {
-	      	var icon = createNewCompanyIconFor2DMap(index, item);
-					g_vector_2D_map_for_company.addFeature(icon);
-	  		});
-
-				hideLoader();
-	    }
-	    else {
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
 }
 
 function addChartItem(i, item) {
