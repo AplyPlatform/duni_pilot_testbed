@@ -568,7 +568,7 @@ function flightRecords2DMapInit() {
 
     g_view_2D_map_for_flight_rec = new ol.View({
         center: dpoint,
-        zoom: 9
+        zoom: 7
     });
 
     g_vector_2D_map_for_company = new ol.source.Vector();
@@ -584,7 +584,7 @@ function flightRecords2DMapInit() {
 		var styleCacheForCompany = {};
 	  g_layer_2D_map_for_company = new ol.layer.Vector({
 	      source: clusterCompanySource,
-	      zIndex: 99,
+	      zIndex: 20,
 	      style:  function (feature) {
 	        	if (!feature) return;
 
@@ -640,7 +640,7 @@ function flightRecords2DMapInit() {
 		var styleCache = {};
     g_layer_2D_map_for_flight_rec = new ol.layer.Vector({
         source: clusterSource,
-        zIndex: 100,
+        zIndex: 21,
         style: function (feature) {
         	if (!feature) return;
 
@@ -693,7 +693,7 @@ function flightRecords2DMapInit() {
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
 		    }) ],
-		  collapsed : false
+		  collapsed : true
 		});
 
 
