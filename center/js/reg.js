@@ -26,6 +26,8 @@ $(function () {
     $("#btnRegisterToMember").text(GET_STRING_CONTENT('msg_register'));
     $("#btnBack1").text(GET_STRING_CONTENT('msg_back'));
     $("#btnBack2").text(GET_STRING_CONTENT('msg_back'));
+    
+    $("#btn_check_email").text(GET_STRING_CONTENT('label_check_email'));
 
 
     $("#show_2").hide();
