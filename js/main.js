@@ -754,10 +754,7 @@
 		      $("#duni_service_request_list").empty();	      	      	      
 		      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
 		      	      				
-					let retData = r.data;
-					
-					let allcount = r.allcount * 1;
-					var cur_page = r.page * 1;					       
+					let retData = r.data;			       
 													
 					retData.forEach(function(d, index, arr) {
 						
@@ -800,38 +797,13 @@
 						});										
 					});
 					
-					if (cur_page == 1) {
-						if (allcount > 1) {
-							$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">></button></div></div>');
-																	
-							$("#service_list_next").click(function() {
-								cur_page++;
-								getDUNIServiceRequest(cur_page);
-							});
-						}
-					}
-					else if (cur_page < allcount && allcount > 1) {
-						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button> <button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
-						
-						$("#service_list_next").click(function() {
-								cur_page++;
-								getDUNIServiceRequest(cur_page);
-						});
-						
-						$("#service_list_prev").click(function() {
-								cur_page--;
-								getDUNIServiceRequest(cur_page);
-						});					
-					}
-					else if (cur_page == allcount) {
-						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button></div></div>');
-						
-						$("#service_list_prev").click(function() {
-								cur_page--;
-								getDUNIServiceRequest(cur_page);
-						});
-					}								
-													
+					
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">></button></div></div>');
+															
+					$("#service_list_next").click(function() {
+						location.href = "/center/main.html?page_action=center";
+					});
+										
 					startRequestTableAnimation();				
 		    }
 		  },
