@@ -1903,8 +1903,8 @@ function getDUNIServiceRequest(page) {
 	      	      				
 				let retData = r.data;
 				
-				let allcount = retData.allcount;
-				var cur_page = retData.page;					       
+				let allcount = r.allcount;
+				var cur_page = r.page;					       
 												
 				retData.forEach(function(d, index, arr) {
 					
