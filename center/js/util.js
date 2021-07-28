@@ -483,7 +483,9 @@ function createNewIconFor2DMap(i, item) {
 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
-
+		
+		if (!isSet(cada)) return;
+		
     if (isSet(c3ddataSource)) {
         Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
             var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
