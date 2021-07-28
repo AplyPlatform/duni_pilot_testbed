@@ -1899,7 +1899,7 @@ function getDUNIServiceRequest(page) {
 	      }	      	      
 	      
 	      $("#duni_service_request_list").empty();	      	      	      
-	      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
+	      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col' class='text-center'>#</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
 	      	      				
 				let retData = r.data;
 				
@@ -1908,7 +1908,7 @@ function getDUNIServiceRequest(page) {
 												
 				retData.forEach(function(d, index, arr) {
 					
-					let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td><div id='request_duni_" + index + "'>";
+					let htmlString = "<tr><th scope='row' class='text-center'>" + (index + 1) + "</th><td class='text-center'>" + d.kind + "</td><td class='text-center'>" + d.title + "</td><td class='text-center'><div id='request_duni_" + index + "'>";
 					
 					if (d.status == "P") {
 						if (d.requested == true) {
@@ -1916,7 +1916,7 @@ function getDUNIServiceRequest(page) {
 							htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
 						}
 						else {
-							htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
+							htmlString += "<button class='btn btn-info btn-sm' style='padding:5px 15px;' type='button' id='partnerServiceRequest_" + index + "'>";
 	            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
 	          }
 					}
@@ -1949,7 +1949,7 @@ function getDUNIServiceRequest(page) {
 				
 				if (cur_page == 1) {
 					if (allcount > 1) {
-						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">></button></div></div>');
+						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">more</button></div></div>');
 																
 						$("#service_list_next").click(function() {
 							cur_page++;
