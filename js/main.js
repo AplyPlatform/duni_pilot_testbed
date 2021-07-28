@@ -765,7 +765,7 @@
 								htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
 							}
 							else {
-								htmlString += "<button class='btn btn-info btn-sm' style='padding:5px 15px;' type='button' id='partnerServiceRequest_" + index + "'>";
+								htmlString += "<button class='btn btn-info btn-circle btn-sm' style='padding:5px 15px; margin-bottom:0;' type='button' id='partnerServiceRequest_" + index + "'>";
 		            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
 		          }
 						}

@@ -1916,7 +1916,7 @@ function getDUNIServiceRequest(page) {
 							htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
 						}
 						else {
-							htmlString += "<button class='btn btn-info btn-sm' style='padding:5px 15px;' type='button' id='partnerServiceRequest_" + index + "'>";
+							htmlString += "<button class='btn btn-info btn-circle btn-sm' style='padding:5px 15px; margin-bottom:0;' type='button' id='partnerServiceRequest_" + index + "'>";
 	            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
 	          }
 					}
@@ -1971,7 +1971,7 @@ function getDUNIServiceRequest(page) {
 					});					
 				}
 				else if (cur_page == allcount) {
-					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button></div></div>');
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev">ㅡ</button></div></div>');
 					
 					$("#service_list_prev").click(function() {
 							cur_page--;
