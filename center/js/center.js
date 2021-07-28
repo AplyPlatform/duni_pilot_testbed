@@ -483,7 +483,7 @@ function centerInit() {
 	  });
 
     getCompanyList();
-    getDUNIServiceRequest();
+    getDUNIServiceRequest(1);
 }
 
 
@@ -1883,9 +1883,9 @@ function requestDUNIServiceRequest(r_id, index) {
 	  });
 }
 
-function getDUNIServiceRequest() {				
+function getDUNIServiceRequest(page) {				
 		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid };
+    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
     
 		showLoader();
 
@@ -1896,11 +1896,15 @@ function getDUNIServiceRequest() {
 	      if (r.data == null || r.data.length == 0) {
 	      	$("#duni_service_request_list").html("No request");
 	        return;
-	      }
-	      	      	      
+	      }	      	      
+	      
+	      $("#duni_service_request_list").empty();	      	      	      
 	      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
 	      	      				
 				let retData = r.data;
+				
+				let allcount = retData.allcount;
+				var cur_page = retData.page;					       
 												
 				retData.forEach(function(d, index, arr) {
 					
@@ -1943,6 +1947,38 @@ function getDUNIServiceRequest() {
 					});										
 				});
 				
+				if (duni_service_request_list_page == 1) {
+					if (allcount >= 2) {
+						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
+																
+						$("#service_list_next").click(function() {
+							cur_page++;
+							getDUNIServiceRequest(cur_page);
+						});
+					}
+				}
+				else if (duni_service_request_list_page != allcount && allcount > 2) {
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_prev"><</button> <button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
+					
+					$("#service_list_next").click(function() {
+							cur_page++;
+							getDUNIServiceRequest(cur_page);
+					});
+					
+					$("#service_list_prev").click(function() {
+							cur_page--;
+							getDUNIServiceRequest(cur_page);
+					});					
+				}
+				else if (duni_service_request_list_page == allcount) {
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_prev"><</button></div></div>');
+					
+					$("#service_list_prev").click(function() {
+							cur_page--;
+							getDUNIServiceRequest(cur_page);
+					});
+				}								
+												
 				startRequestTableAnimation();				
 	    }
 	  },
