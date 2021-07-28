@@ -784,9 +784,6 @@
 								location.href = "/center/main.html?page_action=center";
 						});										
 					});
-					
-					
-					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">more</button></div></div>');
 															
 					$("#service_list_next").click(function() {
 						location.href = "/center/main.html?page_action=center";
