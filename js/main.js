@@ -734,7 +734,7 @@
         GATAGM('btnForLoadSearchList', 'CONTENT', g_str_cur_lang);
         getFlightSearchMore();
     });
-	}
+	}	
 	
 	function getDUNIServiceRequest(page) {							
 	    var jdata = { "action": "public_duni_service_list_request" };
@@ -780,19 +780,8 @@
 						htmlString += "</div></td></tr>";
 						$("#service_request_list_table").append(htmlString);
 											
-						$("#partnerServiceRequest_" + index).click(function(e) {
-								e.preventDefault();
-								
-								showAskDialog(
-	                GET_STRING_CONTENT('modal_title'),
-	                GET_STRING_CONTENT('msg_are_you_sure'),
-	                GET_STRING_CONTENT('modal_confirm_btn'),
-	                false,
-	                function () {                 	 
-	                		setTimeout("requestDUNIServiceRequest(" + d.r_id + ", " + index + ")", 300);
-	                	},
-	                function () {}
-	            	);
+						$("#partnerServiceRequest_" + index).click(function() {																
+								location.href = "/center/main.html?page_action=center";
 						});										
 					});
 					
