@@ -735,6 +735,125 @@
         getFlightSearchMore();
     });
 	}
+	
+	function getDUNIServiceRequest(page) {				
+			var userid = getCookie("dev_user_id");
+	    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
+	    
+			showLoader();
+	
+	  	ajaxRequest(jdata, function (r) {
+		    if(r.result == "success") {
+		    	hideLoader();
+	
+		      if (r.data == null || r.data.length == 0) {
+		      	$("#duni_service_request_list").html("No request");
+		        return;
+		      }	      	      
+		      
+		      $("#duni_service_request_list").empty();	      	      	      
+		      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col'>#</th><th scope='col'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
+		      	      				
+					let retData = r.data;
+					
+					let allcount = r.allcount * 1;
+					var cur_page = r.page * 1;					       
+													
+					retData.forEach(function(d, index, arr) {
+						
+						let htmlString = "<tr><th scope='row'>" + (index + 1) + "</th><td>" + d.kind + "</td><td>" + d.title + "</td><td><div id='request_duni_" + index + "'>";
+						
+						if (d.status == "P") {
+							if (d.requested == true) {
+								htmlString += GET_STRING_CONTENT('msg_accepted');							
+								htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
+							}
+							else {
+								htmlString += "<button class='btn btn-info text-xs btn-sm' type='button' id='partnerServiceRequest_" + index + "'>";
+		            htmlString += (GET_STRING_CONTENT('btnRequest') + "</button>");
+		          }
+						}
+						else if (d.status == "C") {
+							htmlString += GET_STRING_CONTENT('msg_closed');	
+						}
+						else if (d.status == "R") {
+							htmlString += GET_STRING_CONTENT('msg_on_ready');
+						}
+						
+						
+						htmlString += "</div></td></tr>";
+						$("#service_request_list_table").append(htmlString);
+											
+						$("#partnerServiceRequest_" + index).click(function(e) {
+								e.preventDefault();
+								
+								showAskDialog(
+	                GET_STRING_CONTENT('modal_title'),
+	                GET_STRING_CONTENT('msg_are_you_sure'),
+	                GET_STRING_CONTENT('modal_confirm_btn'),
+	                false,
+	                function () {                 	 
+	                		setTimeout("requestDUNIServiceRequest(" + d.r_id + ", " + index + ")", 300);
+	                	},
+	                function () {}
+	            	);
+						});										
+					});
+					
+					if (cur_page == 1) {
+						if (allcount > 1) {
+							$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">></button></div></div>');
+																	
+							$("#service_list_next").click(function() {
+								cur_page++;
+								getDUNIServiceRequest(cur_page);
+							});
+						}
+					}
+					else if (cur_page < allcount && allcount > 1) {
+						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button> <button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
+						
+						$("#service_list_next").click(function() {
+								cur_page++;
+								getDUNIServiceRequest(cur_page);
+						});
+						
+						$("#service_list_prev").click(function() {
+								cur_page--;
+								getDUNIServiceRequest(cur_page);
+						});					
+					}
+					else if (cur_page == allcount) {
+						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button></div></div>');
+						
+						$("#service_list_prev").click(function() {
+								cur_page--;
+								getDUNIServiceRequest(cur_page);
+						});
+					}								
+													
+					startRequestTableAnimation();				
+		    }
+		  },
+		  	function(request,status,error) {
+		  		$("#duni_service_request_list").html("No request");
+		  		hideLoader();
+		  });
+	}
+	
+	function startRequestTableAnimation() {
+		
+		$("#service_request_list_table tr").each(function(index){
+			$(this).css("visibility","hidden");
+		});
+		
+		$("#service_request_list_table tr").each(function(index){
+			//$(this).delay(index*500).show(1000);
+			$(this).css({"visibility":"visible", "opacity": 0.0}).delay(index * 500).animate({opacity: 1.0},500);
+		});
+			
+		setTimeout("startRequestTableAnimation()", 15000);
+	}
 
 	function initYoutubeAPI() {
 		var tag = document.createElement('script');
@@ -759,6 +878,7 @@ $(function(){
 	goToTop();
 	loaderPage();
 	flightRecords2DMapInit();
+	getDUNIServiceRequest(1);
 	getCompanyList();
 	initYoutubeAPI();
 	
