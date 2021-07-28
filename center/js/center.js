@@ -1949,7 +1949,7 @@ function getDUNIServiceRequest(page) {
 				
 				if (cur_page == 1) {
 					if (allcount > 1) {
-						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
+						$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_next">></button></div></div>');
 																
 						$("#service_list_next").click(function() {
 							cur_page++;
@@ -1958,7 +1958,7 @@ function getDUNIServiceRequest(page) {
 					}
 				}
 				else if (cur_page < allcount && allcount > 1) {
-					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_prev"><</button> <button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button> <button type="button" class="btn btn-link" id="service_list_next">></button></div></div>');
 					
 					$("#service_list_next").click(function() {
 							cur_page++;
@@ -1971,7 +1971,7 @@ function getDUNIServiceRequest(page) {
 					});					
 				}
 				else if (cur_page == allcount) {
-					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-link" id="service_list_prev"><</button></div></div>');
+					$("#duni_service_request_list").append('<div class="row"><div class="col-md-12 text-right"><button type="button" class="btn btn-light" id="service_list_prev"><</button></div></div>');
 					
 					$("#service_list_prev").click(function() {
 							cur_page--;
