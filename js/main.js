@@ -736,9 +736,8 @@
     });
 	}
 	
-	function getDUNIServiceRequest(page) {				
-			var userid = getCookie("dev_user_id");
-	    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
+	function getDUNIServiceRequest(page) {							
+	    var jdata = { "action": "public_duni_service_list_request" };
 	    
 			showLoader();
 	
