@@ -736,6 +736,7 @@
     });
 	}	
 	
+	var curServiceListTimerId = -1;
 	function getDUNIServiceRequest(page) {							
 	    var jdata = { "action": "public_duni_service_list_request" };
 	    
@@ -799,6 +800,8 @@
 	}
 	
 	function startRequestTableAnimation() {
+		if (curServiceListTimerId >= 0)
+			clearTimeout(curServiceListTimerId);
 		
 		$("#service_request_list_table tr").each(function(index){
 			$(this).css("visibility","hidden");
@@ -809,7 +812,7 @@
 			$(this).css({"visibility":"visible", "opacity": 0.0}).delay(index * 500).animate({opacity: 1.0},500);
 		});
 			
-		setTimeout("startRequestTableAnimation()", 15000);
+		curServiceListTimerId = setTimeout("startRequestTableAnimation()", 15000);
 	}
 
 	function initYoutubeAPI() {
