@@ -849,4 +849,9 @@ $(function(){
   $("#chkCompany").change(function(){
 		showCompanyList($("#chkCompany").is(":checked"));
   });
+  
+  let check = getCookie("user_token");
+  if (isSet(check) && check != "") return;
+  
+  document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 });
