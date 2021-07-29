@@ -237,7 +237,7 @@ function setLogoutBtn() {
             GET_STRING_CONTENT('msg_are_you_sure'),
             GET_STRING_CONTENT('top_menu_logout'),
             false,
-            function () { logOut(); },
+            function () { setTimeout("logOut()", 100); },
             null
         );
     });

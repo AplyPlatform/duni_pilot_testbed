@@ -220,8 +220,8 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     }
 
     var skind = getCookie("dev_kind");
-    var device_kind = getCookie("device_kind"); //������ ���⿡�� �α��� ����
-    var device_id = getCookie("device_id"); //Ǫ�� ��ū
+    var device_kind = getCookie("device_kind");
+    var device_id = getCookie("device_id");
 
     var jdata = {
         action: "member",
@@ -241,6 +241,8 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             setCookie("dev_token", r.dev_token, 1);
             setCookie("user_kind", r.user_kind, 1);
             setCookie("image_url", temp_image, 1);
+            setCookie("temp_phone", r.phonenumber, 1);
+            setCookie("temp_name", r.name, 1);
 
             let page_action = getCookie("last_action");
     				if (!isSet(page_action)) page_action = "center";
