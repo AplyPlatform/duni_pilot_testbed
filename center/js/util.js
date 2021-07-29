@@ -330,18 +330,21 @@ function getBase64(params, callback) {
 }
 
 function delCoockie(cName) {
-    document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/;domain=duni.io";
+    document.cookie = name + "= " + "; expires=" + date.toUTCString() + "; path=/; domain=duni.io";
 }
 
 function setCookie(cName, cValue, cDay) {
     var date = new Date();
     date.setTime(date.getTime() + cDay * 60 * 60 * 24 * 1000);
-    document.cookie = cName + '=' + cValue + ';expires=' + date.toUTCString() + ';path=/;domain=duni.io';
+    document.cookie = cName + '=' + cValue + '; expires=' + date.toUTCString() + '; path=/; domain=duni.io';
 }
 
 function getCookie(cName) {
-    var value = document.cookie.match('(^|;) ?' + cName + '=([^;]*)(;|$)');
-    return value ? value[2] : null;
+		let matches = document.cookie.match(new RegExp(
+    	"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  	));
+  	
+  	return matches ? matches[1] : null;
 }
 
 function massageYotubeUrl(data_id) {
