@@ -300,7 +300,7 @@ function initPilotCenter() {
 			          GET_STRING_CONTENT('modal_confirm_btn'),
 			          false,
 			          function () { 
-			          	 history.back();
+			          	 location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=center";
 			          	 return;
 			          },
 			          null
