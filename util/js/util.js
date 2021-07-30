@@ -12,7 +12,7 @@ limitations under the License.
 */
 
 $(function () {
-		vcheckLang();
+		checkLang();
 		utilInit();
 });
 
