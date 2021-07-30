@@ -858,10 +858,8 @@ $(function(){
   	$("#side_login_area").hide();
   	$("#side_center_area").show();
   	
-  	$("#logoutCenterBtn").click(function() {
-  		e.preventDefault();
-    		
-      GATAGM('btnLogout', 'MAIN');
+  	$("#logoutCenterBtn").click(function() {  		    		
+      GATAGM('logoutCenterBtn', 'MAIN');
 
       showAskDialog(
           GET_STRING_CONTENT('modal_title'),
