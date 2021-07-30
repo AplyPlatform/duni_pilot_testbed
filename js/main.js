@@ -822,7 +822,7 @@
 
 	function onYouTubeIframeAPIReady() {
 	  	getFlightSomeList();
-			getFullFlightRecords();
+			getFullFlightRecords("public");
 			initSearchForm();
   }
 
