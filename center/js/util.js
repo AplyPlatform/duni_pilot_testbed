@@ -176,6 +176,13 @@ function ajaxRequest(data, callback, errorcallback) {
     });
 }
 
+function goIndex(doAction) {
+  if (g_str_cur_lang == "KR" || g_str_cur_lang == "")
+    location.href="index.html?action=" + doAction;
+  else
+  	location.href="index_en.html?action=" + doAction;
+}
+
 function logOut() {
 		var userid = getCookie("dev_user_id");
     var jdata = {

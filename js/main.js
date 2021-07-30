@@ -859,7 +859,18 @@ $(function(){
   	$("#side_center_area").show();
   	
   	$("#logoutCenterBtn").click(function() {
-  		logOut();
+  		e.preventDefault();
+    		
+      GATAGM('btnLogout', 'MAIN');
+
+      showAskDialog(
+          GET_STRING_CONTENT('modal_title'),
+          GET_STRING_CONTENT('msg_are_you_sure'),
+          GET_STRING_CONTENT('top_menu_logout'),
+          false,
+          function () { setTimeout("logOut()", 100); },
+          null
+      );
   	});
   	
   	$("#goCenterBtn1").click(function() {

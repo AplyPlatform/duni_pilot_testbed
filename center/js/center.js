@@ -114,13 +114,6 @@ $(function () {
 	  $('.sidebar .collapse').collapse('hide');
 });
 
-function goIndex(doAction) {
-  if (g_str_cur_lang == "KR" || g_str_cur_lang == "")
-    location.href="index.html?action=" + doAction;
-  else
-  	location.href="index_en.html?action=" + doAction;
-}
-
 function setCurrentViewMode() {
 	var segments = window.location.pathname.split('/');
 	var toDelete = [];
