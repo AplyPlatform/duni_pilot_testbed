@@ -260,7 +260,7 @@ function appendFlightListTable(item) {
 
 	  if (isSet(youtube_url)) {
 	  	var vid = getYoutubeQueryVariable(youtube_url);
-			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + langset + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
+			appendRow = appendRow + "<a id='video-pop-" + curIndex +  "' video-lang='" + g_str_cur_lang + "' video-name='" + name + "' video-url='https://www.youtube.com/watch?v=" + vid + "'></a>";
 	  }
 
 	  $('#dataTable-Flight_list').append(appendRow);
@@ -312,7 +312,7 @@ function requestAddress() {
 
     if (isSet(jdata["lat"]) == false || isSet(jdata["lng"]) == false) {
     		hideLoader();
-	    	showAlert("좌표를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+	    	showAlert("좌표를 " + GET_STRING_CONTENT('msg_wrong_input'));
 	    	return;
     }
 
@@ -344,19 +344,19 @@ function requestAddress() {
 					else {
 						
 						moveFlightHistoryMapAndCada(oldLatVal, oldLngVal, r.data.cada);
-						showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+						showAlert(GET_STRING_CONTENT('msg_address_checked'));
 					}
 					
 		    	hideLoader();
 		    }
 		    else {
-		    	showAlert("좌표를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+		    	showAlert("좌표를 " + GET_STRING_CONTENT('msg_wrong_input'));
 		    	hideLoader();
 		    }
 		  },
 		  function(request,status,error) {
 		    hideLoader();
-		    showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+		    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 		  }
 		);
 
@@ -385,7 +385,7 @@ function requestGPS(address) {
   	jdata["address"] = encodeURI($("#address").val());
 
     if (isSet(jdata["address"]) == false) {
-	    	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+	    	showAlert("주소를 " + GET_STRING_CONTENT('msg_wrong_input'));
 	    	return;
     }
 
@@ -394,13 +394,13 @@ function requestGPS(address) {
 
 		oldAddressVal = jdata["address"];
 
-		GATAGM("util_gps_by_address_btn_click", "SERVICE", oldAddressVal, langset);
+		GATAGM("util_gps_by_address_btn_click", "SERVICE", oldAddressVal);
 
     showLoader();
 		setCaptcha(jdata, function (r) {
 	    	if(r.result == "success") {
 			      if (r.data == null) {
-			      	showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+			      	showAlert("주소를 " + GET_STRING_CONTENT('msg_wrong_input'));
 			        return;
 			      }
 									     	
@@ -419,19 +419,19 @@ function requestGPS(address) {
 						}
 						else {									
 							moveFlightHistoryMapAndCada(r.data.lat, r.data.lng, r.data.cada);
-							showAlert(LANG_JSON_DATA[langset]['msg_address_checked']);
+							showAlert(GET_STRING_CONTENT('msg_address_checked'));
 						}
 						
 			    	hideLoader();					    					    					  
 	    	}
 	    	else {
 	    			hideLoader();
-		  			showAlert("주소를 " + LANG_JSON_DATA[langset]['msg_wrong_input']);
+		  			showAlert("주소를 " + GET_STRING_CONTENT('msg_wrong_input'));
 	    	}
 	  	},
 	  	function(request,status,error) {
 					hideLoader();
-	  			showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
+	  			showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	  	}
 	  );
 }
