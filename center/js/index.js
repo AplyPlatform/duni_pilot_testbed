@@ -331,7 +331,6 @@ $(function () {
         naverinit();
         kakaoinit();
         appleinit();
-        hideLoader();
-        window.fbAsyncInit = facebookInit;
+        hideLoader();        
     }
 });
