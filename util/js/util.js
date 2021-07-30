@@ -11,13 +11,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var langset = "KR";
-
 $(function () {
-		var lang = getCookie("language");
-    if (isSet(lang))
-        langset = lang;
-        
+		vcheckLang();
 		utilInit();
 });
 
@@ -47,162 +42,32 @@ var goToTop = function() {
 
 	};
 
-function setCookie(cName, cValue, cDay) {
-    var date = new Date();
-    date.setTime(date.getTime() + cDay * 60 * 60 * 24 * 1000);
-    document.cookie = cName + '=' + cValue + ';expires=' + date.toUTCString() + ';path=/';
-}
-
-function getCookie(cName) {
-    var value = document.cookie.match('(^|;) ?' + cName + '=([^;]*)(;|$)');
-    return value ? value[2] : null;
-}
-
-
-function showLoader() {
-    $("#loading").show();
-}
-
-function hideLoader() {
-    $("#loading").fadeOut(800);
-}
-
-function showAlert(msg) {
-
-    $('#modal-title').text(LANG_JSON_DATA[langset]['modal_title']);
-    $('#modal-confirm-btn').text(LANG_JSON_DATA[langset]['modal_confirm_btn']);
-
-    $('#errorModalLabel').text(msg);
-    $('#errorModal').modal('show');
-}
-
-
-function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelhandler) {
-
-    if (needInput == true) {
-        $('#askModalInput').show();
-        $('#askModalContent').hide();
-        $('#askModalInput').val("");
-        $("#askModalInput").attr("placeholder", acontent);
-    }
-    else {
-        $('#askModalContent').show();
-        $('#askModalInput').hide();
-    }
-
-    $('#askModalLabel').text(atitle);
-    $('#askModalContent').text(acontent);
-    $('#askModalOKButton').text(oktitle);
-
-
-    if (cancelhandler) {
-      $('#askModalCancelButton').show();
-      $('#askModalCancelButton').off('click');
-      $('#askModalCancelButton').click(function () {
-          cancelhandler();
-      });
-    }
-    else {
-      $('#askModalCancelButton').hide();
-    }
-
-    $('#askModalOKButton').off('click');
-    $('#askModalOKButton').click(function () {
-        $('#askModal').modal('hide');
-        if (needInput == true) {
-            var ret = $('#askModalInput').val();
-
-            if (!isSet(ret)) {
-                showAlert(LANG_JSON_DATA[langset]['msg_wrong_input']);
-                return;
-            }
-
-            okhandler(ret);
-        }
-        else {
-            okhandler();
-        }
-    });
-
-    $('#askModal').modal('show');
-
-}
-
 function utilInit() {
 
 		showLoader();
 		
 		$("#address").keypress(function (e) {
         if (e.which == 13){
+        		GATAGM("util_address_input_key_enter", "CONTENT");
         		requestGPS();  //
         }
     });
 
 		$("#lng").keypress(function (e) {
         if (e.which == 13){
+        		GATAGM("util_lat_lng_input_key_enter", "CONTENT");
         		requestAddress();  //
         }
     });
 
-		goToTop();
-		$("#historyMapArea").show();
-		flightHistoryMapInit();
+		goToTop();		
+		flightRecords2DMapInit();
+		$("#historyMapArea").hide();
 		getCompanyList();
     initYoutubeAPI();
     $("#historyMapArea").hide();
 		hideLoader();
 }
-
-
-function isSet(value) {
-		if ( typeof(value) === 'number' )
-        return true;
-    if (value == "" || value == null || value == "undefined" || value == undefined)
-        return false;
-    return true;
-}
-
-
-function ajaxRequest(data, callback, errorcallback) {
-    $.ajax({
-        url: "https://api.duni.io/v1/",
-        dataType: "json",
-        crossDomain: true,
-        cache: false,
-        data: JSON.stringify(data),
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (request) {
-            request.setRequestHeader("droneplay-token", getCookie('user_token'));
-        },
-        success: function (r) {
-        		if (r.result != "success" && (("reason" in r) && r.reason.indexOf("invalid token") >= 0)) {
-        			alert(LANG_JSON_DATA[langset]['msg_login_another_device_sorry']);
-        			logOut();
-        			return;
-        		}
-
-            callback(r);
-        },
-        error: function (request, status, error) {
-            monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            errorcallback(request, status, error);
-        }
-    });
-}
-
-
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-}
-
 
 function setCaptcha(jdata, successHandler, failHandler) {
 
@@ -217,19 +82,6 @@ function setCaptcha(jdata, successHandler, failHandler) {
 
 }
 
-
-function getYoutubeQueryVariable(query) {
-  var varfirst = query.split('?');
-  var vars = varfirst[1].split('&');
-  for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=');
-      if (decodeURIComponent(pair[0]) == "v") {
-          return decodeURIComponent(pair[1]);
-      }
-  }
-
-  return "";
-}
 
 var players = [];
 function setEmptyVideo(index) {
@@ -291,403 +143,25 @@ function onPlayerStateChange(event) {
 	   playIndex = null;
 	}
 }
-
-	var flightHistorySource;
-	var flightCompanySource;
-	var flightHistoryView;
-	var mainMap2DpointSource;
-	var mainMap2DCadaSource;
-	var mainMap2DAreaInfoSource;
-
-	var vVectorLayerForCompany;
-	var vVectorLayerForHistory;
-
-	var flightRecArray = [];
-	var companyArray = [];
-
-	var container = document.getElementById('popup');
-	var overlayBoxcontent = document.getElementById('popup-content');
-	var closer = document.getElementById('popup-closer');
-	var overlayBox;
-
-	function flightHistoryMapInit() {
-		var dpoint = ol.proj.fromLonLat([0, 0]);
-
-		container.style.visibility = "visible";
-		overlayBox = new ol.Overlay({
-		  element: container,
-		  autoPan: true,
-		  autoPanAnimation: {
-		    duration: 250,
-		  },
-		});
-
-		closer.onclick = function () {
-		  overlayBox.setPosition(undefined);
-		  closer.blur();
-		  return false;
-		};
-
-	  flightHistoryView = new ol.View({
-	      center: dpoint,
-	      zoom: 14
-	    });
-
-	  flightCompanySource = new ol.source.Vector();
-		var clusterCompanySource = new ol.source.Cluster({
-			  distance: 40,
-			  source: flightCompanySource,
-			  geometryFunction: function(feature) {
-	        var geom = feature.getGeometry();
-	    		return geom.getType() == 'Point' ? geom : null;
-	    	},
-			});
-
-		var styleCacheForCompany = {};
-	  vVectorLayerForCompany = new ol.layer.Vector({
-	      source: clusterCompanySource,
-	      zIndex: 99,
-	      style:  function (feature) {
-	        	if (!feature) return;
-
-				    var size = feature.get('features').length;
-				    var radius;
-				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-				    var style = styleCacheForCompany[size];
-				    if (!style) {
-				    		style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#779977dd' }),
-				            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-									})
-	              })];
-
-								if (size > 1) {
-									style[0].setText(new ol.style.Text({
-					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#fff' }),
-					                  scale: 1.5
-									}));
-								}
-
-	          		styleCacheForCompany[size] = style
-				    }
-				    return style;
-				  },
-	    });
-
-	  flightHistorySource = new ol.source.Vector();
-	  var clusterSource = new ol.source.Cluster({
-			  distance: 40,
-			  source: flightHistorySource,
-			  geometryFunction: function(feature) {
-	        var geom = feature.getGeometry();
-	    		return geom.getType() == 'Point' ? geom : null;
-	    	},
-			});
-
-		var styleCache = {};
-	  vVectorLayerForHistory = new ol.layer.Vector({
-	      source: clusterSource,
-	      zIndex: 100,
-	      style:  function (feature) {
-	        	if (!feature) return;
-
-				    var size = feature.get('features').length;
-				    var radius;
-				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-				    var style = styleCache[size];
-				    if (!style) {
-				       	style = [new ol.style.Style({
-		                image: new ol.style.Circle({
-						            radius: radius,
-						            fill: new ol.style.Fill({ color: '#964383dd' }),
-						            stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
-	                		})
-	              })];
-
-								if (size > 1) {
-									style[0].setText(new ol.style.Text({
-					                  text: size.toString(),
-					                  fill: new ol.style.Fill({ color: '#fff' }),
-					                  scale: 1.5
-									}));
-								}
-
-	          		styleCache[size] = style
-				    }
-				    return style;
-				  },
-	    });
-
-	  var bingLayer = new ol.layer.Tile({
-	    visible: true,
-	    preload: Infinity,
-	    source: new ol.source.OSM()
-		});
-		
-		var overviewMapControl = new ol.control.OverviewMap({
-		  layers: [
-		    new ol.layer.Tile({
-		      source: new ol.source.OSM(),
-		    }) ],
-		  collapsed : false
-		});
-
-		mainMap2DpointSource = new ol.source.Vector({});
-
-		var pointLayer = new ol.layer.Vector({
-        source: mainMap2DpointSource
-    });
-
-    mainMap2DCadaSource = new ol.source.Vector({});
-
-		var cadaLayer = new ol.layer.Vector({
-        source: mainMap2DCadaSource,
-        style: new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color: '#ff0000',
-                width: 2
-            })
-        })
-    });
-    
-    mainMap2DAreaInfoSource = new ol.source.Vector({});
-
-		var areaInfoLayer = new ol.layer.Vector({
-        source: mainMap2DAreaInfoSource,
-        style: new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color: '#0000dd',
-                width: 3
-            })
-        })
-    });
-
-	  var vMap = new ol.Map({
-	  		controls: ol.control.defaults().extend([
-            overviewMapControl
-        ]),
-	      target: 'historyMap',
-	      layers: [
-	          bingLayer, vVectorLayerForHistory, vVectorLayerForCompany, pointLayer, cadaLayer, areaInfoLayer
-	      ],
-				overlays: [overlayBox],
-	      // Improve user experience by loading tiles while animating. Will make
-	      // animations stutter on mobile or slow devices.
-	      loadTilesWhileAnimating: true,
-	      view: flightHistoryView
-	    });
-
-	  vMap.on('click', function(evt) {
-	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(vMap, evt, feature);
-			});
-
-		$("#historyMapArea").hide();
-	}
-
-	function createNewCompanyIconFor2DMap(i, item) {
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-	          cname: item.name,
-	          cindex : item.cid
-	      });
-
-	  return pos_icon;
-	}
-
-	function getCompanyList() {
-		flightCompanySource.clear();
-
-	  var jdata = {"action": "public_company_list"};
-
-		showLoader();
-  	ajaxRequest(jdata, function (r) {
-	    hideLoader();
-	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {
-					hideLoader();
-	        return;
-	      }
-
-	      companyArray = r.data;
-
-	      companyArray.forEach(function(item, index, arr) {
-	      	var icon = createNewCompanyIconFor2DMap(index, item);
-					flightCompanySource.addFeature(icon);
-	  		});
-
-				hideLoader();
-	    }
-	    else {
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
-	}
-
-	function getCompanyInfo(title, cid) {
-	  var jdata = {"action": "public_company_detail", "cid" : cid};
-
-		overlayBoxcontent.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
-
-  	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	      if (r.data == null) {
-	      	overlayBoxcontent.innerHTML = title + "<p>Failed to get more info.</p>";
-	        return;
-	      }
-
-	     	if (r.data.is_playground == true) {
-	     			title = "<드론비행/체험장> " + title;
-	     	}
-
-	      if (r.data.partner == true) {
-	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='" + duni_logo + "' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
-	      }
-	      else {
-	      		title = "<b>" + title + "</b>";
-	      }
-
-	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
-
-	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
-	      	title = title + ('<br>' + r.data.phone_num_2);
-
-	      title = title + '</p>';
-	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
-
-	      if (r.data.spe_edu == true) {
-	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
-				}
-
-	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\", langset);'>홈페이지</a></td>";
-	      }
-
-	      title = title + "</tr></table>";
-
-	      overlayBoxcontent.innerHTML = title;
-	    }
-	  },
-	  	function(request,status,error) {
-	  		overlayBoxcontent.innerHTML = title + "<p>Failed to get more info.</p>";
-	  });
-	}
-
-
-	function processMapClick(map, evt, feature) {
-		if (!isCluster(feature)) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
-		}
-
-  	var features = feature.get('features');
-  	var count = features.length;
-		if (count <= 0 || count >= 2) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
-		}
-
-    var ii = features[0].get('mindex');
-    if (!isSet(ii)) {
-    	ii = features[0].get('cindex');
-    	if (!isSet(ii)) return;
-
-    	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", langset);
-
-    	var title = features[0].get('cname');
-			var coordinate = evt.coordinate;
-
-			if (count > 1)
-				title = '<p>' + title + ' (+' + (count - 1) + ')</p>';
-			else
-				title = '<p>' + title + '</p>';
-
-		  overlayBox.setPosition(coordinate);
-		  container.style.opacity = 1;
-    	getCompanyInfo(title, ii);
-    	return;
-    }
-    
-    GATAGM("index_page_vMap_" + ii, "CONTENT", langset);
-
-    var hasYoutube = features[0].get('mhasYoutube');
-
-  	if (hasYoutube)
-  		$("#video-pop-" + ii).click();
-	}
-
-	function isCluster(feature) {
-	  if (!feature || !feature.get('features')) {
-	  	return false;
-	  }
-
-	  return feature.get('features').length >= 1;
-	}
-
-	function moveFlightHistoryMapAndCada(lat, lng, cada) {
-		$("#historyMapArea").show();
-		var npos = ol.proj.fromLonLat([lng, lat]);
-		
-		var latlng = lat + "_" + lng;
-		
-		$('#dataTable-Flight_list').empty();
-		$('#dataTable-Flight_list').append("<div class='text-center'><h4>이 지역을 드론으로 촬영한<br>영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io/index.php?page=rental' target='_new' onClick='GATAGM(\"util_request_duni_btn_1\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청</a></div>");
-		
-		flightHistoryView.setCenter(npos);
-		addNewIconFor2DMap(npos, mainMap2DpointSource);
-		if (isSet(cada))
-			setAddressAndCada(null, null, cada.response.result.featureCollection.features, mainMap2DCadaSource);
-	}
-
 var flightRecArray = [];
+
+function moveFlightHistoryMapAndCada(lat, lng, cada) {
+	$("#historyMapArea").show();
+	var npos = ol.proj.fromLonLat([lng, lat]);
+	
+	var latlng = lat + "_" + lng;
+	
+	$('#dataTable-Flight_list').empty();
+	$('#dataTable-Flight_list').append("<div class='text-center'><h4>이 지역을 드론으로 촬영한<br>영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io/index.php?page=rental' target='_new' onClick='GATAGM(\"util_request_duni_btn\",\"SERVICE\",\"" + latlng + "\");'>드론촬영 요청</a></div>");
+	
+	g_view_2D_map_for_flight_rec.setCenter(npos);
+	addNewIconMarkerFor2DMap(npos, g_vector_2D_map_for_point_mark);
+	if (isSet(cada))
+		setAddressAndCada(null, null, cada.response.result.featureCollection.features, g_vector_2D_map_for_cada);
+}
+
 var tableCount = 0;
 var duni_logo = '/duni_logo.png';
-
-function createNewIconFor2DMap(i, item) {
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-	          name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-	          mindex : i,
-						maddress : item.address,
-						mhasYoutube : item.hasYoutube
-	      });
-
-	  return pos_icon;
-}
-
-
-function addNewIconFor2DMap(npos, vsource) {
-		var iconStyle = new ol.style.Style({
-		  image: new ol.style.Icon({
-		    src: '../images/pin.png',
-		    anchor: [0.5, 46],
-		    anchorXUnits: 'fraction',
-		    anchorYUnits: 'pixels',
-		    scale: 0.2
-		  }),
-		});
-
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(npos)
-	  });
-
-	  pos_icon.setStyle(iconStyle);
-
-	  vsource.addFeature(pos_icon);
-}
-
-
 
 function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		var dpoint = ol.proj.fromLonLat([flng, flat]);
@@ -739,50 +213,6 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 	  return vSource;
 }
 
-
-function setAddressAndCada(address_id, address, cada, wsource) {
-		var _features = [];
-		var _addressText = "";
-
-	  for(var idx=0; idx< cada.length; idx++) {
-	    try{
-	      var geojson_Feature = cada[idx];
-	      var geojsonObject = geojson_Feature.geometry;
-
-	      var features =  (new ol.format.GeoJSON()).readFeatures(geojsonObject);
-	      for(var i=0; i< features.length; i++) {
-	        try{
-	          var feature = features[i];
-	          feature["id_"] = geojson_Feature.id;
-	          feature["properties"] = {};
-	          for (var key in geojson_Feature.properties) {
-	            try{
-	              var value = geojson_Feature.properties[key];
-
-	              if (_addressText == "" && key == "addr") {
-	              	_addressText = value;
-	              }
-
-	              feature.values_[key] = value;
-	              feature.properties[key] = value;
-	            }catch (e){
-	            }
-	          }
-	          _features.push(feature)
-	        }catch (e){
-	        }
-	      }
-	    }catch (e){
-	    }
-	  }
-
-
-	  wsource.addFeatures(_features);
-
-	  if (address_id != null && isSet($(address_id)))
-	  	$(address_id).text(address);
-}
-
 function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
@@ -809,8 +239,7 @@ function appendFlightListTable(item) {
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
 						+ "<a onclick='GATAGM(\"util_flight_list_public_title_click\", \"CONTENT\", \""
-						+ name + "\", \""
-						+ langset + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ name + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (flat != -999) {
@@ -863,7 +292,7 @@ function setFlightlistHistory(latlng) {
 		$("#historyMapArea").hide();
 		$('#dataTable-Flight_list').empty();
 
-		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_2\",\"SERVICE\",\"" + latlng + "\",\"" + langset + "\");'>드론촬영 요청하기</a></h4></div>");
+		$('#dataTable-Flight_list').append("<div class='text-center'><h4>인근 지역을 드론으로 촬영한 영상들의 목록입니다 - <a href='https://duni.io' target='_new' onClick='GATAGM(\"util_request_duni_btn_2\",\"SERVICE\",\"" + latlng + "\");'>드론촬영 요청하기</a></h4></div>");
 		$('#dataTable-Flight_list').append("<hr>");
 
 	  flightRecArray.forEach(function(item) {
@@ -876,7 +305,6 @@ var oldLatVal = -999;
 var oldLngVal = -999;
 
 function requestAddress() {
-
     var jdata = {"action" : "public_address_by_gps", "daction" : "public_address_by_gps"};
   	jdata["lat"] = $("#lat").val() * 1;
   	jdata["lng"] = $("#lng").val() * 1;
@@ -897,7 +325,7 @@ function requestAddress() {
 		oldLatVal = jdata["lat"];
 		oldLngVal = jdata["lng"];
 
-		GATAGM("public_address_by_gps", "SERVICE", oldLatVal + "," + oldLngVal, langset);
+		GATAGM("util_address_by_gps_btn_click", "SERVICE", oldLatVal + "," + oldLngVal);
 
 		showLoader();
 		setCaptcha(jdata, function (r) {
@@ -945,7 +373,7 @@ function setAreaInfo(ainfo) {
 		areaString = areaString + ai.name + " / ";
 		var areaVec = ai.arrayvec;
 		var _area_polyline = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
-    mainMap2DAreaInfoSource.addFeature(_area_polyline);		
+    g_vector_2D_map_for_flight_area.addFeature(_area_polyline);		
 	});		
 	
 	$("#area_info_text").html("<H4>이 지역은 " + desc + " / " + areaString + "</H4>");			
@@ -953,7 +381,6 @@ function setAreaInfo(ainfo) {
 }
 
 function requestGPS(address) {
-
 		var jdata = {"action" : "public_gps_by_address", "daction" : "public_gps_by_address"};
   	jdata["address"] = encodeURI($("#address").val());
 
@@ -967,7 +394,7 @@ function requestGPS(address) {
 
 		oldAddressVal = jdata["address"];
 
-		GATAGM("public_gps_by_address", "SERVICE", oldAddressVal, langset);
+		GATAGM("util_gps_by_address_btn_click", "SERVICE", oldAddressVal, langset);
 
     showLoader();
 		setCaptcha(jdata, function (r) {
@@ -1007,21 +434,6 @@ function requestGPS(address) {
 	  			showAlert(LANG_JSON_DATA[langset]['msg_error_sorry']);
 	  	}
 	  );
-}
-
-function GATAGM(label, category, value, language) {
-    gtag(
-        'event', label + "_" + language, {
-        'event_category': category,
-        'event_label': label,
-        'etc' : value
-    }
-    );
-
-    mixpanel.track(
-        label + "_" + language,
-        { "event_category": category, "event_label": label, "etc" : value }
-    );
 }
 
 function initYoutubeAPI() {

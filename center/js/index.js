@@ -22,6 +22,29 @@ function facebookSignInCallback() {
     });
 }
 
+function facebookInit() {	
+	  FB.init({
+	    appId            : '570867566598427',
+	    autoLogAppEvents : true,
+	    xfbml            : true,
+	    version          : 'v3.5'
+  	});
+
+	 	if (document.getElementById('facebookLoginBtn1')) {
+	  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+	  		GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
+				FB.login(facebookSignInCallback);
+			});
+		}
+		
+		if (document.getElementById('facebookLoginBtn2')) {
+			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+				GATAGM('index_facebook_login_2_btn_click', 'MENU');
+				FB.login(facebookSignInCallback);
+			});
+		}	
+}
+
 function naverSignInCallback() {
     setCookie("dev_kind", "naver", 1);
 
@@ -309,5 +332,6 @@ $(function () {
         kakaoinit();
         appleinit();
         hideLoader();
+        window.fbAsyncInit = facebookInit;
     }
 });

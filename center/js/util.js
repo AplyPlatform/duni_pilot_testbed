@@ -20,6 +20,7 @@ var g_array_full_flight_rec;
 var g_vector_2D_map_for_flight_rec;
 var g_layer_2D_map_for_flight_rec;
 var g_view_2D_map_for_flight_rec;
+var g_vector_2D_map_for_cada;
 
 var g_vector_2D_map_for_company;
 var g_layer_2D_map_for_company;
@@ -456,7 +457,7 @@ function GET_STRING_CONTENT(table_index_str) {
 		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
 }
 
-function GATAGM(event_name, category) {
+function GATAGM(event_name, category, label) {
 		var userid = getCookie('dev_user_id');
 		if (!isSet(userid) || userid == "") {
 			userid = "anonymous";
@@ -466,11 +467,16 @@ function GATAGM(event_name, category) {
 			g_str_page_action = "index"	
 		}
 		
+		var c_label = event_name;
+		if (isSet(label) && label != "") {
+			c_label = label;
+		}
+		
     gtag(
         'event', event_name, {
         'event_category': g_str_page_action,
         'language' : g_str_cur_lang,
-        'event_label': label,
+        'event_label': c_label,
         'userid' : userid,
         'event_position' : category,
         'location': window.location.href
@@ -503,6 +509,25 @@ function createNewIconFor2DMap(i, item) {
     return pos_icon;
 }
 
+function addNewIconMarkerFor2DMap(npos, vsource) {
+		var iconStyle = new ol.style.Style({
+		  image: new ol.style.Icon({
+		    src: '/images/pin.png',
+		    anchor: [0.5, 46],
+		    anchorXUnits: 'fraction',
+		    anchorYUnits: 'pixels',
+		    scale: 0.2
+		  }),
+		});
+
+		var pos_icon = new ol.Feature({
+	          geometry: new ol.geom.Point(npos)
+	  });
+
+	  pos_icon.setStyle(iconStyle);
+
+	  vsource.addFeature(pos_icon);
+}
 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
@@ -721,6 +746,33 @@ function flightRecords2DMapInit() {
 		  collapsed : true
 		});
 
+		g_vector_2D_map_for_cada = new ol.source.Vector({});
+		var cadaLayer = new ol.layer.Vector({
+        source: g_vector_2D_map_for_cada,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 2
+            })
+        })
+    });
+    
+    g_vector_2D_map_for_flight_area = new ol.source.Vector({});
+		var areaInfoLayer = new ol.layer.Vector({
+        source: g_vector_2D_map_for_flight_area,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#0000dd',
+                width: 3
+            })
+        })
+    });
+    
+    g_vector_2D_map_for_point_mark = new ol.source.Vector({});
+
+		var pointLayer = new ol.layer.Vector({
+        source: g_vector_2D_map_for_point_mark
+    });
 
     var vMap = new ol.Map({
     		controls: ol.control.defaults().extend([
@@ -728,7 +780,7 @@ function flightRecords2DMapInit() {
         ]),
         target: 'historyMap',
         layers: [
-            bingLayer, g_layer_2D_map_for_flight_rec, g_layer_2D_map_for_company
+            bingLayer, g_layer_2D_map_for_flight_rec, g_layer_2D_map_for_company, cadaLayer, areaInfoLayer, pointLayer
         ],
         overlays: [ overlay ],        
         loadTilesWhileAnimating: true,
@@ -798,7 +850,7 @@ function displayListFeature(f, index, coordinate, overlay) {
   	ii = f.get('cindex');
   	if (!isSet(ii)) return;
 
-  	GATAGM("duni_map_company_list_click_" + ii, "CONTENT");
+  	GATAGM("duni_map_company_list_click", "CONTENT", ii);
   	
   	overlay.setPosition(coordinate);
   	
@@ -812,7 +864,7 @@ function displayListFeature(f, index, coordinate, overlay) {
   	return;
   }
 
-  GATAGM("duni_map_video_list_click_" + ii, "CONTENT");
+  GATAGM("duni_map_video_list_click", "CONTENT", ii);
 
   var hasYoutube = f.get('mhasYoutube');
 		
@@ -836,7 +888,7 @@ function displayMapFeature(f, coordinate, overlay) {
   	ii = f.get('cindex');
   	if (!isSet(ii)) return;
 
-  	GATAGM("duni_map_company_click_" + ii, "CONTENT");
+  	GATAGM("duni_map_company_click", "CONTENT", ii);
 
   	var title = f.get('cname');			
 		
@@ -846,7 +898,7 @@ function displayMapFeature(f, coordinate, overlay) {
   	return;
   }
 
-  GATAGM("duni_map_video_click_" + ii, "CONTENT");
+  GATAGM("duni_map_video_click", "CONTENT", ii);
 
   var hasYoutube = f.get('mhasYoutube');
 		
@@ -955,7 +1007,7 @@ function getCompanyInfo(title, cid) {
 				}
 
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"duni_map_company_home_click_" + cid + "\", \"CONTENT\");'>홈페이지</a></td>";
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"duni_map_company_home_click\", \"CONTENT\", " + cid + ");'>홈페이지</a></td>";
 	      }
 
 	      title = title + "</tr></table>";
