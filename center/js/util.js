@@ -1030,8 +1030,15 @@ function createNewCompanyIconFor2DMap(i, item) {
 	  return pos_icon;
 }
 
-function getFullFlightRecords() {		
-	  var jdata = {"action": "public_record_list", "list" : true};
+function getFullFlightRecords(target) {
+		var jdata;
+		if (target == "public") {
+			jdata = {"action": "public_record_list", "list" : true};
+		}
+		else {
+			var userid = getCookie("dev_user_id");
+	  	jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};			
+		}	  	
 
 	  showLoader();
 	  ajaxRequest(jdata, function (r) {
