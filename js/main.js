@@ -870,7 +870,12 @@ $(function(){
   		location.href = "/center/main.html?page_action=center";
   	});
   	return;
-  }
+  }  
   
+  $("#main_login_area").show();
+	$("#main_center_area").hide();
+	
+	$("#side_login_area").show();
+	$("#side_center_area").hide();
   document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 });
