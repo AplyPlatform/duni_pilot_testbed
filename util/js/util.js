@@ -64,6 +64,7 @@ function utilInit() {
 		flightRecords2DMapInit();
 		$("#historyMapArea").hide();
 		getCompanyList();
+		getFullFlightRecords();
     initYoutubeAPI();
     $("#historyMapArea").hide();
 		hideLoader();
