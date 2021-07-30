@@ -92,14 +92,16 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
     				version          : 'v3.5'
   				});
 
-		  		if (document.getElementById('facebookLoginBtn1')) {
+		  		if (document.getElementById('facebookLoginBtn1')) {		  			
 				  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+				  		GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
 							FB.login(facebookSignInCallback);
 						});
 					}
 					
 					if (document.getElementById('facebookLoginBtn2')) {
 						document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+							GATAGM('index_facebook_login_2_btn_click', 'MENU');
 							FB.login(facebookSignInCallback);
 						});
 					}
@@ -188,7 +190,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					<h1 class="text-center" style="margin-bottom:50px;">About DUNI Pilot Center</h1>
 					
 					<div class="col-md-6 gtco-cta text-left">
-						<h3><a href="/center/main.html?page_action=recordupload"><i class="fas fa-archive"></i> Keep/manage flight records with drone videos</a></h3>
+						<h3><a href="/center/main.html?page_action=recordupload" onClick="GATAGM('index_explain_section_record_upload_link__click', 'CONTENT');"><i class="fas fa-archive"></i> Keep/manage flight records with drone videos</a></h3>
 						<blockquote class="blockquote">
 							<ul class="list-unstyled">
 								<li><i class="far fa-check-circle"></i> Navigate flight records and drone videos at the same time.</li>
@@ -202,7 +204,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					</div>
 
 					<div class="col-md-6 gtco-cta text-left">
-						<h3><a href="/center/main.html?page_action=embedcompass"><i class="fas fa-compass"></i> Embed compass into drone videos</a></h3>
+						<h3><a href="/center/main.html?page_action=embedcompass" onClick="GATAGM('index_explain_section_compass_link_click', 'CONTENT');"><i class="fas fa-compass"></i> Embed compass into drone videos</a></h3>
 						<blockquote class="blockquote">
 							<ul class="list-unstyled">
 								<li><i class="far fa-check-circle"></i> You can easily check the direction of the drone in the videos.</li>
@@ -218,7 +220,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				
 				<div class="row">				
 					<div class="col-md-6 gtco-cta text-left">
-						<h3><a href="/center/main.html?page_action=recordupload"><i class="fas fa-file-video"></i> Selling drone videos on behalf of you</a></h3>
+						<h3><a href="/center/main.html?page_action=recordupload" onClick="GATAGM('index_explain_section_duni_service_link_click', 'CONTENT');"><i class="fas fa-file-video"></i> Selling drone videos on behalf of you</a></h3>
 						<blockquote class="blockquote">
 							<ul class="list-unstyled">
 								<li><i class="far fa-check-circle"></i> Register drone videos that are left unattended or scheduled to be deleted.</li>
@@ -228,11 +230,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						</blockquote>
 					</div>
 					<div class="col-md-6 gtco-cta text-left">
-						<h3><a href="./util"><i class="fas fa-map-pin"></i> Convert GPS Location <i class="fas fa-exchange-alt"></i> Address</a></h3>
+						<h3><a href="./util" onClick="GATAGM('index_explain_section_gps_convert_1_link_click', 'CONTENT');"><i class="fas fa-map-pin"></i> Convert GPS Location <i class="fas fa-exchange-alt"></i> Address</a></h3>
 						<blockquote class="blockquote">
 							<ul class="list-unstyled">
 								<li><i class="far fa-check-circle"></i> Convert GPS coordinates to addresses and addresses to GPS coordinates.</li>
-								<li><i class="far fa-check-circle"></i> <a href="./util"><i class="fas fa-map-marked-alt"></i> Go to Convert</a></li>
+								<li><i class="far fa-check-circle"></i> <a href="./util" onClick="GATAGM('index_explain_section_gps_convert_2_link_click', 'CONTENT');"><i class="fas fa-map-marked-alt"></i> Go to Convert</a></li>
 							</ul>
 						</blockquote>
 					</div>
@@ -259,7 +261,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				<div class="row">
 					<div class="gtco-heading text-center">
 						<h1><i class="fas fa-piggy-bank"></i> Make a profit from the drone videos!</h1>
-						<h3><a href="/center/main.html?page_action=recordupload"><i class="fas fa-file-upload"></i> Upload Drone Videos</a></h3>
+						<h3><a href="/center/main.html?page_action=recordupload" onClick="GATAGM('index_explain_section_upload_record_2_link_click', 'CONTENT');"><i class="fas fa-file-upload"></i> Upload Drone Videos</a></h3>
 					</div>
 				</div>
 			</div>
@@ -271,7 +273,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					<div class="gtco-heading text-center">
 						<h1><i class="fas fa-code"></i> Develop Drone Software</h1>
 						<p>Do you have any idea or function you need for better drone activity? Ask for it now.</p>
-						<h3><a href="/contact_EN.html"><i class="fas fa-envelope-open-text"></i> Contact Us</a></h3>
+						<h3><a href="/contact_EN.html" onClick="GATAGM('index_explain_section_contactus_link_click', 'CONTENT');"><i class="fas fa-envelope-open-text"></i> Contact Us</a></h3>
 					</div>
 				</div>
 			</div>
@@ -337,7 +339,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				<div class="row row-pb-sm" id="defaultListView">
 					<div class="service-wrap" id="dataTable-Flight_list"></div>					
 					<div class="service-wrap text-center">
-						<a onclick="GATAGM('more_label', 'MEMU', langset);" href="/center/main.html?page_action=publicrecordlist" id="more_label" class="btn btn-circle btn-info btn-lg">More</a>
+						<a onclick="GATAGM('index_load_more_btn_click', 'MEMU');" href="/center/main.html?page_action=publicrecordlist" id="more_label" class="btn btn-circle btn-info btn-lg">More</a>
 					</div>
 				</div>
 				
@@ -352,11 +354,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						<ul class="gtco-list-link gtco-cta">
 							<h3>DUNI PILOT CENTER</h3>
 							<p>Drone, Everywhere.</p>
-							<p><a href="/contact_EN.html" class="btn btn-white btn-outline">Contact Us</a></p>
-							<a href="https://instagram.com/duni_aply" target="_blank"><i class="fab fa-instagram"></i></a>&nbsp;&nbsp;
-							<a href="https://facebook.com/duniplatform" target="_blank"><i class="fab fa-facebook-f"></i></a>&nbsp;&nbsp;
-							<a href="https://blog.naver.com/duniplatform?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" target="_blank"><i class="fas fa-rss-square"></i></a>&nbsp;&nbsp;
-							<a href="https://www.youtube.com/channel/UCOhNUci1UJ3YsyEf2WrZSEA" target="new"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
+							<p><a href="/contact_EN.html" class="btn btn-white btn-outline" onClick="GATAGM('index_contactus_bottom_menu_link_click', 'CONTENT');">Contact Us</a></p>
+							<a href="https://instagram.com/duni_aply" target="_blank" onClick="GATAGM('index_duni_insta_bottom_menu_link_click', 'CONTENT');"><i class="fab fa-instagram"></i></a>&nbsp;&nbsp;
+							<a href="https://facebook.com/duniplatform" target="_blank" onClick="GATAGM('index_duni_facebook_bottom_menu_link_click', 'CONTENT');"><i class="fab fa-facebook-f"></i></a>&nbsp;&nbsp;
+							<a href="https://blog.naver.com/duniplatform?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" target="_blank"  onClick="GATAGM('index_duni_blog_bottom_menu_link_click', 'CONTENT');"><i class="fas fa-rss-square"></i></a>&nbsp;&nbsp;
+							<a href="https://www.youtube.com/channel/UCOhNUci1UJ3YsyEf2WrZSEA" target="new" onClick="GATAGM('index_duni_youtube_bottom_menu_link_click', 'CONTENT');"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
 							<div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-colorscheme="dark" data-action="like" data-size="small" data-show-faces="true"></div>
 						</ul>
 					</div>
@@ -366,10 +368,10 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 							<div class="col-md-12">
 								<h5 style="color:#FFF">Family Services</h5>
 								<ul class="gtco-list-link">
-									<li><a href="https://duni.io" target="_blank">DUNI, Drone Universe</a></li>
-									<li><a href="https://pilot.duni.io?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" target="_blank">DUNI PILOT CENTER</a></li>
-									<li><a href="https://dunistock.com?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" target="_blank">DUNI STOCK</a></li>
-									<li><a href="https://developer.duni.io?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" target="_blank">DUNI DEVELOPER SITE</a></li>
+									<li><a href="https://duni.io" onClick="GATAGM('index_duni_service_link_click', 'CONTENT');" target="_blank">DUNI, Drone Universe</a></li>
+									<li><a href="https://pilot.duni.io?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" onClick="GATAGM('index_duni_pilot_center_link_click', 'CONTENT');" target="_blank">DUNI PILOT CENTER</a></li>
+									<li><a href="https://dunistock.com?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" onClick="GATAGM('index_duni_stock_link_click', 'CONTENT');" target="_blank">DUNI STOCK</a></li>
+									<li><a href="https://developer.duni.io?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" onClick="GATAGM('index_duni_developer_link_click', 'CONTENT');" target="_blank">DUNI DEVELOPER SITE</a></li>
 									<li><a href="#">DUNI PILOT APP., coming soon</a></li>
 								</ul>
 							</div>
@@ -382,10 +384,10 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 				<div class="gtco-container">
 					<div class="row">
 						<div class="col-md-6 text-left">
-							<p><small>&copy; <script>var cYear=(new Date()).getFullYear();document.write(cYear);</script> <a href="https://aply.biz" target="_new">APLY Inc.</a></small></p>
+							<p><small>&copy; <script>var cYear=(new Date()).getFullYear();document.write(cYear);</script> <a onClick="GATAGM('index_aply_homepage_link_click', 'CONTENT');" href="https://aply.biz" target="_new">APLY Inc.</a></small></p>
 						</div>
 						<div class="col-md-6 text-right">
-							<a href="privacy.html" target=_new>Privacy(KR)</a> &nbsp; <a href="service.html" target=_new>Terms of Use(KR)</a>
+							<a href="privacy.html" onClick="GATAGM('index_privacy_link_click', 'CONTENT');" target=_new>Privacy(KR)</a> &nbsp; <a href="service.html" onClick="GATAGM('index_tos_link_click', 'CONTENT');" target=_new>Terms of Use(KR)</a>
 						</div>
 					</div>
 				</div>

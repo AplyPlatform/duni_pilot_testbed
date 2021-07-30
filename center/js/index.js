@@ -51,12 +51,14 @@ function naverinit() {
 		var url = naverLogin.generateAuthorizeUrl();		
 		if (document.getElementById('naverLoginBtn1')) {
 	  	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
+	  			GATAGM('index_naver_login_1_btn_click', 'CONTENT');
 	  			location.href = url;
 			});
 		}
     
     if (document.getElementById('naverLoginBtn2')) {
 	  	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
+	  			GATAGM('index_naver_login_2_btn_click', 'MENU');
 	  			location.href = url;
 			});
 		}
@@ -109,12 +111,14 @@ function kakaoinit() {
 	
 	if (document.getElementById('kakaoLoginBtn1')) {	
 		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
+					GATAGM('index_kakao_login_1_btn_click', 'CONTENT');
 		 			kakaoLogin();
 		});
 	}
 		
 	if (document.getElementById('kakaoLoginBtn2')) {
 		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
+					GATAGM('index_kakao_login_2_btn_click', 'MENU');
 	  			kakaoLogin();
 		});
 	}
@@ -132,12 +136,14 @@ function appleinit() {
   	
   if (document.getElementById('appleLoginBtn1')) {
 	  document.getElementById('appleLoginBtn1').addEventListener('click', function() {
+	  		GATAGM('index_apple_login_1_btn_click', 'CONTENT');
 	      AppleID.auth.signIn();
 	  });
 	}
 			
 	if (document.getElementById('appleLoginBtn2')) {
 	  document.getElementById('appleLoginBtn2').addEventListener('click', function() {
+	  		GATAGM('index_apple_login_2_btn_click', 'MENU');
 	      AppleID.auth.signIn();
 	  });
 	}
@@ -172,6 +178,8 @@ function googleinit() {
 
         gauth.attachClickHandler(document.getElementById('googleLoginBtn1'), options,
             function (googleUser) {
+            		GATAGM('index_google_login_1_btn_click', 'CONTENT');
+            		
                 setCookie("dev_kind", "google", 1);
 
                 var profile = googleUser.getBasicProfile();
@@ -188,6 +196,8 @@ function googleinit() {
             
         gauth.attachClickHandler(document.getElementById('googleLoginBtn2'), options,
             function (googleUser) {
+            		GATAGM('index_google_login_2_btn_click', 'MENU');
+            		
                 setCookie("dev_kind", "google", 1);
 
                 var profile = googleUser.getBasicProfile();

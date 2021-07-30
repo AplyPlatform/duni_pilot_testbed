@@ -1728,7 +1728,7 @@ function flightrecordListInit(target) {
 
 		$("#search_key").keypress(function(e) {
         if (e.which == 13){
-        		GATAGM('list_search_input_enter_key', 'CONTENT');
+        		GATAGM('list_search_input_enter_key_' + $("#search_key").val(), 'CONTENT');
         		searchFlightRecord(target, $("#search_key").val());
         }
     });

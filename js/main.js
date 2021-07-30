@@ -716,14 +716,14 @@
 
 		$("#searchKeyword").keypress(function(e) {
         if (e.which == 13){
-        		GATAGM('index_search_input_enter_key', 'CONTENT');
+        		GATAGM('index_search_input_enter_key_' + $("#searchKeyword").val() , 'CONTENT');
         		requestSearch();  //
         }
     });
         
     $("#btnSearchMovie").click(function (e) {
     		e.preventDefault();    		
-    		GATAGM('index_search_video_btn_click', 'CONTENT');
+    		GATAGM('index_search_video_btn_click_' + $("#searchKeyword").val() , 'CONTENT');
         requestSearch();  //
     });
     
