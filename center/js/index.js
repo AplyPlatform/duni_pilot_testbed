@@ -286,6 +286,8 @@ function showConfirmDialog() {
 }
 
 $(function () {
+		g_str_page_action = "index";
+		
     checkLang();
     var page = window.location.href;
 

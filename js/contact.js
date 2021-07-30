@@ -269,8 +269,10 @@
 	function initContact() {
 		$("#contact_data_send").click(function(e) {
 			e.preventDefault();
+			
+			GATAGM('contact_submit_btn_click', 'CONTENT');
 					
-			var fd = checkPartnerApplicationData();		
+			var fd = checkContactUSData();		
 			if (fd == null) return;
 							
 		  sendApplicationData(fd);
@@ -335,7 +337,7 @@
 		});
 	}
 	
-	function checkPartnerApplicationData() {
+	function checkContactUSData() {
 		var fd = new FormData();
 				
 		if ($('#form_name').val() == "") {

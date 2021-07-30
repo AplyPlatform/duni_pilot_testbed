@@ -7,6 +7,9 @@ var g_b_email_verified = false;
 
 $(function () {
     showLoader();
+    
+    g_str_page_action = "register";
+    
     $("#show_1").show();
 
     g_str_cur_lang = getCookie("language");
@@ -35,23 +38,23 @@ $(function () {
 });
 
 function onAgree() {
-    GATAGM('AgreeBtnClickOnRegister', 'CONTENT');
+    GATAGM('register_user_agree_btn_click', 'CONTENT');
     showLoader();
     $("#show_2").show();
     $("#show_1").hide();
     hideLoader();
 }
 
-function showPrivacyButton() {
-	  GATAGM('privacy_link_label', 'CONTENT');
+function showPrivacyButton() {	  
+	  GATAGM('register_privacy_link_click', 'CONTENT');
 
 	  $.get("/privacy_" + g_str_cur_lang + "_raw.html", function(html_string){
       showAlert(html_string);
    	});
 }
 
-function showTOSButton() {
-	  GATAGM('tos_link_label', 'CONTENT');
+function showTOSButton() {	  
+	  GATAGM('register_tos_link_click', 'CONTENT');
 
 	  $.get("/service_" + g_str_cur_lang + "_raw.html", function(html_string){
       showAlert(html_string);
@@ -59,7 +62,7 @@ function showTOSButton() {
 }
 
 function goHomeButton(btnName) {
-    GATAGM(btnName, 'CONTENT');
+    GATAGM('register_go_home_btn_click', 'CONTENT');
     goHome();
 }
 

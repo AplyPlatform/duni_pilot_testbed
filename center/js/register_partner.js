@@ -245,6 +245,8 @@ function sendApplicationData(fd)
 $(function () {
 	$("#partner_send").click(function(e) {
 		e.preventDefault();
+		
+		GATAGM('partner_submit_btn_click', 'CONTENT');
 				
 		var fd = checkPartnerApplicationData();		
 		if (fd == null) return;
@@ -257,28 +259,28 @@ $(function () {
 	$("#findAddressBtn").click(function(e){
 			e.preventDefault();
 			
+			GATAGM('partner_find_address_btn_click', 'CONTENT');
 			execDaumPostcode();
 	});
 	
 	$('#btn_check_code').click(function (e) {
 			e.preventDefault();
 			
-	    GATAGM('btn_check_code', 'CONTENT');
+	    GATAGM('partner_check_code_btn_click', 'CONTENT');
 	    verifyCode($('#verification_code').val());
 	});
 	
 	$('#btn_verify_code').click(function (e) {
 			e.preventDefault();
 			
-	    GATAGM('btn_verify_code', 'CONTENT');
-	            
+	    GATAGM('partner_verify_code_btn_click', 'CONTENT');	            
 	    verifyPhoneNo($('#user_phonenumber').val());
 	});
 	
 	$('#privacy_policy_view').click(function (e) {
 			e.preventDefault();
-			
-	    GATAGM('privacy_policy_view', 'CONTENT');
+				    
+	    GATAGM('partner_private_link_click', 'CONTENT');
 	            
 	    $.get("/privacy_KR_raw.html", function(html_string){
       	showAlert(html_string);
@@ -287,8 +289,8 @@ $(function () {
 	
 	$('#tos_view').click(function (e) {
 			e.preventDefault();
-			
-	    GATAGM('tos_view', 'CONTENT');
+				    
+	    GATAGM('partner_tos_link_click', 'CONTENT');
 	            
 	    $.get("/service_KR_raw.html", function(html_string){
       	showAlert(html_string);

@@ -456,14 +456,27 @@ function GET_STRING_CONTENT(table_index_str) {
 		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
 }
 
-function GATAGM(label, category) {
+function GATAGM(event_name, category) {
+		var userid = getCookie('dev_user_id');
+		if (!isSet(userid) || userid == "") {
+			userid = "anonymous";
+		}
+		
+		if (!isSet(g_str_page_action) || g_str_page_action == "") {
+			g_str_page_action = "index"	
+		}
+		
     gtag(
-        'event', label + "_" + g_str_cur_lang, {
-        'event_category': category,
-        'event_label': label
-    }
+        'event', event_name, {
+        'event_category': g_str_page_action,
+        'language' : g_str_cur_lang,
+        'event_label': label,
+        'userid' : userid,
+        'event_position' : category,
+        'location': window.location.href
+    	}
     );
-
+		
     mixpanel.track(
         label + "_" + g_str_cur_lang,
         { "event_category": category, "event_label": label }
@@ -785,7 +798,7 @@ function displayListFeature(f, index, coordinate, overlay) {
   	ii = f.get('cindex');
   	if (!isSet(ii)) return;
 
-  	GATAGM("index_page_vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
+  	GATAGM("duni_map_company_list_click_" + ii, "CONTENT");
   	
   	overlay.setPosition(coordinate);
   	
@@ -799,7 +812,7 @@ function displayListFeature(f, index, coordinate, overlay) {
   	return;
   }
 
-  GATAGM("index_page_vMap_" + ii, "CONTENT", g_str_cur_lang);
+  GATAGM("duni_map_video_list_click_" + ii, "CONTENT");
 
   var hasYoutube = f.get('mhasYoutube');
 		
@@ -823,7 +836,7 @@ function displayMapFeature(f, coordinate, overlay) {
   	ii = f.get('cindex');
   	if (!isSet(ii)) return;
 
-  	GATAGM("vMap_cindex_" + ii, "CONTENT", g_str_cur_lang);
+  	GATAGM("duni_map_company_click_" + ii, "CONTENT");
 
   	var title = f.get('cname');			
 		
@@ -833,7 +846,7 @@ function displayMapFeature(f, coordinate, overlay) {
   	return;
   }
 
-  GATAGM("vMap_" + ii, "CONTENT", g_str_cur_lang);
+  GATAGM("duni_map_video_click_" + ii, "CONTENT");
 
   var hasYoutube = f.get('mhasYoutube');
 		
@@ -942,7 +955,7 @@ function getCompanyInfo(title, cid) {
 				}
 
 	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"index_page_vMap_cindex_home_click_" + cid + "\", \"CONTENT\");'>홈페이지</a></td>";
+	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"duni_map_company_home_click_" + cid + "\", \"CONTENT\");'>홈페이지</a></td>";
 	      }
 
 	      title = title + "</tr></table>";

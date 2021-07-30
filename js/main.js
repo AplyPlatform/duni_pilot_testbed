@@ -419,9 +419,8 @@
 	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
-						+ "<a onclick='GATAGM(\"flight_list_public_title_click_"
-						+ name + "\", \"CONTENT\", \""
-						+ g_str_cur_lang + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ "<a onclick='GATAGM(\"index_flight_record_title_click_"
+						+ name + "\", \"CONTENT\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (flat != -999) {
@@ -541,9 +540,8 @@
 	  
 	  if (isOuter == false) {
 			appendRow = appendRow
-							+ "<a onclick='GATAGM(\"flight_search_public_title_click_"
-							+ name + "\", \"CONTENT\", \""
-							+ g_str_cur_lang + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
+							+ "<a onclick='GATAGM(\"index_search_flight_record_title_click_"
+							+ name + "\", \"CONTENT\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
 		}
 						
 		appendRow = appendRow	+ name;
@@ -718,20 +716,20 @@
 
 		$("#searchKeyword").keypress(function(e) {
         if (e.which == 13){
-        		GATAGM('btnSearchEnter', 'CONTENT', g_str_cur_lang);
+        		GATAGM('index_search_input_enter_key', 'CONTENT');
         		requestSearch();  //
         }
     });
         
     $("#btnSearchMovie").click(function (e) {
-    		e.preventDefault();
-    		GATAGM('btnSearchMovie', 'CONTENT', g_str_cur_lang);
+    		e.preventDefault();    		
+    		GATAGM('index_search_video_btn_click', 'CONTENT');
         requestSearch();  //
     });
     
     $('#btnForLoadSearchList').click(function (e) {
-    		e.preventDefault();    		
-        GATAGM('btnForLoadSearchList', 'CONTENT', g_str_cur_lang);
+    		e.preventDefault();    		        
+        GATAGM('index_search_load_more_btn_click', 'CONTENT');
         getFlightSearchMore();
     });
 	}	
@@ -858,8 +856,8 @@ $(function(){
   	$("#side_login_area").hide();
   	$("#side_center_area").show();
   	
-  	$("#logoutCenterBtn").click(function() {  		    		
-      GATAGM('logoutCenterBtn', 'MAIN');
+  	$("#logoutCenterBtn").click(function() {      
+      GATAGM('index_logout_btn_click', 'MENU');
 
       showAskDialog(
           GET_STRING_CONTENT('modal_title'),
