@@ -851,7 +851,26 @@ $(function(){
   });
   
   let check = getCookie("user_token");
-  if (isSet(check) && check != "") return;
+  if (isSet(check) && check != "") {
+  	$("#main_login_area").hide();	  	
+  	$("#main_center_area").show();
+  	
+  	$("#side_login_area").hide();
+  	$("#side_center_area").show();
+  	
+  	$("#logoutCenterBtn").click(function() {
+  		logOut();
+  	});
+  	
+  	$("#goCenterBtn1").click(function() {
+  		location.href = "/center/main.html?page_action=center";
+  	});
+  	
+  	$("#goCenterBtn2").click(function() {
+  		location.href = "/center/main.html?page_action=center";
+  	});
+  	return;
+  }
   
   document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
 });
