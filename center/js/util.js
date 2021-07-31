@@ -15,7 +15,8 @@ var g_str_current_target = "private";
 var g_str_cur_lang = "KR";
 var g_str_cur_viewmode = "pilot"; // or "developer"
 
-var g_array_full_flight_rec;
+var g_array_full_flight_rec = [];
+var g_array_full_company_list = [];
 
 var g_vector_2D_map_for_flight_rec;
 var g_layer_2D_map_for_flight_rec;
@@ -56,8 +57,8 @@ function isMovieFile(filename) {
 	 			|| compareIgnoreCase(ext, "hevc")) {
 	 				return true;
 	}
-	
-	return false; 			
+
+	return false;
 }
 
 
@@ -78,12 +79,12 @@ function validateNumber(event) {
     }
 }
 
-function getFileExtension(filename) {	
+function getFileExtension(filename) {
 	return filename.split('.').pop();
 }
 
 function compareIgnoreCase(str1, str2) {
-	return str1.toUpperCase() === str2.toUpperCase();	
+	return str1.toUpperCase() === str2.toUpperCase();
 }
 
 
@@ -160,9 +161,9 @@ function ajaxRequest(data, callback, errorcallback) {
 			        setCookie("temp_email", "", -1);
 			        setCookie("temp_name", "", -1);
 			        setCookie("user_google_auth_token", "", -1);
-			
+
 			        goIndex("logout");
-			        
+
 			        if (data.daction != "logout")
         				alert(GET_STRING_CONTENT('msg_login_another_device_sorry'));
         			return;
@@ -207,7 +208,7 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
-        setCookie("user_from", "", -1);        
+        setCookie("user_from", "", -1);
         setCookie("dev_kind", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
@@ -284,7 +285,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelha
       $('#askModalCancelButton').off('click');
       $('#askModalCancelButton').click(function (e) {
       		e.preventDefault();
-      		
+
           cancelhandler();
       });
     }
@@ -295,7 +296,7 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelha
     $('#askModalOKButton').off('click');
     $('#askModalOKButton').click(function (e) {
     		e.preventDefault();
-    		
+
         $('#askModal').modal('hide');
         if (needInput == true) {
             var ret = $('#askModalInput').val();
@@ -353,7 +354,7 @@ function getCookie(cName) {
 		let matches = document.cookie.match(new RegExp(
     	"(?:^|; )" + cName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   	));
-  	
+
   	return matches ? matches[1] : null;
 }
 
@@ -432,7 +433,7 @@ function getQueryVariable(variable) {
 function makeDateTimeFormat(d, isGMT) {
 		if(isGMT == false)
 			d.setHours(d.getHours() + 9);
-			
+
   	var curr_day = d.getDate();
 		curr_day = curr_day < 10 ? "0" + curr_day : curr_day;
 		var curr_month = d.getMonth();
@@ -441,8 +442,8 @@ function makeDateTimeFormat(d, isGMT) {
 		curr_month = curr_month < 10 ? "0" + curr_month : curr_month;
 
 		var curr_year = d.getFullYear();
-		
-		
+
+
 		var curr_hour = d.getHours();
 		curr_hour = curr_hour < 10 ? "0" + curr_hour : curr_hour;
 
@@ -451,11 +452,11 @@ function makeDateTimeFormat(d, isGMT) {
 
 		var curr_sec = d.getSeconds();
 		curr_sec = curr_sec < 10 ? "0" + curr_sec : curr_sec;
-		
+
 		return curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
 }
 
-function GET_STRING_CONTENT(table_index_str) {	
+function GET_STRING_CONTENT(table_index_str) {
 		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
 }
 
@@ -464,16 +465,16 @@ function GATAGM(event_name, category, label) {
 		if (!isSet(userid) || userid == "") {
 			userid = "anonymous";
 		}
-		
+
 		if (!isSet(g_str_page_action) || g_str_page_action == "") {
-			g_str_page_action = "index"	
+			g_str_page_action = "index"
 		}
-		
+
 		var c_label = event_name;
 		if (isSet(label) && label != "") {
 			c_label = label;
 		}
-		
+
     gtag(
         'event', event_name, {
         'event_category': g_str_page_action,
@@ -484,7 +485,7 @@ function GATAGM(event_name, category, label) {
         'location': window.location.href
     	}
     );
-		
+
     mixpanel.track(
         label + "_" + g_str_cur_lang,
         { "event_category": category, "event_label": label }
@@ -533,9 +534,9 @@ function addNewIconMarkerFor2DMap(npos, vsource) {
 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
-		
+
 		if (!isSet(cada)) return;
-		
+
     if (isSet(c3ddataSource)) {
         Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
             var lonlat = ol.proj.transform(coords, 'EPSG:3857', 'EPSG:4326');
@@ -563,7 +564,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
     if (isSet(wsource) == false) return;
 
-		var _features = new Array();    
+		var _features = new Array();
 
     for (var idx = 0; idx < cada.length; idx++) {
         try {
@@ -644,19 +645,19 @@ function flightRecords2DMapInit() {
 				    var radius;
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
 				    var style = styleCacheForCompany[size];
-				    if (!style) {				    	
+				    if (!style) {
 				    		if (size == 1) {
 				    			style = [new ol.style.Style({
-		                image: new ol.style.Icon({										    										    
+		                image: new ol.style.Icon({
 										    src: '/images/company_pos.png',
 										    scale: 0.3,
-										    opacity : 0.8,										    
+										    opacity : 0.8,
 										    fill: new ol.style.Fill({ color: '#FFF' }),
 										    stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 }),
 										  })
 		              })];
 				    		}
-				    		else {				    							    		
+				    		else {
 					    		style = [new ol.style.Style({
 		                image: new ol.style.Circle({
 					            radius: radius,
@@ -667,8 +668,8 @@ function flightRecords2DMapInit() {
 			            	text: new ol.style.Text({
 			            						font: radius + 'px Roboto',
 						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#000' })						                  
-											})	
+						                  fill: new ol.style.Fill({ color: '#000' })
+											})
 		              })];
 		            }
 
@@ -703,16 +704,16 @@ function flightRecords2DMapInit() {
 			    if (!style) {
 			       	if (size == 1) {
 			       		style = [new ol.style.Style({
-	                image: new ol.style.Icon({										    										    
+	                image: new ol.style.Icon({
 									    src: '/images/f_record_pos.png',
 									    scale: 0.3,
 									    opacity : 0.8,
 									    fill: new ol.style.Fill({ color: '#FFF' }),
 									    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
 									  })
-	              })];				    			
+	              })];
 			    		}
-			    		else {				    							    		
+			    		else {
 				    		style = [new ol.style.Style({
 	                image: new ol.style.Circle({
 				            radius: radius,
@@ -723,8 +724,8 @@ function flightRecords2DMapInit() {
 		            	text: new ol.style.Text({
 					                  text: size.toString(),
 					                  font: radius + 'px Roboto',
-					                  fill: new ol.style.Fill({ color: '#000' })					                  
-										})	
+					                  fill: new ol.style.Fill({ color: '#000' })
+										})
 	              })];
 	            }
 
@@ -758,7 +759,7 @@ function flightRecords2DMapInit() {
             })
         })
     });
-    
+
     g_vector_2D_map_for_flight_area = new ol.source.Vector({});
 		var areaInfoLayer = new ol.layer.Vector({
         source: g_vector_2D_map_for_flight_area,
@@ -769,7 +770,7 @@ function flightRecords2DMapInit() {
             })
         })
     });
-    
+
     g_vector_2D_map_for_point_mark = new ol.source.Vector({});
 
 		var pointLayer = new ol.layer.Vector({
@@ -784,7 +785,7 @@ function flightRecords2DMapInit() {
         layers: [
             bingLayer, g_layer_2D_map_for_flight_rec, g_layer_2D_map_for_company, cadaLayer, areaInfoLayer, pointLayer
         ],
-        overlays: [ overlay ],        
+        overlays: [ overlay ],
         loadTilesWhileAnimating: true,
         view: g_view_2D_map_for_flight_rec
     });
@@ -822,43 +823,43 @@ function processMapClick(map, evt, feature, overlay) {
 
   	var features = feature.get('features');
   	var count = features.length;
-		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {			
+		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {
 				map.getView().animate({
 				  zoom: map.getView().getZoom() + 1,
 				  duration: 250
 				})
-				return;			
+				return;
 		}
-		
+
 		let coord = evt.coordinate;
-		
-		if (count > 1) {		
+
+		if (count > 1) {
 			g_content_2D_map_for_popup.innerHTML = "";
 			features.forEach(function(f, index, arr) {
 				displayListFeature(f, index, coord, overlay);
-			});    
+			});
 		}
 		else {
 			g_content_2D_map_for_popup.innerHTML = "";
 			displayMapFeature(features[0], coord, overlay);
-		}    
+		}
 }
 
 
 function displayListFeature(f, index, coordinate, overlay) {
 	var ii = f.get('mindex');
-			
+
   if (!isSet(ii)) {
   	ii = f.get('cindex');
   	if (!isSet(ii)) return;
 
   	GATAGM("duni_map_company_list_click", "CONTENT", ii);
-  	
+
   	overlay.setPosition(coordinate);
-  	
-		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';		  		  		  		  
+
+		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
 	  $("#popup-content").append(title);
-	  
+
   	//
   	$('#temp_feature_item_' + ii).click(function(e) {
   		getCompanyInfo(title, ii);
@@ -869,18 +870,18 @@ function displayListFeature(f, index, coordinate, overlay) {
   GATAGM("duni_map_video_list_click", "CONTENT", ii);
 
   var hasYoutube = f.get('mhasYoutube');
-		
+
 	if (hasYoutube) {
 		var name = f.get('mname');
-					
+
 		overlay.setPosition(coordinate);
-		
-		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';		  		  
-	  $("#popup-content").append(title);		  
+
+		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
+	  $("#popup-content").append(title);
   	//
   	$('#temp_youtube_item_' + ii).click(function(e) {
   		getFlightRecordInfo(name);
-  	});			
+  	});
 	}
 }
 
@@ -892,9 +893,9 @@ function displayMapFeature(f, coordinate, overlay) {
 
   	GATAGM("duni_map_company_click", "CONTENT", ii);
 
-  	var title = f.get('cname');			
-		
-		title = '<p>' + title + '</p>';			
+  	var title = f.get('cname');
+
+		title = '<p>' + title + '</p>';
 	  overlay.setPosition(coordinate);
   	getCompanyInfo(title, ii);
   	return;
@@ -903,7 +904,7 @@ function displayMapFeature(f, coordinate, overlay) {
   GATAGM("duni_map_video_click", "CONTENT", ii);
 
   var hasYoutube = f.get('mhasYoutube');
-		
+
 	if (hasYoutube) {
 		var name = f.get('mname');
 		getFlightRecordInfo(name);
@@ -927,30 +928,30 @@ function getFlightRecordInfo(name) {
 
 		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
 				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
-				
+
 				if (r.data.prod_url) {
 					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
 				}
 				else {
 					$("#video-pop-view").attr("video-prod-url", "");
 				}
-				
-				$("#video-pop-view").attr("video-name", name);				
-				
+
+				$("#video-pop-view").attr("video-name", name);
+
 				if (r.data.owner_email) {
 					$("#video-pop-view").attr("video-owner", r.data.owner_email);
 				}
 				else {
 					$("#video-pop-view").attr("video-owner", "");
 				}
-				
+
 				if (r.data.outer) {
 					$("#video-pop-view").attr("video-outer", r.data.outer);
 				}
 				else {
 					$("#video-pop-view").attr("video-outer", "");
 				}
-								
+
 				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
@@ -958,7 +959,7 @@ function getFlightRecordInfo(name) {
 						$("#video-pop-view").videoPopup();
 						isVideoPopupInit = true;
 				}
-				
+
 				$("#video-pop-view").click();
 	    }
 	  },
@@ -1039,8 +1040,8 @@ function getFullFlightRecords(target) {
 		}
 		else {
 			var userid = getCookie("dev_user_id");
-	  	jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};			
-		}	  	
+	  	jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};
+		}
 
 	  showLoader();
 	  ajaxRequest(jdata, function (r) {
@@ -1073,15 +1074,15 @@ function getFullFlightRecords(target) {
 
 function setFlightlistFullHistory() {
 	var isFirst = true;
-	
+
 	g_array_full_flight_rec.forEach(function(item, index, arra) {
 		if (isSet(item.flat) == false || item.flat == -999) return;
-		
+
 		if (isFirst && item.flat != -999) {
 	      moveFlightHistoryMap(item.flat, item.flng);
 	      isFirst = false;
 	  }
-		
+
 		let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
     var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : hasYoutube });
     if (isSet(g_vector_2D_map_for_flight_rec)) {
@@ -1104,8 +1105,8 @@ function getCompanyList() {
 	        return;
 	      }
 
-	      var companyArray = r.data;
-	      companyArray.forEach(function(item, index, arr) {
+	      g_array_full_company_list = r.data;
+	      g_array_full_company_list.forEach(function(item, index, arr) {
 	      	var icon = createNewCompanyIconFor2DMap(index, item);
 					g_vector_2D_map_for_company.addFeature(icon);
 	  		});

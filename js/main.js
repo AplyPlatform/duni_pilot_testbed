@@ -4,7 +4,7 @@
 
 	var mobileMenuOutsideClick = function() {
 
-		$(document).click(function (e) {			
+		$(document).click(function (e) {
 	    var container = $("#gtco-offcanvas, .js-gtco-nav-toggle");
 	    if (!container.is(e.target) && container.has(e.target).length === 0) {
 	    	$('.js-gtco-nav-toggle').addClass('');
@@ -264,7 +264,7 @@
 		}
 	};
 
-	var tableCount = 0;	
+	var tableCount = 0;
 	var duni_logo = '/duni_logo.png';
 
 	function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
@@ -280,11 +280,11 @@
 	  var vVectorLayer = new ol.layer.Vector({
 	      source: vSource,
 	      zIndex: 77,
-	      style: new ol.style.Style({	    
+	      style: new ol.style.Style({
 	      			stroke: new ol.style.Stroke({
                 color: '#ff0000',
                 width: 2
-            	}),        
+            	}),
 	            image: new ol.style.Circle({
 					            radius: 7,
 					            fill: new ol.style.Fill({ color: '#ff333377' }),
@@ -324,10 +324,10 @@
 
 	  return vSource;
 	}
-					
 
-	var flightRecArray = [];				
-	var searchKeyword = "";		
+
+	var flightRecArray = [];
+	var searchKeyword = "";
 
 	var players = [];
 	function setEmptyVideo(index, name) {
@@ -366,27 +366,27 @@
 	var playingIndex = null;
 	var stopIndex = null;
 	var playIndex = null;
-	
+
   function onPlayerStateChange(event) {
 		for ( var i = 0 ; i < players.length ; i ++ ) { //
 				if(typeof players[i].getPlayerState === 'undefined') continue;
-        var state = players[i].getPlayerState(); 
- 
+        var state = players[i].getPlayerState();
+
         // 초기 화면에서 재생 된 경우
-        if ( state === YT.PlayerState.PLAYING && playingIndex === null ) { 
-        	playingIndex = i;  
+        if ( state === YT.PlayerState.PLAYING && playingIndex === null ) {
+        	playingIndex = i;
         	// 다른 플레이어가 재생 중에 그 선수 이외가 재생 된 경우
-        } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) { 
+        } else if ( ( state === YT.PlayerState.BUFFERING || state === YT.PlayerState.PLAYING ) && playingIndex !== i ) {
         	stopIndex = playingIndex;
           playIndex = i;
-        } 
-    }    
-            
+        }
+    }
+
     // 재생 중이던 플레이어를 일시 중지
     if ( stopIndex !== null ) { players[stopIndex].pauseVideo();
     	stopIndex = null;
-    }  
-        
+    }
+
 		if ( playIndex !== null ) { playingIndex = playIndex ;
 		   playIndex = null;
 		}
@@ -395,18 +395,18 @@
 	function appendFlightListTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
-		var data = item.data;		
+		var data = item.data;
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
 		var curIndex = tableCount;
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='row'>";
-	  
+
 	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
-	  
+
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
-		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);
 
 	  if (flat != -999) {
 	  	appendRow = appendRow + "<div class='col-md-4'><div id='map_" + curIndex + "' style='height:200px;width:100%;'></div>";
@@ -426,9 +426,9 @@
 	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
-	  
+
 	  if (isSet(tag_values) && tag_values != "") {
-	  	appendRow = appendRow + "<br><br>";    	
+	  	appendRow = appendRow + "<br><br>";
     	var tag_array = JSON.parse(tag_values);
     	tag_array.forEach(function(tg) {
     		appendRow = appendRow + "<a href=/center/main.html?page_action=publicrecordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
@@ -463,7 +463,7 @@
 	  tableCount++;
 	  video_index++;
 	}
-		
+
 
 	function setFlightlistHistory() {
 	  flightRecArray.forEach(function(item) {
@@ -502,28 +502,28 @@
 	    hideLoader();
 	  });
 	}
-	
+
 	var hasMore = "";
 	var flightSearhArray;
 	var tableSearchCount = 0;
 	var video_index = 0;
-	
+
 	function appendFlightSearchTable(item) {
 		var name = item.name;
 		var dtimestamp = item.dtime;
-		var data = item.data;		
+		var data = item.data;
 		var address = item.address;
 		var cada = item.cada;
 		var youtube_url = item.youtube_data_id;
 		var curIndex = tableSearchCount;
 		var tag_values = item.tag_values;
 	  var appendRow = "<div class='service' id='flight-search-" + curIndex + "' name='flight-search-" + curIndex + "'><div class='row'>";
-	  
+
 	  dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
-	  
+
 	  var flat = (isSet(item.flat) && item.flat != "" ? item.flat * 1 : -999);
-		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);	  
-		
+		var flng = (isSet(item.flng) && item.flng != "" ? item.flng * 1 : -999);
+
 		var isOuter = isSet(item.outer) ? item.outer : false;
 
 	  if (flat != -999) {
@@ -533,29 +533,29 @@
 	  else {
 	  	appendRow = appendRow + "<div class='col-md-8'>";//row
 	  }
-		
-	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row	  	  
+
+	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
-	  
-	  
+
+
 	  if (isOuter == false) {
 			appendRow = appendRow
 							+ "<a onclick='GATAGM(\"index_search_flight_record_title_click_"
 							+ name + "\", \"CONTENT\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
 		}
-						
+
 		appendRow = appendRow	+ name;
-		
+
 		if (isOuter == false) {
 			appendRow = appendRow + "</a>";
 		}
 
 		appendRow = appendRow + "<hr size=1 color=#eeeeee>";
-		
+
 	  if (flat != -999) {
 	  		appendRow = appendRow + "<small><span class='text-xs' id='map_address_" + curIndex + "'></span></small>";
 	  }
-	  
+
 	  if (isSet(tag_values) && tag_values != "") {
 	  	appendRow = appendRow + "<br><br>";
     	var tag_array = JSON.parse(tag_values);
@@ -588,18 +588,18 @@
 	  tableSearchCount++;
 	  video_index++;
 	}
-	
+
 	function setFlightSearchArray() {
 		flightSearhArray.forEach(function(item) {
 	    appendFlightSearchTable(item);
 	  });
 	}
-	
+
 	function getFlightSearchMore() {
     if($("#searchKeyword").val() == "") return;
-			
+
 		var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
-		
+
 		if (isSet(hasMore)) {
       jdata["morekey"] = hasMore;
   	}
@@ -642,16 +642,16 @@
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
     });
 	}
-	
+
 	function requestSearch() {
 			if($("#searchKeyword").val() == "") return;
-			
+
 			if (searchKeyword == $("#searchKeyword").val()) return;
-			
+
 			searchKeyword = $("#searchKeyword").val();
-			
+
 			var jdata = {"action": "public_findrecord_by_address", "keyword" : $("#searchKeyword").val()};
-			
+
 		  showLoader();
 		  ajaxRequest(jdata, function (r) {
 		    hideLoader();
@@ -659,14 +659,14 @@
 		      if (r.data == null || r.data.length == 0) {
 		        showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 						hideLoader();
-						
+
 						$("#searchListView").hide();
 		        return;
 		      }
-		      
-		      
+
+
 					$("#searchListView").show();
-					
+
 		      if (r.morekey) {
               hasMore = r.morekey;
               $('#btnForLoadSearchList').text(LANG_JSON_DATA[g_str_cur_lang]['msg_load_more']);
@@ -676,7 +676,7 @@
               hasMore = null;
               $('#btnForLoadSearchList').hide(1500);
           }
-	
+
 					tableSearchCount = 0;
 					flightSearhArray = r.data;
 					$('#dataTable-Search_list').empty();
@@ -685,14 +685,14 @@
 		    }
 		    else {
 		    	$("#searchListView").hide();
-		    	
+
 		    	if (r.reason == "no data") {
 		    		showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_no_data']);
 		    	}
 		    	else {
 			    	showAlert(LANG_JSON_DATA[g_str_cur_lang]['msg_error_sorry']);
 			    }
-	
+
 					hideLoader();
 		    }
 		  }, function(request,status,error) {
@@ -720,47 +720,47 @@
         		requestSearch();  //
         }
     });
-        
+
     $("#btnSearchMovie").click(function (e) {
-    		e.preventDefault();    		
+    		e.preventDefault();
     		GATAGM('index_search_video_btn_click_' + $("#searchKeyword").val() , 'CONTENT');
         requestSearch();  //
     });
-    
+
     $('#btnForLoadSearchList').click(function (e) {
-    		e.preventDefault();    		        
+    		e.preventDefault();
         GATAGM('index_search_load_more_btn_click', 'CONTENT');
         getFlightSearchMore();
     });
-	}	
-	
+	}
+
 	var curServiceListTimerId = -1;
-	function getDUNIServiceRequest(page) {							
+	function getDUNIServiceRequest(page) {
 	    var jdata = { "action": "public_duni_service_list_request" };
-	    
+
 			showLoader();
-	
+
 	  	ajaxRequest(jdata, function (r) {
 		    if(r.result == "success") {
 		    	hideLoader();
-	
+
 		      if (r.data == null || r.data.length == 0) {
 		      	$("#duni_service_request_list").html("No request");
 		        return;
-		      }	      	      
-		      
-		      $("#duni_service_request_list").empty();	      	      	      
+		      }
+
+		      $("#duni_service_request_list").empty();
 		      $("#duni_service_request_list").append("<table class='table' id='service_request_list_table'><thead><tr><th scope='col' class='text-center'>#</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_service') + "</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_location') + "</th><th scope='col' class='text-center'>" + GET_STRING_CONTENT('label_status') + "</th></tr></thead><tbody></tbody></table>");
-		      	      				
-					let retData = r.data;			       
-													
+
+					let retData = r.data;
+
 					retData.forEach(function(d, index, arr) {
-						
+
 						let htmlString = "<tr><th scope='row' class='text-center'>" + (index + 1) + "</th><td class='text-center'>" + d.kind + "</td><td class='text-center'>" + d.title + "</td><td class='text-center'><div id='request_duni_" + index + "'>";
-						
+
 						if (d.status == "P") {
 							if (d.requested == true) {
-								htmlString += GET_STRING_CONTENT('msg_accepted');							
+								htmlString += GET_STRING_CONTENT('msg_accepted');
 								htmlString += ( "(" + makeDateTimeFormat(new Date(d.requested_time), true) + ")" );
 							}
 							else {
@@ -769,26 +769,26 @@
 		          }
 						}
 						else if (d.status == "C") {
-							htmlString += GET_STRING_CONTENT('msg_closed');	
+							htmlString += GET_STRING_CONTENT('msg_closed');
 						}
 						else if (d.status == "R") {
 							htmlString += GET_STRING_CONTENT('msg_on_ready');
 						}
-						
-						
+
+
 						htmlString += "</div></td></tr>";
 						$("#service_request_list_table").append(htmlString);
-											
-						$("#partnerServiceRequest_" + index).click(function() {																
+
+						$("#partnerServiceRequest_" + index).click(function() {
 								location.href = "/center/main.html?page_action=center";
-						});										
+						});
 					});
-															
+
 					$("#service_list_next").click(function() {
 						location.href = "/center/main.html?page_action=center";
 					});
-										
-					startRequestTableAnimation();				
+
+					startRequestTableAnimation();
 		    }
 		  },
 		  	function(request,status,error) {
@@ -796,20 +796,20 @@
 		  		hideLoader();
 		  });
 	}
-	
+
 	function startRequestTableAnimation() {
 		if (curServiceListTimerId >= 0)
 			clearTimeout(curServiceListTimerId);
-		
+
 		$("#service_request_list_table tr").each(function(index){
 			$(this).css("visibility","hidden");
 		});
-		
+
 		$("#service_request_list_table tr").each(function(index){
 			//$(this).delay(index*500).show(1000);
 			$(this).css({"visibility":"visible", "opacity": 0.0}).delay(index * 500).animate({opacity: 1.0},500);
 		});
-			
+
 		curServiceListTimerId = setTimeout("startRequestTableAnimation()", 15000);
 	}
 
@@ -824,12 +824,34 @@
 	  	getFlightSomeList();
 			getFullFlightRecords("public");
 			initSearchForm();
+			setCounterAni();
   }
+
+	function setCounterAni() {
+        let once = true;
+			  $(window).scroll(function () {
+			    let oTop = $('#video_count').offset().top - window.innerHeight;
+			    if (once == true && $(window).scrollTop() > oTop) {
+			        let text1 = document.getElementById('company_count');
+              let text2 = document.getElementById('video_count');
+
+							let video_count = g_array_full_flight_rec.length;
+							let compay_count = g_array_full_company_list.length;
+							if (video_count == 0) video_count = 298;
+							if (compay_count == 0) compay_count = 314;
+              animate(text1, 0, compay_count, 5000);
+        			animate(text2, 0, video_count, 5000);
+
+        			once = false;
+			    }
+			  });
+	}
+
 
 $(function(){
 	mobileMenuOutsideClick();
 	offcanvasMenu();
-	burgerMenu();	
+	burgerMenu();
 	dropdown();
 	owlCarousel();
 	tabs();
@@ -839,7 +861,7 @@ $(function(){
 	getDUNIServiceRequest(1);
 	getCompanyList();
 	initYoutubeAPI();
-	
+
 	$("#chkFlightHistory").change(function(){
 		showFlightRecordsList($("#chkFlightHistory").is(":checked"));
   });
@@ -847,16 +869,16 @@ $(function(){
   $("#chkCompany").change(function(){
 		showCompanyList($("#chkCompany").is(":checked"));
   });
-  
+
   let check = getCookie("user_token");
   if (isSet(check) && check != "") {
-  	$("#main_login_area").hide();	  	
+  	$("#main_login_area").hide();
   	$("#main_center_area").show();
-  	
+
   	$("#side_login_area").hide();
   	$("#side_center_area").show();
-  	
-  	$("#logoutCenterBtn").click(function() {      
+
+  	$("#logoutCenterBtn").click(function() {
       GATAGM('index_logout_btn_click', 'MENU');
 
       showAskDialog(
@@ -868,20 +890,20 @@ $(function(){
           null
       );
   	});
-  	
+
   	$("#goCenterBtn1").click(function() {
   		location.href = "/center/main.html?page_action=center";
   	});
-  	
+
   	$("#goCenterBtn2").click(function() {
   		location.href = "/center/main.html?page_action=center";
   	});
   	return;
-  }  
-  
+  }
+
   $("#main_login_area").show();
 	$("#main_center_area").hide();
-	
+
 	$("#side_login_area").show();
 	$("#side_center_area").hide();
   document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
