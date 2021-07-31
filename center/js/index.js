@@ -28,7 +28,7 @@ function facebookinit() {
 		    appId            : '570867566598427',
 		    autoLogAppEvents : true,
 		    xfbml            : true,
-		    version          : 'v3.5'
+		    version          : 'v2.11'
 	  	});
 	  	
 	  	if (document.getElementById('facebookLoginBtn1')) {
