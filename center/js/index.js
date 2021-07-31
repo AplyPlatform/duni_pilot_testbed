@@ -333,7 +333,11 @@ $(function () {
     if (page.indexOf("navercallback.html") >= 0) {
 
     }
-    else {        
+    else {
+      	naverinit();
+		    kakaoinit();
+		    appleinit();
+		    facebookinit();
         hideLoader();        
     }
 });
