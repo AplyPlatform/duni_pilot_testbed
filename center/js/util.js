@@ -207,7 +207,8 @@ function logOut() {
         setCookie("temp_image_url", "", -1);
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
-        setCookie("user_from", "", -1);
+        setCookie("user_from", "", -1);        
+        setCookie("dev_kind", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
         goIndex("logout");
@@ -226,6 +227,7 @@ function logOut() {
         setCookie("temp_email", "", -1);
         setCookie("temp_name", "", -1);
         setCookie("user_from", "", -1);
+        setCookie("dev_kind", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
     		goIndex("logout");
