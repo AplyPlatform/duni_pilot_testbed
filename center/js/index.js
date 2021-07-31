@@ -337,6 +337,7 @@ $(function () {
         naverinit();
         kakaoinit();
         appleinit();
+        facebookInit();
         hideLoader();        
     }
 });
