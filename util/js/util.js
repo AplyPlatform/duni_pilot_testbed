@@ -46,6 +46,8 @@ function utilInit() {
 
 		showLoader();
 		
+		g_str_page_action = "util";
+		
 		$("#address").keypress(function (e) {
         if (e.which == 13){
         		GATAGM("util_address_input_key_enter", "CONTENT");

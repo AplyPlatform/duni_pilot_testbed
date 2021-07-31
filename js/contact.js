@@ -267,6 +267,8 @@
 	};
 	
 	function initContact() {
+		g_str_page_action = "contact";
+		
 		$("#contact_data_send").click(function(e) {
 			e.preventDefault();
 			
