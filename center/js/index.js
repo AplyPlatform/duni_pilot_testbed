@@ -22,7 +22,7 @@ function facebookSignInCallback() {
     });
 }
 
-function facebookInit() {	
+function facebookinit() {	
 		window.fbAsyncInit = function() {
 		  FB.init({
 		    appId            : '570867566598427',
@@ -333,11 +333,7 @@ $(function () {
     if (page.indexOf("navercallback.html") >= 0) {
 
     }
-    else {
-        naverinit();
-        kakaoinit();
-        appleinit();
-        facebookInit();
+    else {        
         hideLoader();        
     }
 });
