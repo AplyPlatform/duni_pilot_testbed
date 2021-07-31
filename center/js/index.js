@@ -23,26 +23,28 @@ function facebookSignInCallback() {
 }
 
 function facebookInit() {	
-	  FB.init({
-	    appId            : '570867566598427',
-	    autoLogAppEvents : true,
-	    xfbml            : true,
-	    version          : 'v3.5'
-  	});
-
-	 	if (document.getElementById('facebookLoginBtn1')) {
-	  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
-	  		GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
-				FB.login(facebookSignInCallback);
-			});
-		}
-		
-		if (document.getElementById('facebookLoginBtn2')) {
-			document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
-				GATAGM('index_facebook_login_2_btn_click', 'MENU');
-				FB.login(facebookSignInCallback);
-			});
-		}	
+		window.fbAsyncInit = function() {
+		  FB.init({
+		    appId            : '570867566598427',
+		    autoLogAppEvents : true,
+		    xfbml            : true,
+		    version          : 'v3.5'
+	  	});
+	  	
+	  	if (document.getElementById('facebookLoginBtn1')) {
+		  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
+		  		GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
+					FB.login(facebookSignInCallback);
+				});
+			}
+			
+			if (document.getElementById('facebookLoginBtn2')) {
+				document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
+					GATAGM('index_facebook_login_2_btn_click', 'MENU');
+					FB.login(facebookSignInCallback);
+				});
+			}		
+	  };	 	
 }
 
 function naverSignInCallback() {
@@ -255,6 +257,10 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     var skind = getCookie("dev_kind");
     var device_kind = getCookie("device_kind");
     var device_id = getCookie("device_id");
+        
+    setCookie("temp_email", temp_email, 1);  
+		setCookie("temp_name", temp_name, 1);
+		setCookie("temp_sns_token", token, 1);
 
     var jdata = {
         action: "member",
