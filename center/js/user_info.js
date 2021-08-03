@@ -18,15 +18,19 @@ $(function () {
   $('#user_info_label').text(getCookie('user_info_label'));
   $('#user_email_value').text(getCookie('user_email'));
   $('#user_name_value').text(getCookie('temp_name'));
+  $("#partner_register_area").hide();
+  $("#duni_parnter_logo").hide();
   
-  if (getCookie('user_kind') == "partner" && g_str_cur_lang == "KR") {
-  	$("#partner_register_area").hide();
-  }
-  else {
+  let user_kind = getCookie('user_kind');
+  if (user_kind != "partner" && g_str_cur_lang == "KR") {    	
   	$("#partner_register_area").show();
   	$("#patner_register_btn").click(function() {
   		location.href = "main.html?page_action=partner_register";
   	});  	
+  }
+  
+  if (user_kind == "partner") {
+  	$("#duni_parnter_logo").show();
   }
   
   var image_url = getCookie("image_url");
@@ -39,8 +43,8 @@ $(function () {
 		GATAGM('userinfo_leave_btn_click', 'CONTENT');
 		
 		showAskDialog(
-          GET_STRING_CONTENT('modal_title'),
           GET_STRING_CONTENT('msg_ask_leave'),
+          "",
           GET_STRING_CONTENT('modal_confirm_btn'),
           true,
           function (inputdata) {          	
