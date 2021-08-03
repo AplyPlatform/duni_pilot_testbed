@@ -15,7 +15,7 @@ $(function () {
   $('#connected_sns_image').attr("src","/images/logo_" + sns_kind +  ".png");
   $('#label_connected_sns_val').text(sns_kind);
   
-  $('#user_info_label').text(getCookie('user_info_label');
+  $('#user_info_label').text(getCookie('user_info_label'));
   $('#user_email_value').text(getCookie('user_email'));
   $('#user_name_value').text(getCookie('temp_name'));
   
