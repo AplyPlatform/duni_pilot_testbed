@@ -1326,97 +1326,41 @@ form label {font-weight: normal !important;}
 /*# sourceMappingURL=style.css.map */
 
 
-.sign-in-google
+.sign-in-button
 {
-    background-image: url('../images/logo_google.png');
     background-position: 20px 13px;
     background-repeat: no-repeat;
     background-size: 16px 16px;
     padding-left: 41px;
     color: #000;
 }
-.sign-in-google:hover
-{
-  background-image: url('../images/logo_google.png');
-  background-position: 19px 11px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+
+.sign-in-button:hover
+{  
+ 		background-position: 19px 11px;  
 }
 
-.sign-in-facebook
+.google-button
 {
-  background-image: url('../images/logo_facebook.png');
-  background-position: 20px 13px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
-}
-.sign-in-facebook:hover
-{
-  background-image: url('../images/logo_facebook.png');
-  background-position: 19px 11px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+    background-image: url('../images/logo_google.png');    
 }
 
-.sign-in-apple
+.facebook-button
 {
-  background-image: url('../images/logo_apple.png');
-  background-position: 20px 13px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
-}
-.sign-in-apple:hover
-{
-  background-image: url('../images/logo_apple.png');
-  background-position: 19px 11px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+  	background-image: url('../images/logo_facebook.png');  
 }
 
-.sign-in-kakao
+.apple-button
 {
-  background-image: url('../images/logo_kakao.png');
-  background-position: 20px 13px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
-}
-.sign-in-kakao:hover
-{
-  background-image: url('../images/logo_kakao.png');
-  background-position: 19px 11px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+  	background-image: url('../images/logo_apple.png');  
 }
 
-.sign-in-naver
+.kakao-button
 {
-  background-image: url('../images/logo_naver.png');
-  background-position: 20px 13px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+  	background-image: url('../images/logo_kakao.png');
 }
-.sign-in-naver:hover
+
+.naver-button
 {
-  background-image: url('../images/logo_naver.png');
-  background-position: 19px 11px;
-  background-repeat: no-repeat;
-  background-size: 16px 16px;
-  padding-left: 41px;
-  color: #000;
+  	background-image: url('../images/logo_naver.png');  
 }

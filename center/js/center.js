@@ -265,6 +265,11 @@ function initPilotCenter() {
     if (g_str_page_action == "center") {
     		centerPageInit();
     }
+    else if (g_str_page_action == "user_info") {
+        $("#main_contents").load("user_info.html", function () {
+            userinfoInit();
+        });
+    }
     else if (g_str_page_action == "missiondesign") {
         $("#main_contents").load("mission_design.html", function () {
             designInit();
@@ -479,6 +484,9 @@ function centerInit() {
     getDUNIServiceRequest(1);
 }
 
+function userinfoInit() {
+	
+}
 
 function partnerRegisterInit() {
 	
@@ -518,7 +526,6 @@ function designInit() {
     $('#altitude_label').text(GET_STRING_CONTENT('altitude_label'));
     $('#action_label').text(GET_STRING_CONTENT('action_label'));
     $('#speed_label').text(GET_STRING_CONTENT('speed_label'));
-
 
     initSliderForDesign(1);
 
