@@ -31,6 +31,10 @@ $(function () {
     $("#btnBack2").text(GET_STRING_CONTENT('msg_back'));
     
     $("#btn_check_email").text(GET_STRING_CONTENT('label_check_email'));
+    
+    let sns_kind = getCookie('dev_kind');    
+  	$('#connected_sns_image').attr("src","/images/logo_" + sns_kind +  ".png");
+  	$('#label_connected_sns_val').text(sns_kind);
 
 
     $("#show_2").hide();
