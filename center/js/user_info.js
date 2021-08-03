@@ -70,9 +70,25 @@ function leaveNow() {
       "clientid": userid
   };
   ajaxRequest(jdata, function(r){
-          if(r.result_code === 0){
-          		GATAGM('userinfo_leave_success', 'CONTENT');
-           		showAlert(GET_STRING_CONTENT('msg_success'));
+          if(r.result_code == 0){          		           		
+           		setCookie("dev_user_id", "", -1);
+					    setCookie("user_token", "", -1);
+					    setCookie("dev_token", "", -1);
+					    setCookie("user_kind", "", -1);
+					    setCookie("device_kind", "", -1);
+					    setCookie("device_id", "", -1);
+			        setCookie("user_email", "", -1);
+			        setCookie("image_url", "", -1);
+			        setCookie("temp_sns_token", "", -1);
+			        setCookie("dev_sns_token", "", -1);
+			        setCookie("temp_image_url", "", -1);
+			        setCookie("temp_email", "", -1);
+			        setCookie("temp_name", "", -1);
+			        setCookie("user_from", "", -1);
+			        setCookie("dev_kind", "", -1);
+			        setCookie("user_google_auth_token", "", -1);
+			        GATAGM('userinfo_leave_success', 'CONTENT');
+          		showAlert(GET_STRING_CONTENT('msg_success'));
            		goIndex("logout");
               return;
           }
