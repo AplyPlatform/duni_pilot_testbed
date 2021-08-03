@@ -265,10 +265,11 @@ function hideLoader() {
 function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelhandler) {
 
     if (needInput == true) {
+    		$('#askModalLabel').text(atitle);
         $('#askModalInput').show();
-        $('#askModalContent').hide();
+        $('#askModalContent').html(acontent);
         $('#askModalInput').val("");
-        $("#askModalInput").attr("placeholder", acontent);
+        //$("#askModalInput").attr("placeholder", acontent);
     }
     else {
         $('#askModalContent').show();
