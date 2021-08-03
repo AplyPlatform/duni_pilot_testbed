@@ -419,8 +419,7 @@
 	  appendRow = appendRow + "<div id='youTubePlayer_" + video_index + "'></div>";//row
 	  appendRow = appendRow + "</div><div class='col-md-4'>";//row
 		appendRow = appendRow
-						+ "<a onclick='GATAGM(\"index_flight_record_title_click_"
-						+ name + "\", \"CONTENT\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
+						+ "<a onclick='GATAGM(\"index_flight_record_title_click\", \"CONTENT\", \"" + name + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name="
 						+ encodeURIComponent(name) + "'>" + name + "</a><hr size=1 color=#eeeeee>";
 
 	  if (flat != -999) {
@@ -540,8 +539,7 @@
 
 	  if (isOuter == false) {
 			appendRow = appendRow
-							+ "<a onclick='GATAGM(\"index_search_flight_record_title_click_"
-							+ name + "\", \"CONTENT\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
+							+ "<a onclick='GATAGM(\"index_search_flight_record_title_click_\", \"CONTENT\", \"" + name + "\");' href='/center/main.html?page_action=publicrecordlist_detail&record_name=" + encodeURIComponent(name) + "'>";
 		}
 
 		appendRow = appendRow	+ name;
@@ -716,14 +714,14 @@
 
 		$("#searchKeyword").keypress(function(e) {
         if (e.which == 13){
-        		GATAGM('index_search_input_enter_key_' + $("#searchKeyword").val() , 'CONTENT');
+        		GATAGM('index_search_input_enter_key' , 'CONTENT', $("#searchKeyword").val());
         		requestSearch();  //
         }
     });
 
     $("#btnSearchMovie").click(function (e) {
     		e.preventDefault();
-    		GATAGM('index_search_video_btn_click_' + $("#searchKeyword").val() , 'CONTENT');
+    		GATAGM('index_search_video_btn_click' , 'CONTENT', $("#searchKeyword").val());
         requestSearch();  //
     });
 
