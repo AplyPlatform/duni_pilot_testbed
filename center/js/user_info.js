@@ -8,13 +8,30 @@ $(function () {
   $('#page_about_title').text(GET_STRING_CONTENT('page_user_info_title'));  
   $('#label_connected_sns').text(GET_STRING_CONTENT('label_connected_sns'));
   $('#user_token_label').text(GET_STRING_CONTENT('top_menu_token'));
-  
+  $('#user_info_label').text(GET_STRING_CONTENT('user_info_label'));
   $('#user_token_field').val(getCookie('dev_token'));
   
-  let sns_kind = getCookie('dev_kind');
-    
+  let sns_kind = getCookie('dev_kind');    
   $('#connected_sns_image').attr("src","/images/logo_" + sns_kind +  ".png");
   $('#label_connected_sns_val').text(sns_kind);
+  
+  $('#user_info_label').text(getCookie('user_info_label');
+  $('#user_email_value').text(getCookie('user_email'));
+  $('#user_name_value').text(getCookie('temp_name'));
+  
+  if (getCookie('user_kind') == "partner" && g_str_cur_lang == "KR") {
+  	$("#partner_register_area").hide();
+  }
+  else {
+  	$("#partner_register_area").show();
+  	$("#patner_register_btn").click(function() {
+  		location.href = "main.html?page_action=partner_register";
+  	});  	
+  }
+  
+  var image_url = getCookie("image_url");
+  if (image_url == "") $('#user_profile_image').hide();
+  else $('#user_profile_image').attr("src", image_url);
   
 	$("#btn_leave").click(function(e) {
 		e.preventDefault();
@@ -25,13 +42,17 @@ $(function () {
           GET_STRING_CONTENT('modal_title'),
           GET_STRING_CONTENT('msg_ask_leave'),
           GET_STRING_CONTENT('modal_confirm_btn'),
-          false,
-          function () { 
-          	setTimeout(function () { 
-					        		leaveNow();
-					        	}, 300);	
+          true,
+          function (inputdata) {          	
+          	if (inputdata == GET_STRING_CONTENT('msg_to_leave')) {
+	          	setTimeout(function () { 
+						        		leaveNow();
+						        	}, 300);	
+						}
           },
-          null
+          function () {
+          	
+          }
       );
 	});
   
