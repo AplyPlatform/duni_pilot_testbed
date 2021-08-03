@@ -43,7 +43,7 @@ $(function () {
 		GATAGM('userinfo_leave_btn_click', 'CONTENT');
 		
 		showAskDialog(
-					GET_STRING_CONTENT('modal_title')
+					GET_STRING_CONTENT('modal_title'),
           GET_STRING_CONTENT('msg_ask_leave'),          
           GET_STRING_CONTENT('modal_confirm_btn'),
           true,
