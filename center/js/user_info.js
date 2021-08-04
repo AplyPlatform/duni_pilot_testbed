@@ -94,7 +94,7 @@ function verifyPhoneCodeUserSuccessCallback(data) {
 	g_b_phonenumber_verified = true;
   $('#verification_code').val("");  
   $("#code_verification_input").hide();
-	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+	showAlert(GET_STRING_CONTENT('msg_updated'));
 	if (g_b_interval_timer >= 0)
 		clearInterval(g_b_interval_timer);
   $('#auth_code').val(data.auth_code);
