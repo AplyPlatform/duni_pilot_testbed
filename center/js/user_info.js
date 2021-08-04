@@ -9,6 +9,8 @@ $(function () {
   $('#label_connected_sns').text(GET_STRING_CONTENT('label_connected_sns'));
   $('#user_token_label').text(GET_STRING_CONTENT('top_menu_token'));
   $('#user_info_label').text(GET_STRING_CONTENT('user_info_label'));
+  $("#btn_leave").text(GET_STRING_CONTENT('label_leave');
+  
   $('#user_token_field').val(getCookie('dev_token'));
   
   let sns_kind = getCookie('dev_kind');    
@@ -19,7 +21,7 @@ $(function () {
   $('#user_email_value').text(getCookie('user_email'));
   $('#user_name_value').text(getCookie('temp_name'));
   $("#partner_register_area").hide();
-  $("#duni_parnter_logo").hide();
+  $("#duni_parnter_logo").hide();  
   
   let user_kind = getCookie('user_kind');
   if (user_kind != "partner" && g_str_cur_lang == "KR") {    	
