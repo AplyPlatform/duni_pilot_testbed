@@ -641,6 +641,7 @@ function verifyPhoneCodeCommonSuccessCallback(data) {
   $('#verification_code').val("");
   $('#validate_phonenumber_area').hide();
   $("#code_verification_input").hide();
+  setCookie("temp_phone", $('#user_phonenumber').val(), 1);
 	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
 	if (g_b_interval_timer >= 0)
 		clearInterval(g_b_interval_timer);
