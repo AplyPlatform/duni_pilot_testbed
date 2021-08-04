@@ -267,7 +267,7 @@ $(function () {
 			e.preventDefault();
 			
 	    GATAGM('partner_check_code_btn_click', 'CONTENT');
-	    verifyCode($('#verification_code').val());
+	    verifyCode($('#verification_code').val(), verifyPhoneCodeCommonSuccessCallback);
 	});
 	
 	$('#btn_verify_code').click(function (e) {
@@ -298,4 +298,4 @@ $(function () {
 	});		  
 });
 
-//# sourceURL=register_parnter.js
+//# sourceURL=register_partner.js

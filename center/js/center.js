@@ -635,6 +635,19 @@ function missionGenInit() {
 }
 
 
+
+function verifyPhoneCodeCommonSuccessCallback(data) {
+	g_b_phonenumber_verified = true;
+  $('#verification_code').val("");
+  $('#validate_phonenumber_area').hide();
+  $("#code_verification_input").hide();
+	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+	if (g_b_interval_timer >= 0)
+		clearInterval(g_b_interval_timer);
+  $('#auth_code').val(data.auth_code);
+}
+
+
 function flightrecordUploadInit() {
 
     document.title = GET_STRING_CONTENT('page_flight_rec_upload_title');
@@ -714,7 +727,7 @@ function flightrecordUploadInit() {
     		e.preventDefault();
     		
         GATAGM('upload_code_check_btn_click', 'CONTENT');
-        verifyCode($('#verification_code').val());
+        verifyCode($('#verification_code').val(), verifyPhoneCodeCommonSuccessCallback);
     });
     
     $('#btn_verify_code').click(function (e) {
@@ -4390,7 +4403,7 @@ function verifyPhoneNo(phone_number){
 
 }
 
-function verifyCode(verification_code){
+function verifyCode(verification_code, successCallback){
     var userid = getCookie("dev_user_id");    
 		if(verification_code == ""){
 			showAlert(GET_STRING_CONTENT('msg_code_empty'));
@@ -4406,17 +4419,11 @@ function verifyCode(verification_code){
             };
 		ajaxRequest(jdata,
 			function(data){
+				
 				let result = data.result_code;
 				
 				if(result === 0){
-					g_b_phonenumber_verified = true;
-          $('#verification_code').val("");
-          $('#validate_phonenumber_area').hide();
-          $("#code_verification_input").hide();
-					showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-					if (g_b_interval_timer >= 0)
-						clearInterval(g_b_interval_timer);
-          $('#auth_code').val(data.auth_code);										
+					successCallback(data);					
 				}
 				else if(result === 2){
 					showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));					

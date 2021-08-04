@@ -47,7 +47,7 @@ $(function () {
 			e.preventDefault();
 			
 	    GATAGM('partner_check_code_btn_click', 'CONTENT');
-	    verifyCode($('#verification_code').val());
+	    verifyCode($('#verification_code').val(), verifyPhoneCodeUserSuccessCallback);
 	});
 	
 	$('#btn_verify_code').click(function (e) {
@@ -83,6 +83,16 @@ $(function () {
 	});
   
 });
+
+function verifyPhoneCodeUserSuccessCallback(data) {
+	g_b_phonenumber_verified = true;
+  $('#verification_code').val("");  
+  $("#code_verification_input").hide();
+	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+	if (g_b_interval_timer >= 0)
+		clearInterval(g_b_interval_timer);
+  $('#auth_code').val(data.auth_code);
+}
 
 function leaveNow() {
 	var userid = getCookie("dev_user_id");
