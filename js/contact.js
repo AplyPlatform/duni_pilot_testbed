@@ -284,22 +284,9 @@
 		
 		let check = getCookie("user_token");
   	if (isSet(check) && check != "") {
-	  	$("#main_login_area").hide();	  	
-	  	$("#main_center_area").show();	  		  	
-	  	
-	  	$("#logoutCenterBtn").click(function() {      
-	      GATAGM('contact_logout_btn_click', 'MENU');
-	
-	      showAskDialog(
-	          GET_STRING_CONTENT('modal_title'),
-	          GET_STRING_CONTENT('msg_are_you_sure'),
-	          GET_STRING_CONTENT('top_menu_logout'),
-	          false,
-	          function () { setTimeout("logOut()", 100); },
-	          null
-	      );
-	  	});
-	  	
+	  	$("#side_login_area").hide();	  	
+	  	$("#side_center_area").show();	  		  	
+	  		  	
 	  	$("#goCenterBtn1").click(function() {
 	  		GATAGM('contact_go_center_btn_click', 'MENU');
 	  		location.href = "/center/main.html?page_action=center";
