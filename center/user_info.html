@@ -34,7 +34,7 @@
 						            		</div>
 						            		<div class="col-md-5">
                  							<div class="form-group">								              	
-						            				<label class="text-default mb-1" id="user_name_value">사용자 이름</label>						            				
+						            				<label class="text-default mb-1" id="user_name_value">사용자 이름</label>
 						            			</div>
 						            		</div>
 						            		<div class="col-md-5">
@@ -45,6 +45,43 @@
 													</div>
 													<hr size="1" color="#fefefe">
                       </div>
+                      
+                      <div class="row" id="validate_phonenumber_area">
+            							<div class="col-md-9">
+              							<div class="row">
+              								<div class="col-md-3">
+              									<label class="text-default mb-1" id="user_phone_modify_label">전화번호 수정</label>
+              								</div>
+              								<div class="col-md-9">
+              									<input name="user_phonenumber" id="user_phonenumber" type="text" class="form-control" value="" placeholder="ex) 01012341234" required="">
+              								</div>
+              							</div>
+              							<div id="code_verification_input" style="display:none">
+																<div class="row">
+																	<div class="col-md-12">
+																		<hr size=1 color=#fefefe>
+																	</div>
+																</div>
+                								<div class="row">
+                									<div class="col-md-2">
+                  									<span id="remaining_time" style="color:red"></span>
+                  								</div>
+                  								<div class="col-md-6">
+																		<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: left">
+																	</div>
+																	<div class="col-md-4">
+																		<div style="overflow: hidden; padding-right: .5em;">
+																			<button class="btn btn-warning btn-sm btn-block" role="button" id="btn_check_code">인증하기</button>
+																		</div>
+																	</div>
+																</div>
+											    	</div>
+            							</div>
+            							<div class="col-md-3" id="verifyPhoneBtn">
+            								<button class="btn btn-info btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
+            							</div>
+											</div>
+                      
                       <div class="col-md-12" id="duni_parnter_logo">
 													<div class="row">                 						
 						            		<div class="col-md-12">

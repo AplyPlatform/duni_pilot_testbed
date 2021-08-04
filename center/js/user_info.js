@@ -10,6 +10,10 @@ $(function () {
   $('#user_token_label').text(GET_STRING_CONTENT('top_menu_token'));
   $('#user_info_label').text(GET_STRING_CONTENT('user_info_label'));
   $("#btn_leave").text(GET_STRING_CONTENT('label_leave'));
+  $("#user_phone_modify_label").text(GET_STRING_CONTENT('user_phone_modify_label'));
+  $("#btn_check_code").text(GET_STRING_CONTENT('user_phone_checkcode_verify_btn_label'));
+  $("#verification_code").attr("placeholder",GET_STRING_CONTENT('input_verify_code_label'));
+  $("#btn_verify_code").text(GET_STRING_CONTENT('request_verify_code_btn_label'));
   
   $('#user_token_field').val(getCookie('dev_token'));
   
@@ -38,6 +42,22 @@ $(function () {
   var image_url = getCookie("image_url");
   if (image_url == "") $('#user_profile_image').hide();
   else $('#user_profile_image').attr("src", image_url);
+  	
+  $('#btn_check_code').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('partner_check_code_btn_click', 'CONTENT');
+	    verifyCode($('#verification_code').val());
+	});
+	
+	$('#btn_verify_code').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('partner_verify_code_btn_click', 'CONTENT');	            
+	    verifyPhoneNo($('#user_phonenumber').val());
+	});
+	
+	$('[name^=user_phonenumber]').keypress(validateNumber);  	  
   
 	$("#btn_leave").click(function(e) {
 		e.preventDefault();
