@@ -288,7 +288,7 @@
 	  	$("#main_center_area").show();	  		  	
 	  	
 	  	$("#logoutCenterBtn").click(function() {      
-	      GATAGM('util_logout_btn_click', 'MENU');
+	      GATAGM('contact_logout_btn_click', 'MENU');
 	
 	      showAskDialog(
 	          GET_STRING_CONTENT('modal_title'),
@@ -301,6 +301,7 @@
 	  	});
 	  	
 	  	$("#goCenterBtn1").click(function() {
+	  		GATAGM('contact_go_center_btn_click', 'MENU');
 	  		location.href = "/center/main.html?page_action=center";
 	  	});
   	}
