@@ -43,6 +43,10 @@ $(function () {
   if (image_url == "") $('#user_profile_image').hide();
   else $('#user_profile_image').attr("src", image_url);
   	
+  var image_url = getCookie("temp_phone"); //todo
+  if (image_url == "") $('#user_profile_image').hide();
+  else $('#user_profile_image').attr("src", image_url);
+  	
   $('#btn_check_code').click(function (e) {
 			e.preventDefault();
 			
@@ -57,7 +61,13 @@ $(function () {
 	    verifyPhoneNo($('#user_phonenumber').val());
 	});
 	
-	$('[name^=user_phonenumber]').keypress(validateNumber);  	  
+	$('[name^=user_phonenumber]').keypress(validateNumber);
+	let user_phone = getCookie("temp_phone");
+	if (user_phone && user_phone != "" && user_phone != "-") {
+		if ($("#user_phonenumber").length) {
+			$("#user_phonenumber").val(user_phone);
+		}
+	}
   
 	$("#btn_leave").click(function(e) {
 		e.preventDefault();
