@@ -283,31 +283,31 @@
 		$('[name^=form_phone]').keypress(validateNumber);
 		
 		let check = getCookie("user_token");
-  if (isSet(check) && check != "") {
-  	$("#main_login_area").hide();	  	
-  	$("#main_center_area").show();
-  	
-  	$("#side_login_area").hide();
-  	$("#side_center_area").show();
-  	
-  	$("#logoutCenterBtn").click(function() {      
-      GATAGM('util_logout_btn_click', 'MENU');
-
-      showAskDialog(
-          GET_STRING_CONTENT('modal_title'),
-          GET_STRING_CONTENT('msg_are_you_sure'),
-          GET_STRING_CONTENT('top_menu_logout'),
-          false,
-          function () { setTimeout("logOut()", 100); },
-          null
-      );
-  	});
-  	
-  	$("#goCenterBtn1").click(function() {
-  		location.href = "/center/main.html?page_action=center";
-  	});  	
-  	return;
-  }
+  	if (isSet(check) && check != "") {
+	  	$("#main_login_area").hide();	  	
+	  	$("#main_center_area").show();	  		  	
+	  	
+	  	$("#logoutCenterBtn").click(function() {      
+	      GATAGM('util_logout_btn_click', 'MENU');
+	
+	      showAskDialog(
+	          GET_STRING_CONTENT('modal_title'),
+	          GET_STRING_CONTENT('msg_are_you_sure'),
+	          GET_STRING_CONTENT('top_menu_logout'),
+	          false,
+	          function () { setTimeout("logOut()", 100); },
+	          null
+	      );
+	  	});
+	  	
+	  	$("#goCenterBtn1").click(function() {
+	  		location.href = "/center/main.html?page_action=center";
+	  	});
+  	}
+  	else {
+  		$("#side_login_area").show();
+	  	$("#side_center_area").hide();
+  	}
 	}
 			
 	function sendApplicationData(fd)
