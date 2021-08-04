@@ -41,11 +41,7 @@ $(function () {
   
   var image_url = getCookie("image_url");
   if (image_url == "") $('#user_profile_image').hide();
-  else $('#user_profile_image').attr("src", image_url);
-  	
-  var image_url = getCookie("temp_phone"); //todo
-  if (image_url == "") $('#user_profile_image').hide();
-  else $('#user_profile_image').attr("src", image_url);
+  else $('#user_profile_image').attr("src", image_url);  
   	
   $('#btn_check_code').click(function (e) {
 			e.preventDefault();
