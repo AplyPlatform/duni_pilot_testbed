@@ -992,7 +992,7 @@ function getCompanyInfo(title, cid) {
 	     	}
 
 				if (cid == 1004) {					
-					title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/images/logo_aply.png' border='0' width='50'></td><td><b>" + title + "</b></td></tr></table>";
+					title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52 align='left'><img src='/images/logo_aply.png' border='0' width='43px'></td><td><b>" + title + "</b></td></tr></table>";
 				}
 				else {
 		      if (r.data.partner == true) {
