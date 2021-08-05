@@ -991,14 +991,19 @@ function getCompanyInfo(title, cid) {
 	     			title = "<드론비행/체험장> " + title;
 	     	}
 
-	      if (r.data.partner == true) {
-	      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/duni_logo.png' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
-	      }
-	      else {
-	      		title = "<b>" + title + "</b>";
-	      }
+				if (cid == 1004) {					
+					title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/images/logo_aply.png' border='0' width='50'></td><td><b>" + title + "</b></td></tr></table>";
+				}
+				else {
+		      if (r.data.partner == true) {
+		      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/duni_logo.png' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+		      }
+		      else {
+		      		title = "<b>" + title + "</b>";
+		      }
+		    }
 
-	      title = title + ('<p>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
+	      title = title + ('<p size=2 face=돋움>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
 
 	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
 	      	title = title + ('<br>' + r.data.phone_num_2);
