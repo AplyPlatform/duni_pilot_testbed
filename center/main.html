@@ -74,7 +74,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
           	<div class="topbar-divider d-none d-sm-block"></div>
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-            		<a onclick="GATAGM('userinfo', 'MEMU');" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            	<a onclick="GATAGM('userinfo', 'MEMU');" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               		<img class="img-profile rounded-circle" width="60px" height="60px" id="profile_image">
                 	<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               	</a>
@@ -83,80 +83,78 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
             		<a onclick="GATAGM('user_email', 'MEMU');" class="dropdown-item" href="main.html?page_action=user_info">
                   		<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   		<span id=email_field></span>
-              	</a>
-              	<div class="dropdown-divider"></div>
-              	<a onclick="GATAGM('partner_register', 'MEMU');" class="dropdown-item" href="main.html?page_action=partner_register" id="partner_register_top_menu">
+              		</a>
+              		<div class="dropdown-divider"></div>
+              		<a onclick="GATAGM('partner_register', 'MEMU');" class="dropdown-item" href="main.html?page_action=partner_register" id="partner_register_top_menu">
                   		<i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
                   		<span id=parnter_field>파트너 등록</span>
-              	</a>
-              	<a onclick="GATAGM('contact', 'MEMU');" class="dropdown-item" href="/contact.html" id="top_menu_contact">
+              		</a>
+              		<a onclick="GATAGM('contact', 'MEMU');" class="dropdown-item" href="/contact.html" id="top_menu_contact">
                   		<i class="fas fa-comments fa-sm fa-fw mr-2 text-gray-400"></i>
                   		<span id=contact_field>문의하기</span>
-              	</a>
-              	<div class="dropdown-divider"></div>
-              	<a href="#" class="dropdown-item" id="btnLogout">
+              		</a>
+              		<div class="dropdown-divider"></div>
+              		<a href="#" class="dropdown-item" id="btnLogout">
                 		<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 		<span id="top_menu_logout">Logout</span>
-              	</a>
+              		</a>
             	</div>
         	</li>
 		</ul>
 	</nav>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-sidebar-pilot sidebar sidebar-dark accordion" id="accordionSidebar">
+    	<!-- Sidebar -->
+    	<ul class="navbar-nav bg-sidebar-pilot sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-      <li class="nav-item"></li>
+      	<!-- Sidebar - Brand -->
+      	<li class="nav-item"></li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      	<!-- Divider -->
+      	<hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li id="dashboard_menu" class="nav-item">
-        <a onclick="GATAGM('side_menu_dashboard', 'MEMU');" class="nav-link" href="main.html?page_action=center">
-          <i class="fas fa-tachometer-alt"></i>
-          <span id="side_menu_dashboard">Dashboard</span></a>
-      </li>
+	      <!-- Nav Item - Dashboard -->
+	      <li id="dashboard_menu" class="nav-item">
+    	    <a onclick="GATAGM('side_menu_dashboard', 'MEMU');" class="nav-link" href="main.html?page_action=center">
+    	      <i class="fas fa-tachometer-alt"></i>
+    	      <span id="side_menu_dashboard">Dashboard</span>
+    	    </a>
+      	</li>
 
+		<!-- Divider -->
+      	<hr class="sidebar-divider">
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Nav Item - Utilities Collapse Menu
-      <li id="record_menu" class="nav-item">
-        <a onclick="GATAGM('side_menu_flight_record', 'MEMU');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-history"></i>
-          <span id="side_menu_flight_record">비행기록</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            매
-          </div>
-        </div>
-      </li>
-       -->
-      <li id="record_menu" class="nav-item">
-      	<a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU');" class="nav-link" href="main.html?page_action=recordupload">
-      		<i class="fas fa-file-upload"></i>
-      		<span id="side_menu_flight_record_upload">비행영상기록 업로드/판매</span>
-      	</a>
-      	<a onclick="GATAGM('side_menu_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=recordlist">
-      		<i class="fas fa-file-archive"></i>
-      		<span id="side_menu_flight_record_list">내 기록 보기</span>
-      	</a>
-				<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist">
-					<i class="fas fa-globe"></i>
-					<span id="side_menu_flight_record_public_list">공개 기록 보기</span>
-				</a>
-				<a onclick="GATAGM('side_menu_compass_embed', 'MEMU');" class="nav-link" href="main.html?page_action=embedcompass">
-        	<i class="fas fa-video"></i>
-        	<span id="side_menu_compass_embed">영상에 나침반 삽입</span>
-        </a>
-			</li>
+		<!-- Nav Item - Utilities Collapse Menu
+		<li id="record_menu" class="nav-item">
+        	<a onclick="GATAGM('side_menu_flight_record', 'MEMU');" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+				<i class="fas fa-fw fa-history"></i>
+          		<span id="side_menu_flight_record">비행기록</span>
+        	</a>
+        	<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          		<div class="bg-white py-2 collapse-inner rounded"></div>
+        	</div>
+      	</li>
+       	-->
+		<li id="record_menu" class="nav-item">
+      		<a onclick="GATAGM('side_menu_flight_record_upload', 'MEMU');" class="nav-link" href="main.html?page_action=recordupload">
+      			<i class="fas fa-file-upload"></i>
+      			<span id="side_menu_flight_record_upload">비행영상기록 업로드/판매</span>
+      		</a>
+      		<a onclick="GATAGM('side_menu_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=recordlist">
+      			<i class="fas fa-file-archive"></i>
+      			<span id="side_menu_flight_record_list">내 기록 보기</span>
+      		</a>
+			<a onclick="GATAGM('side_menu_public_flight_record_list', 'MEMU');" class="nav-link" href="main.html?page_action=publicrecordlist">
+				<i class="fas fa-globe"></i>
+				<span id="side_menu_flight_record_public_list">공개 기록 보기</span>
+			</a>
+			<a onclick="GATAGM('side_menu_compass_embed', 'MEMU');" class="nav-link" href="main.html?page_action=embedcompass">
+        		<i class="fas fa-compass"></i>
+        		<span id="side_menu_compass_embed">영상에 나침반 삽입</span>
+        	</a>
+		</li>
 
 	  	<!-- Divider -->
       <hr class="sidebar-divider">
