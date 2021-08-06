@@ -1225,7 +1225,7 @@ function requestUploadForCompass(base64Recordfile, tempExt, progressBar) {
     		$('#btnForUploadFlightList').prop('disabled', false);
     		hideLoader();
     		    		
-				if (r.result_code == 2 && r.reason.indexOf("recordfile") >= 0) {
+				if (r.result_code == -1 && r.reason.indexOf("failed to decode") >= 0) {
     			GATAGM('compass_dji_file_upload_analyze_compass_failed', 'CONTENT');
         	showAlert(GET_STRING_CONTENT('msg_select_another_file'));
         }
@@ -5588,14 +5588,15 @@ function uploadDJIFlightListCallback(params) {
             if (r.result_code == 3) {
             		GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT');
                 showAlert(GET_STRING_CONTENT('msg_error_same_record_exist'));
-            }
-            else if (r.result_code == 2) {
-            		GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
-                showAlert(GET_STRING_CONTENT('msg_select_another_file'));
-            }
-            else {
-            	GATAGM('dji_file_upload_failed', 'CONTENT');
-            	showAlert(GET_STRING_CONTENT('msg_error_sorry') + " (" + r.reason + ")");
+            }            
+            else {            	
+            	GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
+            	if (r.reason.indexOf("failed to decode") >= 0) {
+            		showAlert(GET_STRING_CONTENT('msg_select_another_file'));
+            	}
+            	else {
+            		showAlert(GET_STRING_CONTENT('msg_error_sorry') + " (" + r.reason + ")");
+            	}
             }
 
             hideLoader();
