@@ -887,47 +887,58 @@ $(function(){
 
 	$("#chkFlightHistory").change(function(){
 		showFlightRecordsList($("#chkFlightHistory").is(":checked"));
-  });
+	});
 
-  $("#chkCompany").change(function(){
-		showCompanyList($("#chkCompany").is(":checked"));
-  });
+	$("#chkCompany").change(function(){
+			showCompanyList($("#chkCompany").is(":checked"));
+	});
 
-  let check = getCookie("user_token");
-  if (isSet(check) && check != "") {
-  	$("#main_login_area").hide();
-  	$("#main_center_area").show();
+  	let check = getCookie("user_token");
+  	if (isSet(check) && check != "") {
+		$("#main_login_area").hide();
+		$("#main_center_area").show();
 
-  	$("#side_login_area").hide();
-  	$("#side_center_area").show();
+		$("#side_login_area").hide();
+		$("#side_center_area").show();
 
-  	$("#logoutCenterBtn").click(function() {
-      GATAGM('index_logout_btn_click', 'MENU');
+		$("#logoutCenterBtn").click(function() {
+		GATAGM('index_logout_btn_click', 'MENU');
 
-      showAskDialog(
-          GET_STRING_CONTENT('modal_title'),
-          GET_STRING_CONTENT('msg_are_you_sure'),
-          GET_STRING_CONTENT('top_menu_logout'),
-          false,
-          function () { setTimeout("logOut()", 100); },
-          null
-      );
-  	});
+		showAskDialog(
+			GET_STRING_CONTENT('modal_title'),
+			GET_STRING_CONTENT('msg_are_you_sure'),
+			GET_STRING_CONTENT('top_menu_logout'),
+			false,
+			function () { setTimeout("logOut()", 100); },
+			null
+		);
+		});
 
-  	$("#goCenterBtn1").click(function() {
-  		location.href = "/center/main.html?page_action=center";
-  	});
+		$("#goCenterBtn1").click(function() {
+			location.href = "/center/main.html?page_action=center";
+		});
 
-  	$("#goCenterBtn2").click(function() {
-  		location.href = "/center/main.html?page_action=center";
-  	});
-  	return;
-  }
+		$("#goCenterBtn2").click(function() {
+			location.href = "/center/main.html?page_action=center";
+		});
+		return;
+	}
 
-  $("#main_login_area").show();
+  	$("#main_login_area").show();
 	$("#main_center_area").hide();
 
 	$("#side_login_area").show();
 	$("#side_center_area").hide();
-  document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+  	
+	
+	if ($('.cookie-banner').length && localStorage.getItem('cookieSeen') != 'shown') {
+		$('.cookie-banner').delay(2000).fadeIn();
+		localStorage.setItem('cookieSeen','shown');
+	};
+	
+	if ($('#cookie-close').length) {
+		$('#cookie-close').click(function() {
+			$('.cookie-banner').fadeOut();
+		});
+	}
 });

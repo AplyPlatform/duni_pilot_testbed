@@ -28,7 +28,7 @@
 	<meta property="og:description" content="GPS좌표<->주소 변환 기능을 제공합니다 - DUNI"/>
 	
 	<link href="../center/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Abel|Raleway|Roboto|Noto+Sans+KR" rel="stylesheet">
 
 	<!-- Animate.css -->
@@ -60,8 +60,7 @@ for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".
 MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
 mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</script>
 	
-	</head>
-	
+	</head>	
 	<body>
 
 	<div id="fb-root"></div>
@@ -74,13 +73,11 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
 
-
 	<div id="loading">
 		<div class="loader"></div>
 	</div>
 	
-	<div id="page">
-		
+	<div id="page">		
 		<nav class="gtco-nav" role="navigation">
 			<div class="gtco-container">
 
@@ -96,93 +93,88 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 
 		<header id="gtco-header2" class="gtco-cover" role="banner">
 			<div class="gtco-container">
-
-								<div class="row">
-									<div class="col-md-12 text-center">
-											<h1 style="color:white">GPS 좌표 <-> 주소</h1><span class="badge badge-danger">변환 서비스</span>
-									</div>
-								</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<h1 style="color:white">GPS 좌표 <-> 주소</h1><span class="badge badge-danger">변환 서비스</span>
+						</div>
+					</div>
 								
-								<div class="row">
-									<br><br><br><br>
-								</div>
+					<div class="row">
+						<br><br><br><br>
+					</div>
 								
-								<div class="service-wrap">
-									<div class="row">
-					          <div class="col-md-5">
+					<div class="service-wrap">
+						<div class="row">
+					        <div class="col-md-5">
 					          	<input name="lat" id="lat" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="위도 : 예) 37.1234" required="">
-					          </div>
-					          <div class="col-md-5">
+					        </div>
+					        <div class="col-md-5">
 					          	<input name="lng" id="lng" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="경도 : 예) 127.1234" required="">
-					          </div>
-					          <div class="col-md-2 text-left">
+					        </div>
+					        <div class="col-md-2 text-left">
 					          	<a class="btn btn-warning btn-lg btn-block" role="button" onClick="requestAddress()" id="btnGetAddressByGPS">좌표 > 주소 변환</a>
-					          </div>
 					        </div>
+					    </div>
 					        
-					        <div class="row">
-					          <div class="col-md-10">
-						          <input name="address" id="address" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="주소">
-					        	</div>
-					        	<div class="col-md-2 text-left">
-					        		<a class="btn btn-info btn-lg btn-block" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
-					        	</div>
+					    <div class="row">
+					        <div class="col-md-10">
+					        	<input name="address" id="address" type="text" class="form-control" style="background-color:white;opacity: 0.8;" value="" placeholder="주소">
 					        </div>
-								</div>				        
-				      
+					        <div class="col-md-2 text-left">
+					        	<a class="btn btn-info btn-lg btn-block" role="button" onClick="requestGPS()" id="btnGetGpsByAddress">주소 > 좌표 변환</a>
+					        </div>
+					    </div>
+					</div>				  
 			</div>
 		</header>
-		
-		
+
 		<div class="gtco-services gtco-section">
-		  <div class="gtco-container">
-		  			<div class="service-wrap">
+			<div class="gtco-container">
+		  		<div class="service-wrap">
 		  				<div class="service" id="area_info_text"></div>
 	        	</div>
-	        	
-		  			<div class="service-wrap" id="historyMapArea">
+
+		  		<div class="service-wrap" id="historyMapArea">
 		  				<div class="service">
 		  					<div id="historyMap" style="width:100%;height:300px"></div>
 		  				</div>
 	        	</div>
 	        	
-	        	<div class="service-wrap" id="dataTable-Flight_list">
-	        			
-	        	</div>
+	        	<div class="service-wrap" id="dataTable-Flight_list"></div>
 	        	
 	        	<div class="service-wrap">
 	        		<div class="service">
 	        			<div class="row row-pb-sm">
 				        	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-									<!-- 주소<->좌표 변환 서비스 페이지 -->
-									<ins class="adsbygoogle"
+								<!-- 주소<->좌표 변환 서비스 페이지 -->
+								<ins class="adsbygoogle"
 									     style="display:block"
 									     data-ad-client="ca-pub-8189520766812080"
 									     data-ad-slot="9271388509"
 									     data-ad-format="auto"
 									     data-full-width-responsive="true"></ins>
-									<script>
+							<script>
 									     (adsbygoogle = window.adsbygoogle || []).push({});
-									</script>	
-								</div>
-							</div>
+							</script>	
 						</div>
-		  </div>		
+					</div>
+				</div>
+		  	</div>		
 		</div>
+		<!-- END .gtco-section -->
 		
 				
 		<div class="gtco-client">
 			<div class="gtco-container">
 				<div class="row">
 					<div class="col-md-12">	
-						<div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-action="like" data-size="small" data-show-faces="true"></div>
+							<div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-action="like" data-size="small" data-show-faces="true"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- END .gtco-services -->
-	
-	
+		<!-- END .gtco-client -->
+		
 		<footer id="gtco-footer" class="gtco-section" role="contentinfo">
 			<div class="gtco-container">
 				<div class="row row-pb-md">
@@ -198,13 +190,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					<div class="col-md-4 gtco-footer-link">
 						<div class="row">
 							<div class="col-md-6">
-								<ul class="gtco-list-link">									
-									<li><a onClick="GATAGM('util_dunipilotcenter_link2_click', 'CONTENT');" href="https://pilot.duni.io">DUNI 파일럿 센터</a></li>
-									<li><a onClick="GATAGM('util_duni_blog_bottom_menu_link_click', 'CONTENT');" href="https://blog.naver.com/duniplatform?utm_source=duni_pilot_util_homepage&utm_medium=link&utm_campaign=not_campaign">블로그</a></li>
-									<li><a onClick="GATAGM('util_duni_facebook_bottom_menu_link_click', 'CONTENT');" href="https://www.facebook.com/groups/dunipilot">페이스북</a></li>
-									<li><a onClick="GATAGM('util_duni_insta_bottom_menu_link_click', 'CONTENT');" href="https://instagram.com/duni_aply" target="_blank">인스타그램</a></li>
-									<p><a href="/contact.html" class="btn btn-white btn-outline" onClick="GATAGM('util_contactus_bottom_menu_link_click', 'CONTENT');">문의하기</a></p>
-								</ul>
+									<ul class="gtco-list-link">									
+										<li><a onClick="GATAGM('util_dunipilotcenter_link2_click', 'CONTENT');" href="https://pilot.duni.io">DUNI 파일럿 센터</a></li>
+										<li><a onClick="GATAGM('util_duni_blog_bottom_menu_link_click', 'CONTENT');" href="https://blog.naver.com/duniplatform?utm_source=duni_pilot_util_homepage&utm_medium=link&utm_campaign=not_campaign">블로그</a></li>
+										<li><a onClick="GATAGM('util_duni_facebook_bottom_menu_link_click', 'CONTENT');" href="https://www.facebook.com/groups/dunipilot">페이스북</a></li>
+										<li><a onClick="GATAGM('util_duni_insta_bottom_menu_link_click', 'CONTENT');" href="https://instagram.com/duni_aply" target="_blank">인스타그램</a></li>
+										<p><a href="/contact.html" class="btn btn-white btn-outline" onClick="GATAGM('util_contactus_bottom_menu_link_click', 'CONTENT');">문의하기</a></p>
+									</ul>
 							</div>
 						</div>
 					</div>
@@ -223,36 +215,35 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					</div>
 				</div>
 			</div>
-		</footer>
+		</footer>			
 		
 		<div id="popup" class="ol-popup">
-    	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    	<div id="popup-content"></div>
-  	</div>
-	
+			<a href="#" id="popup-closer" class="ol-popup-closer"></a>
+			<div id="popup-content"></div>
+		</div>
+
 		<div class="gototop js-top">
 			<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 		</div>
-	
-		<div class="modal fade" id="errorModal">
-	    	<div class="modal-dialog">
-	      		<div class="modal-content">
-	        		<div class="modal-header">
-	          			<h5 class="modal-title" id="modal-title">Notification</h5>
-	        		</div>
-	        		<div class="modal-body" id="errorModalLabel"></div>
-	        		<div class="modal-footer">
-	          			<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
-	        		</div>
-	      		</div>
-	    	</div>
-		</div>
 
+		<div class="modal fade" id="errorModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-title">Notification</h5>
+					</div>
+					<div class="modal-body" id="errorModalLabel"></div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>			
+
+		<a id='video-pop-view' video-lang="" video-name="" video-url="" video-prod-url=""></a>
 	</div>
-	
-	<a id='video-pop-view' video-lang="" video-name="" video-url="" video-prod-url=""></a>
   
-  <!-- jQuery -->
+  	<!-- jQuery -->
 	<script src="../js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="../js/jquery.easing.1.3.js"></script>
@@ -263,8 +254,8 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	
 	<script src="../center/js/ol.js"></script>
 	<script src="../center/js/lang.js"></script>
-  <script src="../center/js/util.js"></script>
-  <script src="./js/util.js"></script>
+  	<script src="../center/js/util.js"></script>
+  	<script src="./js/util.js"></script>
 
-</body>
+	</body>
 </html>
