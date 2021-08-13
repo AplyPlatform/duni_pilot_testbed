@@ -185,18 +185,7 @@ function execDaumPostcode() {
 	}).open();
 }
 
-function sendApplicationData(fd)
-{		
-	fd.append("form_kind", "파트너");
-	fd.append("ref", "https://pilot.duni.io");
-	fd.append("clientid", getCookie("dev_user_id"));
-	fd.append("form_email", getCookie("user_email"));
-	fd.append( 'fileupload1', $('input[name=fileupload1]')[0].files[0] );
-	fd.append( 'fileupload2', $('input[name=fileupload2]')[0].files[0] );
-	fd.append( 'fileupload3', $('input[name=fileupload3]')[0].files[0] );
-	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
-	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
-				
+function sendAjaxData(fd) {
 	$.ajax({
 		type: "POST",
 		dataType : "json",
@@ -240,6 +229,26 @@ function sendApplicationData(fd)
 			showAlert("죄송합니다, 일시적인 오류가 발생하였습니다. 다시 시도 부탁드립니다.");
 		}
 	});
+}
+
+function sendApplicationData(fd)
+{		
+	fd.append("form_kind", "파트너");
+	fd.append("ref", "https://pilot.duni.io");
+	fd.append("clientid", getCookie("dev_user_id"));
+	fd.append("form_email", getCookie("user_email"));
+	fd.append( 'fileupload1', $('input[name=fileupload1]')[0].files[0] );
+	fd.append( 'fileupload2', $('input[name=fileupload2]')[0].files[0] );
+	fd.append( 'fileupload3', $('input[name=fileupload3]')[0].files[0] );
+	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
+	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
+	
+	grecaptcha.ready(function() {
+        grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+					fd.append("form_token", token);
+					sendAjaxData(fd);
+				});
+	});					
 }
 
 $(function () {
