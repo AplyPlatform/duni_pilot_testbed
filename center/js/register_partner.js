@@ -242,6 +242,7 @@ function sendApplicationData(fd)
 	fd.append( 'fileupload3', $('input[name=fileupload3]')[0].files[0] );
 	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
 	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
+	fd.append( 'auth_code', $('#auth_code').val() );
 	
 	grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
@@ -261,29 +262,13 @@ $(function () {
 		if (fd == null) return;
 						
 	  sendApplicationData(fd);
-	});
-
-	$('[name^=user_phonenumber]').keypress(validateNumber);
+	});	
 	
 	$("#findAddressBtn").click(function(e){
 			e.preventDefault();
 			
 			GATAGM('partner_find_address_btn_click', 'CONTENT');
 			execDaumPostcode();
-	});
-	
-	$('#btn_check_code').click(function (e) {
-			e.preventDefault();
-			
-	    GATAGM('partner_check_code_btn_click', 'CONTENT');
-	    verifyCode($('#verification_code').val(), verifyPhoneCodeCommonSuccessCallback);
-	});
-	
-	$('#btn_verify_code').click(function (e) {
-			e.preventDefault();
-			
-	    GATAGM('partner_verify_code_btn_click', 'CONTENT');	            
-	    verifyPhoneNo($('#user_phonenumber').val());
 	});
 	
 	$('#privacy_policy_view').click(function (e) {
@@ -304,7 +289,23 @@ $(function () {
 	    $.get("/service_KR_raw.html", function(html_string){
       	showAlert(html_string);
    		});
-	});		  
+	});		
+	
+	$('[name^=user_phonenumber]').keypress(validateNumber);
+	
+	$('#btn_check_code').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('partner_check_code_btn_click', 'CONTENT');
+	    verifyCode($('#verification_code').val(), verifyPhoneCodeCommonSuccessCallback);
+	});
+	
+	$('#btn_verify_code').click(function (e) {
+			e.preventDefault();
+			
+	    GATAGM('partner_verify_code_btn_click', 'CONTENT');	            
+	    verifyPhoneNo($('#user_phonenumber').val());
+	});		
 });
 
 //# sourceURL=register_partner.js
