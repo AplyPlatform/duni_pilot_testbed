@@ -1654,9 +1654,7 @@ function flightDetailInit(target) {
     });
     */
     
-    $('#merge_record_view_btn').click(function (e) {
-    		e.preventDefault();
-    		        
+    $('#merge_record_view_btn').click(function () {    		    		        
         GATAGM('detail_merge_record_view_btn_click', 'CONTENT');
         $('#dataTable-Flight_area').modal('show');
     });
@@ -1671,9 +1669,7 @@ function flightDetailInit(target) {
     
     $('#loadMoreArea').hide();
     
-    $('#btnForLoadFlightList').click(function (e) {
-    		e.preventDefault();
-    		
+    $('#btnForLoadFlightList').click(function () {
     		GATAGM('detail_record_load_more_btn_click', 'CONTENT');        
         getFlightRecords(target, $("#record_search_field").val());
     });
@@ -4744,6 +4740,8 @@ function setYoutubeVideo(index, youtube_url) {
 		}
 
 		var vid = getYoutubeQueryVariable(youtube_url);
+		
+		if (typeof YT == "undefined") return;
 
 		g_array_youtube_players[index] = new YT.Player("youTubePlayer_" + index, {
       height: '200',
