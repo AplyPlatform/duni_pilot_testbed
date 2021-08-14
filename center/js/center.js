@@ -1653,7 +1653,7 @@ function flightDetailInit(target) {
     		e.preventDefault();
     		        
         GATAGM('detail_merge_record_view_btn_click', 'CONTENT');
-        $("#record_search_field_area").show();
+        $('#dataTable-Flight_area').modal('show');
     });
         
     $("#record_search_field").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
@@ -1684,9 +1684,7 @@ function flightDetailInit(target) {
         uploadFlightList(true);
     });
 
-		$("#recordDataSet").hide();
-		$("#record_search_field_area").hide();
-		$("#dataTable-Flight_area").hide();
+		$("#recordDataSet").hide();		
 
     g_component_upload_youtube_video = new UploadVideo();
     g_component_upload_youtube_video.onUploadCompleteCallback = function (vid) {
@@ -3532,10 +3530,7 @@ function searchFlightRecordForMerge(target, keyword) {
 						
             g_array_flight_rec = [];
             $('#dataTable-Flight_list').empty();
-            g_i_appended_data_count = 0;
-            
-            //$('#dataTable-Flight_area').show();
-            $('#dataTable-Flight_area').modal('show');
+            g_i_appended_data_count = 0;                                    
             
             makeFlightRecordsToTableForMerge(target, target_key, r.data);
             hideLoader();
@@ -3819,7 +3814,7 @@ function showDataWithName(target, target_key, name) {
 }
 
 function mergeFlightRecordToView(target, fdata) {
-		setFlightRecordDataToView(target, fdata.data, false); //todo
+		setFlightRecordDataToView(target, fdata.data, false);
 }
 
 function setFlightRecordToView(target, name, fdata) {								
@@ -4476,9 +4471,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     $("#owner_email_" + curIndex).hide();
     
     
-    $('#detail_record_list_item_' + curIndex).click(function() {
-    	//$('#dataTable-Flight_area').dialog('close');
-    	$('#dataTable-Flight_area').hide();
+    $('#detail_record_list_item_' + curIndex).click(function() {    	
     	$('#dataTable-Flight_area').modal('hide');
     	loadRecorForMerge(target, target_key, name);
     });
