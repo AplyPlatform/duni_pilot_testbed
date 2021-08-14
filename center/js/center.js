@@ -1614,6 +1614,11 @@ function flightDetailInit(target) {
     $('#sync_explain_label').html(GET_STRING_CONTENT('sync_explain_label'));
     
     $('#no_record_data_view_label').text(GET_STRING_CONTENT('no_record_data_view_label'));
+    
+    $('#record_search_field_label').text(GET_STRING_CONTENT('record_search_field_label'));
+    $("#btnForLoadFlightList").text(GET_STRING_CONTENT('btnForLoadFlightList'));
+    $('#modal-search-confirm-btn').text(GET_STRING_CONTENT('msg_closed'));
+    
 
     $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
 
