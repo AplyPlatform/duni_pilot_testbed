@@ -3528,7 +3528,7 @@ function searchFlightRecordForMerge(target, keyword) {
             g_i_appended_data_count = 0;
             
             $('#dataTable-Flight_area').show();
-            $('#dataTable-Flight_area').popup();
+            $('#dataTable-Flight_area').modal('show');
             
             makeFlightRecordsToTableForMerge(target, target_key, r.data);
             hideLoader();
