@@ -4473,7 +4473,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     
     $('#detail_record_list_item_' + curIndex).click(function() {    	
     	$('#dataTable-Flight_area').modal('hide');
-    	loadRecorForMerge(target, target_key, name);
+    	loadRecordForMerge(target, target_key, name);
     });
     
     if (isSet(owner_email)) {
@@ -4506,7 +4506,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
 }
 
 
-function loadRecorForMerge(target, target_key, name) {
+function loadRecordForMerge(target, target_key, name) {
 		var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
 
@@ -5069,12 +5069,10 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
         }
     }
 
-    var arrayMapPosIcons = [];
-    g_array_flight_rec = [];
-    g_array_altitude_data_for_chart = [];
-    var lineData = [];
+    let arrayMapPosIcons = [];
+    let lineData = [];
 
-		var rlng, rlat;
+		let rlng, rlat;
     cdata.forEach(function (item, i, arr) {
 
         if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
@@ -5123,10 +5121,10 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
     });
 
     //if (isSet(g_layer_2D_map_for_line))
-        g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
+    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
 
     //if (isSet(g_layer_2D_map_for_icon))
-        g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
+    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
 
 		if (isSet(rlng) && isSet(rlat)) {
 				moveToStartPoint3D(rlng, rlat, 600);
