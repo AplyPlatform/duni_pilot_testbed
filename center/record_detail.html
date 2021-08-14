@@ -128,7 +128,7 @@
 					        <div class="tab-pane fade mapviewer" id="map3dViewer">
 					          	<div id="main3dMap" class="mapviewerIn"></div>
 									</div>
-								</div>
+								</div>																
 								
 								<div class="row" id="no_record_data_view">
 									<div class="col-md-12">
@@ -137,11 +137,38 @@
 								</div>
 								
 								<div class="row">
+									<div class="col-md-12">
+										<a class="text-xs font-weight-bold text-default mb-1" id="merge_record_view_btn">다른 비행기록과 결합해서 보기</a>
+										
+										<div class="row" id="record_search_field_area">
+											<div class="col-md-6">
+												<div class="form-group">
+					              	<label for="record_search_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="record_search_field_label">결합대상 검색</label>
+			            				<input name="record_search_field" type="text" class="form-control" id="record_search_field">
+			            			</div>
+			            		</div>
+			            		<div id="dataTable-Flight_area">
+			            			<div class="row">
+					            		<div class="col-md-6" id="dataTable-Flight_list">
+					            			
+					            		</div>					            		
+					            	</div>
+					            	<div class="row" id="loadMoreArea">
+													<div class="col-md-6">
+															<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>
+													</div>
+												</div>
+				            	</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
     							<div class="col-md-6">
 										<div class="btn-group btn-group-justified" data-toggle="buttons">
 											  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
 											  <a class="btn btn-info" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
-										</div>									
+										</div>
     							</div>
 									<div class="col-md-6">
 										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>

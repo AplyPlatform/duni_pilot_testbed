@@ -1648,6 +1648,21 @@ function flightDetailInit(target) {
         setFilter();
     });
     */
+    
+    $('#merge_record_view_btn').click(function (e) {
+    		e.preventDefault();
+    		        
+        GATAGM('detail_merge_record_view_btn_click', 'CONTENT');
+        $("#record_search_field_area").show();
+    });
+        
+    $("#record_search_field").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
+		$("#record_search_field").keypress(function(e) {
+        if (e.which == 13){
+        		GATAGM('detail_record_search_field_enter_key', 'CONTENT', $("#record_search_field").val());
+        		searchFlightRecordForMerge(target, $("#search_key").val());
+        }
+    });
 
     $('#btnForSetYoutubeID').click(function (e) {
     		e.preventDefault();
@@ -1663,6 +1678,7 @@ function flightDetailInit(target) {
     });
 
 		$("#recordDataSet").hide();
+		$("#record_search_field_area").hide();
 
     g_component_upload_youtube_video = new UploadVideo();
     g_component_upload_youtube_video.onUploadCompleteCallback = function (vid) {
@@ -3443,11 +3459,17 @@ function searchFlightRecord(target, keyword) {
                 $('#loadMoreArea').hide(1500);
             }
 
-            $('#historyMap').show();
+						if ($('#historyMap').length)
+            	$('#historyMap').show();
 
             g_array_flight_rec = [];
             $('#dataTable-Flight_list').empty();
             g_i_appended_data_count = 0;
+                                                
+            if (isPopup == true) {
+            	$('#dataTable-Flight_area').popup();
+            }
+            
             makeFlightRecordsToTable(target, target_key, r.data);
             hideLoader();
         }
@@ -3468,6 +3490,66 @@ function searchFlightRecord(target, keyword) {
 }
 
 
+function searchFlightRecordForMerge(target, keyword) {
+    if (isSet(keyword) == false) {
+        showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+        return;
+    }
+
+    let userid = getCookie("dev_user_id");
+    let isPublic = (target == "public") ? true : false;
+    let jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };
+    let target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
+
+    if (target_key != "") {
+    		jdata["target_email"] = target_key;
+    }
+
+    g_more_key_for_data = "";
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {
+            if (r.data == null || r.data.length == 0) {
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
+                hideLoader();
+                return;
+            }
+
+            if (r.morekey) {
+                g_more_key_for_data = r.morekey;
+                $('#btnForLoadFlightList').text(GET_STRING_CONTENT('msg_load_more'));
+                $('#loadMoreArea').show();
+            }
+            else {
+                g_more_key_for_data = null;
+                $('#loadMoreArea').hide(1500);
+            }
+						
+            g_array_flight_rec = [];
+            $('#dataTable-Flight_list').empty();
+            g_i_appended_data_count = 0;
+            
+            $('#dataTable-Flight_area').popup();            
+            
+            makeFlightRecordsToTableForMerge(target, target_key, r.data);
+            hideLoader();
+        }
+        else {
+            if (r.reason == "no data") {
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
+            }
+            else {
+                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+            }
+
+            hideLoader();
+        }
+    }, function (request, status, error) {
+        hideLoader();
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
+}
 
 function getFlightRecords(target) {
     var userid = getCookie("dev_user_id");
@@ -3537,6 +3619,20 @@ function getFlightRecords(target) {
     });
 }
 
+
+function makeFlightRecordsToTableForMerge(target, target_key, data) {
+    if (data == null || data.length == 0)
+        return;
+
+    data.sort(function(a, b) { // \uB0B4\uB9BC\uCC28\uC21C
+    	return b.dtimestamp - a.dtimestamp;
+		});
+
+    data.forEach(function (item) {
+        appendFlightRecordTableForMerge(target, target_key, item);
+        g_array_flight_rec.push(item);
+    });
+}
 
 
 function makeFlightRecordsToTable(target, target_key, data) {
@@ -3706,6 +3802,10 @@ function showDataWithName(target, target_key, name) {
         hideLoader();
         monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
     });
+}
+
+function mergeFlightRecordToView(target, fdata) {
+		setFlightRecordDataToView(target, fdata.data, false); //todo
 }
 
 function setFlightRecordToView(target, name, fdata) {								
@@ -4269,8 +4369,165 @@ function appendFlightRecordTable(target, target_key, item) {
 }
 
 
+function appendFlightRecordTableForMerge(target, target_key, item) {
+    var name = item.name;
+    var dtimestamp = item.dtimestamp;
+    var data = item.data;
 
-// 혜지프로 날짜 시간 피커
+    var address = item.address;
+    var cada = item.cada;
+    var memo = item.memo;
+    var owner_email = item.owner_email;
+    var sharedList = item.sharedList;
+    var youtube_data_id = item.youtube_data_id;
+    var curIndex = g_i_appended_data_count;
+    var tag_values = item.tag_values;
+
+    var flat = (isSet(item.flat) ? item.flat * 1 : -999);
+		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
+
+		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
+
+    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
+    appendRow = appendRow + (curIndex + 1) + " | ";
+    
+    appendRow = appendRow + "<a id='detail_record_list_item_" + curIndex + "'>" + name + "</a>";
+    
+    appendRow = appendRow + "</div></div><div class='row'>";
+
+    if(isSet(youtube_data_id)) {
+    		appendRow = appendRow + "<div class='col-sm' id='youTubePlayer_" + curIndex + "'></div>";
+    }
+
+    if (flat != -999) {
+        appendRow = appendRow + "<div class='col-sm' id='map_" + curIndex + "' style='height:200px;'></div>";
+    }
+
+
+    appendRow = appendRow + "</div><div class='row'><div class='col-md-12 text-right'><a href='#' class='text-xs' id='map_address_" + curIndex + "'></a>";
+    
+    if (target == "public")
+    	appendRow = appendRow + " / <span id='owner_email_" + curIndex + "' class='text-xs font-weight-bold mb-1'></span><br>";
+    
+    appendRow = appendRow + "<hr size='1' color='#efefef'></div></div>";
+
+		appendRow = appendRow + "<div class='row'>";
+		
+		if (target == "public")
+			appendRow = appendRow + "<div class='col-md-12 text-right'>";
+		else
+			appendRow = appendRow + "<div class='col-md-10 text-right'>";
+			
+			
+		appendRow = appendRow + "<textarea class='form-control' id='memoTextarea_" + curIndex + "' rows='4'>"
+
+    if (isSet(memo)) {
+        appendRow = appendRow + memo;
+    }
+
+    appendRow = appendRow + "</textarea></div>";
+            	
+    appendRow = appendRow + "</div>"; //row
+
+    appendRow = appendRow + "<div class='row'><div class='col-md-12'>";
+
+    if (isSet(tag_values) && tag_values != "") {
+    	var targetList = (target == "public" ? "public" : "");
+    	try {
+	    	var tag_array = JSON.parse(tag_values);
+	    	tag_array.forEach(function(tg) {
+	    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
+	    	});
+	    }
+	    catch(e) {
+	    }
+    }
+
+    appendRow = appendRow + "</div></div>";
+    appendRow = appendRow + "<div class='row'>";
+        
+		appendRow = appendRow + "<div class='col-md-12 text-left'>";
+
+    if (isSet(item.starttime)) {
+    	appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('flighttime_input_data_label') + "</span> <span class='text-xs mb-1'>"
+    							+ makeDateTimeFormat(new Date(item.starttime), true)
+    							+ "<br></span>";
+    }
+
+    appendRow = appendRow + "<span class='text-xs mb-1'>" + GET_STRING_CONTENT('registered_datetime_label') + "</span> <span class='text-xs mb-1'>" + dtimestamp + "</span>";
+    appendRow = appendRow + "</div>";            
+    appendRow = appendRow + "</div></div></div>"; //row, card-body, card
+
+    $('#dataTable-Flight_list').append(appendRow);
+    $("#owner_email_" + curIndex).hide();
+    
+    
+    $('#detail_record_list_item_' + curIndex).click(function() {
+    	$('#dataTable-Flight_area').dialog('close');
+    	//$('#dataTable-Flight_area').modal('hide');
+    	loadRecorForMerge(target, target_key, name);
+    });
+    
+    if (isSet(owner_email)) {
+        var oemail = "<a href='" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
+        $("#owner_email_" + curIndex).show();
+        $("#owner_email_" + curIndex).html(oemail);
+    }
+
+    $("#memoTextarea_" + curIndex).prop('disabled', true);        
+
+    var retSource = null;
+    if (flat != -999) {
+    	retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
+    }
+
+    setYoutubeVideo(curIndex, youtube_data_id);
+
+    if (isSet(retSource) && isSet(address) && address != "") {
+        setAddressAndCada("#map_address_" + curIndex, address, cada, retSource);
+        setAddressAndCada("#map_address_" + curIndex, address, cada, g_vector_2D_map_for_flight_rec);
+    }
+    else {
+        if (flat != -999) {
+            var dpoint = ol.proj.fromLonLat([flng, flat]);
+            drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);
+        }
+    }
+    
+    g_i_appended_data_count++;
+}
+
+
+function loadRecorForMerge(target, target_key, name) {
+		var userid = getCookie("dev_user_id");
+    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
+
+		if (target == "public") {
+        jdata['public'] = true;
+    }
+
+    showLoader();
+    
+    ajaxRequest(jdata, function (r) {
+
+    		if (r.result != "success") {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+            hideLoader();
+            return;
+        }
+
+				var fdata = r.data;
+        mergeFlightRecordToView(target, fdata);
+
+				hideLoader();
+
+    }, function (request, status, error) {
+        hideLoader();
+        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    });
+}
+
+
 function populateDays(month) {
   // delete the current set of <option> elements out of the
   // day <select>, ready for the next set to be injected
@@ -4857,10 +5114,10 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
         }
     });
 
-    if (isSet(g_layer_2D_map_for_line))
+    //if (isSet(g_layer_2D_map_for_line))
         g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
 
-    if (isSet(g_layer_2D_map_for_icon))
+    //if (isSet(g_layer_2D_map_for_icon))
         g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
 
 		if (isSet(rlng) && isSet(rlat)) {
