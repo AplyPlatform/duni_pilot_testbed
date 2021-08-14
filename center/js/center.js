@@ -4477,9 +4477,9 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     
     
     $('#detail_record_list_item_' + curIndex).click(function() {
-    	$('#dataTable-Flight_area').dialog('close');
+    	//$('#dataTable-Flight_area').dialog('close');
     	$('#dataTable-Flight_area').hide();
-    	//$('#dataTable-Flight_area').modal('hide');
+    	$('#dataTable-Flight_area').modal('hide');
     	loadRecorForMerge(target, target_key, name);
     });
     
