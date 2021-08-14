@@ -297,12 +297,12 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">          
-	          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-	            <span aria-hidden="true">×</span>
-	          </button>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
 	    </div>
-	    <div class="modal-body text-center">
-				<div class="form-group">
+	    <div class="modal-body">
+				<div class="form-group text-center">
         	<label for="record_search_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="record_search_field_label">결합대상 검색</label>
         	<input name="record_search_field" type="text" class="form-control" id="record_search_field">
   			</div>      						
@@ -312,6 +312,9 @@
 							<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>					
 				</div>
 			</div>
+			<div class="modal-footer">
+      	<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-confirm-btn">닫기</button>
+      </div>
 		</div>
 	</div>
 </div>
