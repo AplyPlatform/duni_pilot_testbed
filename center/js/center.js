@@ -1679,6 +1679,7 @@ function flightDetailInit(target) {
 
 		$("#recordDataSet").hide();
 		$("#record_search_field_area").hide();
+		$("#dataTable-Flight_area").hide();
 
     g_component_upload_youtube_video = new UploadVideo();
     g_component_upload_youtube_video.onUploadCompleteCallback = function (vid) {
@@ -3464,11 +3465,7 @@ function searchFlightRecord(target, keyword) {
 
             g_array_flight_rec = [];
             $('#dataTable-Flight_list').empty();
-            g_i_appended_data_count = 0;
-                                                
-            if (isPopup == true) {
-            	$('#dataTable-Flight_area').popup();
-            }
+            g_i_appended_data_count = 0;                                     
             
             makeFlightRecordsToTable(target, target_key, r.data);
             hideLoader();
@@ -3530,7 +3527,8 @@ function searchFlightRecordForMerge(target, keyword) {
             $('#dataTable-Flight_list').empty();
             g_i_appended_data_count = 0;
             
-            $('#dataTable-Flight_area').popup();            
+            $('#dataTable-Flight_area').show();
+            $('#dataTable-Flight_area').popup();
             
             makeFlightRecordsToTableForMerge(target, target_key, r.data);
             hideLoader();
@@ -4464,6 +4462,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     
     $('#detail_record_list_item_' + curIndex).click(function() {
     	$('#dataTable-Flight_area').dialog('close');
+    	$('#dataTable-Flight_area').hide();
     	//$('#dataTable-Flight_area').modal('hide');
     	loadRecorForMerge(target, target_key, name);
     });
