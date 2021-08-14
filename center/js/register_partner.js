@@ -289,9 +289,16 @@ $(function () {
 	    $.get("/service_KR_raw.html", function(html_string){
       	showAlert(html_string);
    		});
-	});		
-	
+	});
+				
 	$('[name^=user_phonenumber]').keypress(validateNumber);
+	
+	let user_phone = getCookie("temp_phone");
+	if (user_phone && user_phone != "" && user_phone != "-") {
+		if ($("#user_phonenumber").length) {
+			$("#user_phonenumber").val(user_phone);
+		}
+	}
 	
 	$('#btn_check_code').click(function (e) {
 			e.preventDefault();
