@@ -1658,11 +1658,13 @@ function flightDetailInit(target) {
         
     $("#record_search_field").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
 		$("#record_search_field").keypress(function(e) {
-        if (e.which == 13){
-        		GATAGM('detail_record_search_field_enter_key', 'CONTENT', $("#record_search_field").val());
+        if (e.which == 13){        		
+        		GATAGM('detail_record_search_field_enter_key', 'CONTENT', $("#record_search_field").val());        		
         		searchFlightRecordForMerge(target, $("#record_search_field").val());
         }
     });
+    
+    $('#loadMoreArea').hide();
     
     $('#btnForLoadFlightList').click(function (e) {
     		e.preventDefault();
@@ -3509,6 +3511,8 @@ function searchFlightRecordForMerge(target, keyword) {
 
     g_more_key_for_data = "";
 
+		$('#loadMoreArea').hide();
+		
     showLoader();
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
