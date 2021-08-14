@@ -4374,7 +4374,8 @@ function verifyPhoneNo(phone_number){
     ajaxRequest(jdata, 
         function (data){
             let result = data.result_code;
-            if(result === 0){ //정상응답
+                        
+            if(result === 0 || result === 3){ //정상응답 - 존재하는 번호이어도 괜찮음
                 showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
                 g_b_phonenumber_verified = false;
                 // 인증하기 텍스트 -> 재전송
@@ -4390,10 +4391,7 @@ function verifyPhoneNo(phone_number){
                 showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
                 return;
             }
-            if (result === 3) {
-                showAlert(GET_STRING_CONTENT('msg_phone_already_exists'));
-                return;
-            }
+            
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
             return;
         },
