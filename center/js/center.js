@@ -1663,6 +1663,13 @@ function flightDetailInit(target) {
         		searchFlightRecordForMerge(target, $("#record_search_field").val());
         }
     });
+    
+    $('#btnForLoadFlightList').click(function (e) {
+    		e.preventDefault();
+    		
+    		GATAGM('detail_record_load_more_btn_click', 'CONTENT');        
+        getFlightRecords(target);
+    });
 
     $('#btnForSetYoutubeID').click(function (e) {
     		e.preventDefault();
@@ -3527,7 +3534,7 @@ function searchFlightRecordForMerge(target, keyword) {
             $('#dataTable-Flight_list').empty();
             g_i_appended_data_count = 0;
             
-            $('#dataTable-Flight_area').show();
+            //$('#dataTable-Flight_area').show();
             $('#dataTable-Flight_area').modal('show');
             
             makeFlightRecordsToTableForMerge(target, target_key, r.data);
@@ -4389,7 +4396,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
     
-    appendRow = appendRow + "<a id='detail_record_list_item_" + curIndex + "'>" + name + "</a>";
+    appendRow = appendRow + "<a href='#' id='detail_record_list_item_" + curIndex + "'>" + name + "</a>";
     
     appendRow = appendRow + "</div></div><div class='row'>";
 
