@@ -1668,7 +1668,7 @@ function flightDetailInit(target) {
     		e.preventDefault();
     		
     		GATAGM('detail_record_load_more_btn_click', 'CONTENT');        
-        getFlightRecords(target);
+        getFlightRecords(target, $("#record_search_field").val());
     });
 
     $('#btnForSetYoutubeID').click(function (e) {
@@ -1789,7 +1789,7 @@ function flightrecordListInit(target) {
     		e.preventDefault();
     		
     		GATAGM('list_load_more_btn_click', 'CONTENT');        
-        getFlightRecords(target);
+        getFlightRecords(target, "");
     });
 
     $('#loadMoreArea').hide();
@@ -1827,7 +1827,7 @@ function flightrecordsListSummaryInit(target) {
     		e.preventDefault();
     		        
         GATAGM('summary_load_more_btn_click', 'CONTENT');
-        getFlightRecords(target);
+        getFlightRecords(target, "");
     });
 
     $('#loadMoreArea').hide();
@@ -3556,7 +3556,7 @@ function searchFlightRecordForMerge(target, keyword) {
     });
 }
 
-function getFlightRecords(target) {
+function getFlightRecords(target, keyword) {
     var userid = getCookie("dev_user_id");
     var jdata = { "action": "position", "daction": "download", "clientid": userid };
     var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
@@ -3573,12 +3573,21 @@ function getFlightRecords(target) {
         	$('#page_about_title').text(targetId + " : " + GET_STRING_CONTENT('open_record_label'));
         }
     }
-
-    var keyword = decodeURIComponent(getQueryVariable("keyword"));
-    if (isSet(keyword) && keyword != "") {
-    		jdata['daction'] = "find_record";
-    		jdata['keyword'] = keyword;
-    }
+		
+		if (isSet(keyword)) {
+			jdata['daction'] = "find_record";
+		  jdata['keyword'] = keyword;
+		}
+		else {
+			let query_keyword = getQueryVariable("keyword");
+			if (isSet(query_keyword)) {			
+		    let query_decoded_keyword = decodeURIComponent(query_keyword);
+		    if (isSet(query_decoded_keyword)) {
+		    		jdata['daction'] = "find_record";
+		    		jdata['keyword'] = keyword;
+		    }
+		  }
+		}
 
     if (isSet(g_more_key_for_data)) {
         jdata["morekey"] = g_more_key_for_data;
@@ -6212,14 +6221,14 @@ function onYouTubeIframeAPIReady() {
 				|| g_str_page_action == "center"
 				|| g_str_page_action == "summary_list")) {
 			getFullFlightRecords(g_str_current_target);
-    	getFlightRecords(g_str_current_target);
+    	getFlightRecords(g_str_current_target, "");
     	return;
     }
 
     if (g_str_cur_viewmode != "pilot"
     		&& g_str_page_action == "center" ) {
     	getFullFlightRecords(g_str_current_target);
-    	getFlightRecords(g_str_current_target);
+    	getFlightRecords(g_str_current_target, "");
     	return;
     }
 
