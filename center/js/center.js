@@ -1660,7 +1660,7 @@ function flightDetailInit(target) {
 		$("#record_search_field").keypress(function(e) {
         if (e.which == 13){
         		GATAGM('detail_record_search_field_enter_key', 'CONTENT', $("#record_search_field").val());
-        		searchFlightRecordForMerge(target, $("#search_key").val());
+        		searchFlightRecordForMerge(target, $("#record_search_field").val());
         }
     });
 
