@@ -3584,7 +3584,7 @@ function getFlightRecords(target, keyword) {
 		    let query_decoded_keyword = decodeURIComponent(query_keyword);
 		    if (isSet(query_decoded_keyword)) {
 		    		jdata['daction'] = "find_record";
-		    		jdata['keyword'] = keyword;
+		    		jdata['keyword'] = query_decoded_keyword;
 		    }
 		  }
 		}
