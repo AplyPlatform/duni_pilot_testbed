@@ -3820,6 +3820,7 @@ function showDataWithName(target, target_key, name) {
 
 function mergeFlightRecordToView(target, fdata) {
 		setFlightRecordDataToView(target, fdata.data, false);
+		showAlert(GET_STRING_CONTENT('msg_success'));
 }
 
 function setFlightRecordToView(target, name, fdata) {								
