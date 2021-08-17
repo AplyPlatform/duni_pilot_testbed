@@ -919,9 +919,9 @@ function getFlightRecordInfo(name) {
 		showLoader();
 
   	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	    	hideLoader();
-
+  		hideLoader();
+  		
+	    if(r.result == "success") {	    	
 	      if (r.data == null) {
 	      	showAlert(GET_STRING_CONTENT('msg_no_data'));
 	        return;
@@ -964,7 +964,7 @@ function getFlightRecordInfo(name) {
 				$("#video-pop-view").click();
 	    }
 	  },
-	  	function(request,status,error) {
+	  function(request,status,error) {
 	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 	  		hideLoader();
 	  });
