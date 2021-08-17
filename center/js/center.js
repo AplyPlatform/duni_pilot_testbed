@@ -6271,7 +6271,9 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
 		for ( var i = 0 ; i < g_array_youtube_players.length ; i ++ ) { //
-				if(typeof g_array_youtube_players[i].getPlayerState === 'undefined') continue;
+				if(!g_array_youtube_players[i] 
+						|| typeof g_array_youtube_players[i]  === 'undefined'
+						|| typeof g_array_youtube_players[i].getPlayerState === 'undefined') continue;
 
         var state = g_array_youtube_players[i].getPlayerState();
 
