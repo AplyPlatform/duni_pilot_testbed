@@ -19,6 +19,21 @@ function checkPartnerApplicationData() {
 		if (min_type == "") min_type = "교육";
 		else min_type = min_type + ",교육";
 	}
+	
+	if( $("#min_type_3").is(":checked")) {
+		if (min_type == "") min_type = "교육";
+		else min_type = min_type + ",교육";
+	}
+	
+	if( $("#min_type_4").is(":checked")) {
+		if (min_type == "") min_type = "데이터가공분석";
+		else min_type = min_type + ",데이터가공분석";
+	}
+	
+	if( $("#min_type_5").is(":checked")) {
+		if (min_type == "") min_type = "기타";
+		else min_type = min_type + ",기타";
+	}
 
 	if (min_type == "") {
 		showAlert("분야를 선택하세요.");
