@@ -40,6 +40,12 @@ function checkPartnerApplicationData() {
 		return null;
 	}			
 	fd.append("min_type", min_type);
+		
+	if ($("input:radio[name='p_rescue_alim']:checked").attr('id') === undefined) {
+		showDialog("지역 재난재해, 실종자 수색요구 발생시 알림 수신여부를 선택해 주세요.");
+		return null;
+	}
+	fd.append("p_rescue_alim", $("input:radio[name='p_rescue_alim']:checked").val());
 	
 	if ($("input:radio[name='p_type']:checked").attr('id') === undefined) {
 		showAlert("사업자 상태를 선택하세요. (개인사업자 또는 법인사업자)");
