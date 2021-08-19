@@ -41,7 +41,7 @@ var g_closer_2D_map_for_popup;
 
 function isRecordFile(filename) {
 	let ext = getFileExtension(filename);
-	return compareIgnoreCase(ext, "txt");
+	return compareIgnoreCase(ext, "txt") || compareIgnoreCase(ext, "csv");
 }
 
 function isMovieFile(filename) {
@@ -920,8 +920,8 @@ function getFlightRecordInfo(name) {
 
   	ajaxRequest(jdata, function (r) {
   		hideLoader();
-  		
-	    if(r.result == "success") {	    	
+
+	    if(r.result == "success") {
 	      if (r.data == null) {
 	      	showAlert(GET_STRING_CONTENT('msg_no_data'));
 	        return;
@@ -991,7 +991,7 @@ function getCompanyInfo(title, cid) {
 	     			title = "<드론비행/체험장> " + title;
 	     	}
 
-				if (cid == 1004) {					
+				if (cid == 1004) {
 					title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52 align='left'><img src='/images/logo_aply.png' border='0' width='43px'></td><td><b>" + title + "</b></td></tr></table>";
 				}
 				else {
