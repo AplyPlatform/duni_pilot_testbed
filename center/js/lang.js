@@ -276,7 +276,9 @@ var LANG_JSON_DATA = {
             + "<br><p><b>iOS (하기 링크의 내용을 참고하여 파일을 추출해 주세요)</b></p>"
             + "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
             + "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
-            + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
+            + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>"
+						+ "<p><br><hr size=1><b>Litchi App 사용시</b></p>"
+						+ "<p>- LitchiApp/flightlogs 경로에서 *.csv 파일을 찾을 수 있습니다.</p>",
         "youtubeTOS" : "동영상을 제출하면 YouTube <a href='https://www.youtube.com/t/terms' target=_new>서비스 약관</a> 및 <a href='https://www.youtube.com/yt/about/policies/' target=_new>커뮤니티 가이드</a>에 동의하게 됩니다.",
     },
 
@@ -560,8 +562,9 @@ var LANG_JSON_DATA = {
             + "<br><p><b>iOS (Please, refer to links below)</b></p>"
             + "<p>- <a href='https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490' target=new>https://m.blog.naver.com/PostView.nhn?blogId=apache81&logNo=220423814490</a></p>"
             + "<p>- <a href='http://blog.daum.net/dipod/857' target=new>http://blog.daum.net/dipod/857</a></p>"
-            + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>",
-
+            + "<p>- <a href='https://www.youtube.com/watch?v=59pE9N3pXdg' target=new>https://www.youtube.com/watch?v=59pE9N3pXdg</a></p>"
+						+ "<p><br><hr size=1><b>Litchi App</b></p>"
+						+ "<p>- If you're using Litchi, you'll find the flight logs(*.csv files) in the LitchiApp/flightlogs path.</p>",
          "youtubeTOS" : "By submitting a video to YouTube, you agree to the YouTube <a href='https://www.youtube.com/t/terms' target=_new>Terms of Service</a> and <a href='https://www.youtube.com/yt/about/policies/' target=_new>Community Guidelines</a>.",
     }
 };
