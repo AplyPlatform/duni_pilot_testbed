@@ -1205,7 +1205,7 @@ function uploadCheckBeforeCompassEmbed() {
 	$('#btnForUploadFlightList').prop('disabled', true);
 
 	let record_kind = "dji";
-	if (getFileExtension(recordFileForUploadFile).toUpperCase() == "CSV") {
+	if (getFileExtension(recordFileForUploadFile.name).toUpperCase() == "CSV") {
 		record_kind = "litchi";
 	}
 
@@ -5769,7 +5769,7 @@ function uploadFlightList(isUpdate) {
     	}
 
 			let record_kind = "dji";
-			if (getFileExtension(recordFileForUploadFile).toUpperCase() == "CSV") {
+			if (getFileExtension(recordFileForUploadFile.name).toUpperCase() == "CSV") {
 				record_kind = "litchi";
 			}
 
