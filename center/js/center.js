@@ -5336,7 +5336,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
     );
 
     let glbUrl = window.location.origin + "/center/imgs/drone.glb",
-    		gColor, gColor, sColor;
+    		gColor, sColor;
 
     if (kind == "drone") {
         gColor = "YELLOW";
