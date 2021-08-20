@@ -5040,20 +5040,20 @@ function addPosIconsTo2DMap(posIcons) {
     g_cur_2D_mainmap.on('click', function (evt) {
         GATAGM('small_map_click', 'CONTENT');
 
-        var feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
+        let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
             function (feature) {
                 return feature;
             });
 
-        var locdata = null;
+        let locdata = null;
         if (feature) {
-            var ii = feature.get('mindex');
+            let ii = feature.get('mindex');
             locdata = g_array_flight_rec[ii];
 
             setMoveActionFromMap(ii, locdata);
         }
 
-        var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+        let lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
         if (locdata)
             showCurrentInfo([lonlat[0], lonlat[1]], locdata.alt);
         else
@@ -5061,7 +5061,7 @@ function addPosIconsTo2DMap(posIcons) {
 
     });
 
-    var pSource = new ol.source.Vector({
+    let pSource = new ol.source.Vector({
         features: posIcons
     });
 
@@ -5176,13 +5176,13 @@ function setFlightRecordDataToView(target, cdata) {
 
         addChartItem(i, item);
 
-        var pos_icon = new ol.Feature({
+        let pos_icon = new ol.Feature({
 		        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 		        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
 		        mindex: i
 		    });
 
-		    var pos_icon_color = getColorPerAlt(item.alt);
+		    let pos_icon_color = getColorPerAlt(item.alt);
 
 		    if ("etc" in item && "marked" in item.etc) {
 		        pos_icon_color = '#ff0000';
@@ -5235,27 +5235,27 @@ function setFlightRecordDataToView(target, cdata) {
 
     draw3DMap();
 
-    var item = g_array_flight_rec[0];
+    let item = g_array_flight_rec[0];
     moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 
     return true;
 }
 
-var oldScatterdatasetIndex = -1;
-var oldScatterpointIndex = -1;
+let oldScatterdatasetIndex = -1;
+let oldScatterpointIndex = -1;
 
-var oldLinedatasetIndex = -1;
-var oldLinepointIndex = -1;
+let oldLinedatasetIndex = -1;
+let oldLinepointIndex = -1;
 
 
 function computeCirclularFlight(start) {
-    var property = new Cesium.SampledPositionProperty();
+    let property = new Cesium.SampledPositionProperty();
 
     if (!isSet(v3DMapViewer)) return null;
 
     v3DMapViewer.entities.removeAll();
 
-    var i = 0;
+    let i = 0;
     g_array_flight_rec.forEach(function (item) {
         var time = Cesium.JulianDate.addSeconds(
             start,
@@ -5287,22 +5287,22 @@ function computeCirclularFlight(start) {
     return property;
 }
 
-var fixedFrameTransform;
-var planePrimitives;
-var v3DMapViewer;
-var v3DMapCate;
-var p3DMapEntity;
-var s3DMapScene;
+let fixedFrameTransform;
+let planePrimitives;
+let v3DMapViewer;
+let v3DMapCate;
+let p3DMapEntity;
+let s3DMapScene;
 
 function getColor(colorName, alpha) {
-    var color = Cesium.Color[colorName.toUpperCase()];
+    let color = Cesium.Color[colorName.toUpperCase()];
     return Cesium.Color.fromAlpha(color, parseFloat(alpha));
 }
 
 function draw3DMap() {
-    var start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
+    let start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
 
-    var position = computeCirclularFlight(start);
+    let position = computeCirclularFlight(start);
     if (!isSet(position)) return;
 
     p3DMapEntity.position = position;
@@ -5329,13 +5329,13 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         planePrimitives[owner] = [];
     }
 
-    var camera = v3DMapViewer.camera;
+    let camera = v3DMapViewer.camera;
 
-    var position = Cesium.Cartesian3.fromDegrees(
+    let position = Cesium.Cartesian3.fromDegrees(
         lng, lat, alt
     );
 
-    var glbUrl = window.location.origin + "/center/imgs/drone.glb",
+    let glbUrl = window.location.origin + "/center/imgs/drone.glb",
     		gColor, gColor, sColor;
 
     if (kind == "drone") {
@@ -5347,8 +5347,8 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
     		sColor = "CYAN";
     }
 
-    var hpRoll = new Cesium.HeadingPitchRoll();
-    var planePrimitive = s3DMapScene.primitives.add(
+    let hpRoll = new Cesium.HeadingPitchRoll();
+    let planePrimitive = s3DMapScene.primitives.add(
         Cesium.Model.fromGltf({
             url: glbUrl,
             color: getColor(gColor, 1.0),
@@ -5372,15 +5372,15 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
             loop: Cesium.ModelAnimationLoop.REPEAT,
         });
 
-        var r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
+        let r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
         Cesium.Matrix4.multiplyByPoint(
             model.modelMatrix,
             model.boundingSphere.center,
             v3DMapCate
         );
-        var heading = Cesium.Math.toRadians(230.0);
-        var pitch = Cesium.Math.toRadians(-20.0);
-        var hpRange = new Cesium.HeadingPitchRange();
+        let heading = Cesium.Math.toRadians(230.0);
+        let pitch = Cesium.Math.toRadians(-20.0);
+        let hpRange = new Cesium.HeadingPitchRange();
         hpRange.heading = heading;
         hpRange.pitch = pitch;
         hpRange.range = r * 50.0;
