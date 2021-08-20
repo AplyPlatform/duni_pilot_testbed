@@ -115,17 +115,17 @@ $(function () {
 });
 
 function setCurrentViewMode() {
-	var segments = window.location.pathname.split('/');
-	var toDelete = [];
-	for (var i = 0; i < segments.length; i++) {
+	let segments = window.location.pathname.split('/');
+	let toDelete = [];
+	for (let i = 0; i < segments.length; i++) {
 	    if (segments[i].length < 1) {
 	        toDelete.push(i);
 	    }
 	}
-	for (var i = 0; i < toDelete.length; i++) {
+	for (let i = 0; i < toDelete.length; i++) {
 	    segments.splice(i, 1);
 	}
-	var filename = segments[segments.length - 1];
+	let filename = segments[segments.length - 1];
 
 	if (isSet(filename) && filename.indexOf("main_dev.html") >= 0) {
 		g_str_cur_viewmode = "developer";
@@ -1244,7 +1244,7 @@ function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progres
 
     	if (isSet(r.data)) {
     		$("#mapArea").show();
-    		setFlightRecordDataToView("private", r.data, false);
+    		addFlightRecordDataToView("private", r.data, false);
     	}
 
     	runNextSequence( function () {
@@ -2495,8 +2495,8 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
 
 
 function drawLineGraph() {
-    var ctx2 = document.getElementById('lineGraph').getContext('2d');
-    var linedataSet = {
+    let ctx2 = document.getElementById('lineGraph').getContext('2d');
+    let linedataSet = {
         datasets: [
             {
                 label: GET_STRING_CONTENT('altitude_msg'),
@@ -2694,12 +2694,14 @@ function updateFlightRecordDsec(target, dsec) {
     return;
 	}
 
-  for(var i=0;i<g_array_flight_rec.length;i++)
+	let nData = [];
+  for(let i=0;i<g_array_flight_rec.length;i++)
   {
   		g_array_flight_rec[i].dsec += dsec;
+			nData.push(g_array_flight_rec[i]);
   }
 
-  setFlightRecordDataToView(target, g_array_flight_rec, false);
+  setFlightRecordDataToView(target, nData);
 }
 
 function initSliderForDesign(i) {
@@ -3682,7 +3684,7 @@ function setFlightRecordTitle(msg) {
 }
 
 function setFilter(target) {
-    setFlightRecordDataToView(target, null, true);
+    addFlightRecordDataToView(target, null, true);
     $('#btnForFilter').prop('disabled', true);
 }
 
@@ -3825,7 +3827,7 @@ function showDataWithName(target, target_key, name) {
 }
 
 function mergeFlightRecordToView(target, fdata) {
-		setFlightRecordDataToView(target, fdata.data, false);
+		addFlightRecordDataToView(target, fdata.data, false);
 		showAlert(GET_STRING_CONTENT('msg_success'));
 }
 
@@ -4053,7 +4055,7 @@ function setFlightRecordToView(target, name, fdata) {
             }
         }
 
-        var exist_data = setFlightRecordDataToView(target, fdata.data, false);
+        var exist_data = addFlightRecordDataToView(target, fdata.data, false);
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
@@ -5012,8 +5014,8 @@ function registMission(mname, mspeed) {
 
 
 function drawLineTo2DMap(map, lineData) {
-    var lines = new ol.geom.LineString(lineData);
-    var lineSource = new ol.source.Vector({
+    let lines = new ol.geom.LineString(lineData);
+    let lineSource = new ol.source.Vector({
         features: [new ol.Feature({
             geometry: lines,
             name: 'Line'
@@ -5071,7 +5073,7 @@ function addPosIconsTo2DMap(posIcons) {
 
 }
 
-function setFlightRecordDataToView(target, cdata, bfilter) {
+function addFlightRecordDataToView(target, cdata, bfilter) {
 
     if (isSet(cdata) == false || cdata.length <= 0 || cdata == "" || cdata == "-") {
         if (bfilter == true) {
@@ -5139,6 +5141,85 @@ function setFlightRecordDataToView(target, cdata, bfilter) {
 
     //if (isSet(g_layer_2D_map_for_icon))
     //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
+
+		if (isSet(rlng) && isSet(rlat)) {
+				moveToStartPoint3D(rlng, rlat, 600);
+		}
+
+    setSlider(cdata.length - 1);
+
+    drawLineTo2DMap(g_cur_2D_mainmap, lineData);
+
+    addPosIconsTo2DMap(arrayMapPosIcons);
+
+    drawLineGraph();
+
+    draw3DMap();
+
+    var item = g_array_flight_rec[0];
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+
+    return true;
+}
+
+function setFlightRecordDataToView(target, cdata) {
+
+		if (window.myLine)
+			window.myLine.destroy();
+
+		g_array_flight_rec = [];
+    let arrayMapPosIcons = [];
+    let lineData = [];
+
+		let rlng, rlat;
+    cdata.forEach(function (item, i, arr) {
+
+        addChartItem(i, item);
+
+        var pos_icon = new ol.Feature({
+		        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+		        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+		        mindex: i
+		    });
+
+		    var pos_icon_color = getColorPerAlt(item.alt);
+
+		    if ("etc" in item && "marked" in item.etc) {
+		        pos_icon_color = '#ff0000';
+		    }
+
+		    pos_icon.setStyle(new ol.style.Style({
+		        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+		            color: pos_icon_color,
+		            crossOrigin: 'anonymous',
+		            opacity: 0.55,
+		            src: "./imgs/position4.png"
+		        }))
+		    }));
+
+		    arrayMapPosIcons.push(pos_icon);
+
+        lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
+
+        oldLat = item.lat;
+        oldLng = item.lng;
+        oldAlt = item.alt;
+
+        if (isSet(rlat) == false) {
+        	rlat = oldLat;
+        }
+
+        if (rlat > oldLat) {
+        		rlat = oldLat;
+        		rlng = oldLng;
+        }
+    });
+
+    if (isSet(g_layer_2D_map_for_line))
+        g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
+
+    if (isSet(g_layer_2D_map_for_icon))
+        g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
 
 		if (isSet(rlng) && isSet(rlat)) {
 				moveToStartPoint3D(rlng, rlat, 600);
