@@ -2535,7 +2535,7 @@ function drawLineGraph() {
                 callbacks: {
                     label: function (tooltipItem, data) {
                         let locdata = g_array_flight_rec[tooltipItem.index];
-                        return JSON.stringify(locdata);
+                        return locdata.alt + "m / " + locdata.dsec;
                     }
                 },
                 layout: {
@@ -3644,7 +3644,6 @@ function makeFlightRecordsToTableForMerge(target, target_key, data) {
 
     data.forEach(function (item) {
         appendFlightRecordTableForMerge(target, target_key, item);
-        g_array_flight_rec.push(item);
     });
 }
 
@@ -3659,7 +3658,6 @@ function makeFlightRecordsToTable(target, target_key, data) {
 
     data.forEach(function (item) {
         appendFlightRecordTable(target, target_key, item);
-        g_array_flight_rec.push(item);
     });
 }
 
