@@ -2,82 +2,82 @@
 
 "use strict";
 
-var g_b_monitor_started;
-var g_b_phonenumber_verified = false;
-var g_b_interval_timer = -1;
+let g_b_monitor_started;
+let g_b_phonenumber_verified = false;
+let g_b_interval_timer = -1;
 
-var g_cur_2D_mainmap;
-var g_view_cur_2D_mainmap;
-var g_array_point_cur_2D_mainmap_for_object;
-var g_array_icon_cur_2D_mainmap_for_object;
-var g_vector_2D_mainmap_for_cada;
-var g_vector_2D_mainmap_for_object;
-var g_vector_2D_mainmap_for_lines;
-var g_vector_2D_mainmap_for_design_icon;
+let g_cur_2D_mainmap;
+let g_view_cur_2D_mainmap;
+let g_array_point_cur_2D_mainmap_for_object;
+let g_array_icon_cur_2D_mainmap_for_object;
+let g_vector_2D_mainmap_for_cada;
+let g_vector_2D_mainmap_for_object;
+let g_vector_2D_mainmap_for_lines;
+let g_vector_2D_mainmap_for_design_icon;
 
-var g_array_design_data;
-var g_array_flight_rec = [];
+let g_array_design_data;
+let g_array_flight_rec = [];
 
-var g_cur_str_flight_rec_fid;
+let g_cur_str_flight_rec_fid;
 
-var g_layer_2D_map_for_line;
-var g_layer_2D_map_for_icon;
+let g_layer_2D_map_for_line;
+let g_layer_2D_map_for_icon;
 
-var g_more_key_for_data;
+let g_more_key_for_data;
 
-var g_b_kalman_filter_on = false;
-var g_b_3D_map_on = true;
-var g_b_video_view_visible_state = false;
+let g_b_kalman_filter_on = false;
+let g_b_3D_map_on = true;
+let g_b_video_view_visible_state = false;
 
-var g_array_altitude_data_for_chart = [];
+let g_array_altitude_data_for_chart = [];
 
-var g_i_appended_data_count = 0;
+let g_i_appended_data_count = 0;
 
-var g_youtube_player_for_detail_view = null;
-var g_str_youtube_data_id_for_detail_view;
+let g_youtube_player_for_detail_view = null;
+let g_str_youtube_data_id_for_detail_view;
 
-var g_str_cur_flight_record_name = "";
+let g_str_cur_flight_record_name = "";
 
-var g_b_is_token_visible = false;
+let g_b_is_token_visible = false;
 
-var g_loc_address_flat = -999, g_loc_address_flng = -999;
-var g_b_fileupload_for_DJI = true; //dji file or input address
-
-
-var g_loc_kalmanfilter_lat;
-var g_loc_kalmanfilter_lng;
-var g_loc_kalmanfilter_alt;
-var g_loc_kalmanfilter_yaw;
-var g_loc_kalmanfilter_pitch;
-var g_loc_kalmanfilter_roll;
-
-var g_b_is_first_for_monitor = true;
-
-var g_array_cur_monitor_object;
-var g_i_cur_monitor_object_index = 0;
-var g_str_cur_monitor_object_owner = "private";
+let g_loc_address_flat = -999, g_loc_address_flng = -999;
+let g_b_fileupload_for_DJI = true; //dji file or input address
 
 
-var g_component_upload_youtube_video;
+let g_loc_kalmanfilter_lat;
+let g_loc_kalmanfilter_lng;
+let g_loc_kalmanfilter_alt;
+let g_loc_kalmanfilter_yaw;
+let g_loc_kalmanfilter_pitch;
+let g_loc_kalmanfilter_roll;
 
-var g_b_is_youtube_seek = false;
+let g_b_is_first_for_monitor = true;
+
+let g_array_cur_monitor_object;
+let g_i_cur_monitor_object_index = 0;
+let g_str_cur_monitor_object_owner = "private";
+
+
+let g_component_upload_youtube_video;
+
+let g_b_is_youtube_seek = false;
 
 // 유튜브 약관 준수 - 동시에 2개 이상의 영상이 재생되면 안된다!
-var g_array_youtube_players = [];
-var g_i_youtube_player_index = null;
-var g_i_youtube_player_index_stop = null;
-var g_i_youtube_player_index_play = null;
+let g_array_youtube_players = [];
+let g_i_youtube_player_index = null;
+let g_i_youtube_player_index_stop = null;
+let g_i_youtube_player_index_play = null;
 
-var g_str_address_temp_val = "";
+let g_str_address_temp_val = "";
 
-var g_params_for_upload_flight_rec = {};
+let g_params_for_upload_flight_rec = {};
 
-var g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD", "STOP_RECORD", "ROTATE_AIRCRAFT", "GIMBAL_PITCH", "NONE", "CAMERA_ZOOM", "CAMERA_FOCUS"];
+let g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD", "STOP_RECORD", "ROTATE_AIRCRAFT", "GIMBAL_PITCH", "NONE", "CAMERA_ZOOM", "CAMERA_FOCUS"];
 
-var g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
+let g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
 
 $(function () {
-		var lang = getCookie("language");
+		let lang = getCookie("language");
     if (isSet(lang))
         g_str_cur_lang = lang;
 
@@ -100,7 +100,7 @@ $(function () {
 
     mixpanel.identify(getCookie("dev_user_id"));
 
-    var image_url = getCookie("image_url");
+    let image_url = getCookie("image_url");
     if (image_url == "") $('#profile_image').hide();
     else $('#profile_image').attr("src", image_url);
 
@@ -237,7 +237,7 @@ function setLogoutBtn() {
 }
 
 function centerPageInit() {
-	var loadPage = "center.html";
+	let loadPage = "center.html";
 
 	if (g_str_cur_viewmode == "developer") {
 			loadPage = "center_dev.html";
@@ -532,27 +532,27 @@ function designInit() {
     g_cur_2D_mainmap.on('click', function (evt) {
         GATAGM('design_map_click', 'CONTENT');
 
-        var feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
+        let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
             function (feature) {
                 return feature;
             });
 
         if (feature) {
-            var ii = feature.get('mindex');
+            let ii = feature.get('mindex');
             if (!isSet(ii)) return;
 
             setDataToDesignView(ii);
 
-            var item = g_array_design_data[ii];
+            let item = g_array_design_data[ii];
             setMoveActionFromMap(ii, item);
             return;
         }
 
-        var lonLat = ol.proj.toLonLat(evt.coordinate);
+        let lonLat = ol.proj.toLonLat(evt.coordinate);
         appendDataToDesignTable(lonLat);
     });
 
-    var mission_name = decodeURIComponent(getQueryVariable("mission_name"));
+    let mission_name = decodeURIComponent(getQueryVariable("mission_name"));
 
     if (isSet(mission_name) && mission_name != "") {
         mission_name = mission_name.split('&')[0];
@@ -560,7 +560,7 @@ function designInit() {
     }
     else {
 
-        var posLayer = new ol.layer.Vector({
+        let posLayer = new ol.layer.Vector({
             source: g_vector_2D_mainmap_for_design_icon
         });
 
@@ -747,15 +747,15 @@ function flightrecordUploadInit() {
     }
 
     $("#salecheck").click(function(e){
-						var checked = $("#salecheck").is(":checked");
-            var userid = getCookie("dev_user_id");
+						let checked = $("#salecheck").is(":checked");
+            let userid = getCookie("dev_user_id");
 
 						if(checked){
 											GATAGM('upload_salecheck_show_btn_click', 'CONTENT');
 			                $("#priceinputarea").show();
 			                $("#validate_phonenumber_area").hide();
 			                // check if user has verfied phoen number
-			                var jdata = {
+			                let jdata = {
 			                    "action": "position",
 			                    "daction": "check_phonenumber_exists",
 			                    "clientid": userid
@@ -787,14 +787,12 @@ function flightrecordUploadInit() {
 			      }
 		});
 
-    var input = document.querySelector('input[name=tagTextarea]');
+    let input = document.querySelector('input[name=tagTextarea]');
 		new Tagify(input);
 
     $("#address_input_data").on("change keyup paste", function() {
-		    var currentVal = $(this).val();
-		    if(currentVal == g_str_address_temp_val) {
-		        return;
-		    }
+		    let currentVal = $(this).val();
+		    if(currentVal == g_str_address_temp_val) return;
 
 		    g_str_address_temp_val = currentVal;
 		    g_loc_address_flat = -999;
@@ -803,7 +801,7 @@ function flightrecordUploadInit() {
 
 
 		$("input[name='media_upload_kind']:radio").change(function () {
-        var cVal = this.value;
+        let cVal = this.value;
 
         if (cVal == "tab_menu_set_youtube_address") {
         	$("#set_youtube_address_view").show();
@@ -856,7 +854,7 @@ function flightrecordUploadInit() {
 
   	setFlightRecordUploadMode(true);
 
-  	var d = new Date();
+  	let d = new Date();
   	let retDateTime = makeDateTimeFormat(d, true);
 
 		$("#flighttime_input_data").val(retDateTime);
@@ -953,20 +951,20 @@ function flightrecordUploadInit() {
     $("#btnNextStage").attr('disabled', true);
 
     // define variables
-    var nativePicker = document.querySelector('.nativeDateTimePicker');
-    var fallbackPicker = document.querySelector('.fallbackDateTimePicker');
+    let nativePicker = document.querySelector('.nativeDateTimePicker');
+    let fallbackPicker = document.querySelector('.fallbackDateTimePicker');
 
-    var yearSelect = document.querySelector('#year');
-    var monthSelect = document.querySelector('#month');
-    var daySelect = document.querySelector('#day');
-    var hourSelect = document.querySelector('#hour');
-    var minuteSelect = document.querySelector('#minute');
+    let yearSelect = document.querySelector('#year');
+    let monthSelect = document.querySelector('#month');
+    let daySelect = document.querySelector('#day');
+    let hourSelect = document.querySelector('#hour');
+    let minuteSelect = document.querySelector('#minute');
 
     // hide fallback initially
     fallbackPicker.style.display = 'none';
 
     // test whether a new datetime-local input falls back to a text input or not
-    var test = document.createElement('input');
+    let test = document.createElement('input');
 
     try {
     test.type = 'datetime-local';
@@ -1134,8 +1132,8 @@ function onOpenCvReady() {
 		hideLoader();
 }
 
-var recordFileForUploadFile = null;
-var videoFileForUploadFile = null;
+let recordFileForUploadFile = null;
+let videoFileForUploadFile = null;
 
 function fileDropCheckForCompass(files) {
 	if (files.length > 2) {
@@ -1150,9 +1148,9 @@ function fileDropCheckForCompass(files) {
 		}
 	}
 
-	var isAdded = false;
-	for(var i = 0; i < files.length; i++) {
-		var file = files[i];
+	let isAdded = false;
+	for(let i = 0; i < files.length; i++) {
+		let file = files[i];
 
 		if (isRecordFile(file.name)) {
 			if (isSet(recordFileForUploadFile)) {
@@ -1160,7 +1158,6 @@ function fileDropCheckForCompass(files) {
 				return false;
 			}
 			else {
-				console.log(file);
 				recordFileForUploadFile = file;
 				previewForCompassFile(file, "record");
 				isAdded = true;
@@ -1173,7 +1170,6 @@ function fileDropCheckForCompass(files) {
 				return false;
 			}
 			else {
-				console.log(file);
 				videoFileForUploadFile = file;
 				playCompassVideo(file);
 
@@ -1209,15 +1205,15 @@ function uploadCheckBeforeCompassEmbed() {
 		record_kind = "litchi";
 	}
 
-	var params = {file : recordFileForUploadFile};
+	let params = {file : recordFileForUploadFile};
 	getBase64(params, function(ret) {
 		requestUploadForCompass(ret.base64file, record_kind, getFileExtension(videoFileForUploadFile.name), recordFileForUploadFile.target.find("progress"));
 	});
 }
 
 function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progressBar) {
-		var userid = getCookie("dev_user_id");
-    var jdata = {
+		let userid = getCookie("dev_user_id");
+    let jdata = {
     	"action": "position",
     	"daction": "req_upload",
 			"record_kind" : record_kind,
@@ -1259,12 +1255,12 @@ function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progres
 
 function embedRequest(filename, tempExt) {
 
-		var color = $("#colorPicker").spectrum("get");
-		var compass_position = $("#compass_pos_sel").children("option:selected").val();
-		var embedText = $("#embed_text_sel").children("option:selected").val();
+		let color = $("#colorPicker").spectrum("get");
+		let compass_position = $("#compass_pos_sel").children("option:selected").val();
+		let embedText = $("#embed_text_sel").children("option:selected").val();
 
-		var userid = getCookie("dev_user_id");
-    var jdata = {
+		let userid = getCookie("dev_user_id");
+    let jdata = {
     	"action": "position",
     	"daction": "compass_embed",
     	"clientid": userid,
@@ -1316,9 +1312,9 @@ function fileDropCheckRecordUpload(files) {
 		}
 	}
 
-	var isAdded = false;
-	for(var i = 0; i < files.length; i++) {
-		var file = files[i];
+	let isAdded = false;
+	for(let i = 0; i < files.length; i++) {
+		let file = files[i];
 
 		if (isRecordFile(file.name)) {
 			if (isSet(recordFileForUploadFile)) {
@@ -1358,7 +1354,7 @@ function fileDropCheckRecordUpload(files) {
 }
 
 function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
-	var $selfProgress = videoFile.target.find("progress");
+	let $selfProgress = videoFile.target.find("progress");
 
 	$.ajax({
 		url: tempUrl,
@@ -1368,9 +1364,9 @@ function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
 		processData: false,
 		cache: false,
 		xhr: function() { //XMLHttpRequest 재정의 가능
-			var xhr = $.ajaxSettings.xhr();
+			let xhr = $.ajaxSettings.xhr();
 			xhr.upload.onprogress = function(e) { //progress 이벤트 리스너 추가
-				var percent = e.loaded * 100 / e.total;
+				let percent = e.loaded * 100 / e.total;
 				$selfProgress.val(percent); //개별 파일의 프로그레스바 진행
 			};
 
@@ -1387,13 +1383,13 @@ function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
 }
 
 function setProgress(per) {
-		var $progressBar = $("#progressBarForUpload");
+		let $progressBar = $("#progressBarForUpload");
 		$progressBar.val(per);
 }
 
 function previewForRecordFile(file) {
-	var iconArea;
-	var vDiv;
+	let iconArea;
+	let vDiv;
 	if(isMovieFile(file.name)) {
 		$("#selectMovieFileArea").css("display","none");
 		$("#videoFileName").empty();
@@ -1467,12 +1463,12 @@ function previewForRecordFile(file) {
 
 
 function previewForCompassFile(file, idx) {
-	var iconArea = '<i class="fas fa-map-marker-alt"></i>';
+	let iconArea = '<i class="fas fa-map-marker-alt"></i>';
 	if(isMovieFile(file.name)) {
 		iconArea = '<i class="fas fa-video"></i>';
 	}
 
-	var $div = $('<div id="file_thumb_' + idx + '" class="text-left">'
+	let $div = $('<div id="file_thumb_' + idx + '" class="text-left">'
 		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span> '
 		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></div>');
 	$("#thumbnails").append($div);
@@ -1635,7 +1631,7 @@ function flightDetailInit(target) {
 		$("#set_youtube_upload_view").show();
 
 		$("input[name='media_upload_kind']:radio").change(function () {
-        var cVal = this.value;
+        let cVal = this.value;
 
         if (cVal == "tab_menu_set_youtube_address") {
         	$("#set_youtube_address_view").show();
@@ -1844,9 +1840,9 @@ function flightrecordsListSummaryInit(target) {
 }
 
 function initYoutubeAPIForFlightList() {
-		var tag = document.createElement('script');
+		let tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
@@ -1899,8 +1895,8 @@ function askParnterRequestExt() {
 function requestDUNIServiceRequest(r_id, index) {
 		GATAGM('center_request_service_btn_click_' + r_id, 'CONTENT');
 
-		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "util", "daction": "duni_service_bet", "clientid": userid, "r_id" : (r_id * 1) };
+		let userid = getCookie("dev_user_id");
+    let jdata = { "action": "util", "daction": "duni_service_bet", "clientid": userid, "r_id" : (r_id * 1) };
 
 		showLoader();
 
@@ -1928,10 +1924,10 @@ function requestDUNIServiceRequest(r_id, index) {
 	  });
 }
 
-var curServiceListTimerId = -1;
+let curServiceListTimerId = -1;
 function getDUNIServiceRequest(page) {
-		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
+		let userid = getCookie("dev_user_id");
+    let jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
 
 		showLoader();
 
@@ -1950,7 +1946,7 @@ function getDUNIServiceRequest(page) {
 				let retData = r.data;
 
 				let allcount = r.allcount * 1;
-				var cur_page = r.page * 1;
+				let cur_page = r.page * 1;
 
 				retData.forEach(function(d, index, arr) {
 
@@ -2064,8 +2060,8 @@ function genPlanByAddress(address) {
 
     g_str_address_temp_val = address;
 
-    var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
+    let userid = getCookie("dev_user_id");
+    let jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
 
 		showLoader();
 		ajaxRequest(jdata, function (r) {
@@ -2103,8 +2099,8 @@ function genPlanByGPS(lat, lng) {
 		g_loc_address_flat = lat;
 		g_loc_address_flng = lng;
 
-		var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
+		let userid = getCookie("dev_user_id");
+    let jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps", "lat" : lat, "lng" : lng};
 
     showLoader();
   	ajaxRequest(jdata, function (r) {
@@ -2125,7 +2121,7 @@ function genPlanByGPS(lat, lng) {
 
 
 function genPlan(lat, lng) {
-		var data =
+		let data =
 			[
 				{"alt" : 10, "speed" : 1.2, "act" : 0, "actparam" : "0", "lat" : lat, "lng" : lng}, // 2m 고도, 1.5 m/s 속도로 타겟 지점으로 이동
 				{"alt" : 10, "speed" : 1.2, "act" : 5, "actparam" : "-89", "lat" : lat, "lng" : lng}, // gimbal_pitch, 직각아래
@@ -2165,13 +2161,13 @@ function genPlan(lat, lng) {
 		g_array_design_data = data;
 
 		g_array_design_data.forEach(function(item,index,d) {
-			var dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
+			let dt = {"lat" : lat, "lng" : lng, "alt" : item.alt + 500, "dsec" : index};
 			g_array_flight_rec.push(dt);
 		});
 
     moveToPositionOnMap("private", 0, lat, lng, 600, 0, 0, 0);
 
-    var dpoint = ol.proj.fromLonLat([lng, lat]);
+    let dpoint = ol.proj.fromLonLat([lng, lat]);
     drawCadastral(null, null, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
 
 }
@@ -2186,9 +2182,9 @@ function setUploadFileFields() {
 
 function getAllRecordCount() {
 
-    var userid = getCookie("dev_user_id");
-    var useremail = getCookie("user_email");
-    var jdata = { "action": "position", "daction": "summary", "clientid": userid, "email": useremail };
+    let userid = getCookie("dev_user_id");
+    let useremail = getCookie("user_email");
+    let jdata = { "action": "position", "daction": "summary", "clientid": userid, "email": useremail };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -2208,8 +2204,8 @@ function getAllRecordCount() {
 
 function setBadgeView(fdata) {
     if (isSet(fdata) && isSet(fdata.pluginid) && fdata.pluginid != "-") {
-        var pluginid = fdata.pluginid;
-        var callsign = fdata.callsign;
+        let pluginid = fdata.pluginid;
+        let callsign = fdata.callsign;
         $("#btnForBadge").text(GET_STRING_CONTENT('btnForBadge_del'));
         $("#badge_view").show();
 
@@ -2242,7 +2238,7 @@ function setBadgeView(fdata) {
 
             GATAGM('center_make_badge_btn_click', 'CONTENT');
 
-            var callsign = $("#badge_nickname").val();
+            let callsign = $("#badge_nickname").val();
 
             if (!isSet(callsign)) {
                 showAlert(GET_STRING_CONTENT('msg_wrong_input'));
@@ -2257,8 +2253,8 @@ function setBadgeView(fdata) {
 
 
 function removePlugin() {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "remove_plugin", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "remove_plugin", "clientid": userid };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -2277,8 +2273,8 @@ function removePlugin() {
 }
 
 function generatePlugin(callsign) {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "make_plugin", "clientid": userid, "callsign": callsign };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "make_plugin", "clientid": userid, "callsign": callsign };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -2296,8 +2292,8 @@ function generatePlugin(callsign) {
 }
 
 function getPublicRecordCount(rcount, mcount, alltime) {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "public_count", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "public_count", "clientid": userid };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -2318,8 +2314,8 @@ function getPublicRecordCount(rcount, mcount, alltime) {
 
 function getRecordCount() {
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "data_count", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "data_count", "clientid": userid };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -2359,8 +2355,8 @@ function setSummaryDashBoard(bcount, rcount, fcount, mcount) {
     Chart.defaults.global.defaultFontColor = '#858796';
 
     // Pie Chart Example
-    var ctx = document.getElementById("myPieChart");
-    var myPieChart = new Chart(ctx, {
+    let ctx = document.getElementById("myPieChart");
+    let myPieChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: [GET_STRING_CONTENT("r_count_label"), GET_STRING_CONTENT("f_count_label")],
@@ -2396,32 +2392,32 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
         duration: 5,
     };
 
-    var rlabel = new CountUp('r_count_label_time', rcount, coptions);
+    let rlabel = new CountUp('r_count_label_time', rcount, coptions);
     if (!rlabel.error) {
         rlabel.start();
     } else {
         console.error(rlabel.error);
     }
 
-    var rlabel = new CountUp('f_count_label_time', fcount, coptions);
+    let rlabel = new CountUp('f_count_label_time', fcount, coptions);
     if (!rlabel.error) {
         rlabel.start();
     } else {
         console.error(rlabel.error);
     }
 
-    var mmin = Math.round(alltime / 60);
-    var emin = Math.round(ealltime / 60);
+    let mmin = Math.round(alltime / 60);
+    let emin = Math.round(ealltime / 60);
 
-    var alabel = new CountUp('a_time_label_time', mmin, coptions);
+    let alabel = new CountUp('a_time_label_time', mmin, coptions);
     if (!alabel.error) {
         alabel.start();
     } else {
         console.error(alabel.error);
     }
 
-    var ctx = document.getElementById("myBarChart1");
-    var myBarChart = new Chart(ctx, {
+    let ctx = document.getElementById("myBarChart1");
+    let myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: [GET_STRING_CONTENT("a_time_label"), GET_STRING_CONTENT("average_alltime_label")],
@@ -2456,8 +2452,8 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
         }
     });
 
-    var ctx = document.getElementById("myBarChart2");
-    var myBarChart = new Chart(ctx, {
+    ctx = document.getElementById("myBarChart2");
+    myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: [GET_STRING_CONTENT("r_count_label"), GET_STRING_CONTENT("average_rcount_label")],
@@ -2510,12 +2506,12 @@ function drawLineGraph() {
     document.getElementById("lineGraph").onclick = function (evt) {
         GATAGM('detail_altitude_graph_click', 'CONTENT');
 
-        var activePoints = window.myLine.getElementsAtEvent(evt);
+        let activePoints = window.myLine.getElementsAtEvent(evt);
 
         if (activePoints.length > 0) {
-            var clickedDatasetIndex = activePoints[0]._index;
+            let clickedDatasetIndex = activePoints[0]._index;
 
-            var locdata = g_array_flight_rec[clickedDatasetIndex];
+            let locdata = g_array_flight_rec[clickedDatasetIndex];
             if ("lng" in locdata && "lat" in locdata) {
                 setMoveActionFromLineChart(clickedDatasetIndex, locdata);
             }
@@ -2538,7 +2534,7 @@ function drawLineGraph() {
             tooltips: {
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        var locdata = g_array_flight_rec[tooltipItem.index];
+                        let locdata = g_array_flight_rec[tooltipItem.index];
                         return JSON.stringify(locdata);
                     }
                 },
@@ -2559,7 +2555,7 @@ function setSlider(i) {
 		if ($("#slider").length <= 0) return;
 
     $("#slider").on("slidestop", function (event, ui) {
-        var locdata = g_array_flight_rec[ui.value];
+        let locdata = g_array_flight_rec[ui.value];
         setMoveActionFromSliderOnStop(ui.value, locdata);
     });
 
@@ -2569,7 +2565,7 @@ function setSlider(i) {
         value: 0,
         step: 1,
         slide: function (event, ui) {
-            var locdata = g_array_flight_rec[ui.value];
+            let locdata = g_array_flight_rec[ui.value];
             setMoveActionFromSliderOnMove(ui.value, locdata);
         }
     });
@@ -2590,12 +2586,12 @@ function setSliderPos(i) {
 
 function setYawStatus(yaw) {
     if ($('#yawStatus').length <= 0) return;
-    var yawStatus = document.getElementById('yawStatus');
+    let yawStatus = document.getElementById('yawStatus');
     if (!isSet(yawStatus)) return;
     if (!isSet(yaw)) return;
 
     yaw = yaw * 1;
-    var degree = yaw < 0 ? (360 + yaw) : yaw;
+    let degree = yaw < 0 ? (360 + yaw) : yaw;
     //yaw = Math.PI/180 * yaw;
 
     $("#yawStatus").attr("src", $("#yawStatus").attr("src"));
@@ -2615,12 +2611,12 @@ function setYawStatus(yaw) {
 
 function setPitchStatus(pitch) {
     if ($('#pitchStatus').length <= 0) return;
-    var pitchStatus = document.getElementById('pitchStatus');
+    let pitchStatus = document.getElementById('pitchStatus');
     if (!isSet(pitchStatus)) return;
     if (!isSet(pitch)) return;
 
     pitch = pitch * 1; //
-    var degree = pitch * -1;
+    let degree = pitch * -1;
     degree = degree < 0 ? (360 + degree) : degree;
     //degree = Math.PI/180 * degree;
 
@@ -2640,20 +2636,20 @@ function setPitchStatus(pitch) {
 
 function setRollStatus(roll) {
     if ($('#rollCanvas').length <= 0) return;
-    var canvas = document.getElementById('rollCanvas');
+    let canvas = document.getElementById('rollCanvas');
     if (!isSet(canvas)) return;
     if (!isSet(roll)) return;
 
     roll = roll * 1;
-    var degrees = 180 + roll;
-    var degrees2 = degrees + 180;
+    let degrees = 180 + roll;
+    let degrees2 = degrees + 180;
 
     if (degrees2 > 360) degrees2 = degrees2 - 360;
 
-    var radians1 = (Math.PI / 180) * degrees;
-    var radians2 = (Math.PI / 180) * degrees2;
+    let radians1 = (Math.PI / 180) * degrees;
+    let radians2 = (Math.PI / 180) * degrees2;
 
-    var context = canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
     context.arc(30, 30, 20, radians1, radians2, true);
@@ -2669,8 +2665,8 @@ function setRollStatus(roll) {
 }
 
 function updateFlightRecordDetail(name) {
-	var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_record", "name": encodeURI(name), "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
+		let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "set_record", "name": encodeURI(name), "clientid": userid, "recorddata" : g_array_flight_rec, "fid" : g_cur_str_flight_rec_fid };
 
     showLoader();
 
@@ -2690,9 +2686,7 @@ function updateFlightRecordDetail(name) {
 }
 
 function updateFlightRecordDsec(target, dsec) {
-	if (g_array_flight_rec.length <= 0) {
-    return;
-	}
+	if (g_array_flight_rec.length <= 0) return;
 
 	let nData = [];
   for(let i=0;i<g_array_flight_rec.length;i++)
@@ -2718,7 +2712,7 @@ function initSliderForDesign(i) {
                 return;
             }
 
-            var d = g_array_design_data[ui.value];
+            let d = g_array_design_data[ui.value];
 
             setDataToDesignView(ui.value);
 
@@ -2731,7 +2725,7 @@ function initSliderForDesign(i) {
 
         GATAGM('slide_go_item_btn_click', 'CONTENT');
 
-        var index = $('#goItemIndex').val();
+        let index = $('#goItemIndex').val();
         if (!isSet(index) || $.isNumeric(index) == false) {
             showAlert("Please input valid value !");
             return;
@@ -2744,7 +2738,7 @@ function initSliderForDesign(i) {
             return;
         }
 
-        var d = g_array_design_data[index];
+        let d = g_array_design_data[index];
         $("#slider").slider('value', index);
         setDataToDesignView(index);
 
@@ -2753,8 +2747,8 @@ function initSliderForDesign(i) {
 }
 
 function setMissionDataToDesignView(name) {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "daction": "get_spec", "mname": encodeURI(name), "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "daction": "get_spec", "mname": encodeURI(name), "clientid": userid };
 
     showLoader();
 
@@ -2781,7 +2775,7 @@ function setMissionDataToDesignView(name) {
 
 
 function addNewIconToDesignMap(i, item) {
-    var nIcon = createNewIconFor2DMap(i, item);
+    let nIcon = createNewIconFor2DMap(i, item);
     g_vector_2D_mainmap_for_design_icon.addFeature(nIcon);
 }
 
@@ -2793,8 +2787,8 @@ function removeIconOn2DMap(index) {
 }
 
 function setDesignTable() {
-    var i = 0;
-    var coordinates = [];
+    let i = 0;
+    let coordinates = [];
 
     g_array_design_data.forEach(function (item) {
         addNewIconToDesignMap(i, item);
@@ -2807,7 +2801,7 @@ function setDesignTable() {
     $("#slider").slider('option', { min: 0, max: i - 1 });
     setSliderPos(i);
 
-    var lines = new ol.geom.LineString(coordinates);
+    let lines = new ol.geom.LineString(coordinates);
 
     g_vector_2D_mainmap_for_lines = new ol.source.Vector({
         features: [new ol.Feature({
@@ -2841,14 +2835,14 @@ function setDesignTable() {
 
 function appendDataToDesignTable(lonLat) {
 
-    var index = g_array_design_data.length;
+    let index = g_array_design_data.length;
 
     if (index <= 0) {
         $("#slider").show();
         $("#dataTable-points").show();
     }
 
-    var data = [];
+    let data = [];
     data['alt'] = 0;
     data['speed'] = 0;
     data['yaw'] = 0;
@@ -2899,7 +2893,7 @@ function startMon() {
 function first3DcameraMove(item) {
     if (!isSet(v3DMapViewer)) return;
 
-    var camera = v3DMapViewer.camera;
+    let camera = v3DMapViewer.camera;
 
     camera.flyTo({
         destination: Cesium.Cartesian3.fromDegrees(
@@ -2956,7 +2950,7 @@ function processMon(owner, output) {
         g_loc_kalmanfilter_roll[owner].push(new KalmanFilter());
     }
 
-    var fobject;
+    let fobject;
     if ("objects" in output) {
         fobject = output.objects;
 
@@ -3012,14 +3006,14 @@ function processMon(owner, output) {
     if (g_array_cur_monitor_object[owner] == 0) {
         g_array_cur_monitor_object[owner] = fobject.length;
 
-        var replaced_str = owner.replace(/@/g, '_at_');
+        let replaced_str = owner.replace(/@/g, '_at_');
         replaced_str = replaced_str.replace(/\./g, '_dot_');
-        var selectorId = "object_sel_" + replaced_str;
-        var selHtml = "<select class='form-control bg-light border-0 small' id='" + selectorId + "' name='" + selectorId + "'></select>";
+        let selectorId = "object_sel_" + replaced_str;
+        let selHtml = "<select class='form-control bg-light border-0 small' id='" + selectorId + "' name='" + selectorId + "'></select>";
         $("#target_objects").append(selHtml);
 
         fobject.forEach(function (item, index) {
-            var kind = "drone";
+            let kind = "drone";
             if ("kind" in item) {
                 kind = item.kind;
             }
@@ -3044,7 +3038,7 @@ function processMon(owner, output) {
 
 
         $("#" + selectorId).on("click", function () {
-            var sval = $("#" + selectorId + " option:selected").val();
+            let sval = $("#" + selectorId + " option:selected").val();
             selectMonitorIndex(owner, sval);
         })
     }
@@ -3077,8 +3071,8 @@ function selectMonitorIndex(owner, index) {
 }
 
 function nextMon() {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "get", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "get", "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
@@ -3087,7 +3081,7 @@ function nextMon() {
             $('#btnStartMon').text(GET_STRING_CONTENT('btnStopMon'));
             $("#btnStartMon").removeClass("btn-primary").addClass("btn-warning");
 
-            var output = r.data;
+            let output = r.data;
             processMon(r.owner, output);
         }
         else {
@@ -3101,9 +3095,9 @@ function nextMon() {
 }
 
 function askToken() {
-    var useremail = getCookie("user_email");
-    var usertoken = getCookie("user_token");
-    var userid = getCookie("dev_user_id");
+    let useremail = getCookie("user_email");
+    let usertoken = getCookie("user_token");
+    let userid = getCookie("dev_user_id");
     if (isSet(useremail) == false || isSet(userid) == false || isSet(usertoken) == false) {
 				let page_action = getQueryVariable("page_action");
 				if (page_action != "") {
@@ -3119,8 +3113,8 @@ function askToken() {
 
 
 function getMissionList() {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "daction": "get", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "daction": "get", "clientid": userid };
 
     if (g_more_key_for_data) {
         jdata["morekey"] = g_more_key_for_data;
@@ -3163,19 +3157,19 @@ function appendMissionsToMonitor(mission) {
     mission.forEach(function (item, index, array) {
         g_i_appended_data_count++;
 
-        var missionid = item['id'];
+        let missionid = item['id'];
 
         if (missionid == null) {
             missionid = "mission-" + g_i_appended_data_count;
         }
 
-        var act = item['act'];
+        let act = item['act'];
 
         if (act >= g_array_str_waypointactions_DJI.length) {
             act = 0;
         }
 
-        var appendRow = "<tr class='odd gradeX' id='" + missionid + "'><td>" + g_i_appended_data_count + "</td><td>"
+        let appendRow = "<tr class='odd gradeX' id='" + missionid + "'><td>" + g_i_appended_data_count + "</td><td>"
             + "<table border=0 width='100%'><tr><td width='50%' class='center' bgcolor='#eee'>" + item['lat'] + "</td><td width='50%' class='center' bgcolor='#fff'> " + item['lng'] + "</td></tr>"
             + "<tr><td class='center' bgcolor='#eee'>" + item['alt'] + "/" + item['speed'] + "</td><td class='center'>"
             + g_array_str_waypointactions_DJI[act] + "/" + item['actparam']
@@ -3203,15 +3197,15 @@ function clearDataToDesignTableWithFlightRecord() {
 function setDataToDesignView(index) {
     if (g_array_design_data.length <= 0) return;
 
-    var lat = g_array_design_data[index].lat;
-    var lng = g_array_design_data[index].lng;
-    var alt = g_array_design_data[index].alt;
-    var yaw = g_array_design_data[index].yaw;
-    var roll = g_array_design_data[index].roll;
-    var pitch = g_array_design_data[index].pitch;
-    var speed = g_array_design_data[index].speed;
-    var act = g_array_design_data[index].act;
-    var actparam = g_array_design_data[index].actparam;
+    let lat = g_array_design_data[index].lat;
+    let lng = g_array_design_data[index].lng;
+    let alt = g_array_design_data[index].alt;
+    let yaw = g_array_design_data[index].yaw;
+    let roll = g_array_design_data[index].roll;
+    let pitch = g_array_design_data[index].pitch;
+    let speed = g_array_design_data[index].speed;
+    let act = g_array_design_data[index].act;
+    let actparam = g_array_design_data[index].actparam;
 
     $('#tr_index').text(index);
     $('#latdata_index').val(lat);
@@ -3245,8 +3239,8 @@ function setDataToDesignView(index) {
 
 function saveDesignData(index) {
     if (g_array_design_data.length <= 0) {
-        var lng = $('#lngdata_index').val();
-        var lat = $('#latdata_index').val();
+        let lng = $('#lngdata_index').val();
+        let lat = $('#latdata_index').val();
         appendDataToDesignTable([lng * 1, lat * 1]);
         moveToPositionOnMap("private", 0, lat * 1,
             lng * 1,
@@ -3269,13 +3263,13 @@ function saveDesignData(index) {
 }
 
 function removeSelectedFeature(selectedFeatureID) {
-    var features = g_vector_2D_mainmap_for_cada.getFeatures();
+    let features = g_vector_2D_mainmap_for_cada.getFeatures();
 
     if (features != null && features.length > 0) {
         for (x in features) {
-            var properties = features[x].getProperties();
+            let properties = features[x].getProperties();
 
-            var id = properties.id;
+            let id = properties.id;
             if (id == selectedFeatureID) {
                 g_vector_2D_mainmap_for_cada.removeFeature(features[x]);
                 break;
@@ -3295,7 +3289,7 @@ function removeMissionData(index) {
         return;
     }
 
-    var newIndex = g_array_design_data.length - 1;
+    let newIndex = g_array_design_data.length - 1;
 
     setDataToDesignView(newIndex);
     $("#slider").slider('value', newIndex);
@@ -3314,14 +3308,14 @@ function appendMissionList(data) {
     if (data.length == 0) return;
 
 		data.sort(function(a, b) { // \uB0B4\uB9BC\uCC28\uC21C
-			var regtime_a = convert2data(a.regtime);
-			var regtime_b = convert2data(b.regtime);
+			let regtime_a = convert2data(a.regtime);
+			let regtime_b = convert2data(b.regtime);
     	return regtime_b.getTime() - regtime_a.getTime();
 		});
 
 
     data.forEach(function (item, index, array) {
-        var appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
+        let appendRow = "<div class='card shadow mb-4' id='mission_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
             + "<a href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=missiondesign&mission_name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
             + item['name']
             + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
@@ -3358,7 +3352,7 @@ function ajaxRequestAddress(address, callback, errorcallback) {
 }
 
 function searchCurrentBrowserAddress() {
-    var query = $('#queryData').val();
+    let query = $('#queryData').val();
     searchAddressToCoordinate(query);
 }
 
@@ -3373,7 +3367,7 @@ function searchAddressToCoordinate(address) {
     });
 }
 
-var g_i_appended_data_count = 0;
+let g_i_appended_data_count = 0;
 
 function askClearCurrentDesign() {
     showAskDialog(
@@ -3403,8 +3397,8 @@ function searchMission(keyword) {
         return;
     }
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "daction": "find_mission", "keyword": keyword, "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "daction": "find_mission", "keyword": keyword, "clientid": userid };
 
     g_more_key_for_data = "";
 
@@ -3446,10 +3440,10 @@ function searchFlightRecord(target, keyword) {
         return;
     }
 
-    var userid = getCookie("dev_user_id");
-    var isPublic = (target == "public") ? true : false;
-    var jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };
-    var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
+    let userid = getCookie("dev_user_id");
+    let isPublic = (target == "public") ? true : false;
+    let jdata = { "action": "position", "daction": "find_record", "keyword": keyword, "clientid": userid, "public": isPublic };
+    let target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
 
     if (target_key != "") {
     		jdata["target_email"] = target_key;
@@ -3565,16 +3559,16 @@ function searchFlightRecordForMerge(target, keyword) {
 }
 
 function getFlightRecords(target, keyword) {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download", "clientid": userid };
-    var target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "download", "clientid": userid };
+    let target_key = $("#target_key").length > 0 ? $("#target_key").val() : "";
     if (target_key != "") {
     		jdata["target_email"] = target_key;
     }
 
     if (target == "public") {
         jdata['public'] = true;
-        var targetId = decodeURIComponent(getQueryVariable("user_email"));
+        let targetId = decodeURIComponent(getQueryVariable("user_email"));
         if (isSet(targetId)) {
         	jdata['owner_email'] = targetId;
 
@@ -3690,8 +3684,8 @@ function setFilter(target) {
 
 function stopShareFlightData(index, name, target_id) {
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "stop_share", "name": encodeURI(name), "clientid": userid, "target_id": target_id };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "stop_share", "name": encodeURI(name), "clientid": userid, "target_id": target_id };
 
     showLoader();
 
@@ -3717,12 +3711,12 @@ function stopShareFlightData(index, name, target_id) {
 
 function makeShareFlightData(name, user_email) {
 
-    var userid = getCookie("dev_user_id");
+    let userid = getCookie("dev_user_id");
 
     if (user_email == "public")
         user_email = "public@duni.io";
 
-    var jdata = { "action": "position", "daction": "share", "name": encodeURI(name), "clientid": userid, "target": user_email };
+    let jdata = { "action": "position", "daction": "share", "name": encodeURI(name), "clientid": userid, "target": user_email };
 
     showLoader();
 
@@ -3737,11 +3731,11 @@ function makeShareFlightData(name, user_email) {
         }
         else {
             if ("sharedList" in r) {
-                var sharedList = r.sharedList;
-                var link_text = "";
-                var user_text = "";
+                let sharedList = r.sharedList;
+                let link_text = "";
+                let user_text = "";
                 sharedList.some(function (item, index, array) {
-                    var premail = item.email;
+                    let premail = item.email;
                     if (item.email == "public@duni.io") {
                         premail = GET_STRING_CONTENT('all_member_msg');
                     }
@@ -3756,7 +3750,7 @@ function makeShareFlightData(name, user_email) {
                 $("#shared_link").html(link_text);
 
                 sharedList.some(function (item, index, array) {
-                    var premail = item.email;
+                    let premail = item.email;
                     if (item.email == "public@duni.io") {
                         premail = GET_STRING_CONTENT('all_member_msg');
 
@@ -3791,8 +3785,8 @@ function makeShareFlightData(name, user_email) {
 
 function showDataWithName(target, target_key, name) {
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
 
 		if (target == "public") {
         jdata['public'] = true;
@@ -3815,7 +3809,7 @@ function showDataWithName(target, target_key, name) {
             return;
         }
 
-				var fdata = r.data;
+				let fdata = r.data;
         setFlightRecordToView(target, name, fdata);
 
 				hideLoader();
@@ -3832,18 +3826,21 @@ function mergeFlightRecordToView(target, fdata) {
 }
 
 function setFlightRecordToView(target, name, fdata) {
-        var n_title = name;
-        if ((target == "private") && ("owner" in fdata && userid != fdata.owner)) {
-            n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg');
-            if ("owner_email" in fdata) {
-                n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg') + " / " + fdata.owner_email;
-            }
-        }
-        else {
-            if ((target == "public") && "owner_email" in fdata) {
-                n_title = name + " / " + fdata.owner_email;
-            }
-        }
+        let n_title = name;
+
+				if (target == "private") {
+					if ("owner" in fdata && userid != fdata.owner) {
+							n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg');
+							if ("owner_email" in fdata) {
+									n_title = name + " : " + GET_STRING_CONTENT('shared_record_data_msg') + " / " + fdata.owner_email;
+							}
+					}
+				}
+				else {
+					if ("owner_email" in fdata) {
+							n_title = name + " / " + fdata.owner_email;
+					}
+				}
 
         g_b_video_view_visible_state = false;
 
@@ -3857,10 +3854,10 @@ function setFlightRecordToView(target, name, fdata) {
 	        }
 	        else {
 	        		$("#tagTextarea").hide();
-	        		var targetList = (target == "public" ? "public" : "");
+	        		let targetList = (target == "public" ? "public" : "");
 	        		try {
-				    		var tagArray = JSON.parse(fdata.tag_values);
-					    	var appendRow = "";
+				    		let tagArray = JSON.parse(fdata.tag_values);
+					    	let appendRow = "";
 					    	tagArray.forEach(function(tg) {
 					    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 					    	});
@@ -3872,18 +3869,18 @@ function setFlightRecordToView(target, name, fdata) {
 	      }
 
 	      if (target == "private") {
-		      var input = document.querySelector('input[name=tagTextarea]');
+		      let input = document.querySelector('input[name=tagTextarea]');
 					new Tagify(input);
 				}
 
         if ((target == "private") && ("sharedList" in fdata)) {
             $("#btnForPublic").show();
 
-            var sharedList = fdata.sharedList;
-            var link_text = "";
-            var user_text = "";
+            let sharedList = fdata.sharedList;
+            let link_text = "";
+            let user_text = "";
             sharedList.some(function (item, index, array) {
-                var premail = item.email;
+                let premail = item.email;
                 if (item.email == "public@duni.io") {
                     premail = GET_STRING_CONTENT('all_member_msg');
                     $("#btnForPublic").hide();
@@ -3898,7 +3895,7 @@ function setFlightRecordToView(target, name, fdata) {
             $("#shared_link").html(link_text);
 
             sharedList.some(function (item, index, array) {
-                var premail = item.email;
+                let premail = item.email;
                 if (item.email == "public@duni.io") {
                     premail = GET_STRING_CONTENT('all_member_msg');
                 }
@@ -4055,7 +4052,7 @@ function setFlightRecordToView(target, name, fdata) {
             }
         }
 
-        var exist_data = addFlightRecordDataToView(target, fdata.data, false);
+        let exist_data = addFlightRecordDataToView(target, fdata.data, false);
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
@@ -4071,7 +4068,7 @@ function setFlightRecordToView(target, name, fdata) {
 						setAddressAndCada("#map_address", fdata.address, fdata.cada, g_vector_2D_mainmap_for_cada);
         }
         else {
-            var dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
+            let dpoint = ol.proj.fromLonLat([fdata.flng, fdata.flat]);
           	drawCadastral("#map_address", name, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
         }
 }
@@ -4079,7 +4076,7 @@ function setFlightRecordToView(target, name, fdata) {
 function moveToStartPoint3D(lng, lat, alt) {
 		if (isSet(v3DMapViewer) == false) return;
 
-		var camera = v3DMapViewer.camera;
+		let camera = v3DMapViewer.camera;
 		camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(lng, lat, alt),
       orientation : {
@@ -4090,16 +4087,16 @@ function moveToStartPoint3D(lng, lat, alt) {
 }
 
 function makeForFlightListMap(index, flat, flng, hasYoutube) {
-    var dpoint = ol.proj.fromLonLat([flng * 1, flat * 1]);
+    let dpoint = ol.proj.fromLonLat([flng * 1, flat * 1]);
 
-    var c_view = new ol.View({
+    let c_view = new ol.View({
         center: dpoint,
         zoom: 12
     });
 
-    var vSource = new ol.source.Vector();
+    let vSource = new ol.source.Vector();
 
-    var vVectorLayer = new ol.layer.Vector({
+    let vVectorLayer = new ol.layer.Vector({
         source: vSource,
         zIndex: 10000,
         style: new ol.style.Style({
@@ -4116,7 +4113,7 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
         })
     });
 
-    var vMap = new ol.Map({
+    let vMap = new ol.Map({
         target: 'map_' + index,
         layers: [
             new ol.layer.Tile({
@@ -4130,7 +4127,7 @@ function makeForFlightListMap(index, flat, flng, hasYoutube) {
         view: c_view
     });
 
-    var icon = createNewIconFor2DMap(index, { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
+    let icon = createNewIconFor2DMap(index, { lat: flat, lng: flng, alt: 0, hasYoutube : hasYoutube });
     vSource.addFeature(icon);
 
     return vSource;
@@ -4144,8 +4141,8 @@ function updateCadaData(record_name, address, cada_data) {
 				return;
 		}
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_cada", "clientid": userid, "cada": cada_data, "address": encodeURI(address), "name": encodeURI(record_name) };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "set_cada", "clientid": userid, "cada": cada_data, "address": encodeURI(address), "name": encodeURI(record_name) };
 
     ajaxRequest(jdata, function (r) {
 
@@ -4158,8 +4155,8 @@ function updateCadaData(record_name, address, cada_data) {
 function drawCadastral(disp_id, name, x, y, vSource) {
 		if (isSet(x) == false || isSet(y) == false) return;
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "cada", "clientid": userid, "x": x, "y": y };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "cada", "clientid": userid, "x": x, "y": y };
 
     ajaxRequest(jdata, function (r) {
         if (r == null || r.data == null || r.data.response.status !== "OK") {
@@ -4167,23 +4164,23 @@ function drawCadastral(disp_id, name, x, y, vSource) {
         	return;
         }
 
-				var response = r.data.response;
-        var _features = new Array();
-        var _addressText = "";
+				let response = r.data.response;
+        let _features = new Array();
+        let _addressText = "";
 
-        for (var idx = 0; idx < response.result.featureCollection.features.length; idx++) {
+        for (let idx = 0; idx < response.result.featureCollection.features.length; idx++) {
             try {
-                var geojson_Feature = response.result.featureCollection.features[idx];
-                var geojsonObject = geojson_Feature.geometry;
-                var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
-                for (var i = 0; i < features.length; i++) {
+                let geojson_Feature = response.result.featureCollection.features[idx];
+                let geojsonObject = geojson_Feature.geometry;
+                let features = (new ol.format.GeoJSON()).readFeatures(geojsonObject);
+                for (let i = 0; i < features.length; i++) {
                     try {
-                        var feature = features[i];
+                        let feature = features[i];
                         feature["id_"] = geojson_Feature.id;
                         feature["properties"] = {};
-                        for (var key in geojson_Feature.properties) {
+                        for (let key in geojson_Feature.properties) {
                             try {
-                                var value = geojson_Feature.properties[key];
+                                let value = geojson_Feature.properties[key];
 
                                 if (_addressText == "" && key == "addr") {
                                     _addressText = value;
@@ -4217,25 +4214,25 @@ function drawCadastral(disp_id, name, x, y, vSource) {
 }
 
 function appendFlightRecordTable(target, target_key, item) {
-    var name = item.name;
-    var dtimestamp = item.dtimestamp;
-    var data = item.data;
+    let name = item.name;
+    let dtimestamp = item.dtimestamp;
+    let data = item.data;
 
-    var address = item.address;
-    var cada = item.cada;
-    var memo = item.memo;
-    var owner_email = item.owner_email;
-    var sharedList = item.sharedList;
-    var youtube_data_id = item.youtube_data_id;
-    var curIndex = g_i_appended_data_count;
-    var tag_values = item.tag_values;
+    let address = item.address;
+    let cada = item.cada;
+    let memo = item.memo;
+    let owner_email = item.owner_email;
+    let sharedList = item.sharedList;
+    let youtube_data_id = item.youtube_data_id;
+    let curIndex = g_i_appended_data_count;
+    let tag_values = item.tag_values;
 
-    var flat = (isSet(item.flat) ? item.flat * 1 : -999);
-		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
+    let flat = (isSet(item.flat) ? item.flat * 1 : -999);
+		let flng = (isSet(item.flng) ? item.flng * 1 : -999);
 
 		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 
-    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
+    let appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
     if (target == "public") {
         appendRow = appendRow
@@ -4292,9 +4289,9 @@ function appendFlightRecordTable(target, target_key, item) {
     appendRow = appendRow + "<div class='row'><div class='col-md-12'>";
 
     if (isSet(tag_values) && tag_values != "") {
-    	var targetList = (target == "public" ? "public" : "");
+    	let targetList = (target == "public" ? "public" : "");
     	try {
-	    	var tag_array = JSON.parse(tag_values);
+	    	let tag_array = JSON.parse(tag_values);
 	    	tag_array.forEach(function(tg) {
 	    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 	    	});
@@ -4333,7 +4330,7 @@ function appendFlightRecordTable(target, target_key, item) {
 
     if (target == "public") {
         if (isSet(owner_email)) {
-            var oemail = "<a href='" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
+            let oemail = "<a href='" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
             $("#owner_email_" + curIndex).show();
             $("#owner_email_" + curIndex).html(oemail);
         }
@@ -4366,7 +4363,7 @@ function appendFlightRecordTable(target, target_key, item) {
         moveFlightHistoryMap(flat, flng);
     });
 
-    var retSource = null;
+    let retSource = null;
     if (flat != -999) {
         retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
@@ -4379,7 +4376,7 @@ function appendFlightRecordTable(target, target_key, item) {
     }
     else {
         if (flat != -999) {
-            var dpoint = ol.proj.fromLonLat([flng, flat]);
+            let dpoint = ol.proj.fromLonLat([flng, flat]);
             drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);
         }
     }
@@ -4393,25 +4390,25 @@ function appendFlightRecordTable(target, target_key, item) {
 
 
 function appendFlightRecordTableForMerge(target, target_key, item) {
-    var name = item.name;
-    var dtimestamp = item.dtimestamp;
-    var data = item.data;
+    let name = item.name;
+    let dtimestamp = item.dtimestamp;
+    let data = item.data;
 
-    var address = item.address;
-    var cada = item.cada;
-    var memo = item.memo;
-    var owner_email = item.owner_email;
-    var sharedList = item.sharedList;
-    var youtube_data_id = item.youtube_data_id;
-    var curIndex = g_i_appended_data_count;
-    var tag_values = item.tag_values;
+    let address = item.address;
+    let cada = item.cada;
+    let memo = item.memo;
+    let owner_email = item.owner_email;
+    let sharedList = item.sharedList;
+    let youtube_data_id = item.youtube_data_id;
+    let curIndex = g_i_appended_data_count;
+    let tag_values = item.tag_values;
 
-    var flat = (isSet(item.flat) ? item.flat * 1 : -999);
-		var flng = (isSet(item.flng) ? item.flng * 1 : -999);
+    let flat = (isSet(item.flat) ? item.flat * 1 : -999);
+		let flng = (isSet(item.flng) ? item.flng * 1 : -999);
 
 		dtimestamp = makeDateTimeFormat(new Date(dtimestamp), true);
 
-    var appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
+    let appendRow = "<div class='card shadow mb-4' id='flight-list-" + curIndex + "' name='flight-list-" + curIndex + "'><div class='card-body'><div class='row'><div class='col-sm'>";
     appendRow = appendRow + (curIndex + 1) + " | ";
 
     appendRow = appendRow + "<a href='#' id='detail_record_list_item_" + curIndex + "'>" + name + "</a>";
@@ -4455,9 +4452,9 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     appendRow = appendRow + "<div class='row'><div class='col-md-12'>";
 
     if (isSet(tag_values) && tag_values != "") {
-    	var targetList = (target == "public" ? "public" : "");
+    	let targetList = (target == "public" ? "public" : "");
     	try {
-	    	var tag_array = JSON.parse(tag_values);
+	    	let tag_array = JSON.parse(tag_values);
 	    	tag_array.forEach(function(tg) {
 	    		appendRow = appendRow + "<a href=" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=" + targetList + "recordlist&keyword=" + encodeURIComponent(tg.value) + "><span class='badge badge-light'>" + tg.value + "</span></a> ";
 	    	});
@@ -4491,14 +4488,14 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     });
 
     if (isSet(owner_email)) {
-        var oemail = "<a href='" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
+        let oemail = "<a href='" + g_array_cur_controller_for_viewmode["pilot"] + "?page_action=publicrecordlist&user_email=" + encodeURIComponent(owner_email) + "'>" + owner_email + "</a>";
         $("#owner_email_" + curIndex).show();
         $("#owner_email_" + curIndex).html(oemail);
     }
 
     $("#memoTextarea_" + curIndex).prop('disabled', true);
 
-    var retSource = null;
+    let retSource = null;
     if (flat != -999) {
     	retSource = makeForFlightListMap(curIndex, flat, flng, (isSet(youtube_data_id) ? true : false));
     }
@@ -4511,7 +4508,7 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
     }
     else {
         if (flat != -999) {
-            var dpoint = ol.proj.fromLonLat([flng, flat]);
+            let dpoint = ol.proj.fromLonLat([flng, flat]);
             drawCadastral("#map_address_" + curIndex, name, dpoint[0], dpoint[1], retSource);
         }
     }
@@ -4521,8 +4518,8 @@ function appendFlightRecordTableForMerge(target, target_key, item) {
 
 
 function loadRecordForMerge(target, target_key, name) {
-		var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
+		let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "download_spe", "name": encodeURI(name), "clientid": userid, "target_email" : target_key };
 
 		if (target == "public") {
         jdata['public'] = true;
@@ -4538,7 +4535,7 @@ function loadRecordForMerge(target, target_key, name) {
             return;
         }
 
-				var fdata = r.data;
+				let fdata = r.data;
         mergeFlightRecordToView(target, fdata);
 
 				hideLoader();
@@ -4557,8 +4554,8 @@ function populateDays(month) {
     daySelect.removeChild(daySelect.firstChild);
   }
 
-  // Create variable to hold new number of days to inject
-  var dayNum;
+  // Create letiable to hold new number of days to inject
+  let dayNum;
 
   // 31 or 30 days?
   if(month === 'January' || month === 'March' || month === 'May' || month === 'July' || month === 'August' || month === 'October' || month === 'December') {
@@ -4567,14 +4564,14 @@ function populateDays(month) {
     dayNum = 30;
   } else {
   // If month is February, calculate whether it is a leap year or not
-    var year = yearSelect.value;
-    var isLeap = new Date(year, 1, 29).getMonth() == 1;
+    let year = yearSelect.value;
+    let isLeap = new Date(year, 1, 29).getMonth() == 1;
     isLeap ? dayNum = 29 : dayNum = 28;
   }
 
   // inject the right number of new <option> elements into the day <select>
   for(i = 1; i <= dayNum; i++) {
-    var option = document.createElement('option');
+    let option = document.createElement('option');
     option.textContent = i;
     daySelect.appendChild(option);
   }
@@ -4605,12 +4602,12 @@ function populateDays(month) {
 
 function populateYears() {
   // get this year as a number
-  var date = new Date();
-  var year = date.getFullYear();
+  let date = new Date();
+  let year = date.getFullYear();
 
   // Make this year, and the 100 years before it available in the year <select>
-  for(var i = 0; i <= 100; i++) {
-    var option = document.createElement('option');
+  for(let i = 0; i <= 100; i++) {
+    let option = document.createElement('option');
     option.textContent = year-i;
     yearSelect.appendChild(option);
   }
@@ -4618,8 +4615,8 @@ function populateYears() {
 
 function populateHours() {
   // populate the hours <select> with the 24 hours of the day
-  for(var i = 0; i <= 23; i++) {
-    var option = document.createElement('option');
+  for(let i = 0; i <= 23; i++) {
+    let option = document.createElement('option');
     option.textContent = (i < 10) ? ("0" + i) : i;
     hourSelect.appendChild(option);
   }
@@ -4627,15 +4624,15 @@ function populateHours() {
 
 function populateMinutes() {
   // populate the minutes <select> with the 60 hours of each minute
-  for(var i = 0; i <= 59; i++) {
-    var option = document.createElement('option');
+  for(let i = 0; i <= 59; i++) {
+    let option = document.createElement('option');
     option.textContent = (i < 10) ? ("0" + i) : i;
     minuteSelect.appendChild(option);
   }
 }
 
 function verifyPhoneNo(phone_number){
-    var userid = getCookie("dev_user_id");
+    let userid = getCookie("dev_user_id");
     // check if phone number starts with 01 and is total of 11 digits
     if((phone_number.length != 11) || phone_number.substring(0,2) !== '01') {
         showAlert(GET_STRING_CONTENT('msg_wrong_phone_format'));
@@ -4643,7 +4640,7 @@ function verifyPhoneNo(phone_number){
     }
 
     // send phone verification
-    var jdata = {
+    let jdata = {
         "action": "position",
         "daction" : "validate_phonenumber",
         "phone_number" : phone_number,
@@ -4659,8 +4656,8 @@ function verifyPhoneNo(phone_number){
                 g_b_phonenumber_verified = false;
                 // 인증하기 텍스트 -> 재전송
                 $('#btn_verify_code').text("재전송");
-                var duration = 60 * 3;
-                var display = $('#remaining_time');
+                let duration = 60 * 3;
+                let display = $('#remaining_time');
                 startTimer(duration, display);
                 //$('#droneplay_phonenumber').prop( "disabled", true );
                 $("#code_verification_input").show();
@@ -4682,13 +4679,13 @@ function verifyPhoneNo(phone_number){
 }
 
 function verifyCode(verification_code, successCallback){
-    var userid = getCookie("dev_user_id");
+    let userid = getCookie("dev_user_id");
 		if(verification_code == ""){
 			showAlert(GET_STRING_CONTENT('msg_code_empty'));
 			return;
 		}
 
-		var jdata = {
+		let jdata = {
                 "action" : "position",
                 "daction" : "check_verifycode",
                 "phone_number" : $('#user_phonenumber').val(),
@@ -4724,7 +4721,7 @@ function verifyCode(verification_code, successCallback){
 
 
 function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
+    let timer = duration, minutes, seconds;
     g_b_interval_timer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -4748,7 +4745,7 @@ function setYoutubeVideo(index, youtube_url) {
 				return;
 		}
 
-		var vid = getYoutubeQueryVariable(youtube_url);
+		let vid = getYoutubeQueryVariable(youtube_url);
 
 		if (typeof YT == "undefined") return;
 
@@ -4769,13 +4766,13 @@ function onPlayerReadyForList(event) {
 }
 
 function updateFlightMemoWithValue(name, memo) {
-    var userid = getCookie("dev_user_id");
+    let userid = getCookie("dev_user_id");
 
     if (!isSet(memo)) {
         showAlert(GET_STRING_CONTENT('msg_fill_memo'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(name), "memo": encodeURI(memo) };
+    let jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(name), "memo": encodeURI(memo) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4793,13 +4790,13 @@ function updateFlightMemoWithValue(name, memo) {
 }
 
 function updateFlightTagWithValue(name, tag_value) {
-		var userid = getCookie("dev_user_id");
+		let userid = getCookie("dev_user_id");
 
     if (!isSet(tag_value)) {
         showAlert(GET_STRING_CONTENT('msg_fill_tag'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": encodeURI(name), "tag_values": encodeURI(tag_value) };
+    let jdata = { "action": "position", "daction": "set_tag", "clientid": userid, "name": encodeURI(name), "tag_values": encodeURI(tag_value) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4817,17 +4814,17 @@ function updateFlightTagWithValue(name, tag_value) {
 }
 
 function updateFlightMemo(index) {
-    var item = g_array_flight_rec[index];
+    let item = g_array_flight_rec[index];
 
-    var userid = getCookie("dev_user_id");
+    let userid = getCookie("dev_user_id");
 
-    var memo = $("#memoTextarea_" + index).val();
+    let memo = $("#memoTextarea_" + index).val();
 
     if (!isSet(memo)) {
         showAlert(GET_STRING_CONTENT('msg_fill_memo'));
         return;
     }
-    var jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(item.name), "memo": encodeURI(memo) };
+    let jdata = { "action": "position", "daction": "set_memo", "clientid": userid, "name": encodeURI(item.name), "memo": encodeURI(memo) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4859,8 +4856,8 @@ function askDeleteFlightData(name, index) {
 
 function deleteFlightData(name, index) {
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "delete", "clientid": userid, "name": encodeURI(name) };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "delete", "clientid": userid, "name": encodeURI(name) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -4906,8 +4903,8 @@ function askRemoveMissionItem(name, trname) {
     );
 }
 function removeMissionItem(name, trname) {
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "mname": encodeURI(name), "daction": "delete", "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "mname": encodeURI(name), "daction": "delete", "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
@@ -4920,7 +4917,7 @@ function removeMissionItem(name, trname) {
 }
 
 function monitor(msg) {
-    var info = $('#monitor').html("<font color=red><b>" + msg + "</b></font>");
+    let info = $('#monitor').html("<font color=red><b>" + msg + "</b></font>");
 }
 
 function askMissionNameForDesignRegister() {
@@ -4959,10 +4956,10 @@ function registMission(mname, mspeed) {
         return;
     }
 
-    var nPositions = [];
-    var bError = 0;
-    for (var index = 0; index < g_array_design_data.length; index++) {
-        var item = g_array_design_data[index];
+    let nPositions = [];
+    let bError = 0;
+    for (let index = 0; index < g_array_design_data.length; index++) {
+        let item = g_array_design_data[index];
 
         if (item.act == undefined || item.act === ""
             || item.lat == undefined || item.lat === ""
@@ -4978,7 +4975,7 @@ function registMission(mname, mspeed) {
             return;
         }
 
-        var mid = "mid-" + index;
+        let mid = "mid-" + index;
         nPositions.push({ id: mid, lat: item.lat, lng: item.lng, alt: item.alt, act: item.act, actparam: item.actparam, speed: item.speed, roll: item.roll, pitch: item.pitch, yaw: item.yaw });
     }
 
@@ -4987,8 +4984,8 @@ function registMission(mname, mspeed) {
         return;
     }
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "mission", "mname": encodeURI(mname), "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "mname": encodeURI(mname), "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
@@ -5097,13 +5094,13 @@ function addFlightRecordDataToView(target, cdata, bfilter) {
 
         addChartItem(i, item);
 
-        var pos_icon = new ol.Feature({
+        let pos_icon = new ol.Feature({
 		        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
 		        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
 		        mindex: i
 		    });
 
-		    var pos_icon_color = getColorPerAlt(item.alt);
+		    let pos_icon_color = getColorPerAlt(item.alt);
 
 		    if ("etc" in item && "marked" in item.etc) {
 		        pos_icon_color = '#ff0000';
@@ -5156,7 +5153,7 @@ function addFlightRecordDataToView(target, cdata, bfilter) {
 
     draw3DMap();
 
-    var item = g_array_flight_rec[0];
+    let item = g_array_flight_rec[0];
     moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 
     return true;
@@ -5257,19 +5254,19 @@ function computeCirclularFlight(start) {
 
     let i = 0;
     g_array_flight_rec.forEach(function (item) {
-        var time = Cesium.JulianDate.addSeconds(
+        let time = Cesium.JulianDate.addSeconds(
             start,
             i,
             new Cesium.JulianDate()
         );
-        var position = Cesium.Cartesian3.fromDegrees(
+        let position = Cesium.Cartesian3.fromDegrees(
             item.lng,
             item.lat,
             item.alt
         );
         property.addSample(time, position);
 
-        var icon_color = getColorPerAlt3d(item.alt);
+        let icon_color = getColorPerAlt3d(item.alt);
 
         //Also create a point for each sample we generate.
         v3DMapViewer.entities.add({
@@ -5470,7 +5467,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
 
         if (!isSet(planePrimitives)) return;
 
-        var position = Cesium.Cartesian3.fromDegrees(
+        let position = Cesium.Cartesian3.fromDegrees(
             lng,
             lat,
             alt);
@@ -5487,7 +5484,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
         roll = roll < 0 ? (360 + roll) : roll;
         roll = Math.PI / 180 * roll;
 
-        var hpRoll = new Cesium.HeadingPitchRoll();
+        let hpRoll = new Cesium.HeadingPitchRoll();
         hpRoll.pitch = pitch;
         hpRoll.heading = yaw;
         hpRoll.roll = roll;
@@ -5527,19 +5524,16 @@ function addObjectTo2DMap(index, owner, kind) {
         g_array_icon_cur_2D_mainmap_for_object[owner] = [];
     }
 
-    var current_pos = new ol.Feature({
+    let current_pos = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
     });
 
-    var dsrc;
+    let dsrc = './imgs/position.png';
     if (kind == "drone") {
         dsrc = './imgs/position2.png';
     }
-    else {
-        dsrc = './imgs/position.png';
-    }
 
-    var current_pos_image = new ol.style.Icon(({
+    let current_pos_image = new ol.style.Icon(({
         //color: '#8959A8',
         scale: 1.4,
         crossOrigin: 'anonymous',
@@ -5559,13 +5553,13 @@ function addObjectTo2DMap(index, owner, kind) {
 
 function map2DInit() {
 
-    var styles = [
+    let styles = [
     		'Road (Detailed)',
         'Road',
         'Aerial',
         'AerialWithLabels',
     ];
-    var maplayers = [];
+    let maplayers = [];
 
     maplayers.push(
 				new ol.layer.Tile({
@@ -5574,7 +5568,7 @@ function map2DInit() {
 		);
 
 		let style_len = styles.length;
-    for (var i = 1; i <= style_len; i++) {
+    for (let i = 1; i <= style_len; i++) {
         maplayers.push(new ol.layer.Tile({
             visible: false,
             preload: Infinity,
@@ -5588,8 +5582,8 @@ function map2DInit() {
         }));
     }
 
-    var dokdo = ol.proj.fromLonLat([126.5610038, 33.3834381]);
-    var scaleLineControl = new ol.control.ScaleLine();
+    let dokdo = ol.proj.fromLonLat([126.5610038, 33.3834381]);
+    let scaleLineControl = new ol.control.ScaleLine();
 
     g_vector_2D_mainmap_for_design_icon = new ol.source.Vector();
 
@@ -5598,7 +5592,7 @@ function map2DInit() {
         zoom: 17
     });
 
-    var geolocation = new ol.Geolocation({
+    let geolocation = new ol.Geolocation({
         trackingOptions: {
             enableHighAccuracy: true
         },
@@ -5610,7 +5604,7 @@ function map2DInit() {
         showAlert(GET_STRING_CONTENT('msg_failed_to_load_map_sorry'));
     });
 
-    var pointLayer = new ol.layer.Vector({
+    let pointLayer = new ol.layer.Vector({
         source: g_vector_2D_mainmap_for_cada,
         style: new ol.style.Style({
             fill: new ol.style.Fill({
@@ -5633,7 +5627,7 @@ function map2DInit() {
 
 		g_vector_2D_mainmap_for_object = new ol.source.Vector();
 
-    var vectorLayer = new ol.layer.Vector({
+    let vectorLayer = new ol.layer.Vector({
         source: g_vector_2D_mainmap_for_object,
         zIndex: 100
     });
@@ -5650,14 +5644,14 @@ function map2DInit() {
         $('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
         $('#heading').text(geolocation.getHeading() + ' [rad]');
         $('#speed').text(geolocation.getSpeed() + ' [m/s]');
-        var pos = geolocation.getPosition();
-        var lonLat = ol.proj.toLonLat(pos);
+        let pos = geolocation.getPosition();
+        let lonLat = ol.proj.toLonLat(pos);
         moveToPositionOnMap("private", 0, lonLat[1], lonLat[0], 0, geolocation.getHeading(), 0, 0);
     });
 
     // handle geolocation error.
     geolocation.on('error', function (error) {
-        var info = $('#monitor');
+        let info = $('#monitor');
         if (info)
         	info.text(error.message);
     });
@@ -5668,12 +5662,12 @@ function map2DInit() {
         });
     }
 
-    var select = document.getElementById('layer-select');
+    let select = document.getElementById('layer-select');
     if (isSet(select)) {
         select.addEventListener('change', function () {
-            var select = document.getElementById('layer-select');
-            var style = select.value;
-            for (var i = 0; i < style_len; ++i) {
+            let select = document.getElementById('layer-select');
+            let style = select.value;
+            for (let i = 0; i < style_len; ++i) {
                 maplayers[i].setVisible(styles[i] === style);
             }
         });
@@ -5684,7 +5678,7 @@ function map2DInit() {
     maplayers[5].setVisible(true); //vectorLayer
 
 
-  	var overviewMapControl = new ol.control.OverviewMap({
+  	let overviewMapControl = new ol.control.OverviewMap({
 		  layers: [
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
@@ -5706,10 +5700,10 @@ function map2DInit() {
     });
 
 
-    var curCoodinate;
-    var finalPlanGenPositionLonLat = [0,0];
+    let curCoodinate;
+    let finalPlanGenPositionLonLat = [0,0];
 
-    var modify = new ol.interaction.Modify({
+    let modify = new ol.interaction.Modify({
 		  hitDetection: vectorLayer,
 		  source: g_vector_2D_mainmap_for_object,
 		});
@@ -5727,7 +5721,8 @@ function map2DInit() {
 				$("#mainMap").css('cursor', 'pointer');
 			}
 		});
-		var overlaySource = modify.getOverlay().getSource();
+
+		let overlaySource = modify.getOverlay().getSource();
 		overlaySource.on(['addfeature', 'removefeature'], function (evt) {
 		  if(evt.type === 'addfeature')
 			  $("#mainMap").css('cursor', 'pointer');
@@ -5744,7 +5739,7 @@ function map2DInit() {
 }
 
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
-    var location = ol.proj.fromLonLat([lng * 1, lat * 1]);
+    let location = ol.proj.fromLonLat([lng * 1, lat * 1]);
 
     if (g_array_point_cur_2D_mainmap_for_object != null && owner in g_array_point_cur_2D_mainmap_for_object) {
 	    yaw *= 1;
@@ -5796,18 +5791,18 @@ function askIsSyncData(params, callback) {
 }
 
 function uploadFlightList(isUpdate) {
-		var mname = $("#record_name_field").val();
+		let mname = $("#record_name_field").val();
 
 		if (mname == "") {
 			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
 			return;
 		}
 
-		var mmemo = $("#memoTextarea").val();
-		var tag_values = $("#tagTextarea").val();
+		let mmemo = $("#memoTextarea").val();
+		let tag_values = $("#tagTextarea").val();
 
-		var youtube_data = $("#youtube_url_data").val();
-    var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
+		let youtube_data = $("#youtube_url_data").val();
+    let cVal = $(":input:radio[name='media_upload_kind']:checked").val();
 		if (cVal == "tab_menu_set_no_video") {
       youtube_data = "";
     }
@@ -5824,9 +5819,9 @@ function uploadFlightList(isUpdate) {
     let price = 0;
 
    	if (isUpdate == false && g_str_cur_lang == "KR") {
-    	var checked = $("#salecheck").is(":checked");
+    	let checked = $("#salecheck").is(":checked");
 			if(checked) {
-				var t_p = $("#price_input_data").val();
+				let t_p = $("#price_input_data").val();
 				if (t_p == "") {
 					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
 					hideLoader();
@@ -5876,7 +5871,7 @@ function uploadFlightList(isUpdate) {
     			return;
     	}
 
-    	var flightTime = $("#flighttime_input_data").val();
+    	let flightTime = $("#flighttime_input_data").val();
     	if (flightTime == "") {
     			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
     			return;
@@ -5913,8 +5908,8 @@ function uploadFlightList(isUpdate) {
 function uploadDJIFlightListCallback(params) {
     let userid = getCookie("dev_user_id");
 
-   	var youtube_data = massageYotubeUrl(params.youtube_data);
-    var jdata = { "action": "position", "daction": "convert",
+   	let youtube_data = massageYotubeUrl(params.youtube_data);
+    let jdata = { "action": "position", "daction": "convert",
     	"clientid": userid, "name": encodeURI(params.mname),
     	"youtube_data_id": youtube_data,
     	"update" : params.isUpdate,
@@ -5972,9 +5967,9 @@ function uploadDJIFlightListCallback(params) {
 function showCurrentInfo(dlatlng, alt) {
     if ($("#position_info").length <= 0) return;
 
-    var latlng = ol.proj.fromLonLat(dlatlng);
-    var hdms = ol.coordinate.toStringHDMS(latlng);
-    var itext = hdms + " [ Lat: " + dlatlng[1] + " / Lng: " + dlatlng[0] + " / Alt: " + alt + " ]";
+    let latlng = ol.proj.fromLonLat(dlatlng);
+    let hdms = ol.coordinate.toStringHDMS(latlng);
+    let itext = hdms + " [ Lat: " + dlatlng[1] + " / Lng: " + dlatlng[0] + " / Alt: " + alt + " ]";
     $("#position_info").text(itext);
 }
 
@@ -5986,13 +5981,13 @@ function openLineTip(oChart, datasetIndex, pointIndex) {
 
     if (oChart.tooltip._active == undefined)
         oChart.tooltip._active = []
-    var activeElements = oChart.tooltip._active;
-    var requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+    let activeElements = oChart.tooltip._active;
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
 
     oldLinedatasetIndex = datasetIndex;
     oldLinepointIndex = pointIndex;
 
-    for (var i = 0; i < activeElements.length; i++) {
+    for (let i = 0; i < activeElements.length; i++) {
         if (requestedElem._index == activeElements[i]._index)
             return false;
     }
@@ -6012,13 +6007,13 @@ function openScatterTip(oChart, datasetIndex, pointIndex) {
 
     if (oChart.tooltip._active == undefined)
         oChart.tooltip._active = []
-    var activeElements = oChart.tooltip._active;
-    var requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+    let activeElements = oChart.tooltip._active;
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
 
     oldScatterdatasetIndex = datasetIndex;
     oldScatterpointIndex = pointIndex;
 
-    for (var i = 0; i < activeElements.length; i++) {
+    for (let i = 0; i < activeElements.length; i++) {
         if (requestedElem._index == activeElements[i]._index)
             return false;
     }
@@ -6031,12 +6026,12 @@ function openScatterTip(oChart, datasetIndex, pointIndex) {
 }
 
 function closeTip(oChart, datasetIndex, pointIndex) {
-    var activeElements = oChart.tooltip._active;
+    let activeElements = oChart.tooltip._active;
     if (!isSet(activeElements) || activeElements.length == 0)
         return;
 
-    var requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
-    for (var i = 0; i < activeElements.length; i++) {
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+    for (let i = 0; i < activeElements.length; i++) {
         if (requestedElem._index == activeElements[i]._index) {
             activeElements.splice(i, 1);
             break;
@@ -6121,8 +6116,8 @@ function setMoveActionFromMap(index, item) {
 
 function saveYoutubeUrl(params, callback) {
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values" : params.tag_values, "memo" : params.mmemo, "starttime" : params.startTime };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values" : params.tag_values, "memo" : params.mmemo, "starttime" : params.startTime };
 
     if (params.flat != -999) {
     		jdata["flat"] = params.flat;
@@ -6178,14 +6173,14 @@ function showMovieDataSet() {
 
 
 function setFlightRecordTitleName() {
-		var target_name = $('#record_name_field').val();
+		let target_name = $('#record_name_field').val();
     if (target_name == "") {
         showAlert(GET_STRING_CONTENT('msg_wrong_input'));
         return;
     }
 
-    var userid = getCookie("dev_user_id");
-    var jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": encodeURI(g_str_cur_flight_record_name) };
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "set_name", "clientid": userid, "target_name": target_name, "name": encodeURI(g_str_cur_flight_record_name) };
 
     showLoader();
     ajaxRequest(jdata, function (r) {
@@ -6209,22 +6204,22 @@ function setFlightRecordTitleName() {
 }
 
 function setYoutubeID() {
-    var data_id = $('#youtube_url_data').val();
+    let data_id = $('#youtube_url_data').val();
     if (data_id == "") {
         showAlert(GET_STRING_CONTENT('msg_wrong_input'));
         return;
     }
 
-    var youtube_data = massageYotubeUrl(data_id);
+    let youtube_data = massageYotubeUrl(data_id);
 
-    var mmemo = $("#memoTextarea").val();
+    let mmemo = $("#memoTextarea").val();
 
-    var tag_values = $("#tagTextarea").val();
+    let tag_values = $("#tagTextarea").val();
 
     if (youtube_data.indexOf("youtube") >= 0) {
         setYoutubePlayerForDetaileView(youtube_data);
 
-        var params = {mname: g_str_cur_flight_record_name,
+        let params = {mname: g_str_cur_flight_record_name,
         							mmemo : mmemo,
         							tag_values : tag_values,
         							youtube_data : youtube_data,
@@ -6265,11 +6260,11 @@ function setYoutubePlayerForDetaileViewPureID(data_id) {
         return;
     }
 
-    var tag = document.createElement('script');
+    let tag = document.createElement('script');
     tag.src = "https://www.youtube.com/player_api";
     g_str_youtube_data_id_for_detail_view = data_id;
 
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
@@ -6286,8 +6281,8 @@ function setYoutubePlayerForDetaileView(d_id) {
     }
 
     $("#youtube_url_data").val(d_id);
-    var data_id = d_id;
-    var r_id = d_id.split('=');
+    let data_id = d_id;
+    let r_id = d_id.split('=');
     if (r_id.length > 1) {
         data_id = r_id[1];
     }
@@ -6297,11 +6292,11 @@ function setYoutubePlayerForDetaileView(d_id) {
         return;
     }
 
-    var tag = document.createElement('script');
+    let tag = document.createElement('script');
     tag.src = "https://www.youtube.com/player_api";
     g_str_youtube_data_id_for_detail_view = data_id;
 
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
@@ -6341,13 +6336,13 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     event.target.playVideo();//\uC790\uB3D9\uC7AC\uC0DD
 
-    var lastTime = -1;
-    var interval = 1000;
+    let lastTime = -1;
+    let interval = 1000;
 
-    var checkPlayerTime = function () {
+    let checkPlayerTime = function () {
         if (lastTime != -1) {
             if (g_youtube_player_for_detail_view.getPlayerState() == YT.PlayerState.PLAYING) {
-                var t = g_youtube_player_for_detail_view.getCurrentTime();
+                let t = g_youtube_player_for_detail_view.getCurrentTime();
                 ///expecting 1 second interval , with 500 ms margin
                 if (Math.abs(t - lastTime) > 1) {
                     // there was a seek occuring
@@ -6362,12 +6357,12 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-		for ( var i = 0 ; i < g_array_youtube_players.length ; i ++ ) { //
+		for ( let i = 0 ; i < g_array_youtube_players.length ; i ++ ) { //
 				if(!g_array_youtube_players[i]
 						|| typeof g_array_youtube_players[i]  === 'undefined'
 						|| typeof g_array_youtube_players[i].getPlayerState === 'undefined') continue;
 
-        var state = g_array_youtube_players[i].getPlayerState();
+        let state = g_array_youtube_players[i].getPlayerState();
 
         // 초기 화면에서 재생 된 경우
         if ( state === YT.PlayerState.PLAYING && g_i_youtube_player_index === null ) {
@@ -6396,10 +6391,10 @@ function processSeek(curTime) {
         return;
     }
 
-    var index = 0;
+    let index = 0;
     g_array_flight_rec.some(function (item) {
         if ("dsec" in item) {
-            var ds = (item.dsec * 1);
+            let ds = (item.dsec * 1);
             if ((ds + 5) >= curTime && (ds - 5) <= curTime) {
                 setMoveActionFromMovie(index, item);
                 return true;
@@ -6427,23 +6422,23 @@ function addChartItem(i, item) {
 
 function uploadCheckBeforeUploadFlightList() {
 
-		var cVal = $(":input:radio[name='media_upload_kind']:checked").val();
+		let cVal = $(":input:radio[name='media_upload_kind']:checked").val();
 		if (cVal == "tab_menu_set_youtube_address" || cVal == "tab_menu_set_no_video") {
       uploadFlightList(false);
       return;
     }
 
-  	var mname = $("#record_name_field").val();
+  	let mname = $("#record_name_field").val();
 		if (mname == "") {
 			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
 			return;
 		}
 
-		var price = 0;
+		let price = 0;
    	if (g_str_cur_lang == "KR") {
     	let tchecked = $("#salecheck").is(":checked");
 			if(tchecked) {
-				var t_p = $("#price_input_data").val();
+				let t_p = $("#price_input_data").val();
 				if (t_p == "" || t_p == "원" || t_p == "0") {
 					showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
 					return;
@@ -6458,8 +6453,8 @@ function uploadCheckBeforeUploadFlightList() {
 			}
     }
 
-    var mmemo = $("#memoTextarea").val();
-		var tag_values = $("#tagTextarea").val();
+    let mmemo = $("#memoTextarea").val();
+		let tag_values = $("#tagTextarea").val();
 
     if (g_b_fileupload_for_DJI == true) { //비행기록 업로드
     	if (isSet(recordFileForUploadFile) == false) {
@@ -6513,8 +6508,8 @@ function checkAddress(address) {
     }
 
     showLoader();
-    var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
+    let userid = getCookie("dev_user_id");
+    let jdata = {"clientid" : userid, "action" : "util", "daction": "gps_by_address", "address" : encodeURI(address)};
 
 		ajaxRequest(jdata, function (r) {
 				hideLoader();
@@ -6559,11 +6554,11 @@ function setMonFilter() {
 
 
 function requestAddress() {
-		var userid = getCookie("dev_user_id");
-    var jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps"};
+		let userid = getCookie("dev_user_id");
+    let jdata = {"clientid" : userid, "action" : "util", "daction": "address_by_gps"};
 
-    var latxlng = $("#latxlng").val();
-    var gpsar;
+    let latxlng = $("#latxlng").val();
+    let gpsar;
     if (latxlng != "") {
     	gpsar = latxlng.split(",");
     	jdata["lat"] = gpsar[0];
