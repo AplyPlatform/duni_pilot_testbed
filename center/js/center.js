@@ -2399,11 +2399,11 @@ function setDashBoard(rcount, fcount, alltime, efcount, ealltime) {
         console.error(rlabel.error);
     }
 
-    let rlabel = new CountUp('f_count_label_time', fcount, coptions);
-    if (!rlabel.error) {
-        rlabel.start();
+    let flabel = new CountUp('f_count_label_time', fcount, coptions);
+    if (!flabel.error) {
+        flabel.start();
     } else {
-        console.error(rlabel.error);
+        console.error(flabel.error);
     }
 
     let mmin = Math.round(alltime / 60);
