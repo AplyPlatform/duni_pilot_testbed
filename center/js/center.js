@@ -3367,8 +3367,6 @@ function searchAddressToCoordinate(address) {
     });
 }
 
-let g_i_appended_data_count = 0;
-
 function askClearCurrentDesign() {
     showAskDialog(
         GET_STRING_CONTENT('modal_title'),
