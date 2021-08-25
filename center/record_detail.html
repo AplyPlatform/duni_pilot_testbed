@@ -17,7 +17,7 @@
 
 </div>
 <div class="row">
-	 <div class="col-xl-6 col-md-6 mb-4">
+	 <div class="col-lg-6 mb-4">
       <div class="card shadow mb-2">
 
         <div class="card-body h-400">
@@ -48,29 +48,29 @@
         				<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
         			</div>
         		</div>
-          	<div id="movieDataSet">          		
+          	<div id="movieDataSet">
 							<div class="row" id="video_upload_kind_sel">
 	        				<div class="col-md-12">
 		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
 											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
 											&nbsp;&nbsp;
 		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
-											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>										
+											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
 									</div>
 							</div>
-	
+
 				    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
 				    		<div class="row">
 						      <div class="col-md-6">
 										<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
 											<input type="file" id="movieFile" accept="video/*">
 											<button class="btn btn-secondary btn-sm" type="button" id="btnSelectMovieFiles">파일선택</button>
-										</div>										
-										<div class="during-upload">			      					
+										</div>
+										<div class="during-upload">
 			      						<div id="videoFileName"></div>
 						        		<span id="percent-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>% (<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
-						        		<progress id="upload-progress" max="1" value="0"></progress>						        	
-						    		</div>																				
+						        		<progress id="upload-progress" max="1" value="0"></progress>
+						    		</div>
 						      </div>
 						      <div class="col-md-6">
 					      			<div class="row">
@@ -79,21 +79,21 @@
 									          <option value="public" id="option_public_label">공개</option>
 									          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
 									          <!-- <option value="private" id="option_private_label">비공개</option> -->
-									        </select>							        
+									        </select>
 									      </div>
 									      <div class="col-md-4">
 							        		<button id="uploadVideoToYoutubeButton" class="btn btn-primary btn-block" type="button">유튜브에 영상 업로드</button>
 							        	</div>
-							        </div>							      
+							        </div>
 						      </div>
 						    </div>
-						    <div class="row">						    	
+						    <div class="row">
 						      <div class="col-md-12 text-right">
 						      		<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
 						      </div>
 						    </div>
 					    </div> <!-- set_youtube_upload_view -->
-	
+
 					    <div class="row" id="set_youtube_address_view">
 	        				<div class="col-md-12">
 	              		<div class="input-group">
@@ -103,10 +103,10 @@
 		                    </span>
 		              	</div>
 	              	</div>
-	            </div>        	
-        		</div>  <!-- movieDataSet -->        	        		  			
+	            </div>
+        		</div>  <!-- movieDataSet -->
 				</div>
-				
+
 				<div class="card-body">
 					<div id="altitude_graph_area">
 							<canvas id="lineGraph" name="lineGraph"></canvas>
@@ -120,7 +120,7 @@
   <div class="col-lg-6 mb-4">
     	<div class="card shadow mb-4">
     				<div class="card-body">
-    						
+
 								<div class="tab-content">
 									<div class="tab-pane fade show active mapviewer" id="map2dViewer">
 				            	<div id="mainMap" class="mapviewerIn"></div>
@@ -128,21 +128,21 @@
 					        <div class="tab-pane fade mapviewer" id="map3dViewer">
 					          	<div id="main3dMap" class="mapviewerIn"></div>
 									</div>
-								</div>																
-																								
+								</div>
+
 								<div class="row">
 									<div class="col-md-12">
 										<a href="#" class="text-xs font-weight-bold mb-1" id="merge_record_view_btn">다른 비행기록과 결합해서 보기</a>
 										<hr size="1" color="#fefefe">
 									</div>
 								</div>
-								
+
 								<div class="row" id="no_record_data_view">
 									<div class="col-md-12">
 										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="no_record_data_view_label">비행기록 파일이 없습니다.</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
     							<div class="col-md-6">
 										<div class="btn-group btn-group-justified" data-toggle="buttons">
@@ -161,9 +161,9 @@
 												</select>
 										</div>
 									</div>
-								</div>								
+								</div>
 						</div>
-						
+
 						<div class="card-body" id="map_area">
 								<div class="row">
 										<div class="col-md-12">
@@ -174,7 +174,7 @@
 										<div class="col-md-6">
 											<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
 										</div>
-										<div class="col-md-6">											
+										<div class="col-md-6">
 	                      <div class="row">
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
@@ -184,7 +184,7 @@
 	                      	<div class="col"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
 	                        <div class="col"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
 	                        <div class="col"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
-												</div>	                    
+												</div>
 										</div>
 								</div>
 								<div class="row">
@@ -192,8 +192,8 @@
 											<hr size="1" color="#fefefe">
 										</div>
 								</div>
-								<div class="row no-gutters align-items-center">                				                
-										<div class="col-md-6">			                				                		
+								<div class="row no-gutters align-items-center">
+										<div class="col-md-6">
 												<div class="row">
 													<div class="col-md-12">
 														<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
@@ -219,14 +219,14 @@
 														</span>
 													</div>
 												</div>
-										</div>										
+										</div>
 										<div class="col-md-6"></div>
-								</div>               
+								</div>
 								<div class="row">
 										<div class="col-md-12">
 											<hr size="1" color="#fefefe">
 										</div>
-								</div> 
+								</div>
                 <div class="row no-gutters align-items-center">
                 	<br>
 									<span id="position_info" class="text-xs font-weight-bold text-default text-uppercase mb-1"> ... </span>
@@ -245,14 +245,14 @@
     			<div class="row">
     				<div class="col-md-12"><span id="map_address" class="text-xs font-weight-bold text-info text-uppercase mb-1"></span></div>
     			</div>
-    			
+
     			<div class="row">
     				<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
     			</div>
-    			<div class="row">    				
+    			<div class="row">
     				<div class="col-md-10">
 							<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
-							<div id="tagArrayarea"></div>		          
+							<div id="tagArrayarea"></div>
     				</div>
     				<div class="col-md-2">
     					<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
@@ -260,14 +260,14 @@
     			</div>
     			<div class="row">
     				<div class="col-md-12 text-left"><span id="input_memo_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
-    			</div>    			
+    			</div>
     			<div class="row">
-    				<div class="col-md-10">														
+    				<div class="col-md-10">
 							<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='4'></textarea>
 						</div>
 						<div class="col-md-2">
-							<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>								
-						</div>						
+							<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
+						</div>
 					</div>
           <div class="row">
 						<div class="col-md-12">
@@ -297,7 +297,7 @@
 <div id="dataTable-Flight_area" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">          
+			<div class="modal-header">
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -306,11 +306,11 @@
 				<div class="form-group text-center">
         	<label for="record_search_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="record_search_field_label">결합대상 검색</label>
         	<input name="record_search_field" type="text" class="form-control" id="record_search_field">
-  			</div>      						
-				<div id="dataTable-Flight_list">		  		
+  			</div>
+				<div id="dataTable-Flight_list">
 		  	</div>
-		  	<div id="loadMoreArea" class="text-center">					
-							<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>					
+		  	<div id="loadMoreArea" class="text-center">
+							<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>
 				</div>
 			</div>
 			<div class="modal-footer">
