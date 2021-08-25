@@ -4006,18 +4006,12 @@ function setFlightRecordToView(target, name, fdata) {
             }
 
 						$("#videoRecordModifyArea").hide();
-            hideMovieDataSet();
         }
         else {
             $("#youTubePlayer").hide();
         }
 
-        if (g_b_video_view_visible_state == true) {
-            hideMovieDataSet();
-        }
-        else {
-            showMovieDataSet();
-        }
+				hideMovieDataSet();
 
         if (target == "public") {
             $("#modifyBtnForMovieData").hide();
