@@ -5548,10 +5548,10 @@ function addObjectTo2DMap(index, owner, kind) {
 function map2DInit() {
 
     let styles = [
+				'Road (Detailed)',
         'Road',
         'Aerial',
-        'AerialWithLabels',
-				'Road (Detailed)'
+        'AerialWithLabels'
     ];
     let maplayers = [];
 
