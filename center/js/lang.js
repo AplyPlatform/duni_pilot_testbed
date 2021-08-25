@@ -234,7 +234,7 @@ var LANG_JSON_DATA = {
         "Aerial_label": "항공뷰",
         "Aerial_label_label": "항공뷰 + 레이블",
         "Road_label": "도로뷰",
-				"Road_detail_label":"도로뷰(상세)"
+				"Road_detail_label":"도로뷰(상세)",
         "average_alltime_label": "전체 회원의 평균 비행시간(분)",
         "average_rcount_label": "전체 회원의 평균 비행횟수",
         "r_count_label": "비행회수",
