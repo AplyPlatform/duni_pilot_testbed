@@ -515,7 +515,7 @@ var LANG_JSON_DATA = {
         "Aerial_label": "Aerial",
         "Aerial_label_label": "Aerial with labels",
         "Road_label": "Road",
-				"Road_detail_label":"Road(Detailed)"
+				"Road_detail_label":"Road(Detailed)",
         "average_alltime_label": "Average flight time for all members(min.)",
         "average_rcount_label": "Average number of flights for all members",
         "r_count_label": "Number of flights",
