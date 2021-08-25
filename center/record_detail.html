@@ -131,9 +131,12 @@
 								</div>
 
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-6">
+										<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+									</div>
+
+									<div class="col-md-6 text-left">
 										<a href="#" class="text-xs font-weight-bold mb-1" id="merge_record_view_btn">다른 비행기록과 결합해서 보기</a>
-										<hr size="1" color="#fefefe">
 									</div>
 								</div>
 
@@ -144,8 +147,22 @@
 								</div>
 
 								<div class="row">
+									<div class="row">
+											<div class="col-md-12">
+												<hr size="1" color="#fefefe">
+											</div>
+									</div>
+									
     							<div class="col-md-6">
-											<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
+										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																			 <option value="Aerial" id="Aerial_label">Aerial</option>
+																			 <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
+																			 <option value="Road" id="Road_label">Road</option>
+																			 <option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
+												</select>
+										</div>
     							</div>
 									<div class="col-md-6">
 										<div class="btn-group btn-group-justified" data-toggle="buttons">
@@ -163,18 +180,7 @@
 										</div>
 								</div>
 								<div class="row">
-										<div class="col-md-6">
-											<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="map_kind_label">지도 종류</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">
-													<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																				 <option value="Aerial" id="Aerial_label">Aerial</option>
-																				 <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
-																				 <option value="Road" id="Road_label">Road</option>
-																				 <option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
-													</select>
-											</div>
-										</div>
-										<div class="col-md-6">
+										<div class="col-md-12">
 	                      <div class="row">
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="roll_label">Roll <span id="rollText"></span></div>
 	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1" id="yaw_label">Head <span id="yawText"></span></div>
