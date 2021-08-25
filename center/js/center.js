@@ -516,6 +516,7 @@ function designInit() {
     $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
     $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
+		$('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
 
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
@@ -1015,6 +1016,7 @@ function embedCompassInit() {
     $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
     $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
+		$('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
     $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
 
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
@@ -1525,6 +1527,7 @@ function monitorInit() {
     $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
     $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
+		$('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
 
     $("#btnForFilter").hide();
     $("#btnForFilter").text(GET_STRING_CONTENT('btnForFilter'));
@@ -1598,6 +1601,7 @@ function flightDetailInit(target) {
     $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
     $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
+		$('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
 
     $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
     $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
