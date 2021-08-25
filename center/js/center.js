@@ -2535,7 +2535,7 @@ function drawLineGraph() {
                 callbacks: {
                     label: function (tooltipItem, data) {
                         let locdata = g_array_flight_rec[tooltipItem.index];
-                        return locdata.alt.toFixed(2) + "m / " + locdata.dsec + "sec(s)";
+                        return locdata.alt.toFixed(2) + "m / " + locdata.dsec.toFixed(1) + "sec(s)";
                     }
                 },
                 layout: {
