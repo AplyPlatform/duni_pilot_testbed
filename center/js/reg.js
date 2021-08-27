@@ -174,6 +174,25 @@ function checkEmailCode(){
 	});
 }
 
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    interval_timer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+			clearInterval(interval_timer);
+			showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+            location.reload();
+        }
+    }, 1000);
+}
+
 function requestRegister() {
     GATAGM('RegisterBtnClickOnRegister', 'CONTENT');
 
