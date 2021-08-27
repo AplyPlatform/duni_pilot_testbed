@@ -94,6 +94,7 @@ function checkEmail(){
     }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+            $('#btn_check_email').prop('disabled', true);
             var jdata = {
                 "action" : "member2", 
                 "daction" : "validate_email", 
@@ -102,11 +103,12 @@ function checkEmail(){
             ajaxRequest(jdata,
                 function(data){
                     let result = data.result_code;
+                    $('#btn_check_email').prop('disabled', false);
                     if(result === 0){		
                         g_b_email_verified = false;
                         showAlert(GET_STRING_CONTENT('msg_email_valid'));
                         $("#btn_check_email").val("재전송");
-						var duration = 15;
+						var duration = 60 * 5;
 						var display = $('#email_remaining_time');
 						startTimer(duration, display);
 						$("#email_verification_input").show();
