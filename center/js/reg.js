@@ -106,7 +106,7 @@ function checkEmail(){
                         g_b_email_verified = false;
                         showAlert(GET_STRING_CONTENT('msg_email_valid'));
                         $("#btn_check_email").val("재전송");
-						var duration = 60 * 5;
+						var duration = 15;
 						var display = $('#email_remaining_time');
 						startTimer(duration, display);
 						$("#email_verification_input").show();
@@ -188,7 +188,7 @@ function startTimer(duration, display) {
         if (--timer < 0) {
 			clearInterval(interval_timer);
 			showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-            $('#errorModal').on('hide', function() {
+            $('#errorModal').on('hidden.bs.modal', function() {
                 location.reload();
             });
         }
