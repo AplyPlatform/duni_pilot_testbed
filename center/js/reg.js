@@ -188,7 +188,9 @@ function startTimer(duration, display) {
         if (--timer < 0) {
 			clearInterval(interval_timer);
 			showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-            location.reload();
+            $('#errorModal').on('hide', function() {
+                location.reload();
+            });
         }
     }, 1000);
 }
