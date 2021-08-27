@@ -77,6 +77,11 @@ function goHome() {
         location.href = "/index_en.html?fromapp=" + getCookie("isFromApp");
 }
 
+function isEmail(email) {
+    var regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+    return regex.test(email);
+}
+
 function checkEmail(){
     let email = $('#droneplay_email').val();
     if(email == ""){
@@ -84,24 +89,28 @@ function checkEmail(){
         return;
     }
     if(!isEmail(email) || email.length > 100){
-        console.log("here!");
         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
         return;
     }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
             var jdata = {
-                "action" : "member", 
+                "action" : "member2", 
                 "daction" : "validate_email", 
-                "email" : email,
-                "g_token" : token};
+                "email" : email };
+                //,"g_token" : token};
             ajaxRequest(jdata,
                 function(data){
                     let result = data.result_code;
                     if(result === 0){		
-                        g_b_email_verified = true;
+                        g_b_email_verified = false;
                         showAlert(GET_STRING_CONTENT('msg_email_valid'));
-                        return;
+                        $("#btn_check_email").val("재전송");
+						var duration = 60 * 5;
+						var display = $('#email_remaining_time');
+						startTimer(duration, display);
+						$("#email_verification_input").show();
+						return;
                     }
                     if(result === 2){
                         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
@@ -119,6 +128,50 @@ function checkEmail(){
             );
         });
     });
+}
+
+function checkEmailCode(){
+    	let verification_code = $('input[name="email_verification_code"]').val();
+	if(verification_code == ""){
+		showAlert(GET_STRING_CONTENT('msg_code_empty'));
+		return;
+	}
+	grecaptcha.ready(function() {
+		grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'homepage'}).then(function(token) {
+			var jdata = {
+				"action" : "member2",
+				"daction" : "check_email_verifycode",
+				"email" : $('input[name="form_email"]').val(),
+				"email_verify_code" : verification_code};
+				//,"g_token" : token};
+			ajaxRequest(jdata,
+				function(data){
+					let result = data.result_code;
+					if(result === 0){
+						$('input[name="email_verification_code"]').val("");
+						$("#email_verification_input").hide();
+						showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+						clearInterval(interval_timer);
+						g_b_email_verified = true;
+						return;
+					}
+					if(result === 2){
+						showAlert(GET_STRING_CONTENT('msg_wrong_verification_code'));
+						return;
+					}
+					if(result === 4){
+						showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+						return;
+					}
+					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+					return;
+				},
+				function (err, stat, error) {
+					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+				}
+			);
+		});
+	});
 }
 
 function requestRegister() {
