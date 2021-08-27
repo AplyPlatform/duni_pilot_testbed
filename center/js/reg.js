@@ -94,6 +94,7 @@ function checkEmail(){
     }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
+            clearInterval(interval_timer);
             $('#btn_check_email').prop('disabled', true);
             var jdata = {
                 "action" : "member2", 

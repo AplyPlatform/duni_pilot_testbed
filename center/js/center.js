@@ -4644,7 +4644,7 @@ function verifyPhoneNo(phone_number){
     ajaxRequest(jdata,
         function (data){
             let result = data.result_code;
-
+            clearInterval(interval_timer);
             if(result === 0 || result === 3){ //정상응답 - 존재하는 번호이어도 괜찮음
                 showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
                 g_b_phonenumber_verified = false;
