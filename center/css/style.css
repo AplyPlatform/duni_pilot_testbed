@@ -9942,7 +9942,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 
 .scrollableTable thead tr th.headerSortDown div {
-  background-image: url('black-asc.gif');
+  background-image: url('/center/imgs/tbl/black-asc.gif');
   background-repeat: no-repeat;
   background-position: center right;
 }
@@ -9952,8 +9952,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 
 
-#rawRecordTable {
-  position: fixed;
+#rawRecordTable {  
   /* border: 1px solid red; */
   top: 56px;
   right: 20px;
