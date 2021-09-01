@@ -4066,7 +4066,7 @@ function setFlightRecordToView(target, name, fdata) {
         }
 }
 
-function moveToStartPoint3D(lng, lat, alt) {
+function moveToStartPoint3D(lat, lng, alt) {
 		if (isSet(v3DMapViewer) == false) return;
 
 		let camera = v3DMapViewer.camera;
@@ -5345,7 +5345,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
     );        
     
     planePrimitives[owner].push(planePrimitive);        
-		moveToStartPoint3D(lng, lat, alt);		
+		moveToStartPoint3D(lat, lng, alt);
 }
 
 function addObjectTo3DMap(index, owner, kind) {
