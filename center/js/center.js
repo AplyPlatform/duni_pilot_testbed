@@ -5356,15 +5356,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         })
     );
     
-    planePrimitives[owner].push(planePrimitive);
-
-		let transform = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lng, lat));
-		
-		camera.constraintedAxis = Cesium.Cartesian3.UNIT_Z;
-		camera.lookAtTransform(transform, new Cesium.Cartesian3(-10000.0, -10000.0, 25000.0));
-		
-		v3DMapViewer.trackedEntity = undefined;
-		v3DMapViewer.zoomTo(v3DMapViewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
+    planePrimitives[owner].push(planePrimitive);		
 }
 
 function addObjectTo3DMap(index, owner, kind) {
@@ -5454,7 +5446,6 @@ function map3DInit() {
 
 function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
     if (typeof Cesium !== "undefined") {
-
         if (!isSet(planePrimitives)) return;
 
         let position = Cesium.Cartesian3.fromDegrees(
@@ -5486,6 +5477,14 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
             fixedFrameTransform,
             planePrimitives[owner][index].modelMatrix
         );
+        
+        let transform = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lng, lat));				
+				let camera = v3DMapViewer.camera;
+				camera.constraintedAxis = Cesium.Cartesian3.UNIT_Z;
+				camera.lookAtTransform(transform, new Cesium.Cartesian3(-10000.0, -10000.0, 25000.0));
+				
+				v3DMapViewer.trackedEntity = undefined;
+				v3DMapViewer.zoomTo(v3DMapViewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
     }
 }
 
