@@ -1238,7 +1238,7 @@ function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progres
 
     	if (isSet(r.data)) {
     		$("#mapArea").show();
-    		addFlightRecordDataToView(g_str_current_target, r.data, false); //todo
+    		addFlightRecordDataToView(r.data, false);
     	}
 
     	runNextSequence( function () {
@@ -1652,7 +1652,7 @@ function flightDetailInit(target) {
     		e.preventDefault();
 
         GATAGM('btnForFilter', 'CONTENT');
-        setFilter();
+        setKalmanFilter();
     });
     */
 
@@ -1737,7 +1737,7 @@ function flightDetailInit(target) {
 		        }
 
 		        curVal = parseFloat(curVal);
-		        updateFlightRecordDsec(target, curVal);
+		        updateFlightRecordDsec(curVal);
 
 		        showAlert(GET_STRING_CONTENT("msg_sync_adjusted") + " : " + curVal + GET_STRING_CONTENT("label_second"));
 		    });
@@ -2685,7 +2685,7 @@ function updateFlightRecordDetail(name) {
     });
 }
 
-function updateFlightRecordDsec(target, dsec) {
+function updateFlightRecordDsec(dsec) {
 	if (g_array_flight_rec.length <= 0) return;
 
 	let nData = [];
@@ -2695,7 +2695,7 @@ function updateFlightRecordDsec(target, dsec) {
 			nData.push(g_array_flight_rec[i]);
   }
 
-  setFlightRecordDataToView(target, nData);
+  setFlightRecordDataToView(nData);
 }
 
 function initSliderForDesign(i) {
@@ -3673,8 +3673,8 @@ function setFlightRecordTitle(msg) {
     $("#record_name_field").val(msg);
 }
 
-function setFilter(target) {
-    addFlightRecordDataToView(target, null, true);
+function setKalmanFilter() {
+    addFlightRecordDataToView(null, true);
     $('#btnForFilter').prop('disabled', true);
 }
 
@@ -3816,13 +3816,15 @@ function showDataWithName(target, target_key, name) {
     });
 }
 
-function mergeFlightRecordToView(target, fdata) {
-		addFlightRecordDataToView(target, fdata.data, false);
+function mergeFlightRecordToView(fdata) {
+		addFlightRecordDataToView(fdata.data, false);
 		showAlert(GET_STRING_CONTENT('msg_success'));
 }
 
 function setFlightRecordToView(target, name, fdata) {
-        let n_title = name;
+        
+        let n_title = name;        
+        g_b_video_view_visible_state = false;
 
 				if (target == "private") {
 					if ("owner" in fdata && userid != fdata.owner) {
@@ -3837,9 +3839,7 @@ function setFlightRecordToView(target, name, fdata) {
 							n_title = name + " / " + fdata.owner_email;
 					}
 				}
-
-        g_b_video_view_visible_state = false;
-
+        
         if ("memo" in fdata && isSet(fdata.memo)) {
             $("#memoTextarea").val(fdata.memo);
         }
@@ -4042,10 +4042,10 @@ function setFlightRecordToView(target, name, fdata) {
             }
         }
 
-				addObjectTo2DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1);          
-        addObjectTo3DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1, 1500);
+				addObjectTo2DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1);          
+        addObjectTo3DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1, 1500);
         
-        let exist_data = addFlightRecordDataToView(target, fdata.data, false);                
+        let exist_data = addFlightRecordDataToView(fdata.data, false);                
 				if (exist_data == false) {
 					$("#map_area").hide();
 					$("#altitude_graph_area").hide();          
@@ -4528,7 +4528,7 @@ function loadRecordForMerge(target, target_key, name) {
         }
 
 				let fdata = r.data;
-        mergeFlightRecordToView(target, fdata);
+        mergeFlightRecordToView(fdata);
 
 				hideLoader();
 
@@ -5062,7 +5062,7 @@ function addPosIconsTo2DMap(posIcons) {
 
 }
 
-function addFlightRecordDataToView(target, cdata, bfilter) {
+function addFlightRecordDataToView(cdata, bfilter) {
 
     if (isSet(cdata) == false || cdata.length <= 0 || cdata == "" || cdata == "-") {
         if (bfilter == true) {
@@ -5146,12 +5146,12 @@ function addFlightRecordDataToView(target, cdata, bfilter) {
     draw3DMap();
 
     let item = g_array_flight_rec[0];
-    moveToPositionOnMap(target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 
     return true;
 }
 
-function setFlightRecordDataToView(target, cdata) {
+function setFlightRecordDataToView(cdata) {
 
 		if (window.myLine)
 			window.myLine.destroy();
@@ -6067,14 +6067,14 @@ function setMoveActionFromLineChart(index, item) {
 
     setSliderPos(index);
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setMoveActionFromSliderOnMove(index, item) {
     $('#sliderText').html(index);
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setMoveActionFromSliderOnStop(index, item) {
