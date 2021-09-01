@@ -5130,11 +5130,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
     //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
 
     //if (isSet(g_layer_2D_map_for_icon))
-    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
-
-		if (isSet(rlng) && isSet(rlat)) {
-				moveToStartPoint3D(rlng, rlat, 600);
-		}
+    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);		
 
     setSlider(cdata.length - 1);
 
@@ -5207,10 +5203,6 @@ function setFlightRecordDataToView(cdata) {
 
     if (isSet(g_layer_2D_map_for_icon))
         g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
-
-		if (isSet(rlng) && isSet(rlat)) {
-				moveToStartPoint3D(rlng, rlat, 600);
-		}
 
     setSlider(cdata.length - 1);
 
@@ -5352,7 +5344,8 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         })
     );        
     
-    planePrimitives[owner].push(planePrimitive);		
+    planePrimitives[owner].push(planePrimitive);        
+		moveToStartPoint3D(lng, lat, alt);		
 }
 
 function addObjectTo3DMap(index, owner, kind) {
