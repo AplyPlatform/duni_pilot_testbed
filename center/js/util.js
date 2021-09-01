@@ -587,8 +587,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
         if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
         	return true;
 				}
-
-				addItemToRecTableList(item);
+				
         addChartItem(i, item);
 
         let pos_icon = new ol.Feature({
@@ -637,6 +636,8 @@ function addFlightRecordDataToView(cdata, bfilter) {
     //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);		
 
     setSlider(cdata.length - 1);
+    
+    setItemToRecTableList();
 
     drawLineTo2DMap(g_cur_2D_mainmap, lineData);
 
@@ -644,11 +645,36 @@ function addFlightRecordDataToView(cdata, bfilter) {
 
     drawLineGraph();
 
-    draw3DMap();    
+    draw3DMap();
 
     return true;
 }
 
+let scrollableRecTable;
+
+function setItemToRecTableList() {
+	if ($("#rawRecordTable").length <= 0) return;
+	
+	if (!isSet(scrollableRecTable)) {
+		scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
+		scrollableRecTable.setTableHeader(["dsec", "latitude", "longitude", "altitude", "yaw", "pitch", "roll"]);
+	}
+	
+	g_array_flight_rec
+	
+	scrollableRecTable.setTableContent(g_array_flight_rec, "testDataEventType", ["dsec", "latitude", "longitude", "altitude", "yaw", "pitch", "roll"], /* optional parameter for TreeTable */ "subtree")
+	scrollableRecTable.setTableHeight(400);
+	scrollableRecTable.setTableHeight(400);
+            ///* optional */ scrollableRecTable.setTableHeight( () => { return 400; } )
+             //             // or alternatively e.g.: scrollableTable.setTableHeight(400);
+            ///* optional */ scrollableRecTable.expandTree()
+            // /* optional */ scrollableTable.collapseTree()
+            /* optional */
+  scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
+      return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
+  })
+  scrollableRecTable.sortByColumnName("dsec")
+}
 
 function setYawStatus(yaw) {
     if ($('#yawStatus').length <= 0) return;
