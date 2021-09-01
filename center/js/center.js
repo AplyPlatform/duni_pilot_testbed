@@ -4042,10 +4042,10 @@ function setFlightRecordToView(target, name, fdata) {
             }
         }
 
-        let exist_data = addFlightRecordDataToView(target, fdata.data, false);
-        addObjectTo2DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1);          
+				addObjectTo2DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1);          
         addObjectTo3DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1, 1500);
         
+        let exist_data = addFlightRecordDataToView(target, fdata.data, false);                
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
