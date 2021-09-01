@@ -797,7 +797,7 @@ function setMoveActionFromTable(index, item) {
     setSliderPos(index);
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
     
     if ("dsec" in item) {
         movieSeekTo(item.dsec * 1);
@@ -812,7 +812,7 @@ function setMoveActionFromMovie(index, item) {
     setSliderPos(index);
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setMoveActionFromScatterChart(index, item) {
@@ -836,14 +836,25 @@ function setMoveActionFromLineChart(index, item) {
 
     setSliderPos(index);
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setMoveActionFromSliderOnMove(index, item) {
     $('#sliderText').html(index);
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+}
+
+function moveToPositionOnMap(owner, index, lat, lng, alt, yaw, roll, pitch) {
+    if (g_i_cur_monitor_object_index == index && g_str_cur_monitor_object_owner == owner) {
+        setRollStatus(roll);
+        setYawStatus(yaw);
+        setPitchStatus(pitch);
+    }
+
+    move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll);
+    move2DMapIcon(owner, index, lat, lng, alt, yaw);
 }
 
 function setMoveActionFromSliderOnStop(index, item) {

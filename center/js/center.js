@@ -2367,17 +2367,6 @@ function appendMissionsToMonitor(mission) {
     });
 }
 
-function moveToPositionOnMap(owner, index, lat, lng, alt, yaw, roll, pitch) {
-    if (g_i_cur_monitor_object_index == index && g_str_cur_monitor_object_owner == owner) {
-        setRollStatus(roll);
-        setYawStatus(yaw);
-        setPitchStatus(pitch);
-    }
-
-    move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll);
-    move2DMapIcon(owner, index, lat, lng, alt, yaw);
-}
-
 function clearDataToDesignTableWithFlightRecord() {
 
 }
