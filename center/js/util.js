@@ -670,18 +670,13 @@ function setItemToRecTableList() {
 	
 	if (!isSet(scrollableRecTable)) {
 		scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
-		scrollableRecTable.setTableHeader(["dsec", "latitude", "longitude", "altitude", "yaw", "pitch", "roll"]);
+		scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
 	}
 	
 	g_array_flight_rec
 	
-	scrollableRecTable.setTableContent(g_array_flight_rec, "testDataEventType", ["dsec", "latitude", "longitude", "altitude", "yaw", "pitch", "roll"], /* optional parameter for TreeTable */ "subtree")
-	scrollableRecTable.setTableHeight(400);	
-            ///* optional */ scrollableRecTable.setTableHeight( () => { return 400; } )
-             //             // or alternatively e.g.: scrollableTable.setTableHeight(400);
-            ///* optional */ scrollableRecTable.expandTree()
-            // /* optional */ scrollableTable.collapseTree()
-            /* optional */
+	scrollableRecTable.setTableContent(g_array_flight_rec, "testDataEventType", ["dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
+	scrollableRecTable.setTableHeight(400);
   scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
       return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
   })
