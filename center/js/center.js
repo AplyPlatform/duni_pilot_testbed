@@ -4043,9 +4043,10 @@ function setFlightRecordToView(target, name, fdata) {
         }
 
 				addObjectTo2DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1);          
-        addObjectTo3DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1, 1500);
+        addObjectTo3DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1, 1500);                
+    		moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
         
-        let exist_data = addFlightRecordDataToView(fdata.data, false);                
+        let exist_data = addFlightRecordDataToView(fdata.data, false);
 				if (exist_data == false) {
 					$("#map_area").hide();
 					$("#altitude_graph_area").hide();          
@@ -5143,10 +5144,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
 
     drawLineGraph();
 
-    draw3DMap();
-
-    let item = g_array_flight_rec[0];
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    draw3DMap();    
 
     return true;
 }
