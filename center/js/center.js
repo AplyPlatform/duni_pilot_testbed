@@ -5454,8 +5454,8 @@ function map3DInit() {
     
     let helper = new Cesium.EventHelper();
 		helper.add(v3DMapViewer.scene.globe.tileLoadProgressEvent, function (event) {			
-			if (event == 0) {
-				console.log("3d map - loaded !!");
+			if (event == 0) {				
+				$("#loaderFor3DMap").hide();
 			}
 		});
 
