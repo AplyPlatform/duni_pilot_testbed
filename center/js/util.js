@@ -414,10 +414,10 @@ function convert2data(t) {
 
 
 function addChartItem(i, item) {
-		item.lat = (item.lat * 1).toFixed(5);
-		item.lng = (item.lng * 1).toFixed(5);
-		item.alt = (item.alt * 1).toFixed(5);		
-		item.dsec = (item.dsec * 1).toFixed(2);
+		item.lat = (item.lat * 1).toFixed(5) * 1;
+		item.lng = (item.lng * 1).toFixed(5) * 1;
+		item.alt = (item.alt * 1).toFixed(3) * 1;		
+		item.dsec = (item.dsec * 1).toFixed(2) * 1;
     g_array_flight_rec.push(item);
     g_array_altitude_data_for_chart.push({ x: Math.round(item.dsec), y: item.alt });
 }
