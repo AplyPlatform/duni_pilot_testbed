@@ -342,20 +342,16 @@ function initPilotCenter() {
     else if (g_str_page_action == "publicrecordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
             map2DInit();
-            selectMonitorIndex("private", 0);
-            addObjectTo2DMap(0, "private", "drone");
-            map3DInit();
-            addObjectTo3DMap(0, "private", "drone");
+            selectMonitorIndex("private", 0);            
+            map3DInit();            
             flightDetailInit("public");
         });
     }
     else if (g_str_page_action == "recordlist_detail") {
         $("#main_contents").load("record_detail.html", function () {
             map2DInit();
-            selectMonitorIndex("private", 0);
-            addObjectTo2DMap(0, "private", "drone");
-            map3DInit();
-            addObjectTo3DMap(0, "private", "drone");
+            selectMonitorIndex("private", 0);            
+            map3DInit();            
             flightDetailInit("private");
         });
     }
@@ -4051,7 +4047,9 @@ function setFlightRecordToView(target, name, fdata) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
           $("#no_record_data_view").show();
-    			moveToPositionOnMap("private", 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
+                              
+          addObjectTo2DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1);          
+          addObjectTo3DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1, 1500);              			
 				}
 				else {
 					g_cur_str_flight_rec_fid = fdata.fid;
@@ -5476,15 +5474,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
             Cesium.Ellipsoid.WGS84,
             fixedFrameTransform,
             planePrimitives[owner][index].modelMatrix
-        );
-        
-        let transform = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lng, lat));				
-				let camera = v3DMapViewer.camera;
-				camera.constraintedAxis = Cesium.Cartesian3.UNIT_Z;
-				camera.lookAtTransform(transform, new Cesium.Cartesian3(-10000.0, -10000.0, 25000.0));
-				
-				v3DMapViewer.trackedEntity = undefined;
-				v3DMapViewer.zoomTo(v3DMapViewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
+        );                
     }
 }
 
@@ -5500,7 +5490,7 @@ function remove2dObjects() {
     g_array_icon_cur_2D_mainmap_for_object = null;
 }
 
-function addObjectTo2DMap(index, owner, kind) {
+function addObjectTo2DMapWithGPS(index, owner, kind, lat, lng) {
     if (!isSet(g_vector_2D_mainmap_for_object)) return;
 
     if (!isSet(g_array_point_cur_2D_mainmap_for_object)) {
@@ -5514,7 +5504,7 @@ function addObjectTo2DMap(index, owner, kind) {
     }
 
     let current_pos = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([126.5610038, 33.3834381]))
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
     });
 
     let dsrc = './imgs/position.png';
@@ -5538,6 +5528,11 @@ function addObjectTo2DMap(index, owner, kind) {
     g_array_icon_cur_2D_mainmap_for_object[owner].push(current_pos_image);
 
     g_vector_2D_mainmap_for_object.addFeature(current_pos);
+}
+
+
+function addObjectTo2DMap(index, owner, kind) {    
+    addObjectTo2DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038);
 }
 
 function map2DInit() {
