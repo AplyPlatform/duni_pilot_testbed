@@ -333,7 +333,9 @@ $(function () {
 			
 	    GATAGM('partner_verify_code_btn_click', 'CONTENT');	            
 	    verifyPhoneNo($('#user_phonenumber').val());
-	});		
+	});
+	
+	hideLoader();
 });
 
 //# sourceURL=register_partner.js

@@ -88,6 +88,7 @@ $(function () {
       );
 	});
   
+  hideLoader();
 });
 
 function verifyPhoneCodeUserSuccessCallback(data) {
