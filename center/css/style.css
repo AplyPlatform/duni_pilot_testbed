@@ -9843,8 +9843,12 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   padding : 5px;
   width: 100%;
   height: 400px;
-  background-color: orange;  
-  border: 1px solid black;
+  background-color: #fff;
+  border: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
   z-index: 100;
 }
 
