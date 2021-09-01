@@ -5391,7 +5391,7 @@ function map3DInit() {
 	    $("#main3dMap").hide();//for the license
 	    $("#map3dViewer").text(GET_STRING_CONTENT('msg_sorry_now_on_preparing'));
 	    return;
-	}
+		}
 
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
@@ -5406,7 +5406,7 @@ function map3DInit() {
         fullscreenButton: true,
         geocoder: false,
         s3DMapSceneOnly: true,
-        homeButton: false,
+        homeButton: true,
         navigationHelpButton: true,
         navigationInstructionsInitiallyVisible: false,
         automaticallyTrackDataSourceClocks: false,
@@ -5451,6 +5451,13 @@ function map3DInit() {
             1000
         )
     );
+    
+    let helper = new Cesium.EventHelper();
+		helper.add(viewer.scene.globe.tileLoadProgressEvent, function (event) {			
+			if (event == 0) {
+				console.log("3d map - loaded !!");
+			}
+		});
 
     v3DMapCate = new Cesium.Cartesian3();
     planePrimitives = {};
