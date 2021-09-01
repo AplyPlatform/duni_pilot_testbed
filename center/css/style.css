@@ -9860,7 +9860,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   /* background: rgb(169, 211, 240); */
   top: 39px;
   left: -1px;
-  width: 600px;
+  width: 100%;
   display: block;
 }
 

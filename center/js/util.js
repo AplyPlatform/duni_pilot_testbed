@@ -414,6 +414,10 @@ function convert2data(t) {
 
 
 function addChartItem(i, item) {
+		item.lat = (item.lat * 1).toFixed(5);
+		item.lng = (item.lng * 1).toFixed(5);
+		item.alt = (item.alt * 1).toFixed(5);		
+		item.dsec = (item.dsec * 1).toFixed(2);
     g_array_flight_rec.push(item);
     g_array_altitude_data_for_chart.push({ x: Math.round(item.dsec), y: item.alt });
 }
@@ -672,8 +676,7 @@ function setItemToRecTableList() {
 	g_array_flight_rec
 	
 	scrollableRecTable.setTableContent(g_array_flight_rec, "testDataEventType", ["dsec", "latitude", "longitude", "altitude", "yaw", "pitch", "roll"], /* optional parameter for TreeTable */ "subtree")
-	scrollableRecTable.setTableHeight(400);
-	scrollableRecTable.setTableHeight(400);
+	scrollableRecTable.setTableHeight(400);	
             ///* optional */ scrollableRecTable.setTableHeight( () => { return 400; } )
              //             // or alternatively e.g.: scrollableTable.setTableHeight(400);
             ///* optional */ scrollableRecTable.expandTree()
