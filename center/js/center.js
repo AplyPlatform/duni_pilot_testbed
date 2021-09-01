@@ -5461,6 +5461,10 @@ function map3DInit() {
 
     v3DMapCate = new Cesium.Cartesian3();
     planePrimitives = {};
+    
+    if($("#loaderFor3DMap").length) {
+    	$("#loaderFor3DMap").show();
+    }
 }
 
 function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {

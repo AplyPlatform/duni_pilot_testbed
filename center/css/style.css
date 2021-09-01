@@ -9834,3 +9834,18 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 			opacity: 0;
 }
 
+#loaderFor3DMap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;  
+  padding : 5px;
+  width: 50%;
+  height: 50%;
+  background-color: orange;
+  visibility: hidden;
+  border: 1px solid black;
+  z-index: 1;
+}
+
