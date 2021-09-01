@@ -687,7 +687,7 @@ function setItemToRecTableList() {
 	
 	if (!isSet(scrollableRecTable)) {
 		scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
-		scrollableRecTable.setTableHeader(["id", "dsec", "lat", "lng", "alt"]);
+		scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
 	}
 	
 	let tableData = [];
@@ -695,7 +695,7 @@ function setItemToRecTableList() {
 		tableData.push( {"id": index, "dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt} )
 	});
 	
-	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["id", "dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
+	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
 	scrollableRecTable.setTableHeight(400);
   scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
       return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
