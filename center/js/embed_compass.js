@@ -283,6 +283,40 @@ $(function () {
 	      showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
 	    });
 	}
+		
+	function videoFileUpload(videoFile, tempName, tempExt, tempUrl) {
+		let $selfProgress = videoFile.target.find("progress");
+	
+		$.ajax({
+			url: tempUrl,
+			data : videoFile,
+			type : 'PUT',
+			contentType : false,
+			processData: false,
+			cache: false,
+			xhr: function() { //XMLHttpRequest 재정의 가능
+				let xhr = $.ajaxSettings.xhr();
+				xhr.upload.onprogress = function(e) { //progress 이벤트 리스너 추가
+					let percent = e.loaded * 100 / e.total;
+					$selfProgress.val(percent); //개별 파일의 프로그레스바 진행
+				};
+	
+				return xhr;
+			},
+			success : function(ret) {
+				setProgress(50); //전체 프로그레스바 진행
+	
+				runNextSequence( function () {
+						embedRequest(tempName, tempExt);
+					} );
+			}
+		});
+	}
+	
+	function setProgress(per) {
+			let $progressBar = $("#progressBarForUpload");
+			$progressBar.val(per);
+	}
 	
 	function embedRequest(filename, tempExt) {
 	

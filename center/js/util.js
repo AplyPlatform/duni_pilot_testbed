@@ -585,6 +585,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
         	return true;
 				}
 
+				addItemToRecTableList(item);
         addChartItem(i, item);
 
         let pos_icon = new ol.Feature({
