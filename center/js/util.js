@@ -1491,7 +1491,7 @@ function flightRecords2DMapInit() {
 		g_closer_2D_map_for_popup = document.getElementById('popup-closer');
 
 		g_container_2D_map_for_popup.style.visibility = "visible";
-  	var overlay = new ol.Overlay({
+  	let overlay = new ol.Overlay({
 		  element: g_container_2D_map_for_popup,
 		  autoPan: true,
 		  autoPanAnimation: {
@@ -1511,7 +1511,7 @@ function flightRecords2DMapInit() {
     });
 
     g_vector_2D_map_for_company = new ol.source.Vector();
-		var clusterCompanySource = new ol.source.Cluster({
+		let clusterCompanySource = new ol.source.Cluster({
 			  distance: 40,
 			  source: g_vector_2D_map_for_company,
 			  geometryFunction: function(feature) {
@@ -1520,17 +1520,17 @@ function flightRecords2DMapInit() {
 	    	},
 			});
 
-		var styleCacheForCompany = {};
+		let styleCacheForCompany = {};
 	  g_layer_2D_map_for_company = new ol.layer.Vector({
 	      source: clusterCompanySource,
 	      zIndex: 20,
 	      style:  function (feature) {
 	        	if (!feature) return;
 
-				    var size = feature.get('features').length;
-				    var radius;
+				    let size = feature.get('features').length;
+				    let radius;
 				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-				    var style = styleCacheForCompany[size];
+				    let style = styleCacheForCompany[size];
 				    if (!style) {
 				    		if (size == 1) {
 				    			style = [new ol.style.Style({
@@ -1567,7 +1567,7 @@ function flightRecords2DMapInit() {
 
 
     g_vector_2D_map_for_flight_rec = new ol.source.Vector();
-		var clusterSource = new ol.source.Cluster({
+		let clusterSource = new ol.source.Cluster({
 		  distance: 40,
 		  source: g_vector_2D_map_for_flight_rec,
 		  geometryFunction: function(feature) {
@@ -1576,17 +1576,17 @@ function flightRecords2DMapInit() {
     	},
 		});
 
-		var styleCache = {};
+		let styleCache = {};
     g_layer_2D_map_for_flight_rec = new ol.layer.Vector({
         source: clusterSource,
         zIndex: 21,
         style: function (feature) {
         	if (!feature) return;
 
-			    var size = feature.get('features').length;
-			    var radius;
+			    let size = feature.get('features').length;
+			    let radius;
 			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-			    var style = styleCache[size];
+			    let style = styleCache[size];
 			    if (!style) {
 			       	if (size == 1) {
 			       		style = [new ol.style.Style({
@@ -1621,13 +1621,13 @@ function flightRecords2DMapInit() {
 			  },
     });
 
-    var bingLayer = new ol.layer.Tile({
+    let bingLayer = new ol.layer.Tile({
         visible: true,
         preload: Infinity,
         source: new ol.source.OSM()
     });
 
-    var overviewMapControl = new ol.control.OverviewMap({
+    let overviewMapControl = new ol.control.OverviewMap({
 		  layers: [
 		    new ol.layer.Tile({
 		      source: new ol.source.OSM(),
@@ -1636,7 +1636,7 @@ function flightRecords2DMapInit() {
 		});
 
 		g_vector_2D_map_for_cada = new ol.source.Vector({});
-		var cadaLayer = new ol.layer.Vector({
+		let cadaLayer = new ol.layer.Vector({
         source: g_vector_2D_map_for_cada,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -1646,9 +1646,9 @@ function flightRecords2DMapInit() {
         })
     });
 
-    g_vector_2D_map_for_flight_area = new ol.source.Vector({});
-		var areaInfoLayer = new ol.layer.Vector({
-        source: g_vector_2D_map_for_flight_area,
+    let vector_2D_for_flight_area = new ol.source.Vector({});
+		let areaInfoLayer = new ol.layer.Vector({
+        source: vector_2D_for_flight_area,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: '#0000dd',
@@ -1657,13 +1657,13 @@ function flightRecords2DMapInit() {
         })
     });
 
-    g_vector_2D_map_for_point_mark = new ol.source.Vector({});
+    let vector_map_point_mark = new ol.sourc.Vector({});
 
-		var pointLayer = new ol.layer.Vector({
-        source: g_vector_2D_map_for_point_mark
+		let pointLayer = new ol.layer.Vector({
+        source: vector_map_point_mark
     });
 
-    var vMap = new ol.Map({
+    let vMap = new ol.Map({
     		controls: ol.control.defaults().extend([
             overviewMapControl
         ]),
