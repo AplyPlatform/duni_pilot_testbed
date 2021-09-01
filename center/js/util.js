@@ -692,10 +692,10 @@ function setItemToRecTableList() {
 	
 	let tableData = [];
 	g_array_flight_rec.forEach(function(item, index, arr) {
-		tableData.push( {"dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt, "id": index} )
+		tableData.push( {"id": index, "dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt} )
 	});
 	
-	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["id"], /* optional parameter for TreeTable */ "subtree")
+	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["id", "dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
 	scrollableRecTable.setTableHeight(400);
   scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
       return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
