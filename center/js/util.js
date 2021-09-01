@@ -687,7 +687,7 @@ function setItemToRecTableList() {
 	
 	if (!isSet(scrollableRecTable)) {
 		scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
-		scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
+		scrollableRecTable.setTableHeader(["id", "dsec", "lat", "lng", "alt"]);
 	}
 	
 	let tableData = [];
