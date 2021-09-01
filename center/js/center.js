@@ -4055,7 +4055,7 @@ function setFlightRecordToView(target, name, fdata) {
 				else {
 					$("#no_record_data_view").hide();
 					g_cur_str_flight_rec_fid = fdata.fid;
-					moveToPositionOnMap(target, 0, fdata.data[0].lat * 1, fdata.data[0].lng * 1, 1500, 0, 0, 0);					
+					moveToPositionOnMap(target, 0, fdata.data[0].lat * 1, fdata.data[0].lng * 1, 1500, fdata.data[0].yaw, fdata.data[0].roll, fdata.data[0].pitch);
 				}
 
 				if (isSet(fdata.cada)) {
