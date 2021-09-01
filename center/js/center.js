@@ -6391,7 +6391,7 @@ function movieSeekTo(where) {
 
 function addChartItem(i, item) {
     g_array_flight_rec.push(item);
-    g_array_altitude_data_for_chart.push({ x: i, y: item.alt });
+    g_array_altitude_data_for_chart.push({ x: Math.round(item.dsec), y: item.alt });
 }
 
 
