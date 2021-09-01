@@ -98,7 +98,7 @@ function checkEmail(){
         		clearTimer();
             $('#btn_check_email').prop('disabled', true);
             var jdata = {
-                "action" : "member2", 
+                "action" : "member", 
                 "daction" : "validate_email", 
                 "email" : email };
                 //,"g_token" : token};
