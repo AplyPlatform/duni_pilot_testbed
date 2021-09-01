@@ -1238,7 +1238,7 @@ function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progres
 
     	if (isSet(r.data)) {
     		$("#mapArea").show();
-    		addFlightRecordDataToView("private", r.data, false);
+    		addFlightRecordDataToView(g_str_current_target, r.data, false); //todo
     	}
 
     	runNextSequence( function () {
