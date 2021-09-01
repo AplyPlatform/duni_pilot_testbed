@@ -4043,16 +4043,18 @@ function setFlightRecordToView(target, name, fdata) {
         }
 
         let exist_data = addFlightRecordDataToView(target, fdata.data, false);
+        addObjectTo2DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1);          
+        addObjectTo3DMapWithGPS(0, target, "drone", fdata.flat * 1, fdata.flng * 1, 1500);
+        
 				if (exist_data == false) {
 					$("#altitude_graph_area").hide();
           $("#map_area").hide();
-          $("#no_record_data_view").show();
-                              
-          addObjectTo2DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1);          
-          addObjectTo3DMapWithGPS(0, "private", "drone", fdata.flat * 1, fdata.flng * 1, 1500);              			
+          $("#no_record_data_view").show();                                                  
+          moveToPositionOnMap(target, 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
 				else {
 					g_cur_str_flight_rec_fid = fdata.fid;
+					moveToPositionOnMap(target, 0, fdata.data[0].lat * 1, fdata.data[0].lng * 1, 1500, 0, 0, 0);
 					$("#no_record_data_view").hide();
 				}
 
