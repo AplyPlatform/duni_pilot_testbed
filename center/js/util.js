@@ -66,6 +66,31 @@ function selectMonitorIndex(owner, index) {
     g_str_cur_monitor_object_owner = owner;
 }
 
+function startTimer(duration, display, callback) {
+    let timer = duration, minutes, seconds;
+    g_b_interval_timer = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+        	clearTimer();
+					callback();
+        }
+    }, 1000);
+}
+
+function clearTimer() {
+	if (g_b_interval_timer >= 0)
+		clearInterval(g_b_interval_timer);
+	
+	g_b_interval_timer = -1;
+}
+
 
 function isRecordFile(filename) {
 	let ext = getFileExtension(filename);

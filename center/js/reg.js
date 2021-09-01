@@ -94,10 +94,8 @@ function checkEmail(){
     }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
-        		if (g_b_interval_timer >= 0)
-            	clearInterval(g_b_interval_timer);
-            g_b_interval_timer = -1;
-            
+        		
+        		clearTimer();
             $('#btn_check_email').prop('disabled', true);
             var jdata = {
                 "action" : "member2", 
@@ -112,11 +110,17 @@ function checkEmail(){
                         g_b_email_verified = false;
                         showAlert(GET_STRING_CONTENT('msg_email_valid'));
                         $("#btn_check_email").val("재전송");
-						var duration = 60 * 5;
-						var display = $('#email_remaining_time');
-						startTimer(duration, display);
-						$("#email_verification_input").show();
-						return;
+												var duration = 60 * 5;
+												var display = $('#email_remaining_time');
+												startTimer(duration, display, function() {
+													showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+								          $('#errorModal').on('hidden.bs.modal', function() {
+								                location.reload();
+								          });
+												});
+						
+												$("#email_verification_input").show();
+												return;
                     }
                     if(result === 2){
                         showAlert(GET_STRING_CONTENT('msg_email_invalid'));
@@ -157,10 +161,7 @@ function checkEmailCode(){
 						$('input[name="email_verification_code"]').val("");
 						$("#email_verification_input").hide();
 						showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-						if (g_b_interval_timer >= 0)
-							clearInterval(g_b_interval_timer);
-						
-						g_b_interval_timer = -1;
+						clearTimer();
 						g_b_email_verified = true;
 						return;
 					}
@@ -181,30 +182,6 @@ function checkEmailCode(){
 			);
 		});
 	});
-}
-
-function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
-    g_b_interval_timer = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.text(minutes + ":" + seconds);
-
-        if (--timer < 0) {
-        	if (g_b_interval_timer >= 0)
-						clearInterval(g_b_interval_timer);
-					
-					g_b_interval_timer = -1;
-					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-          $('#errorModal').on('hidden.bs.modal', function() {
-                location.reload();
-          });
-        }
-    }, 1000);
 }
 
 function requestRegister() {

@@ -612,8 +612,7 @@ function verifyPhoneCodeCommonSuccessCallback(data) {
   $("#code_verification_input").hide();
   setCookie("temp_phone", $('#user_phonenumber').val(), 1);
 	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-	if (g_b_interval_timer >= 0)
-		clearInterval(g_b_interval_timer);
+	clearTimer();
   $('#auth_code').val(data.auth_code);
 }
 
@@ -3525,7 +3524,11 @@ function verifyPhoneNo(phone_number){
                 $('#btn_verify_code').text("재전송");
                 let duration = 60 * 3;
                 let display = $('#remaining_time');
-                startTimer(duration, display);
+                startTimer(duration, display, function() {
+                	showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+            			$("#code_verification_input").hide();                	
+              	});
+                                
                 //$('#droneplay_phonenumber').prop( "disabled", true );
                 $("#code_verification_input").show();
                 return;
@@ -3572,8 +3575,7 @@ function verifyCode(verification_code, successCallback){
 				}
 				else if(result === 4){
 					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-					if (g_b_interval_timer >= 0)
-						clearInterval(g_b_interval_timer);
+					clearTimer();
 				}
 				else {
 					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -3584,29 +3586,6 @@ function verifyCode(verification_code, successCallback){
 				showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 			}
 		);
-}
-
-
-function startTimer(duration, display) {
-    let timer = duration, minutes, seconds;
-    g_b_interval_timer = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.text(minutes + ":" + seconds);
-
-        if (--timer < 0) {
-        		if (g_b_interval_timer >= 0)
-							clearInterval(g_b_interval_timer);
-												
-						g_b_interval_timer = -1;
-            showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-            $("#code_verification_input").hide();
-        }
-    }, 1000);
 }
 
 function setYoutubeVideo(index, youtube_url) {
