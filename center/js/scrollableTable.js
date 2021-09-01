@@ -520,9 +520,9 @@ var scrollableTable = function(id, wrapperId, enableLogging=false) {
         columnButton.attr('sortDir', sortDir);
         
         // reset and set sort icons
-        $('#'+id+' > thead > tr > th > div').css('background-image', "url('css/unsorted-icon.png')");
-        if (sortDir == -1) columnButton.children('div').css('background-image', "url('css/dasc-icon.png')");
-        else columnButton.children('div').css('background-image', "url('css/asc-icon.png')");
+        $('#'+id+' > thead > tr > th > div').css('background-image', "url('/center/imgs/tbl/unsorted-icon.png')");
+        if (sortDir == -1) columnButton.children('div').css('background-image', "url('/center/imgs/tbl/dasc-icon.png')");
+        else columnButton.children('div').css('background-image', "url('/center/imgs/tbl/asc-icon.png')");
 
         if (logging) console.log("sort by column (Name: %s, Index: %d, direction: %d)", columnButton.text(), columnIndex, sortDir);
         // actual sort function
