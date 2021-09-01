@@ -304,8 +304,7 @@ function initPilotCenter() {
     			return;
     		}
 
-        $("#main_contents").load("partner_register.html", function () {            
-        });
+        $("#main_contents").load("partner_register.html", function () { });
     }
     else if (g_str_page_action == "recordupload") {
         $("#main_contents").load("record_upload.html", function () {
@@ -313,12 +312,7 @@ function initPilotCenter() {
         });
     }
     else if (g_str_page_action == "embedcompass") {
-        $("#main_contents").load("embed_compass.html", function () {
-        		map2DInit();
-            selectMonitorIndex("private", 0);
-            addObjectTo2DMap(0, "private", "drone");
-            map3DInit();
-            addObjectTo3DMap(0, "private", "drone");
+        $("#main_contents").load("embed_compass.html", function () {        		
             embedCompassInit();
         });
     }
@@ -340,9 +334,7 @@ function initPilotCenter() {
         $("#main_contents").load("record_detail.html", function () { });
     }
     else if (g_str_page_action == "recordlist_detail") {
-        $("#main_contents").load("record_detail.html", function () {                        
-            flightDetailInit("private");
-        });
+        $("#main_contents").load("record_detail.html", function () { });
     }
     else if (g_str_page_action == "summary_list") {
         $("#main_contents").load("record_list_summary.html", function () {
@@ -1012,6 +1004,12 @@ function embedCompassInit() {
 		$('#compass_embed_text_sel_label').text(GET_STRING_CONTENT('compass_embed_text_sel_label'));
     $('#embed_text_sel_show').text(GET_STRING_CONTENT('embed_text_sel_show_label'));
     $('#embed_text_sel_hide').text(GET_STRING_CONTENT('embed_text_sel_hide_label'));
+    
+    map2DInit();
+    selectMonitorIndex("private", 0);
+    addObjectTo2DMap(0, "private", "drone");
+    map3DInit();
+    addObjectTo3DMap(0, "private", "drone");
 
 		let dropArea = $("#dropArea");
 		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
