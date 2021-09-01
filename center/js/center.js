@@ -54,9 +54,6 @@ let g_loc_kalmanfilter_roll;
 let g_b_is_first_for_monitor = true;
 
 let g_array_cur_monitor_object;
-let g_i_cur_monitor_object_index = 0;
-let g_str_cur_monitor_object_owner = "private";
-
 
 let g_component_upload_youtube_video;
 
@@ -1088,40 +1085,6 @@ function previewForRecordFile(file) {
 	}
 }
 
-
-function previewForCompassFile(file, idx) {
-	let iconArea = '<i class="fas fa-map-marker-alt"></i>';
-	if(isMovieFile(file.name)) {
-		iconArea = '<i class="fas fa-video"></i>';
-	}
-
-	let $div = $('<div id="file_thumb_' + idx + '" class="text-left">'
-		+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span> '
-		+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></div>');
-	$("#thumbnails").append($div);
-	file.target = $div;
-
-	$("#file_data_remover_" + idx).on("click", function(e) {
-		$("#file_thumb_" + idx).remove();
-		if (isRecordFile(file.name)) {
-			recordFileForUploadFile = null;
-		}
-		else {
-			videoFileForUploadFile = null;
-
-			stopCompassVideo();
-
-			$("#video_example_area").hide();
-			$("#youtube_example_area").show();
-		}
-
-		$('#selectFileArea').show();
-		$("#label_or_directly").show();
-		$('#btnForUploadFlightList').hide();
-		$('#file_drop_img').show();
-		$('#label_explain_drag').show();
-	});
-}
 
 
 function monitorInit() {
@@ -2290,11 +2253,6 @@ function processMon(owner, output) {
     }
     else nexttour(owner, fobject);
 
-}
-
-function selectMonitorIndex(owner, index) {
-    g_i_cur_monitor_object_index = index;
-    g_str_cur_monitor_object_owner = owner;
 }
 
 function nextMon() {

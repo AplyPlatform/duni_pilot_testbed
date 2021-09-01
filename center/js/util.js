@@ -25,6 +25,7 @@ let g_vector_2D_map_for_flight_rec;
 let g_layer_2D_map_for_flight_rec;
 let g_view_2D_map_for_flight_rec;
 let g_vector_2D_map_for_cada;
+let g_vector_2D_map_for_flight_area;
 
 let g_vector_2D_map_for_company;
 let g_layer_2D_map_for_company;
@@ -54,6 +55,14 @@ let oldScatterpointIndex = -1;
 
 let oldLinedatasetIndex = -1;
 let oldLinepointIndex = -1;
+
+let g_i_cur_monitor_object_index = 0;
+let g_str_cur_monitor_object_owner = "private";
+
+function selectMonitorIndex(owner, index) {
+    g_i_cur_monitor_object_index = index;
+    g_str_cur_monitor_object_owner = owner;
+}
 
 
 function isRecordFile(filename) {

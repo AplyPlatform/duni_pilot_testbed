@@ -66,11 +66,11 @@ $(function () {
 	    $('#embed_text_sel_show').text(GET_STRING_CONTENT('embed_text_sel_show_label'));
 	    $('#embed_text_sel_hide').text(GET_STRING_CONTENT('embed_text_sel_hide_label'));
 	    
-	    map2DInit();
+	    map2DInit();	    
+	    map3DInit();
 	    selectMonitorIndex("private", 0);
 	    addObjectTo2DMap(0, "private", "drone");
-	    map3DInit();
-	    addObjectTo3DMap(0, "private", "drone");
+	    addObjectTo3DMap(0, "private", "drone");	    
 	
 			let dropArea = $("#dropArea");
 			dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
@@ -209,7 +209,7 @@ $(function () {
 					$("#video_example_area").show();
 					$("#youtube_example_area").hide();
 	
-					previewForCompassFile(file, "video");
+					previewForCompassFile(file, "video");					
 					isAdded = true;
 				}
 			}
@@ -221,6 +221,40 @@ $(function () {
 		}
 	
 		return true;
+	}			
+
+	function previewForCompassFile(file, idx) {
+		let iconArea = '<i class="fas fa-map-marker-alt"></i>';
+		if(isMovieFile(file.name)) {
+			iconArea = '<i class="fas fa-video"></i>';
+		}
+	
+		let $div = $('<div id="file_thumb_' + idx + '" class="text-left">'
+			+ '<span style="cursor:pointer" id="file_data_remover_' + idx + '"><b>X</b></span> '
+			+ iconArea + ' ' + file.name + '<br><progress value="0" max="100" style="height:5px;"></progress></div>');
+		$("#thumbnails").append($div);
+		file.target = $div;
+	
+		$("#file_data_remover_" + idx).on("click", function(e) {
+			$("#file_thumb_" + idx).remove();
+			if (isRecordFile(file.name)) {
+				recordFileForUploadFile = null;
+			}
+			else {
+				videoFileForUploadFile = null;
+	
+				stopCompassVideo();
+	
+				$("#video_example_area").hide();
+				$("#youtube_example_area").show();
+			}
+	
+			$('#selectFileArea').show();
+			$("#label_or_directly").show();
+			$('#btnForUploadFlightList').hide();
+			$('#file_drop_img').show();
+			$('#label_explain_drag').show();
+		});
 	}
 	
 	
@@ -274,6 +308,7 @@ $(function () {
 	    	if (isSet(r.data)) {
 	    		$("#mapArea").show();
 	    		addFlightRecordDataToView(r.data, false);
+	    		moveToPositionOnMap("private", 0, r.data.flat * 1, r.data.flng * 1, 1500, 0, 0, 0);
 	    	}
 	
 	    	runNextSequence( function () {

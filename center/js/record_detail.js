@@ -293,10 +293,7 @@ $(function () {
 	
 	    drawLineGraph();
 	
-	    draw3DMap();
-	
-	    let item = g_array_flight_rec[0];
-	    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+	    draw3DMap();		    
 	
 	    return true;
 	}
