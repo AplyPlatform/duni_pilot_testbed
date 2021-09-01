@@ -518,6 +518,23 @@ function drawLineGraph() {
 }
 
 
+function setMoveActionFromMap(index, item) {
+    openScatterTip(window.myScatter, 0, index);
+    openLineTip(window.myLine, 0, index);
+
+    setRollStatus(item.roll);
+    setYawStatus(item.yaw);
+    setPitchStatus(item.pitch);
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+
+    if ("dsec" in item) {
+        movieSeekTo(item.dsec * 1);
+    }
+
+    setSliderPos(index);
+}
+
+
 function addPosIconsTo2DMap(posIcons) {
     if (posIcons.length <= 0) return;
 
@@ -673,14 +690,173 @@ function setItemToRecTableList() {
 		scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
 	}
 	
-	g_array_flight_rec
+	let tableData = [];
+	g_array_flight_rec.forEach(function(item, index, arr) {
+		tableData.push( {"id": index,  "dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt} )
+	});
 	
-	scrollableRecTable.setTableContent(g_array_flight_rec, "testDataEventType", ["dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
+	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["id"], /* optional parameter for TreeTable */ "subtree")
 	scrollableRecTable.setTableHeight(400);
   scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
       return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
   })
   scrollableRecTable.sortByColumnName("dsec")
+  
+  $( document ).on("rawTableDataEventType", function(event, data) {
+      let index = data.data.id;
+      let item = g_array_flight_rec[index];
+      
+      setMoveActionFromTable(index, item);
+  });
+}
+
+
+function showCurrentInfo(dlatlng, alt) {
+    if ($("#position_info").length <= 0) return;
+
+    let latlng = ol.proj.fromLonLat(dlatlng);
+    let hdms = ol.coordinate.toStringHDMS(latlng);
+    let itext = hdms + " [ Lat: " + dlatlng[1] + " / Lng: " + dlatlng[0] + " / Alt: " + alt + " ]";
+    $("#position_info").text(itext);
+}
+
+function openLineTip(oChart, datasetIndex, pointIndex) {
+    if (!isSet(oChart)) return false;
+
+    if (oldLinedatasetIndex >= 0)
+        closeTip(oChart, oldLinedatasetIndex, oldLinepointIndex);
+
+    if (oChart.tooltip._active == undefined)
+        oChart.tooltip._active = []
+    let activeElements = oChart.tooltip._active;
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+
+    oldLinedatasetIndex = datasetIndex;
+    oldLinepointIndex = pointIndex;
+
+    for (let i = 0; i < activeElements.length; i++) {
+        if (requestedElem._index == activeElements[i]._index)
+            return false;
+    }
+    activeElements.push(requestedElem);
+    oChart.tooltip._active = activeElements;
+    oChart.tooltip.update(true);
+    oChart.draw();
+
+    return true;
+}
+
+function openScatterTip(oChart, datasetIndex, pointIndex) {
+    if (!isSet(oChart)) return false;
+
+    if (oldScatterdatasetIndex >= 0)
+        closeTip(oChart, oldScatterdatasetIndex, oldScatterpointIndex);
+
+    if (oChart.tooltip._active == undefined)
+        oChart.tooltip._active = []
+    let activeElements = oChart.tooltip._active;
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+
+    oldScatterdatasetIndex = datasetIndex;
+    oldScatterpointIndex = pointIndex;
+
+    for (let i = 0; i < activeElements.length; i++) {
+        if (requestedElem._index == activeElements[i]._index)
+            return false;
+    }
+    activeElements.push(requestedElem);
+    oChart.tooltip._active = activeElements;
+    oChart.tooltip.update(true);
+    oChart.draw();
+
+    return true;
+}
+
+function closeTip(oChart, datasetIndex, pointIndex) {
+    let activeElements = oChart.tooltip._active;
+    if (!isSet(activeElements) || activeElements.length == 0)
+        return;
+
+    let requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+    for (let i = 0; i < activeElements.length; i++) {
+        if (requestedElem._index == activeElements[i]._index) {
+            activeElements.splice(i, 1);
+            break;
+        }
+    }
+    oChart.tooltip._active = activeElements;
+    oChart.tooltip.update(true);
+    oChart.draw();
+}
+
+function setMoveActionFromTable(index, item) {
+    openScatterTip(window.myScatter, 0, index);
+    openLineTip(window.myLine, 0, index);
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    setSliderPos(index);
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    
+    if ("dsec" in item) {
+        movieSeekTo(item.dsec * 1);
+    }
+}
+
+function setMoveActionFromMovie(index, item) {
+    openScatterTip(window.myScatter, 0, index);
+    openLineTip(window.myLine, 0, index);
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    setSliderPos(index);
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+}
+
+function setMoveActionFromScatterChart(index, item) {
+    openLineTip(window.myLine, 0, index);
+
+    if ("dsec" in item) {
+        movieSeekTo(item.dsec * 1);
+    }
+
+    setSliderPos(index);
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+}
+
+function setMoveActionFromLineChart(index, item) {
+    openScatterTip(window.myScatter, 0, index);
+
+    if ("dsec" in item) {
+        movieSeekTo(item.dsec * 1);
+    }
+
+    setSliderPos(index);
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+}
+
+function setMoveActionFromSliderOnMove(index, item) {
+    $('#sliderText').html(index);
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+}
+
+function setMoveActionFromSliderOnStop(index, item) {
+    openScatterTip(window.myScatter, 0, index);
+    openLineTip(window.myLine, 0, index);
+    $('#sliderText').html(index);
+
+    if ("dsec" in item) {
+        movieSeekTo(item.dsec * 1);
+    }
+
+    showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
+    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setYawStatus(yaw) {
