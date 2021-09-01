@@ -240,68 +240,60 @@
                 	<br>
 									<span id="position_info" class="text-xs font-weight-bold text-default text-uppercase mb-1"> ... </span>
 		              <span id="monitor" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
-                </div>
+                </div>                                
 						</div>
+						
+						<div class="card-body">
+		      			<div class="row">
+			    				<div class="col-md-12"><span id="map_address" class="text-xs font-weight-bold text-info text-uppercase mb-1"></span></div>
+			    			</div>
+			
+			    			<div class="row">
+			    				<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
+			    			</div>
+			    			<div class="row">
+			    				<div class="col-md-10">
+										<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
+										<div id="tagArrayarea"></div>
+			    				</div>
+			    				<div class="col-md-2">
+			    					<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
+			    				</div>
+			    			</div>
+			    			<div class="row">
+			    				<div class="col-md-12 text-left"><span id="input_memo_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
+			    			</div>
+			    			<div class="row">
+			    				<div class="col-md-10">
+										<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='4'></textarea>
+									</div>
+									<div class="col-md-2">
+										<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
+									</div>
+								</div>
+			          <div class="row">
+									<div class="col-md-12">
+										<hr size="1" color="#efefef">
+				            <div class="btn-group" role="group">
+				      		      <button class='btn btn-secondary btn-sm' type='button' id="btnForSharing">공유하기</button>
+				                <button class='btn btn-secondary btn-sm' type='button' id="btnForPublic">공개하기</button>
+				        		    <button class='btn btn-secondary btn-sm' type='button' id="btnForLink">외부링크생성</button>
+												<button class='btn btn-secondary btn-sm' type='button' id="btnForDelete">삭제하기</button>
+				            </div>
+									</div>
+			          </div>
+		      	</div>
+						
+						<div class="card-body">
+		      		<div id="shared_user"></div>
+		      	</div>
+		
+		      	<div class="card-body">
+		      		<div id="shared_link"></div>
+		      	</div>
     </div>
   </div>
 </div>
-
-<div class="row">
-  <!-- List -->
-  <div class="col-lg-6 mb-4">
-    <div class="card shadow mb-4">
-    		<div class="card-body">
-    			<div class="row">
-    				<div class="col-md-12"><span id="map_address" class="text-xs font-weight-bold text-info text-uppercase mb-1"></span></div>
-    			</div>
-
-    			<div class="row">
-    				<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
-    			</div>
-    			<div class="row">
-    				<div class="col-md-10">
-							<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
-							<div id="tagArrayarea"></div>
-    				</div>
-    				<div class="col-md-2">
-    					<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
-    				</div>
-    			</div>
-    			<div class="row">
-    				<div class="col-md-12 text-left"><span id="input_memo_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
-    			</div>
-    			<div class="row">
-    				<div class="col-md-10">
-							<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='4'></textarea>
-						</div>
-						<div class="col-md-2">
-							<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
-						</div>
-					</div>
-          <div class="row">
-						<div class="col-md-12">
-							<hr size="1" color="#efefef">
-	            <div class="btn-group" role="group">
-	      		      <button class='btn btn-secondary btn-sm' type='button' id="btnForSharing">공유하기</button>
-	                <button class='btn btn-secondary btn-sm' type='button' id="btnForPublic">공개하기</button>
-	        		    <button class='btn btn-secondary btn-sm' type='button' id="btnForLink">외부링크생성</button>
-									<button class='btn btn-secondary btn-sm' type='button' id="btnForDelete">삭제하기</button>
-	            </div>
-						</div>
-          </div>
-      	</div>
-
-      	<div class="card-body">
-      		<div id="shared_user"></div>
-      	</div>
-
-      	<div class="card-body">
-      		<div id="shared_link"></div>
-      	</div>
-    </div>
-  </div>
-</div>
-
 
 <div id="dataTable-Flight_area" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
