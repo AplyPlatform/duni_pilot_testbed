@@ -10,33 +10,47 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-var g_str_page_action = "center";
-var g_str_current_target = "private";
-var g_str_cur_lang = "KR";
-var g_str_cur_viewmode = "pilot"; // or "developer"
+let g_str_page_action = "center";
+let g_str_current_target = "private";
+let g_str_cur_lang = "KR";
+let g_str_cur_viewmode = "pilot"; // or "developer"
 
-var g_array_full_flight_rec = [];
-var g_array_full_company_list = [];
+let g_array_full_flight_rec = [];
+let g_array_full_company_list = [];
 
-var g_vector_2D_map_for_flight_rec;
-var g_layer_2D_map_for_flight_rec;
-var g_view_2D_map_for_flight_rec;
-var g_vector_2D_map_for_cada;
+let g_vector_2D_map_for_flight_rec;
+let g_layer_2D_map_for_flight_rec;
+let g_view_2D_map_for_flight_rec;
+let g_vector_2D_map_for_cada;
 
-var g_vector_2D_map_for_company;
-var g_layer_2D_map_for_company;
+let g_vector_2D_map_for_company;
+let g_layer_2D_map_for_company;
 
-var g_str_pilot_controller_for_viewmode;
-var g_str_dev_controller_for_viewmode;
+let g_str_pilot_controller_for_viewmode;
+let g_str_dev_controller_for_viewmode;
 
-var oldLat = 0, oldLng = 0, oldAlt = 0;
+let oldLat = 0, oldLng = 0, oldAlt = 0;
 
-var c3ddataSource;
+let c3ddataSource;
 
 // duni map의 기업정보 팝업
-var g_container_2D_map_for_popup;
-var g_content_2D_map_for_popup;
-var g_closer_2D_map_for_popup;
+let g_container_2D_map_for_popup;
+let g_content_2D_map_for_popup;
+let g_closer_2D_map_for_popup;
+
+
+let fixedFrameTransform;
+let planePrimitives;
+let v3DMapViewer;
+let v3DMapCate;
+let p3DMapEntity;
+let s3DMapScene;
+
+let oldScatterdatasetIndex = -1;
+let oldScatterpointIndex = -1;
+
+let oldLinedatasetIndex = -1;
+let oldLinepointIndex = -1;
 
 
 function isRecordFile(filename) {
@@ -386,6 +400,333 @@ function convert2data(t) {
 }
 
 
+
+function addChartItem(i, item) {
+    g_array_flight_rec.push(item);
+    g_array_altitude_data_for_chart.push({ x: Math.round(item.dsec), y: item.alt });
+}
+
+function setSlider(i) {
+		if ($("#slider").length <= 0) return;
+
+    $("#slider").on("slidestop", function (event, ui) {
+        let locdata = g_array_flight_rec[ui.value];
+        setMoveActionFromSliderOnStop(ui.value, locdata);
+    });
+
+    $('#slider').slider({
+        min: 0,
+        max: i - 1,
+        value: 0,
+        step: 1,
+        slide: function (event, ui) {
+            let locdata = g_array_flight_rec[ui.value];
+            setMoveActionFromSliderOnMove(ui.value, locdata);
+        }
+    });
+}
+
+
+function setSliderPos(i) {
+    if ($("#slider").length <= 0) return;
+
+    if (i < 0) {
+        $('#sliderText').html("-");
+        return;
+    }
+
+    $("#slider").slider('value', i);
+    $('#sliderText').html(i);
+}
+
+
+function drawLineGraph() {
+    let ctx2 = document.getElementById('lineGraph').getContext('2d');
+    let linedataSet = {
+        datasets: [
+            {
+                label: GET_STRING_CONTENT('altitude_msg'),
+                borderColor: '#4bc6ff',
+                backgroundColor: '#9bdfff',
+                data: g_array_altitude_data_for_chart
+            }
+        ]
+    };
+
+    document.getElementById("lineGraph").onclick = function (evt) {
+        GATAGM('detail_altitude_graph_click', 'CONTENT');
+
+        let activePoints = window.myLine.getElementsAtEvent(evt);
+
+        if (activePoints.length > 0) {
+            let clickedDatasetIndex = activePoints[0]._index;
+
+            let locdata = g_array_flight_rec[clickedDatasetIndex];
+            if ("lng" in locdata && "lat" in locdata) {
+                setMoveActionFromLineChart(clickedDatasetIndex, locdata);
+            }
+        }
+    };
+
+    window.myLine = new Chart(ctx2, {
+        type: 'scatter',
+        data: linedataSet,
+        tooltipEvents: ["click"],
+        options: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: false,
+                text: 'Temperature : RED / Humidity : BLUE'
+            },
+            events: ['click'],
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        let locdata = g_array_flight_rec[tooltipItem.index];
+                        return locdata.alt.toFixed(2) + "m / " + locdata.dsec.toFixed(1) + "sec(s)";
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 30,
+                        top: 20,
+                        bottom: 20
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+function addPosIconsTo2DMap(posIcons) {
+    if (posIcons.length <= 0) return;
+
+    g_cur_2D_mainmap.on('click', function (evt) {
+        GATAGM('small_map_click', 'CONTENT');
+
+        let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
+            function (feature) {
+                return feature;
+            });
+
+        let locdata = null;
+        if (feature) {
+            let ii = feature.get('mindex');
+            locdata = g_array_flight_rec[ii];
+
+            setMoveActionFromMap(ii, locdata);
+        }
+
+        let lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+        if (locdata)
+            showCurrentInfo([lonlat[0], lonlat[1]], locdata.alt);
+        else
+            showCurrentInfo([lonlat[0], lonlat[1]], '0');
+
+    });
+
+    let pSource = new ol.source.Vector({
+        features: posIcons
+    });
+
+    g_layer_2D_map_for_icon = new ol.layer.Vector({
+        source: pSource
+    });
+
+    g_cur_2D_mainmap.addLayer(g_layer_2D_map_for_icon);
+
+}
+
+
+function drawLineTo2DMap(map, lineData) {
+    let lines = new ol.geom.LineString(lineData);
+    let lineSource = new ol.source.Vector({
+        features: [new ol.Feature({
+            geometry: lines,
+            name: 'Line'
+        })]
+    });
+    g_layer_2D_map_for_line = new ol.layer.Vector({
+        source: lineSource,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#55a6cc',
+                width: 2
+            })
+        })
+    });
+
+    map.addLayer(g_layer_2D_map_for_line);
+}
+
+function addFlightRecordDataToView(cdata, bfilter) {
+
+    if (isSet(cdata) == false || cdata.length <= 0 || cdata == "" || cdata == "-") {
+        if (bfilter == true) {
+            cdata = g_array_flight_rec;
+        }
+        else {
+        		//\uC704\uCE58 \uB370\uC774\uD130\uAC00 \uC5C6\uC74C.
+            return false;
+        }
+    }
+
+    let arrayMapPosIcons = [];
+    let lineData = [];
+
+		let rlng, rlat;
+    cdata.forEach(function (item, i, arr) {
+
+        if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
+        	return true;
+				}
+
+        addChartItem(i, item);
+
+        let pos_icon = new ol.Feature({
+		        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+		        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+		        mindex: i
+		    });
+
+		    let pos_icon_color = getColorPerAlt(item.alt);
+
+		    if ("etc" in item && "marked" in item.etc) {
+		        pos_icon_color = '#ff0000';
+		    }
+
+		    pos_icon.setStyle(new ol.style.Style({
+		        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+		            color: pos_icon_color,
+		            crossOrigin: 'anonymous',
+		            opacity: 0.55,
+		            src: "./imgs/position4.png"
+		        }))
+		    }));
+
+		    arrayMapPosIcons.push(pos_icon);
+
+        lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
+
+        oldLat = item.lat;
+        oldLng = item.lng;
+        oldAlt = item.alt;
+
+        if (isSet(rlat) == false) {
+        	rlat = oldLat;
+        }
+
+        if (rlat > oldLat) {
+        		rlat = oldLat;
+        		rlng = oldLng;
+        }
+    });
+
+    //if (isSet(g_layer_2D_map_for_line))
+    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
+
+    //if (isSet(g_layer_2D_map_for_icon))
+    //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);		
+
+    setSlider(cdata.length - 1);
+
+    drawLineTo2DMap(g_cur_2D_mainmap, lineData);
+
+    addPosIconsTo2DMap(arrayMapPosIcons);
+
+    drawLineGraph();
+
+    draw3DMap();    
+
+    return true;
+}
+
+
+function setYawStatus(yaw) {
+    if ($('#yawStatus').length <= 0) return;
+    let yawStatus = document.getElementById('yawStatus');
+    if (!isSet(yawStatus)) return;
+    if (!isSet(yaw)) return;
+
+    yaw = yaw * 1;
+    let degree = yaw < 0 ? (360 + yaw) : yaw;
+    //yaw = Math.PI/180 * yaw;
+
+    $("#yawStatus").attr("src", $("#yawStatus").attr("src"));
+
+    $('#yawStatus').css({
+        'transform': 'rotate(' + degree + 'deg)',
+        '-ms-transform': 'rotate(' + degree + 'deg)',
+        '-moz-transform': 'rotate(' + degree + 'deg)',
+        '-webkit-transform': 'rotate(' + degree + 'deg)',
+        '-o-transform': 'rotate(' + degree + 'deg)'
+    });
+
+    yaw = yaw.toFixed(3);
+    $('#yawText').text(yaw);
+}
+
+
+function setPitchStatus(pitch) {
+    if ($('#pitchStatus').length <= 0) return;
+    let pitchStatus = document.getElementById('pitchStatus');
+    if (!isSet(pitchStatus)) return;
+    if (!isSet(pitch)) return;
+
+    pitch = pitch * 1; //
+    let degree = pitch * -1;
+    degree = degree < 0 ? (360 + degree) : degree;
+    //degree = Math.PI/180 * degree;
+
+    $("#pitchStatus").attr("src", $("#pitchStatus").attr("src"));
+
+    $('#pitchStatus').css({
+        'transform': 'rotate(' + degree + 'deg)',
+        '-ms-transform': 'rotate(' + degree + 'deg)',
+        '-moz-transform': 'rotate(' + degree + 'deg)',
+        '-webkit-transform': 'rotate(' + degree + 'deg)',
+        '-o-transform': 'rotate(' + degree + 'deg)'
+    });
+
+    pitch = pitch.toFixed(3);
+    $('#pitchText').text(pitch);
+}
+
+function setRollStatus(roll) {
+    if ($('#rollCanvas').length <= 0) return;
+    let canvas = document.getElementById('rollCanvas');
+    if (!isSet(canvas)) return;
+    if (!isSet(roll)) return;
+
+    roll = roll * 1;
+    let degrees = 180 + roll;
+    let degrees2 = degrees + 180;
+
+    if (degrees2 > 360) degrees2 = degrees2 - 360;
+
+    let radians1 = (Math.PI / 180) * degrees;
+    let radians2 = (Math.PI / 180) * degrees2;
+
+    let context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.arc(30, 30, 20, radians1, radians2, true);
+    context.closePath();
+    context.lineWidth = 1;
+    context.fillStyle = 'blue';
+    context.fill();
+    context.strokeStyle = '#0000aa';
+    context.stroke();
+
+    roll = roll.toFixed(3);
+    $('#rollText').text(roll);
+}
+
+
 function getColorPerAlt3d(alt) {
 		if(alt < 0) alt = 0;
 
@@ -492,6 +833,511 @@ function GATAGM(event_name, category, label) {
         { "event_category": category, "event_label": label }
     );
 }
+
+function setKalmanFilter() {
+    addFlightRecordDataToView(null, true);
+    $('#btnForFilter').prop('disabled', true);
+}
+
+
+function addObjectTo3DMap(index, owner, kind) {
+    addObjectTo3DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038, 3000);
+}
+
+
+function computeCirclularFlight(start) {
+    let property = new Cesium.SampledPositionProperty();
+
+    if (!isSet(v3DMapViewer)) return null;
+
+    v3DMapViewer.entities.removeAll();
+
+    let i = 0;
+    g_array_flight_rec.forEach(function (item) {
+        let time = Cesium.JulianDate.addSeconds(
+            start,
+            i,
+            new Cesium.JulianDate()
+        );
+        let position = Cesium.Cartesian3.fromDegrees(
+            item.lng,
+            item.lat,
+            item.alt
+        );
+        property.addSample(time, position);
+
+        let icon_color = getColorPerAlt3d(item.alt);
+
+        //Also create a point for each sample we generate.
+        v3DMapViewer.entities.add({
+            position: position,
+            point: {
+                pixelSize: 1,
+                color: icon_color,
+                outlineWidth: 0
+            },
+        });
+
+        i++;
+    });
+
+    return property;
+}
+
+
+function map3DInit() {
+  	if(g_b_3D_map_on == false) {
+	    $("#main3dMap").hide();//for the license
+	    $("#map3dViewer").text(GET_STRING_CONTENT('msg_sorry_now_on_preparing'));
+	    return;
+		}
+
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
+    v3DMapViewer = new Cesium.Viewer("main3dMap", {
+        infoBox: false, //Disable InfoBox widget
+        selectionIndicator: false, //Disable selection indicator
+        shouldAnimate: false, // Enable animations
+        baseLayerPicker: false,
+        timeline: false,
+        animation: false,
+        clock: false,
+        fullscreenButton: true,
+        geocoder: false,
+        scene3DOnly: true,
+        homeButton: false,
+        navigationHelpButton: true,
+        navigationInstructionsInitiallyVisible: false,
+        automaticallyTrackDataSourceClocks: false,
+        orderIndependentTranslucency: false,
+        terrainProvider: Cesium.createWorldTerrain(),
+    });
+
+    v3DMapViewer.scene.globe.enableLighting = false;
+    v3DMapViewer.scene.globe.depthTestAgainstTerrain = true;
+    Cesium.Math.setRandomNumberSeed(3);
+
+    fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
+        "north",
+        "west"
+    );
+
+    s3DMapScene = v3DMapViewer.scene;
+
+    const osmBuildings = s3DMapScene.primitives.add(Cesium.createOsmBuildings());
+
+    //Actually create the entity
+    p3DMapEntity = v3DMapViewer.entities.add({
+        path: {
+            resolution: 1,
+            material: new Cesium.PolylineGlowMaterialProperty({
+                glowPower: 0.1,
+                color: Cesium.Color.AQUA,
+            }),
+            width: 10,
+        }
+    });
+
+    c3ddataSource = new Cesium.GeoJsonDataSource();
+    v3DMapViewer.dataSources.add(c3ddataSource);
+
+    v3DMapViewer.trackedEntity = undefined;
+    v3DMapViewer.zoomTo(
+        v3DMapViewer.entities,
+        new Cesium.HeadingPitchRange(
+            Cesium.Math.toRadians(-90),
+            Cesium.Math.toRadians(-15),
+            1000
+        )
+    );
+    
+    let helper = new Cesium.EventHelper();
+		helper.add(v3DMapViewer.scene.globe.tileLoadProgressEvent, function (event) {			
+			if (event == 0) {				
+				$("#loaderFor3DMap").hide();
+			}
+		});
+
+    v3DMapCate = new Cesium.Cartesian3();
+    planePrimitives = {};
+    
+    if($("#loaderFor3DMap").length) {
+    	$("#loaderFor3DMap").show();
+    }
+}
+
+function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
+    if (typeof Cesium !== "undefined") {
+        if (!isSet(planePrimitives)) return;
+
+        let position = Cesium.Cartesian3.fromDegrees(
+            lng,
+            lat,
+            alt);
+
+        yaw = yaw * 1;
+        yaw = yaw < 0 ? (360 + yaw) : yaw;
+        yaw = Math.PI / 180 * yaw;
+
+        pitch = pitch * 1;
+        pitch = pitch < 0 ? (360 + pitch) : pitch;
+        pitch = Math.PI / 180 * pitch;
+
+        roll = roll * 1;
+        roll = roll < 0 ? (360 + roll) : roll;
+        roll = Math.PI / 180 * roll;
+
+        let hpRoll = new Cesium.HeadingPitchRoll();
+        hpRoll.pitch = pitch;
+        hpRoll.heading = yaw;
+        hpRoll.roll = roll;
+
+        Cesium.Transforms.headingPitchRollToFixedFrame(
+            position,
+            hpRoll,
+            Cesium.Ellipsoid.WGS84,
+            fixedFrameTransform,
+            planePrimitives[owner][index].modelMatrix
+        );                
+    }
+}
+
+function remove2dObjects() {
+    if (g_array_point_cur_2D_mainmap_for_object != null) {
+        g_array_point_cur_2D_mainmap_for_object.forEach(function (owner) {
+            owner.forEach(function (cur_pos) {
+                g_vector_2D_mainmap_for_object.removeFeature(cur_pos);
+            });
+        });
+    }
+
+    g_array_icon_cur_2D_mainmap_for_object = null;
+}
+
+function addObjectTo2DMapWithGPS(index, owner, kind, lat, lng) {
+    if (!isSet(g_vector_2D_mainmap_for_object)) return;
+
+    if (!isSet(g_array_point_cur_2D_mainmap_for_object)) {
+        g_array_point_cur_2D_mainmap_for_object = [];
+        g_array_icon_cur_2D_mainmap_for_object = [];
+    }
+
+    if (!(owner in g_array_point_cur_2D_mainmap_for_object)) {
+        g_array_point_cur_2D_mainmap_for_object[owner] = [];
+        g_array_icon_cur_2D_mainmap_for_object[owner] = [];
+    }
+
+    let current_pos = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([lng, lat]))
+    });
+
+    let dsrc = './imgs/position.png';
+    if (kind == "drone") {
+        dsrc = './imgs/position2.png';
+    }
+
+    let current_pos_image = new ol.style.Icon(({
+        //color: '#8959A8',
+        scale: 1.4,
+        crossOrigin: 'anonymous',
+        src: dsrc
+    }));
+
+    if (owner == "private" && kind == "drone")
+        current_pos.setStyle(style2DObjectFunction(current_pos_image, ""));
+    else
+        current_pos.setStyle(style2DObjectFunction(current_pos_image, index + " : " + kind + " / " + owner));
+
+    g_array_point_cur_2D_mainmap_for_object[owner].push(current_pos);
+    g_array_icon_cur_2D_mainmap_for_object[owner].push(current_pos_image);
+
+    g_vector_2D_mainmap_for_object.addFeature(current_pos);
+}
+
+
+function addObjectTo2DMap(index, owner, kind) {    
+    addObjectTo2DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038);
+}
+
+function map2DInit() {
+
+    let styles = [
+				'Road (Detailed)',
+        'Road',
+        'Aerial',
+        'AerialWithLabels'
+    ];
+    let maplayers = [];
+
+    maplayers.push(
+				new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    })
+		);
+
+		let style_len = styles.length;
+    for (let i = 1; i <= style_len; i++) {
+        maplayers.push(new ol.layer.Tile({
+            visible: false,
+            preload: Infinity,
+            source: new ol.source.BingMaps({
+                key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
+                imagerySet: styles[i],
+                // use maxZoom 19 to see stretched tiles instead of the BingMaps
+                // "no photos at this zoom level" tiles
+                maxZoom: 19
+            })
+        }));
+    }
+
+    let dokdo = ol.proj.fromLonLat([126.5610038, 33.3834381]);
+    let scaleLineControl = new ol.control.ScaleLine();
+
+    g_vector_2D_mainmap_for_design_icon = new ol.source.Vector();
+
+    g_view_cur_2D_mainmap = new ol.View({
+        center: dokdo,
+        zoom: 17
+    });
+
+    let geolocation = new ol.Geolocation({
+        trackingOptions: {
+            enableHighAccuracy: true
+        },
+        projection: g_view_cur_2D_mainmap.getProjection()
+    });
+
+    g_vector_2D_mainmap_for_cada = new ol.source.Vector({});
+    g_vector_2D_mainmap_for_cada.on('tileloaderror', function () {
+        showAlert(GET_STRING_CONTENT('msg_failed_to_load_map_sorry'));
+    });
+
+    let pointLayer = new ol.layer.Vector({
+        source: g_vector_2D_mainmap_for_cada,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 255, 255, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: '#ff0000',
+                width: 2
+            }),
+            image: new ol.style.Circle({
+                radius: 7,
+                fill: new ol.style.Fill({
+                    color: '#ff0000'
+                })
+            })
+        })
+    });
+
+    scaleLineControl.setUnits("metric");
+
+		g_vector_2D_mainmap_for_object = new ol.source.Vector();
+
+    let vectorLayer = new ol.layer.Vector({
+        source: g_vector_2D_mainmap_for_object,
+        zIndex: 100
+    });
+
+    maplayers.push(pointLayer);
+    maplayers.push(vectorLayer);
+
+    // update the HTML page when the position changes.
+    geolocation.on('change', function () {
+    		if (!$('#accuracy')) return;
+
+        $('#accuracy').text(geolocation.getAccuracy() + ' [m]');
+        $('#altitude').text(geolocation.getAltitude() + ' [m]');
+        $('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
+        $('#heading').text(geolocation.getHeading() + ' [rad]');
+        $('#speed').text(geolocation.getSpeed() + ' [m/s]');
+        let pos = geolocation.getPosition();
+        let lonLat = ol.proj.toLonLat(pos);
+        moveToPositionOnMap("private", 0, lonLat[1], lonLat[0], 0, geolocation.getHeading(), 0, 0);
+    });
+
+    // handle geolocation error.
+    geolocation.on('error', function (error) {
+        let info = $('#monitor');
+        if (info)
+        	info.text(error.message);
+    });
+
+    if ($('#track').length) {
+        $('#track').change(function () {
+            geolocation.setTracking($("#track").is(":checked"));
+        });
+    }
+
+    let select = document.getElementById('layer-select');
+    if (isSet(select)) {
+        select.addEventListener('change', function () {
+            let select = document.getElementById('layer-select');
+            let style = select.value;
+            for (let i = 0; i < style_len; ++i) {
+                maplayers[i].setVisible(styles[i] === style);
+            }
+        });
+    }
+
+    maplayers[3].setVisible(true); //AerialWithLabels
+    maplayers[4].setVisible(true); //pointLayer
+    maplayers[5].setVisible(true); //vectorLayer
+
+
+  	let overviewMapControl = new ol.control.OverviewMap({
+		  layers: [
+		    new ol.layer.Tile({
+		      source: new ol.source.OSM(),
+		    }) ],
+		  collapsed : false
+		});
+
+
+    g_cur_2D_mainmap = new ol.Map({
+        target: 'mainMap',
+        controls: ol.control.defaults().extend([
+            scaleLineControl, overviewMapControl
+        ]),
+        layers: maplayers,
+        // Improve user experience by loading tiles while animating. Will make
+        // animations stutter on mobile or slow devices.
+        loadTilesWhileAnimating: true,
+        view: g_view_cur_2D_mainmap
+    });
+
+
+    let curCoodinate;
+    let finalPlanGenPositionLonLat = [0,0];
+
+    let modify = new ol.interaction.Modify({
+		  hitDetection: vectorLayer,
+		  source: g_vector_2D_mainmap_for_object,
+		});
+		modify.on(['modifystart', 'modifyend'], function (evt) {
+		  if(evt.type === 'modifystart')
+			  $("#mainMap").css('cursor', 'grabbing');
+			else {
+				finalPlanGenPositionLonLat = ol.proj.toLonLat(curCoodinate);
+
+				if ($('#lat').length) {
+					$('#lat').val(finalPlanGenPositionLonLat[1]);
+					$('#lng').val(finalPlanGenPositionLonLat[0]);
+				}
+
+				$("#mainMap").css('cursor', 'pointer');
+			}
+		});
+
+		let overlaySource = modify.getOverlay().getSource();
+		overlaySource.on(['addfeature', 'removefeature'], function (evt) {
+		  if(evt.type === 'addfeature')
+			  $("#mainMap").css('cursor', 'pointer');
+			else
+				$("#mainMap").css('cursor', '');
+		});
+
+		g_cur_2D_mainmap.on('pointermove', function(evt) {
+		  curCoodinate = evt.coordinate;
+
+		});
+
+		g_cur_2D_mainmap.addInteraction(modify);
+}
+
+function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
+    let location = ol.proj.fromLonLat([lng * 1, lat * 1]);
+
+    if (g_array_point_cur_2D_mainmap_for_object != null && owner in g_array_point_cur_2D_mainmap_for_object) {
+	    yaw *= 1;
+	    yaw = yaw < 0 ? (360 + yaw) : yaw;
+	    yaw = Math.PI / 180 * yaw;
+
+    	g_array_point_cur_2D_mainmap_for_object[owner][index].setGeometry(new ol.geom.Point(location));
+    	g_array_icon_cur_2D_mainmap_for_object[owner][index].setRotation(yaw);
+    }
+
+    if (isSet(g_view_cur_2D_mainmap) && owner == g_str_cur_monitor_object_owner && g_i_cur_monitor_object_index == index)
+        g_view_cur_2D_mainmap.setCenter(location);
+}
+
+
+function getColor(colorName, alpha) {
+    let color = Cesium.Color[colorName.toUpperCase()];
+    return Cesium.Color.fromAlpha(color, parseFloat(alpha));
+}
+
+function draw3DMap() {
+    let start = Cesium.JulianDate.fromDate(new Date(2015, 2, 25, 16));
+
+    let position = computeCirclularFlight(start);
+    if (!isSet(position)) return;
+
+    p3DMapEntity.position = position;
+    p3DMapEntity.orientation = new Cesium.VelocityOrientationProperty(position);
+}
+
+function remove3dObjects() {
+    if (planePrimitives != null && planePrimitives.length > 0) {
+        planePrimitives.forEach(function (owner) {
+            owner.forEach(function (pr) {
+                s3DMapScene.primitives.remove(pr);
+            });
+        });
+    }
+}
+
+function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
+
+    if (!isSet(planePrimitives)) {
+        return;
+    }
+
+    if (!(owner in planePrimitives)) {
+        planePrimitives[owner] = [];
+    }
+
+    let camera = v3DMapViewer.camera;
+
+    let position = Cesium.Cartesian3.fromDegrees(
+        lng, lat, alt
+    );
+
+    let glbUrl = window.location.origin + "/center/imgs/drone.glb",
+    		gColor, sColor;
+
+    if (kind == "drone") {
+        gColor = "YELLOW";
+        sColor = "RED";
+    }
+    else {
+    		gColor = "GREEN";
+    		sColor = "CYAN";
+    }
+
+    let hpRoll = new Cesium.HeadingPitchRoll();
+    let planePrimitive = s3DMapScene.primitives.add(
+        Cesium.Model.fromGltf({
+            url: glbUrl,
+            color: getColor(gColor, 1.0),
+            silhouetteColor: getColor(sColor, 0.6),
+            silhouetteSize: 1.0,
+            modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
+                position,
+                hpRoll,
+                Cesium.Ellipsoid.WGS84,
+                fixedFrameTransform
+            ),
+            scale: 0.15,
+            minimumPixelSize: 64,
+        })
+    );        
+    
+    planePrimitives[owner].push(planePrimitive);        
+		moveToStartPoint3D(lat, lng, alt);
+}
+
 
 
 function createNewIconFor2DMap(i, item) {
