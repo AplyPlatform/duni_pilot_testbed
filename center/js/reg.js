@@ -3,7 +3,7 @@ Copyright 2021 APLY Inc. All rights reserved.
 */
 
 
-var g_b_email_verified = false;
+let g_b_email_verified = false;
 
 $(function () {
     showLoader();
@@ -94,7 +94,10 @@ function checkEmail(){
     }
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
-            clearInterval(interval_timer);
+        		if (g_b_interval_timer >= 0)
+            	clearInterval(g_b_interval_timer);
+            g_b_interval_timer = -1;
+            
             $('#btn_check_email').prop('disabled', true);
             var jdata = {
                 "action" : "member2", 
@@ -154,7 +157,10 @@ function checkEmailCode(){
 						$('input[name="email_verification_code"]').val("");
 						$("#email_verification_input").hide();
 						showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-						clearInterval(interval_timer);
+						if (g_b_interval_timer >= 0)
+							clearInterval(g_b_interval_timer);
+						
+						g_b_interval_timer = -1;
 						g_b_email_verified = true;
 						return;
 					}
@@ -178,8 +184,8 @@ function checkEmailCode(){
 }
 
 function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    interval_timer = setInterval(function () {
+    let timer = duration, minutes, seconds;
+    g_b_interval_timer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -189,11 +195,14 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-			clearInterval(interval_timer);
-			showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-            $('#errorModal').on('hidden.bs.modal', function() {
+        	if (g_b_interval_timer >= 0)
+						clearInterval(g_b_interval_timer);
+					
+					g_b_interval_timer = -1;
+					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
+          $('#errorModal').on('hidden.bs.modal', function() {
                 location.reload();
-            });
+          });
         }
     }, 1000);
 }

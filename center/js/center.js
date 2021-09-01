@@ -3600,7 +3600,9 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-						clearInterval(g_b_interval_timer);
+        		if (g_b_interval_timer >= 0)
+							clearInterval(g_b_interval_timer);
+												
 						g_b_interval_timer = -1;
             showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
             $("#code_verification_input").hide();
