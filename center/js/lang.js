@@ -107,7 +107,7 @@ var LANG_JSON_DATA = {
         "msg_closed" : "종료",
         "msg_on_ready" : "대기중",
         "msg_accepted" : "접수완료",
-        "msg_drop_flightrecord_file": "1. 이곳에 드론의 영상과 DJI GO 4, PILOT, Litchi 앱의 비행기록 파일(*.txt, *.csv)을 올려주세요.<br>2. 드론의 영상만 올릴 수도 있습니다.<br>3. 비행기록 파일만 올릴 수도 있습니다.",
+        "msg_drop_flightrecord_file": "1. 이곳에 드론의 영상과 DJI GO 4, PILOT, Litchi 앱의 비행기록 파일(*.txt, *.csv)을 올려주세요.<br>2. 드론의 영상만 올릴 수 있습니다.<br>3. 비행기록 파일만 올릴 수 있습니다.",
         "msg_phone_vid_not_verified" : "영상판매를 진행하시려면 전화번호 인증이 필요합니다. 전화번호를 인증해 주세요.",
         "msg_phone_already_exists" : "이미 사용중인 전화번호입니다. 다른 번호를 입력해주세요.",
         "msg_verification_code_sent" : "인증번호가 전송되었습니다.",

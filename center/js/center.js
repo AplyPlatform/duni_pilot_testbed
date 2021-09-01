@@ -76,6 +76,9 @@ let g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD
 
 let g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "developer" : "/center/main_dev.html" };
 
+let recordFileForUploadFile = null;
+let videoFileForUploadFile = null;
+
 $(function () {
 		let lang = getCookie("language");
     if (isSet(lang))
@@ -312,9 +315,7 @@ function initPilotCenter() {
         });
     }
     else if (g_str_page_action == "embedcompass") {
-        $("#main_contents").load("embed_compass.html", function () {        		
-            embedCompassInit();
-        });
+        $("#main_contents").load("embed_compass.html", function () { });
     }
     else if (g_str_page_action == "recordlist") {
         $("#main_contents").load("record_list.html", function () {            
@@ -955,322 +956,6 @@ function flightrecordUploadInit() {
     }
 
     hideLoader();
-}
-
-
-function embedCompassInit() {
-		document.title = GET_STRING_CONTENT('side_menu_flight_record_embed_compass');
-    $("#head_title").text(document.title);
-
-    $('#page_about_title').text(GET_STRING_CONTENT('req_compass_embed_lable'));
-    $('#page_about_content').text(GET_STRING_CONTENT('req_compass_embed_content'));
-
-    $('#btnForUploadFlightList').text(GET_STRING_CONTENT('req_compass_embed_lable'));
-
-    $('#label_compass_file_drop_area').text(GET_STRING_CONTENT('label_compass_file_drop_area'));
-
-    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
-
-    $('#label_explain_drag').text(GET_STRING_CONTENT('label_explain_drag'));
-    $('#label_or_directly').text(GET_STRING_CONTENT('label_or_directly'));
-
-    $('#label_for_colorpicker').text(GET_STRING_CONTENT('label_for_colorpicker'));
-
-    $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
-    $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
-    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
-
-    $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
-    $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
-    $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
-		$('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
-    $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
-
-    $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
-    $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
-    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
-
-    $("#altitude_label_top").text(GET_STRING_CONTENT('altitude_label'));
-
-    $('#compass_pos_sel_label').text(GET_STRING_CONTENT('compass_pos_sel_label'));
-    $('#compass_pos_sel_option_0').text(GET_STRING_CONTENT('compass_pos_sel_option_0_label'));
-    $('#compass_pos_sel_option_1').text(GET_STRING_CONTENT('compass_pos_sel_option_1_label'));
-    $('#compass_pos_sel_option_2').text(GET_STRING_CONTENT('compass_pos_sel_option_2_label'));
-    $('#compass_pos_sel_option_3').text(GET_STRING_CONTENT('compass_pos_sel_option_3_label'));
-
-
-		$('#compass_embed_text_sel_label').text(GET_STRING_CONTENT('compass_embed_text_sel_label'));
-    $('#embed_text_sel_show').text(GET_STRING_CONTENT('embed_text_sel_show_label'));
-    $('#embed_text_sel_hide').text(GET_STRING_CONTENT('embed_text_sel_hide_label'));
-    
-    map2DInit();
-    selectMonitorIndex("private", 0);
-    addObjectTo2DMap(0, "private", "drone");
-    map3DInit();
-    addObjectTo3DMap(0, "private", "drone");
-
-		let dropArea = $("#dropArea");
-		dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function(e) {
-			e.stopPropagation();
-			e.preventDefault();
-		})
-		.on("dragover dragenter", function() {
-			dropArea.css('background-color', '#E3F2FC');
-			$("#file_upload_img").show();
-			$("#file_drop_img").hide();
-			$("#selectFileArea").hide();
-			$("#label_or_directly").hide();
-		})
-		.on('dragleave dragend drop', function() {
-			dropArea.css('background-color', '#FFFFFF');
-			$("#file_upload_img").hide();
-			$("#file_drop_img").show();
-			$("#selectFileArea").show();
-			$("#label_or_directly").show();
-		})
-		.on('drop', function(e) {
-			GATAGM('compass_file_drop', 'CONTENT');
-			let retSelected = fileDropCheckForCompass(e.originalEvent.dataTransfer.files);
-			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
-				$("#selectFileArea").hide();
-				$("#label_or_directly").hide();
-				$('#file_drop_img').hide();
-				$('#label_explain_drag').hide();
-				$('#btnForUploadFlightList').show();
-			}
-		});
-
-		$("#btnForUploadFlightList").on("click", function(e) {
-				GATAGM('compass_record_upload_btn_click', 'CONTENT');
-				uploadCheckBeforeCompassEmbed();
-		});
-
-		$("#input_direct_file").bind('change', function() {
-			GATAGM('compass_direct_file_select_btn_click', 'CONTENT');
-			let retSelected = fileDropCheckForCompass(this.files);
-			if (retSelected == true && (isSet(videoFileForUploadFile) && isSet(recordFileForUploadFile))) {
-				$('#selectFileArea').hide();
-				$("#label_or_directly").hide();
-				$('#btnForUploadFlightList').show();
-				$('#file_drop_img').hide();
-				$('#label_explain_drag').hide();
-			}
-		});
-
-		$("#input_direct_file").click(function() {
-			$(this).attr("value", "");
-			$("#input_direct_file").val("");
-		});
-
-		$("#colorPicker").spectrum({
-		  type: "color",
-		  showInput: true,
-		  showInitial: true,
-		  change: function(color) {
-		  		let rgb = color.toRgb();
-			    setCompassColor(rgb.r, rgb.g, rgb.b, rgb.a);
-			}
-		});
-
-		$("#compass_pos_sel").change(function() {
-     $("#compass_pos_sel option:selected").each(function() {
-     			GATAGM('compass_position_select_click', 'CONTENT');
-          setCompassPos($(this).val() * 1);
-     });
-		});
-
-		$("#embed_text_sel").change(function() {
-     $("#embed_text_sel option:selected").each(function() {
-     			GATAGM('compass_text_select_click', 'CONTENT');
-          setCompassText( ($(this).val() * 1) == 1 ? true : false );
-     });
-		});
-
-
-    $("#file_upload_img").hide();
-    $('#btnForUploadFlightList').hide();
-    $('#selectFileArea').show();
-    $("#label_or_directly").show();
-    $("#mapArea").hide();
-    $("#youtube_example_area").show();
-    $("#video_example_area").hide();
-
-    if (g_str_cur_lang != "KR") {
-    	$("#ad_for_pilot").hide(); //드론 영상으로 수익 창출 광고 감추기 (국내만 대상으로 하기)
-    }
-
-    compass_video = document.getElementById("compass_video");
-		compass_canvas = document.getElementById('compass_output');
-}
-
-function onOpenCvReady() {
-		hideLoader();
-}
-
-let recordFileForUploadFile = null;
-let videoFileForUploadFile = null;
-
-function fileDropCheckForCompass(files) {
-	if (files.length > 2) {
-		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return false;
-	}
-
-	if (files.length == 2) {
-		if (isSet(recordFileForUploadFile) || isSet(videoFileForUploadFile)) {
-			showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-			return false;
-		}
-	}
-
-	let isAdded = false;
-	for(let i = 0; i < files.length; i++) {
-		let file = files[i];
-
-		if (isRecordFile(file.name)) {
-			if (isSet(recordFileForUploadFile)) {
-				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return false;
-			}
-			else {
-				recordFileForUploadFile = file;
-				previewForCompassFile(file, "record");
-				isAdded = true;
-			}
-		}
-
-		if (isMovieFile(file.name)) {
-			if (isSet(videoFileForUploadFile)) {
-				showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-				return false;
-			}
-			else {
-				videoFileForUploadFile = file;
-				playCompassVideo(file);
-
-				$("#video_example_area").show();
-				$("#youtube_example_area").hide();
-
-				previewForCompassFile(file, "video");
-				isAdded = true;
-			}
-		}
-	}
-
-	if (isAdded == false) {
-		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return false;
-	}
-
-	return true;
-}
-
-
-function uploadCheckBeforeCompassEmbed() {
-	if (!isSet(recordFileForUploadFile) || !isSet(videoFileForUploadFile)) {
-		showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-		return;
-	}
-
-	showLoader();
-	$('#btnForUploadFlightList').prop('disabled', true);
-
-	let record_kind = "dji";
-	if (getFileExtension(recordFileForUploadFile.name).toUpperCase() == "CSV") {
-		record_kind = "litchi";
-	}
-
-	let params = {file : recordFileForUploadFile};
-	getBase64(params, function(ret) {
-		requestUploadForCompass(ret.base64file, record_kind, getFileExtension(videoFileForUploadFile.name), recordFileForUploadFile.target.find("progress"));
-	});
-}
-
-function requestUploadForCompass(base64Recordfile, record_kind, tempExt, progressBar) {
-		let userid = getCookie("dev_user_id");
-    let jdata = {
-    	"action": "position",
-    	"daction": "req_upload",
-			"record_kind" : record_kind,
-    	"clientid": userid,
-    	"extension" : tempExt,
-    	"recordfile" : base64Recordfile
-    };
-
-    ajaxRequest(jdata, function (r) {
-    	if(r.result != "success") {
-    		$('#btnForUploadFlightList').prop('disabled', false);
-    		hideLoader();
-
-				if (r.result_code == -1 && r.reason.indexOf("failed to decode") >= 0) {
-    			GATAGM('compass_dji_file_upload_analyze_compass_failed', 'CONTENT');
-        	showAlert(GET_STRING_CONTENT('msg_select_another_file'));
-        }
-        else showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
-
-    		return;
-    	}
-
-    	progressBar.val(100);
-
-    	if (isSet(r.data)) {
-    		$("#mapArea").show();
-    		addFlightRecordDataToView(r.data, false);
-    	}
-
-    	runNextSequence( function () {
-					videoFileUpload(videoFileForUploadFile, r.filename, r.extension, r.signedurl);
-			} );
-    }, function (request, status, error) {
-      $('#btnForUploadFlightList').prop('disabled', false);
-      hideLoader();
-      showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
-    });
-}
-
-function embedRequest(filename, tempExt) {
-
-		let color = $("#colorPicker").spectrum("get");
-		let compass_position = $("#compass_pos_sel").children("option:selected").val();
-		let embedText = $("#embed_text_sel").children("option:selected").val();
-
-		let userid = getCookie("dev_user_id");
-    let jdata = {
-    	"action": "position",
-    	"daction": "compass_embed",
-    	"clientid": userid,
-    	"extension" : tempExt,
-    	"filename" : filename,
-    	"color": color.toRgb(),
-    	"show_text": embedText,
-    	"pos" : compass_position
-    };
-
-    ajaxRequest(jdata, function (r) {
-    		hideLoader();
-        if (r.result == "success") {
-        	setProgress(100); //전체 프로그레스바 진행
-        	showAlert(GET_STRING_CONTENT("msg_pre_embed_compass_request_received") + getCookie("user_email") + GET_STRING_CONTENT("msg_post_embed_compass_request_received"));
-        	$('#btnForUploadFlightList').prop('disabled', false);
-
-        	$("#file_thumb_video").remove();
-        	$("#file_thumb_record").remove();
-					recordFileForUploadFile = null;
-					videoFileForUploadFile = null;
-
-					$('#selectFileArea').show();
-					$("#label_or_directly").show();
-					$('#btnForUploadFlightList').hide();
-        }
-        else {
-        	$('#btnForUploadFlightList').prop('disabled', false);
-        	showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + r.reason);
-        }
-    }, function (request, status, error) {
-    		hideLoader();
-        $('#btnForUploadFlightList').prop('disabled', false);
-        showAlert(GET_STRING_CONTENT("msg_error_sorry") + " : " + error);
-    });
 }
 
 
@@ -4806,14 +4491,14 @@ function onYouTubeIframeAPIReady() {
             'onReady': onPlayerReady, //\uB85C\uB529\uD560\uB54C \uC774\uBCA4\uD2B8 \uC2E4\uD589
             'onStateChange': onPlayerStateChange //\uD50C\uB808\uC774\uC5B4 \uC0C1\uD0DC \uBCC0\uD654\uC2DC \uC774\uBCA4\uD2B8\uC2E4\uD589
         }
-    });//youTubePlayer1\uC14B\uD305
+    });
 }
 
 function onPlayerReady(event) {
     event.target.playVideo();//\uC790\uB3D9\uC7AC\uC0DD
 
     let lastTime = -1;
-    let interval = 1000;
+    let interval = 500;
 
     let checkPlayerTime = function () {
         if (lastTime != -1) {
