@@ -164,6 +164,8 @@ $(function () {
 	
 	    compass_video = document.getElementById("compass_video");
 			compass_canvas = document.getElementById('compass_output');
+			
+			hideLoader();
 	}		
 
 	function fileDropCheckForCompass(files) {
