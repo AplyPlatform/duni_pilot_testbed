@@ -5354,6 +5354,14 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         })
     );
     
+    let transform = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lng, lat));
+
+		camera.constraintedAxis = Cesium.Cartesian3.UNIT_Z;
+		camera.lookAtTransform(transform, new Cesium.Cartesian3(-10000.0, -10000.0, 25000.0));
+
+		v3DMapViewer.trackedEntity = undefined;
+		v3DMapViewer.zoomTo(v3DMapViewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
+    
     planePrimitives[owner].push(planePrimitive);		
 }
 
