@@ -315,11 +315,13 @@ function initPilotCenter() {
         $("#main_contents").load("embed_compass.html", function () { });
     }
     else if (g_str_page_action == "recordlist") {
+    		g_str_current_target = "private";
         $("#main_contents").load("record_list.html", function () {            
             flightrecordListInit("private");
         });
     }
     else if (g_str_page_action == "publicrecordlist") {
+    		g_str_current_target = "public";
         $("#main_contents").load("record_list.html", function () {
             selectMonitorIndex("private", 0);
             addObjectTo2DMap(0, "private", "drone");            
@@ -327,9 +329,11 @@ function initPilotCenter() {
         });
     }
     else if (g_str_page_action == "publicrecordlist_detail") {
+    		g_str_current_target = "public";
         $("#main_contents").load("record_detail.html", function () { });
     }
     else if (g_str_page_action == "recordlist_detail") {
+    		g_str_current_target = "private";
         $("#main_contents").load("record_detail.html", function () { });
     }
     else if (g_str_page_action == "summary_list") {
@@ -1193,8 +1197,7 @@ function flightrecordListInit(target) {
     });
 
     $('#loadMoreArea').hide();
-
-    g_str_current_target = target;
+    
     initYoutubeAPIForFlightList();
 }
 
