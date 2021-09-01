@@ -4047,15 +4047,15 @@ function setFlightRecordToView(target, name, fdata) {
         
         let exist_data = addFlightRecordDataToView(target, fdata.data, false);                
 				if (exist_data == false) {
-					$("#altitude_graph_area").hide();
-          $("#map_area").hide();
-          $("#no_record_data_view").show();                                                  
+					$("#map_area").hide();
+					$("#altitude_graph_area").hide();          
+          $("#no_record_data_view").show();                                                            
           moveToPositionOnMap(target, 0, fdata.flat * 1, fdata.flng * 1, 1500, 0, 0, 0);
 				}
 				else {
-					g_cur_str_flight_rec_fid = fdata.fid;
-					moveToPositionOnMap(target, 0, fdata.data[0].lat * 1, fdata.data[0].lng * 1, 1500, 0, 0, 0);
 					$("#no_record_data_view").hide();
+					g_cur_str_flight_rec_fid = fdata.fid;
+					moveToPositionOnMap(target, 0, fdata.data[0].lat * 1, fdata.data[0].lng * 1, 1500, 0, 0, 0);					
 				}
 
 				if (isSet(fdata.cada)) {
