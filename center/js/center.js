@@ -5355,33 +5355,16 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
             minimumPixelSize: 64,
         })
     );
-
-		/*
-    planePrimitive.readyPromise.then(function (model) {
-        // Play and loop all animations at half-speed
-        model.activeAnimations.addAll({
-            multiplier: 0.5,
-            loop: Cesium.ModelAnimationLoop.REPEAT,
-        });
-
-        let r = 2.0 * Math.max(model.boundingSphere.radius, camera.frustum.near);
-        Cesium.Matrix4.multiplyByPoint(
-            model.modelMatrix,
-            model.boundingSphere.center,
-            v3DMapCate
-        );
-        let heading = Cesium.Math.toRadians(230.0);
-        let pitch = Cesium.Math.toRadians(-20.0);
-        let hpRange = new Cesium.HeadingPitchRange();
-        hpRange.heading = heading;
-        hpRange.pitch = pitch;
-        hpRange.range = r * 50.0;
-        camera.lookAt(v3DMapCate, hpRange);
-    });
-    */
-
+    
     planePrimitives[owner].push(planePrimitive);
 
+		let transform = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(lng, lat));
+		
+		camera.constraintedAxis = Cesium.Cartesian3.UNIT_Z;
+		camera.lookAtTransform(transform, new Cesium.Cartesian3(-10000.0, -10000.0, 25000.0));
+		
+		v3DMapViewer.trackedEntity = undefined;
+		v3DMapViewer.zoomTo(v3DMapViewer.entities, new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90)));
 }
 
 function addObjectTo3DMap(index, owner, kind) {
