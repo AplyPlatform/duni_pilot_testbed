@@ -100,8 +100,8 @@ function checkEmail(){
             var jdata = {
                 "action" : "member", 
                 "daction" : "validate_email", 
-                "email" : email };
-                //,"g_token" : token};
+                "g_token" : token,
+                "email" : email };                
             ajaxRequest(jdata,
                 function(data){
                     let result = data.result_code;
