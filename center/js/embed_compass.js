@@ -488,3 +488,6 @@ $(function () {
 	    }
 	}
 });
+
+
+//# sourceURL=embed_compass.js
