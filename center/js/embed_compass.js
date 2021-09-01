@@ -308,7 +308,7 @@ $(function () {
 	    	if (isSet(r.data)) {
 	    		$("#mapArea").show();
 	    		addFlightRecordDataToView(r.data, false);
-	    		moveToPositionOnMap("private", 0, r.data.flat * 1, r.data.flng * 1, 1500, 0, 0, 0);
+	    		moveToPositionOnMap("private", 0, r.data[0].lat * 1, r.data[0].lng * 1, 1500, 0, 0, 0);
 	    	}
 	
 	    	runNextSequence( function () {
