@@ -59,6 +59,8 @@ let oldLinepointIndex = -1;
 let g_i_cur_monitor_object_index = 0;
 let g_str_cur_monitor_object_owner = "private";
 
+let g_b_interval_timer = -1;
+
 function selectMonitorIndex(owner, index) {
     g_i_cur_monitor_object_index = index;
     g_str_cur_monitor_object_owner = owner;

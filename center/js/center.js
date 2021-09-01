@@ -4,7 +4,6 @@
 
 let g_b_monitor_started;
 let g_b_phonenumber_verified = false;
-let g_b_interval_timer = -1;
 
 let g_cur_2D_mainmap;
 let g_view_cur_2D_mainmap;
