@@ -692,7 +692,7 @@ function setItemToRecTableList() {
 	
 	let tableData = [];
 	g_array_flight_rec.forEach(function(item, index, arr) {
-		tableData.push( {"id": index,  "dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt} )
+		tableData.push( {"dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt, "id": index} )
 	});
 	
 	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["id"], /* optional parameter for TreeTable */ "subtree")
