@@ -5356,6 +5356,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         })
     );
 
+		/*
     planePrimitive.readyPromise.then(function (model) {
         // Play and loop all animations at half-speed
         model.activeAnimations.addAll({
@@ -5377,6 +5378,7 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
         hpRange.range = r * 50.0;
         camera.lookAt(v3DMapCate, hpRange);
     });
+    */
 
     planePrimitives[owner].push(planePrimitive);
 
