@@ -6043,7 +6043,7 @@ function setMoveActionFromMovie(index, item) {
     setSliderPos(index);
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
-    moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
+    moveToPositionOnMap(g_str_current_target, 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
 }
 
 function setMoveActionFromScatterChart(index, item) {
