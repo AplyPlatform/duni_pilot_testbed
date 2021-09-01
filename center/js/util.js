@@ -1645,10 +1645,9 @@ function flightRecords2DMapInit() {
             })
         })
     });
-
-    let vector_2D_for_flight_area = new ol.source.Vector({});
+    
 		let areaInfoLayer = new ol.layer.Vector({
-        source: vector_2D_for_flight_area,
+        source: new ol.source.Vector({}),
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: '#0000dd',
@@ -1656,11 +1655,9 @@ function flightRecords2DMapInit() {
             })
         })
     });
-
-    let vector_map_point_mark = new ol.source.Vector({});
-
+    
 		let pointLayer = new ol.layer.Vector({
-        source: vector_map_point_mark
+        source: new ol.source.Vector({})
     });
 
     let vMap = new ol.Map({

@@ -9851,3 +9851,115 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   z-index: 100;
 }
 
+
+
+.scrollableTableSection {
+  position: relative;
+  border: 1px solid darkgrey;
+  padding-top: 36px;
+  /* background: rgb(169, 211, 240); */
+  top: 39px;
+  left: -1px;
+  width: 600px;
+  display: block;
+}
+
+.scrollableTableContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: white;
+  border-top: 2px solid black;
+}
+
+.scrollableTable {
+  border-spacing: 0;
+  width: 100%;
+  background: white;
+}
+
+.scrollableTable tr:first-child td{
+  border: none;
+}
+
+.scrollableTable td  {
+  /* border: 1px solid rgb(200, 200, 200); */
+  border-top: 1px darkgrey dotted;
+  border-bottom: none;
+  border-left: none;
+
+  padding: 8px 4px;
+  padding-right: 30px;
+
+  cursor: pointer;
+
+  font-size: 10pt;
+}
+
+.scrollableTable th {
+  padding: 0px;
+  padding-left: 4px;
+  padding-right: 12px;
+}
+
+.scrollableTable th div{
+  position: absolute;
+  color: black;
+  padding: 9px 4px;
+  line-height: normal;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 11pt;
+  top: 2px;
+}
+
+.scrollableTableHeaderBackground {
+  background-image: url('/center/imgs/tbl/unsorted-icon.png');
+  background-repeat: no-repeat;
+  background-position: center right; /* right will be overwritten by js lib  */
+
+  cursor: pointer;
+}
+
+.scrollableTableCollapsed {
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 0px;
+  background-image: url('/center/imgs/tbl/collapsed.png')
+}
+
+.scrollableTableExpanded {
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 0px;
+  background-image: url('/center/imgs/tbl/expanded.png')
+}
+
+.scrollableTable thead tr th.headerSortUp div {
+  background-image: url('/center/imgs/tbl/black-desc.gif');
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+.scrollableTable thead tr th.headerSortDown div {
+  background-image: url('black-asc.gif');
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+.scrollableTableSelectedRow {
+ background-color: #acd7ff;
+}
+
+
+#rawRecordTable {
+  position: fixed;
+  /* border: 1px solid red; */
+  top: 56px;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+
+  margin: 0;
+}
+
