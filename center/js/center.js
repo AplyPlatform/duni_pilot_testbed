@@ -4246,7 +4246,7 @@ function onPlayerReady(event) {
     event.target.playVideo();//\uC790\uB3D9\uC7AC\uC0DD
 
     let lastTime = -1;
-    let interval = 500;
+    let interval = 1000;
 
     let checkPlayerTime = function () {
         if (lastTime != -1) {
@@ -4261,7 +4261,8 @@ function onPlayerReady(event) {
         }
         lastTime = g_youtube_player_for_detail_view.getCurrentTime();
         setTimeout(checkPlayerTime, interval); /// repeat function call in 1 second
-    }
+    };
+    
     setTimeout(checkPlayerTime, interval); /// initial call delayed
 }
 
