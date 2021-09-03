@@ -164,29 +164,7 @@
 										<hr size="1" color="#fefefe">
 									</div>
 								</div>
-								
-								<div class="row">
-									<div class="col-md-2 text-left">
-										<div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
-									</div>
-    							<div class="col-md-7">
-										<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																			 <option value="Aerial" id="Aerial_label">Aerial</option>
-																			 <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
-																			 <option value="Road" id="Road_label">Road</option>
-																			 <option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
-												</select>
-										</div>
-    							</div>
-									<div class="col-md-3 text-center">
-										<div class="btn-group btn-group-justified" data-toggle="buttons">
-											  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
-											  <a class="btn btn-info" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
-										</div>
-									</div>
-								</div>						
-
+																
 								<div id="map_area">
 										<div class="row">
 												<div class="col-md-12">
@@ -242,7 +220,30 @@
 													<hr size="1" color="#fefefe">
 												</div>
 										</div>
-								</div>						   						
+								</div>		
+								
+								<div class="row">
+									<div class="col-md-2 text-left">
+										<div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
+									</div>
+    							<div class="col-md-7">
+										<div class="h5 mb-0 font-weight-bold text-gray-800">
+												<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+																			 <option value="Aerial" id="Aerial_label">Aerial</option>
+																			 <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
+																			 <option value="Road" id="Road_label">Road</option>
+																			 <option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
+												</select>
+										</div>
+    							</div>
+									<div class="col-md-3 text-center">
+										<div class="btn-group btn-group-justified" data-toggle="buttons">
+											  <a class="btn btn-secondary active" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
+											  <a class="btn btn-info" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
+										</div>
+									</div>
+								</div>
+												   						
 			    			<div class="row">
 			    				<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
 			    			</div>
