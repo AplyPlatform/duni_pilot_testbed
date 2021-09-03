@@ -185,63 +185,62 @@
 											  <a class="btn btn-info" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
 										</div>
 									</div>
-								</div>
-								
-						</div>
+								</div>						
 
-						<div class="card-body" id="map_area">
-								<div class="row">
-										<div class="col-md-12">
-											<hr size="1" color="#fefefe">
-										</div>
-								</div>
-								<div class="row">
-										<div class="col-md-12">
-	                      <div class="row">
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="roll_label">Roll <span id="rollText"></span></div>
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="yaw_label">Head <span id="yawText"></span></div>
-	                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="pitch_label">Pitch <span id="pitchText"></span></div>
-	                      </div>
-	                      <div class="row">
-	                      	<div class="col text-center"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
-	                        <div class="col text-center"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
-	                        <div class="col text-center"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
+								<div id="map_area">
+										<div class="row">
+												<div class="col-md-12">
+													<hr size="1" color="#fefefe">
 												</div>
 										</div>
-								</div>
-								<div class="row">
-										<div class="col-md-12">
-											<hr size="1" color="#fefefe">
-										</div>
-								</div>
-								<div class="row no-gutters align-items-center" id="adjustDsecField">
-										<div class="col-md-12">
-												<div class="row">
-													<div class="col-md-12">
-														<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-6">
-														<div class="input-group">
-															<input type="text" value="0" id="goFlightRecItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
-															<span class="input-group-append">
-																<button class='btn btn-info btn-sm' type='button' id="flightRecDsecApplyBtn">적용</button>
-															</span>
+										<div class="row">
+												<div class="col-md-12">
+			                      <div class="row">
+			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="roll_label">Roll <span id="rollText"></span></div>
+			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="yaw_label">Head <span id="yawText"></span></div>
+			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="pitch_label">Pitch <span id="pitchText"></span></div>
+			                      </div>
+			                      <div class="row">
+			                      	<div class="col text-center"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
+			                        <div class="col text-center"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
+			                        <div class="col text-center"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
 														</div>
-													</div>
-													<div class="col-md-4 text-left">
-														<span class="text-xs text-default text-uppercase mb-1" id="sync_explain_label">
-															기록이 5초 늦을 경우 : -5, 기록이 5초 빠를 경우 : 5
-														</span>
-													</div>
-													<div class="col-md-2 text-left">
-															<button class='btn btn-primary btn-sm btn-block' type='button' id="flightRecDsecSaveBtn">저장</button>
-													</div>
-												</div>												
+												</div>
 										</div>
-										<div class="col-md-12">
-											<hr size="1" color="#fefefe">
+										<div class="row">
+												<div class="col-md-12">
+													<hr size="1" color="#fefefe">
+												</div>
+										</div>
+										<div class="row no-gutters align-items-center" id="adjustDsecField">
+												<div class="col-md-12">
+														<div class="row">
+															<div class="col-md-12">
+																<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="input-group">
+																	<input type="text" value="0" id="goFlightRecItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
+																	<span class="input-group-append">
+																		<button class='btn btn-info btn-sm' type='button' id="flightRecDsecApplyBtn">적용</button>
+																	</span>
+																</div>
+															</div>
+															<div class="col-md-4 text-left">
+																<span class="text-xs text-default text-uppercase mb-1" id="sync_explain_label">
+																	기록이 5초 늦을 경우 : -5, 기록이 5초 빠를 경우 : 5
+																</span>
+															</div>
+															<div class="col-md-2 text-left">
+																	<button class='btn btn-primary btn-sm btn-block' type='button' id="flightRecDsecSaveBtn">저장</button>
+															</div>
+														</div>												
+												</div>
+												<div class="col-md-12">
+													<hr size="1" color="#fefefe">
+												</div>
 										</div>
 								</div>
 						</div>
