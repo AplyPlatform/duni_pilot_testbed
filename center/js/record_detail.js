@@ -521,9 +521,7 @@ $(function () {
 	
 	            GATAGM('detail_memo_btn_click', 'CONTENT');
 	            updateFlightMemoWithValue(name, $("#memoTextarea").val());
-	        });
-	
-	
+	        });		
 	
 	        $("#flightTagBtn").click(function (e) {
 	        		e.preventDefault();
@@ -558,8 +556,9 @@ $(function () {
 							$("#btnForDelete").hide();
 							$("#recordDataSet").hide();
 							$("#flightTagBtn").hide();
+							$("#adjustDsecField").hide();
 							$("#tagTextarea").prop("disabled",true);
-	            $("#memoTextarea").prop("disabled", true);
+	            $("#memoTextarea").prop("disabled", true);	            
 	            hideMovieDataSet();
 	        }
 	        else {
