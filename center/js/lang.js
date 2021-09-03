@@ -33,7 +33,7 @@ var LANG_JSON_DATA = {
         "title_history_chkbox": "비행영상",
         "modifyBtnForMovieData": "영상정보 수정",
         "user_phone_modify_label": "전화번호 수정",
-        "merge_record_view_btn_label": "다른 비행기록과 결합해서 보기",
+        "merge_record_view_btn_label": "다른기록과 결합해서 보기",
         "record_search_field_label" : "결합대상 검색",
         "user_phone_checkcode_verify_btn_label" : "인증하기",
         "request_verify_code_btn_label" : "인증번호 전송",
