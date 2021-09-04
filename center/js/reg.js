@@ -95,7 +95,7 @@ function checkEmail(){
     grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
         		
-        		clearTimer();
+        		stopTimer();
             $('#btn_check_email').prop('disabled', true);
             var jdata = {
                 "action" : "member", 
@@ -161,7 +161,7 @@ function checkEmailCode(){
 						$('input[name="email_verification_code"]').val("");
 						$("#email_verification_input").hide();
 						showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-						clearTimer();
+						stopTimer();
 						g_b_email_verified = true;
 						return;
 					}
