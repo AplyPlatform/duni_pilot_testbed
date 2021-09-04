@@ -78,13 +78,13 @@ function startTimer(duration, display, callback) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-        	clearTimer();
+        	stopTimer();
 					callback();
         }
     }, 1000);
 }
 
-function clearTimer() {
+function stopTimer() {
 	if (g_b_interval_timer >= 0)
 		clearInterval(g_b_interval_timer);
 	

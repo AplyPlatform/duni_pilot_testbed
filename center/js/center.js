@@ -75,6 +75,8 @@ let g_array_cur_controller_for_viewmode = { "pilot" : "/center/main.html", "deve
 let recordFileForUploadFile = null;
 let videoFileForUploadFile = null;
 
+let g_i_cur_serviceListTimerId = -1;
+
 $(function () {
 		let lang = getCookie("language");
     if (isSet(lang))
@@ -612,7 +614,7 @@ function verifyPhoneCodeCommonSuccessCallback(data) {
   $("#code_verification_input").hide();
   setCookie("temp_phone", $('#user_phonenumber').val(), 1);
 	showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-	clearTimer();
+	stopTimer();
   $('#auth_code').val(data.auth_code);
 }
 
@@ -1322,7 +1324,6 @@ function requestDUNIServiceRequest(r_id, index) {
 	  });
 }
 
-let curServiceListTimerId = -1;
 function getDUNIServiceRequest(page) {
 		let userid = getCookie("dev_user_id");
     let jdata = { "action": "util", "daction": "duni_service_request_list", "clientid": userid, "page" : page };
@@ -1429,8 +1430,10 @@ function getDUNIServiceRequest(page) {
 }
 
 function startRequestTableAnimation() {
-	if (curServiceListTimerId >= 0)
-			clearTimeout(curServiceListTimerId);
+	if (g_i_cur_serviceListTimerId >= 0)
+			clearTimeout(g_i_cur_serviceListTimerId);
+	
+	g_i_cur_serviceListTimerId = -1;
 
 	$("#service_request_list_table tr").each(function(index){
 		$(this).css("visibility","hidden");
@@ -3284,7 +3287,7 @@ function verifyPhoneNo(phone_number){
     ajaxRequest(jdata,
         function (data){
             let result = data.result_code;
-            clearInterval(interval_timer);
+            stopTimer();
             if(result === 0 || result === 3){ //정상응답 - 존재하는 번호이어도 괜찮음
                 showAlert(GET_STRING_CONTENT('msg_verification_code_sent'));
                 g_b_phonenumber_verified = false;
@@ -3343,7 +3346,7 @@ function verifyCode(verification_code, successCallback){
 				}
 				else if(result === 4){
 					showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-					clearTimer();
+					stopTimer();
 				}
 				else {
 					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
