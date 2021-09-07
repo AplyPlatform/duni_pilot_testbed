@@ -17,7 +17,7 @@ $(function () {
     $("#droneplay_name").val(getCookie("temp_name"));
     $("#droneplay_email").val(getCookie("temp_email"));
 
-    $("#droneplay_name").attr("placeholder", GET_STRING_CONTENT('name_label'));
+    $("#droneplay_name").attr("placeholder", GET_STRING_CONTENT('nickname_label'));
     $("#droneplay_email").attr("placeholder", GET_STRING_CONTENT('email_label'));
     
     $("#register_label").text(GET_STRING_CONTENT('register_label'));
