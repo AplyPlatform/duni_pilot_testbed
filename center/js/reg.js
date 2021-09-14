@@ -230,7 +230,8 @@ function requestRegister() {
                 ajaxRequest(data, function (r) {
                     hideLoader();
                     if (r.result == "success") {
-                        hideLoader();
+                    		GATAGM('RegisterBtnClickAndSuccess', 'CONTENT');
+                        hideLoader();                        
                         showConfirmDialog();
                     }
                     else {

@@ -217,7 +217,8 @@ function sendAjaxData(fd) {
     contentType: false,
     cache: false,
 		success: function (data) {			
-			if (data.result == "success") {								
+			if (data.result == "success") {
+				GATAGM('RegisterPartnerBtnClickAndSuccess', 'CONTENT');
 				
 				var from_page = getCookie("from_page");
 				showAskDialog(

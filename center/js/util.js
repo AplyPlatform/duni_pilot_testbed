@@ -1070,9 +1070,9 @@ function GATAGM(event_name, category, label) {
 
     gtag(
         'event', event_name, {
-        'event_category': g_str_page_action,
-        'language' : g_str_cur_lang,
+        'event_category': g_str_page_action,        
         'event_label': c_label,
+        'language' : g_str_cur_lang,
         'userid' : userid,
         'event_position' : category,
         'location': window.location.href
