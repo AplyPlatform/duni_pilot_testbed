@@ -377,9 +377,9 @@ function setAreaInfo(ainfo) {
 		var areaVec = ai.arrayvec;
 		var _area_polyline = new ol.Feature({ geometry : new ol.geom.LineString(areaVec) });
     g_vector_2D_map_for_flight_area.addFeature(_area_polyline);		
-	});		
-	
-	$("#area_info_text").html("<H4>이 지역은 " + desc + "<br></H4><H5><font color='#fff'>" + areaString + "</font></H5>");			
+	});
+			
+	$("#area_info_text").html("<H4>이 지역은 " + desc + "<br></H4><H5><font color='#f00'>" + areaString + "</font></H5>");			
   
 }
 
