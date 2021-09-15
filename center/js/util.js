@@ -1870,7 +1870,7 @@ function flightRecords2DMapInit() {
         })
     });
     
-    g_vector_2D_map_for_point_mark = = new ol.source.Vector({});
+    g_vector_2D_map_for_point_mark = new ol.source.Vector({});
 		let pointLayer = new ol.layer.Vector({				
         source: g_vector_2D_map_for_point_mark
     });
