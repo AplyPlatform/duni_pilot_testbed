@@ -155,7 +155,7 @@ function moveFlightHistoryMapAndCada(lat, lng, cada) {
 	var latlng = lat + "_" + lng;
 	
 	$('#dataTable-Flight_list').empty();
-	$('#dataTable-Flight_list').append("<div class='text-center'><h4>이 지역을 드론으로 촬영한<br>영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io/index.php?page=rental' target='_new' onClick='GATAGM(\"util_request_duni_btn\",\"SERVICE\",\"" + latlng + "\");'>드론촬영 요청</a></div>");
+	$('#dataTable-Flight_list').append("<div class='text-center'><h4>이 지역을 드론으로 촬영한 영상이 보고 싶지 않으세요?</h4><a class='btn btn-primary btn-sm' role='button' href='https://duni.io/index.php?page=rental' target='_new' onClick='GATAGM(\"util_request_duni_btn\",\"SERVICE\",\"" + latlng + "\");'>드론촬영 요청</a></div>");
 	
 	g_view_2D_map_for_flight_rec.setCenter(npos);
 	addNewIconMarkerFor2DMap(npos, g_vector_2D_map_for_point_mark);
