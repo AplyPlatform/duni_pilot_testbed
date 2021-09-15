@@ -1860,8 +1860,9 @@ function flightRecords2DMapInit() {
         })
     });
     
+    g_vector_2D_map_for_flight_area = new ol.source.Vector({});
 		let areaInfoLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({}),
+        source: g_vector_2D_map_for_flight_area,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: '#0000dd',
