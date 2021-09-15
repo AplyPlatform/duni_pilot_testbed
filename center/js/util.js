@@ -27,6 +27,8 @@ let g_view_2D_map_for_flight_rec;
 let g_vector_2D_map_for_cada;
 let g_vector_2D_map_for_flight_area;
 
+let g_vector_2D_map_for_point_mark;
+
 let g_vector_2D_map_for_company;
 let g_layer_2D_map_for_company;
 
@@ -1868,8 +1870,9 @@ function flightRecords2DMapInit() {
         })
     });
     
-		let pointLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({})
+    g_vector_2D_map_for_point_mark = = new ol.source.Vector({});
+		let pointLayer = new ol.layer.Vector({				
+        source: g_vector_2D_map_for_point_mark
     });
 
     let vMap = new ol.Map({
