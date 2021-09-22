@@ -120,6 +120,8 @@ function checkPartnerApplicationData() {
 	
 	fd.append("form_message", $("#form_message").val());
 	
+	fd.append("form_homepage", $("#form_homepage").val());
+	
 	if (g_b_phonenumber_verified == false) {
 		showAlert("전화번호 인증을 완료해 주세요.");
 		return null;
@@ -259,12 +261,13 @@ function sendApplicationData(fd)
 	fd.append("ref", "https://pilot.duni.io");
 	fd.append("clientid", getCookie("dev_user_id"));
 	fd.append("form_email", getCookie("user_email"));
+	fd.append( 'auth_code', $('#auth_code').val() );
 	fd.append( 'fileupload1', $('input[name=fileupload1]')[0].files[0] );
 	fd.append( 'fileupload2', $('input[name=fileupload2]')[0].files[0] );
 	fd.append( 'fileupload3', $('input[name=fileupload3]')[0].files[0] );
 	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
 	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
-	fd.append( 'auth_code', $('#auth_code').val() );
+	fd.append( 'fileupload6', $('input[name=fileupload6]')[0].files[0] );	
 	
 	grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
