@@ -677,21 +677,16 @@ function flightrecordUploadInit() {
 
         uploadCheckBeforeUploadFlightList();
     });
-
-    $("#address_input_data").keypress(function (e) {
-        if (e.which == 13){
-            GATAGM('upload_address_input_enter_key', 'CONTENT');
-            // 상세주소
-        		checkAddress($("#address_input_data").val());
-        }
-    });
-
-    $('#btnForAddressCheck').click(function (e) {
-    		e.preventDefault();
-
-        GATAGM('upload_address_check_btn_click', 'CONTENT');
-        checkAddress($("#address_input_data").val());
-    });
+    
+    $("#findAddressBtn").click(function(e){
+				e.preventDefault();
+				
+				GATAGM('upload_address_find_btn_click', 'CONTENT');
+				
+				execDaumPostcode(function () {
+					checkAddress($("#address_input_data").val());
+				});				
+		});    
 
 
     $('#btn_check_code').click(function (e) {
@@ -3741,11 +3736,6 @@ function uploadFlightList(isUpdate) {
 		    	showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
     			return;
     	}
-
-    	// var uTime = new Date();
-    	// uTime.setTime(fTime);
-			// uTime.setHours(uTime.getHours() - 9);
-			// startTime = uTime.getTime();
 
     	youtube_data = massageYotubeUrl(youtube_data);
 

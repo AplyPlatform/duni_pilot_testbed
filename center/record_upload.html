@@ -134,15 +134,30 @@
 													</div>
 
 													<div id="address_location_field" class="row">
-																	<div class="col-md-6">
-							              		   	<div class="input-group">
-									                        	<input name="address_input_data" type="text" class="form-control" placeholder="" id="address_input_data">
-									                        	<div class="input-group-append">
-									                          		<button class="btn btn-info" type="button" id="btnForAddressCheck">우편번호 찾기</button>
-									            							</div>
-									            			</div>
-									            			<span id="address_result"></span>
-									          			</div>
+																	
+						              		   	<div class="col-md-12">
+						        	        				<div class="form-group">
+						        	        					<div class="row">
+							        	        					<div class="col-md-6">
+							            	        				<input class="form-control" type="text" name="postcode" id="postcode" placeholder="우편번호">
+							            	        			</div>
+							            	        			<div class="col-md-6">
+							                              <button class="btn btn-info btn-sm btn-block" role="button" id="findAddressBtn">우편번호 찾기</button> 
+							                            </div>
+							                          </div>
+						            	    				</div>
+						            					</div>                              					
+						            					<div class="col-md-6">
+						        	        				<div class="form-group">
+						            	        				<input class="form-control" type="text" name="address" id="address" placeholder="주소">                                                      
+						            	    				</div>
+						            					</div>                              					
+						            					<div class="col-md-6">
+						        	        				<div class="form-group">                                    	        				
+						                              <input class="form-control" type="text" name="detail_address" id="detail_address" placeholder="상세주소">
+						            	    				</div>
+						            					</div>
+								            				
 									          			<div class="col-md-6">
 										          				<div class="input-group">
 									              					<label for="flighttime_input_data" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="flighttime_input_data_label">촬영일시</label>&nbsp;
@@ -186,6 +201,7 @@
 											            				</div>
 									            				</div> <!-- input group -->
 																	</div> <!-- col-md-6 -->
+																	<div class="col-md-6"></div>
 													</div> <!-- address_location_field -->
 										  </div> <!-- upload_tabs -->
 
