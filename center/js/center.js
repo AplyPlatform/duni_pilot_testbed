@@ -683,8 +683,8 @@ function flightrecordUploadInit() {
 				
 				GATAGM('upload_address_find_btn_click', 'CONTENT');
 				
-				execDaumPostcode(function () {
-					checkAddress($("#address_input_data").val());
+				execDaumPostcode(function (addr) {
+					checkAddress(addr);
 				});				
 		});    
 
@@ -4208,10 +4208,7 @@ function checkAddress(address) {
 		      }
 
 		     	g_loc_address_flat = r.data.lat;
-		     	g_loc_address_flng = r.data.lng;
-
-		     	$("#address_result").text(r.data.address);
-		     	showAlert(GET_STRING_CONTENT('msg_address_checked'));
+		     	g_loc_address_flng = r.data.lng;		     			     	
 	    	}
 	    	else {
 	    		g_loc_address_flat = -999;

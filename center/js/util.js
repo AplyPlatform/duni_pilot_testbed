@@ -2282,7 +2282,7 @@ function execDaumPostcode(callback) {
 				document.getElementById("detail_address2").focus();
 				
 			if (callback)
-				callback();
+				callback(addr);
 		}
 	}).open();
 }
