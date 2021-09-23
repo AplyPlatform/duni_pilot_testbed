@@ -928,26 +928,26 @@ function flightrecordUploadInit() {
     fallbackPicker.style.display = 'none';
 
     // test whether a new datetime-local input falls back to a text input or not
-    let test = document.createElement('input');
+    let testInput = document.createElement('input');
 
     try {
-    test.type = 'datetime-local';
+    	testInput.type = 'datetime-local';
     } catch (e) {
-    console.log(e.description);
+    	console.log(e.description);
     }
 
     // if it does, run the code inside the if() {} block
-    if(test.type === 'text') {
-    // hide the native picker and show the fallback
-    nativePicker.style.display = 'none';
-    fallbackPicker.style.display = 'block';
-
-    // populate the days and years dynamically
-    // (the months are always the same, therefore hardcoded)
-    populateDays(monthSelect.value);
-    populateYears();
-    populateHours();
-    populateMinutes();
+    if(testInput.type === 'text') {
+	    // hide the native picker and show the fallback
+	    nativePicker.style.display = 'none';
+	    fallbackPicker.style.display = 'block';
+	
+	    // populate the days and years dynamically
+	    // (the months are always the same, therefore hardcoded)
+	    populateDays(monthSelect.value);
+	    populateYears();
+	    populateHours();
+	    populateMinutes();
     }
 
     hideLoader();
