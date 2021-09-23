@@ -262,7 +262,7 @@ var LANG_JSON_DATA = {
         "record_public_list_about_content": "다른 회원들의 비행기록을 확인해 보세요.",
         "register_explain_label": "아래의 '사용자서비스약관' 및 '개인정보취급방침'의 내용에 동의하시면 '동의합니다' 버튼을 클릭해 주세요.",
         "monitor_about_content": "DUNI 앱을 활용하여 현재 드론의 위치를 실시간으로 모니터링할 수 있습니다.",
-        "upload_about_content": "내 비행기록과 영상을 업로드해서 함께 관리하고 보관하세요. 판매요청을 선택하실 경우 판매와 홍보를 대행해 드립니다.",
+        "upload_about_content": "내 비행기록과 영상을 업로드해서 함께 관리하고 보관하세요. '영상 판매하기'를 선택하실 경우 판매와 홍보를 대행해 드립니다.",
         "design_about_content": "설계한 비행계획은 DUNI 앱과 DJI 제품의 드론에서 사용할 수 있습니다.",
         "head_pilot_title": "파일럿 센터 for Pilot",
         "head_developer_title": "파일럿 센터 for Lab",
