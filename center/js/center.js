@@ -824,9 +824,7 @@ function flightrecordUploadInit() {
 
   	setFlightRecordUploadMode(true);
 
-  	let d = new Date();
-  	let retDateTime = makeDateTimeFormat(d, true);
-
+		let retDateTime = new Date().toISOString().slice(0, -1);
 		$("#flighttime_input_data").val(retDateTime);
 
   	$("#set_youtube_address_view").hide();
