@@ -824,8 +824,9 @@ function flightrecordUploadInit() {
 
   	setFlightRecordUploadMode(true);
 
-		let retDateTime = new Date().toISOString().slice(0, -1);
-		$("#flighttime_input_data").val(retDateTime);
+		let retDateTimeNow = new Date();
+		retDateTimeNow.setMinutes(retDateTimeNow.getMinutes() - retDateTimeNow.getTimezoneOffset());		
+		$("#flighttime_input_data").val(retDateTimeNow.toISOString().slice(0, -1));
 
   	$("#set_youtube_address_view").hide();
     $("#set_youtube_upload_view").show();
