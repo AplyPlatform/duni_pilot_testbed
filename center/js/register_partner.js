@@ -19,12 +19,7 @@ function checkPartnerApplicationData() {
 		if (min_type == "") min_type = "교육";
 		else min_type = min_type + ",교육";
 	}
-	
-	if( $("#min_type_3").is(":checked")) {
-		if (min_type == "") min_type = "교육";
-		else min_type = min_type + ",교육";
-	}
-	
+		
 	if( $("#min_type_4").is(":checked")) {
 		if (min_type == "") min_type = "데이터가공분석";
 		else min_type = min_type + ",데이터가공분석";
