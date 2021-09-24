@@ -44,6 +44,8 @@ let g_container_2D_map_for_popup;
 let g_content_2D_map_for_popup;
 let g_closer_2D_map_for_popup;
 
+let g_b_isVideoPopupInit = false;
+
 
 let fixedFrameTransform;
 let planePrimitives;
@@ -2010,9 +2012,18 @@ function displayMapFeature(f, coordinate, overlay) {
 	}
 }
 
-var isVideoPopupInit = false;
+
 function getFlightRecordInfo(name) {
-		var jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
+		
+		let jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
+		let userid = getCookie("dev_user_id");
+		
+		if (g_str_current_target == "private") {
+			jdata["action"] = "position";
+			jdata["daction"] = "download_spe";
+			jdata["public"] = false;
+			jdata["clientid"] = userid;
+		}				    
 
 		showLoader();
 
@@ -2025,7 +2036,7 @@ function getFlightRecordInfo(name) {
 	        return;
 	      }
 
-		  	var vid = getYoutubeQueryVariable(r.data.youtube_data_id);
+		  	let vid = getYoutubeQueryVariable(r.data.youtube_data_id);
 				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
 
 				if (r.data.prod_url) {
@@ -2054,9 +2065,9 @@ function getFlightRecordInfo(name) {
 				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
 				$("#video-pop-view").attr("video-address", r.data.address);
 				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
-				if (isVideoPopupInit == false) {
+				if (g_b_isVideoPopupInit == false) {
 						$("#video-pop-view").videoPopup();
-						isVideoPopupInit = true;
+						g_b_isVideoPopupInit = true;
 				}
 
 				$("#video-pop-view").click();
@@ -2069,12 +2080,12 @@ function getFlightRecordInfo(name) {
 }
 
 function moveFlightHistoryMap(lat, lng) {
-    var npos = ol.proj.fromLonLat([lng, lat]);
+    let npos = ol.proj.fromLonLat([lng, lat]);
     g_view_2D_map_for_flight_rec.setCenter(npos);
 }
 
 function getCompanyInfo(title, cid) {
-	  var jdata = {"action": "public_company_detail", "cid" : cid};
+	  let jdata = {"action": "public_company_detail", "cid" : cid};
 
 		g_content_2D_map_for_popup.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
 
