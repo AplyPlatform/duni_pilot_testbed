@@ -312,6 +312,8 @@
 	}
 	
 	function sendAjaxData(fd) {
+		showLoader();
+		
 		$.ajax({
 			type: "POST",
 			dataType : "json",
@@ -321,9 +323,9 @@
 			processData: false,
 	    contentType: false,
 	    cache: false,
-			success: function (data) {			
-				if (data.result == "success") {								
-					
+			success: function (data) {
+				hideLoader();
+				if (data.result == "success") {													
 					var from_page = getCookie("from_page");
 					showAskDialog(
 						        GET_STRING_CONTENT('modal_title'),
@@ -348,7 +350,8 @@
 					else showAlert(GET_STRING_CONTENT('msg_error_sorry') +  " (" + data.message + ")");
 				}						
 			},
-			error: function(jqXHR, text, error){			
+			error: function(jqXHR, text, error){
+				hideLoader();			
 				showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 			}
 		});
