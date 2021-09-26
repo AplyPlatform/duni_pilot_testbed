@@ -518,6 +518,15 @@ h1, h2, h3, h4, h5, h6, figure {color:#4d4d4d; font-weight: 400; margin: 0 0 20p
 
 form label {font-weight: normal !important;}
 
+#gtco-header {
+  background: url('../images/title_img_2.jpg') no-repeat center top;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
 #gtco-header2 {
   background: url('../images/title_img_3.jpg') no-repeat center top;
   background-color: black;
@@ -527,14 +536,15 @@ form label {font-weight: normal !important;}
   -o-background-size: cover;
 }
 
-#gtco-header {
-  background: url('../images/title_img_2.jpg') no-repeat center top;
+#gtco-header3 {
+  background: url('../images/title_img_4.jpg') no-repeat center top;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
 }
+
 #gtco-header p {color: #d3f1ed; font-size: 20px; margin-bottom: 40px !important;}
 #gtco-header h1 {font-size:50px; line-height: 1.2 !important; margin-bottom:50px !important; color:#2e3192; font-weight:600;}
 
