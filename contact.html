@@ -154,38 +154,40 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						<div class="service">
 							<div class="row">
 								<div class="col-md-12">
-									<h2>문의/요청 내용을 작성해주세요.</h2>
+									<div class="col-lg-12"></div>
+										<h2>문의/요청 내용을 작성해주세요.</h2>										
+									</div>
 									<div class="col-lg-4">
-                      <div class="form-group">
-                          <input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">				                                        
-                					<input type="hidden" name="form_kind" value="문의">
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4">
-                      <div class="form-group">
-                          <input class="form-control" type="text" name="form_phone" id="form_phone" placeholder="전화번호(-없이 입력해주세요)" required="">
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <div class="col-lg-4">
-                      <div class="form-group">
-                          <input class="form-control" type="text" name="form_email" id="form_email" placeholder="이메일" required="">
-                          <p class="help-block text-danger"></p>
-                      </div>
-                  </div>
-                  <div class="col-md-12">
-                      <div class="form-group">
-                          <textarea class="form-control" name="form_message" id="form_message" placeholder="문의사항을 자유롭게 작성해주세요." rows="6" required=""></textarea>
-                      </div>
-                  </div>
-                  <div class="col-md-12">
-                      <div class="text-center">
-                          <button class="btn btn-circle btn-brand btn-block" id="contact_data_send" role="button">문의하기</button>
-                      </div>
-                      <input type="hidden" name="form_token" id="form_token">
-                  </div>
-								
+										<div class="form-group">
+											<input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">				                                        
+														<input type="hidden" name="form_kind" value="문의">
+											<p class="help-block text-danger"></p>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input class="form-control" type="text" name="form_phone" id="form_phone" placeholder="전화번호(-없이 입력해주세요)" required="">
+											<p class="help-block text-danger"></p>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input class="form-control" type="text" name="form_email" id="form_email" placeholder="이메일" required="">
+											<p class="help-block text-danger"></p>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<textarea class="form-control" name="form_message" id="form_message" placeholder="문의사항을 자유롭게 작성해주세요." rows="6" required=""></textarea>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<h5>영업일 기준 2~3일 이내에게 응답을 드립니다.</h5>
+									</div>
+									<div class="col-md-12 text-center">										
+										<button class="btn btn-circle btn-brand btn-block" id="contact_data_send" role="button">문의하기</button>										
+										<input type="hidden" name="form_token" id="form_token">
+									</div>								
 								</div>
 							</div>
 						</div>
