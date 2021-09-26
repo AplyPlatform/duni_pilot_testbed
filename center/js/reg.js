@@ -101,9 +101,12 @@ function checkEmail(){
                 "action" : "member", 
                 "daction" : "validate_email", 
                 "g_token" : token,
-                "email" : email };                
+                "email" : email };
+            
+            showLoader();
             ajaxRequest(jdata,
                 function(data){
+                		hideLoader();
                     let result = data.result_code;
                     $('#btn_check_email').prop('disabled', false);
                     if(result === 0){		
@@ -133,6 +136,7 @@ function checkEmail(){
                     showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                 },
                 function (err, stat, error) {
+                		hideLoader();
                     showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                 }
             );
@@ -141,21 +145,24 @@ function checkEmail(){
 }
 
 function checkEmailCode(){
-    	let verification_code = $('input[name="email_verification_code"]').val();
+  let verification_code = $('input[name="email_verification_code"]').val();
 	if(verification_code == ""){
 		showAlert(GET_STRING_CONTENT('msg_code_empty'));
 		return;
 	}
+	
 	grecaptcha.ready(function() {
-		grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'homepage'}).then(function(token) {
+		grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'homepage'}).then(function(token) {			
 			var jdata = {
-				"action" : "member2",
+				"action" : "member",
 				"daction" : "check_email_verifycode",
-				"email" : $('input[name="form_email"]').val(),
-				"email_verify_code" : verification_code};
-				//,"g_token" : token};
+				"email" : $('#droneplay_email').val(),
+				"email_verify_code" : verification_code,
+				"g_token" : token};
+			showLoader();
 			ajaxRequest(jdata,
 				function(data){
+					hideLoader();
 					let result = data.result_code;
 					if(result === 0){
 						$('input[name="email_verification_code"]').val("");
@@ -177,6 +184,7 @@ function checkEmailCode(){
 					return;
 				},
 				function (err, stat, error) {
+					hideLoader();
 					showAlert(GET_STRING_CONTENT('msg_error_sorry'));
 				}
 			);
@@ -239,8 +247,14 @@ function requestRegister() {
                     		$("#show_2").show();
                     		
                         if (r.result_code == 3 && r.reason.indexOf("socialid") >= 0) {
-	                            showAlert(GET_STRING_CONTENT('msg_email_is_already_exist'));
-	                            GATAGM('EmailIsExistOnRegister', 'CONTENT');  
+	                            showAlert(GET_STRING_CONTENT('msg_email_is_already_exist'));//
+	                            GATAGM('Register_EmailIsExist', 'CONTENT');  
+	                            return;
+                        }
+                        
+                        if (r.result_code == 2 && r.reason.indexOf("email") >= 0) {
+	                            showAlert(GET_STRING_CONTENT('msg_email_not_verified'));
+	                            GATAGM('Register_InvalidEmailAddress', 'CONTENT');  
 	                            return;
                         }
 
