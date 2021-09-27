@@ -872,6 +872,7 @@
 
 
 $(function(){
+	g_str_current_target = "public";
 	mobileMenuOutsideClick();
 	offcanvasMenu();
 	burgerMenu();
@@ -929,13 +930,13 @@ $(function(){
 
 	$("#side_login_area").show();
 	$("#side_center_area").hide();
-  	
-	
+
+
 	if ($('.cookie-banner').length && localStorage.getItem('cookieSeen') != 'shown') {
 		$('.cookie-banner').delay(2000).fadeIn();
 		localStorage.setItem('cookieSeen','shown');
 	};
-	
+
 	if ($('#cookie-close').length) {
 		$('#cookie-close').click(function() {
 			$('.cookie-banner').fadeOut();
