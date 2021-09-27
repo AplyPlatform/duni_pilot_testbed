@@ -175,10 +175,9 @@ function appleinit() {
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
 			setCookie("dev_kind", "apple", 1);
-			let token = data.detail.authorization.id_token;
-
-            
+			let token = data.detail.authorization.id_token;            
 		    let name = "";
+            let email = ""
             if ("user" in data.detail) {
                 if("name" in data.detail.user && "firstName" in data.detail.user.name) {
                     name = data.detail.user.name.firstName;
@@ -191,10 +190,13 @@ function appleinit() {
                 if("name" in data.detail.user && "lastName" in data.detail.user.name) {
                     name += " " + data.detail.user.name.lastName;
                 }
+
+                if("email" in data.detail.user) {
+                    email = data.detail.user.email;
+                }                
             }
 
-            let image = "";
-            let email = data.detail.user.email;
+            let image = "";            
             formSubmit(token, name, image, email);
 	});
 	//Listen for authorization failures
