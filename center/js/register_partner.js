@@ -181,8 +181,13 @@ function sendAjaxData(fd) {
 				if (data == null || data.message == null) {
 					showAlert("죄송합니다, 오류가 발생하였습니다. 다시 시도 부탁드립니다.");
 				}
-				else if (isSet(data.desc) && data.desc.indexOf("email already exists") >= 0) {
-					showAlert("이미 등록된 이메일 입니다. 다른 이메일 주소를 입력해 주세요.");
+				else if (isSet(data.desc)) {
+					if (isSet(data.desc.reason) && data.desc.reason.indexOf("email already exists") >= 0) {
+						showAlert("이미 등록된 이메일 입니다. 다른 이메일 주소를 입력해 주세요.");
+					}
+					else if (isSet(data.desc.reason) && data.desc.reason.indexOf("auth_code") >= 0) {
+						showAlert("전화번호 인증을 해주세요.");
+					}
 				}
 				else if (data.sendstatus == 9) {
 					showAlert(data.message);
