@@ -161,26 +161,39 @@ function appleinit() {
   	
   if (document.getElementById('appleLoginBtn1')) {
 	  document.getElementById('appleLoginBtn1').addEventListener('click', function() {
-	  		GATAGM('index_apple_login_1_btn_click', 'CONTENT');
-	      AppleID.auth.signIn();
+	  	    GATAGM('index_apple_login_1_btn_click', 'CONTENT');
+	        AppleID.auth.signIn();
 	  });
 	}
 			
 	if (document.getElementById('appleLoginBtn2')) {
 	  document.getElementById('appleLoginBtn2').addEventListener('click', function() {
-	  		GATAGM('index_apple_login_2_btn_click', 'MENU');
-	      AppleID.auth.signIn();
+	  	    GATAGM('index_apple_login_2_btn_click', 'MENU');
+	        AppleID.auth.signIn();
 	  });
 	}
 
 	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
 			setCookie("dev_kind", "apple", 1);
-			var token = data.detail.authorization.id_token;
+			let token = data.detail.authorization.id_token;
 
-		  var name = "";
-      var image = "";
-      var email = "";
-      formSubmit(token, name, image, email);
+            
+		    let name = "";
+            if(isSet(data.detail.user.firstName)) {
+                name = data.detail.user.firstName;
+            }
+
+            if(isSet(data.detail.user.middleName)) {
+                name += " " + data.detail.user.middleName;
+            }
+
+            if(isSet(data.detail.user.lastName)) {
+                name += " " + data.detail.user.lastName;
+            }
+
+            let image = "";
+            let email = data.detail.user.email;
+            formSubmit(token, name, image, email);
 	});
 	//Listen for authorization failures
 	document.addEventListener('AppleIDSignInOnFailure', function (error) {
