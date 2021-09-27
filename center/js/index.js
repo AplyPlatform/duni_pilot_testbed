@@ -180,16 +180,16 @@ function appleinit() {
             
 		    let name = "";
             if ("user" in data.detail) {
-                if("firstName" in data.detail.user) {
-                    name = data.detail.user.firstName;
+                if("name" in data.detail.user && "firstName" in data.detail.user.name) {
+                    name = data.detail.user.name.firstName;
                 }
 
-                if("middleName" in data.detail.user) {
-                    name += " " + data.detail.user.middleName;
+                if("name" in data.detail.user && "middleName" in data.detail.user.name) {
+                    name += " " + data.detail.user.name.middleName;
                 }
 
-                if("lastName" in data.detail.user) {
-                    name += " " + data.detail.user.lastName;
+                if("name" in data.detail.user && "lastName" in data.detail.user.name) {
+                    name += " " + data.detail.user.name.lastName;
                 }
             }
 
