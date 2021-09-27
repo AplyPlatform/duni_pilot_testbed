@@ -4,6 +4,7 @@ Copyright 2021 APLY Inc. All rights reserved.
 
 
 let g_b_email_verified = false;
+let g_i_verify_code = "";
 
 $(function () {
     showLoader();
@@ -169,6 +170,7 @@ function checkEmailCode(){
 						$("#email_verification_input").hide();
 						showAlert(GET_STRING_CONTENT('msg_phone_verified'));
 						stopTimer();
+						g_i_verify_code = verification_code;
 						g_b_email_verified = true;
 						return;
 					}
@@ -232,7 +234,8 @@ function requestRegister() {
                     "name": encodeURI(droneplay_name),
                     "socialid": droneplay_email,
                     "sns_kind": sns_kind,
-                    "sns_token": sns_token
+                    "sns_token": sns_token,
+		    "email_auth_code": g_i_verify_code 	
                 };
 
                 ajaxRequest(data, function (r) {
