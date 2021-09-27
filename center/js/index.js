@@ -179,16 +179,18 @@ function appleinit() {
 
             
 		    let name = "";
-            if(isSet(data.detail.user.firstName)) {
-                name = data.detail.user.firstName;
-            }
+            if ("user" in data.detail) {
+                if("firstName" in data.detail.user) {
+                    name = data.detail.user.firstName;
+                }
 
-            if(isSet(data.detail.user.middleName)) {
-                name += " " + data.detail.user.middleName;
-            }
+                if("middleName" in data.detail.user) {
+                    name += " " + data.detail.user.middleName;
+                }
 
-            if(isSet(data.detail.user.lastName)) {
-                name += " " + data.detail.user.lastName;
+                if("lastName" in data.detail.user) {
+                    name += " " + data.detail.user.lastName;
+                }
             }
 
             let image = "";
