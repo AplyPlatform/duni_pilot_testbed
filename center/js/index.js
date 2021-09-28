@@ -95,28 +95,28 @@ function kakaoLogin() {
 	      Kakao.API.request({
 	        url: '/v2/user/me',
 	        success: function(res) {
-            setCookie("dev_kind", "kakao", 1);
+                    setCookie("dev_kind", "kakao", 1);
 
-						var name = "";
-						var image = "";
-						var email = "";
-						var token = authObj.access_token;
+                    let name = "";
+                    let image = "";
+                    let email = "";
+                    let token = authObj.access_token;
 
-						if ("properties" in res) {
-							if ("nickname" in res.properties) {
-								name = res.properties['nickname'];
-							}
+                    if ("properties" in res) {
+                        if ("nickname" in res.properties) {
+                            name = res.properties['nickname'];
+                        }
 
-							if ("profile_image" in res.properties) {
-								image = res.properties['profile_image'];
-							}
-						}
+                        if ("profile_image" in res.properties) {
+                            image = res.properties['profile_image'];
+                        }
+                    }
 
-						if ("kakao_account" in res) {
-							if ("email" in res.kakao_account) {
-								email = res.kakao_account['email'];
-							}
-						}
+                    if ("kakao_account" in res) {
+                        if ("email" in res.kakao_account) {
+                            email = res.kakao_account['email'];
+                        }
+                    }
 
     				formSubmit(token, name, image, email);
 	        },
@@ -271,15 +271,15 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
         temp_image = "";
     }
 
-    var skind = getCookie("dev_kind");
-    var device_kind = getCookie("device_kind");
-    var device_id = getCookie("device_id");
-        
     setCookie("temp_email", temp_email, 1);  
-		setCookie("temp_name", temp_name, 1);
-		setCookie("temp_sns_token", token, 1);
+	setCookie("temp_name", temp_name, 1);
+	setCookie("temp_sns_token", token, 1);
 
-    var jdata = {
+    let skind = getCookie("dev_kind");
+    let device_kind = getCookie("device_kind");
+    let device_id = getCookie("device_id");            
+
+    let jdata = {
         action: "member",
         daction: "login",
         sns_token: token,
@@ -289,19 +289,30 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     };
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            setCookie("dev_user_id", r.emailid, 1);
+        if (r.result == "success") {            
             setCookie("dev_sns_token", token, 1);
+            setCookie("image_url", temp_image, 1);
+            if (!("token" in r)                
+                || !("emailid" in r)
+                || !("socialid" in r)
+                || !("dev_token" in r)
+                || !("user_kind" in r)                
+                || !("name" in r)) {
+                hideLoader();
+                showAlert(GET_STRING_CONTENT('msg_error_sorry'));                
+                return;
+            }            
+            
             setCookie("user_token", r.token, 1);
+            setCookie("dev_user_id", r.emailid, 1);
             setCookie("user_email", r.socialid, 1);
             setCookie("dev_token", r.dev_token, 1);
-            setCookie("user_kind", r.user_kind, 1);
-            setCookie("image_url", temp_image, 1);
-            setCookie("temp_phone", r.phonenumber, 1);
+            setCookie("user_kind", r.user_kind, 1);            
+            if ("phonenumber" in r) setCookie("temp_phone", r.phonenumber, 1);
             setCookie("temp_name", r.name, 1);
 
             let page_action = getCookie("last_action");
-    				if (!isSet(page_action)) page_action = "center";
+    		if (!isSet(page_action)) page_action = "center";
             else setCookie("last_action", "", -1);
 
             location.href = "/center/main.html?page_action=" + page_action;
