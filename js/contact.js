@@ -358,7 +358,7 @@
 	}
 	
 	function checkContactUSData() {
-		var fd = new FormData();
+		let fd = new FormData();
 				
 		if ($('#form_name').val() == "") {
 			showAlert(GET_STRING_CONTENT('msg_input_name'));
@@ -372,11 +372,19 @@
 		else {
 			fd.append("form_phone", $("#form_phone").val());
 		}
+
+		let emailVal = $("#form_email").val();
 		
-		if ($("#form_email").val() == "") {
+		if (emailVal == "") {
 			showAlert(GET_STRING_CONTENT('msg_input_email'));
 			return null;
 		}
+
+		if(!isEmail(emailVal) || emailVal.length > 100){
+			showAlert(GET_STRING_CONTENT('msg_email_invalid'));
+			return;
+		}
+
 		fd.append("form_email", $("#form_email").val());
 						
 		if ($("#form_message").val() == "") {

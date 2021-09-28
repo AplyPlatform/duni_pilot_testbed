@@ -78,11 +78,6 @@ function goHome() {
         location.href = "/index_en.html?fromapp=" + getCookie("isFromApp");
 }
 
-function isEmail(email) {
-    var regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-    return regex.test(email);
-}
-
 function checkEmail(){
     let email = $('#droneplay_email').val();
     if(email == ""){

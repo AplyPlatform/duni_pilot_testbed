@@ -20,7 +20,7 @@
 	<meta name="author" content="aply.biz"/>
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.png"/>
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-  <!-- Facebook and Twitter integration -->
+  	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content="DUNI 파일럿 센터"/>
 	<meta property="og:image" content="https://pilot.duni.io/duni_title.png"/>
 	<meta property="og:url" content="https://pilot.duni.io"/>
@@ -74,12 +74,12 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
-
-	<div id="loading">
-		<div class="loader"></div>
-	</div>
-
+	
 	<div id="page">
+
+		<div id="loading">
+			<div class="loader"></div>
+		</div>
 
 		<nav class="gtco-nav" role="navigation">
 			<div class="gtco-container">
@@ -124,7 +124,6 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 						</ul>
 					</div>
 				</div>
-
 			</div>
 		</nav>
 
@@ -159,8 +158,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group">
-											<input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">				                                        
-														<input type="hidden" name="form_kind" value="문의">
+											<input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">				                                        											
 											<p class="help-block text-danger"></p>
 										</div>
 									</div>
@@ -187,6 +185,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 									<div class="col-md-12 text-center">										
 										<button class="btn btn-circle btn-brand btn-block" id="contact_data_send" role="button">문의하기</button>										
 										<input type="hidden" name="form_token" id="form_token">
+										<input type="hidden" name="form_kind" value="문의">
 									</div>								
 								</div>
 							</div>
@@ -202,13 +201,13 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 					<div class="col-md-6 gtco-widget gtco-footer-paragraph">
 						<ul class="gtco-list-link gtco-cta">
 							<h3>DUNI 파일럿 센터</h3>
-							<p>Drone, Everywhere.</p>							
+							<p>Drone, Everywhere.</p>
 							<p><a href="/contact.html" class="btn btn-white btn-outline" onClick="GATAGM('contact_contactus_bottom_menu_link_click', 'CONTENT');">문의하기</a></p>
 							<a href="https://instagram.com/duni_aply" onClick="GATAGM('contact_duni_insta_bottom_menu_link_click', 'CONTENT');" target="_blank"><i class="fab fa-instagram"></i></a>&nbsp;&nbsp;
 							<a href="https://facebook.com/duniplatform" onClick="GATAGM('contact_duni_facebook_bottom_menu_link_click', 'CONTENT');" target="_blank"><i class="fab fa-facebook-f"></i></a>&nbsp;&nbsp;
 							<a href="https://blog.naver.com/duniplatform?utm_source=duni_service&utm_medium=link&utm_campaign=not_campaign" onClick="GATAGM('contact_duni_blog_bottom_menu_link_click', 'CONTENT');" target="_blank"><i class="fas fa-rss-square"></i></a>&nbsp;&nbsp;
 							<a href="https://www.youtube.com/channel/UCOhNUci1UJ3YsyEf2WrZSEA" onClick="GATAGM('contact_duni_youtube_bottom_menu_link_click', 'CONTENT');" target="new"><i class="fab fa-youtube"></i></a>&nbsp;&nbsp;
-							<div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-colorscheme="dark" data-action="like" data-size="small" data-show-faces="true"></div>
+							<br><div class="fb-like" data-href="https://www.facebook.com/pg/DuniPilotPage" data-layout="standard" data-colorscheme="dark" data-action="like" data-size="small" data-show-faces="true" data-width="300px"></div>
 						</ul>
 					</div>
 
@@ -284,9 +283,9 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	<div id="popup" class="ol-popup">
     	<a href="#" id="popup-closer" class="ol-popup-closer"></a>
     	<div id="popup-content"></div>
-  </div>
+  	</div>
 
-  <a id='video-pop-view' video-lang="" video-name="" video-url="" video-prod-url=""></a>
+  	<a id='video-pop-view' video-lang="" video-name="" video-url="" video-prod-url=""></a>
 
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
@@ -313,7 +312,7 @@ mixpanel.init("f8f962910053d9d571f05d09f8a44de8", {batch_requests: true})</scrip
 	<script src="https://connect.facebook.net/ko_KR/sdk.js" async defer crossorigin="anonymous"></script>
 	<script src="https://apis.google.com/js/platform.js?onload=googleinit" async defer></script>	
 	<script>			  	  	
-  	setLang("KR");  	
-  </script>
+  		setLang("KR");  	
+  	</script>
 	</body>
 </html>
