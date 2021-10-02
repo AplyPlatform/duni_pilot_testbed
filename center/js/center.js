@@ -317,7 +317,7 @@ function initPilotCenter() {
     }
     else if (g_str_page_action == "recordlist") {
     		g_str_current_target = "private";
-        $("#main_contents").load("record_list.html", function () {            
+        $("#main_contents").load("record_list.html", function () {
             flightrecordListInit("private");
         });
     }
@@ -325,7 +325,7 @@ function initPilotCenter() {
     		g_str_current_target = "public";
         $("#main_contents").load("record_list.html", function () {
             selectMonitorIndex("private", 0);
-            addObjectTo2DMap(0, "private", "drone");            
+            addObjectTo2DMap(0, "private", "drone");
             flightrecordListInit("public");
         });
     }
@@ -677,16 +677,16 @@ function flightrecordUploadInit() {
 
         uploadCheckBeforeUploadFlightList();
     });
-    
+
     $("#findAddressBtn").click(function(e){
 				e.preventDefault();
-				
+
 				GATAGM('upload_address_find_btn_click', 'CONTENT');
-				
+
 				execDaumPostcode(function (addr) {
 					checkAddress(addr);
-				});				
-		});    
+				});
+		});
 
 
     $('#btn_check_code').click(function (e) {
@@ -810,7 +810,7 @@ function flightrecordUploadInit() {
   	setFlightRecordUploadMode(true);
 
 		let retDateTimeNow = new Date();
-		retDateTimeNow.setMinutes(retDateTimeNow.getMinutes() - retDateTimeNow.getTimezoneOffset());		
+		retDateTimeNow.setMinutes(retDateTimeNow.getMinutes() - retDateTimeNow.getTimezoneOffset());
 		$("#flighttime_input_data").val(retDateTimeNow.toISOString().slice(0, -1));
 
   	$("#set_youtube_address_view").hide();
@@ -931,7 +931,7 @@ function flightrecordUploadInit() {
 	    // hide the native picker and show the fallback
 	    nativePicker.style.display = 'none';
 	    fallbackPicker.style.display = 'block';
-	
+
 	    // populate the days and years dynamically
 	    // (the months are always the same, therefore hardcoded)
 	    populateDays(monthSelect.value);
@@ -1154,7 +1154,7 @@ function flightrecordListInit(target) {
     $("#name_label").text(GET_STRING_CONTENT('name_label'));
     $("#date_label").text(GET_STRING_CONTENT('date_label'));
     $("#manage_label").text(GET_STRING_CONTENT('manage_label'));
-    
+
     flightRecords2DMapInit();
 
     $("#search_key").attr("placeholder", GET_STRING_CONTENT('msg_record_search_key'));
@@ -1181,7 +1181,7 @@ function flightrecordListInit(target) {
     });
 
     $('#loadMoreArea').hide();
-    
+
     initYoutubeAPIForFlightList();
 }
 
@@ -1416,7 +1416,7 @@ function getDUNIServiceRequest(page) {
 function startRequestTableAnimation() {
 	if (g_i_cur_serviceListTimerId >= 0)
 			clearTimeout(g_i_cur_serviceListTimerId);
-	
+
 	g_i_cur_serviceListTimerId = -1;
 
 	$("#service_request_list_table tr").each(function(index){
@@ -3281,9 +3281,9 @@ function verifyPhoneNo(phone_number){
                 let display = $('#remaining_time');
                 startTimer(duration, display, function() {
                 	showAlert(GET_STRING_CONTENT('msg_phone_verification_timeout'));
-            			$("#code_verification_input").hide();                	
+            			$("#code_verification_input").hide();
               	});
-                                
+
                 //$('#droneplay_phonenumber').prop( "disabled", true );
                 $("#code_verification_input").show();
                 return;
@@ -3785,11 +3785,15 @@ function uploadDJIFlightListCallback(params) {
                 showAlert(GET_STRING_CONTENT('msg_error_same_record_exist'));
             }
             else {
-            	GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
             	if (r.reason.indexOf("failed to decode") >= 0) {
-            		showAlert(GET_STRING_CONTENT('msg_select_another_file'));
+								GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
+								if (isSet(youtube_data))
+									showAlert(GET_STRING_CONTENT('msg_dji_analyze_failed_input_address')); //with video
+								else
+									showAlert(GET_STRING_CONTENT('msg_select_another_file')); //todo only flight file
             	}
             	else {
+								GATAGM('dji_file_upload_analyze_failed', 'CONTENT', r.reason);
             		showAlert(GET_STRING_CONTENT('msg_error_sorry') + " (" + r.reason + ")");
             	}
             }
@@ -3981,7 +3985,7 @@ function onPlayerReady(event) {
         lastTime = g_youtube_player_for_detail_view.getCurrentTime();
         setTimeout(checkPlayerTime, interval); /// repeat function call in 1 second
     };
-    
+
     setTimeout(checkPlayerTime, interval); /// initial call delayed
 }
 
@@ -4167,7 +4171,7 @@ function checkAddress(address) {
 		      }
 
 		     	g_loc_address_flat = r.data.lat;
-		     	g_loc_address_flng = r.data.lng;		     			     	
+		     	g_loc_address_flng = r.data.lng;
 	    	}
 	    	else {
 	    		g_loc_address_flat = -999;
