@@ -59,18 +59,18 @@ var UploadVideo = function () {
      */
     this.videoId = '';
 
-    this.uploadStartTime = 0;    
-    this.accessToken = ''; 
+    this.uploadStartTime = 0;
+    this.accessToken = '';
     this.onUploadCompleteCallback = null;
 };
 
 
 UploadVideo.prototype.ready = function () {
-		let accessTokenT = getCookie("user_google_auth_token");
-		if (accessTokenT === "undefined" || accessTokenT === null || accessTokenT == "") return;
-		
+    let accessTokenT = getCookie("user_google_auth_token");
+    if (accessTokenT === "undefined" || accessTokenT === null || accessTokenT == "") return;
+
     this.accessToken = accessTokenT;
-    this.gapi = gapi;     
+    this.gapi = gapi;
 };
 
 /**
@@ -80,7 +80,7 @@ UploadVideo.prototype.ready = function () {
  * @param {object} file File object corresponding to the video to upload.
  */
 UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
-		
+
     var metadata = {
         snippet: {
             title: fname,
@@ -109,9 +109,9 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
                 var errorResponse = JSON.parse(data);
                 message = errorResponse.error.message;
             } finally {
-            	hideLoader();
-        			//$('#uploadVideoToYoutubeButton').attr('disabled', false);
-              showAlert(GET_STRING_CONTENT('msg_error_sorry') + "\n" + message);
+                hideLoader();
+                //$('#uploadVideoToYoutubeButton').attr('disabled', false);
+                showAlert(GET_STRING_CONTENT('msg_error_sorry') + "\n" + message);
             }
         }.bind(this),
         onProgress: function (data) {
@@ -129,8 +129,8 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
             });
 
             $('#percent-transferred').text(percentageComplete);
-            $('#bytes-transferred').text(Math.round(bytesUploaded/1024));
-            $('#total-bytes').text(Math.round(totalBytes/1024));
+            $('#bytes-transferred').text(Math.round(bytesUploaded / 1024));
+            $('#total-bytes').text(Math.round(totalBytes / 1024));
 
             $('.during-upload').show();
         }.bind(this),
@@ -138,78 +138,80 @@ UploadVideo.prototype.uploadFile = function (file, fname, fdesc) {
             var uploadResponse = JSON.parse(data);
             this.videoId = uploadResponse.id;
             if (this.onUploadCompleteCallback)
-            	this.onUploadCompleteCallback(this.videoId);
+                this.onUploadCompleteCallback(this.videoId);
             //this.pollForVideoStatus();
         }.bind(this)
     });
     // This won't correspond to the *exact* start of the upload, but it should be close enough.
     this.uploadStartTime = Date.now();
-    
+
     showLoader();
     uploader.upload();
 };
 
 UploadVideo.prototype.handleUploadClicked = function (curVideoFile) {
-		GATAGM('uploadVideoToYoutubeButton', 'CONTENT');
-		
-		if (upload_not_allow){
-				hideLoader();
-				showAlert(GET_STRING_CONTENT('msg_sorry_now_on_preparing_youtube'));
-				return;
-		}
-		
-		if (apiIsReady == false) {
-				hideLoader();
+    GATAGM('uploadVideoToYoutubeButton', 'CONTENT');
+
+    if (upload_not_allow) {
+        hideLoader();
+        showAlert(GET_STRING_CONTENT('msg_sorry_now_on_preparing_youtube'));
+        return;
+    }
+
+    if (apiIsReady == false) {
+        hideLoader();
         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
         return;
     }
- 
+
     if (this.accessToken == '') {
-    		tryAuth();
+        tryAuth();
         return;
     }
-		
-    if (videoFileForUploadFile == null) {
-    		hideLoader();
+
+    if (g_f_videoFileForUploadFile == null) {
+        hideLoader();
         showAlert(GET_STRING_CONTENT('msg_select_video_file'));
         return;
     }
-		
-		var mmemo = $("#memoTextarea").val();
-    if (mmemo == "") {
-    	hideLoader();
-			showAlert(GET_STRING_CONTENT('msg_fill_memo'));
-			return;
-		}
 
-		if ($('#record_name_field').val() == "") {
-			hideLoader();
-			showAlert(GET_STRING_CONTENT('msg_input_record_name'));
-			return;
-		}
-		
-		let tag_values = $("#tagTextarea").val();
-		
-		if (tag_values != "") {
-			var tagArray = JSON.parse(tag_values);
-			var curTags = [];
-			tagArray.forEach(function(tg) {
-				curTags.push(tg.value);
-			});	
-			
-			this.tags = curTags;
-		}
-		
-		$('#uploadVideoToYoutubeButton').attr('disabled', true);
-		
-		var fname = $('#record_name_field').val();
-		var fdesc = $('#memoTextarea').val();
-    this.uploadFile(videoFileForUploadFile, fname, fdesc);
+    let mmemo = $("#memoTextarea").val();
+    if (mmemo == "") {
+        hideLoader();
+        showAlert(GET_STRING_CONTENT('msg_fill_memo'));
+        return;
+    }
+
+    if ($('#record_name_field').val() == "") {
+        hideLoader();
+        showAlert(GET_STRING_CONTENT('msg_input_record_name'));
+        return;
+    }
+    
+    let tag_values = $("#tagTextarea").val();
+
+    if (tag_values != "") {
+        var tagArray = JSON.parse(tag_values);
+        var curTags = [];
+        tagArray.forEach(function (tg) {
+            curTags.push(tg.value);
+        });
+
+        this.tags = curTags;
+    }
+
+    $('#uploadVideoToYoutubeButton').attr('disabled', true);
+
+    $("#upload_progress_view").show();
+
+    var fname = $('#record_name_field').val();
+    var fdesc = $('#memoTextarea').val();
+    this.uploadFile(g_f_videoFileForUploadFile, fname, fdesc);
 };
 
 UploadVideo.prototype.uploadVideoAction = function () {
 
-		
+
 
 }
 

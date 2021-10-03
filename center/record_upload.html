@@ -96,16 +96,8 @@
 								<div id="videoFileName"></div>
 							</div>							
 						</div>
-						<div class="row">							
-							<div class="col-md-4">
-								<select id="privacy-status" class="form-control">
-									<option value="public" id="option_public_label">공개</option>
-									<option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수
-										있음)</option>
-									<!-- <option value="private" id="option_private_label">비공개</option> -->
-								</select>
-							</div>
-							<div class="col-md-8 text-right">
+						<div class="row">														
+							<div class="col-md-6 text-left">
 								<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a
 									video, you certify that you own all rights to the content or that you are authorized
 									by the owner to make the content publicly available on YouTube, and that it
@@ -113,15 +105,25 @@
 										href="http://www.youtube.com/t/terms"
 										target="_blank">http://www.youtube.com/t/terms</a></p>
 							</div>
+							<div class="col-md-6">
+								<select id="privacy-status" class="form-control">
+									<option value="public" id="option_public_label">공개</option>
+									<option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수
+										있음)</option>
+									<!-- <option value="private" id="option_private_label">비공개</option> -->
+								</select>
+							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-12 during-upload">								
-								<progress id="upload-progress" max="1" value="0"></progress>
+						<div class="row" id="upload_progress_view">
+							<div class="col-lg-6">
+								<progress id="upload-progress" max="1" value="0" width="100%"></progress>
+							</div>
+							<div class="col-lg-6 during-upload">																
 								<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
 									<span id="percent-transferred"
 										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>%
 									(<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
-								</p>								
+								</p>
 							</div>
 						</div>
 					</div> <!-- set_youtube_upload_view -->

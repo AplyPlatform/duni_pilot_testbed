@@ -61,6 +61,7 @@ function flightrecordUploadInit() {
 
 	$("#label_youtube_address_only").text(GET_STRING_CONTENT('label_youtube_address_only'));
 
+	$("#upload_progress_view").hide();
 
 	$('#btnForUploadFlightList').click(function (e) {
 		e.preventDefault();
@@ -185,6 +186,7 @@ function flightrecordUploadInit() {
 		$("#set_youtube_address_view").show();
 		$("#set_youtube_upload_view").hide();
 		$("#videoRecordModifyArea").hide();
+		$("#upload_progress_view").hide();
 
 		g_params_for_upload_flight_rec['youtube_data'] = "https://youtube.com/watch?v=" + vid;
 
