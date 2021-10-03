@@ -85,16 +85,18 @@
 						</div>
 					</div>
 
-					<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
+					<div id="set_youtube_upload_view">
 						<div class="row">
-							<div class="col-md-8">
+							<div class="col-lg-12">
 								<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
 									<input type="file" id="movieFile" accept="video/*">
 									<button class="btn btn-secondary btn-sm" type="button"
 										id="btnSelectMovieFiles">파일선택</button>
 								</div>
 								<div id="videoFileName"></div>
-							</div>
+							</div>							
+						</div>
+						<div class="row">							
 							<div class="col-md-4">
 								<select id="privacy-status" class="form-control">
 									<option value="public" id="option_public_label">공개</option>
@@ -103,19 +105,6 @@
 									<!-- <option value="private" id="option_private_label">비공개</option> -->
 								</select>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4 during-upload">
-								<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
-									<span id="percent-transferred"
-										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>%
-									(<span id="bytes-transferred"
-										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span
-										id="total-bytes"
-										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
-									<progress id="upload-progress" max="1" value="0"></progress>
-								</p>
-							</div>
 							<div class="col-md-8 text-right">
 								<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a
 									video, you certify that you own all rights to the content or that you are authorized
@@ -123,6 +112,16 @@
 									otherwise complies with the YouTube Terms of Service located at <a
 										href="http://www.youtube.com/t/terms"
 										target="_blank">http://www.youtube.com/t/terms</a></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12 during-upload">								
+								<progress id="upload-progress" max="1" value="0"></progress>
+								<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
+									<span id="percent-transferred"
+										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>%
+									(<span id="bytes-transferred" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>/<span id="total-bytes" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span> KB)
+								</p>								
 							</div>
 						</div>
 					</div> <!-- set_youtube_upload_view -->
