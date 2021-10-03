@@ -44,7 +44,7 @@ function handleAuthResult(authResult) {
         if (g_component_upload_youtube_video) {
         	showLoader();
         	g_component_upload_youtube_video.ready();
-        	g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
+        	g_component_upload_youtube_video.handleUploadClicked(g_f_videoFileForUploadFile);
         }
         else {
         	hideLoader();
