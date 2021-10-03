@@ -78,23 +78,23 @@ function flightrecordUploadInit() {
 
 		execDaumPostcode(function (addr) {
 			requestGPSByAddress(addr, function (r) {
-				if (r.result == "success") {
-					if (r.data == null) {
+					if (r.result == "success") {
+						if (r.data == null) {
+							g_loc_address_flat = -999;
+							g_loc_address_flng = -999;
+							showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+							return;
+						}
+
+						g_loc_address_flat = r.data.lat;
+						g_loc_address_flng = r.data.lng;
+					}
+					else {
 						g_loc_address_flat = -999;
 						g_loc_address_flng = -999;
-						showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-						return;
+						showAlert(GET_STRING_CONTENT('msg_input_correct_address'));
 					}
-
-					g_loc_address_flat = r.data.lat;
-					g_loc_address_flng = r.data.lng;
-				}
-				else {
-					g_loc_address_flat = -999;
-					g_loc_address_flng = -999;
-					showAlert(GET_STRING_CONTENT('msg_input_correct_address'));
-				}
-			},
+				},
 				function () {
 					GATAGM('upload_address_find_failed', 'CONTENT');
 					g_loc_address_flat = -999;
