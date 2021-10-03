@@ -40,8 +40,6 @@ let g_str_cur_flight_record_name = "";
 let g_b_is_token_visible = false;
 
 let g_loc_address_flat = -999, g_loc_address_flng = -999;
-let g_b_fileupload_for_DJI = true; //dji file or input address
-
 
 let g_loc_kalmanfilter_lat;
 let g_loc_kalmanfilter_lng;
@@ -54,8 +52,6 @@ let g_b_is_first_for_monitor = true;
 
 let g_array_cur_monitor_object;
 
-let g_component_upload_youtube_video;
-
 let g_b_is_youtube_seek = false;
 
 // 유튜브 약관 준수 - 동시에 2개 이상의 영상이 재생되면 안된다!
@@ -66,14 +62,9 @@ let g_i_youtube_player_index_play = null;
 
 let g_str_address_temp_val = "";
 
-let g_params_for_upload_flight_rec = {};
-
 let g_array_str_waypointactions_DJI = ["STAY", "START_TAKE_PHOTO", "START_RECORD", "STOP_RECORD", "ROTATE_AIRCRAFT", "GIMBAL_PITCH", "NONE", "CAMERA_ZOOM", "CAMERA_FOCUS"];
 
 let g_array_cur_controller_for_viewmode = { "pilot": "/center/main.html", "developer": "/center/main_dev.html" };
-
-let recordFileForUploadFile = null;
-let videoFileForUploadFile = null;
 
 let g_i_cur_serviceListTimerId = -1;
 
@@ -293,7 +284,7 @@ function initPilotCenter() {
         if (getCookie("user_kind") == "partner") {
             showAskDialog(
                 GET_STRING_CONTENT('modal_title'),
-                "이미 파트너 신청을 완료 하셨습니다.",
+                "이미 파트너 등록을 완료 하였습니다.",
                 GET_STRING_CONTENT('modal_confirm_btn'),
                 false,
                 function () {
@@ -308,9 +299,7 @@ function initPilotCenter() {
         $("#main_contents").load("partner_register.html", function () { });
     }
     else if (g_str_page_action == "recordupload") {
-        $("#main_contents").load("record_upload.html", function () {
-            flightrecordUploadInit();
-        });
+        $("#main_contents").load("record_upload.html", function () { });
     }
     else if (g_str_page_action == "embedcompass") {
         $("#main_contents").load("embed_compass.html", function () { });
@@ -367,11 +356,31 @@ function initPilotCenter() {
     }
 }
 
-
 function utilInit() {
     $("#latxlng").keypress(function (e) {
         if (e.which == 13) {
-            requestAddress();  // 실행할 이벤트
+            let latxlng = $("#latxlng").val();
+            let lat, lng;
+            if (isSet(latxlng)) {
+                let gpsar = latxlng.split(",");
+                lat = gpsar[0];
+                lng = gpsar[1];
+            }
+            else {
+                lat = $("#lat").val();
+                lng = $("#lng").val();
+            }
+
+            requestAddressByGPS(lat, lng, function() {
+                    if (r.result == "success") {
+                        $("#address").val(r.address);                
+                    }
+                    else {
+                        showAlert(GET_STRING_CONTENT('msg_wrong_input'));                
+                    }
+                }, function (request, status, error) {
+                    hideLoader();
+            }); 
         }
     });
 
@@ -383,7 +392,6 @@ function summaryInit() {
 
     getAllRecordCount();
 }
-
 
 function centerInit() {
     document.title = GET_STRING_CONTENT('page_center_title');
@@ -604,474 +612,6 @@ function missionGenInit() {
 
     hideLoader();
 }
-
-
-
-function verifyPhoneCodeCommonSuccessCallback(data) {
-    g_b_phonenumber_verified = true;
-    $('#verification_code').val("");
-    $('#validate_phonenumber_area').hide();
-    $("#code_verification_input").hide();
-    setCookie("temp_phone", $('#user_phonenumber').val(), 1);
-    showAlert(GET_STRING_CONTENT('msg_phone_verified'));
-    stopTimer();
-    $('#auth_code').val(data.auth_code);
-}
-
-
-function flightrecordUploadInit() {
-
-    document.title = GET_STRING_CONTENT('page_flight_rec_upload_title');
-    $("#head_title").text(document.title);
-
-    $('#page_about_title').text(GET_STRING_CONTENT('page_flight_rec_upload_title'));
-    $('#page_about_content').text(GET_STRING_CONTENT('upload_about_content'));
-
-    $('#btnForUploadFlightList').text(GET_STRING_CONTENT('msg_upload'));
-
-    $("#desc_for_moviedata_label").text(GET_STRING_CONTENT('input_memo_label'));
-    $("#privacy_for_moviedata_label").text(GET_STRING_CONTENT('privacy_for_moviedata_label'));
-    $("#option_public_label").text(GET_STRING_CONTENT('option_public_label'));
-    $("#option_unlisted_label").text(GET_STRING_CONTENT('option_unlisted_label'));
-    $("#option_private_label").text(GET_STRING_CONTENT('option_private_label'));
-
-    $('#dji_flight_record_get_label').text(GET_STRING_CONTENT('dji_flight_record_get_label'));
-    $('#duni_flight_record_format_label').text(GET_STRING_CONTENT('duni_flight_record_format_label'));
-
-    $("#record_name_field").attr("placeholder", GET_STRING_CONTENT('msg_input_record_name'));
-    $("#name_label").text(GET_STRING_CONTENT('name_label'));
-    $("#youtube_url_label").text(GET_STRING_CONTENT('youtube_url_label'));
-    $("#input_memo_label").text(GET_STRING_CONTENT('input_memo_label'));
-
-    $("#input_tag_label").text(GET_STRING_CONTENT('input_tag_label'));
-    $('#label_explain_drag').text(GET_STRING_CONTENT('label_explain_drag'));
-    $('#label_or_directly').text(GET_STRING_CONTENT('label_or_directly'));
-
-    $("#dji_radio_label").text(GET_STRING_CONTENT('msg_dji_file_upload'));
-    $('#collapseRecordFileParams').html(GET_STRING_CONTENT('collapseRecordFileParams'));
-    $("#btnForAddressCheck").text(GET_STRING_CONTENT('btnForAddressCheck'));
-
-    $("#tab_menu_upload_selector_dji").text(GET_STRING_CONTENT('tab_menu_upload_selector_dji'));
-    $("#tab_menu_upload_selector_address").text(GET_STRING_CONTENT('tab_menu_upload_selector_address'));
-
-    $("#tab_menu_set_youtube_address").text(GET_STRING_CONTENT('label_set_youtube_url'));
-    $("#tab_menu_set_youtube_upload").text(GET_STRING_CONTENT('label_upload_movie'));
-    $("#tab_menu_set_no_video").text(GET_STRING_CONTENT('label_set_no_video'));
-
-    $('#btnSelectMovieFiles').text(GET_STRING_CONTENT('label_select_files'));
-    $('#btnSelectDJIFiles').text(GET_STRING_CONTENT('label_select_files'));
-    $('#btnSelectFiles').text(GET_STRING_CONTENT('label_select_files'));
-    $('#btnNextStage').text(GET_STRING_CONTENT('btnNextStage'));
-    $('#label_flightrec_file_drop_area').html(GET_STRING_CONTENT('msg_drop_flightrecord_file'));
-    $("#flighttime_input_data_label").text(GET_STRING_CONTENT('flighttime_input_data_label'));
-
-    $("#disclaimer").html(GET_STRING_CONTENT('youtubeTOS'));
-
-    $("#label_youtube_address_only").text(GET_STRING_CONTENT('label_youtube_address_only'));
-
-
-    $('#btnForUploadFlightList').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_record_upload_btn_click', 'CONTENT');
-
-        uploadCheckBeforeUploadFlightList();
-    });
-
-    $("#findAddressBtn").click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_address_find_btn_click', 'CONTENT');
-
-        execDaumPostcode(function (addr) {
-            checkAddress(addr);
-        });
-    });
-
-
-    $('#btn_check_code').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_code_check_btn_click', 'CONTENT');
-        verifyCode($('#verification_code').val(), verifyPhoneCodeCommonSuccessCallback);
-    });
-
-    $('#btn_verify_code').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_code_verify_btn_click', 'CONTENT');
-
-        verifyPhoneNo($('#user_phonenumber').val());
-    });
-
-    //판매국가는 우선 한국만!
-    $("#priceinputarea").hide();
-
-    if (g_str_cur_lang != "KR") {
-        $("#sale_select").hide();
-    }
-
-    $("#salecheck").click(function (e) {
-        let checked = $("#salecheck").is(":checked");
-        let userid = getCookie("dev_user_id");
-
-        if (checked) {
-            GATAGM('upload_salecheck_show_btn_click', 'CONTENT');
-            $("#priceinputarea").show();
-
-            let phone_number = getCookie("temp_phone");
-            if (isSet(phone_number)) {
-                $("#validate_phonenumber_area").hide();
-                g_b_phonenumber_verified = true;
-            }
-            else {
-                showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                $("#validate_phonenumber_area").show();
-                g_b_phonenumber_verified = false;
-            }
-        }
-        else {
-            GATAGM('upload_salecheck_hide_btn_click', 'CONTENT');
-            $("#priceinputarea").hide();
-            g_b_phonenumber_verified = true;
-        }
-    });
-
-    let input = document.querySelector('input[name=tagTextarea]');
-    new Tagify(input);
-
-    $("input[name='media_upload_kind']:radio").change(function () {
-        let cVal = this.value;
-
-        if (cVal == "tab_menu_set_youtube_address") {
-            $("#set_youtube_address_view").show();
-            $("#set_youtube_upload_view").hide();
-            GATAGM('upload_youtube_address_check_click', 'CONTENT');
-        }
-        else if (cVal == "tab_menu_set_youtube_upload") {
-            $("#set_youtube_address_view").hide();
-            $("#set_youtube_upload_view").show();
-            GATAGM('upload_youtube_upload_check_click', 'CONTENT');
-        }
-        else {
-            $("#set_youtube_address_view").hide();
-            $("#set_youtube_upload_view").hide();
-            GATAGM('upload_youtube_no_check_click', 'CONTENT');
-        }
-    });
-
-    g_component_upload_youtube_video = new UploadVideo();
-    g_component_upload_youtube_video.onUploadCompleteCallback = function (vid) {
-        GATAGM('upload_youtube_upload_completed', 'CONTENT');
-
-        $('#youtube_url_data').val("https://youtube.com/watch?v=" + vid);
-        $("input:radio[name='media_upload_kind']:radio[value='tab_menu_set_youtube_address']").prop('checked', true);
-        $("#set_youtube_address_view").show();
-        $("#set_youtube_upload_view").hide();
-        $("#videoRecordModifyArea").hide();
-
-        g_params_for_upload_flight_rec['youtube_data'] = "https://youtube.com/watch?v=" + vid;        
-
-        hideLoader();
-
-        if (g_b_fileupload_for_DJI == true) {
-            askIsSyncData(g_params_for_upload_flight_rec, uploadDJIFlightListCallback);
-            return;
-        }
-        
-        let flightTime = $("#flighttime_input_data").val();
-        if (flightTime == "") {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
-            return;
-        }
-
-        let startTime = Date.parse(flightTime);
-        if (isNaN(startTime)) {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
-            return;
-        }
-
-        g_params_for_upload_flight_rec['startTime'] = startTime;
-
-        saveYoutubeUrl(g_params_for_upload_flight_rec, function (bSuccess) {
-            if (bSuccess == true) {
-                showAlert(GET_STRING_CONTENT('msg_success'));
-                location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
-            }
-            else {
-                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-            }
-        });
-    };
-
-    g_component_upload_youtube_video.ready();
-
-    setFlightRecordUploadMode(true);
-
-    let retDateTimeNow = new Date();
-    retDateTimeNow.setMinutes(retDateTimeNow.getMinutes() - retDateTimeNow.getTimezoneOffset());
-    $("#flighttime_input_data").val(retDateTimeNow.toISOString().slice(0, -1));
-
-    $("#set_youtube_address_view").hide();
-    $("#set_youtube_upload_view").show();
-
-    let dropArea = $("#dropArea");
-    dropArea.on("drag dragstart dragend dragover dragenter dragleave drop", function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-    })
-        .on("dragover dragenter", function () {
-            dropArea.css('background-color', '#E3F2FC');
-            $("#file_upload_img").show();
-            $("#file_drop_img").hide();
-            $("#selectFileArea").hide();
-            $("#label_or_directly").hide();
-        })
-        .on('dragleave dragend drop', function () {
-            dropArea.css('background-color', '#FFFFFF');
-            $("#file_upload_img").hide();
-            $("#file_drop_img").show();
-            $("#selectFileArea").show();
-            $("#label_or_directly").show();
-        })
-        .on('drop', function (e) {
-            GATAGM('upload_file_drop', 'CONTENT');
-            let retSelected = fileDropCheckRecordUpload(e.originalEvent.dataTransfer.files);
-            if (retSelected == 2) setUploadFileFields();
-            else if (retSelected == 1) $("#btnNextStage").attr('disabled', false);
-            else $("#btnNextStage").attr('disabled', true);
-        });
-
-    $("#btnNextStage").click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_next_stage_btn_click', 'CONTENT');
-        $("#nextStageBtnArea").hide();
-        setUploadFileFields();
-    });
-
-    $("#label_youtube_address_only").click(function (e) {
-        e.preventDefault();
-
-        GATAGM('upload_youtube_address_only_link_click', 'CONTENT');
-        $("#nextStageBtnArea").hide();
-        $("#set_youtube_address_view").show();
-        $("#set_youtube_upload_view").hide();
-        $("#video_upload_kind_sel").show();
-        $('input:radio[name=media_upload_kind]:input[value=tab_menu_set_youtube_address]').attr("checked", true);
-        setUploadFileFields();
-    });
-
-    $("#input_direct_file").bind('change', function () {
-        GATAGM('upload_direct_file_select_btn_click', 'CONTENT');
-        let retSelected = fileDropCheckRecordUpload(this.files);
-        if (retSelected == 2) setUploadFileFields();
-        else if (retSelected == 1) $("#btnNextStage").attr('disabled', false);
-        else $("#btnNextStage").attr('disabled', true);
-    });
-
-    $("#movieFile").bind('change', function () {
-        GATAGM('upload_movie_file_select_btn_click', 'CONTENT');
-        videoFileForUploadFile = null;
-        let retSelected = fileDropCheckRecordUpload(this.files);
-    });
-
-    $("#flight_record_file").bind('change', function () {
-        GATAGM('upload_record_file_select_btn_click', 'CONTENT');
-        recordFileForUploadFile = null;
-        let retSelected = fileDropCheckRecordUpload(this.files);
-    });
-
-    $("#input_direct_file").click(function () {
-        $(this).attr("value", "");
-        $("#input_direct_file").val("");
-    });
-
-    $("#movieFile").click(function () {
-        $(this).attr("value", "");
-        $("#movieFile").val("");
-    });
-
-    $("#flight_record_file").click(function () {
-        $(this).attr("value", "");
-        $("#flight_record_file").val("");
-    });
-
-    $("#dropArea").show();
-    $("#uploadfileform").hide();
-    $("#file_upload_img").hide();
-    $("#nextStageBtnArea").show();
-    $("#btnNextStage").attr('disabled', true);
-
-    // define variables
-    let nativePicker = document.querySelector('.nativeDateTimePicker');
-    let fallbackPicker = document.querySelector('.fallbackDateTimePicker');
-
-    let yearSelect = document.querySelector('#year');
-    let monthSelect = document.querySelector('#month');
-    let daySelect = document.querySelector('#day');
-    let hourSelect = document.querySelector('#hour');
-    let minuteSelect = document.querySelector('#minute');
-
-    // hide fallback initially
-    fallbackPicker.style.display = 'none';
-
-    // test whether a new datetime-local input falls back to a text input or not
-    let testInput = document.createElement('input');
-
-    try {
-        testInput.type = 'datetime-local';
-    } catch (e) {
-        console.log(e.description);
-    }
-
-    // if it does, run the code inside the if() {} block
-    if (testInput.type === 'text') {
-        // hide the native picker and show the fallback
-        nativePicker.style.display = 'none';
-        fallbackPicker.style.display = 'block';
-
-        // populate the days and years dynamically
-        // (the months are always the same, therefore hardcoded)
-        populateDays(monthSelect.value);
-        populateYears();
-        populateHours();
-        populateMinutes();
-    }
-
-    hideLoader();
-}
-
-
-function fileDropCheckRecordUpload(files) {
-    if (files.length > 2) {
-        showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-        return 0;
-    }
-
-    if (files.length == 2) {
-        if (isSet(recordFileForUploadFile) || isSet(videoFileForUploadFile)) {
-            showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-            return 0;
-        }
-    }
-
-    let isAdded = false;
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-
-        if (isRecordFile(file.name)) {
-            if (isSet(recordFileForUploadFile)) {
-                showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-                return 0;
-            }
-            else {
-                recordFileForUploadFile = file;
-                previewForRecordFile(file);
-                isAdded = true;
-            }
-        }
-
-        if (isMovieFile(file.name)) {
-            if (isSet(videoFileForUploadFile)) {
-                showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-                return 0;
-            }
-            else {
-                videoFileForUploadFile = file;
-                previewForRecordFile(file);
-                isAdded = true;
-            }
-        }
-    }
-
-    if (isAdded == 0) {
-        showAlert(GET_STRING_CONTENT("msg_select_one_video_one_record"));
-        return 0;
-    }
-
-    if (isSet(recordFileForUploadFile) && isSet(videoFileForUploadFile)) {
-        return 2;
-    }
-
-    return 1;
-}
-
-
-function previewForRecordFile(file) {
-    let iconArea;
-    let vDiv;
-    if (isMovieFile(file.name)) {
-        $("#selectMovieFileArea").css("display", "none");
-        $("#videoFileName").empty();
-        iconArea = '<i class="fas fa-video" style="color:black"></i>';
-
-        vDiv = $('<div class="text-left">'
-            + '<span style="cursor:pointer" id="file_data_remover_video1"><b>X</b></span> '
-            + iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
-        $("#videoFileName").append(vDiv);
-
-        vDiv = $('<div class="text-left" id="thumbnail_video">'
-            + '<span style="cursor:pointer" id="file_data_remover_video2"><b>X</b></span> '
-            + iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
-        $("#thumbnails").append(vDiv);
-
-        $("#file_data_remover_video1").on("click", function (e) {
-            $("#videoFileName").empty();
-            $("#thumbnail_video").remove();
-            videoFileForUploadFile = null;
-            $("#selectMovieFileArea").show();
-            $("#video_upload_kind_sel").show();
-        });
-
-        $("#file_data_remover_video2").on("click", function (e) {
-            $("#videoFileName").empty();
-            $("#thumbnail_video").remove();
-            videoFileForUploadFile = null;
-            $("#selectMovieFileArea").show();
-            $("#video_upload_kind_sel").show();
-        });
-
-        $("#video_upload_kind_sel").hide();
-    }
-    else {
-        $("#selectDJIFileArea").css("display", "none");
-        $("#flightRecordFileName").empty();
-        iconArea = '<i class="fas fa-map-marker-alt" style="color:black"></i>';
-        vDiv = $('<div class="text-left">'
-            + '<span style="cursor:pointer" id="file_data_remover_record1"><b>X</b></span> '
-            + iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
-        $("#flightRecordFileName").append(vDiv);
-
-
-        vDiv = $('<div class="text-left" id="thumbnail_record">'
-            + '<span style="cursor:pointer" id="file_data_remover_record2"><b>X</b></span> '
-            + iconArea + ' <span class="text-xs mb-1" style="color:black">' + file.name + '</span></div>');
-        $("#thumbnails").append(vDiv);
-
-        $("#file_data_remover_record1").on("click", function (e) {
-            $("#flightRecordFileName").empty();
-            $("#thumbnail_record").remove();
-            recordFileForUploadFile = null;
-            $("#selectDJIFileArea").show();
-            $("#dji_file_upload_sel").show();
-            $("#dji_file_get_howto").show();
-        });
-
-        $("#file_data_remover_record2").on("click", function (e) {
-            $("#flightRecordFileName").empty();
-            $("#thumbnail_record").remove();
-            recordFileForUploadFile = null;
-            $("#selectDJIFileArea").show();
-            $("#dji_file_upload_sel").show();
-            $("#dji_file_get_howto").show();
-        });
-
-        $("#dji_file_upload_sel").hide();
-        $("#dji_file_get_howto").hide();
-    }
-}
-
 
 
 function monitorInit() {
@@ -1444,30 +984,24 @@ function genPlanByAddress(address) {
 
     g_str_address_temp_val = address;
 
-    let userid = getCookie("dev_user_id");
-    let jdata = { "clientid": userid, "action": "util", "daction": "gps_by_address", "address": encodeURI(address) };
+    requestGPSByAddress(encodeURI(address), function(r) {
 
-    showLoader();
-    ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            if (r.data == null) {
-                hideLoader();
+            if (!isSet(r.data)) {                    
                 showAlert(GET_STRING_CONTENT('msg_wrong_input'));
                 return;
             }
 
-            $('#lat').val(r.data.lat);
-            $('#lng').val(r.data.lng);
+            if(r.result == "success") {                
+                $('#lat').val(r.data.lat);
+                $('#lng').val(r.data.lng);
 
-            genPlan(r.data.lat * 1, r.data.lng * 1);
-        }
-        else {
-            hideLoader();
-            showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-        }
-    },
-        function (request, status, error) {
-            hideLoader();
+                genPlan(r.data.lat * 1, r.data.lng * 1);
+            }
+            else {        
+                showAlert(GET_STRING_CONTENT('msg_input_correct_address'));
+            }
+        },
+        function () {
             showAlert(GET_STRING_CONTENT('msg_error_sorry'));
         });
 }
@@ -1483,24 +1017,17 @@ function genPlanByGPS(lat, lng) {
     g_loc_address_flat = lat;
     g_loc_address_flng = lng;
 
-    let userid = getCookie("dev_user_id");
-    let jdata = { "clientid": userid, "action": "util", "daction": "address_by_gps", "lat": lat, "lng": lng };
-
-    showLoader();
-    ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-
-            $("#gen_address").val(r.address);
-
-            genPlan(lat, lng);
-        }
-        else {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+    requestAddressByGPS(lat, lng, function (r) {
+            if (r.result == "success") {
+                $("#gen_address").val(r.address);
+                genPlan(lat, lng);
+            }
+            else {
+                showAlert(GET_STRING_CONTENT('msg_wrong_input'));                
+            }
+        }, function () {
             hideLoader();
-        }
-    }, function (request, status, error) {
-        hideLoader();
-    });
+        });
 }
 
 
@@ -1554,13 +1081,6 @@ function genPlan(lat, lng) {
     let dpoint = ol.proj.fromLonLat([lng, lat]);
     drawCadastral(null, null, dpoint[0], dpoint[1], g_vector_2D_mainmap_for_cada);
 
-}
-
-function setUploadFileFields() {
-    $('#dropArea').hide();
-    $("#nextStageBtnArea").hide();
-    $('#uploadfileform').show();
-    $('#youtube_address_only_area').hide();
 }
 
 
@@ -2495,35 +2015,33 @@ function appendMissionList(data) {
     });
 }
 
-
-function ajaxRequestAddress(address, callback, errorcallback) {
-    $.ajax({
-        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyANkdJYJ3zKXAjOdPFrhEEeq4M8WETn0-4",
-        crossDomain: true,
-        cache: false,
-        type: "GET",
-        success: function (r) {
-            callback(r);
-        },
-        error: function (request, status, error) {
-            monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            errorcallback(request, status, error);
-        }
-    });
-}
-
 function searchCurrentBrowserAddress() {
     let query = $('#queryData').val();
     searchAddressToCoordinate(query);
 }
 
-// result by latlng coordinate
-function searchAddressToCoordinate(address) {
-    ajaxRequestAddress(address, function (r) {
 
-        moveToPositionOnMap("private", 0, r['results'][0].geometry.location.lat, r['results'][0].geometry.location.lng, 0, 0, 0, 0);
+function searchAddressToCoordinate(address) {    
+    requestGPSByAddress(address, function (r) {
+        if (r.result == "success") {
+            if (r.data == null) {
+                g_loc_address_flat = -999;
+                g_loc_address_flng = -999;
+                showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+                return;
+            }
 
-    }, function (request, status, error) {
+            g_loc_address_flat = r.data.lat;
+            g_loc_address_flng = r.data.lng;
+        }
+        else {
+            g_loc_address_flat = -999;
+            g_loc_address_flng = -999;
+            showAlert(GET_STRING_CONTENT('msg_input_correct_address'));
+        }
+
+        moveToPositionOnMap("private", 0, g_loc_address_flat, g_loc_address_flng, 0, 0, 0, 0);
+    }, function () {
         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
     });
 }
@@ -3632,182 +3150,6 @@ function nexttour(owner, fobject) {
 }
 
 
-
-function uploadFlightList(isUpdate) {
-    let mname = $("#record_name_field").val();
-
-    if (mname == "") {
-        showAlert(GET_STRING_CONTENT('msg_input_record_name'));
-        return;
-    }
-
-    let mmemo = $("#memoTextarea").val();
-    let tag_values = $("#tagTextarea").val();
-
-    let youtube_data = $("#youtube_url_data").val();
-    let cVal = $(":input:radio[name='media_upload_kind']:checked").val();
-    if (cVal == "tab_menu_set_no_video") {
-        youtube_data = "";
-    }
-    else if (cVal == "tab_menu_set_youtube_address") {
-        youtube_data = massageYotubeUrl(youtube_data);
-        if (youtube_data == "") {
-            showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
-            hideLoader();
-            return;
-        }
-    }
-
-    let params = {};
-    let price = 0;
-
-    if (isUpdate == false && g_str_cur_lang == "KR") {
-        let checked = $("#salecheck").is(":checked");
-        if (checked) {
-            let t_p = $("#price_input_data").val();
-            if (t_p == "") {
-                showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-                hideLoader();
-                return;
-            }
-
-            if (youtube_data == "") {
-                showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
-                hideLoader();
-                return;
-            }
-
-            price = t_p * 1;
-        }
-    }
-
-    if (g_b_fileupload_for_DJI == true) {
-        if (isSet(recordFileForUploadFile) == false) {
-            showAlert(GET_STRING_CONTENT('msg_select_file'));
-            return;
-        }
-
-        let record_kind = "dji";
-        if (getFileExtension(recordFileForUploadFile.name).toUpperCase() == "CSV") {
-            record_kind = "litchi";
-        }
-
-        if (isSet(youtube_data)) {
-            params = { file: recordFileForUploadFile, record_kind: record_kind, mname: mname, mmemo: mmemo, price: price, tag_values: tag_values, youtube_data: youtube_data, isUpdate: isUpdate };
-            askIsSyncData(params, uploadDJIFlightListCallback);
-            return;
-        }
-
-        showLoader();
-
-        params = { file: recordFileForUploadFile, record_kind: record_kind, mname: mname, mmemo: mmemo, price: price, tag_values: tag_values, youtube_data: youtube_data, isUpdate: isUpdate, isSyncData: false };
-        getBase64(params, uploadDJIFlightListCallback);
-        return;
-    }
-
-    if (isUpdate == true || youtube_data == "") {
-        showAlert(GET_STRING_CONTENT('msg_select_any_file'));
-    }
-    else {
-        if (g_loc_address_flat == -999) {
-            showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-            return;
-        }
-
-        let flightTime = $("#flighttime_input_data").val();
-        if (flightTime == "") {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
-            return;
-        }
-
-        let startTime = Date.parse(flightTime);
-        if (isNaN(startTime)) {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
-            return;
-        }
-
-        youtube_data = massageYotubeUrl(youtube_data);
-
-        params = { mname: mname, mmemo: mmemo, price: price, tag_values: tag_values, youtube_data: youtube_data, flat: g_loc_address_flat, flng: g_loc_address_flng, startTime: startTime };
-
-        saveYoutubeUrl(params, function (bSuccess) {
-            if (bSuccess == true) {
-                showAlert(GET_STRING_CONTENT('msg_success'));
-                location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
-            }
-            else {
-                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-            }
-        });
-    }
-}
-
-
-function uploadDJIFlightListCallback(params) {
-    let userid = getCookie("dev_user_id");
-
-    let youtube_data = massageYotubeUrl(params.youtube_data);
-    let jdata = {
-        "action": "position", "daction": "convert",
-        "clientid": userid, "name": encodeURI(params.mname),
-        "youtube_data_id": youtube_data,
-        "update": params.isUpdate,
-        "sync": params.isSyncData,
-        "price": params.price,
-        "record_kind": params.record_kind,
-        "tag_values": encodeURI(params.tag_values),
-        "memo": encodeURI(params.mmemo),
-        "recordfile": params.base64file
-    };
-
-    ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {
-            $('#btnForUploadFlightList').hide(1500);
-            $('#uploadFileform').hide(1500);
-            GATAGM('dji_file_upload_success', 'CONTENT');
-
-            showAskDialog(
-                GET_STRING_CONTENT('modal_title'),
-                GET_STRING_CONTENT('msg_success'),
-                GET_STRING_CONTENT('modal_confirm_btn'),
-                false,
-                function () {
-                    setTimeout(function () {
-                        location.href = g_array_cur_controller_for_viewmode["pilot"] + "?page_action=recordlist";
-                    }, 1000);
-                },
-                null
-            );
-
-        }
-        else {
-            if (r.result_code == 3) {
-                GATAGM('dji_file_upload_failed_same_data_exist', 'CONTENT');
-                showAlert(GET_STRING_CONTENT('msg_error_same_record_exist'));
-            }
-            else {
-                if (r.reason.indexOf("failed to decode") >= 0) {
-                    GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
-                    if (isSet(youtube_data))
-                        showAlert(GET_STRING_CONTENT('msg_dji_analyze_failed_input_address')); //with video
-                    else
-                        showAlert(GET_STRING_CONTENT('msg_select_another_file')); //todo only flight file
-                }
-                else {
-                    GATAGM('dji_file_upload_analyze_failed', 'CONTENT', r.reason);
-                    showAlert(GET_STRING_CONTENT('msg_error_sorry') + " (" + r.reason + ")");
-                }
-            }
-
-            hideLoader();
-        }
-    }, function (request, status, error) {
-        hideLoader();
-        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-    });
-}
-
-
 function hideMovieDataSet() {
     $('#movieDataSet').hide();
     $('#modifyBtnForMovieData').text(GET_STRING_CONTENT('msg_modify_youtube_data'));
@@ -4073,125 +3415,6 @@ function askIsSyncData(params, callback) {
     );
 }
 
-
-function uploadCheckBeforeUploadFlightList() {
-
-    let cVal = $(":input:radio[name='media_upload_kind']:checked").val();
-    if (cVal == "tab_menu_set_youtube_address" || cVal == "tab_menu_set_no_video") {
-        uploadFlightList(false);
-        return;
-    }
-
-    let mname = $("#record_name_field").val();
-    if (mname == "") {
-        showAlert(GET_STRING_CONTENT('msg_input_record_name'));
-        return;
-    }
-
-    let price = 0;
-    if (g_str_cur_lang == "KR") {
-        let tchecked = $("#salecheck").is(":checked");
-        if (tchecked) {
-            let t_p = $("#price_input_data").val();
-            if (t_p == "" || t_p == "원" || t_p == "0") {
-                showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-                return;
-            }
-
-            if (g_b_phonenumber_verified == false) {
-                showAlert(GET_STRING_CONTENT('msg_phone_vid_not_verified'));
-                return;
-            }
-
-            price = t_p * 1;
-        }
-    }
-
-    let mmemo = $("#memoTextarea").val();
-    let tag_values = $("#tagTextarea").val();
-
-    if (g_b_fileupload_for_DJI == true) { //비행기록 업로드
-        if (isSet(recordFileForUploadFile) == false) {
-            showAlert(GET_STRING_CONTENT('msg_select_file'));
-            return;
-        }
-
-        showLoader();
-
-        g_params_for_upload_flight_rec = { file: recordFileForUploadFile, mname: mname, mmemo: mmemo, tag_values: tag_values, isUpdate: false, isSyncData: false, price: price };
-        g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
-        return;
-    }
-
-    if (g_loc_address_flat == -999) {    	// 주소 기반
-        showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-        return;
-    }
-
-    // 전화번호 인증여부 체크
-    if (!g_b_phonenumber_verified) {
-        showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
-        return;
-    }
-
-
-    showLoader();
-    g_params_for_upload_flight_rec = { mname: mname, mmemo: mmemo, tag_values: tag_values, isUpdate: false, isSyncData: false, price: price, flat: g_loc_address_flat, flng: g_loc_address_flng };
-    g_component_upload_youtube_video.handleUploadClicked(videoFileForUploadFile);
-}
-
-function setFlightRecordUploadMode(bWhich) {
-    if (bWhich == true) {
-        g_b_fileupload_for_DJI = true;
-        $("#dji_upload_filed").show();
-        $("#address_location_field").hide();
-        return;
-    }
-
-    g_b_fileupload_for_DJI = false;
-    $("#dji_upload_filed").hide();
-    $("#address_location_field").show();
-}
-
-function checkAddress(address) {
-    if (isSet(address) == false) {
-        showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-        g_loc_address_flat = -999;
-        g_loc_address_flng = -999;
-        return;
-    }
-
-    showLoader();
-    let userid = getCookie("dev_user_id");
-    let jdata = { "clientid": userid, "action": "util", "daction": "gps_by_address", "address": encodeURI(address) };
-
-    ajaxRequest(jdata, function (r) {
-        hideLoader();
-        if (r.result == "success") {
-            if (r.data == null) {
-                g_loc_address_flat = -999;
-                g_loc_address_flng = -999;
-                showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-                return;
-            }
-
-            g_loc_address_flat = r.data.lat;
-            g_loc_address_flng = r.data.lng;
-        }
-        else {
-            g_loc_address_flat = -999;
-            g_loc_address_flng = -999;
-            showAlert(GET_STRING_CONTENT('msg_input_corrent_address'));
-        }
-    },
-        function (request, status, error) {
-            hideLoader();
-            g_loc_address_flat = -999;
-            g_loc_address_flng = -999;
-            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-        });
-}
-
 function setMonFilter() {
     if (g_b_kalman_filter_on == false) {
         g_b_kalman_filter_on = true;
@@ -4201,39 +3424,4 @@ function setMonFilter() {
         g_b_kalman_filter_on = false;
         $("#btnForFilter").text(GET_STRING_CONTENT('btnForFilter'));
     }
-}
-
-
-function requestAddress() {
-    let userid = getCookie("dev_user_id");
-    let jdata = { "clientid": userid, "action": "util", "daction": "address_by_gps" };
-
-    let latxlng = $("#latxlng").val();
-    let gpsar;
-    if (latxlng != "") {
-        gpsar = latxlng.split(",");
-        jdata["lat"] = gpsar[0];
-        jdata["lng"] = gpsar[1];
-    }
-    else {
-        jdata["lat"] = $("#lat").val();
-        jdata["lng"] = $("#lng").val();
-    }
-
-
-    showLoader();
-    ajaxRequest(jdata, function (r) {
-        hideLoader();
-        if (r.result == "success") {
-
-            $("#address").val(r.address);
-            hideLoader();
-        }
-        else {
-            showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-            hideLoader();
-        }
-    }, function (request, status, error) {
-        hideLoader();
-    });
 }

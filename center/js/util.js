@@ -65,6 +65,10 @@ let g_str_cur_monitor_object_owner = "private";
 
 let g_b_interval_timer = -1;
 
+
+////////////////////////////////////////////////////////
+
+
 function selectMonitorIndex(owner, index) {
     g_i_cur_monitor_object_index = index;
     g_str_cur_monitor_object_owner = owner;
@@ -82,40 +86,40 @@ function startTimer(duration, display, callback) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-        	stopTimer();
-					callback();
+            stopTimer();
+            callback();
         }
     }, 1000);
 }
 
 function stopTimer() {
-	if (g_b_interval_timer >= 0)
-		clearInterval(g_b_interval_timer);
-	
-	g_b_interval_timer = -1;
+    if (g_b_interval_timer >= 0)
+        clearInterval(g_b_interval_timer);
+
+    g_b_interval_timer = -1;
 }
 
 
 function isRecordFile(filename) {
-	let ext = getFileExtension(filename);
-	return compareIgnoreCase(ext, "txt") || compareIgnoreCase(ext, "csv");
+    let ext = getFileExtension(filename);
+    return compareIgnoreCase(ext, "txt") || compareIgnoreCase(ext, "csv");
 }
 
 function isMovieFile(filename) {
-	let ext = getFileExtension(filename);
-	if (compareIgnoreCase(ext, "mp4")
-	 			|| compareIgnoreCase(ext, "mov")
-	 			|| compareIgnoreCase(ext, "mpg")
-	 			|| compareIgnoreCase(ext, "avi")
-	 			|| compareIgnoreCase(ext, "mpeg")
-	 			|| compareIgnoreCase(ext, "wmv")
-	 			|| compareIgnoreCase(ext, "flv")
-	 			|| compareIgnoreCase(ext, "3gpp")
-	 			|| compareIgnoreCase(ext, "hevc")) {
-	 				return true;
-	}
+    let ext = getFileExtension(filename);
+    if (compareIgnoreCase(ext, "mp4")
+        || compareIgnoreCase(ext, "mov")
+        || compareIgnoreCase(ext, "mpg")
+        || compareIgnoreCase(ext, "avi")
+        || compareIgnoreCase(ext, "mpeg")
+        || compareIgnoreCase(ext, "wmv")
+        || compareIgnoreCase(ext, "flv")
+        || compareIgnoreCase(ext, "3gpp")
+        || compareIgnoreCase(ext, "hevc")) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 
@@ -129,7 +133,7 @@ function validateNumber(event) {
     var key = window.event ? event.keyCode : event.which;
     if (event.keyCode === 8 || event.keyCode === 46) {
         return true;
-    } else if ( key < 48 || key > 57 ) {
+    } else if (key < 48 || key > 57) {
         return false;
     } else {
         return true;
@@ -137,16 +141,16 @@ function validateNumber(event) {
 }
 
 function getFileExtension(filename) {
-	return filename.split('.').pop();
+    return filename.split('.').pop();
 }
 
 function compareIgnoreCase(str1, str2) {
-	return str1.toUpperCase() === str2.toUpperCase();
+    return str1.toUpperCase() === str2.toUpperCase();
 }
 
 
 function runNextSequence(nextfunc) {
-	setTimeout(nextfunc, 500);
+    setTimeout(nextfunc, 500);
 }
 
 function checkLang() {
@@ -166,7 +170,7 @@ function setLang(lang) {
 }
 
 function isSet(value) {
-		if ( typeof(value) === 'number' )
+    if (typeof (value) === 'number')
         return true;
     if (value == "" || value == null || value == "undefined" || value == undefined)
         return false;
@@ -203,28 +207,28 @@ function ajaxRequest(data, callback, errorcallback) {
             request.setRequestHeader("droneplay-token", getCookie('user_token'));
         },
         success: function (r) {
-        		if (r.result != "success" && r.result_code == 1) {
-        			setCookie("dev_user_id", "", -1);
-					    setCookie("user_token", "", -1);
-					    setCookie("dev_token", "", -1);
-					    setCookie("user_kind", "", -1);
-					    setCookie("device_kind", "", -1);
-					    setCookie("device_id", "", -1);
-			        setCookie("user_email", "", -1);
-			        setCookie("image_url", "", -1);
-			        setCookie("temp_sns_token", "", -1);
-			        setCookie("dev_sns_token", "", -1);
-			        setCookie("temp_image_url", "", -1);
-			        setCookie("temp_email", "", -1);
-			        setCookie("temp_name", "", -1);
-			        setCookie("user_google_auth_token", "", -1);
+            if (r.result != "success" && r.result_code == 1) {
+                setCookie("dev_user_id", "", -1);
+                setCookie("user_token", "", -1);
+                setCookie("dev_token", "", -1);
+                setCookie("user_kind", "", -1);
+                setCookie("device_kind", "", -1);
+                setCookie("device_id", "", -1);
+                setCookie("user_email", "", -1);
+                setCookie("image_url", "", -1);
+                setCookie("temp_sns_token", "", -1);
+                setCookie("dev_sns_token", "", -1);
+                setCookie("temp_image_url", "", -1);
+                setCookie("temp_email", "", -1);
+                setCookie("temp_name", "", -1);
+                setCookie("user_google_auth_token", "", -1);
 
-			        goIndex("logout");
+                goIndex("logout");
 
-			        if (data.daction != "logout")
-        				alert(GET_STRING_CONTENT('msg_login_another_device_sorry'));
-        			return;
-        		}
+                if (data.daction != "logout")
+                    alert(GET_STRING_CONTENT('msg_login_another_device_sorry'));
+                return;
+            }
 
             callback(r);
         },
@@ -236,28 +240,28 @@ function ajaxRequest(data, callback, errorcallback) {
 }
 
 function goIndex(doAction) {
-  if (g_str_cur_lang == "KR" || g_str_cur_lang == "")
-    location.href="index.html?action=" + doAction;
-  else
-  	location.href="index_en.html?action=" + doAction;
+    if (g_str_cur_lang == "KR" || g_str_cur_lang == "")
+        location.href = "index.html?action=" + doAction;
+    else
+        location.href = "index_en.html?action=" + doAction;
 }
 
 function logOut() {
-		var userid = getCookie("dev_user_id");
+    var userid = getCookie("dev_user_id");
     var jdata = {
-    	"action": "member",
-    	"daction": "logout",
-    	"clientid": userid
+        "action": "member",
+        "daction": "logout",
+        "clientid": userid
     };
 
     ajaxRequest(jdata, function (r) {
         //if (r.result == "success") {}
         setCookie("dev_user_id", "", -1);
-		    setCookie("user_token", "", -1);
-		    setCookie("dev_token", "", -1);
-		    setCookie("user_kind", "", -1);
-		    setCookie("device_kind", "", -1);
-		    setCookie("device_id", "", -1);
+        setCookie("user_token", "", -1);
+        setCookie("dev_token", "", -1);
+        setCookie("user_kind", "", -1);
+        setCookie("device_kind", "", -1);
+        setCookie("device_id", "", -1);
         setCookie("user_email", "", -1);
         setCookie("image_url", "", -1);
         setCookie("temp_sns_token", "", -1);
@@ -288,7 +292,7 @@ function logOut() {
         setCookie("dev_kind", "", -1);
         setCookie("user_google_auth_token", "", -1);
 
-    		goIndex("logout");
+        goIndex("logout");
     });
 }
 
@@ -322,7 +326,7 @@ function hideLoader() {
 function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelhandler) {
 
     if (needInput == true) {
-    		$('#askModalLabel').text(atitle);
+        $('#askModalLabel').text(atitle);
         $('#askModalInput').show();
         $('#askModalContent').html(acontent);
         $('#askModalInput').val("");
@@ -339,21 +343,21 @@ function showAskDialog(atitle, acontent, oktitle, needInput, okhandler, cancelha
 
 
     if (cancelhandler) {
-      $('#askModalCancelButton').show();
-      $('#askModalCancelButton').off('click');
-      $('#askModalCancelButton').click(function (e) {
-      		e.preventDefault();
+        $('#askModalCancelButton').show();
+        $('#askModalCancelButton').off('click');
+        $('#askModalCancelButton').click(function (e) {
+            e.preventDefault();
 
-          cancelhandler();
-      });
+            cancelhandler();
+        });
     }
     else {
-      $('#askModalCancelButton').hide();
+        $('#askModalCancelButton').hide();
     }
 
     $('#askModalOKButton').off('click');
     $('#askModalOKButton').click(function (e) {
-    		e.preventDefault();
+        e.preventDefault();
 
         $('#askModal').modal('hide');
         if (needInput == true) {
@@ -389,7 +393,7 @@ function getBase64(params, callback) {
 
     reader.readAsDataURL(params.file);
     reader.onload = function () {
-    		params['base64file'] = reader.result;
+        params['base64file'] = reader.result;
         callback(params);
     };
     reader.onerror = function (error) {
@@ -409,11 +413,11 @@ function setCookie(cName, cValue, cDay) {
 }
 
 function getCookie(cName) {
-		let matches = document.cookie.match(new RegExp(
-    	"(?:^|; )" + cName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-  	));
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + cName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
 
-  	return matches ? matches[1] : null;
+    return matches ? matches[1] : null;
 }
 
 function massageYotubeUrl(data_id) {
@@ -445,16 +449,16 @@ function convert2data(t) {
 
 
 function addChartItem(i, item) {
-		item.lat = (item.lat * 1).toFixed(5) * 1;
-		item.lng = (item.lng * 1).toFixed(5) * 1;
-		item.alt = (item.alt * 1).toFixed(3) * 1;		
-		item.dsec = (item.dsec * 1).toFixed(2) * 1;
+    item.lat = (item.lat * 1).toFixed(5) * 1;
+    item.lng = (item.lng * 1).toFixed(5) * 1;
+    item.alt = (item.alt * 1).toFixed(3) * 1;
+    item.dsec = (item.dsec * 1).toFixed(2) * 1;
     g_array_flight_rec.push(item);
     g_array_altitude_data_for_chart.push({ x: Math.round(item.dsec), y: item.alt });
 }
 
 function setSlider(i) {
-		if ($("#slider").length <= 0) return;
+    if ($("#slider").length <= 0) return;
 
     $("#slider").on("slidestop", function (event, ui) {
         let locdata = g_array_flight_rec[ui.value];
@@ -634,7 +638,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
             cdata = g_array_flight_rec;
         }
         else {
-        		//\uC704\uCE58 \uB370\uC774\uD130\uAC00 \uC5C6\uC74C.
+            //\uC704\uCE58 \uB370\uC774\uD130\uAC00 \uC5C6\uC74C.
             return false;
         }
     }
@@ -642,37 +646,37 @@ function addFlightRecordDataToView(cdata, bfilter) {
     let arrayMapPosIcons = [];
     let lineData = [];
 
-		let rlng, rlat;
+    let rlng, rlat;
     cdata.forEach(function (item, i, arr) {
 
         if (bfilter && i > 4 && isNeedSkip(item.lat, item.lng, item.alt) == true) {
-        	return true;
-				}
-				
+            return true;
+        }
+
         addChartItem(i, item);
 
         let pos_icon = new ol.Feature({
-		        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-		        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
-		        mindex: i
-		    });
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+            name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+            mindex: i
+        });
 
-		    let pos_icon_color = getColorPerAlt(item.alt);
+        let pos_icon_color = getColorPerAlt(item.alt);
 
-		    if ("etc" in item && "marked" in item.etc) {
-		        pos_icon_color = '#ff0000';
-		    }
+        if ("etc" in item && "marked" in item.etc) {
+            pos_icon_color = '#ff0000';
+        }
 
-		    pos_icon.setStyle(new ol.style.Style({
-		        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
-		            color: pos_icon_color,
-		            crossOrigin: 'anonymous',
-		            opacity: 0.55,
-		            src: "./imgs/position4.png"
-		        }))
-		    }));
+        pos_icon.setStyle(new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+                color: pos_icon_color,
+                crossOrigin: 'anonymous',
+                opacity: 0.55,
+                src: "./imgs/position4.png"
+            }))
+        }));
 
-		    arrayMapPosIcons.push(pos_icon);
+        arrayMapPosIcons.push(pos_icon);
 
         lineData.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
 
@@ -681,12 +685,12 @@ function addFlightRecordDataToView(cdata, bfilter) {
         oldAlt = item.alt;
 
         if (isSet(rlat) == false) {
-        	rlat = oldLat;
+            rlat = oldLat;
         }
 
         if (rlat > oldLat) {
-        		rlat = oldLat;
-        		rlng = oldLng;
+            rlat = oldLat;
+            rlng = oldLng;
         }
     });
 
@@ -697,7 +701,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
     //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);		
 
     setSlider(cdata.length - 1);
-    
+
     setItemToRecTableList();
 
     drawLineTo2DMap(g_cur_2D_mainmap, lineData);
@@ -714,31 +718,31 @@ function addFlightRecordDataToView(cdata, bfilter) {
 let scrollableRecTable;
 
 function setItemToRecTableList() {
-	if ($("#rawRecordTable").length <= 0) return;
-	
-	if (!isSet(scrollableRecTable)) {
-		scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
-		scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
-	}
-	
-	let tableData = [];
-	g_array_flight_rec.forEach(function(item, index, arr) {
-		tableData.push( {"id": index, "dsec": item.dsec, "lat" : item.lat, "lng" : item.lng, "alt" : item.alt} )
-	});
-	
-	scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
-	scrollableRecTable.setTableHeight(400);
-  scrollableRecTable.setCompareFunctionForSorting( function(a,b) {
-      return a.localeCompare(b, undefined, {usage: 'sort', numeric: true, sensitivity: 'base'})
-  })
-  scrollableRecTable.sortByColumnName("dsec")
-  
-  $( document ).on("rawTableDataEventType", function(event, data) {
-      let index = data.data.id;
-      let item = g_array_flight_rec[index];
-      
-      setMoveActionFromTable(index, item);
-  });
+    if ($("#rawRecordTable").length <= 0) return;
+
+    if (!isSet(scrollableRecTable)) {
+        scrollableRecTable = new scrollableTable(/* unique id */ 'scrollableRecTable', /* HTML wrapper id */ 'rawRecordTable', /* enable logging*/ false);
+        scrollableRecTable.setTableHeader(["dsec", "lat", "lng", "alt"]);
+    }
+
+    let tableData = [];
+    g_array_flight_rec.forEach(function (item, index, arr) {
+        tableData.push({ "id": index, "dsec": item.dsec, "lat": item.lat, "lng": item.lng, "alt": item.alt })
+    });
+
+    scrollableRecTable.setTableContent(tableData, "rawTableDataEventType", ["dsec", "lat", "lng", "alt"], /* optional parameter for TreeTable */ "subtree")
+    scrollableRecTable.setTableHeight(400);
+    scrollableRecTable.setCompareFunctionForSorting(function (a, b) {
+        return a.localeCompare(b, undefined, { usage: 'sort', numeric: true, sensitivity: 'base' })
+    })
+    scrollableRecTable.sortByColumnName("dsec")
+
+    $(document).on("rawTableDataEventType", function (event, data) {
+        let index = data.data.id;
+        let item = g_array_flight_rec[index];
+
+        setMoveActionFromTable(index, item);
+    });
 }
 
 
@@ -829,7 +833,7 @@ function setMoveActionFromTable(index, item) {
 
     showCurrentInfo([item.lng * 1, item.lat * 1], item.alt);
     moveToPositionOnMap("private", 0, item.lat * 1, item.lng * 1, item.alt, item.yaw, item.roll, item.pitch);
-    
+
     if ("dsec" in item) {
         movieSeekTo(item.dsec * 1);
     }
@@ -983,7 +987,7 @@ function setRollStatus(roll) {
 
 
 function getColorPerAlt3d(alt) {
-		if(alt < 0) alt = 0;
+    if (alt < 0) alt = 0;
 
     var icon_color = Math.floor(alt * 1.2);
 
@@ -994,7 +998,7 @@ function getColorPerAlt3d(alt) {
 }
 
 function getColorPerAlt(alt) {
-		if(alt < 0) alt = 0;
+    if (alt < 0) alt = 0;
 
     var icon_color = Math.floor(alt * 1.2);
 
@@ -1006,14 +1010,14 @@ function getColorPerAlt(alt) {
 }
 
 function getYoutubeQueryVariable(query) {
-  var varfirst = query.split('?');
-  var vars = varfirst[1].split('&');
-  for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=');
-      if (decodeURIComponent(pair[0]) == "v") {
-          return decodeURIComponent(pair[1]);
-      }
-  }
+    var varfirst = query.split('?');
+    var vars = varfirst[1].split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == "v") {
+            return decodeURIComponent(pair[1]);
+        }
+    }
 }
 
 function getQueryVariable(variable) {
@@ -1028,59 +1032,59 @@ function getQueryVariable(variable) {
 }
 
 function makeDateTimeFormat(d, isGMT) {
-		if(isGMT == false)
-			d.setHours(d.getHours() + 9);
+    if (isGMT == false)
+        d.setHours(d.getHours() + 9);
 
-  	var curr_day = d.getDate();
-		curr_day = curr_day < 10 ? "0" + curr_day : curr_day;
-		var curr_month = d.getMonth();
-		curr_month++;
+    var curr_day = d.getDate();
+    curr_day = curr_day < 10 ? "0" + curr_day : curr_day;
+    var curr_month = d.getMonth();
+    curr_month++;
 
-		curr_month = curr_month < 10 ? "0" + curr_month : curr_month;
+    curr_month = curr_month < 10 ? "0" + curr_month : curr_month;
 
-		var curr_year = d.getFullYear();
+    var curr_year = d.getFullYear();
 
 
-		var curr_hour = d.getHours();
-		curr_hour = curr_hour < 10 ? "0" + curr_hour : curr_hour;
+    var curr_hour = d.getHours();
+    curr_hour = curr_hour < 10 ? "0" + curr_hour : curr_hour;
 
-		var curr_min = d.getMinutes();
-		curr_min = curr_min < 10 ? "0" + curr_min : curr_min;
+    var curr_min = d.getMinutes();
+    curr_min = curr_min < 10 ? "0" + curr_min : curr_min;
 
-		var curr_sec = d.getSeconds();
-		curr_sec = curr_sec < 10 ? "0" + curr_sec : curr_sec;
+    var curr_sec = d.getSeconds();
+    curr_sec = curr_sec < 10 ? "0" + curr_sec : curr_sec;
 
-		return curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
+    return curr_year + "-" + curr_month + "-" + curr_day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
 }
 
 function GET_STRING_CONTENT(table_index_str) {
-		return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
+    return LANG_JSON_DATA[g_str_cur_lang][table_index_str];
 }
 
 function GATAGM(event_name, category, label) {
-		var userid = getCookie('dev_user_id');
-		if (!isSet(userid) || userid == "") {
-			userid = "anonymous";
-		}
+    var userid = getCookie('dev_user_id');
+    if (!isSet(userid) || userid == "") {
+        userid = "anonymous";
+    }
 
-		if (!isSet(g_str_page_action) || g_str_page_action == "") {
-			g_str_page_action = "index"
-		}
+    if (!isSet(g_str_page_action) || g_str_page_action == "") {
+        g_str_page_action = "index"
+    }
 
-		var c_label = event_name;
-		if (isSet(label) && label != "") {
-			c_label = label;
-		}
+    var c_label = event_name;
+    if (isSet(label) && label != "") {
+        c_label = label;
+    }
 
     gtag(
         'event', event_name, {
-        'event_category': g_str_page_action,        
+        'event_category': g_str_page_action,
         'event_label': c_label,
-        'language' : g_str_cur_lang,
-        'userid' : userid,
-        'event_position' : category,
+        'language': g_str_cur_lang,
+        'userid': userid,
+        'event_position': category,
         'location': window.location.href
-    	}
+    }
     );
 
     mixpanel.track(
@@ -1141,11 +1145,11 @@ function computeCirclularFlight(start) {
 
 
 function map3DInit() {
-  	if(g_b_3D_map_on == false) {
-	    $("#main3dMap").hide();//for the license
-	    $("#map3dViewer").text(GET_STRING_CONTENT('msg_sorry_now_on_preparing'));
-	    return;
-		}
+    if (g_b_3D_map_on == false) {
+        $("#main3dMap").hide();//for the license
+        $("#map3dViewer").text(GET_STRING_CONTENT('msg_sorry_now_on_preparing'));
+        return;
+    }
 
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMjRmOWRiNy1hMTgzLTQzNTItOWNlOS1lYjdmZDYxZWFkYmQiLCJpZCI6MzM1MTUsImlhdCI6MTU5ODg0NDIxMH0.EiuUUUoakHeGjRsUoLkAyNfQw0zXCk6Wlij2z9qh7m0';
@@ -1205,19 +1209,19 @@ function map3DInit() {
             1000
         )
     );
-    
+
     let helper = new Cesium.EventHelper();
-		helper.add(v3DMapViewer.scene.globe.tileLoadProgressEvent, function (event) {			
-			if (event == 0) {				
-				$("#loaderFor3DMap").hide();
-			}
-		});
+    helper.add(v3DMapViewer.scene.globe.tileLoadProgressEvent, function (event) {
+        if (event == 0) {
+            $("#loaderFor3DMap").hide();
+        }
+    });
 
     v3DMapCate = new Cesium.Cartesian3();
     planePrimitives = {};
-    
-    if($("#loaderFor3DMap").length) {
-    	$("#loaderFor3DMap").show();
+
+    if ($("#loaderFor3DMap").length) {
+        $("#loaderFor3DMap").show();
     }
 }
 
@@ -1253,7 +1257,7 @@ function move3DmapIcon(owner, index, lat, lng, alt, pitch, yaw, roll) {
             Cesium.Ellipsoid.WGS84,
             fixedFrameTransform,
             planePrimitives[owner][index].modelMatrix
-        );                
+        );
     }
 }
 
@@ -1310,14 +1314,14 @@ function addObjectTo2DMapWithGPS(index, owner, kind, lat, lng) {
 }
 
 
-function addObjectTo2DMap(index, owner, kind) {    
+function addObjectTo2DMap(index, owner, kind) {
     addObjectTo2DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038);
 }
 
 function map2DInit() {
 
     let styles = [
-				'Road (Detailed)',
+        'Road (Detailed)',
         'Road',
         'Aerial',
         'AerialWithLabels'
@@ -1325,12 +1329,12 @@ function map2DInit() {
     let maplayers = [];
 
     maplayers.push(
-				new ol.layer.Tile({
-		      source: new ol.source.OSM(),
-		    })
-		);
+        new ol.layer.Tile({
+            source: new ol.source.OSM(),
+        })
+    );
 
-		let style_len = styles.length;
+    let style_len = styles.length;
     for (let i = 1; i <= style_len; i++) {
         maplayers.push(new ol.layer.Tile({
             visible: false,
@@ -1388,7 +1392,7 @@ function map2DInit() {
 
     scaleLineControl.setUnits("metric");
 
-		g_vector_2D_mainmap_for_object = new ol.source.Vector();
+    g_vector_2D_mainmap_for_object = new ol.source.Vector();
 
     let vectorLayer = new ol.layer.Vector({
         source: g_vector_2D_mainmap_for_object,
@@ -1400,7 +1404,7 @@ function map2DInit() {
 
     // update the HTML page when the position changes.
     geolocation.on('change', function () {
-    		if (!$('#accuracy')) return;
+        if (!$('#accuracy')) return;
 
         $('#accuracy').text(geolocation.getAccuracy() + ' [m]');
         $('#altitude').text(geolocation.getAltitude() + ' [m]');
@@ -1416,7 +1420,7 @@ function map2DInit() {
     geolocation.on('error', function (error) {
         let info = $('#monitor');
         if (info)
-        	info.text(error.message);
+            info.text(error.message);
     });
 
     if ($('#track').length) {
@@ -1441,13 +1445,13 @@ function map2DInit() {
     maplayers[5].setVisible(true); //vectorLayer
 
 
-  	let overviewMapControl = new ol.control.OverviewMap({
-		  layers: [
-		    new ol.layer.Tile({
-		      source: new ol.source.OSM(),
-		    }) ],
-		  collapsed : false
-		});
+    let overviewMapControl = new ol.control.OverviewMap({
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM(),
+            })],
+        collapsed: false
+    });
 
 
     g_cur_2D_mainmap = new ol.Map({
@@ -1464,53 +1468,53 @@ function map2DInit() {
 
 
     let curCoodinate;
-    let finalPlanGenPositionLonLat = [0,0];
+    let finalPlanGenPositionLonLat = [0, 0];
 
     let modify = new ol.interaction.Modify({
-		  hitDetection: vectorLayer,
-		  source: g_vector_2D_mainmap_for_object,
-		});
-		modify.on(['modifystart', 'modifyend'], function (evt) {
-		  if(evt.type === 'modifystart')
-			  $("#mainMap").css('cursor', 'grabbing');
-			else {
-				finalPlanGenPositionLonLat = ol.proj.toLonLat(curCoodinate);
+        hitDetection: vectorLayer,
+        source: g_vector_2D_mainmap_for_object,
+    });
+    modify.on(['modifystart', 'modifyend'], function (evt) {
+        if (evt.type === 'modifystart')
+            $("#mainMap").css('cursor', 'grabbing');
+        else {
+            finalPlanGenPositionLonLat = ol.proj.toLonLat(curCoodinate);
 
-				if ($('#lat').length) {
-					$('#lat').val(finalPlanGenPositionLonLat[1]);
-					$('#lng').val(finalPlanGenPositionLonLat[0]);
-				}
+            if ($('#lat').length) {
+                $('#lat').val(finalPlanGenPositionLonLat[1]);
+                $('#lng').val(finalPlanGenPositionLonLat[0]);
+            }
 
-				$("#mainMap").css('cursor', 'pointer');
-			}
-		});
+            $("#mainMap").css('cursor', 'pointer');
+        }
+    });
 
-		let overlaySource = modify.getOverlay().getSource();
-		overlaySource.on(['addfeature', 'removefeature'], function (evt) {
-		  if(evt.type === 'addfeature')
-			  $("#mainMap").css('cursor', 'pointer');
-			else
-				$("#mainMap").css('cursor', '');
-		});
+    let overlaySource = modify.getOverlay().getSource();
+    overlaySource.on(['addfeature', 'removefeature'], function (evt) {
+        if (evt.type === 'addfeature')
+            $("#mainMap").css('cursor', 'pointer');
+        else
+            $("#mainMap").css('cursor', '');
+    });
 
-		g_cur_2D_mainmap.on('pointermove', function(evt) {
-		  curCoodinate = evt.coordinate;
+    g_cur_2D_mainmap.on('pointermove', function (evt) {
+        curCoodinate = evt.coordinate;
 
-		});
+    });
 
-		g_cur_2D_mainmap.addInteraction(modify);
+    g_cur_2D_mainmap.addInteraction(modify);
 }
 
 function move2DMapIcon(owner, index, lat, lng, alt, yaw) {
     let location = ol.proj.fromLonLat([lng * 1, lat * 1]);
 
     if (g_array_point_cur_2D_mainmap_for_object != null && owner in g_array_point_cur_2D_mainmap_for_object) {
-	    yaw *= 1;
-	    yaw = yaw < 0 ? (360 + yaw) : yaw;
-	    yaw = Math.PI / 180 * yaw;
+        yaw *= 1;
+        yaw = yaw < 0 ? (360 + yaw) : yaw;
+        yaw = Math.PI / 180 * yaw;
 
-    	g_array_point_cur_2D_mainmap_for_object[owner][index].setGeometry(new ol.geom.Point(location));
-    	g_array_icon_cur_2D_mainmap_for_object[owner][index].setRotation(yaw);
+        g_array_point_cur_2D_mainmap_for_object[owner][index].setGeometry(new ol.geom.Point(location));
+        g_array_icon_cur_2D_mainmap_for_object[owner][index].setRotation(yaw);
     }
 
     if (isSet(g_view_cur_2D_mainmap) && owner == g_str_cur_monitor_object_owner && g_i_cur_monitor_object_index == index)
@@ -1560,15 +1564,15 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
     );
 
     let glbUrl = window.location.origin + "/center/imgs/drone.glb",
-    		gColor, sColor;
+        gColor, sColor;
 
     if (kind == "drone") {
         gColor = "YELLOW";
         sColor = "RED";
     }
     else {
-    		gColor = "GREEN";
-    		sColor = "CYAN";
+        gColor = "GREEN";
+        sColor = "CYAN";
     }
 
     let hpRoll = new Cesium.HeadingPitchRoll();
@@ -1587,57 +1591,57 @@ function addObjectTo3DMapWithGPS(index, owner, kind, lat, lng, alt) {
             scale: 0.15,
             minimumPixelSize: 64,
         })
-    );        
-    
-    planePrimitives[owner].push(planePrimitive);        
-		moveToStartPoint3D(lat, lng, alt);
+    );
+
+    planePrimitives[owner].push(planePrimitive);
+    moveToStartPoint3D(lat, lng, alt);
 }
 
 
 
 function createNewIconFor2DMap(i, item) {
 
-		var hasYoutube = false;
-		if (isSet(item.hasYoutube)) {
-    	hasYoutube = item.hasYoutube;
+    var hasYoutube = false;
+    if (isSet(item.hasYoutube)) {
+        hasYoutube = item.hasYoutube;
     }
 
     var pos_icon = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
         name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
         mindex: i,
-        mhasYoutube : hasYoutube,
+        mhasYoutube: hasYoutube,
         mname: item.name,
-        maddress : item.address
+        maddress: item.address
     });
 
     return pos_icon;
 }
 
 function addNewIconMarkerFor2DMap(npos, vsource) {
-		var iconStyle = new ol.style.Style({
-		  image: new ol.style.Icon({
-		    src: '/images/pin.png',
-		    anchor: [0.5, 46],
-		    anchorXUnits: 'fraction',
-		    anchorYUnits: 'pixels',
-		    scale: 0.2
-		  }),
-		});
+    var iconStyle = new ol.style.Style({
+        image: new ol.style.Icon({
+            src: '/images/pin.png',
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            scale: 0.2
+        }),
+    });
 
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(npos)
-	  });
+    var pos_icon = new ol.Feature({
+        geometry: new ol.geom.Point(npos)
+    });
 
-	  pos_icon.setStyle(iconStyle);
+    pos_icon.setStyle(iconStyle);
 
-	  vsource.addFeature(pos_icon);
+    vsource.addFeature(pos_icon);
 }
 
 
 function setAddressAndCada(address_id, address, cada, wsource) {
 
-		if (!isSet(cada)) return;
+    if (!isSet(cada)) return;
 
     if (isSet(c3ddataSource)) {
         Cesium.GeoJsonDataSource.crsNames['customProj'] = function (coords) {
@@ -1666,7 +1670,7 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 
     if (isSet(wsource) == false) return;
 
-		var _features = new Array();
+    var _features = new Array();
 
     for (var idx = 0; idx < cada.length; idx++) {
         try {
@@ -1702,24 +1706,24 @@ function setAddressAndCada(address_id, address, cada, wsource) {
 function flightRecords2DMapInit() {
     var dpoint = ol.proj.fromLonLat([126.5203904, 33.3616837]);
 
-		g_container_2D_map_for_popup = document.getElementById('popup');
-		g_content_2D_map_for_popup = document.getElementById('popup-content');
-		g_closer_2D_map_for_popup = document.getElementById('popup-closer');
+    g_container_2D_map_for_popup = document.getElementById('popup');
+    g_content_2D_map_for_popup = document.getElementById('popup-content');
+    g_closer_2D_map_for_popup = document.getElementById('popup-closer');
 
-		g_container_2D_map_for_popup.style.visibility = "visible";
-  	let overlay = new ol.Overlay({
-		  element: g_container_2D_map_for_popup,
-		  autoPan: true,
-		  autoPanAnimation: {
-		    duration: 250,
-		  },
-		});
+    g_container_2D_map_for_popup.style.visibility = "visible";
+    let overlay = new ol.Overlay({
+        element: g_container_2D_map_for_popup,
+        autoPan: true,
+        autoPanAnimation: {
+            duration: 250,
+        },
+    });
 
-		g_closer_2D_map_for_popup.onclick = function () {
-		  overlay.setPosition(undefined);
-		  g_closer_2D_map_for_popup.blur();
-		  return false;
-		};
+    g_closer_2D_map_for_popup.onclick = function () {
+        overlay.setPosition(undefined);
+        g_closer_2D_map_for_popup.blur();
+        return false;
+    };
 
     g_view_2D_map_for_flight_rec = new ol.View({
         center: dpoint,
@@ -1727,114 +1731,114 @@ function flightRecords2DMapInit() {
     });
 
     g_vector_2D_map_for_company = new ol.source.Vector();
-		let clusterCompanySource = new ol.source.Cluster({
-			  distance: 40,
-			  source: g_vector_2D_map_for_company,
-			  geometryFunction: function(feature) {
-	        var geom = feature.getGeometry();
-	    		return geom.getType() == 'Point' ? geom : null;
-	    	},
-			});
+    let clusterCompanySource = new ol.source.Cluster({
+        distance: 40,
+        source: g_vector_2D_map_for_company,
+        geometryFunction: function (feature) {
+            var geom = feature.getGeometry();
+            return geom.getType() == 'Point' ? geom : null;
+        },
+    });
 
-		let styleCacheForCompany = {};
-	  g_layer_2D_map_for_company = new ol.layer.Vector({
-	      source: clusterCompanySource,
-	      zIndex: 20,
-	      style:  function (feature) {
-	        	if (!feature) return;
+    let styleCacheForCompany = {};
+    g_layer_2D_map_for_company = new ol.layer.Vector({
+        source: clusterCompanySource,
+        zIndex: 20,
+        style: function (feature) {
+            if (!feature) return;
 
-				    let size = feature.get('features').length;
-				    let radius;
-				    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-				    let style = styleCacheForCompany[size];
-				    if (!style) {
-				    		if (size == 1) {
-				    			style = [new ol.style.Style({
-		                image: new ol.style.Icon({
-										    src: '/images/company_pos.png',
-										    scale: 0.3,
-										    opacity : 0.8,
-										    fill: new ol.style.Fill({ color: '#FFF' }),
-										    stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 }),
-										  })
-		              })];
-				    		}
-				    		else {
-					    		style = [new ol.style.Style({
-		                image: new ol.style.Circle({
-					            radius: radius,
-					            opacity : 0.7,
-					            fill: new ol.style.Fill({ color: '#FFF' }),
-					            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
-			                }),
-			            	text: new ol.style.Text({
-			            						font: radius + 'px Roboto',
-						                  text: size.toString(),
-						                  fill: new ol.style.Fill({ color: '#000' })
-											})
-		              })];
-		            }
+            let size = feature.get('features').length;
+            let radius;
+            size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+            let style = styleCacheForCompany[size];
+            if (!style) {
+                if (size == 1) {
+                    style = [new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/company_pos.png',
+                            scale: 0.3,
+                            opacity: 0.8,
+                            fill: new ol.style.Fill({ color: '#FFF' }),
+                            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 }),
+                        })
+                    })];
+                }
+                else {
+                    style = [new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: radius,
+                            opacity: 0.7,
+                            fill: new ol.style.Fill({ color: '#FFF' }),
+                            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
+                        }),
+                        text: new ol.style.Text({
+                            font: radius + 'px Roboto',
+                            text: size.toString(),
+                            fill: new ol.style.Fill({ color: '#000' })
+                        })
+                    })];
+                }
 
-	          		styleCacheForCompany[size] = style
-				    }
-				    return style;
-				  },
-	    });
+                styleCacheForCompany[size] = style
+            }
+            return style;
+        },
+    });
 
 
     g_vector_2D_map_for_flight_rec = new ol.source.Vector();
-		let clusterSource = new ol.source.Cluster({
-		  distance: 40,
-		  source: g_vector_2D_map_for_flight_rec,
-		  geometryFunction: function(feature) {
-        var geom = feature.getGeometry();
-    		return geom.getType() == 'Point' ? geom : null;
-    	},
-		});
+    let clusterSource = new ol.source.Cluster({
+        distance: 40,
+        source: g_vector_2D_map_for_flight_rec,
+        geometryFunction: function (feature) {
+            var geom = feature.getGeometry();
+            return geom.getType() == 'Point' ? geom : null;
+        },
+    });
 
-		let styleCache = {};
+    let styleCache = {};
     g_layer_2D_map_for_flight_rec = new ol.layer.Vector({
         source: clusterSource,
         zIndex: 21,
         style: function (feature) {
-        	if (!feature) return;
+            if (!feature) return;
 
-			    let size = feature.get('features').length;
-			    let radius;
-			    size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
-			    let style = styleCache[size];
-			    if (!style) {
-			       	if (size == 1) {
-			       		style = [new ol.style.Style({
-	                image: new ol.style.Icon({
-									    src: '/images/f_record_pos.png',
-									    scale: 0.3,
-									    opacity : 0.8,
-									    fill: new ol.style.Fill({ color: '#FFF' }),
-									    stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-									  })
-	              })];
-			    		}
-			    		else {
-				    		style = [new ol.style.Style({
-	                image: new ol.style.Circle({
-				            radius: radius,
-				            fill: new ol.style.Fill({ color: '#FFF' }),
-				            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
-				            opacity : 0.7,
-		                }),
-		            	text: new ol.style.Text({
-					                  text: size.toString(),
-					                  font: radius + 'px Roboto',
-					                  fill: new ol.style.Fill({ color: '#000' })
-										})
-	              })];
-	            }
+            let size = feature.get('features').length;
+            let radius;
+            size == 1 ? radius = 8 : radius = 10 + (size * 0.1);
+            let style = styleCache[size];
+            if (!style) {
+                if (size == 1) {
+                    style = [new ol.style.Style({
+                        image: new ol.style.Icon({
+                            src: '/images/f_record_pos.png',
+                            scale: 0.3,
+                            opacity: 0.8,
+                            fill: new ol.style.Fill({ color: '#FFF' }),
+                            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
+                        })
+                    })];
+                }
+                else {
+                    style = [new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: radius,
+                            fill: new ol.style.Fill({ color: '#FFF' }),
+                            stroke: new ol.style.Stroke({ color: '#FB5B58', width: 2 }),
+                            opacity: 0.7,
+                        }),
+                        text: new ol.style.Text({
+                            text: size.toString(),
+                            font: radius + 'px Roboto',
+                            fill: new ol.style.Fill({ color: '#000' })
+                        })
+                    })];
+                }
 
-          		styleCache[size] = style
-			    }
-			    return style;
-			  },
+                styleCache[size] = style
+            }
+            return style;
+        },
     });
 
     let bingLayer = new ol.layer.Tile({
@@ -1844,15 +1848,15 @@ function flightRecords2DMapInit() {
     });
 
     let overviewMapControl = new ol.control.OverviewMap({
-		  layers: [
-		    new ol.layer.Tile({
-		      source: new ol.source.OSM(),
-		    }) ],
-		  collapsed : true
-		});
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM(),
+            })],
+        collapsed: true
+    });
 
-		g_vector_2D_map_for_cada = new ol.source.Vector({});
-		let cadaLayer = new ol.layer.Vector({
+    g_vector_2D_map_for_cada = new ol.source.Vector({});
+    let cadaLayer = new ol.layer.Vector({
         source: g_vector_2D_map_for_cada,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -1861,9 +1865,9 @@ function flightRecords2DMapInit() {
             })
         })
     });
-    
+
     g_vector_2D_map_for_flight_area = new ol.source.Vector({});
-		let areaInfoLayer = new ol.layer.Vector({
+    let areaInfoLayer = new ol.layer.Vector({
         source: g_vector_2D_map_for_flight_area,
         style: new ol.style.Style({
             stroke: new ol.style.Stroke({
@@ -1872,211 +1876,211 @@ function flightRecords2DMapInit() {
             })
         })
     });
-    
+
     g_vector_2D_map_for_point_mark = new ol.source.Vector({});
-		let pointLayer = new ol.layer.Vector({				
+    let pointLayer = new ol.layer.Vector({
         source: g_vector_2D_map_for_point_mark
     });
 
     let vMap = new ol.Map({
-    		controls: ol.control.defaults().extend([
+        controls: ol.control.defaults().extend([
             overviewMapControl
         ]),
         target: 'historyMap',
         layers: [
             bingLayer, g_layer_2D_map_for_flight_rec, g_layer_2D_map_for_company, cadaLayer, areaInfoLayer, pointLayer
         ],
-        overlays: [ overlay ],
+        overlays: [overlay],
         loadTilesWhileAnimating: true,
         view: g_view_2D_map_for_flight_rec
     });
 
-		vMap.on('click', function(evt) {
-	        	var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
-	        	processMapClick(vMap, evt, feature, overlay);
-		});
+    vMap.on('click', function (evt) {
+        var feature = vMap.forEachFeatureAtPixel(evt.pixel, function (feature) { return feature; });
+        processMapClick(vMap, evt, feature, overlay);
+    });
 }
 
 function isCluster(feature) {
-	  if (!feature || !feature.get('features')) {
-	        return false;
-	  }
+    if (!feature || !feature.get('features')) {
+        return false;
+    }
 
-	  return feature.get('features').length >= 1;
+    return feature.get('features').length >= 1;
 }
 
 function showCompanyList(bshow) {
-		g_layer_2D_map_for_company.setVisible(bshow);
+    g_layer_2D_map_for_company.setVisible(bshow);
 }
 
 function showFlightRecordsList(bshow) {
-		g_layer_2D_map_for_flight_rec.setVisible(bshow);
+    g_layer_2D_map_for_flight_rec.setVisible(bshow);
 }
 
 function processMapClick(map, evt, feature, overlay) {
-		if (!isCluster(feature)) {
-			map.getView().animate({
-			  zoom: map.getView().getZoom() + 1,
-			  duration: 250
-			})
-			return;
-		}
+    if (!isCluster(feature)) {
+        map.getView().animate({
+            zoom: map.getView().getZoom() + 1,
+            duration: 250
+        })
+        return;
+    }
 
-  	var features = feature.get('features');
-  	var count = features.length;
-		if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18)) ) {
-				map.getView().animate({
-				  zoom: map.getView().getZoom() + 1,
-				  duration: 250
-				})
-				return;
-		}
+    var features = feature.get('features');
+    var count = features.length;
+    if (count <= 0 || (count > 1 && (map.getView().getZoom() < 18))) {
+        map.getView().animate({
+            zoom: map.getView().getZoom() + 1,
+            duration: 250
+        })
+        return;
+    }
 
-		let coord = evt.coordinate;
+    let coord = evt.coordinate;
 
-		if (count > 1) {
-			g_content_2D_map_for_popup.innerHTML = "";
-			features.forEach(function(f, index, arr) {
-				displayListFeature(f, index, coord, overlay);
-			});
-		}
-		else {
-			g_content_2D_map_for_popup.innerHTML = "";
-			displayMapFeature(features[0], coord, overlay);
-		}
+    if (count > 1) {
+        g_content_2D_map_for_popup.innerHTML = "";
+        features.forEach(function (f, index, arr) {
+            displayListFeature(f, index, coord, overlay);
+        });
+    }
+    else {
+        g_content_2D_map_for_popup.innerHTML = "";
+        displayMapFeature(features[0], coord, overlay);
+    }
 }
 
 
 function displayListFeature(f, index, coordinate, overlay) {
-	var ii = f.get('mindex');
+    var ii = f.get('mindex');
 
-  if (!isSet(ii)) {
-  	ii = f.get('cindex');
-  	if (!isSet(ii)) return;
+    if (!isSet(ii)) {
+        ii = f.get('cindex');
+        if (!isSet(ii)) return;
 
-  	GATAGM("duni_map_company_list_click", "CONTENT", ii);
+        GATAGM("duni_map_company_list_click", "CONTENT", ii);
 
-  	overlay.setPosition(coordinate);
+        overlay.setPosition(coordinate);
 
-		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
-	  $("#popup-content").append(title);
+        let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_feature_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + f.get('cname') + '</font></a></div></div>';
+        $("#popup-content").append(title);
 
-  	//
-  	$('#temp_feature_item_' + ii).click(function(e) {
-  		getCompanyInfo(title, ii);
-  	});
-  	return;
-  }
+        //
+        $('#temp_feature_item_' + ii).click(function (e) {
+            getCompanyInfo(title, ii);
+        });
+        return;
+    }
 
-  GATAGM("duni_map_video_list_click", "CONTENT", ii);
+    GATAGM("duni_map_video_list_click", "CONTENT", ii);
 
-  var hasYoutube = f.get('mhasYoutube');
+    var hasYoutube = f.get('mhasYoutube');
 
-	if (hasYoutube) {
-		var name = f.get('mname');
+    if (hasYoutube) {
+        var name = f.get('mname');
 
-		overlay.setPosition(coordinate);
+        overlay.setPosition(coordinate);
 
-		let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
-	  $("#popup-content").append(title);
-  	//
-  	$('#temp_youtube_item_' + ii).click(function(e) {
-  		getFlightRecordInfo(name);
-  	});
-	}
+        let title = '<div class="row"><div class="col-md-12 text-left"><a id="temp_youtube_item_' + ii + '" style="cursor: pointer"><font size="2" color="#3acbbc">' + (index + 1) + " : " + name + '</font></a></div></div>';
+        $("#popup-content").append(title);
+        //
+        $('#temp_youtube_item_' + ii).click(function (e) {
+            getFlightRecordInfo(name);
+        });
+    }
 }
 
 function displayMapFeature(f, coordinate, overlay) {
-	var ii = f.get('mindex');
-  if (!isSet(ii)) {
-  	ii = f.get('cindex');
-  	if (!isSet(ii)) return;
+    var ii = f.get('mindex');
+    if (!isSet(ii)) {
+        ii = f.get('cindex');
+        if (!isSet(ii)) return;
 
-  	GATAGM("duni_map_company_click", "CONTENT", ii);
+        GATAGM("duni_map_company_click", "CONTENT", ii);
 
-  	var title = f.get('cname');
+        var title = f.get('cname');
 
-		title = '<p>' + title + '</p>';
-	  overlay.setPosition(coordinate);
-  	getCompanyInfo(title, ii);
-  	return;
-  }
+        title = '<p>' + title + '</p>';
+        overlay.setPosition(coordinate);
+        getCompanyInfo(title, ii);
+        return;
+    }
 
-  GATAGM("duni_map_video_click", "CONTENT", ii);
+    GATAGM("duni_map_video_click", "CONTENT", ii);
 
-  var hasYoutube = f.get('mhasYoutube');
+    var hasYoutube = f.get('mhasYoutube');
 
-	if (hasYoutube) {
-		var name = f.get('mname');
-		getFlightRecordInfo(name);
-	}
+    if (hasYoutube) {
+        var name = f.get('mname');
+        getFlightRecordInfo(name);
+    }
 }
 
 
 function getFlightRecordInfo(name) {
-		
-		let jdata = {"action": "public_record_detail", "name" : encodeURI(name)};
-		let userid = getCookie("dev_user_id");
-		
-		if (g_str_current_target == "private") {
-			jdata["action"] = "position";
-			jdata["daction"] = "download_spe";
-			jdata["public"] = false;
-			jdata["clientid"] = userid;
-		}				    
 
-		showLoader();
+    let jdata = { "action": "public_record_detail", "name": encodeURI(name) };
+    let userid = getCookie("dev_user_id");
 
-  	ajaxRequest(jdata, function (r) {
-  		hideLoader();
+    if (g_str_current_target == "private") {
+        jdata["action"] = "position";
+        jdata["daction"] = "download_spe";
+        jdata["public"] = false;
+        jdata["clientid"] = userid;
+    }
 
-	    if(r.result == "success") {
-	      if (r.data == null) {
-	      	showAlert(GET_STRING_CONTENT('msg_no_data'));
-	        return;
-	      }
+    showLoader();
 
-		  	let vid = getYoutubeQueryVariable(r.data.youtube_data_id);
-				$("#video-pop-view").attr("video-lang", g_str_cur_lang);
+    ajaxRequest(jdata, function (r) {
+        hideLoader();
 
-				if (r.data.prod_url) {
-					$("#video-pop-view").attr("video-prod-url", r.data.prod_url);
-				}
-				else {
-					$("#video-pop-view").attr("video-prod-url", "");
-				}
+        if (r.result == "success") {
+            if (r.data == null) {
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
+                return;
+            }
 
-				$("#video-pop-view").attr("video-name", name);
+            let vid = getYoutubeQueryVariable(r.data.youtube_data_id);
+            $("#video-pop-view").attr("video-lang", g_str_cur_lang);
 
-				if (r.data.owner_email) {
-					$("#video-pop-view").attr("video-owner", r.data.owner_email);
-				}
-				else {
-					$("#video-pop-view").attr("video-owner", "");
-				}
+            if (r.data.prod_url) {
+                $("#video-pop-view").attr("video-prod-url", r.data.prod_url);
+            }
+            else {
+                $("#video-pop-view").attr("video-prod-url", "");
+            }
 
-				if (r.data.outer) {
-					$("#video-pop-view").attr("video-outer", r.data.outer);
-				}
-				else {
-					$("#video-pop-view").attr("video-outer", "");
-				}
+            $("#video-pop-view").attr("video-name", name);
 
-				$("#video-pop-view").attr("video-ispublic", g_str_current_target);
-				$("#video-pop-view").attr("video-address", r.data.address);
-				$("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
-				if (g_b_isVideoPopupInit == false) {
-						$("#video-pop-view").videoPopup();
-						g_b_isVideoPopupInit = true;
-				}
+            if (r.data.owner_email) {
+                $("#video-pop-view").attr("video-owner", r.data.owner_email);
+            }
+            else {
+                $("#video-pop-view").attr("video-owner", "");
+            }
 
-				$("#video-pop-view").click();
-	    }
-	  },
-	  function(request,status,error) {
-	  		showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	  		hideLoader();
-	  });
+            if (r.data.outer) {
+                $("#video-pop-view").attr("video-outer", r.data.outer);
+            }
+            else {
+                $("#video-pop-view").attr("video-outer", "");
+            }
+
+            $("#video-pop-view").attr("video-ispublic", g_str_current_target);
+            $("#video-pop-view").attr("video-address", r.data.address);
+            $("#video-pop-view").attr("video-url", "https://www.youtube.com/watch?v=" + vid);
+            if (g_b_isVideoPopupInit == false) {
+                $("#video-pop-view").videoPopup();
+                g_b_isVideoPopupInit = true;
+            }
+
+            $("#video-pop-view").click();
+        }
+    },
+        function (request, status, error) {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+            hideLoader();
+        });
 }
 
 function moveFlightHistoryMap(lat, lng) {
@@ -2085,180 +2089,180 @@ function moveFlightHistoryMap(lat, lng) {
 }
 
 function getCompanyInfo(title, cid) {
-	  let jdata = {"action": "public_company_detail", "cid" : cid};
+    let jdata = { "action": "public_company_detail", "cid": cid };
 
-		g_content_2D_map_for_popup.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
+    g_content_2D_map_for_popup.innerHTML = title + '<p><img src="/images/loader.gif" border="0" width="20px" height="20px"></p>';
 
-  	ajaxRequest(jdata, function (r) {
-	    if(r.result == "success") {
-	      if (r.data == null) {
-	      	g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
-	        return;
-	      }
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {
+            if (r.data == null) {
+                g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
+                return;
+            }
 
-	     	if (r.data.is_playground == true) {
-	     			title = "<드론비행/체험장> " + title;
-	     	}
+            if (r.data.is_playground == true) {
+                title = "<드론비행/체험장> " + title;
+            }
 
-				if (cid == 1004) {
-					title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52 align='left'><img src='/images/logo_aply.png' border='0' width='43px'></td><td><b>" + title + "</b></td></tr></table>";
-				}
-				else {
-		      if (r.data.partner == true) {
-		      		title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/duni_logo.png' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
-		      }
-		      else {
-		      		title = "<b>" + title + "</b>";
-		      }
-		    }
+            if (cid == 1004) {
+                title = "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52 align='left'><img src='/images/logo_aply.png' border='0' width='43px'></td><td><b>" + title + "</b></td></tr></table>";
+            }
+            else {
+                if (r.data.partner == true) {
+                    title = "<b>" + title + "</b>" + "<table border=0 cellpadding=0 cellspacing=2><tr><td width=52><img src='/duni_logo.png' border='0' width='50' height='14'></td><td><b>Official Partner Company</b></td></tr></table>";
+                }
+                else {
+                    title = "<b>" + title + "</b>";
+                }
+            }
 
-	      title = title + ('<p size=2 face=돋움>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
+            title = title + ('<p size=2 face=돋움>' + r.data.address + '</p>' + '<p>' + r.data.phone_num_1);
 
-	      if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
-	      	title = title + ('<br>' + r.data.phone_num_2);
+            if (isSet(r.data.phone_num_2) && r.data.phone_num_2 != "-")
+                title = title + ('<br>' + r.data.phone_num_2);
 
-	      title = title + '</p>';
-	      title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
+            title = title + '</p>';
+            title = title + "<table border=0 cellpadding=0 cellspacing=2 width=99% align=center><tr>";
 
-	      if (r.data.spe_edu == true) {
-	      		title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
-				}
+            if (r.data.spe_edu == true) {
+                title = title + "<td align=left><i class='ti-id-badge'></i> <b>전문교육기관</b></td>";
+            }
 
-	      if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
-	      		title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"duni_map_company_home_click\", \"CONTENT\", " + cid + ");'>홈페이지</a></td>";
-	      }
+            if (isSet(r.data.homeaddress) && r.data.homeaddress != "-") {
+                title = title + "<td width=50% align=right><a href='" + r.data.homeaddress + "' target=_new onClick='GATAGM(\"duni_map_company_home_click\", \"CONTENT\", " + cid + ");'>홈페이지</a></td>";
+            }
 
-	      title = title + "</tr></table>";
+            title = title + "</tr></table>";
 
-	      g_content_2D_map_for_popup.innerHTML = title;
-	    }
-	  },
-	  	function(request,status,error) {
-	  		g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
-	  });
+            g_content_2D_map_for_popup.innerHTML = title;
+        }
+    },
+        function (request, status, error) {
+            g_content_2D_map_for_popup.innerHTML = title + "<p>Failed to get more info.</p>";
+        });
 }
 
 function createNewCompanyIconFor2DMap(i, item) {
-		var pos_icon = new ol.Feature({
-	          geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
-	          cname: item.name,
-	          cindex : item.cid
-	      });
+    var pos_icon = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+        cname: item.name,
+        cindex: item.cid
+    });
 
-	  return pos_icon;
+    return pos_icon;
 }
 
 function getFullFlightRecords(target) {
-		var jdata;
-		if (target == "public") {
-			jdata = {"action": "public_record_list", "list" : true};
-		}
-		else {
-			var userid = getCookie("dev_user_id");
-	  	jdata = {"action": "position", "daction" : "download", "clientid": userid, "public" : false};
-		}
-
-	  showLoader();
-	  ajaxRequest(jdata, function (r) {
-	    hideLoader();
-	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {
-	        showAlert(GET_STRING_CONTENT('msg_no_data'));
-					hideLoader();
-	        return;
-	      }
-
-				g_array_full_flight_rec = r.data;
-	      setFlightlistFullHistory();
-				hideLoader();
-	    }
-	    else {
-	    	if (r.reason == "no data") {
-	    		showAlert(GET_STRING_CONTENT('msg_no_data'));
-	    	}
-	    	else {
-		    	showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-		    }
-
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
-}
-
-function setFlightlistFullHistory() {
-	var isFirst = true;
-
-	g_array_full_flight_rec.forEach(function(item, index, arra) {
-		if (isSet(item.flat) == false || item.flat == -999) return;
-
-		if (isFirst && item.flat != -999) {
-	      moveFlightHistoryMap(item.flat, item.flng);
-	      isFirst = false;
-	  }
-
-		let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
-    var icon = createNewIconFor2DMap(index, {lat:item.flat, lng:item.flng, name: item.name, alt:0, address: item.address, hasYoutube : hasYoutube });
-    if (isSet(g_vector_2D_map_for_flight_rec)) {
-        g_vector_2D_map_for_flight_rec.addFeature(icon);
+    var jdata;
+    if (target == "public") {
+        jdata = { "action": "public_record_list", "list": true };
     }
-  });
-}
-
-function getCompanyList() {
-		g_vector_2D_map_for_company.clear();
-
-	  var jdata = {"action": "public_company_list"};
-
-		showLoader();
-  	ajaxRequest(jdata, function (r) {
-	    hideLoader();
-	    if(r.result == "success") {
-	      if (r.data == null || r.data.length == 0) {
-					hideLoader();
-	        return;
-	      }
-
-	      g_array_full_company_list = r.data;
-	      g_array_full_company_list.forEach(function(item, index, arr) {
-	      	var icon = createNewCompanyIconFor2DMap(index, item);
-					g_vector_2D_map_for_company.addFeature(icon);
-	  		});
-
-				hideLoader();
-	    }
-	    else {
-				hideLoader();
-	    }
-	  }, function(request,status,error) {
-	    hideLoader();
-	  });
-}
-
-
-function saveYoutubeUrl(params, callback) {
-
-    let userid = getCookie("dev_user_id");
-    let jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values" : params.tag_values, "memo" : params.mmemo, "starttime" : params.startTime };
-
-    if (params.flat != -999) {
-    		jdata["flat"] = params.flat;
-    		jdata["flng"] = params.flng;
-    }
-
-    if (params.price > 0) {
-    		jdata["price"] = params.price;
+    else {
+        var userid = getCookie("dev_user_id");
+        jdata = { "action": "position", "daction": "download", "clientid": userid, "public": false };
     }
 
     showLoader();
     ajaxRequest(jdata, function (r) {
         hideLoader();
         if (r.result == "success") {
-        	if (callback) callback(true);
+            if (r.data == null || r.data.length == 0) {
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
+                hideLoader();
+                return;
+            }
+
+            g_array_full_flight_rec = r.data;
+            setFlightlistFullHistory();
+            hideLoader();
         }
         else {
-        	if (callback) callback(false);
+            if (r.reason == "no data") {
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
+            }
+            else {
+                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+            }
+
+            hideLoader();
+        }
+    }, function (request, status, error) {
+        hideLoader();
+    });
+}
+
+function setFlightlistFullHistory() {
+    var isFirst = true;
+
+    g_array_full_flight_rec.forEach(function (item, index, arra) {
+        if (isSet(item.flat) == false || item.flat == -999) return;
+
+        if (isFirst && item.flat != -999) {
+            moveFlightHistoryMap(item.flat, item.flng);
+            isFirst = false;
+        }
+
+        let hasYoutube = isSet(item.youtube_data_id) == true ? true : false;
+        var icon = createNewIconFor2DMap(index, { lat: item.flat, lng: item.flng, name: item.name, alt: 0, address: item.address, hasYoutube: hasYoutube });
+        if (isSet(g_vector_2D_map_for_flight_rec)) {
+            g_vector_2D_map_for_flight_rec.addFeature(icon);
+        }
+    });
+}
+
+function getCompanyList() {
+    g_vector_2D_map_for_company.clear();
+
+    var jdata = { "action": "public_company_list" };
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        hideLoader();
+        if (r.result == "success") {
+            if (r.data == null || r.data.length == 0) {
+                hideLoader();
+                return;
+            }
+
+            g_array_full_company_list = r.data;
+            g_array_full_company_list.forEach(function (item, index, arr) {
+                var icon = createNewCompanyIconFor2DMap(index, item);
+                g_vector_2D_map_for_company.addFeature(icon);
+            });
+
+            hideLoader();
+        }
+        else {
+            hideLoader();
+        }
+    }, function (request, status, error) {
+        hideLoader();
+    });
+}
+
+
+function saveYoutubeUrl(params, callback) {
+
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values": params.tag_values, "memo": params.mmemo, "starttime": params.startTime };
+
+    if (params.flat != -999) {
+        jdata["flat"] = params.flat;
+        jdata["flng"] = params.flng;
+    }
+
+    if (params.price > 0) {
+        jdata["price"] = params.price;
+    }
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        hideLoader();
+        if (r.result == "success") {
+            if (callback) callback(true);
+        }
+        else {
+            if (callback) callback(false);
         }
     }, function (request, status, error) {
         hideLoader();
@@ -2267,64 +2271,118 @@ function saveYoutubeUrl(params, callback) {
     });
 }
 
+function verifyPhoneCodeCommonSuccessCallback(data) {
+    g_b_phonenumber_verified = true;
+    $('#verification_code').val("");
+    $('#validate_phonenumber_area').hide();
+    $("#code_verification_input").hide();
+    setCookie("temp_phone", $('#user_phonenumber').val(), 1);
+    showAlert(GET_STRING_CONTENT('msg_phone_verified'));
+    stopTimer();
+    $('#auth_code').val(data.auth_code);
+}
+
+function requestAddressByGPS(lat, lng, successCallback, failCallback) {
+    if (isSet(lat) == false || isSet(lng) == false) {
+        showAlert(GET_STRING_CONTENT('msg_wrong_input'));    
+        return;
+    }
+    
+    let userid = getCookie("dev_user_id");
+    let jdata = { "clientid": userid, "action": "util", "daction": "address_by_gps", "lat": lat, "lng":lng };
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+            hideLoader();
+            if (successCallback) successCallback(r);
+        },
+        function (request, status, error) {
+            hideLoader();
+            if (failCallback) failCallback();
+        });
+}
+
+
+function requestGPSByAddress(address, successCallback, failCallback) {
+    if (isSet(address) == false) {
+        showAlert(GET_STRING_CONTENT('msg_wrong_input'));
+        g_loc_address_flat = -999;
+        g_loc_address_flng = -999;
+        return;
+    }
+
+    showLoader();
+    let userid = getCookie("dev_user_id");
+    let jdata = { "clientid": userid, "action": "util", "daction": "gps_by_address", "address": encodeURI(address) };
+
+    ajaxRequest(jdata, function (r) {
+            hideLoader();            
+            if (successCallback) successCallback(r);
+        },
+        function (request, status, error) {
+            hideLoader();
+            if (failCallback) failCallback();
+        });
+}
+
 
 // 상세주소
 function execDaumPostcode(callback) {
-	new daum.Postcode({
-		oncomplete: function(data) {
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    new daum.Postcode({
+        oncomplete: function (data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			var addr = ''; // 주소 변수
-			var extraAddr = ''; // 참고항목 변수
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
 
-			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				addr = data.roadAddress;
-			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				addr = data.jibunAddress;
-			}
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
 
-			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-			// if(data.userSelectedType === 'R'){
-			// 	// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-			// 	// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-			// 	if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-			// 		extraAddr += data.bname;
-			// 	}
-			// 	// 건물명이 있고, 공동주택일 경우 추가한다.
-			// 	if(data.buildingName !== '' && data.apartment === 'Y'){
-			// 		extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-			// 	}
-			// 	// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-			// 	if(extraAddr !== ''){
-			// 		extraAddr = ' (' + extraAddr + ')';
-			// 	}
-			
-			// }
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            // if(data.userSelectedType === 'R'){
+            // 	// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 	// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            // 	if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+            // 		extraAddr += data.bname;
+            // 	}
+            // 	// 건물명이 있고, 공동주택일 경우 추가한다.
+            // 	if(data.buildingName !== '' && data.apartment === 'Y'){
+            // 		extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            // 	}
+            // 	// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            // 	if(extraAddr !== ''){
+            // 		extraAddr = ' (' + extraAddr + ')';
+            // 	}
 
-			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			if (document.getElementById('postcode'))
-				document.getElementById('postcode').value = data.zonecode;
-				
-			if (document.getElementById("address"))
-				document.getElementById("address").value = addr;
-			
-			if (document.getElementById("detail_address"))
-				document.getElementById("detail_address").focus();
-				
-			if (document.getElementById('postcode2'))
-				document.getElementById('postcode2').value = data.zonecode;
-				
-			if (document.getElementById("address2"))
-				document.getElementById("address2").value = addr;
-			
-			if (document.getElementById("detail_address2"))
-				document.getElementById("detail_address2").focus();
-				
-			if (callback)
-				callback(addr);
-		}
-	}).open();
+            // }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            if (document.getElementById('postcode'))
+                document.getElementById('postcode').value = data.zonecode;
+
+            if (document.getElementById("address"))
+                document.getElementById("address").value = addr;
+
+            if (document.getElementById("detail_address"))
+                document.getElementById("detail_address").focus();
+
+            if (document.getElementById('postcode2'))
+                document.getElementById('postcode2').value = data.zonecode;
+
+            if (document.getElementById("address2"))
+                document.getElementById("address2").value = addr;
+
+            if (document.getElementById("detail_address2"))
+                document.getElementById("detail_address2").focus();
+
+            if (callback)
+                callback(addr);
+        }
+    }).open();
 }
