@@ -68,6 +68,8 @@ let g_array_cur_controller_for_viewmode = { "pilot": "/center/main.html", "devel
 
 let g_i_cur_serviceListTimerId = -1;
 
+let g_component_upload_youtube_video;
+
 $(function () {
     let lang = getCookie("language");
     if (isSet(lang))

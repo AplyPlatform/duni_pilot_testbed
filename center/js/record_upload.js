@@ -3,7 +3,6 @@
 "use strict";
 
 let g_b_fileupload_for_DJI = true; //dji file or input address
-let g_component_upload_youtube_video;
 let g_params_for_upload_flight_rec = {};
 let g_f_recordFileForUploadFile = null;
 let g_f_videoFileForUploadFile = null;
