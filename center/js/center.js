@@ -770,7 +770,7 @@ function flightrecordUploadInit() {
         $("#set_youtube_upload_view").hide();
         $("#videoRecordModifyArea").hide();
 
-        g_params_for_upload_flight_rec['youtube_data'] = "https://youtube.com/watch?v=" + vid;
+        g_params_for_upload_flight_rec['youtube_data'] = "https://youtube.com/watch?v=" + vid;        
 
         hideLoader();
 
@@ -778,6 +778,20 @@ function flightrecordUploadInit() {
             askIsSyncData(g_params_for_upload_flight_rec, uploadDJIFlightListCallback);
             return;
         }
+        
+        let flightTime = $("#flighttime_input_data").val();
+        if (flightTime == "") {
+            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
+            return;
+        }
+
+        let startTime = Date.parse(flightTime);
+        if (isNaN(startTime)) {
+            showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
+            return;
+        }
+
+        g_params_for_upload_flight_rec['startTime'] = startTime;
 
         saveYoutubeUrl(g_params_for_upload_flight_rec, function (bSuccess) {
             if (bSuccess == true) {
