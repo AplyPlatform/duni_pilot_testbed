@@ -986,7 +986,7 @@ function genPlanByAddress(address) {
 
     g_str_address_temp_val = address;
 
-    requestGPSByAddress(encodeURI(address), function(r) {
+    requestGPSByAddress(address, function(r) {
 
             if (!isSet(r.data)) {                    
                 showAlert(GET_STRING_CONTENT('msg_wrong_input'));
