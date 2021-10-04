@@ -2167,14 +2167,12 @@ function getFullFlightRecords(target) {
         hideLoader();
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert(GET_STRING_CONTENT('msg_no_data'));
-                hideLoader();
+                showAlert(GET_STRING_CONTENT('msg_no_data'));                
                 return;
             }
 
             g_array_full_flight_rec = r.data;
-            setFlightlistFullHistory();
-            hideLoader();
+            setFlightlistFullHistory();            
         }
         else {
             if (r.reason == "no data") {
@@ -2182,9 +2180,7 @@ function getFullFlightRecords(target) {
             }
             else {
                 showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-            }
-
-            hideLoader();
+            }            
         }
     }, function (request, status, error) {
         hideLoader();
