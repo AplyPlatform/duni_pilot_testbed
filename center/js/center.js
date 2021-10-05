@@ -303,6 +303,9 @@ function initPilotCenter() {
     else if (g_str_page_action == "recordupload") {
         $("#main_contents").load("record_upload.html", function () { });
     }
+    else if (g_str_page_action == "recordupload_ex") {
+        $("#main_contents").load("record_upload_ex.html", function () { });
+    }
     else if (g_str_page_action == "embedcompass") {
         $("#main_contents").load("embed_compass.html", function () { });
     }
@@ -2686,90 +2689,6 @@ function appendFlightRecordTable(target, target_key, item) {
     g_i_appended_data_count++;
 }
 
-
-function populateDays(month) {
-    // delete the current set of <option> elements out of the
-    // day <select>, ready for the next set to be injected
-    while (daySelect.firstChild) {
-        daySelect.removeChild(daySelect.firstChild);
-    }
-
-    // Create letiable to hold new number of days to inject
-    let dayNum;
-
-    // 31 or 30 days?
-    if (month === 'January' || month === 'March' || month === 'May' || month === 'July' || month === 'August' || month === 'October' || month === 'December') {
-        dayNum = 31;
-    } else if (month === 'April' || month === 'June' || month === 'September' || month === 'November') {
-        dayNum = 30;
-    } else {
-        // If month is February, calculate whether it is a leap year or not
-        let year = yearSelect.value;
-        let isLeap = new Date(year, 1, 29).getMonth() == 1;
-        isLeap ? dayNum = 29 : dayNum = 28;
-    }
-
-    // inject the right number of new <option> elements into the day <select>
-    for (i = 1; i <= dayNum; i++) {
-        let option = document.createElement('option');
-        option.textContent = i;
-        daySelect.appendChild(option);
-    }
-
-    // if previous day has already been set, set daySelect's value
-    // to that day, to avoid the day jumping back to 1 when you
-    // change the year
-    if (previousDay) {
-        daySelect.value = previousDay;
-
-        // If the previous day was set to a high number, say 31, and then
-        // you chose a month with less total days in it (e.g. February),
-        // this part of the code ensures that the highest day available
-        // is selected, rather than showing a blank daySelect
-        if (daySelect.value === "") {
-            daySelect.value = previousDay - 1;
-        }
-
-        if (daySelect.value === "") {
-            daySelect.value = previousDay - 2;
-        }
-
-        if (daySelect.value === "") {
-            daySelect.value = previousDay - 3;
-        }
-    }
-}
-
-function populateYears() {
-    // get this year as a number
-    let date = new Date();
-    let year = date.getFullYear();
-
-    // Make this year, and the 100 years before it available in the year <select>
-    for (let i = 0; i <= 100; i++) {
-        let option = document.createElement('option');
-        option.textContent = year - i;
-        yearSelect.appendChild(option);
-    }
-}
-
-function populateHours() {
-    // populate the hours <select> with the 24 hours of the day
-    for (let i = 0; i <= 23; i++) {
-        let option = document.createElement('option');
-        option.textContent = (i < 10) ? ("0" + i) : i;
-        hourSelect.appendChild(option);
-    }
-}
-
-function populateMinutes() {
-    // populate the minutes <select> with the 60 hours of each minute
-    for (let i = 0; i <= 59; i++) {
-        let option = document.createElement('option');
-        option.textContent = (i < 10) ? ("0" + i) : i;
-        minuteSelect.appendChild(option);
-    }
-}
 
 function verifyPhoneNo(phone_number) {
     let userid = getCookie("dev_user_id");

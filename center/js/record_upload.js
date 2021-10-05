@@ -323,13 +323,8 @@ function flightrecordUploadInit() {
 
 	// define variables
 	let nativePicker = document.querySelector('.nativeDateTimePicker');
-	let fallbackPicker = document.querySelector('.fallbackDateTimePicker');
-
-	let yearSelect = document.querySelector('#year');
-	let monthSelect = document.querySelector('#month');
-	let daySelect = document.querySelector('#day');
-	let hourSelect = document.querySelector('#hour');
-	let minuteSelect = document.querySelector('#minute');
+	let fallbackPicker = document.querySelector('.fallbackDateTimePicker');	
+	let monthSelect = document.querySelector('#month');			
 
 	// hide fallback initially
 	fallbackPicker.style.display = 'none';
@@ -359,6 +354,87 @@ function flightrecordUploadInit() {
 
 	hideLoader();
 }
+
+
+
+function populateDays(month) {
+	let daySelect = document.querySelector('#day');    
+    while (daySelect.firstChild) {
+        daySelect.removeChild(daySelect.firstChild);
+    }
+
+    // Create letiable to hold new number of days to inject
+    let dayNum;
+
+    // 31 or 30 days?
+    if (month === 'January' || month === 'March' || month === 'May' || month === 'July' || month === 'August' || month === 'October' || month === 'December') {
+        dayNum = 31;
+    } else if (month === 'April' || month === 'June' || month === 'September' || month === 'November') {
+        dayNum = 30;
+    } else {
+        let year = yearSelect.value;
+        let isLeap = new Date(year, 1, 29).getMonth() == 1;
+        isLeap ? dayNum = 29 : dayNum = 28;
+    }
+
+    for (i = 1; i <= dayNum; i++) {
+        let option = document.createElement('option');
+        option.textContent = i;
+        daySelect.appendChild(option);
+    }
+    
+    if (previousDay) {
+        daySelect.value = previousDay;
+        
+        if (daySelect.value === "") {
+            daySelect.value = previousDay - 1;
+        }
+
+        if (daySelect.value === "") {
+            daySelect.value = previousDay - 2;
+        }
+
+        if (daySelect.value === "") {
+            daySelect.value = previousDay - 3;
+        }
+    }
+}
+
+function populateYears() {
+	let yearSelect = document.querySelector('#year');
+    // get this year as a number
+    let date = new Date();
+    let year = date.getFullYear();
+
+    // Make this year, and the 100 years before it available in the year <select>
+    for (let i = 0; i <= 100; i++) {
+        let option = document.createElement('option');
+        option.textContent = year - i;
+        yearSelect.appendChild(option);
+    }
+}
+
+function populateHours() {
+	let hourSelect = document.querySelector('#hour');
+    // populate the hours <select> with the 24 hours of the day
+    for (let i = 0; i <= 23; i++) {
+        let option = document.createElement('option');
+        option.textContent = (i < 10) ? ("0" + i) : i;
+        hourSelect.appendChild(option);
+    }
+}
+
+function populateMinutes() {
+	let minuteSelect = document.querySelector('#minute');
+    // populate the minutes <select> with the 60 hours of each minute
+    for (let i = 0; i <= 59; i++) {
+        let option = document.createElement('option');
+        option.textContent = (i < 10) ? ("0" + i) : i;
+        minuteSelect.appendChild(option);
+    }
+}
+
+
 
 function setUploadFileFields() {
     $('#dropArea').hide();
@@ -579,8 +655,8 @@ function setFlightRecordUploadMode(bWhich) {
 function uploadFlightList(isUpdate) {
 	let mname = $("#record_name_field").val();
 
-	if (mname == "") {
-		showAlert(GET_STRING_CONTENT('msg_input_record_name'));
+	if (isSet(mname) == false) {
+		showAlert(GET_STRING_CONTENT('msg_input_record_name'));		
 		return;
 	}
 
@@ -595,8 +671,7 @@ function uploadFlightList(isUpdate) {
 	else if (cVal == "tab_menu_set_youtube_address") {
 		youtube_data = massageYotubeUrl(youtube_data);
 		if (youtube_data == "") {
-			showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
-			hideLoader();
+			showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));			
 			return;
 		}
 	}
@@ -609,14 +684,12 @@ function uploadFlightList(isUpdate) {
 		if (checked) {
 			let t_p = $("#price_input_data").val();
 			if (t_p == "") {
-				showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
-				hideLoader();
+				showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");				
 				return;
 			}
 
 			if (youtube_data == "") {
-				showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
-				hideLoader();
+				showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");				
 				return;
 			}
 
@@ -659,13 +732,13 @@ function uploadFlightList(isUpdate) {
 
 		let flightTime = $("#flighttime_input_data").val();
 		if (flightTime == "") {
-			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
+			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
 			return;
 		}
 
 		let startTime = Date.parse(flightTime);
 		if (isNaN(startTime)) {
-			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : 촬영일시");
+			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
 			return;
 		}
 

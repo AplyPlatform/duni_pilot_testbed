@@ -2237,10 +2237,13 @@ function getCompanyList() {
 }
 
 
-function saveYoutubeUrl(params, callback) {
-
+function saveYoutubeUrl(params, callback) {    
     let userid = getCookie("dev_user_id");
     let jdata = { "action": "position", "daction": "youtube", "youtube_data_id": params.youtube_data, "clientid": userid, "name": encodeURI(params.mname), "tag_values": params.tag_values, "memo": params.mmemo, "starttime": params.startTime };
+
+    if ($("#stock_prod_url").length > 0) {
+        jdata["prod_url"] = $("#stock_prod_url").val();
+    }
 
     if (params.flat != -999) {
         jdata["flat"] = params.flat;
@@ -2261,8 +2264,7 @@ function saveYoutubeUrl(params, callback) {
             if (callback) callback(false);
         }
     }, function (request, status, error) {
-        hideLoader();
-        monitor("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        hideLoader();        
         if (callback) callback(false);
     });
 }
