@@ -323,8 +323,8 @@ function flightrecordUploadInit() {
 
 	// define variables
 	let nativePicker = document.querySelector('.nativeDateTimePicker');
-	let fallbackPicker = document.querySelector('.fallbackDateTimePicker');	
-	let monthSelect = document.querySelector('#month');			
+	let fallbackPicker = document.querySelector('.fallbackDateTimePicker');
+	let monthSelect = document.querySelector('#month');
 
 	// hide fallback initially
 	fallbackPicker.style.display = 'none';
@@ -358,7 +358,7 @@ function flightrecordUploadInit() {
 
 
 function populateDays(month) {
-	let daySelect = document.querySelector('#day');    
+	let daySelect = document.querySelector('#day');
     while (daySelect.firstChild) {
         daySelect.removeChild(daySelect.firstChild);
     }
@@ -382,10 +382,10 @@ function populateDays(month) {
         option.textContent = i;
         daySelect.appendChild(option);
     }
-    
+
     if (previousDay) {
         daySelect.value = previousDay;
-        
+
         if (daySelect.value === "") {
             daySelect.value = previousDay - 1;
         }
@@ -656,7 +656,7 @@ function uploadFlightList(isUpdate) {
 	let mname = $("#record_name_field").val();
 
 	if (isSet(mname) == false) {
-		showAlert(GET_STRING_CONTENT('msg_input_record_name'));		
+		showAlert(GET_STRING_CONTENT('msg_input_record_name'));
 		return;
 	}
 
@@ -671,7 +671,7 @@ function uploadFlightList(isUpdate) {
 	else if (cVal == "tab_menu_set_youtube_address") {
 		youtube_data = massageYotubeUrl(youtube_data);
 		if (youtube_data == "") {
-			showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));			
+			showAlert(GET_STRING_CONTENT('msg_wrong_youtube_url_input'));
 			return;
 		}
 	}
@@ -684,12 +684,12 @@ function uploadFlightList(isUpdate) {
 		if (checked) {
 			let t_p = $("#price_input_data").val();
 			if (t_p == "") {
-				showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");				
+				showAlert("영상의 판매를 원하시면 판매 희망 가격을 입력해 주세요.");
 				return;
 			}
 
 			if (youtube_data == "") {
-				showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");				
+				showAlert("영상의 판매를 원하시면 판매하실 원본영상의 유튜브 URL을 입력해 주세요.");
 				return;
 			}
 
@@ -804,10 +804,20 @@ function uploadDJIFlightListCallback(params) {
 			else {
 				if (r.reason.indexOf("failed to decode") >= 0) {
 					GATAGM('dji_file_upload_analyze_failed', 'CONTENT');
-					if (isSet(youtube_data))
+					if (isSet(youtube_data)) {
 						showAlert(GET_STRING_CONTENT('msg_dji_analyze_failed_input_address')); //with video
-					else
-						showAlert(GET_STRING_CONTENT('msg_select_another_file')); //todo only flight file
+						$("#flightRecordFileName").empty();
+						$("#thumbnail_record").remove();
+						g_f_recordFileForUploadFile = null;
+						$("#selectDJIFileArea").show();
+						$("#dji_file_upload_sel").show();
+						$("#dji_file_get_howto").show();
+						$('#address_location_field').prop('checked', true);
+						setFlightRecordUploadMode(false);
+					}
+					else {
+						showAlert(GET_STRING_CONTENT('msg_select_another_file'));
+					}
 				}
 				else {
 					GATAGM('dji_file_upload_analyze_failed', 'CONTENT', r.reason);
