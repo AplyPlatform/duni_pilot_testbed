@@ -812,7 +812,7 @@ function uploadDJIFlightListCallback(params) {
 						$("#selectDJIFileArea").show();
 						$("#dji_file_upload_sel").show();
 						$("#dji_file_get_howto").show();
-						$('#address_location_field').prop('checked', true);
+						$('#address_location_kind').prop('checked', true);
 						setFlightRecordUploadMode(false);
 					}
 					else {

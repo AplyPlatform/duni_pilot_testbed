@@ -41,11 +41,11 @@
 						<div class="form-group">
 							<a href="#" id="label_youtube_address_only" style="cursor:pointer" class="text-xs font-weight-bold text-default mb-1">영상의 유튜브 URL 입력하기 ></a>
 						</div>
-						<hr size="1" color="#fefefe">						
+						<hr size="1" color="#fefefe">
 					</div>
 				</div>
 				<div class="row" id="nextStageBtnArea">
-					<div class="col-md-12">						
+					<div class="col-md-12">
 						<button class="btn btn-primary btn-block" type="button" id="btnNextStage">선택완료</button>
 					</div>
 				</div>
@@ -94,9 +94,9 @@
 										id="btnSelectMovieFiles">파일선택</button>
 								</div>
 								<div id="videoFileName"></div>
-							</div>							
+							</div>
 						</div>
-						<div class="row">														
+						<div class="row">
 							<div class="col-md-6 text-left">
 								<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a
 									video, you certify that you own all rights to the content or that you are authorized
@@ -118,7 +118,7 @@
 							<div class="col-lg-6">
 								<progress id="upload-progress" max="1" value="0" width="100%"></progress>
 							</div>
-							<div class="col-lg-6 during-upload">																
+							<div class="col-lg-6 during-upload">
 								<p class="text-xs font-weight-bold text-default text-uppercase mb-1">
 									<span id="percent-transferred"
 										class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>%
@@ -139,14 +139,14 @@
 						<div class="row" id="dji_file_upload_sel">
 							<div class="col-md-12">
 								<hr color="#eee">
-								<input type="radio" name="record_kind" value="dji_upload_field"
+								<input type="radio" name="record_kind" id="dji_upload_kind" value="dji_upload_field"
 									onclick="GATAGM('tab_menu_upload_selector_dji', 'CONTENT');setFlightRecordUploadMode(true);"
 									checked>
 								<label id="tab_menu_upload_selector_dji"
 									class="text-xs font-weight-bold text-default text-uppercase mb-1"
 									for="tab_menu_upload_selector_dji">비행기록 업로드</label>
 								&nbsp;&nbsp;
-								<input type="radio" name="record_kind" value="address_location_field"
+								<input type="radio" name="record_kind" id="address_location_kind" value="address_location_field"
 									onclick="GATAGM('tab_menu_upload_selector_address', 'CONTENT');setFlightRecordUploadMode(false);">
 								<label id="tab_menu_upload_selector_address"
 									class="text-xs font-weight-bold text-default text-uppercase mb-1"
