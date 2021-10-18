@@ -43,7 +43,7 @@ function checkPartnerApplicationData() {
 	fd.append("p_rescue_alim", $("input:radio[name='p_rescue_alim']:checked").val());
 
 	if ($("input:radio[name='p_type']:checked").attr('id') === undefined) {
-		showAlert("사업자 상태를 선택하세요. (개인사업자 또는 법인사업자)");
+		showAlert("사업자 상태를 선택하세요. (개인사업자, 법인사업자 또는 개인)");
 		return null;
 	}
 	fd.append("p_type", $("input:radio[name='p_type']:checked").val());
