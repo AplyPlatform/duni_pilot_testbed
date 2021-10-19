@@ -1,318 +1,366 @@
 ﻿<!-- Content Row -->
 <div class="row">
-		<!-- Page Heading -->
-		<div class="col-12 col-md-6 mb-4">
-		    <div class="card shadow">
-		        <!-- Card Header - Dropdown -->
-		        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-		          <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Name" id="record_name_field">
-                    <span class="input-group-append">
-                      <button class='btn btn-primary' type='button' id="btnForUpdateTitle">수정</button>
-                    </span>
-              </div>
-		        </div>
-	    			<div class="col-md-12 text-center"><span id="map_address" class="text-xs font-weight-bold text-info text-uppercase mb-1"></span></div>	    			
-		    </div>
+	<!-- Page Heading -->
+	<div class="col-12 col-md-6 mb-4">
+		<div class="card shadow">
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Name" id="record_name_field">
+					<span class="input-group-append">
+						<button class='btn btn-primary' type='button' id="btnForUpdateTitle">수정</button>
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 text-center"><span id="map_address"
+					class="text-xs font-weight-bold text-info text-uppercase mb-1"></span></div>
 		</div>
+	</div>
 
 </div>
 <div class="row">
-	 <div class="col-lg-6 mb-4">
-      <div class="card shadow mb-2">
+	<div class="col-lg-6 mb-4">
+		<div class="card shadow mb-2">
 
-        <div class="card-body h-400">
-        			<div id="youTubePlayer"></div>
-        </div>
+			<div class="card-body h-400">
+				<div id="youTubePlayer"></div>
+			</div>
 
-        <div id="recordDataSet">
-	        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	          <h6 class="m-0 font-weight-bold text-primary" id="uploadBtnForFlightRecord">비행기록 파일 업로드</h6>
-	        </div>
+			<div id="recordDataSet">
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary" id="uploadBtnForFlightRecord">비행기록 파일 업로드</h6>
+				</div>
 
-	        <div class="card-body">
-						<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
-						<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1" id="duni_radio_label"> DUNI 비행기록 파일</label>
+				<div class="card-body">
+					<input type="radio" id="dji_file_opt" name="recordTypeRadio" checked><label
+						class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1"
+						id="dji_radio_label"> DJI 비행기록 파일</label> &nbsp;
+					<input type="radio" id="duni_file_opt" name="recordTypeRadio"><label
+						class="radio-inline text-xs font-weight-bold text-default text-uppercase mb-1"
+						id="duni_radio_label"> DUNI 비행기록 파일</label>
 
-						<div class="input-group">
-							<input type="file" class="form-control-file form-control bg-light border-0 small" id="flight_record_file">
-							<span class="input-group-append">
-              	<button class='btn btn-primary' type='button' id="btnForUploadFlightList">업로드</button>
-              </span>
+					<div class="input-group">
+						<input type="file" class="form-control-file form-control bg-light border-0 small"
+							id="flight_record_file">
+						<span class="input-group-append">
+							<button class='btn btn-primary' type='button' id="btnForUploadFlightList">업로드</button>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="card-body" id="videoRecordModifyArea">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="#" id="modifyBtnForMovieData"
+							class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
+					</div>
+				</div>
+				<div id="movieDataSet">
+					<div class="row" id="video_upload_kind_sel">
+						<div class="col-md-12">
+							<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload"
+								onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
+							<label id="tab_menu_set_youtube_upload"
+								class="text-xs font-weight-bold text-default text-uppercase mb-1"
+								for="tab_menu_set_youtube_upload">영상 업로드</label>
+							&nbsp;&nbsp;
+							<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address"
+								onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
+							<label id="tab_menu_set_youtube_address"
+								class="text-xs font-weight-bold text-default text-uppercase mb-1"
+								for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
+						</div>
+					</div>
+
+					<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
+									<input type="file" id="movieFile" accept="video/*">
+									<button class="btn btn-secondary btn-sm" type="button"
+										id="btnSelectMovieFiles">파일선택</button>
+								</div>
+								<div class="during-upload">
+									<div id="videoFileName"></div>
+									<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><span
+											id="percent-transferred"></span>% (<span
+											id="bytes-transferred"></span>/<span id="total-bytes"></span> KB)</span>
+									<progress id="upload-progress" max="1" value="0"></progress>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-8">
+										<select id="privacy-status" class="form-control">
+											<option value="public" id="option_public_label">공개</option>
+											<option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는
+												사용자만 영상을 볼수 있음)</option>
+											<!-- <option value="private" id="option_private_label">비공개</option> -->
+										</select>
+									</div>
+									<div class="col-md-4">
+										<button id="uploadVideoToYoutubeButton" class="btn btn-primary btn-block"
+											type="button">유튜브에 영상 업로드</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-right">
+								<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a
+									video, you certify that you own all rights to the content or that you are authorized
+									by the owner to make the content publicly available on YouTube, and that it
+									otherwise complies with the YouTube Terms of Service located at <a
+										href="http://www.youtube.com/t/terms"
+										target="_blank">http://www.youtube.com/t/terms</a></p>
+							</div>
+						</div>
+					</div> <!-- set_youtube_upload_view -->
+
+					<div class="row" id="set_youtube_address_view">
+						<div class="col-md-12">
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="ex) https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
+								<span class="input-group-append">
+									<button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div> <!-- movieDataSet -->
+			</div>
+
+			<div class="card-body">
+				<div id="altitude_graph_area">
+					<canvas id="lineGraph" name="lineGraph"></canvas>
+					<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1"
+						id="altitude_label_top">비행고도</label>
+				</div>
+			</div>
+
+			<div class="card-body text-left">
+				<span id="position_info" class="text-xs font-weight-bold text-default text-uppercase mb-1"> ...
+				</span><br>
+				<span id="monitor" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
+			</div>
+
+			<div class="card-body">
+				<div style="height:480px;">
+					<div id="rawRecordTable" style="height:400px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- List -->
+	<div class="col-lg-6 mb-4">
+		<div class="card shadow mb-4">
+			<div class="card-body">
+
+				<div class="tab-content">
+					<div class="tab-pane fade show active mapviewer" id="map2dViewer">
+						<div id="mainMap" class="mapviewerIn"></div>
+					</div>
+					<div class="tab-pane fade mapviewer" id="map3dViewer">
+						<div id="main3dMap" class="mapviewerIn"></div>
+						<div id="loaderFor3DMap"><img src="./imgs/file_drop_upload.gif" width="50px"></div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-9">
+						<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light"
+							id="sliderText">0</span>
+					</div>
+
+					<div class="col-md-3 text-right">
+						<button class='btn btn-info btn-sm btn-block' type='button' id="merge_record_view_btn">비행기록
+							결합</button>
+					</div>
+				</div>
+
+				<div class="row" id="no_record_data_view">
+					<div class="col-md-12">
+						<div class="text-xs font-weight-bold text-default text-uppercase mb-1"
+							id="no_record_data_view_label">비행기록 파일이 없습니다.</div>
+					</div>
+				</div>
+
+				<div id="map_area">
+					<div class="row">
+						<div class="col-md-12">
+							<hr size="1" color="#fefefe">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center"
+									id="roll_label">Roll <span id="rollText"></span></div>
+								<div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center"
+									id="yaw_label">Head <span id="yawText"></span></div>
+								<div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center"
+									id="pitch_label">Pitch <span id="pitchText"></span></div>
+							</div>
+							<div class="row">
+								<div class="col text-center"><canvas id="rollCanvas" width="60" height="60"></canvas>
+								</div>
+								<div class="col text-center"><img src="imgs/yaw.png" id="yawStatus" width="40"
+										height="40"></div>
+								<div class="col text-center"><img src="imgs/pitch.png" id="pitchStatus" width="40"
+										height="40"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<hr size="1" color="#fefefe">
+						</div>
+					</div>
+					<div class="row no-gutters align-items-center" id="adjustDsecField">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<span class="text-xs font-weight-bold text-default text-uppercase mb-1"
+										id="sync_slider_label">영상과 비행기록 시간 간격</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="input-group">
+										<input type="text" value="0" id="goFlightRecItemIndex"
+											class="form-control bg-light border-0 small" aria-label="Index Number">
+										<span class="input-group-append">
+											<button class='btn btn-info btn-sm' type='button'
+												id="flightRecDsecApplyBtn">적용</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-md-4 text-left">
+									<span class="text-xs text-default text-uppercase mb-1" id="sync_explain_label">
+										기록이 5초 늦을 경우 : -5, 기록이 5초 빠를 경우 : 5
+									</span>
+								</div>
+								<div class="col-md-3 text-left">
+									<button class='btn btn-primary btn-sm btn-block' type='button'
+										id="flightRecDsecSaveBtn">저장</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<hr size="1" color="#fefefe">
 						</div>
 					</div>
 				</div>
 
-        <div class="card-body" id="videoRecordModifyArea">
-        		<div class="row">
-        			<div class="col-md-12">
-        				<a href="#" id="modifyBtnForMovieData" class="text-xs font-weight-bold text-primary text-uppercase mb-1">영상정보 수정</a>
-        			</div>
-        		</div>
-          	<div id="movieDataSet">
-							<div class="row" id="video_upload_kind_sel">
-	        				<div class="col-md-12">
-		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_upload" onclick="GATAGM('tab_menu_set_youtube_upload', 'CONTENT');" checked>
-											<label id="tab_menu_set_youtube_upload" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_upload">영상 업로드</label>
-											&nbsp;&nbsp;
-		            			<input type="radio" name="media_upload_kind" value="tab_menu_set_youtube_address" onclick="GATAGM('tab_menu_set_youtube_address', 'CONTENT');">
-											<label id="tab_menu_set_youtube_address" class="text-xs font-weight-bold text-default text-uppercase mb-1" for="tab_menu_set_youtube_address">유튜브 URL 입력</label>
-									</div>
-							</div>
-
-				    	<div id="set_youtube_upload_view" style="backgroud-color:#eeeeee;">
-				    		<div class="row">
-						      <div class="col-md-6">
-										<div class="upload-btn-wrapper text-center" id="selectMovieFileArea">
-											<input type="file" id="movieFile" accept="video/*">
-											<button class="btn btn-secondary btn-sm" type="button" id="btnSelectMovieFiles">파일선택</button>
-										</div>
-										<div class="during-upload">
-			      						<div id="videoFileName"></div>
-						        		<span class="text-xs font-weight-bold text-default text-uppercase mb-1"><span id="percent-transferred"></span>% (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> KB)</span>
-						        		<progress id="upload-progress" max="1" value="0"></progress>
-						    		</div>
-						      </div>
-						      <div class="col-md-6">
-					      			<div class="row">
-							      		<div class="col-md-8">
-									        <select id="privacy-status" class="form-control">
-									          <option value="public" id="option_public_label">공개</option>
-									          <option value="unlisted" selected id="option_unlisted_label">일부공개(링크가 있는 사용자만 영상을 볼수 있음)</option>
-									          <!-- <option value="private" id="option_private_label">비공개</option> -->
-									        </select>
-									      </div>
-									      <div class="col-md-4">
-							        		<button id="uploadVideoToYoutubeButton" class="btn btn-primary btn-block" type="button">유튜브에 영상 업로드</button>
-							        	</div>
-							        </div>
-						      </div>
-						    </div>
-						    <div class="row">
-						      <div class="col-md-12 text-right">
-						      		<p id="disclaimer" class="text-xs font-weight-bold text-default mb-1">By uploading a video, you certify that you own all rights to the content or that you are authorized by the owner to make the content publicly available on YouTube, and that it otherwise complies with the YouTube Terms of Service located at <a href="http://www.youtube.com/t/terms" target="_blank">http://www.youtube.com/t/terms</a></p>
-						      </div>
-						    </div>
-					    </div> <!-- set_youtube_upload_view -->
-
-					    <div class="row" id="set_youtube_address_view">
-	        				<div class="col-md-12">
-	              		<div class="input-group">
-		                    <input type="text" class="form-control" placeholder="ex) https://www.youtube.com/watch?v=q2PzFbh6HBE" id="youtube_url_data">
-		                    <span class="input-group-append">
-		                      <button class='btn btn-primary' type='button' id="btnForSetYoutubeID">반영</button>
-		                    </span>
-		              	</div>
-	              	</div>
-	            </div>
-        		</div>  <!-- movieDataSet -->
-				</div>
-
-				<div class="card-body">
-					<div id="altitude_graph_area">
-							<canvas id="lineGraph" name="lineGraph"></canvas>
-							<label for="lineGraph" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="altitude_label_top">비행고도</label>
+				<div class="row">
+					<div class="col-md-12 text-left">
+						<div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
+					</div>
+					<div class="col-md-9">
+						<div class="h5 mb-0 font-weight-bold text-gray-800">
+							<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
+								<option value="Aerial" id="Aerial_label">Aerial</option>
+								<option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels
+								</option>
+								<option value="Road" id="Road_label">Road</option>
+								<option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3 text-right">
+						<div class="btn-group btn-group-justified" data-toggle="buttons">
+							<a class="btn btn-secondary active btn-block" data-toggle="tab" href="#map2dViewer"
+								id="tab_menu_map_selector_2d"
+								onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
+							<a class="btn btn-info btn-block" data-toggle="tab" href="#map3dViewer"
+								id="tab_menu_map_selector_3d"
+								onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
+						</div>
 					</div>
 				</div>
-				
-				<div class="card-body text-left">        	
-					<span id="position_info" class="text-xs font-weight-bold text-default text-uppercase mb-1"> ... </span><br>
-          <span id="monitor" class="text-xs font-weight-bold text-default text-uppercase mb-1"></span>
-        </div>
-				
-				<div class="card-body">
-					<div style="height:480px;">
-						<div id="rawRecordTable" style="height:400px;"></div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<hr size="1" color="#fefefe">
 					</div>
 				</div>
-      </div>
-   </div>
 
-   <!-- List -->
-  <div class="col-lg-6 mb-4">
-    	<div class="card shadow mb-4">
-    				<div class="card-body">
+				<div class="row">
+					<div class="col-md-12 text-left"><span id="input_tag_label"
+							class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<input type="text" id='tagTextarea' name='tagTextarea' placeholder="" />
+						<div id="tagArrayarea"></div>
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-left"><span id="input_memo_label"
+							class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='4'></textarea>
+					</div>
+					<div class="col-md-3">
+						<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<hr size="1" color="#efefef">
+						<div class="btn-group" role="group">
+							<button class='btn btn-secondary btn-sm' type='button' id="btnForSharing">공유하기</button>
+							<button class='btn btn-secondary btn-sm' type='button' id="btnForPublic">공개하기</button>
+							<button class='btn btn-secondary btn-sm' type='button' id="btnForLink">외부링크생성</button>
+							<button class='btn btn-secondary btn-sm' type='button' id="btnForDelete">삭제하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-								<div class="tab-content">
-									<div class="tab-pane fade show active mapviewer" id="map2dViewer">
-				            	<div id="mainMap" class="mapviewerIn"></div>
-					       	</div>
-					        <div class="tab-pane fade mapviewer" id="map3dViewer">
-					          	<div id="main3dMap" class="mapviewerIn"></div>
-					          	<div id="loaderFor3DMap"><img src="./imgs/file_drop_upload.gif" width="50px"></div>
-									</div>
-								</div>
+			<div class="card-body">
+				<div id="shared_user"></div>
+			</div>
 
-								<div class="row">
-									<div class="col-md-9">
-										<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light" id="sliderText">0</span>
-									</div>
-
-									<div class="col-md-3 text-right">										
-										<button class='btn btn-info btn-sm btn-block' type='button' id="merge_record_view_btn">비행기록 결합</button>										
-									</div>
-								</div>
-
-								<div class="row" id="no_record_data_view">
-									<div class="col-md-12">
-										<div class="text-xs font-weight-bold text-default text-uppercase mb-1" id="no_record_data_view_label">비행기록 파일이 없습니다.</div>
-									</div>
-								</div>								
-																
-								<div id="map_area">
-										<div class="row">
-												<div class="col-md-12">
-													<hr size="1" color="#fefefe">
-												</div>
-										</div>
-										<div class="row">
-												<div class="col-md-12">
-			                      <div class="row">
-			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="roll_label">Roll <span id="rollText"></span></div>
-			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="yaw_label">Head <span id="yawText"></span></div>
-			                        <div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center" id="pitch_label">Pitch <span id="pitchText"></span></div>
-			                      </div>
-			                      <div class="row">
-			                      	<div class="col text-center"><canvas id="rollCanvas" width="60" height="60"></canvas></div>
-			                        <div class="col text-center"><img src="imgs/yaw.png" id="yawStatus" width="40" height="40"></div>
-			                        <div class="col text-center"><img src="imgs/pitch.png" id="pitchStatus" width="40" height="40"></div>
-														</div>
-												</div>
-										</div>
-										<div class="row">
-												<div class="col-md-12">
-													<hr size="1" color="#fefefe">
-												</div>
-										</div>
-										<div class="row no-gutters align-items-center" id="adjustDsecField">
-												<div class="col-md-12">
-														<div class="row">
-															<div class="col-md-12">
-																<span class="text-xs font-weight-bold text-default text-uppercase mb-1" id="sync_slider_label">영상과 비행기록 시간 간격</label>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-5">
-																<div class="input-group">
-																	<input type="text" value="0" id="goFlightRecItemIndex" class="form-control bg-light border-0 small" aria-label="Index Number">
-																	<span class="input-group-append">
-																		<button class='btn btn-info btn-sm' type='button' id="flightRecDsecApplyBtn">적용</button>
-																	</span>
-																</div>
-															</div>
-															<div class="col-md-4 text-left">
-																<span class="text-xs text-default text-uppercase mb-1" id="sync_explain_label">
-																	기록이 5초 늦을 경우 : -5, 기록이 5초 빠를 경우 : 5
-																</span>
-															</div>
-															<div class="col-md-3 text-left">
-																	<button class='btn btn-primary btn-sm btn-block' type='button' id="flightRecDsecSaveBtn">저장</button>
-															</div>
-														</div>												
-												</div>
-												<div class="col-md-12">
-													<hr size="1" color="#fefefe">
-												</div>
-										</div>
-								</div>		
-								
-								<div class="row">
-									<div class="col-md-12 text-left">
-										<div class="text-xs font-weight-bold text-default text-uppercase mb-1">지도 종류</div>
-									</div>
-    							<div class="col-md-9">
-										<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<select id="layer-select" name="layer-select" class="form-control bg-light border-0 small">
-																			 <option value="Aerial" id="Aerial_label">Aerial</option>
-																			 <option value="AerialWithLabels" selected id="Aerial_label_label">Aerial with labels</option>
-																			 <option value="Road" id="Road_label">Road</option>
-																			 <option value="Road (Detailed)" id="Road_detail">Road (Detailed)</option>
-												</select>
-										</div>
-    							</div>
-									<div class="col-md-3 text-right">
-										<div class="btn-group btn-group-justified" data-toggle="buttons">
-											  <a class="btn btn-secondary active btn-block" data-toggle="tab" href="#map2dViewer" id="tab_menu_map_selector_2d" onclick="GATAGM('tab_menu_map_selector_2d', 'CONTENT');">2D</a>
-											  <a class="btn btn-info btn-block" data-toggle="tab" href="#map3dViewer" id="tab_menu_map_selector_3d" onclick="GATAGM('tab_menu_map_selector_3d', 'CONTENT');">3D</a>
-										</div>
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="col-md-12">
-										<hr size="1" color="#fefefe">
-									</div>
-								</div>
-												   						
-			    			<div class="row">
-			    				<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
-			    			</div>
-			    			<div class="row">
-			    				<div class="col-md-9">
-										<input type="text" id='tagTextarea' name='tagTextarea' placeholder=""/>
-										<div id="tagArrayarea"></div>
-			    				</div>
-			    				<div class="col-md-3">
-			    					<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
-			    				</div>
-			    			</div>
-			    			<div class="row">
-			    				<div class="col-md-12 text-left"><span id="input_memo_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
-			    			</div>
-			    			<div class="row">
-			    				<div class="col-md-9">
-										<textarea class='form-control' id='memoTextarea' name='memoTextarea' rows='4'></textarea>
-									</div>
-									<div class="col-md-3">
-										<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
-									</div>
-								</div>
-			          <div class="row">
-									<div class="col-md-12">
-										<hr size="1" color="#efefef">
-				            <div class="btn-group" role="group">
-				      		      <button class='btn btn-secondary btn-sm' type='button' id="btnForSharing">공유하기</button>
-				                <button class='btn btn-secondary btn-sm' type='button' id="btnForPublic">공개하기</button>
-				        		    <button class='btn btn-secondary btn-sm' type='button' id="btnForLink">외부링크생성</button>
-												<button class='btn btn-secondary btn-sm' type='button' id="btnForDelete">삭제하기</button>
-				            </div>
-									</div>
-			          </div>
-		      	</div>
-						
-						<div class="card-body">
-		      		<div id="shared_user"></div>
-		      	</div>
-		
-		      	<div class="card-body">
-		      		<div id="shared_link"></div>
-		      	</div>
-    </div>
-  </div>
+			<div class="card-body">
+				<div id="shared_link"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div id="dataTable-Flight_area" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-	    </div>
-	    <div class="modal-body">
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
 				<div class="form-group text-center">
-        	<label for="record_search_field" class="text-xs font-weight-bold text-default text-uppercase mb-1" id="record_search_field_label">결합대상 검색</label>
-        	<input name="record_search_field" type="text" class="form-control" id="record_search_field">
-  			</div>
+					<label for="record_search_field" class="text-xs font-weight-bold text-default text-uppercase mb-1"
+						id="record_search_field_label">결합대상 검색</label>
+					<input name="record_search_field" type="text" class="form-control" id="record_search_field">
+				</div>
 				<div id="dataTable-Flight_list">
-		  	</div>
-		  	<div id="loadMoreArea" class="text-center">
-							<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>
+				</div>
+				<div id="loadMoreArea" class="text-center">
+					<button class="btn btn-primary" type="button" id="btnForLoadFlightList">비행기록 불러오기</button>
 				</div>
 			</div>
 			<div class="modal-footer">
-      	<button class="btn btn-primary" type="button" data-dismiss="modal" id="modal-search-confirm-btn">닫기</button>
-      </div>
+				<button class="btn btn-primary" type="button" data-dismiss="modal"
+					id="modal-search-confirm-btn">닫기</button>
+			</div>
 		</div>
 	</div>
 </div>
