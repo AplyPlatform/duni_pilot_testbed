@@ -275,9 +275,9 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		zoom: 10
 	});
 
-	var vSource = new ol.source.Vector();
+	let vSource = new ol.source.Vector();
 
-	var vVectorLayer = new ol.layer.Vector({
+	let vVectorLayer = new ol.layer.Vector({
 		source: vSource,
 		zIndex: 77,
 		style: new ol.style.Style({
@@ -293,21 +293,13 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		})
 	});
 
-	var bingLayer = new ol.layer.Tile({
+	let bingLayer = new ol.layer.Tile({
 		visible: true,
 		preload: Infinity,
-		source: new ol.source.OSM({
-			// We need a key to get the layer from the provider.
-			// Sign in with Bing Maps and you will get your key (for free)
-			key: 'AgMfldbj_9tx3cd298eKeRqusvvGxw1EWq6eOgaVbDsoi7Uj9kvdkuuid-bbb6CK',
-			imagerySet: 'AerialWithLabels', // or 'Road', 'AerialWithLabels', etc.
-			// use maxZoom 19 to see stretched tiles instead of the Bing Maps
-			// "no photos at this zoom level" tiles
-			maxZoom: 19
-		})
+		source: new ol.source.OSM({})
 	});
 
-	var vMap = new ol.Map({
+	let vMap = new ol.Map({
 		target: 'map_' + index,
 		layers: [
 			bingLayer, vVectorLayer
