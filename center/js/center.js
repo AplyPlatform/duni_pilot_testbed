@@ -3209,6 +3209,13 @@ function onYouTubeIframeAPIReady() {
         return;
     }
 
+    if (g_str_cur_viewmode != "pilot"
+        && g_str_page_action == "center") {
+        getFullFlightRecords(g_str_current_target);
+        getFlightRecords(g_str_current_target, "");
+        return;
+    }
+
     if (g_str_cur_viewmode != "pilot") return;
 
     g_youtube_player_for_detail_view = new YT.Player('youTubePlayer', {
