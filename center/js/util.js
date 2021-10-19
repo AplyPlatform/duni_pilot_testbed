@@ -1844,13 +1844,19 @@ function flightRecords2DMapInit() {
     let bingLayer = new ol.layer.Tile({
         visible: true,
         preload: Infinity,
-        source: new ol.source.OSM()
+        source: //new ol.source.OSM()
+        new Stamen({
+            layer: 'toner',
+          })
     });
 
     let overviewMapControl = new ol.control.OverviewMap({
         layers: [
             new ol.layer.Tile({
-                source: new ol.source.OSM(),
+                source: //new ol.source.OSM(),
+                new Stamen({
+                    layer: 'toner',
+                  })
             })],
         collapsed: true
     });
