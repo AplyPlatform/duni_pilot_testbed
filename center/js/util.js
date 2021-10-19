@@ -1845,7 +1845,7 @@ function flightRecords2DMapInit() {
         visible: true,
         preload: Infinity,
         source: //new ol.source.OSM()
-        new Stamen({
+        new ol.source.Stamen({
             layer: 'toner',
           })
     });
@@ -1854,7 +1854,7 @@ function flightRecords2DMapInit() {
         layers: [
             new ol.layer.Tile({
                 source: //new ol.source.OSM(),
-                new Stamen({
+                new ol.source.Stamen({
                     layer: 'toner',
                   })
             })],
