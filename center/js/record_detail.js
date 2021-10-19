@@ -27,6 +27,7 @@ function flightDetailInit(target) {
 	$("#uploadVideoToYoutubeButton").text(GET_STRING_CONTENT('uploadVideoToYoutubeButton'));
 	$("#flightMemoBtn").text(GET_STRING_CONTENT('msg_modify_memo'));
 	$("#flightTagBtn").text(GET_STRING_CONTENT('msg_modify_tag'));
+	$("#merge_record_view_btn").text(GET_STRING_CONTENT('merge_record_view_btn_label'));
 
 	$("#input_tag_label").text(GET_STRING_CONTENT('input_tag_label'));
 
