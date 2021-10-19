@@ -170,14 +170,9 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md-12">
 						<div id="slider" class="bg-light border-0 small"></div><span class="badge badge-light"
 							id="sliderText">0</span>
-					</div>
-
-					<div class="col-md-3 text-right">
-						<button class='btn btn-info btn-sm btn-block' type='button' id="merge_record_view_btn">비행기록
-							결합</button>
 					</div>
 				</div>
 
@@ -195,7 +190,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-9">
 							<div class="row">
 								<div class="col text-xs font-weight-bold text-default text-uppercase mb-1 text-center"
 									id="roll_label">Roll <span id="rollText"></span></div>
@@ -212,6 +207,9 @@
 								<div class="col text-center"><img src="imgs/pitch.png" id="pitchStatus" width="40"
 										height="40"></div>
 							</div>
+						</div>
+						<div class="col-md-3 text-right">
+							<button class='btn btn-info btn-sm btn-block' type='button' id="merge_record_view_btn">비행기록 결합</button>
 						</div>
 					</div>
 					<div class="row">
@@ -286,20 +284,7 @@
 						<hr size="1" color="#fefefe">
 					</div>
 				</div>
-
-				<div class="row">
-					<div class="col-md-12 text-left"><span id="input_tag_label"
-							class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
-				</div>
-				<div class="row">
-					<div class="col-md-9">
-						<input type="text" id='tagTextarea' name='tagTextarea' placeholder="" />
-						<div id="tagArrayarea"></div>
-					</div>
-					<div class="col-md-3">
-						<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
-					</div>
-				</div>
+				
 				<div class="row">
 					<div class="col-md-12 text-left"><span id="input_memo_label"
 							class="text-xs font-weight-bold text-default text-uppercase mb-1">메모</span></div>
@@ -312,6 +297,20 @@
 						<button class='btn btn-primary btn-sm btn-block' type='button' id="flightMemoBtn">메모수정</button>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-md-12 text-left"><span id="input_tag_label" class="text-xs font-weight-bold text-default text-uppercase mb-1">태그</span></div>
+				</div>
+				<div class="row">
+					<div class="col-md-9">
+						<input type="text" id='tagTextarea' name='tagTextarea' placeholder="" />
+						<div id="tagArrayarea"></div>
+					</div>
+					<div class="col-md-3">
+						<button class="btn btn-primary btn-sm btn-block" type="button" id="flightTagBtn">태그수정</button>
+					</div>
+				</div>
+				
 				<div class="row">
 					<div class="col-md-12">
 						<hr size="1" color="#efefef">
