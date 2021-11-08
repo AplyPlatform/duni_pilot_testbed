@@ -22,29 +22,29 @@ function facebookSignInCallback() {
     });
 }
 
-function facebookinit() {	
-		window.fbAsyncInit = function() {
-		  FB.init({
-		    appId            : '570867566598427',
-		    autoLogAppEvents : true,
-		    xfbml            : true,
-		    version          : 'v2.11'
-	  	});
-	  	
-	  	if (document.getElementById('facebookLoginBtn1')) {
-		  	document.getElementById('facebookLoginBtn1').addEventListener('click', function() {
-		  		GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
-					FB.login(facebookSignInCallback);
-				});
-			}
-			
-			if (document.getElementById('facebookLoginBtn2')) {
-				document.getElementById('facebookLoginBtn2').addEventListener('click', function() {
-					GATAGM('index_facebook_login_2_btn_click', 'MENU');
-					FB.login(facebookSignInCallback);
-				});
-			}		
-	  };	 	
+function facebookinit() {
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '570867566598427',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v2.11'
+        });
+
+        if (document.getElementById('facebookLoginBtn1')) {
+            document.getElementById('facebookLoginBtn1').addEventListener('click', function () {
+                GATAGM('index_facebook_login_1_btn_click', 'CONTENT');
+                FB.login(facebookSignInCallback);
+            });
+        }
+
+        if (document.getElementById('facebookLoginBtn2')) {
+            document.getElementById('facebookLoginBtn2').addEventListener('click', function () {
+                GATAGM('index_facebook_login_2_btn_click', 'MENU');
+                FB.login(facebookSignInCallback);
+            });
+        }
+    };
 }
 
 function naverSignInCallback() {
@@ -73,28 +73,28 @@ function naverinit() {
 
     naverLogin.init();
 
-		var url = naverLogin.generateAuthorizeUrl();		
-		if (document.getElementById('naverLoginBtn1')) {
-	  	document.getElementById('naverLoginBtn1').addEventListener('click', function() {
-	  			GATAGM('index_naver_login_1_btn_click', 'CONTENT');
-	  			location.href = url;
-			});
-		}
-    
+    var url = naverLogin.generateAuthorizeUrl();
+    if (document.getElementById('naverLoginBtn1')) {
+        document.getElementById('naverLoginBtn1').addEventListener('click', function () {
+            GATAGM('index_naver_login_1_btn_click', 'CONTENT');
+            location.href = url;
+        });
+    }
+
     if (document.getElementById('naverLoginBtn2')) {
-	  	document.getElementById('naverLoginBtn2').addEventListener('click', function() {
-	  			GATAGM('index_naver_login_2_btn_click', 'MENU');
-	  			location.href = url;
-			});
-		}
+        document.getElementById('naverLoginBtn2').addEventListener('click', function () {
+            GATAGM('index_naver_login_2_btn_click', 'MENU');
+            location.href = url;
+        });
+    }
 }
 
 function kakaoLogin() {
-	Kakao.Auth.login({
-	    success: function(authObj) {
-	      Kakao.API.request({
-	        url: '/v2/user/me',
-	        success: function(res) {
+    Kakao.Auth.login({
+        success: function (authObj) {
+            Kakao.API.request({
+                url: '/v2/user/me',
+                success: function (res) {
                     setCookie("dev_kind", "kakao", 1);
 
                     let name = "";
@@ -118,92 +118,92 @@ function kakaoLogin() {
                         }
                     }
 
-    				formSubmit(token, name, image, email);
-	        },
-	        fail: function(error) {	          
-	          showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	        },
-	      })
-	    },
-	    fail: function(err) {
-	      showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	    },
-	  });
+                    formSubmit(token, name, image, email);
+                },
+                fail: function (error) {
+                    showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+                },
+            })
+        },
+        fail: function (err) {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        },
+    });
 }
 
 function kakaoinit() {
-	Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
-	
-	if (document.getElementById('kakaoLoginBtn1')) {	
-		document.getElementById('kakaoLoginBtn1').addEventListener('click', function() {
-					GATAGM('index_kakao_login_1_btn_click', 'CONTENT');
-		 			kakaoLogin();
-		});
-	}
-		
-	if (document.getElementById('kakaoLoginBtn2')) {
-		document.getElementById('kakaoLoginBtn2').addEventListener('click', function() {
-					GATAGM('index_kakao_login_2_btn_click', 'MENU');
-	  			kakaoLogin();
-		});
-	}
-	
+    Kakao.init('2117cedaa3150d4eecd95cc8560f8e21');
+
+    if (document.getElementById('kakaoLoginBtn1')) {
+        document.getElementById('kakaoLoginBtn1').addEventListener('click', function () {
+            GATAGM('index_kakao_login_1_btn_click', 'CONTENT');
+            kakaoLogin();
+        });
+    }
+
+    if (document.getElementById('kakaoLoginBtn2')) {
+        document.getElementById('kakaoLoginBtn2').addEventListener('click', function () {
+            GATAGM('index_kakao_login_2_btn_click', 'MENU');
+            kakaoLogin();
+        });
+    }
+
 }
 
 function appleinit() {
-	AppleID.auth.init({
-            clientId : 'biz.aply.dunipilot.signin',
-            scope : 'name email',
-            redirectURI: window.location.origin,
-            nonce : '123423',
-            usePopup : true
+    AppleID.auth.init({
+        clientId: 'biz.aply.dunipilot.signin',
+        scope: 'name email',
+        redirectURI: window.location.origin,
+        nonce: '123423',
+        usePopup: true
+    });
+
+    if (document.getElementById('appleLoginBtn1')) {
+        document.getElementById('appleLoginBtn1').addEventListener('click', function () {
+            GATAGM('index_apple_login_1_btn_click', 'CONTENT');
+            AppleID.auth.signIn();
         });
-  	
-  if (document.getElementById('appleLoginBtn1')) {
-	  document.getElementById('appleLoginBtn1').addEventListener('click', function() {
-	  	    GATAGM('index_apple_login_1_btn_click', 'CONTENT');
-	        AppleID.auth.signIn();
-	  });
-	}
-			
-	if (document.getElementById('appleLoginBtn2')) {
-	  document.getElementById('appleLoginBtn2').addEventListener('click', function() {
-	  	    GATAGM('index_apple_login_2_btn_click', 'MENU');
-	        AppleID.auth.signIn();
-	  });
-	}
+    }
 
-	document.addEventListener('AppleIDSignInOnSuccess', function (data) {
-			setCookie("dev_kind", "apple", 1);
-			let token = data.detail.authorization.id_token;            
-		    let name = "";
-            let email = ""
-            if ("user" in data.detail) {
-                if("name" in data.detail.user && "firstName" in data.detail.user.name) {
-                    name = data.detail.user.name.firstName;
-                }
+    if (document.getElementById('appleLoginBtn2')) {
+        document.getElementById('appleLoginBtn2').addEventListener('click', function () {
+            GATAGM('index_apple_login_2_btn_click', 'MENU');
+            AppleID.auth.signIn();
+        });
+    }
 
-                if("name" in data.detail.user && "middleName" in data.detail.user.name) {
-                    name += " " + data.detail.user.name.middleName;
-                }
-
-                if("name" in data.detail.user && "lastName" in data.detail.user.name) {
-                    name += " " + data.detail.user.name.lastName;
-                }
-
-                if("email" in data.detail.user) {
-                    email = data.detail.user.email;
-                }                
+    document.addEventListener('AppleIDSignInOnSuccess', function (data) {
+        setCookie("dev_kind", "apple", 1);
+        let token = data.detail.authorization.id_token;
+        let name = "";
+        let email = ""
+        if ("user" in data.detail) {
+            if ("name" in data.detail.user && "firstName" in data.detail.user.name) {
+                name = data.detail.user.name.firstName;
             }
 
-            let image = "";            
-            formSubmit(token, name, image, email);
-	});
-	//Listen for authorization failures
-	document.addEventListener('AppleIDSignInOnFailure', function (error) {
-	     //handle error.
-	     showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-	});
+            if ("name" in data.detail.user && "middleName" in data.detail.user.name) {
+                name += " " + data.detail.user.name.middleName;
+            }
+
+            if ("name" in data.detail.user && "lastName" in data.detail.user.name) {
+                name += " " + data.detail.user.name.lastName;
+            }
+
+            if ("email" in data.detail.user) {
+                email = data.detail.user.email;
+            }
+        }
+
+        let image = "";
+        formSubmit(token, name, image, email);
+    });
+    //Listen for authorization failures
+    document.addEventListener('AppleIDSignInOnFailure', function (error) {
+        //handle error.
+        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+    });
 }
 
 function googleinit() {
@@ -215,13 +215,14 @@ function googleinit() {
         var gauth = gapi.auth2.init();
 
         var options = new gapi.auth2.SigninOptionsBuilder();
-        options.setPrompt('select_account consent');
+        options.setPrompt('select_account');
+        approval_prompt
         //gauth.signIn(options);
 
         gauth.attachClickHandler(document.getElementById('googleLoginBtn1'), options,
             function (googleUser) {
-            		GATAGM('index_google_login_1_btn_click', 'CONTENT');
-            		
+                GATAGM('index_google_login_1_btn_click', 'CONTENT');
+
                 setCookie("dev_kind", "google", 1);
 
                 var profile = googleUser.getBasicProfile();
@@ -235,11 +236,11 @@ function googleinit() {
             }, function (error) {
                 //alert(JSON.stringify(error, undefined, 2));
             });
-            
+
         gauth.attachClickHandler(document.getElementById('googleLoginBtn2'), options,
             function (googleUser) {
-            		GATAGM('index_google_login_2_btn_click', 'MENU');
-            		
+                GATAGM('index_google_login_2_btn_click', 'MENU');
+
                 setCookie("dev_kind", "google", 1);
 
                 var profile = googleUser.getBasicProfile();
@@ -271,13 +272,13 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
         temp_image = "";
     }
 
-    setCookie("temp_email", temp_email, 1);  
-	setCookie("temp_name", temp_name, 1);
-	setCookie("temp_sns_token", token, 1);
+    setCookie("temp_email", temp_email, 1);
+    setCookie("temp_name", temp_name, 1);
+    setCookie("temp_sns_token", token, 1);
 
     let skind = getCookie("dev_kind");
     let device_kind = getCookie("device_kind");
-    let device_id = getCookie("device_id");            
+    let device_id = getCookie("device_id");
 
     let jdata = {
         action: "member",
@@ -289,30 +290,30 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
     };
 
     ajaxRequest(jdata, function (r) {
-        if (r.result == "success") {            
+        if (r.result == "success") {
             setCookie("dev_sns_token", token, 1);
             setCookie("image_url", temp_image, 1);
-            if (!("token" in r)                
+            if (!("token" in r)
                 || !("emailid" in r)
                 || !("socialid" in r)
                 || !("dev_token" in r)
-                || !("user_kind" in r)                
+                || !("user_kind" in r)
                 || !("name" in r)) {
                 hideLoader();
-                showAlert(GET_STRING_CONTENT('msg_error_sorry'));                
+                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
                 return;
-            }            
-            
+            }
+
             setCookie("user_token", r.token, 1);
             setCookie("dev_user_id", r.emailid, 1);
             setCookie("user_email", r.socialid, 1);
             setCookie("dev_token", r.dev_token, 1);
-            setCookie("user_kind", r.user_kind, 1);            
+            setCookie("user_kind", r.user_kind, 1);
             if ("phonenumber" in r) setCookie("temp_phone", r.phonenumber, 1);
             setCookie("temp_name", r.name, 1);
 
             let page_action = getCookie("last_action");
-    		if (!isSet(page_action)) page_action = "center";
+            if (!isSet(page_action)) page_action = "center";
             else setCookie("last_action", "", -1);
 
             location.href = "/center/main.html?page_action=" + page_action;
@@ -324,9 +325,9 @@ function formSubmit(token, temp_name, temp_image, temp_email) {
             hideLoader();
 
             if (r.reason.indexOf("Error:") >= 0)
-            	showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+                showAlert(GET_STRING_CONTENT('msg_error_sorry'));
             else
-            	showConfirmDialog();
+                showConfirmDialog();
         }
     }, function (request, status, error) {
         showAlert(GET_STRING_CONTENT('msg_error_sorry'));
@@ -344,7 +345,7 @@ function showConfirmDialog() {
 
     $('#askModalOKButton').off('click');
     $('#askModalOKButton').click(function (e) {
-    		e.preventDefault();
+        e.preventDefault();
         $('#askModal').modal('hide');
         location.href = "/center/register.html";
     });
@@ -353,8 +354,8 @@ function showConfirmDialog() {
 }
 
 $(function () {
-		g_str_page_action = "index";
-		
+    g_str_page_action = "index";
+
     checkLang();
     var page = window.location.href;
 
@@ -362,10 +363,10 @@ $(function () {
 
     }
     else {
-      	naverinit();
-		    kakaoinit();
-		    appleinit();
-		    facebookinit();
-        hideLoader();        
+        naverinit();
+        kakaoinit();
+        appleinit();
+        facebookinit();
+        hideLoader();
     }
 });
