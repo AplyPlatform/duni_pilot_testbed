@@ -626,13 +626,6 @@ function uploadCheckBeforeUploadFlightList() {
 		return;
 	}
 
-	// 전화번호 인증여부 체크
-	if (!g_b_phonenumber_verified) {
-		showAlert(GET_STRING_CONTENT('msg_phone_not_verified'));
-		return;
-	}
-
-
 	showLoader();
 	g_params_for_upload_flight_rec = { mname: mname, mmemo: mmemo, tag_values: tag_values, isUpdate: false, isSyncData: false, price: price, flat: g_loc_address_flat, flng: g_loc_address_flng };
 	g_component_upload_youtube_video.handleUploadClicked(g_f_videoFileForUploadFile);
