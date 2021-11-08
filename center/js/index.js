@@ -216,8 +216,6 @@ function googleinit() {
 
         var options = new gapi.auth2.SigninOptionsBuilder();
         options.setPrompt('select_account');
-        approval_prompt
-        //gauth.signIn(options);
 
         gauth.attachClickHandler(document.getElementById('googleLoginBtn1'), options,
             function (googleUser) {
