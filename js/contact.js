@@ -301,6 +301,7 @@
 	function sendApplicationData(fd)
 	{		
 		fd.append("form_kind", "문의");
+		fd.append("p_type", $("input:radio[name='p_type']:checked").val());
 		fd.append("ref", "https://pilot.duni.io");
 		
 		grecaptcha.ready(function() {
