@@ -35,6 +35,32 @@ function checkPartnerApplicationData() {
 		return null;
 	}
 	fd.append("min_type", min_type);
+	
+	
+	if ($('input[name="fileupload1"]').val() == "") {
+		showAlert("초경량비행장치 사용사업 등록증 사본을 첨부해 주세요.");
+		return null;
+	}
+
+	if ($('input[name="fileupload2"]').val() == "") {
+		showAlert("초경량비행장치 신고서 사본을 첨부해 주세요.");
+		return null;
+	}
+
+	if ($('input[name="fileupload3"]').val() == "") {
+		showAlert("보험 가입증서 사본을 첨부해 주세요.");
+		return null;
+	}
+
+	if ($('input[name="fileupload4"]').val() == "") {
+		showAlert("조종자자격 증명서 사본을 첨부해 주세요.");
+		return null;
+	}
+
+	if ($('input[name="fileupload5"]').val() == "") {
+		showAlert("사업자 등록증 사본을 첨부해 주세요.");
+		return null;
+	}
 
 	if ($("input:radio[name='p_rescue_alim']:checked").attr('id') === undefined) {
 		showDialog("지역 재난재해, 실종자 수색요구 발생시 알림 수신여부를 선택해 주세요.");
