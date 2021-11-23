@@ -2,255 +2,319 @@
 <div class="row">
 	<div class="col-12 mb-4">
 		<div class="card shadow">
-        <!-- Card Header - Dropdown -->
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">두니 파트너 등록하기</h6>
-        </div>
-        <!-- Card Body -->
-        <div class="card-body" id="page_about_content">        	          
-          당신의 능력을 원하는 많은 분들과 연결해드립니다.          
-        </div>
+			<!-- Card Header - Dropdown -->
+			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<h6 class="m-0 font-weight-bold text-primary" id="page_about_title">두니 파트너 등록하기</h6>
+			</div>
+			<!-- Card Body -->
+			<div class="card-body" id="page_about_content">
+				당신의 능력을 원하는 많은 분들과 연결해드립니다.
+			</div>
 		</div>
 	</div>
-	
-  <div class="col-lg-6 mb-4">
-      <div class="card shadow mb-4">        
-        <div class="card-body">    
-        	<form id="partner">    			
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col">유형 선택</div>
-                         						<div class="col"><input type="radio" name="p_type" id="p_type_1" value="개인" checked><label class="lab_check" for="p_type_1"><span class="checkbox"></span>  개인사업자</label></div>
-                         						<div class="col"><input type="radio" name="p_type" id="p_type_2" value="법인"><label class="lab_check" for="p_type_2"><span class="checkbox"></span>  법인사업자</label></div>
-												 <div class="col"><input type="radio" name="p_type" id="p_type_3" value="solo"><label class="lab_check" for="p_type_3"><span class="checkbox"></span>  개인</label></div>
-                         				</div>
-                          </div>
-                          <hr size="1" color="#fefefe">
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                                 <div class="row">
-                         						<div class="col-md-2">전문 분야</div>
-                         						<div class="col-md-10">
-                         							<div class="row">
-                         								<div class="col"><input type="checkbox" id="min_type_1"><label class="lab_check" for="min_type_1"><span class="checkbox"></span> 방제</label></div>
-                         								<div class="col"><input type="checkbox" id="min_type_2"><label class="lab_check" for="min_type_2"><span class="checkbox"></span> 촬영</label></div>
-                         								<div class="col"><input type="checkbox" id="min_type_3"><label class="lab_check" for="min_type_3"><span class="checkbox"></span> 교육</label></div>                         								
-                         							</div>
-                         							<div class="row">
-                         								<div class="col"><input type="checkbox" id="min_type_4"><label class="lab_check" for="min_type_4"><span class="checkbox"></span> 데이터 가공/분석</label></div>
-                         								<div class="col"><input type="checkbox" id="min_type_5"><label class="lab_check" for="min_type_5"><span class="checkbox"></span> 기타</label></div>
-                         								<div class="col"></div>
-                         							</div>
-                         						</div>
-                         				 </div>                                                            
-                          </div>
-                          <hr size="1" color="#fefefe">
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <input class="form-control" type="text" name="form_name" id="form_name" placeholder="이름 또는 업체명" required="">
-                              <input type="hidden" name="min_type" value="모니터링">
-                    					<input type="hidden" name="form_kind" value="파트너">
-                              <p class="help-block text-danger"></p>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                          	<div class="row">
-	                							<div class="col-md-6">
-	                  							<div class="row">
-	                  								<div class="col-md-12">
-	                  									<input name="user_phonenumber" id="user_phonenumber" type="text" class="form-control" value="" placeholder="전화번호 01012341234" required="">
-	                  								</div>
-	                  							</div>	                  							
-	                							</div>
-	                							<div class="col-md-6" id="verifyPhoneBtn">
-		                								<button class="btn btn-info btn-sm btn-block" role="button" id="btn_verify_code">인증번호 전송</button>
-	                							</div>	    
-	                					</div>            					
-	                					<div class="row" id="code_verification_input" style="display:none">
-	                							<div class="col-md-12">
-																		<div class="row">
-																			<div class="col-md-12">
-																				<hr size=1 color=#fefefe>
-																			</div>
-																		</div>
-                    								<div class="row">
-                    									<div class="col-md-2">
-                      									<span id="remaining_time" style="color:red"></span>
-                      								</div>
-                      								<div class="col-md-6">
-																				<input class="form-control" type="text" name="verification_code" id="verification_code" placeholder="인증코드 입력" style="float: left">
-																				<input type="hidden" name="auth_code" id="auth_code">
-																			</div>
-																			<div class="col-md-4">
-																				<button class="btn btn-warning btn-sm btn-block" role="button" id="btn_check_code">인증하기</button>
-																			</div>
-																		</div>
-														  	</div>
-	                					</div>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-        	        				<div class="form-group">
-        	        					<div class="row">
-	        	        					<div class="col-md-6">
-	            	        				<input class="form-control" type="text" name="postcode" id="postcode" placeholder="우편번호">
-	            	        			</div>
-	            	        			<div class="col-md-6">
-	                              <button class="btn btn-info btn-sm btn-block" role="button" id="findAddressBtn">우편번호 찾기</button> 
-	                            </div>
-	                          </div>
-            	    				</div>
-            					</div>                              					
-            					<div class="col-md-6">
-        	        				<div class="form-group">
-            	        				<input class="form-control" type="text" name="address" id="address" placeholder="주소">                                                      
-            	    				</div>
-            					</div>                              					
-            					<div class="col-md-6">
-        	        				<div class="form-group">                                    	        				
-                              <input class="form-control" type="text" name="detail_address" id="detail_address" placeholder="상세주소">
-            	    				</div>
-            					</div>
-            					<div class="col-md-6">
-        	        				<div class="form-group">                                    	        				
-                              <input class="form-control" type="text" name="form_homepage" id="form_homepage" placeholder="홈페이지 주소(선택) ex) http://duni.io">
-            	    				</div>
-            					</div>
-            					<div class="col-md-6">
-            					</div>
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">초경량비행장치 사용사업 등록 여부</div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_biz" id="p_reg_biz_1" value="등록"><label class="lab_check" for="p_reg_biz_1"><span class="checkbox"></span> 등록</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_biz" id="p_reg_biz_2" value="미등록"><label class="lab_check" for="p_reg_biz_2"><span class="checkbox"></span>  미등록</label></div>                                           					
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">초경량비행장치 신고 여부</div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_mac" id="p_reg_mac_1" value="신고"><label class="lab_check" for="p_reg_mac_1"><span class="checkbox"></span> 신고</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_mac" id="p_reg_mac_2" value="미신고"><label class="lab_check" for="p_reg_mac_2"><span class="checkbox"></span>  미신고</label></div>
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">초경량비행장치 안전성인증서 여부</div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_safe" id="p_reg_safe_1" value="있음"><label class="lab_check" for="p_reg_safe_1"><span class="checkbox"></span> 있음</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_safe" id="p_reg_safe_2" value="없음"><label class="lab_check" for="p_reg_safe_2"><span class="checkbox"></span>  없음</label></div>                                           						
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">조종자 자격 증명서 여부</div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_cert" id="p_reg_cert_1" value="있음"><label class="lab_check" for="p_reg_cert_1"><span class="checkbox"></span> 있음</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_cert" id="p_reg_cert_2" value="없음"><label class="lab_check" for="p_reg_cert_2"><span class="checkbox"></span>  없음</label></div>                                           						
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">보험 가입 여부</div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_ins" id="p_reg_ins_1" value="가입"><label class="lab_check" for="p_reg_ins_1"><span class="checkbox"></span> 가입</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_reg_ins" id="p_reg_ins_2" value="미가입"><label class="lab_check" for="p_reg_ins_2"><span class="checkbox"></span>  미가입</label></div>
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      
-                      <div class="col-md-12">
-                          <div class="form-group">                              
-                              	<div class="row">
-                         						<div class="col-md-8">지역 재난재해대응/실종자수색 요구발생시 공지 수신</div>
-                         						<div class="col-md-2"><input type="radio" name="p_rescue_alim" id="p_rescue_alim_1" value="Y"><label class="lab_check" for="p_rescue_alim_1"><span class="checkbox"></span> 수신</label></div>
-                         						<div class="col-md-2"><input type="radio" name="p_rescue_alim" id="p_rescue_alim_2" value="N"><label class="lab_check" for="p_rescue_alim_2"><span class="checkbox"></span>  미수신</label></div>
-                         				</div>
-                         				<hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      
-                      
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload1">초경량비행장치 사용사업 등록증 사본 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload1">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload2">초경량비행장치 신고서 사본 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload2">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload3">보험 가입증서 사본 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload3">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload4">조종자자격 증명서 사본 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload4">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload5">사업자 등록증 사본 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload5">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="fileupload6">파일럿 또는 기업 로고 이미지 (추후에 제출하셔도 됩니다)</label>
-                              <input type="file" name="fileupload6">
-                              <hr size="1" color="#fefefe">
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-group">
-                              <textarea class="form-control" name="form_message" id="form_message" placeholder="보유중인 드론 서비스 역량을 자세하게 작성해 주세요. DUNI의 드론 서비스 수요매칭 확률이 높아집니다." rows="6" required=""></textarea>
-                          </div>
-                      </div>
-                      <div class="col-md-12">
-                          <p><input type="checkbox" name="agree_1" id="agree_1" value="약관"><label class="lab_check" for="agree_1"><span class="checkbox"></span> 이용약관<a id="tos_view">(보기)</a> 및 개인정보 처리방침<a id="privacy_policy_view">(보기)</a> 동의 <span class="required">(필수)</span></label></p>
-                  	    	<p><input type="checkbox" name="agree_2" id="agree_2" value="제공"><label class="lab_check" for="agree_2"><span class="checkbox"></span> 서비스 매칭을 위해 개인정보 제3자 제공 동의 <span class="required">(필수)</span></label></p>
-                  	    	<hr class="m-b-30 m-t-30">
-                          <div class="text-center">
-                              <button class="btn btn-primary btn-block btn-sm" role="button" id="partner_send">등록하기</button>
-                          </div>                          
-                          <input type="hidden" name="form_sns_token" id="form_sns_token">
-                          <input type="hidden" name="form_sns_kind" id="form_sns_kind">
-                          <br>
-                          <p class="text-center m-t-30">신청하시면 DUNI가 연락드리겠습니다.</p>
-                      </div>
-                  </div>
-						</form>
-				</div>
-      </div>
-   </div>
+
+	<div class="col-lg-6 mb-4">
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<form id="partner">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col">유형 선택</div>
+									<div class="col"><input type="radio" name="p_type" id="p_type_1" value="개인"
+											checked><label class="lab_check" for="p_type_1"><span
+												class="checkbox"></span> 개인사업자</label></div>
+									<div class="col"><input type="radio" name="p_type" id="p_type_2" value="법인"><label
+											class="lab_check" for="p_type_2"><span class="checkbox"></span>
+											법인사업자</label></div>
+									<div class="col"><input type="radio" name="p_type" id="p_type_3" value="solo"><label
+											class="lab_check" for="p_type_3"><span class="checkbox"></span> 개인</label>
+									</div>
+								</div>
+							</div>
+							<hr size="1" color="#fefefe">
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-2">전문 분야</div>
+									<div class="col-md-10">
+										<div class="row">
+											<div class="col"><input type="checkbox" id="min_type_1"><label
+													class="lab_check" for="min_type_1"><span class="checkbox"></span>
+													방제</label></div>
+											<div class="col"><input type="checkbox" id="min_type_2"><label
+													class="lab_check" for="min_type_2"><span class="checkbox"></span>
+													촬영</label></div>
+											<div class="col"><input type="checkbox" id="min_type_3"><label
+													class="lab_check" for="min_type_3"><span class="checkbox"></span>
+													교육</label></div>
+										</div>
+										<div class="row">
+											<div class="col"><input type="checkbox" id="min_type_4"><label
+													class="lab_check" for="min_type_4"><span class="checkbox"></span>
+													데이터 가공/분석</label></div>
+											<div class="col"><input type="checkbox" id="min_type_5"><label
+													class="lab_check" for="min_type_5"><span class="checkbox"></span>
+													기타</label></div>
+											<div class="col"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr size="1" color="#fefefe">
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<input class="form-control" type="text" name="form_name" id="form_name"
+									placeholder="이름 또는 업체명" required="">
+								<input type="hidden" name="min_type" value="모니터링">
+								<input type="hidden" name="form_kind" value="파트너">
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-12">
+												<input name="user_phonenumber" id="user_phonenumber" type="text"
+													class="form-control" value="" placeholder="전화번호 01012341234"
+													required="">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6" id="verifyPhoneBtn">
+										<button class="btn btn-info btn-sm btn-block" role="button"
+											id="btn_verify_code">인증번호 전송</button>
+									</div>
+								</div>
+								<div class="row" id="code_verification_input" style="display:none">
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12">
+												<hr size=1 color=#fefefe>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-2">
+												<span id="remaining_time" style="color:red"></span>
+											</div>
+											<div class="col-md-6">
+												<input class="form-control" type="text" name="verification_code"
+													id="verification_code" placeholder="인증코드 입력" style="float: left">
+												<input type="hidden" name="auth_code" id="auth_code">
+											</div>
+											<div class="col-md-4">
+												<button class="btn btn-warning btn-sm btn-block" role="button"
+													id="btn_check_code">인증하기</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+										<input class="form-control" type="text" name="postcode" id="postcode"
+											placeholder="우편번호">
+									</div>
+									<div class="col-md-6">
+										<button class="btn btn-info btn-sm btn-block" role="button"
+											id="findAddressBtn">우편번호 찾기</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" type="text" name="address" id="address" placeholder="주소">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" type="text" name="detail_address" id="detail_address"
+									placeholder="상세주소">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" type="text" name="form_homepage" id="form_homepage"
+									placeholder="홈페이지 주소(선택) ex) http://duni.io">
+							</div>
+						</div>
+						<div class="col-md-6">
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">초경량비행장치 사용사업 등록 여부</div>
+									<div class="col-md-2"><input type="radio" name="p_reg_biz" id="p_reg_biz_1"
+											value="등록"><label class="lab_check" for="p_reg_biz_1"><span
+												class="checkbox"></span> 등록</label></div>
+									<div class="col-md-2"><input type="radio" name="p_reg_biz" id="p_reg_biz_2"
+											value="미등록"><label class="lab_check" for="p_reg_biz_2"><span
+												class="checkbox"></span> 미등록</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">초경량비행장치 신고 여부</div>
+									<div class="col-md-2"><input type="radio" name="p_reg_mac" id="p_reg_mac_1"
+											value="신고"><label class="lab_check" for="p_reg_mac_1"><span
+												class="checkbox"></span> 신고</label></div>
+									<div class="col-md-2"><input type="radio" name="p_reg_mac" id="p_reg_mac_2"
+											value="미신고"><label class="lab_check" for="p_reg_mac_2"><span
+												class="checkbox"></span> 미신고</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">초경량비행장치 안전성인증서 여부</div>
+									<div class="col-md-2"><input type="radio" name="p_reg_safe" id="p_reg_safe_1"
+											value="있음"><label class="lab_check" for="p_reg_safe_1"><span
+												class="checkbox"></span> 있음</label></div>
+									<div class="col-md-2"><input type="radio" name="p_reg_safe" id="p_reg_safe_2"
+											value="없음"><label class="lab_check" for="p_reg_safe_2"><span
+												class="checkbox"></span> 없음</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">조종자 자격 증명서 여부</div>
+									<div class="col-md-2"><input type="radio" name="p_reg_cert" id="p_reg_cert_1"
+											value="있음"><label class="lab_check" for="p_reg_cert_1"><span
+												class="checkbox"></span> 있음</label></div>
+									<div class="col-md-2"><input type="radio" name="p_reg_cert" id="p_reg_cert_2"
+											value="없음"><label class="lab_check" for="p_reg_cert_2"><span
+												class="checkbox"></span> 없음</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">보험 가입 여부</div>
+									<div class="col-md-2"><input type="radio" name="p_reg_ins" id="p_reg_ins_1"
+											value="가입"><label class="lab_check" for="p_reg_ins_1"><span
+												class="checkbox"></span> 가입</label></div>
+									<div class="col-md-2"><input type="radio" name="p_reg_ins" id="p_reg_ins_2"
+											value="미가입"><label class="lab_check" for="p_reg_ins_2"><span
+												class="checkbox"></span> 미가입</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-8">지역 재난재해대응/실종자수색 요구발생시 공지 수신</div>
+									<div class="col-md-2"><input type="radio" name="p_rescue_alim" id="p_rescue_alim_1"
+											value="Y"><label class="lab_check" for="p_rescue_alim_1"><span
+												class="checkbox"></span> 수신</label></div>
+									<div class="col-md-2"><input type="radio" name="p_rescue_alim" id="p_rescue_alim_2"
+											value="N"><label class="lab_check" for="p_rescue_alim_2"><span
+												class="checkbox"></span> 미수신</label></div>
+								</div>
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload5">사업자 등록증 사본</label><br>
+								<input type="file" name="fileupload5">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload1">초경량비행장치 사용사업 등록증 사본</label><br>
+								<input type="file" name="fileupload1">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload2">초경량비행장치 신고서 사본</label><br>
+								<input type="file" name="fileupload2">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload7">초경량비행장치 안정성인증서 사본</label><br>
+								<input type="file" name="fileupload7">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload3">보험 가입증서 사본</label><br>
+								<input type="file" name="fileupload3">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload4">조종자 자격 증명서 사본</label><br>
+								<input type="file" name="fileupload4">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fileupload6">파일럿 또는 기업 로고 이미지 (추후에 제출하셔도 됩니다)</label><br>
+								<input type="file" name="fileupload6">
+								<hr size="1" color="#fefefe">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<textarea class="form-control" name="form_message" id="form_message"
+									placeholder="보유중인 드론 서비스 역량을 자세하게 작성해 주세요. DUNI의 드론 서비스 수요매칭 확률이 높아집니다." rows="6"
+									required=""></textarea>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<p><input type="checkbox" name="agree_1" id="agree_1" value="약관"><label class="lab_check"
+									for="agree_1"><span class="checkbox"></span> 이용약관<a id="tos_view">(보기)</a> 및 개인정보
+									처리방침<a id="privacy_policy_view">(보기)</a> 동의 <span
+										class="required">(필수)</span></label></p>
+							<p><input type="checkbox" name="agree_2" id="agree_2" value="제공"><label class="lab_check"
+									for="agree_2"><span class="checkbox"></span> 서비스 매칭을 위해 개인정보 제3자 제공 동의 <span
+										class="required">(필수)</span></label></p>
+							<hr class="m-b-30 m-t-30">
+							<div class="text-center">
+								<button class="btn btn-primary btn-block btn-sm" role="button"
+									id="partner_send">등록하기</button>
+							</div>
+							<input type="hidden" name="form_sns_token" id="form_sns_token">
+							<input type="hidden" name="form_sns_kind" id="form_sns_kind">
+							<br>
+							<p class="text-center m-t-30">신청하시면 DUNI가 연락드리겠습니다.</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src='https://www.google.com/recaptcha/api.js?render=6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7'></script>

@@ -36,73 +36,101 @@ function checkPartnerApplicationData() {
 	}
 	fd.append("min_type", min_type);
 	
-	
-	if ($('input[name="fileupload1"]').val() == "") {
-		showAlert("초경량비행장치 사용사업 등록증 사본을 첨부해 주세요.");
-		return null;
-	}
-
-	if ($('input[name="fileupload2"]').val() == "") {
-		showAlert("초경량비행장치 신고서 사본을 첨부해 주세요.");
-		return null;
-	}
-
-	if ($('input[name="fileupload3"]').val() == "") {
-		showAlert("보험 가입증서 사본을 첨부해 주세요.");
-		return null;
-	}
-
-	if ($('input[name="fileupload4"]').val() == "") {
-		showAlert("조종자자격 증명서 사본을 첨부해 주세요.");
-		return null;
-	}
-
-	if ($('input[name="fileupload5"]').val() == "") {
-		showAlert("사업자 등록증 사본을 첨부해 주세요.");
-		return null;
-	}
-
 	if ($("input:radio[name='p_rescue_alim']:checked").attr('id') === undefined) {
 		showDialog("지역 재난재해, 실종자 수색요구 발생시 알림 수신여부를 선택해 주세요.");
 		return null;
 	}
 	fd.append("p_rescue_alim", $("input:radio[name='p_rescue_alim']:checked").val());
 
+	// -----------------------------------------
+
+	// ---[ 사업자 ]
 	if ($("input:radio[name='p_type']:checked").attr('id') === undefined) {
 		showAlert("사업자 상태를 선택하세요. (개인사업자, 법인사업자 또는 개인)");
 		return null;
 	}
-	fd.append("p_type", $("input:radio[name='p_type']:checked").val());
+	if ($("input:radio[name='p_type']:checked").val() != "solo") {
+		if ($('input[name="fileupload5"]').val() == "") {
+			showAlert("사업자 등록증 사본을 첨부해 주세요.");
+			return null;
+		}
+	}
+	fd.append("p_type", $("input:radio[name='p_type']:checked").val());	
+	// --]
 
+	// ---[ 초경랑비행장치 사용사업 등록 ]
 	if ($("input:radio[name='p_reg_biz']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 사용사업 등록 여부를 선택하세요.");
 		return null;
 	}
+	if ($("input:radio[name='p_reg_biz']:checked").val() == "등록") {
+		if ($('input[name="fileupload1"]').val() == "") {
+			showAlert("초경량비행장치 사용사업 등록증 사본을 첨부해 주세요.");
+			return null;
+		}
+	}
 	fd.append("p_reg_biz", $("input:radio[name='p_reg_biz']:checked").val());
+	// --]
 
+	// ---[ 초경량비행장치 신고 ]
 	if ($("input:radio[name='p_reg_mac']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 신고 여부를 선택하세요.");
 		return null;
 	}
+	if ($("input:radio[name='p_reg_mac']:checked").val() == "신고") {
+		if ($('input[name="fileupload2"]').val() == "") {
+			showAlert("초경량비행장치 신고서 사본을 첨부해 주세요.");
+			return null;
+		}
+	}
 	fd.append("p_reg_mac", $("input:radio[name='p_reg_mac']:checked").val());
+	// --]
 
+	// ---[ 초경량비행장치 안정성인증서 여부 ]
 	if ($("input:radio[name='p_reg_safe']:checked").attr('id') === undefined) {
 		showAlert("초경량비행장치 안정성인증서 여부를 선택하세요.");
 		return null;
 	}
+	if ($("input:radio[name='p_reg_safe']:checked").val() == "있음") {
+		if ($('input[name="fileupload7"]').val() == "") {
+			showAlert("초경량비행장치 안정성인증서  사본을 첨부해 주세요.");
+			return null;
+		}
+	}
 	fd.append("p_reg_safe", $("input:radio[name='p_reg_safe']:checked").val());
+	// --]
 
+
+	// ---[ 조종자 자격증명서 여부 ]
 	if ($("input:radio[name='p_reg_cert']:checked").attr('id') === undefined) {
 		showAlert("조종자 자격 증명서 여부를 선택하세요.");
 		return null;
 	}
-	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").val());
+	
+	if ($("input:radio[name='p_reg_cert']:checked").val() == "있음") {
+		if ($('input[name="fileupload4"]').val() == "") {
+			showAlert("조종자자격 증명서 사본을 첨부해 주세요.");
+			return null;
+		}
+	}
 
+	fd.append("p_reg_cert", $("input:radio[name='p_reg_cert']:checked").val());
+	// --]
+
+	// ---[ 보험가입 여부 ]
 	if ($("input:radio[name='p_reg_ins']:checked").attr('id') === undefined) {
 		showAlert("보험 가입 여부를 선택하세요.");
 		return null
 	}
+
+	if ($("input:radio[name='p_reg_ins']:checked").val() == "가입") {
+		if ($('input[name="fileupload3"]').val() == "") {
+			showAlert("보험 가입증서 사본을 첨부해 주세요.");
+			return null;
+		}				
+	}
 	fd.append("p_reg_ins", $("input:radio[name='p_reg_ins']:checked").val());
+	// --]
 
 	if ($("input[name='form_name']").val() == "") {
 		showAlert("이름 또는 업체명을 입력하세요.");
@@ -241,6 +269,7 @@ function sendApplicationData(fd)
 	fd.append( 'fileupload4', $('input[name=fileupload4]')[0].files[0] );
 	fd.append( 'fileupload5', $('input[name=fileupload5]')[0].files[0] );
 	fd.append( 'fileupload6', $('input[name=fileupload6]')[0].files[0] );
+	fd.append( 'fileupload7', $('input[name=fileupload7]')[0].files[0] );
 
 	grecaptcha.ready(function() {
         grecaptcha.execute('6LfPn_UUAAAAAN-EHnm2kRY9dUT8aTvIcfrvxGy7', {action: 'action_name'}).then(function(token) {
