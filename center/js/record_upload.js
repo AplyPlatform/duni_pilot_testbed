@@ -204,7 +204,7 @@ function flightrecordUploadInit() {
 		}
 
 		let startTime = Date.parse(flightTime);
-		if (isNaN(startTime)) {
+		if (isNaN(startTime) || ((startTime - Date.now()) <= (1000 * 60 * 60 * 2))) {
 			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
 			return;
 		}
@@ -728,9 +728,9 @@ function uploadFlightList(isUpdate) {
 			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
 			return;
 		}
-
+		
 		let startTime = Date.parse(flightTime);
-		if (isNaN(startTime)) {
+		if (isNaN(startTime) || ((startTime - Date.now()) <= (1000 * 60 * 60 * 2))) {
 			showAlert(GET_STRING_CONTENT('msg_wrong_input') + " : " + GET_STRING_CONTENT('flighttime_input_data_label'));
 			return;
 		}
