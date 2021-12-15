@@ -2209,7 +2209,7 @@ function setFlightlistFullHistory() {
     });
 }
 
-function getCompanyList(successCallback) {
+function getCompanyList() {
     g_vector_2D_map_for_company.clear();
 
     var jdata = { "action": "public_company_list" };

@@ -846,8 +846,8 @@ function setCounterAni() {
 
 			let video_count = g_array_full_flight_rec.length;
 			let compay_count = g_array_full_company_list.length;
-			if (video_count == 0) video_count = 298;
-			if (compay_count == 0) compay_count = 314;
+			if (video_count == 0) video_count = 330;
+			if (compay_count == 0) compay_count = 311;
 			animate(text1, 0, compay_count, 5000);
 			animate(text2, 0, video_count, 5000);
 
