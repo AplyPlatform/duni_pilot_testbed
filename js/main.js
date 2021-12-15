@@ -926,7 +926,6 @@ $(function () {
 	$("#side_login_area").show();
 	$("#side_center_area").hide();
 
-
 	if ($('.cookie-banner').length && localStorage.getItem('cookieSeen') != 'shown') {
 		$('.cookie-banner').delay(2000).fadeIn();
 		localStorage.setItem('cookieSeen', 'shown');
@@ -937,4 +936,6 @@ $(function () {
 			$('.cookie-banner').fadeOut();
 		});
 	}
+
+	$('[data-youtube]').youtube_background();
 });
