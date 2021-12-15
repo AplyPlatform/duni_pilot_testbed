@@ -811,12 +811,6 @@ function initYoutubeAPI() {
 	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-function onYouTubeIframeAPIReady() {
-	getFlightSomeList();	
-	initSearchForm();
-	setCounterAni();
-}
-
 function animate(obj, initVal, lastVal, duration) {
 
 	let startTime = null;
@@ -879,6 +873,10 @@ $(function () {
 	getCompanyList();
 	getFullFlightRecords("public");
 	initYoutubeAPI();
+	
+	getFlightSomeList();	
+	initSearchForm();
+	setCounterAni();
 
 	$("#chkFlightHistory").change(function () {
 		showFlightRecordsList($("#chkFlightHistory").is(":checked"));
