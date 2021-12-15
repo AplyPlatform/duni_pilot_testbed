@@ -869,13 +869,14 @@ $(function () {
 	goToTop();
 	loaderPage();
 	flightRecords2DMapInit();
-	getDUNIServiceRequest(1);
+	getDUNIServiceRequest(1);	
 	getCompanyList();
-	getFullFlightRecords("public", setCounterAni);
+	getFullFlightRecords("public");
 	initYoutubeAPI();
 	
 	getFlightSomeList();	
 	initSearchForm();
+	setCounterAni();
 	
 
 	$("#chkFlightHistory").change(function () {

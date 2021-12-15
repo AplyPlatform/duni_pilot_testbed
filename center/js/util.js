@@ -2154,7 +2154,7 @@ function createNewCompanyIconFor2DMap(i, item) {
     return pos_icon;
 }
 
-function getFullFlightRecords(target, successCallback) {
+function getFullFlightRecords(target) {
     var jdata;
     if (target == "public") {
         jdata = { "action": "public_record_list", "list": true };
@@ -2174,8 +2174,7 @@ function getFullFlightRecords(target, successCallback) {
             }
 
             g_array_full_flight_rec = r.data;
-
-            if (isSet(successCallback)) successCallback();
+            
             setFlightlistFullHistory();
         }
         else {
@@ -2210,7 +2209,7 @@ function setFlightlistFullHistory() {
     });
 }
 
-function getCompanyList() {
+function getCompanyList(successCallback) {
     g_vector_2D_map_for_company.clear();
 
     var jdata = { "action": "public_company_list" };
