@@ -478,6 +478,7 @@ function getFlightSomeList() {
 
 			flightRecArray = r.data;
 			setFlightlistHistory();
+			setCounterAni();
 			hideLoader();
 		}
 		else {
@@ -876,7 +877,7 @@ $(function () {
 	
 	getFlightSomeList();	
 	initSearchForm();
-	setCounterAni();
+	
 
 	$("#chkFlightHistory").change(function () {
 		showFlightRecordsList($("#chkFlightHistory").is(":checked"));
