@@ -860,6 +860,7 @@ function setCounterAni() {
 $(function () {
 	g_str_current_target = "public";
 	
+	initYoutubeAPI();
 	mobileMenuOutsideClick();
 	offcanvasMenu();
 	burgerMenu();
@@ -871,12 +872,13 @@ $(function () {
 	flightRecords2DMapInit();
 	getDUNIServiceRequest(1);	
 	getCompanyList();
-	getFullFlightRecords("public");
-	initYoutubeAPI();
-	
-	getFlightSomeList();	
+	getFullFlightRecords("public");			
 	initSearchForm();
 	setCounterAni();
+
+	setTimeout(function() {
+		getFlightSomeList();
+	}, 3000);
 	
 
 	$("#chkFlightHistory").change(function () {
