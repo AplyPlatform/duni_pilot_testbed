@@ -2154,7 +2154,7 @@ function createNewCompanyIconFor2DMap(i, item) {
     return pos_icon;
 }
 
-function getFullFlightRecords(target) {
+function getFullFlightRecords(target, successCallback) {
     var jdata;
     if (target == "public") {
         jdata = { "action": "public_record_list", "list": true };
@@ -2169,12 +2169,14 @@ function getFullFlightRecords(target) {
         hideLoader();
         if (r.result == "success") {
             if (r.data == null || r.data.length == 0) {
-                showAlert(GET_STRING_CONTENT('msg_no_data'));                
+                showAlert(GET_STRING_CONTENT('msg_no_data'));
                 return;
             }
 
             g_array_full_flight_rec = r.data;
-            setFlightlistFullHistory();            
+
+            if (isSet(successCallback)) successCallback();
+            setFlightlistFullHistory();
         }
         else {
             if (r.reason == "no data") {

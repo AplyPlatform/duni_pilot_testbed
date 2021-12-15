@@ -477,8 +477,7 @@ function getFlightSomeList() {
 			}
 
 			flightRecArray = r.data;
-			setFlightlistHistory();
-			setCounterAni();
+			setFlightlistHistory();			
 			hideLoader();
 		}
 		else {
@@ -872,7 +871,7 @@ $(function () {
 	flightRecords2DMapInit();
 	getDUNIServiceRequest(1);
 	getCompanyList();
-	getFullFlightRecords("public");
+	getFullFlightRecords("public", setCounterAni);
 	initYoutubeAPI();
 	
 	getFlightSomeList();	
