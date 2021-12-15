@@ -275,9 +275,9 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		zoom: 10
 	});
 
-	let vSource = new ol.source.Vector();
+	var vSource = new ol.source.Vector();
 
-	let vVectorLayer = new ol.layer.Vector({
+	var vVectorLayer = new ol.layer.Vector({
 		source: vSource,
 		zIndex: 77,
 		style: new ol.style.Style({
@@ -293,17 +293,16 @@ function makeForFlightListMap(index, flat, flng, address, hasYoutube) {
 		})
 	});
 
-	let bingLayer = new ol.layer.Tile({
+	var bingLayer = new ol.layer.Tile({
 		visible: true,
 		preload: Infinity,
 		source: new ol.source.OSM({})
 	});
 
-	let vMap = new ol.Map({
+	var vMap = new ol.Map({
 		target: 'map_' + index,
 		layers: [
-			bingLayer, vVectorLayer
-			//vVectorLayer
+			bingLayer, vVectorLayer			
 		],
 		// Improve user experience by loading tiles while animating. Will make
 		// animations stutter on mobile or slow devices.
@@ -889,6 +888,8 @@ $(function () {
 		showCompanyList($("#chkCompany").is(":checked"));
 	});
 
+	$('[data-youtube]').youtube_background();
+
 	let check = getCookie("user_token");
 	if (isSet(check) && check != "") {
 		$("#main_login_area").hide();
@@ -935,7 +936,5 @@ $(function () {
 		$('#cookie-close').click(function () {
 			$('.cookie-banner').fadeOut();
 		});
-	}
-
-	$('[data-youtube]').youtube_background();
+	}	
 });
