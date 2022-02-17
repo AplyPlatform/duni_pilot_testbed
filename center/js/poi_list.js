@@ -163,7 +163,7 @@ function askRemovePoiItem(name, trname) {
         GET_STRING_CONTENT('msg_remove'),
         false,
         function () {
-            setTimeout(function () { removeMissionItem(name, trname); }, 1000);
+            setTimeout(function () { removePoiItem(name, trname); }, 1000);
         },
         function () { }
     );
