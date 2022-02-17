@@ -5,6 +5,8 @@
 let g_b_monitor_started;
 let g_b_phonenumber_verified = false;
 
+let g_vector_2D_mainmap_for_design_icon;
+
 let g_cur_2D_mainmap;
 let g_view_cur_2D_mainmap;
 let g_array_point_cur_2D_mainmap_for_object;
