@@ -5,8 +5,6 @@
 let g_b_monitor_started;
 let g_b_phonenumber_verified = false;
 
-let g_vector_2D_mainmap_for_design_icon;
-
 let g_cur_2D_mainmap;
 let g_view_cur_2D_mainmap;
 let g_array_point_cur_2D_mainmap_for_object;
@@ -264,9 +262,7 @@ function initPilotCenter() {
         $("#main_contents").load("user_info.html", function () { });
     }
     else if (g_str_page_action == "missiondesign") {
-        $("#main_contents").load("mission_design.html", function () {
-            designInit();
-        });
+        $("#main_contents").load("mission_design.html", function () { });        
     }
     else if (g_str_page_action == "missiongen") {
         $("#main_contents").load("mission_gen.html", function () {
@@ -475,115 +471,6 @@ function centerInit() {
     getCompanyList();
     getDUNIServiceRequest(1);
 }
-
-
-function designInit() {
-    map2DInit();
-    selectMonitorIndex("private", 0);
-    addObjectTo2DMap(0, "private", "drone");
-
-    g_array_design_data = [];
-
-    document.title = GET_STRING_CONTENT('page_mission_design_title');
-    $("#head_title").text(document.title);
-
-    $('#page_about_title').text(GET_STRING_CONTENT('page_mission_design_title'));
-    $('#page_about_content').text(GET_STRING_CONTENT('design_about_content'));
-    $('#msg_tracker').text(GET_STRING_CONTENT('msg_tracker'));
-    $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
-    $('#go_index_direct_label').text(GET_STRING_CONTENT('go_index_direct_label'));
-    $('#btnForRegistMission').text(GET_STRING_CONTENT('btnForRegistMission'));
-    $('#btnForClearMission').text(GET_STRING_CONTENT('btnForClearMission'));
-    $('#removeItemBtn').text(GET_STRING_CONTENT('msg_remove'));
-    $('#saveItemBtn').text(GET_STRING_CONTENT('msg_apply'));
-    $('#help_label').text(GET_STRING_CONTENT('help_label'));
-    $('#Aerial_label').text(GET_STRING_CONTENT('Aerial_label'));
-    $('#Aerial_label_label').text(GET_STRING_CONTENT('Aerial_label_label'));
-    $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
-    $('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
-
-    $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
-    $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
-    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
-
-    $('#latitude_label').text(GET_STRING_CONTENT('latitude_label'));
-    $('#longitude_label').text(GET_STRING_CONTENT('longitude_label'));
-    $('#altitude_label').text(GET_STRING_CONTENT('altitude_label'));
-    $('#action_label').text(GET_STRING_CONTENT('action_label'));
-    $('#speed_label').text(GET_STRING_CONTENT('speed_label'));
-
-    initSliderForDesign(1);
-
-    g_cur_2D_mainmap.on('click', function (evt) {
-        GATAGM('design_map_click', 'CONTENT');
-
-        let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
-            function (feature) {
-                return feature;
-            });
-
-        if (feature) {
-            let ii = feature.get('mindex');
-            if (!isSet(ii)) return;
-
-            setDataToDesignView(ii);
-
-            let item = g_array_design_data[ii];
-            setMoveActionFromMap(ii, item);
-            return;
-        }
-
-        let lonLat = ol.proj.toLonLat(evt.coordinate);
-        appendDataToDesignTable(lonLat);
-    });
-
-    let mission_name = decodeURIComponent(getQueryVariable("mission_name"));
-
-    if (isSet(mission_name) && mission_name != "") {
-        mission_name = mission_name.split('&')[0];
-        setMissionDataToDesignView(mission_name);
-    }
-    else {
-
-        let posLayer = new ol.layer.Vector({
-            source: g_vector_2D_mainmap_for_design_icon
-        });
-
-        g_cur_2D_mainmap.addLayer(posLayer);
-
-        hideLoader();
-    }
-
-
-    $('#saveItemBtn').off('click');
-    $('#saveItemBtn').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('design_save_item_btn_click', 'CONTENT');
-        saveDesignData(0);
-    });
-
-    $('#btnForRegistMission').off('click');
-    $('#btnForRegistMission').click(function (e) {
-        GATAGM('design_register_btn_click', 'CONTENT');
-        askMissionNameForDesignRegister();
-    });
-
-    $('#btnForClearMission').off('click');
-    $('#btnForClearMission').click(function (e) {
-        GATAGM('design_clear_btn_click', 'CONTENT');
-        askClearCurrentDesign();
-    });
-
-    $('#btnForSearchAddress').off('click');
-    $('#btnForSearchAddress').click(function (e) {
-        GATAGM('design_search_btn_click', 'CONTENT');
-        searchCurrentBrowserAddress();
-    });
-}
-
-
-
 
 function missionGenInit() {
     selectMonitorIndex("private", 0);

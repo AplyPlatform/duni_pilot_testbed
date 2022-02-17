@@ -46,6 +46,7 @@ let g_closer_2D_map_for_popup;
 
 let g_b_isVideoPopupInit = false;
 
+let g_vector_2D_mainmap_for_design_icon;
 
 let fixedFrameTransform;
 let planePrimitives;
