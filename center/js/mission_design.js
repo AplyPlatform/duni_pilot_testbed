@@ -17,6 +17,7 @@ $(function () {
 });
 
 function designInit() {
+    debugger;
     map2DInit();
     selectMonitorIndex("private", 0);
     addObjectTo2DMap(0, "private", "drone");
