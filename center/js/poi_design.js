@@ -217,7 +217,7 @@ function initSliderForDesign(i) {
 
 function setPoiDataToDesignView(name) {
     let userid = getCookie("dev_user_id");
-    let jdata = { "action": "poi", "daction": "get", "name": encodeURI(name), "clientid": userid };
+    let jdata = { "action": "poi", "daction": "get_spec", "name": encodeURI(name), "clientid": userid };
 
     showLoader();
 
@@ -227,8 +227,8 @@ function setPoiDataToDesignView(name) {
         hideLoader();
         if (r.result == "success") {
 
-            if (!isSet(r.data.poi) || r.data.poi.length == 0) return;
-            g_array_design_data = r.data.poi;
+            if (!isSet(r.data) || r.data.data.length == 0) return;
+            g_array_design_data = r.data.data;
             setDesignTable();
         }
         else {
