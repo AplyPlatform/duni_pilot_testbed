@@ -2,26 +2,27 @@
 
 "use strict";
 $(function () {
-	designInit();
+	poiDesignInit();
 });
 
-function designInit() {
+function poiDesignInit() {
+
     map2DInit();
     selectMonitorIndex("private", 0);
     addObjectTo2DMap(0, "private", "drone");
 
     g_array_design_data = [];
 
-    document.title = GET_STRING_CONTENT('page_mission_design_title');
+    document.title = GET_STRING_CONTENT('page_poi_design_title');
     $("#head_title").text(document.title);
 
-    $('#page_about_title').text(GET_STRING_CONTENT('page_mission_design_title'));
+    $('#page_about_title').text(GET_STRING_CONTENT('page_poi_design_title'));
     $('#page_about_content').text(GET_STRING_CONTENT('design_about_content'));
     $('#msg_tracker').text(GET_STRING_CONTENT('msg_tracker'));
     $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
     $('#go_index_direct_label').text(GET_STRING_CONTENT('go_index_direct_label'));
-    $('#btnForRegistMission').text(GET_STRING_CONTENT('btnForRegistMission'));
-    $('#btnForClearMission').text(GET_STRING_CONTENT('btnForClearMission'));
+    $('#btnForRegistPoi').text(GET_STRING_CONTENT('btnForRegistPoi'));
+    $('#btnForClearPoi').text(GET_STRING_CONTENT('btnForClearPoi'));
     $('#removeItemBtn').text(GET_STRING_CONTENT('msg_remove'));
     $('#saveItemBtn').text(GET_STRING_CONTENT('msg_apply'));
     $('#help_label').text(GET_STRING_CONTENT('help_label'));
@@ -30,20 +31,14 @@ function designInit() {
     $('#Road_label').text(GET_STRING_CONTENT('Road_label'));
     $('#Road_detail').text(GET_STRING_CONTENT('Road_detail_label'));
 
-    $('#roll_label').text(GET_STRING_CONTENT('roll_label'));
-    $('#pitch_label').text(GET_STRING_CONTENT('pitch_label'));
-    $('#yaw_label').text(GET_STRING_CONTENT('yaw_label'));
-
     $('#latitude_label').text(GET_STRING_CONTENT('latitude_label'));
     $('#longitude_label').text(GET_STRING_CONTENT('longitude_label'));
-    $('#altitude_label').text(GET_STRING_CONTENT('altitude_label'));
-    $('#action_label').text(GET_STRING_CONTENT('action_label'));
-    $('#speed_label').text(GET_STRING_CONTENT('speed_label'));
+    $('#name_label').text(GET_STRING_CONTENT('name_label'));
 
     initSliderForDesign(1);
 
     g_cur_2D_mainmap.on('click', function (evt) {
-        GATAGM('design_map_click', 'CONTENT');
+        GATAGM('poidesign_map_click', 'CONTENT');
 
         let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
             function (feature) {
@@ -65,11 +60,11 @@ function designInit() {
         appendDataToDesignTable(lonLat);
     });
 
-    let mission_name = decodeURIComponent(getQueryVariable("mission_name"));
+    let poi_name = decodeURIComponent(getQueryVariable("poi_name"));
 
-    if (isSet(mission_name) && mission_name != "") {
-        mission_name = mission_name.split('&')[0];
-        setMissionDataToDesignView(mission_name);
+    if (isSet(poi_name) && poi_name != "") {
+        poi_name = poi_name.split('&')[0];
+        setPoiDataToDesignView(poi_name);
     }
     else {
 
@@ -91,57 +86,34 @@ function designInit() {
         saveDesignData(0);
     });
 
-    $('#btnForRegistMission').off('click');
-    $('#btnForRegistMission').click(function (e) {
-        GATAGM('design_register_btn_click', 'CONTENT');
-        askMissionNameForDesignRegister();
+    $('#btnForRegistPoi').off('click');
+    $('#btnForRegistPoi').click(function (e) {
+        GATAGM('poi_register_btn_click', 'CONTENT');
+        askPoiNameForDesignRegister();
     });
 
-    $('#btnForClearMission').off('click');
-    $('#btnForClearMission').click(function (e) {
-        GATAGM('design_clear_btn_click', 'CONTENT');
+    $('#btnForClearPoi').off('click');
+    $('#btnForClearPoi').click(function (e) {
+        GATAGM('poi_clear_btn_click', 'CONTENT');
         askClearCurrentDesign();
-    });
-
-    $('#btnForSearchAddress').off('click');
-    $('#btnForSearchAddress').click(function (e) {
-        GATAGM('design_search_btn_click', 'CONTENT');
-        searchCurrentBrowserAddress();
     });
 }
 
-function askMissionNameForDesignRegister() {
+function askPoiNameForDesignRegister() {
     showAskDialog(
         GET_STRING_CONTENT('modal_title'),
-        GET_STRING_CONTENT('msg_input_mission_name'),
+        GET_STRING_CONTENT('msg_input_poi_name'),
         GET_STRING_CONTENT('modal_confirm_btn'),
         true,
         function (mname) {
-            setTimeout(function () { askSpeedForDesignRegister(mname); }, 1000);
+            setTimeout(function () { registerPoi(mname); }, 1000);
         },
         function () { }
     );
 }
 
 
-function askSpeedForDesignRegister(mname) {
-    showAskDialog(
-        GET_STRING_CONTENT('modal_title'),
-        GET_STRING_CONTENT('msg_input_speed'),
-        GET_STRING_CONTENT('modal_confirm_btn'),
-        true,
-        function (mspeed) {
-            if (parseFloat(mspeed) <= 0.0) {
-                showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-                return;
-            }
-            setTimeout(function () { registerMission(mname, mspeed); }, 1000);
-        },
-        function () { }
-    );
-}
-
-function registerMission(mname, mspeed) {
+function registerPoi(mname) {
     if (g_array_design_data.length <= 0) {
         showAlert(GET_STRING_CONTENT('msg_wrong_input'));
         return;
@@ -152,22 +124,16 @@ function registerMission(mname, mspeed) {
     for (let index = 0; index < g_array_design_data.length; index++) {
         let item = g_array_design_data[index];
 
-        if (item.act == undefined || item.act === ""
-            || item.lat == undefined || item.lat === ""
+        if (item.lat == undefined || item.lat === ""
             || item.lng == undefined || item.lng === ""
-            || item.alt == undefined || item.alt === ""
-            //|| item.speed == undefined || item.speed === ""
-            //|| item.pitch == undefined || item.pitch === ""
-            //|| item.roll == undefined || item.roll === ""
-            //|| item.yaw == undefined || item.yaw === ""
-            || item.actparam == undefined || item.actparam === "") {
+            || item.name == undefined || item.name === "") {
             monitor(GET_STRING_CONTENT('msg_error_index_pre') + (index) + GET_STRING_CONTENT('msg_error_index_post'));
             bError++;
             return;
         }
 
-        let mid = "mid-" + index;
-        nPositions.push({ id: mid, lat: item.lat, lng: item.lng, alt: item.alt, act: item.act, actparam: item.actparam, speed: item.speed, roll: item.roll, pitch: item.pitch, yaw: item.yaw });
+        let pid = "pid-" + index;
+        nPositions.push({ id: pid, lat: item.lat, lng: item.lng, name: item.name });
     }
 
     if (bError > 0) {
@@ -176,18 +142,18 @@ function registerMission(mname, mspeed) {
     }
 
     let userid = getCookie("dev_user_id");
-    let jdata = { "action": "mission", "mname": encodeURI(mname), "daction": "set", "missionspeed": mspeed, "missiondata": nPositions, "clientid": userid };
+    let jdata = { "action": "poi", "mname": encodeURI(mname), "daction": "set", "data": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
             showAskDialog(
                 GET_STRING_CONTENT('modal_title'),
-                mname + " (" + mspeed + "m/s) : " + GET_STRING_CONTENT('msg_success'),
+                mname + " : " + GET_STRING_CONTENT('msg_success'),
                 GET_STRING_CONTENT('modal_confirm_btn'),
                 false,
                 function () {
                     setTimeout(function () {
-                        location.href = g_array_cur_controller_for_viewmode["developer"] + "?page_action=missionlist";
+                        location.href = g_array_cur_controller_for_viewmode["developer"] + "?page_action=poilist";
                     }, 800);
                 },
                 null
@@ -209,7 +175,7 @@ function initSliderForDesign(i) {
         value: 0,
         step: 1,
         slide: function (event, ui) {
-            GATAGM('slider_click', 'CONTENT');
+            GATAGM('poi_slider_click', 'CONTENT');
 
             if (g_array_design_data.length <= 0) {
                 return;
@@ -226,7 +192,7 @@ function initSliderForDesign(i) {
     $('#goItemBtn').click(function (e) {
         e.preventDefault();
 
-        GATAGM('slide_go_item_btn_click', 'CONTENT');
+        GATAGM('poi_slide_go_item_btn_click', 'CONTENT');
 
         let index = $('#goItemIndex').val();
         if (!isSet(index) || $.isNumeric(index) == false) {
@@ -249,24 +215,24 @@ function initSliderForDesign(i) {
     });
 }
 
-function setMissionDataToDesignView(name) {
+function setPoiDataToDesignView(name) {
     let userid = getCookie("dev_user_id");
-    let jdata = { "action": "mission", "daction": "get_spec", "mname": encodeURI(name), "clientid": userid };
+    let jdata = { "action": "poi", "daction": "get", "name": encodeURI(name), "clientid": userid };
 
     showLoader();
 
-    $("#mission_name_field").text(name);
+    $("#poi_name_field").text(name);
 
     ajaxRequest(jdata, function (r) {
         hideLoader();
         if (r.result == "success") {
 
-            if (!isSet(r.data.mission) || r.data.mission.length == 0) return;
-            g_array_design_data = r.data.mission;
+            if (!isSet(r.data.poi) || r.data.poi.length == 0) return;
+            g_array_design_data = r.data.poi;
             setDesignTable();
         }
         else {
-            showAlert(GET_STRING_CONTENT('msg_no_mission'));
+            showAlert(GET_STRING_CONTENT('msg_no_poi'));
         }
     }, function (request, status, error) {
 
@@ -337,13 +303,7 @@ function appendDataToDesignTable(lonLat) {
     }
 
     let data = [];
-    data['alt'] = 0;
-    data['speed'] = 0;
-    data['yaw'] = 0;
-    data['pitch'] = 0;
-    data['roll'] = 0;
-    data['act'] = 0;
-    data['actparam'] = "0";
+    data['name'] = "Name of POI";
     data['lng'] = lonLat[0];
     data['lat'] = lonLat[1];
 
@@ -361,32 +321,19 @@ function setDataToDesignView(index) {
 
     let lat = g_array_design_data[index].lat;
     let lng = g_array_design_data[index].lng;
-    let alt = g_array_design_data[index].alt;
-    let yaw = g_array_design_data[index].yaw;
-    let roll = g_array_design_data[index].roll;
-    let pitch = g_array_design_data[index].pitch;
-    let speed = g_array_design_data[index].speed;
-    let act = g_array_design_data[index].act;
-    let actparam = g_array_design_data[index].actparam;
+    let name = g_array_design_data[index].name;
 
     $('#tr_index').text(index);
     $('#latdata_index').val(lat);
     $('#lngdata_index').val(lng);
-    $('#altdata_index').val(alt);
-    $('#rolldata_index').val(roll);
-    $('#pitchdata_index').val(pitch);
-    $('#yawdata_index').val(yaw);
-
-    $('#speeddata_index').val(speed);
-    $('#actiondata_index').val(act).prop("selected", true);
-    $('#actionparam_index').val(actparam);
+    $('#namedata_index').val(name);
 
     $('#removeItemBtn').off('click');
     $('#removeItemBtn').click(function (e) {
         e.preventDefault();
 
-        GATAGM('design_remove_item_btn_click', 'CONTENT');
-        removeMissionData(index);
+        GATAGM('poi_design_remove_item_btn_click', 'CONTENT');
+        removePoiData(index);
         removeIconOn2DMap(index);
     });
 
@@ -394,7 +341,7 @@ function setDataToDesignView(index) {
     $('#saveItemBtn').click(function (e) {
         e.preventDefault();
 
-        GATAGM('design_save_item_btn_click', 'CONTENT');
+        GATAGM('poi_design_save_item_btn_click', 'CONTENT');
         saveDesignData(index);
     });
 }
@@ -406,22 +353,16 @@ function saveDesignData(index) {
         appendDataToDesignTable([lng * 1, lat * 1]);
         moveToPositionOnMap("private", 0, lat * 1,
             lng * 1,
-            parseFloat($('#altdata_index').val()),
-            parseFloat($('#yawdata_index').val()),
-            parseFloat($('#rolldata_index').val()),
-            parseFloat($('#pitchdata_index').val())
+            0,
+            0,
+            0,
+            0
         );
     }
 
     g_array_design_data[index].lat = parseFloat($('#latdata_index').val());
     g_array_design_data[index].lng = parseFloat($('#lngdata_index').val());
-    g_array_design_data[index].alt = parseFloat($('#altdata_index').val());
-    g_array_design_data[index].yaw = parseFloat($('#yawdata_index').val());
-    g_array_design_data[index].roll = parseFloat($('#rolldata_index').val());
-    g_array_design_data[index].pitch = parseFloat($('#pitchdata_index').val());
-    g_array_design_data[index].speed = parseFloat($('#speeddata_index').val());
-    g_array_design_data[index].act = parseInt($('#actiondata_index').val());
-    g_array_design_data[index].actparam = $('#actionparam_index').val() + "";
+    g_array_design_data[index].name = $('#namedata_index').val();    
 }
 
 function removeIconOn2DMap(index) {
@@ -436,7 +377,7 @@ function clearDataToDesignTableWithFlightRecord() {
 }
 
 
-function removeMissionData(index) {
+function removePoiData(index) {
     g_array_design_data.splice(index, 1);
 
     removeSelectedFeature(index);
@@ -455,48 +396,17 @@ function removeMissionData(index) {
 
     moveToPositionOnMap("private", 0, g_array_design_data[newIndex].lat,
         g_array_design_data[newIndex].lng,
-        g_array_design_data[newIndex].alt,
-        g_array_design_data[newIndex].yaw,
-        g_array_design_data[newIndex].roll,
-        g_array_design_data[newIndex].pitch);
-}
-
-function searchCurrentBrowserAddress() {
-    let query = $('#queryData').val();
-    searchAddressToCoordinate(query);
-}
-
-
-function searchAddressToCoordinate(address) {    
-    requestGPSByAddress(address, function (r) {
-        if (r.result == "success") {
-            if (r.data == null) {
-                g_loc_address_flat = -999;
-                g_loc_address_flng = -999;
-                showAlert(GET_STRING_CONTENT('msg_wrong_input'));
-                return;
-            }
-
-            g_loc_address_flat = r.data.lat;
-            g_loc_address_flng = r.data.lng;
-        }
-        else {
-            g_loc_address_flat = -999;
-            g_loc_address_flng = -999;
-            showAlert(GET_STRING_CONTENT('msg_input_correct_address'));
-        }
-
-        moveToPositionOnMap("private", 0, g_loc_address_flat, g_loc_address_flng, 0, 0, 0, 0);
-    }, function () {
-        showAlert(GET_STRING_CONTENT('msg_error_sorry'));
-    });
+        0,
+        0,
+        0,
+        0);
 }
 
 function askClearCurrentDesign() {
     showAskDialog(
         GET_STRING_CONTENT('modal_title'),
         GET_STRING_CONTENT('msg_are_you_sure'),
-        GET_STRING_CONTENT('btnForClearMission'),
+        GET_STRING_CONTENT('btnForClearPoi'),
         false,
         function () { clearCurrentDesign(); },
         function () { }
@@ -513,5 +423,4 @@ function clearCurrentDesign() {
     $("#dataTable-points").hide();
 }
 
-//# sourceURL=mission_design.js
-//# sourceMappingURL=mission_design.js
+//# sourceURL=poi_design.js
