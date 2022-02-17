@@ -122,4 +122,38 @@ function searchPoi(keyword) {
 }
 
 
+
+function appendPoiList(data) {
+    if (data == null) return;
+    if (data.length == 0) return;
+
+    data.sort(function (a, b) { // \uB0B4\uB9BC\uCC28\uC21C
+        let regtime_a = convert2data(a.regtime);
+        let regtime_b = convert2data(b.regtime);
+        return regtime_b.getTime() - regtime_a.getTime();
+    });
+
+
+    data.forEach(function (item, index, array) {
+        let appendRow = "<div class='card shadow mb-4' id='poi_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
+            + "<a href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=poidesgin&name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+            + item['name']
+            + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
+            + item['regtime']
+            + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
+            + "<a class='btn btn-warning text-xs' href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=poidesign&name=" + encodeURIComponent(item['name']) + "' role='button'>" + GET_STRING_CONTENT('msg_modify') + "</a>&nbsp;"
+            + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
+            + GET_STRING_CONTENT('msg_remove') + "</button></div></div></div></div>";
+        $('#dataTable-pois').append(appendRow);
+
+        $('#poiListBtnForRemove_' + index).click(function (e) {
+            e.preventDefault();
+            GATAGM('list_poi_remove_btn_click', 'CONTENT');
+            askRemoveMissionItem(item['name'], "poi_row_" + index);
+        });
+    });
+}
+
+
+
 //# sourceURL=poi_list.js
