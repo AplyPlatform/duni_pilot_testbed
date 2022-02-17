@@ -1,5 +1,5 @@
 ﻿/*
-Copyright 2021 APLY Inc. All rights reserved.
+Copyright 2022 APLY Inc. All rights reserved.
 */
 
 var LANG_JSON_DATA = {
@@ -11,8 +11,8 @@ var LANG_JSON_DATA = {
         "side_menu_flight_plan": "비행계획",
         "side_menu_flight_plan_design": "비행계획 설계",
         "side_menu_flight_plan_list": "비행계획 목록",
-        "side_menu_poi_design": "POI 목록 만들기",
-        "side_menu_poi_list": "POI 목록",
+        "side_menu_poi_design": "POI목록 만들기",
+        "side_menu_poi_list": "POI목록 보기",
         "side_menu_flight_plan_mon": "드론위치 보기",
         "side_menu_flight_record": "비행영상 기록",
         "side_menu_flight_record_upload": "비행영상 기록 업로드/판매",
