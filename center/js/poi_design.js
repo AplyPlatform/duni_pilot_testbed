@@ -17,7 +17,7 @@ function poiDesignInit() {
     $("#head_title").text(document.title);
 
     $('#page_about_title').text(GET_STRING_CONTENT('page_poi_design_title'));
-    $('#page_about_content').text(GET_STRING_CONTENT('design_about_content'));
+    $('#page_about_content').text(GET_STRING_CONTENT('poi_about_content'));
     $('#msg_tracker').text(GET_STRING_CONTENT('msg_tracker'));
     $('#map_kind_label').text(GET_STRING_CONTENT('map_kind_label'));
     $('#go_index_direct_label').text(GET_STRING_CONTENT('go_index_direct_label'));
