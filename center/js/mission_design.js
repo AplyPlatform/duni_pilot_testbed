@@ -555,3 +555,4 @@ function clearCurrentDesign() {
     $("#dataTable-points").hide();
 }
 
+//# sourceURL=mission_design.js
