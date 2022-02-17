@@ -1,0 +1,42 @@
+﻿	<!-- Content Row -->
+	<div class="row" id="titleSection">
+   <div class="col-12 mb-4">
+    <div class="card shadow">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary" id="page_about_title">비행계획 목록</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body" id="page_about_content">
+            내가 설계해서 업로드한 비행계획을 검색해보세요.
+        </div>
+    </div>
+  </div>
+	 <div class="col-xl-12 col-md-6 mb-4">
+      <div class="card border-left-primary shadow py-2">
+      	<div class="card-body">
+          <div class="input-group col-xl-6 col-md-6 mb-1">
+            <input type="text" id="search_key" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" id="btnForSearchPoi">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+    		</div>
+      </div>
+
+      <div id="dataTable-pois">
+			</div>
+
+			<div class="card shadow mb-4">
+        <div class="card-body">
+            <button class="btn btn-primary" type="button" id="btnForGetPoiList">
+                                    비행계획 목록 불러오기
+						</button>
+				</div>
+			</div>
+
+	  </div>
+   </div>
+</div>
