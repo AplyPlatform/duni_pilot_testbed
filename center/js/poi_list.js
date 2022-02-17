@@ -8,10 +8,10 @@ $(function () {
 
 function poiListInit() {
 
-    document.title = GET_STRING_CONTENT('page_list_title');
+    document.title = GET_STRING_CONTENT('page_poi_list_title');
     $("#head_title").text(document.title);
 
-    $("#page_about_title").text(GET_STRING_CONTENT('page_list_title'));
+    $("#page_about_title").text(GET_STRING_CONTENT('page_poi_list_title'));
     $("#page_about_content").text(GET_STRING_CONTENT('poi_about_content'));
     $("#name_label").text(GET_STRING_CONTENT('name_label'));
     $("#status_label").text(GET_STRING_CONTENT('status_label'));
