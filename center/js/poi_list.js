@@ -48,7 +48,7 @@ function getPoiList() {
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
-            appendMissionList(r.data);
+            appendPoiList(r.data);
 
             if (r.morekey) {
                 $('#btnForGetPoiList').text(GET_STRING_CONTENT('msg_load_more'));
@@ -142,17 +142,49 @@ function appendPoiList(data) {
             + item['regtime']
             + "</div><div class='col-sm text-xs font-weight-bold mb-1'>"
             + "<a class='btn btn-warning text-xs' href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=poidesign&name=" + encodeURIComponent(item['name']) + "' role='button'>" + GET_STRING_CONTENT('msg_modify') + "</a>&nbsp;"
-            + "<button class='btn btn-primary text-xs' type='button' id='missionListBtnForRemove_" + index + "'>"
+            + "<button class='btn btn-primary text-xs' type='button' id='poiListBtnForRemove_" + index + "'>"
             + GET_STRING_CONTENT('msg_remove') + "</button></div></div></div></div>";
         $('#dataTable-pois').append(appendRow);
 
         $('#poiListBtnForRemove_' + index).click(function (e) {
             e.preventDefault();
             GATAGM('list_poi_remove_btn_click', 'CONTENT');
-            askRemoveMissionItem(item['name'], "poi_row_" + index);
+            askRemovePoiItem(item['name'], "poi_row_" + index);
         });
     });
 }
+
+
+
+function askRemovePoiItem(name, trname) {
+    showAskDialog(
+        GET_STRING_CONTENT('modal_title'),
+        name + " : " + GET_STRING_CONTENT('msg_are_you_sure'),
+        GET_STRING_CONTENT('msg_remove'),
+        false,
+        function () {
+            setTimeout(function () { removeMissionItem(name, trname); }, 1000);
+        },
+        function () { }
+    );
+}
+
+
+
+function removePoiItem(name, trname) {
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "poi", "name": encodeURI(name), "daction": "delete", "clientid": userid };
+
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {
+            $("#" + trname).hide();
+        }
+        else {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        }
+    }, function (request, status, error) { });
+}
+
 
 
 

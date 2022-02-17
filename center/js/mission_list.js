@@ -154,4 +154,36 @@ function appendMissionList(data) {
 }
 
 
+
+function askRemoveMissionItem(name, trname) {
+    showAskDialog(
+        GET_STRING_CONTENT('modal_title'),
+        name + " : " + GET_STRING_CONTENT('msg_are_you_sure'),
+        GET_STRING_CONTENT('msg_remove'),
+        false,
+        function () {
+            setTimeout(function () { removeMissionItem(name, trname); }, 1000);
+        },
+        function () { }
+    );
+}
+
+
+
+function removeMissionItem(name, trname) {
+    let userid = getCookie("dev_user_id");
+    let jdata = { "action": "mission", "mname": encodeURI(name), "daction": "delete", "clientid": userid };
+
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {
+            $("#" + trname).hide();
+        }
+        else {
+            showAlert(GET_STRING_CONTENT('msg_error_sorry'));
+        }
+    }, function (request, status, error) { });
+}
+
+
+
 //# sourceURL=mission_list.js

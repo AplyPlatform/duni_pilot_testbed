@@ -142,7 +142,7 @@ function registerPoi(mname) {
     }
 
     let userid = getCookie("dev_user_id");
-    let jdata = { "action": "poi", "mname": encodeURI(mname), "daction": "set", "data": nPositions, "clientid": userid };
+    let jdata = { "action": "poi", "name": encodeURI(mname), "daction": "set", "data": nPositions, "clientid": userid };
 
     ajaxRequest(jdata, function (r) {
         if (r.result == "success") {
