@@ -60,7 +60,7 @@ function poiDesignInit() {
         appendDataToDesignTable(lonLat);
     });
 
-    let poi_name = decodeURIComponent(getQueryVariable("poi_name"));
+    let poi_name = decodeURIComponent(getQueryVariable("name"));
 
     if (isSet(poi_name) && poi_name != "") {
         poi_name = poi_name.split('&')[0];
