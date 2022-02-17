@@ -136,7 +136,7 @@ function appendPoiList(data) {
 
     data.forEach(function (item, index, array) {
         let appendRow = "<div class='card shadow mb-4' id='poi_row_" + index + "'><div class='card-body'><div class='row'><div class='col-sm'>"
-            + "<a href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=poidesgin&name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
+            + "<a href='" + g_array_cur_controller_for_viewmode["developer"] + "?page_action=poidesign&name=" + encodeURIComponent(item['name']) + "' class='font-weight-bold mb-1'>"
             + item['name']
             + "</a></div></div><div class='row'><div class='col-sm text-xs font-weight-bold mb-1'>"
             + item['regtime']
