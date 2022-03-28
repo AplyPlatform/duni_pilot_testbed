@@ -467,9 +467,9 @@ function setSlider(i) {
     });
 
     $('#slider').slider({
-        min: 0,
-        max: i - 1,
-        value: 0,
+        min: 1,
+        max: i,
+        value: 1,
         step: 1,
         slide: function (event, ui) {
             let locdata = g_array_flight_rec[ui.value];
@@ -487,8 +487,8 @@ function setSliderPos(i) {
         return;
     }
 
-    $("#slider").slider('value', i);
-    $('#sliderText').html(i);
+    $("#slider").slider('value', i + 1);
+    $('#sliderText').html(i + 1);
 }
 
 
@@ -701,7 +701,7 @@ function addFlightRecordDataToView(cdata, bfilter) {
     //if (isSet(g_layer_2D_map_for_icon))
     //    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);		
 
-    setSlider(cdata.length - 1);
+    setSlider(cdata.length);
 
     setItemToRecTableList();
 
@@ -1316,10 +1316,10 @@ function addObjectTo2DMapWithGPS(index, owner, kind, lat, lng) {
 
 
 function addObjectTo2DMap(index, owner, kind) {
-    addObjectTo2DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038);
+    addObjectTo2DMapWithGPS(index, owner, kind, 33.3834381, 126.5610038);    
 }
 
-function map2DInit() {
+function map2DInit(defaultMapKind = 3, movedCallback=null) {
 
     let styles = [
         'Road (Detailed)',
@@ -1441,11 +1441,8 @@ function map2DInit() {
         });
     }
 
-    maplayers[3].setVisible(true); //AerialWithLabels
-    maplayers[4].setVisible(true); //pointLayer
-    maplayers[5].setVisible(true); //vectorLayer
-
-
+    $('#layer-select').val(styles[defaultMapKind]);
+    
     let overviewMapControl = new ol.control.OverviewMap({
         layers: [
             new ol.layer.Tile({
@@ -1500,8 +1497,10 @@ function map2DInit() {
 
     g_cur_2D_mainmap.on('pointermove', function (evt) {
         curCoodinate = evt.coordinate;
-
     });
+
+    if (movedCallback != null)
+        g_cur_2D_mainmap.on("moveend", movedCallback);
 
     g_cur_2D_mainmap.addInteraction(modify);
 }

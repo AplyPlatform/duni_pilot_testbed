@@ -517,7 +517,7 @@ function setFlightRecordDataToView(cdata) {
 	if (isSet(g_layer_2D_map_for_icon))
 		g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_icon);
 
-	setSlider(cdata.length - 1);
+	setSlider(cdata.length);
 
 	drawLineTo2DMap(g_cur_2D_mainmap, lineData);
 

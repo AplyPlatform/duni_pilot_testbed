@@ -1,17 +1,24 @@
 ﻿/* Copyright 2022 APLY Inc. All rights reserved. */
 
 "use strict";
+
+let oldAddressVal = "";
+let g_current_design_item_count = 0;
+let g_array_icon_data;
+let g_popup_overlay;
+
 $(function () {
 	poiDesignInit();
 });
 
+
 function poiDesignInit() {
 
-    map2DInit();
-    selectMonitorIndex("private", 0);
-    addObjectTo2DMap(0, "private", "drone");
+    map2DInit(0, mapMovedCallback);
+    map2DInitForPoi();
 
     g_array_design_data = [];
+    g_array_icon_data = [];
 
     document.title = GET_STRING_CONTENT('page_poi_design_title');
     $("#head_title").text(document.title);
@@ -34,56 +41,42 @@ function poiDesignInit() {
     $('#latitude_label').text(GET_STRING_CONTENT('latitude_label'));
     $('#longitude_label').text(GET_STRING_CONTENT('longitude_label'));
     $('#name_label').text(GET_STRING_CONTENT('name_label'));
+    $('#btnGetGpsByAddress').text(GET_STRING_CONTENT('msg_address_find'));
+
+    
+    $("#map_lat_lable").text("33.3834381");
+    $("#map_lng_lable").text("126.5610038");
 
     initSliderForDesign(1);
 
     g_cur_2D_mainmap.on('click', function (evt) {
         GATAGM('poidesign_map_click', 'CONTENT');
 
-        let feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel,
-            function (feature) {
-                return feature;
-            });
-
-        if (feature) {
-            let ii = feature.get('mindex');
-            if (!isSet(ii)) return;
-
-            setDataToDesignView(ii);
-
-            let item = g_array_design_data[ii];
-            setMoveActionFromMap(ii, item);
-            return;
-        }
-
-        let lonLat = ol.proj.toLonLat(evt.coordinate);
-        appendDataToDesignTable(lonLat);
-    });
-
-    let poi_name = decodeURIComponent(getQueryVariable("name"));
-
-    if (isSet(poi_name) && poi_name != "") {
-        poi_name = poi_name.split('&')[0];
-        setPoiDataToDesignView(poi_name);
-    }
-    else {
-
-        let posLayer = new ol.layer.Vector({
-            source: g_vector_2D_mainmap_for_design_icon
+        var feature = g_cur_2D_mainmap.forEachFeatureAtPixel(evt.pixel, function(feature) {
+            return feature;
         });
+        
+        processDesignMapClick(evt, feature);            
+    });
+    
+    let posLayer = new ol.layer.Vector({
+        source: g_vector_2D_mainmap_for_design_icon
+    });
+    g_cur_2D_mainmap.addLayer(posLayer);
 
-        g_cur_2D_mainmap.addLayer(posLayer);
-
-        hideLoader();
-    }
-
-
-    $('#saveItemBtn').off('click');
-    $('#saveItemBtn').click(function (e) {
+    $("#address").keypress(function (e) {
+        if (e.which == 13){
+                GATAGM("poi_address_input_key_enter", "CONTENT");
+                requestGPS();  //
+        }
+    });
+    
+    $('#btnGetGpsByAddress').off('click');
+    $('#btnGetGpsByAddress').click(function (e) {
         e.preventDefault();
 
-        GATAGM('design_save_item_btn_click', 'CONTENT');
-        saveDesignData(0);
+        GATAGM("poi_address_input_btn_click", "CONTENT");
+        requestGPS();
     });
 
     $('#btnForRegistPoi').off('click');
@@ -97,7 +90,172 @@ function poiDesignInit() {
         GATAGM('poi_clear_btn_click', 'CONTENT');
         askClearCurrentDesign();
     });
+
+    let poi_name = decodeURIComponent(getQueryVariable("name"));
+    if (isSet(poi_name) && poi_name != "") {
+        poi_name = poi_name.split('&')[0];
+        setPoiDataToDesignView(poi_name);
+    }
+    else {
+        $("#poi_name_field").hide();        
+        hideLoader();
+    }    
 }
+
+function map2DInitForPoi() {
+    g_container_2D_map_for_popup = document.getElementById('popup');
+    g_content_2D_map_for_popup = document.getElementById('popup-content');
+    g_closer_2D_map_for_popup = document.getElementById('popup-closer');
+
+    g_container_2D_map_for_popup.style.visibility = "visible";
+    g_popup_overlay = new ol.Overlay({
+        element: g_container_2D_map_for_popup,
+        autoPan: true,
+        autoPanAnimation: {
+            duration: 250,
+        },
+    });
+
+    g_closer_2D_map_for_popup.onclick = function () {
+        g_popup_overlay.setPosition(undefined);
+        g_closer_2D_map_for_popup.blur();
+        return false;
+    };
+
+    g_cur_2D_mainmap.addOverlay(g_popup_overlay);
+}
+
+
+function processDesignMapClick(evt, feature) {    
+    let item = null;
+    let ii = -1;
+    if (feature) {
+        ii = feature.get('mindex');
+        if (isSet(ii)) {
+            g_array_design_data.some(function(d) {
+                if (d[0] == ii) {
+                    item = d;
+                    return true;
+                }   
+    
+                return false;
+            });        
+        }
+    }
+    else {
+        ii = g_array_design_data.length;
+    }
+
+    setPoiPopup(ii, item, evt.coordinate);
+}
+
+function setPoiPopup(ii = -1, item = null, coordinate) {
+    let htmlText = '<table class="table table-striped table-bordered table-hover">'
+                + '<tbody>'
+                + '<tr class="odd gradeX">'
+                + '<td><span class="badge badge-light" id="tr_index">0</span></td>'
+                + '<td>'
+                + '<label for="latdata_index" class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="latitude_label">Latitude</label><input name="latdata_index" id="latdata_index" type="text" placeholder="Latitude" value="0" class="form-control">'
+                + '<label for="lngdata_index" class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="longitude_label">Longitude</label><input name="lngdata_index" id="lngdata_index" type="text" placeholder="Longitude" value="0" class="form-control">'
+                + '<label for="namedata_index" class="text-xs font-weight-bold text-dark text-uppercase mb-1" id="name_label">Name</label><input name="namedata_index" id="namedata_index" type="text" placeholder="POI Name" value="" class="form-control">'
+                + '<br>'
+                + '<button type="button" class="btn btn-warning" id="saveItemBtn">적용</button>';
+
+    if (item) htmlText += '<button type="button" class="btn btn-primary" id="removeItemBtn">삭제</button>';
+
+    htmlText += '</td></tr></tbody></table>';                
+    g_content_2D_map_for_popup.innerHTML = htmlText;
+    g_popup_overlay.setPosition(coordinate);
+    
+
+    if (item) {        
+        $("#namedata_index").text(item[1].name);
+    }
+    
+    $('#removeItemBtn').click(function (e) {
+        e.preventDefault();
+
+        GATAGM('poi_design_remove_item_btn_click', 'CONTENT');
+        removePoiData(ii);
+        g_popup_overlay.setPosition(undefined);
+        g_closer_2D_map_for_popup.blur();
+    });
+
+    $('#saveItemBtn').click(function (e) {
+        e.preventDefault();
+
+        GATAGM('poi_design_save_item_btn_click', 'CONTENT');
+        saveDesignData(ii);
+        g_popup_overlay.setPosition(undefined);
+        g_closer_2D_map_for_popup.blur();
+    });                
+
+    $("#tr_index").text(ii + 1);
+
+    if (item) {
+        $("#map_lat_lable").text(item[1].lat);
+        $("#map_lng_lable").text(item[1].lng);
+        $("#latdata_index").val(item[1].lat);
+        $("#lngdata_index").val(item[1].lng);
+        $("#namedata_index").val(item[1].name);
+    }
+    else {
+        let lonlat = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
+        $("#map_lat_lable").text(lonlat[1]);
+        $("#map_lng_lable").text(lonlat[0]);
+        $("#latdata_index").val(lonlat[1]);
+        $("#lngdata_index").val(lonlat[0]);
+    }
+}
+
+function mapMovedCallback(evt) {
+    const view = g_cur_2D_mainmap.getView();
+    let lonLat = ol.proj.toLonLat(view.getCenter());
+    $("#map_lat_lable").text(lonLat[1]);
+    $("#map_lng_lable").text(lonLat[0]);
+}
+
+function requestGPS() {
+    let userid = getCookie("dev_user_id");
+    var jdata = {"action" : "util", "daction" : "gps_by_address", "clientid" : userid};
+    jdata["address"] = encodeURI($("#address").val());
+
+    if (isSet(jdata["address"]) == false) {
+            showAlert("주소를 " + GET_STRING_CONTENT('msg_wrong_input'));
+            return;
+    }
+
+    //같은 값으로 조회 시도
+    if (oldAddressVal == jdata["address"]) return;
+
+    oldAddressVal = jdata["address"];
+
+    GATAGM("poi_gps_by_address_btn_click", "SERVICE", oldAddressVal);
+
+    showLoader();
+    ajaxRequest(jdata, function (r) {
+        if (r.result == "success") {            
+            
+            $("#map_lat_lable").text(r.data.lat);
+            $("#map_lng_lable").text(r.data.lng);
+
+            oldAddressVal = r.data.address;
+
+            setTimeout(function() {
+                var npos = ol.proj.fromLonLat([r.data.lng  * 1, r.data.lat * 1]);                
+                g_cur_2D_mainmap.getView().setCenter(npos);         
+            }, 0);            
+
+            showAlert(GET_STRING_CONTENT('msg_address_checked'));
+            hideLoader();
+        }
+        else {
+            hideLoader();
+            showAlert("주소를 " + GET_STRING_CONTENT('msg_wrong_input'));
+        }
+    }, function (request, status, error) { });                                       				    					    					          
+}
+
 
 function askPoiNameForDesignRegister() {
     showAskDialog(
@@ -122,7 +280,7 @@ function registerPoi(mname) {
     let nPositions = [];
     let bError = 0;
     for (let index = 0; index < g_array_design_data.length; index++) {
-        let item = g_array_design_data[index];
+        let item = g_array_design_data[index][1];
 
         if (item.lat == undefined || item.lat === ""
             || item.lng == undefined || item.lng === ""
@@ -170,9 +328,9 @@ function registerPoi(mname) {
 function initSliderForDesign(i) {
 
     $('#slider').slider({
-        min: 0,
-        max: i - 1,
-        value: 0,
+        min: 1,
+        max: i,
+        value: 1,
         step: 1,
         slide: function (event, ui) {
             GATAGM('poi_slider_click', 'CONTENT');
@@ -181,11 +339,16 @@ function initSliderForDesign(i) {
                 return;
             }
 
-            let d = g_array_design_data[ui.value];
+            g_array_design_data.some(function(d) {
+                if (d[0] == (ui.value - 1)) {
+                    let item = d[1];
+                    setMoveActionFromSliderOnMove(ui.value, item);
+                    return true;
+                }
 
-            setDataToDesignView(ui.value);
-
-            setMoveActionFromSliderOnMove(ui.value, d);
+                return false;
+            });
+            
         }
     });
 
@@ -202,16 +365,23 @@ function initSliderForDesign(i) {
 
         index = parseInt(index);
 
-        if (index < 0 || index >= g_array_design_data.length) {
+        if (index <= 0) {
             showAlert("Please input valid value !");
             return;
         }
 
-        let d = g_array_design_data[index];
-        $("#slider").slider('value', index);
-        setDataToDesignView(index);
+        if (g_array_design_data.length <= 0) {
+            return;
+        }
 
-        setMoveActionFromSliderOnStop(index, d);
+        $("#slider").slider('value', index);
+
+        g_array_design_data.some(function(d) {
+            if (d[0] == (index - 1)) {
+                let item = d[1];
+                setMoveActionFromSliderOnMove(index, item);
+            }
+        });
     });
 }
 
@@ -228,7 +398,12 @@ function setPoiDataToDesignView(name) {
         if (r.result == "success") {
 
             if (!isSet(r.data) || r.data.data.length == 0) return;
-            g_array_design_data = r.data.data;
+
+            g_array_design_data = [];
+            r.data.data.forEach(function(d,index,arr) {
+                g_array_design_data.push([index, d]);
+            });
+            
             setDesignTable();
         }
         else {
@@ -241,59 +416,55 @@ function setPoiDataToDesignView(name) {
     });
 }
 
-function addNewIconToDesignMap(i, item) {
-    let nIcon = createNewIconFor2DMap(i, item);
-    g_vector_2D_mainmap_for_design_icon.addFeature(nIcon);
-}
 
-function setDesignTable() {
-    let i = 0;
-    let coordinates = [];
-
-    g_array_design_data.forEach(function (item) {
-        addNewIconToDesignMap(i, item);
-        coordinates.push(ol.proj.fromLonLat([item.lng * 1, item.lat * 1]));
-        i++;
-    });
-
-    setDataToDesignView(0);
-
-    $("#slider").slider('option', { min: 0, max: i - 1 });
-    setSliderPos(i);
-
-    let lines = new ol.geom.LineString(coordinates);
-
-    g_vector_2D_mainmap_for_lines = new ol.source.Vector({
-        features: [new ol.Feature({
-            geometry: lines,
-            name: 'Line'
-        })]
-    });
-
-    g_layer_2D_map_for_line = new ol.layer.Vector({
-        source: g_vector_2D_mainmap_for_lines,
-        style: new ol.style.Style({
-            stroke: new ol.style.Stroke({
-                color: '#00ff00',
-                width: 2
-            })
+function createPoiIconFor2DMap(i, item) {
+    let pos_icon = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng * 1, item.lat * 1])),
+        name: "lat: " + item.lat + ", lng: " + item.lng + ", alt: " + item.alt,
+        mindex: i
+    });    
+                
+    let style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 11,
+            opacity: 0.7,
+            fill: new ol.style.Fill({ color: '#FFF' }),
+            stroke: new ol.style.Stroke({ color: '#45cdba', width: 2 })
+        }),
+        text: new ol.style.Text({
+            font: '10 px Roboto',
+            text: "" + (i + 1),
+            fill: new ol.style.Fill({ color: '#000' })
         })
     });
 
+    pos_icon.setStyle(style);
+    return pos_icon;
+}
 
-    g_layer_2D_map_for_icon = new ol.layer.Vector({
-        source: g_vector_2D_mainmap_for_design_icon
+function addNewIconToDesignMap(i, item) {
+    let nIcon = createPoiIconFor2DMap(i, item);
+    g_array_icon_data.push([i, nIcon]);
+    g_vector_2D_mainmap_for_design_icon.addFeature(nIcon);
+}
+
+function setDesignTable() {        
+    g_array_design_data.forEach(function (item) {
+        addNewIconToDesignMap(item[0], item[1]);        
     });
 
-    g_cur_2D_mainmap.addLayer(g_layer_2D_map_for_line);
-    g_cur_2D_mainmap.addLayer(g_layer_2D_map_for_icon);
-
-
-    moveToPositionOnMap("private", 0, g_array_design_data[0].lat, g_array_design_data[0].lng, g_array_design_data[0].alt, g_array_design_data[0].yaw, g_array_design_data[0].roll, g_array_design_data[0].pitch);
+    $("#slider").slider('option', { min: 1, max: g_array_design_data.length});
+    setSliderPos(0);
+    moveToPositionOnMap("private", 0, g_array_design_data[0][1].lat,
+                                    g_array_design_data[0][1].lng, 
+                                    g_array_design_data[0][1].alt, 
+                                    g_array_design_data[0][1].yaw, 
+                                    g_array_design_data[0][1].roll, 
+                                    g_array_design_data[0][1].pitch);
 }
 
 
-function appendDataToDesignTable(lonLat) {
+function appendDataToDesignTable(lonLat, name) {
 
     let index = g_array_design_data.length;
 
@@ -303,54 +474,24 @@ function appendDataToDesignTable(lonLat) {
     }
 
     let data = [];
-    data['name'] = "Name of POI";
+    data['name'] = name;
     data['lng'] = lonLat[0];
     data['lat'] = lonLat[1];
 
-    g_array_design_data.push(data);
+    g_array_design_data.push([index, data]);
 
-    $("#slider").slider('option', { min: 0, max: index });
-    $("#slider").slider('value', index);
+    $("#slider").slider('option', { min: 1, max: index + 1});
+    $("#slider").slider('value', index + 1);
 
-    setDataToDesignView(index);
     addNewIconToDesignMap(index, data);
 }
 
-function setDataToDesignView(index) {
-    if (g_array_design_data.length <= 0) return;
-
-    let lat = g_array_design_data[index].lat;
-    let lng = g_array_design_data[index].lng;
-    let name = g_array_design_data[index].name;
-
-    $('#tr_index').text(index);
-    $('#latdata_index').val(lat);
-    $('#lngdata_index').val(lng);
-    $('#namedata_index').val(name);
-
-    $('#removeItemBtn').off('click');
-    $('#removeItemBtn').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('poi_design_remove_item_btn_click', 'CONTENT');
-        removePoiData(index);
-        removeIconOn2DMap(index);
-    });
-
-    $('#saveItemBtn').off('click');
-    $('#saveItemBtn').click(function (e) {
-        e.preventDefault();
-
-        GATAGM('poi_design_save_item_btn_click', 'CONTENT');
-        saveDesignData(index);
-    });
-}
-
 function saveDesignData(index) {
-    if (g_array_design_data.length <= 0) {
+    if (index >= g_array_design_data.length) {
         let lng = $('#lngdata_index').val();
         let lat = $('#latdata_index').val();
-        appendDataToDesignTable([lng * 1, lat * 1]);
+        let name = $('#namedata_index').val();
+        appendDataToDesignTable([lng * 1, lat * 1], name);
         moveToPositionOnMap("private", 0, lat * 1,
             lng * 1,
             0,
@@ -359,17 +500,27 @@ function saveDesignData(index) {
             0
         );
     }
-
-    g_array_design_data[index].lat = parseFloat($('#latdata_index').val());
-    g_array_design_data[index].lng = parseFloat($('#lngdata_index').val());
-    g_array_design_data[index].name = $('#namedata_index').val();    
+    else {
+        g_array_design_data.forEach(function(d, i, arr) {
+            if (d[0] == index) {
+                g_array_design_data[i][1].lat = parseFloat($('#latdata_index').val());
+                g_array_design_data[i][1].lng = parseFloat($('#lngdata_index').val());
+                g_array_design_data[i][1].name = $('#namedata_index').val();
+            }
+        });
+    }    
 }
 
 function removeIconOn2DMap(index) {
-    g_cur_2D_mainmap.removeLayer(g_layer_2D_map_for_line);
-    g_cur_2D_mainmap.removeLayer(posLayerForDesign);
+    g_array_icon_data.some(function (ele, i, arr) {
+        if (ele[0] == index) {            
+            g_vector_2D_mainmap_for_design_icon.removeFeature(ele[1]);
+            g_array_icon_data.splice(i,1);
+            return true;
+        }        
 
-    setDesignTable();
+        return false;
+    });
 }
 
 function clearDataToDesignTableWithFlightRecord() {
@@ -378,9 +529,15 @@ function clearDataToDesignTableWithFlightRecord() {
 
 
 function removePoiData(index) {
-    g_array_design_data.splice(index, 1);
-
-    removeSelectedFeature(index);
+    g_array_design_data.some(function(d, i, arr) {
+        if (d[0] == index) {
+            g_array_design_data.splice(i, 1);
+            return true;
+        }        
+        return false;
+    });
+    
+    removeIconOn2DMap(index);
 
     if (g_array_design_data.length <= 0) {
         $("#slider").hide();
@@ -390,12 +547,11 @@ function removePoiData(index) {
 
     let newIndex = g_array_design_data.length - 1;
 
-    setDataToDesignView(newIndex);
     $("#slider").slider('value', newIndex);
-    $("#slider").slider('option', { min: 0, max: newIndex });
+    $("#slider").slider('option', { min: 1, max: newIndex });
 
-    moveToPositionOnMap("private", 0, g_array_design_data[newIndex].lat,
-        g_array_design_data[newIndex].lng,
+    moveToPositionOnMap("private", 0, g_array_design_data[newIndex][1].lat,
+        g_array_design_data[newIndex][1].lng,
         0,
         0,
         0,
